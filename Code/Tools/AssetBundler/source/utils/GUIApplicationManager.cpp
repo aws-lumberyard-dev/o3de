@@ -16,6 +16,7 @@
 #include <source/Utils/utils.h>
 
 #include <AzCore/IO/FileIO.h>
+#include <AzCore/Utils/Utils.h>
 #include <AzFramework/Asset/AssetCatalog.h>
 #include <AzFramework/StringFunc/StringFunc.h>
 #include <AzToolsFramework/AssetCatalog/PlatformAddressedAssetCatalogBus.h>
@@ -349,7 +350,7 @@ namespace AssetBundler
         // Determine the enabled platforms
         const char* appRoot = nullptr;
         AzFramework::ApplicationRequests::Bus::BroadcastResult(appRoot, &AzFramework::ApplicationRequests::GetAppRoot);
-        m_enabledPlatforms = GetEnabledPlatformFlags(g_cachedEngineRoot, appRoot, m_currentProjectName.c_str());
+        m_enabledPlatforms = GetEnabledPlatformFlags(GetEngineRoot(), appRoot, AZ::Utils::GetProjectPath().c_str());
 
 
         //JESSIE TODO do I even need this?
