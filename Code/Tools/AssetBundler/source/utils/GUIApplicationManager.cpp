@@ -161,7 +161,7 @@ namespace AssetBundler
         // Define some application-level settings
         QApplication::setOrganizationName("Amazon");
         QApplication::setOrganizationDomain("amazon.com");
-        QApplication::setApplicationName("Lumberyard Asset Bundler");
+        QApplication::setApplicationName("Asset Bundler");
 
         QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
 
@@ -259,7 +259,7 @@ namespace AssetBundler
             // These are fatal initialization errors, and the application will shut down after the user closes the message box
             m_qApp.reset(new QApplication(*GetArgC(), *GetArgV()));
             QMessageBox errorMessageBox;
-            errorMessageBox.setWindowTitle("Lumberyard Asset Bundler");
+            errorMessageBox.setWindowTitle("Asset Bundler");
             errorMessageBox.setText(message);
             errorMessageBox.setStandardButtons(QMessageBox::Ok);
             errorMessageBox.setDefaultButton(QMessageBox::Ok);
