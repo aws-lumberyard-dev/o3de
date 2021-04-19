@@ -233,7 +233,7 @@ namespace AssetBundler
         for (const QJsonValue& scanPath : m_watchedFiles + m_watchedFolders)
         {
             AZStd::string scanFilePathStr = scanPath.toString().toUtf8().data();
-            AzFramework::StringFunc::Path::ConstructFull(GetEngineRoot().c_str(), scanFilePathStr.c_str(), scanFilePathStr);
+            AzFramework::StringFunc::Path::ConstructFull(GetCachedEngineRoot().c_str(), scanFilePathStr.c_str(), scanFilePathStr);
 
             // Check whether the file has already been watched
             // Get absolute file paths via QFileInfo to keep consistency in the letter case
@@ -264,7 +264,7 @@ namespace AssetBundler
         {
             QJsonValueRef scanPathValueRef = *itr;
             AZStd::string scanPath = scanPathValueRef.toString().toUtf8().data();
-            AzFramework::StringFunc::Path::ConstructFull(GetEngineRoot().c_str(), scanPath.c_str(), scanPath);
+            AzFramework::StringFunc::Path::ConstructFull(GetCachedEngineRoot().c_str(), scanPath.c_str(), scanPath);
 
             // Check whether the file is being watched
             // Get absolute file paths via QFileInfo to keep consistency in the letter case
@@ -321,7 +321,7 @@ namespace AssetBundler
 
             if (AzFramework::StringFunc::Path::IsRelative(absoluteScanPath.c_str()))
             {
-                AzFramework::StringFunc::Path::ConstructFull(GetEngineRoot().c_str(), absoluteScanPath.c_str(), absoluteScanPath);
+                AzFramework::StringFunc::Path::ConstructFull(GetCachedEngineRoot().c_str(), absoluteScanPath.c_str(), absoluteScanPath);
             }
 
             if (AZ::IO::FileIOBase::GetInstance()->IsDirectory(absoluteScanPath.c_str()))

@@ -31,7 +31,6 @@
 #endif
 
 //JESSIE TODO list of broken stuff (so far):
-// platform selection widget is wrong about enabled platforms
 // can't add an asset that the AP Assets tab says is definitely in my cache
 // something with how product ids are being stored seems wrong, the subid shouldn't be hex (or should it?)
 // obviously the visuals are messed up
@@ -40,6 +39,8 @@
 // The "Project Source" column in the Seeds tab is displaying garbage characters
     // NOTE: this only happened for the AutomatedTesting project. AtomTest displayed fine.
     //       Launching AP first didn't make a difference
+// Generating a Bundle takes so long I killed it after 20 min. On the CLI, it was near instantaneous. Something is
+    // very wrong here.
 
 namespace AssetBundler
 {
