@@ -230,7 +230,7 @@ namespace AssetBundler
 
         QFileInfo inputFileInfo(filePath);
 
-        for (const QJsonValue& scanPath : m_watchedFiles + m_watchedFolders)
+        for (const QJsonValue scanPath : m_watchedFiles + m_watchedFolders)
         {
             AZStd::string scanFilePathStr = scanPath.toString().toUtf8().data();
             AzFramework::StringFunc::Path::ConstructFull(GetCachedEngineRoot().c_str(), scanFilePathStr.c_str(), scanFilePathStr);
@@ -314,7 +314,7 @@ namespace AssetBundler
         QJsonObject assetBundlerSettings = AssetBundler::ReadJson(filePath);
         QJsonObject scanPaths = assetBundlerSettings.find(ScanPathsKey).value().toObject();
 
-        for (const QJsonValue& scanPath : scanPaths[AssetBundlingFileTypes[fileType]].toArray())
+        for (const QJsonValue scanPath : scanPaths[AssetBundlingFileTypes[fileType]].toArray())
         {
             AZStd::string absoluteScanPath = scanPath.toString().toUtf8().data();
             AZStd::replace(absoluteScanPath.begin(), absoluteScanPath.end(), AZ_WRONG_FILESYSTEM_SEPARATOR, AZ_CORRECT_FILESYSTEM_SEPARATOR);

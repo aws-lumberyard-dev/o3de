@@ -183,7 +183,7 @@ namespace AssetBundler
     {
         // Set up the Style Manager
         AzQtComponents::StyleManager styleManager(qApp);
-        styleManager.initialize(qApp, false);
+        styleManager.initialize(qApp, GetEngineRoot());
 
         AZ::IO::FixedMaxPath engineRoot(GetEngineRoot());
         QDir engineRootDir(engineRoot.c_str());
