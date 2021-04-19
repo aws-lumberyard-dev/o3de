@@ -30,7 +30,7 @@
 #include <QFileSystemWatcher>
 #endif
 
-//JESSIE TODO list of broken stuff (so far):
+//ZALADANE TODO list of broken stuff (so far):
 // The "Project Source" column in the Seeds tab is displaying garbage characters
     // NOTE: this only happened for the AutomatedTesting project. AtomTest displayed fine.
     //       Launching AP first didn't make a difference
@@ -159,7 +159,7 @@ namespace AssetBundler
 
         QSharedPointer<MainWindow> m_mainWindow;
 
-        //JESSIE TODO maybe turn these into AZ::IO::FixedMaxPath
+        //ZALADANE TODO maybe turn these into AZ::IO::FixedMaxPath
         AZStd::string m_currentProjectFolder;
         AZStd::string m_assetBundlingFolder;
         AZStd::string m_seedListsFolder;

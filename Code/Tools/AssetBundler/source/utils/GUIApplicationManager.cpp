@@ -208,17 +208,17 @@ namespace AssetBundler
 
         qApp->setQuitOnLastWindowClosed(true);
 
-        // JESSIE TODO
+        // ZALADANE TODO
         AZStd::fixed_vector<AZStd::string, AzFramework::NumPlatforms> platformStrings =
             AzFramework::PlatformHelper::GetPlatformsInterpreted(m_enabledPlatforms);
         if (platformStrings.empty())
         {
-            AZ_Warning("JESSIE TODO", false, "CURRENT PLATFORMS VECTOR EMPTY");
+            AZ_Warning("ZALADANE TODO", false, "CURRENT PLATFORMS VECTOR EMPTY");
         }
 
         for (const auto& platformStr : platformStrings)
         {
-            AZ_Warning("JESSIE TODO", false, "%s", platformStr.c_str());
+            AZ_Warning("ZALADANE TODO", false, "%s", platformStr.c_str());
         }
 
         // Run the application
@@ -353,7 +353,7 @@ namespace AssetBundler
         m_enabledPlatforms = GetEnabledPlatformFlags(GetEngineRoot(), appRoot, AZ::Utils::GetProjectPath().c_str());
 
 
-        //JESSIE TODO do I even need this?
+        //ZALADANE TODO do I even need this?
         /*
         // Set the @assets@ alias for the entire application
         // This is found at dev/Cache/ProjectName/platform/projectname/
