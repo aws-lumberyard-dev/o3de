@@ -13,7 +13,7 @@
 #include <source/utils/GUIApplicationManager.h>
 
 #include <source/ui/MainWindow.h>
-#include <source/Utils/utils.h>
+#include <source/utils/utils.h>
 
 #include <AzCore/IO/FileIO.h>
 #include <AzCore/Utils/Utils.h>
