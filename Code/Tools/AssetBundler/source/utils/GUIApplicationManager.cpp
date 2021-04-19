@@ -352,16 +352,6 @@ namespace AssetBundler
         AzFramework::ApplicationRequests::Bus::BroadcastResult(appRoot, &AzFramework::ApplicationRequests::GetAppRoot);
         m_enabledPlatforms = GetEnabledPlatformFlags(GetEngineRoot(), appRoot, AZ::Utils::GetProjectPath().c_str());
 
-
-        //ZALADANE TODO do I even need this?
-        /*
-        // Set the @assets@ alias for the entire application
-        // This is found at dev/Cache/ProjectName/platform/projectname/
-        AZStd::vector<AZStd::string> platformStrings = AzFramework::PlatformHelper::GetPlatformsInterpreted(m_enabledPlatforms);
-        AZStd::string assetsAliasPath = AssetBundler::GetPlatformSpecificCacheFolderPath(m_currentProjectCacheFolder, platformStrings[0], m_currentProjectName);
-        AZ::IO::FileIOBase::GetInstance()->SetAlias("@assets@", assetsAliasPath.c_str());
-        */
-
         // Determine which Gems are enabled for the current project
         if (!AzFramework::GetGemsInfo(m_gemInfoList, *m_settingsRegistry))
         {
