@@ -33,8 +33,8 @@
 //ZALADANE TODO list of broken stuff (so far):
 // The "Project Source" column in the Seeds tab is displaying garbage characters
     // NOTE: the word "engine" displayed fine, but when I made a new Seed List for my project, "AutomatedTesting" didn't display properly
-// figure out how to get gem dependencies. The gem-specific seed list files aren't in the seeds tab
-// what am i gonna do about the project-specific _dependencies.xml files? Those used to come from the gem templates
+// what am I gonna do about the project-specific _dependencies.xml files? Those used to come from the gem templates
+    // NOTE: it seems like the BundlerBatch is getting that file just fine, look into it
 
 namespace AssetBundler
 {
