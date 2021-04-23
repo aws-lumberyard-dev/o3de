@@ -295,6 +295,25 @@ if(PAL_TRAIT_BUILD_TESTS_SUPPORTED AND PAL_TRAIT_BUILD_HOST_TOOLS AND PAL_TRAIT_
     )
 endif()
 
+## Editor Smoke ##
+if(PAL_TRAIT_BUILD_TESTS_SUPPORTED AND PAL_TRAIT_BUILD_HOST_TOOLS)
+    ly_add_pytest(
+        NAME AutomatedTesting::SmokeTest
+        TEST_SUITE smoke
+        TEST_SERIAL
+        PATH ${CMAKE_CURRENT_LIST_DIR}/smoke
+        TIMEOUT 3600
+        RUNTIME_DEPENDENCIES
+            AZ::AssetProcessor
+            AZ::PythonBindingsExample
+            Legacy::Editor
+            AutomatedTesting.GameLauncher
+            AutomatedTesting.Assets
+            Legacy::CryRenderNULL
+    )
+endif()
+
+## Asset ##
 if(PAL_TRAIT_BUILD_TESTS_SUPPORTED AND PAL_TRAIT_BUILD_HOST_TOOLS)
     # Unstable, SPEC-3838 will restore
     #ly_add_pytest(
@@ -309,4 +328,3 @@ if(PAL_TRAIT_BUILD_TESTS_SUPPORTED AND PAL_TRAIT_BUILD_HOST_TOOLS)
     #        Legacy::CryRenderNULL
     #)
 endif()
-
