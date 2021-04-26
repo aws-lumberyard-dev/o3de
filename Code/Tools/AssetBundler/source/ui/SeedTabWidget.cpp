@@ -142,7 +142,7 @@ namespace AssetBundler
             m_guiApplicationManager->GetGemInfoList(), m_guiApplicationManager->GetEnabledPlatforms());
 
         // Get the list of default Seeds that are not stored in a Seed List file on-disk
-        AZStd::vector<AZStd::string> defaultSeeds = GetDefaultSeeds(GetCachedEngineRoot().c_str(), AZ::Utils::GetProjectPath(), m_guiApplicationManager->GetCurrentProjectName());
+        AZStd::vector<AZStd::string> defaultSeeds = GetDefaultSeeds(AZ::Utils::GetProjectPath(), m_guiApplicationManager->GetCurrentProjectName());
         m_fileTableModel->AddDefaultSeedsToInMemoryList(defaultSeeds, m_guiApplicationManager->GetCurrentProjectName().c_str(), m_guiApplicationManager->GetEnabledPlatforms());
 
         // Set the new watched filess for the model

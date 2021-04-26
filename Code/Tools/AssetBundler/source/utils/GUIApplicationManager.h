@@ -30,10 +30,6 @@
 #include <QFileSystemWatcher>
 #endif
 
-//ZALADANE TODO list of broken stuff (so far):
-// what am I gonna do about the project-specific _dependencies.xml files? Those used to come from the gem templates
-    // NOTE: it seems like the BundlerBatch is getting that file just fine, look into it
-
 namespace AssetBundler
 {
     enum AssetBundlingFileType : int
