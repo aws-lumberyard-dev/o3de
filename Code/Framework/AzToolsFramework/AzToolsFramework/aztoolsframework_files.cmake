@@ -70,6 +70,8 @@ set(FILES
     AssetCatalog/PlatformAddressedAssetCatalog.cpp
     AssetCatalog/PlatformAddressedAssetCatalogManager.h
     AssetCatalog/PlatformAddressedAssetCatalogManager.cpp
+    DomPropertyGrid/DomModel.h
+    DomPropertyGrid/DomModel.cpp
     MaterialBrowser/MaterialBrowserBus.h
     MaterialBrowser/MaterialBrowserComponent.cpp
     MaterialBrowser/MaterialBrowserComponent.h
