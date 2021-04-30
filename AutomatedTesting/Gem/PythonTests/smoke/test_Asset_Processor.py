@@ -34,7 +34,7 @@ from ap_fixtures.ap_idle_fixture import TimestampChecker
 @pytest.fixture
 def ap_idle(workspace, ap_setup_fixture):
     # AP should process all assets within 60 seconds
-    gui_timeout_max = 30
+    gui_timeout_max = 60
     return TimestampChecker(
         workspace.paths.asset_catalog(ASSET_PROCESSOR_PLATFORM_MAP[workspace.asset_processor_platform]), gui_timeout_max
     )
