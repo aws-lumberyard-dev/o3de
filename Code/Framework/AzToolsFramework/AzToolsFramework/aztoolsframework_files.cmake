@@ -72,6 +72,8 @@ set(FILES
     AssetCatalog/PlatformAddressedAssetCatalogManager.cpp
     DomPropertyGrid/DomModel.h
     DomPropertyGrid/DomModel.cpp
+    DomPropertyGrid/internal/DomModelArrayData.h
+    DomPropertyGrid/internal/DomModelArrayData.cpp
     DomPropertyGrid/internal/DomModelNativeData.h
     DomPropertyGrid/internal/DomModelNativeData.cpp
     DomPropertyGrid/internal/DomModelObjectData.h

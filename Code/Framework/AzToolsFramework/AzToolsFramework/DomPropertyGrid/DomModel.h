@@ -72,21 +72,6 @@ namespace AzToolsFramework
         DomModelContext* m_context{nullptr};
     };
 
-    class DomModelArrayData final
-    {
-    public:
-        AZ_TYPE_INFO(AzToolsFramework::DomModelArrayData, "{71C9618D-3C6A-4510-B778-31B3FEBB2F3B}");
-
-        DomModelArrayData() = default;
-        DomModelArrayData(rapidjson::Value& value, AZStd::string_view path, DomModelContext* context);
-
-        static void Reflect(AZ::ReflectContext* context);
-
-    private:
-        AZStd::vector<DomModelData> m_elements;
-        rapidjson::Value* m_domValue{nullptr};
-    };
-
     class DomModel final
     {
     public:
