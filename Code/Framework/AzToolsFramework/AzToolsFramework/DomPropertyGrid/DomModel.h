@@ -72,24 +72,6 @@ namespace AzToolsFramework
         DomModelContext* m_context{nullptr};
     };
 
-    // Wrapper for a string so the DOM allocator can be stored along with it.
-    class DomModelStringData final
-    {
-    public:
-        AZ_TYPE_INFO(AzToolsFramework::DomModelStringData, "{A5F53640-87E8-4454-ACEE-D814A05B806F}");
-
-        DomModelStringData() = default;
-        DomModelStringData(rapidjson::Value& value, DomModelContext* context);
-
-        static void Reflect(AZ::ReflectContext* context);
-
-        void CommitToDom(rapidjson::Value& value) const;
-
-    private:
-        AZStd::string m_string;
-        rapidjson::Document::AllocatorType* m_domAllocator{nullptr};
-    };
-
     class DomModelObjectData final
     {
     public:

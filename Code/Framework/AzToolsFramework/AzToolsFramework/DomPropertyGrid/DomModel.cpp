@@ -12,6 +12,7 @@
 
 #include <AzToolsFramework/DomPropertyGrid/DomModel.h>
 #include <AzToolsFramework/DomPropertyGrid/internal/DomModelNativeData.h>
+#include <AzToolsFramework/DomPropertyGrid/internal/DomModelStringData.h>
 
 namespace AzToolsFramework
 {
@@ -127,37 +128,6 @@ namespace AzToolsFramework
                         ->Attribute(AZ::Edit::Attributes::ContainerCanBeModified, false);
             }
         }
-    }
-
-
-    //
-    // DomModelStringData
-    //
-
-    DomModelStringData::DomModelStringData(rapidjson::Value& value, DomModelContext* context)
-        : m_string(value.GetString(), value.GetStringLength())
-        , m_domAllocator(context->m_domAllocator)
-    {}
-
-    void DomModelStringData::Reflect(AZ::ReflectContext* context)
-    {
-        if (AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context); serializeContext != nullptr)
-        {
-            serializeContext->Class<DomModelStringData>()->Field("Data", &DomModelStringData::m_string);
-
-            if (AZ::EditContext* editContext = serializeContext->GetEditContext(); editContext != nullptr)
-            {
-                editContext->Class<DomModelStringData>("DOM Model data for strings", "Data used to display strings.")
-                    ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
-                        ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly)
-                    ->DataElement(0, &DomModelStringData::m_string, "Data", "Storage for the string.");
-            }
-        }
-    }
-
-    void DomModelStringData::CommitToDom(rapidjson::Value& value) const
-    {
-        value.SetString(m_string.c_str(), aznumeric_caster(m_string.length()), *m_domAllocator);
     }
 
 
