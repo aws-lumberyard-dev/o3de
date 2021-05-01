@@ -74,6 +74,8 @@ set(FILES
     DomPropertyGrid/DomModel.cpp
     DomPropertyGrid/internal/DomModelNativeData.h
     DomPropertyGrid/internal/DomModelNativeData.cpp
+    DomPropertyGrid/internal/DomModelObjectData.h
+    DomPropertyGrid/internal/DomModelObjectData.cpp
     DomPropertyGrid/internal/DomModelStringData.h
     DomPropertyGrid/internal/DomModelStringData.cpp
     MaterialBrowser/MaterialBrowserBus.h
