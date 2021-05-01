@@ -16,7 +16,6 @@
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/std/any.h>
-#include <AzCore/std/containers/variant.h>
 #include <AzCore/std/containers/vector.h>
 #include <AzCore/std/functional.h>
 #include <AzCore/std/string/string.h>
@@ -89,24 +88,6 @@ namespace AzToolsFramework
     private:
         AZStd::string m_string;
         rapidjson::Document::AllocatorType* m_domAllocator{nullptr};
-    };
-
-    // Wrapper for objects that use the native RPE model.
-    class DomModelNativeData final
-    {
-    public:
-        AZ_TYPE_INFO(AzToolsFramework::DomModelNativeData, "{0CD02E5D-27CD-4C25-9E68-0B9D67A731A5}");
-
-        DomModelNativeData() = default;
-        DomModelNativeData(rapidjson::Value& value, DomModelContext* context, const AZ::TypeId& targetType);
-
-        static void Reflect(AZ::ReflectContext* context);
-
-        void CommitToDom(rapidjson::Value& value) const;
-
-    private:
-        AZStd::any m_object;
-        DomModelContext* m_context{nullptr};
     };
 
     class DomModelObjectData final

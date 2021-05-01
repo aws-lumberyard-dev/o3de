@@ -72,6 +72,8 @@ set(FILES
     AssetCatalog/PlatformAddressedAssetCatalogManager.cpp
     DomPropertyGrid/DomModel.h
     DomPropertyGrid/DomModel.cpp
+    DomPropertyGrid/internal/DomModelNativeData.h
+    DomPropertyGrid/internal/DomModelNativeData.cpp
     MaterialBrowser/MaterialBrowserBus.h
     MaterialBrowser/MaterialBrowserComponent.cpp
     MaterialBrowser/MaterialBrowserComponent.h
