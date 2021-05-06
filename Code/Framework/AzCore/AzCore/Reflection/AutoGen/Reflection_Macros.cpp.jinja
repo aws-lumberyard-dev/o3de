@@ -1,0 +1,102 @@
+{#
+All or portions of this file Copyright (c) Amazon.com, Inc. or its affiliates or
+its licensors.
+
+For complete copyright and license terms please see the LICENSE at the root of this
+distribution (the "License"). All use of this software is governed by the License,
+or, if provided, by the license below or the license accompanying this file. Do not
+remove or modify any license notices. This file is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#}
+
+{%- set types = namespace(
+    native = 
+    { 
+        "int64": "const int64_t", 
+        "int32": "const int32_t",
+        "int16": "const int16_t",
+        "int8": "const int8_t",
+
+        "uint64": "const uint64_t", 
+        "uint32": "const uint32_t",
+        "uint16": "const uint16_t",
+        "uint8": "const uint8_t",
+
+        "float": "const float",
+        "double": "const double",
+
+        "String": "AZStd::string",
+    },
+    sizes = 
+    { 
+        "int64": 8.1, 
+        "int32": 4.1,
+        "int16": 2.1,
+        "int8": 1.1,
+
+        "uint64": 8.2, 
+        "uint32": 4.2,
+        "uint16": 2.2,
+        "uint8": 1.2,
+
+        "float": 4.3,
+        "double": 8.3,
+
+        "String": 16.4,
+    })
+-%}
+
+{% macro CreateSizedFields(result, fieldList)                                   -%}
+{%  for Field in fieldList                                                      -%}
+{%      if Field.attrib['type'] in types.sizes                                  -%}
+{%          do result.__setitem__(Field, types.sizes[Field.attrib['type']])     -%}
+{%      else                                                                    -%}
+{%          do result.__setitem__(Field, 8.5)                                   -%}
+{%      endif                                                                   -%}
+{%  endfor                                                                      -%}
+{% endmacro                                                                     -%}
+
+
+{% macro ListFieldsInOrder(structure)                                                       -%}
+{%  set SizedFields = {} %} {{ CreateSizedFields(SizedFields, structure.iter('Field')) }}
+{%  for field,_ in SizedFields.items()|sort(attribute="1", reverse=true)                    -%}
+{%      if field.attrib['type'] in types.native                                             -%}
+{%          set type = types.native[field.attrib['type']]                                   -%}
+{%      else                                                                                -%}
+{%          set type = field.attrib['type']                                                 -%}
+{%      endif                                                                               -%}
+{%      set name = field.attrib['name']                                                     -%}
+{%      set codeName = "m_" ~ field.attrib['name'][0]|lower ~ field.attrib['name'][1:]      -%}
+{{ caller(field, name, type, codeName) }}
+{%  endfor                                                                                  -%}
+{% endmacro                                                                                 -%}
+
+
+{% macro IfHasAnyReflectionFlags(dataFiles)                                     -%}
+{%  set ns = namespace(found=false)                                             -%}
+{%  for xml in dataFiles                                                        -%}
+{%      for structure in xml.iter('Struct')                                     -%}
+{%          if structure.attrib['flags']                                        -%}
+{%              if 'ReflectFunction' in structure.attrib['flags'].split(',')    -%}
+{%                  set ns.found = true                                         -%}
+{%              endif                                                           -%}
+{%          endif                                                               -%}
+{%      endfor                                                                  -%}
+{%  endfor                                                                      -%}
+{%  if ns.found                                                                 -%}
+{{ caller() }}
+{%  endif                                                                       -%}
+{% endmacro                                                                     -%}
+
+
+{% macro IfHasReflectionFunctionFlag(structure)                         -%}
+{% set result = false                                                   -%}
+{%  if structure.attrib['flags']                                        -%}
+{%      if 'ReflectFunction' in structure.attrib['flags'].split(',')    -%}
+{%          set result = true                                           -%}
+{%      endif                                                           -%}
+{%  endif                                                               -%}
+{%  if result                                                           -%}
+{{ caller() }}
+{%  endif                                                               -%}
+{% endmacro                                                             -%}

@@ -1,0 +1,63 @@
+{#
+All or portions of this file Copyright (c) Amazon.com, Inc. or its affiliates or
+its licensors.
+
+For complete copyright and license terms please see the LICENSE at the root of this
+distribution (the "License"). All use of this software is governed by the License,
+or, if provided, by the license below or the license accompanying this file. Do not
+remove or modify any license notices. This file is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#}
+
+{%- import "Reflection_Macros.cpp.jinja" as Macros -%}
+
+{% macro NativeExtendableClass(xml, struct)                                                          %}
+{%      set SizedFields = {} -%} {{ Macros.CreateSizedFields(SizedFields, struct.iter('Field')) }}
+    class {{ struct.attrib['name'] }}
+{%      if struct.attrib['extends']                                                                  %}
+        : public {{ struct.attrib['extends'] }}
+{%      endif                                                                                        %}
+    {
+    public:
+{%      set fullStructName="{0}::{1}".format(xml.attrib['namespace'], struct.attrib['name'])         %}
+        AZ_RTTI({{fullStructName}}, "{{fullStructName|createHashGuid}}");
+
+        virtual ~{{struct.attrib['name']}}() = default;
+{% call Macros.IfHasReflectionFunctionFlag(struct)                                                   %}
+        static void Reflect(AZ::ReflectContext* context);
+{% endcall                                                                                           %}
+    protected:
+{%-  call(field, name, type, codeName) Macros.ListFieldsInOrder(struct)                              %}
+        {{type}} {{codeName}}; 
+{%-  endcall                                                                                         %}
+    };
+{% endmacro                                                                                         -%}
+
+#pragma once
+
+#include <AzCore/base.h>
+#include <AzCore/RTTI/RTTI.h>
+#include <AzCore/std/string/string.h>
+{% for xml in dataFiles                                                 -%}
+{%  for include in xml.iter('Include')                                  -%}
+{%      if include.attrib['in'] and include.attrib['in'] == "header"    -%}
+#include <{{include.attrib['path']}}>
+{%      endif                                                           -%}
+{%  endfor                                                              -%}
+{% endfor                                                                %}
+
+{% call Macros.IfHasAnyReflectionFlags(dataFiles)                        %}
+namespace AZ
+{
+    class ReflectContext;
+}
+{% endcall                                                              -%}
+
+{% for xml in dataFiles                                                  %}
+namespace {{ xml.attrib['namespace'] }}
+{
+{%-  for Struct in xml.iter('Struct')                                    %}
+    {{ NativeExtendableClass(xml, Struct) }}
+{%  endfor                                                               %}
+}
+{% endfor                                                                %}
