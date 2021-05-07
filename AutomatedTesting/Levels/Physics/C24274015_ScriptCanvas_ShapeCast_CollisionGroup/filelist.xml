@@ -1,0 +1,6 @@
+<download name="C24274015_ScriptCanvas_ShapeCast_CollisionGroup" type="Map">
+ <index src="filelist.xml" dest="filelist.xml"/>
+ <files>
+  <file src="level.pak" dest="level.pak" size="10030" md5="bda6f6aaad77af2b4d86743f610b92dc"/>
+ </files>
+</download>

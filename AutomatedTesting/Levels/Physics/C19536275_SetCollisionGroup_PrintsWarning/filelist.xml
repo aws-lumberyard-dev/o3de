@@ -1,0 +1,6 @@
+<download name="C19536275_SetCollisionGroup_PrintsWarning" type="Map">
+ <index src="filelist.xml" dest="filelist.xml"/>
+ <files>
+  <file src="level.pak" dest="level.pak" size="13FC" md5="df808f8c29899d52ec204730f5bc56b1"/>
+ </files>
+</download>
