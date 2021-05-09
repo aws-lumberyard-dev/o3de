@@ -11,31 +11,63 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 
 {%- import "Reflection_Macros.cpp.jinja" as Macros -%}
 
-{% macro NativeExtendableClass(xml, struct)                                                          %}
-{%      set SizedFields = {} -%} {{ Macros.CreateSizedFields(SizedFields, struct.iter('Field')) }}
+{% macro ExtendableClass(xml, struct)                                                                %}
     class {{ struct.attrib['name'] }}
 {%      if struct.attrib['extends']                                                                  %}
         : public {{ struct.attrib['extends'] }}
 {%      endif                                                                                        %}
     {
-    public:
 {%      set fullStructName="{0}::{1}".format(xml.attrib['namespace'], struct.attrib['name'])         %}
-        AZ_RTTI({{fullStructName}}, "{{fullStructName|createHashGuid}}");
+        template<typename T> friend struct AZ::Reflection::Reflect;
+
+    public:
+        AZ_RTTI({{fullStructName}}, "{{fullStructName|createHashGuid}}"
+{%-     if  struct.attrib['extends']                                                                -%}
+        , {{ struct.attrib['extends'] }}
+{%-     endif                                                                                       -%}
+        );
 
         virtual ~{{struct.attrib['name']}}() = default;
 {% call Macros.IfHasReflectionFunctionFlag(struct)                                                   %}
         static void Reflect(AZ::ReflectContext* context);
 {% endcall                                                                                           %}
     protected:
-{%-  call(field, name, type, codeName) Macros.ListFieldsInOrder(struct)                              %}
+{%-  call(variable, name, type, codeName) Macros.ListVariablesInOrder(struct)                        %}
         {{type}} {{codeName}}; 
 {%-  endcall                                                                                         %}
+    };
+{% endmacro                                                                                         -%}
+
+
+{% macro ReflectStructure(xml, struct)                                                               %}
+{%  set fullStructName="{0}::{1}".format(xml.attrib['namespace'], struct.attrib['name'])             %}
+    template<> 
+    struct Reflect<{{fullStructName}}>
+    {
+        void operator()(IVisitor& visitor, {{fullStructName}}& value)
+        {
+            visitor.VisitObjectBegin(azrtti_typeid<{{fullStructName}}>());
+{%-  call(variable, name, type, codeName) Macros.ListVariablesInOrder(struct)                        %}
+            Visit(visitor, value.{{codeName}});
+{%-  endcall                                                                                         %}
+            visitor.VisitObjectEnd();
+        }
+
+        void operator()(IDescriber& describer)
+        {
+            describer.DescribeObjectBegin("{{fullStructName}}", azrtti_typeid<{{fullStructName}}>());
+{%-  call(variable, name, type, codeName) Macros.ListVariablesInOrder(struct)                        %}
+            Describe<{{type}}>(describer);
+{%-  endcall                                                                                         %}
+            describer.DescribeObjectEnd();
+        }
     };
 {% endmacro                                                                                         -%}
 
 #pragma once
 
 #include <AzCore/base.h>
+#include <AzCore/Reflection/Reflection.h>
 #include <AzCore/RTTI/RTTI.h>
 #include <AzCore/std/string/string.h>
 {% for xml in dataFiles                                                 -%}
@@ -56,8 +88,17 @@ namespace AZ
 {% for xml in dataFiles                                                  %}
 namespace {{ xml.attrib['namespace'] }}
 {
-{%-  for Struct in xml.iter('Struct')                                    %}
-    {{ NativeExtendableClass(xml, Struct) }}
+{%  for structure in xml.iter('Struct')                                  %}
+{{ ExtendableClass(xml, structure) -}}
 {%  endfor                                                               %}
 }
 {% endfor                                                                %}
+
+namespace AZ::Reflection
+{
+{% for xml in dataFiles                                                  %}
+{%  for structure in xml.iter('Struct')                                  %}
+{{ ReflectStructure(xml, structure) -}}
+{%  endfor                                                               %}
+{% endfor                                                                %}
+}

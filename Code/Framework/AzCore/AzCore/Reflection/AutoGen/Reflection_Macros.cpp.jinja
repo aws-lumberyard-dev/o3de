@@ -46,30 +46,30 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     })
 -%}
 
-{% macro CreateSizedFields(result, fieldList)                                   -%}
-{%  for Field in fieldList                                                      -%}
-{%      if Field.attrib['type'] in types.sizes                                  -%}
-{%          do result.__setitem__(Field, types.sizes[Field.attrib['type']])     -%}
-{%      else                                                                    -%}
-{%          do result.__setitem__(Field, 8.5)                                   -%}
-{%      endif                                                                   -%}
-{%  endfor                                                                      -%}
-{% endmacro                                                                     -%}
+{% macro CreateSizedVariables(result, variableList)                                 -%}
+{%  for variable in variableList                                                    -%}
+{%      if variable.attrib['type'] in types.sizes                                   -%}
+{%          do result.__setitem__(variable, types.sizes[variable.attrib['type']])   -%}
+{%      else                                                                        -%}
+{%          do result.__setitem__(variable, 8.5)                                    -%}
+{%      endif                                                                       -%}
+{%  endfor                                                                          -%}
+{% endmacro                                                                         -%}
 
 
-{% macro ListFieldsInOrder(structure)                                                       -%}
-{%  set SizedFields = {} %} {{ CreateSizedFields(SizedFields, structure.iter('Field')) }}
-{%  for field,_ in SizedFields.items()|sort(attribute="1", reverse=true)                    -%}
-{%      if field.attrib['type'] in types.native                                             -%}
-{%          set type = types.native[field.attrib['type']]                                   -%}
-{%      else                                                                                -%}
-{%          set type = field.attrib['type']                                                 -%}
-{%      endif                                                                               -%}
-{%      set name = field.attrib['name']                                                     -%}
-{%      set codeName = "m_" ~ field.attrib['name'][0]|lower ~ field.attrib['name'][1:]      -%}
-{{ caller(field, name, type, codeName) }}
-{%  endfor                                                                                  -%}
-{% endmacro                                                                                 -%}
+{% macro ListVariablesInOrder(structure)                                                        -%}
+{%  set SizedVariables = {} %} {{ CreateSizedVariables(SizedVariables, structure.iter('Variable')) }}
+{%  for variable,_ in SizedVariables.items()|sort(attribute="1", reverse=true)                  -%}
+{%      if variable.attrib['type'] in types.native                                              -%}
+{%          set type = types.native[variable.attrib['type']]                                    -%}
+{%      else                                                                                    -%}
+{%          set type = variable.attrib['type']                                                  -%}
+{%      endif                                                                                   -%}
+{%      set name = variable.attrib['name']                                                      -%}
+{%      set codeName = "m_" ~ variable.attrib['name'][0]|lower ~ variable.attrib['name'][1:]    -%}
+{{ caller(variable, name, type, codeName) }}
+{%  endfor                                                                                      -%}
+{% endmacro                                                                                     -%}
 
 
 {% macro IfHasAnyReflectionFlags(dataFiles)                                     -%}

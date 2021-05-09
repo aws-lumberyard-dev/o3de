@@ -8,19 +8,44 @@ or, if provided, by the license below or the license accompanying this file. Do 
 remove or modify any license notices. This file is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #}
-{%- import "Reflection_Attributes.cpp.jinja" as Atrrib -%}
+{%- import "Reflection_Attributes.cpp.jinja" as Attrib -%}
 {%- import "Reflection_Macros.cpp.jinja" as Macros -%}
+
+
+{%- macro PrintVariableEditor(variable)                                          -%}
+{%-  set ns=namespace(found = false)                                             -%}
+{%-  call(_, value) Attrib.ListAttribute(variable, "PropertyGrid", "Editor" )    -%}
+AZ_CRC_CE({{value}})
+{%-      set ns.found = true                                                     -%}
+{%-  endcall                                                                     -%}
+{%-  if not ns.found                                                             -%}
+0
+{%-  endif                                                                       -%}
+{%- endmacro                                                                     -%}
+
 
 {%- macro GenerateReflectionFunction(structure)                                              %}
     void {{ structure.attrib['name'] }}::Reflect(AZ::ReflectContext* context)
     {
         if (AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context); serializeContext != nullptr)
         {
-            serializeContext->Class<{{structure.attrib['name']}}>()
-{% call(_, value) Atrrib.ListAttribute(structure, "ObjectStream", "Version")                 %}
+            serializeContext->Class<{{structure.attrib['name']}}
+{%-     if structure.attrib['extends']                                                      -%}
+        , {{ structure.attrib['extends'] }}
+{%-     endif                                                                               -%}
+            >()
+{% call(_, value) Attrib.ListAttribute(structure, "ObjectStream", "Version")                -%}
                 ->Version({{ value }})
-{%- endcall                                                                                 -%}
-{%- call(_, name, type, codeName) Macros.ListFieldsInOrder(structure)                        %}
+{% endcall                                                                                   %}
+                ->Attribute(AZ_CRC_CE("Visitor"), [](AZ::Reflection::IVisitor& visitor, void* instance)
+                    { 
+                        AZ::Reflection::Visit(visitor, *reinterpret_cast<{{structure.attrib['name']}}*>(instance));
+                    })
+                ->Attribute(AZ_CRC_CE("Describer"), [](AZ::Reflection::IDescriber& describer)
+                    { 
+                        AZ::Reflection::Describe<{{structure.attrib['name']}}>(describer);
+                    })
+{%- call(variable, name, type, codeName) Macros.ListVariablesInOrder(structure)              %}
                 ->Field("{{name}}", &{{structure.attrib['name']}}::{{codeName}})
 {%- endcall                                                                                  %}
             ;
@@ -28,17 +53,23 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
             if (AZ::EditContext* editContext = serializeContext->GetEditContext(); editContext != nullptr)
             {
                 editContext->Class<{{structure.attrib['name']}}>(
-                    {{- Atrrib.PrintAttribute(structure, "Class", "Name", '""') }}, 
-                    {{  Atrrib.PrintAttribute(structure, "Class", "Description", '""') -}})
+                    {{- Attrib.PrintAttribute(structure, "Class", "Name", '""') }}, {{  Attrib.PrintAttribute(structure, "Class", "Description", '""') }})
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
-{%  call(name, value) Atrrib.ListAttributes(structure, "PropertyGrid")                        %}
+{%  call(name, value) Attrib.ListAttributes(structure, "PropertyGrid")                        %}
                         ->Attribute(AZ_CRC_CE("{{name}}"), {{value}})
-{%- endcall                                                                                   %}
-{%  call(field, name, type, codeName) Macros.ListFieldsInOrder(structure)                     %}
-                    ->DataElement(0, &{{structure.attrib['name']}}::{{codeName}}, "{{name}}", {{ Atrrib.PrintAttribute(field, "Field", "Description", '""') }}) 
-{%     call(name, value) Atrrib.ListAttributes(field, "PropertyGrid")                         %}
+{%  endcall                                                                                  -%}
+{%  call(variable, name, type, codeName) Macros.ListVariablesInOrder(structure)               %}
+{%      set hideName = Attrib.PrintAttribute(variable, "PropertyGrid", "HideName", "false")   %}
+{%      set editor = PrintVariableEditor(variable).strip()                                    %}
+{%      set conditionalName = '"' ~ name ~ '"' if not hideName else '""'                      %}
+{%      set fullname = "&" ~ structure.attrib['name'] ~ "::" ~codeName                        %}
+{%      set description = Attrib.PrintAttribute(variable, "Variable", "Description", '""')    %}
+                    ->DataElement({{editor}}, {{fullname}}, {{conditionalName}}, {{description}}) 
+{%-     call(name, value) Attrib.ListAttributes(variable, "PropertyGrid")                    -%}
+{%-         if name != "Editor" and name != "HideName"                                        %}
                         ->Attribute(AZ_CRC_CE("{{name}}"), {{value}})
-{%-    endcall                                                                                %}
+{%-         endif                                                                            -%}
+{%-    endcall                                                                               -%}
 {%- endcall                                                                                   %}
                 ;
             }
@@ -57,7 +88,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 {% call Macros.IfHasAnyReflectionFlags(dataFiles)                   %}
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Serialization/EditContext.h>
-{% endcall                                                          %}
+{% endcall                                                         -%}
 
 
 {% for xml in dataFiles                                                 %}
@@ -65,7 +96,7 @@ namespace {{ xml.attrib['namespace'] }}
 {
 {%  for structure in xml.iter('Struct')                                 %}
 {%      call Macros.IfHasReflectionFunctionFlag(structure)              %}
-{{ GenerateReflectionFunction(structure) }}
+{{ GenerateReflectionFunction(structure) -}}
 {%      endcall                                                        -%}
 {%  endfor                                                             -%}
 }
