@@ -112,6 +112,16 @@ set(FILES
     Component/EditorLevelComponentAPIBus.h
     Component/EditorLevelComponentAPIComponent.cpp
     Component/EditorLevelComponentAPIComponent.h
+    DomPropertyGrid/DomModel.h
+    DomPropertyGrid/DomModel.cpp
+    DomPropertyGrid/internal/DomModelArrayData.h
+    DomPropertyGrid/internal/DomModelArrayData.cpp
+    DomPropertyGrid/internal/DomModelNativeData.h
+    DomPropertyGrid/internal/DomModelNativeData.cpp
+    DomPropertyGrid/internal/DomModelObjectData.h
+    DomPropertyGrid/internal/DomModelObjectData.cpp
+    DomPropertyGrid/internal/DomModelStringData.h
+    DomPropertyGrid/internal/DomModelStringData.cpp
     Editor/EditorContextMenuBus.h
     Editor/EditorSettingsAPIBus.h
     Entity/EditorEntityStartStatus.h
