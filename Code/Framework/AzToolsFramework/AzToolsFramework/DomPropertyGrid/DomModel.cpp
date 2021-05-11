@@ -10,175 +10,29 @@
  *
  */
 
+#include <AzCore/Reflection/Reflection.h>
+#include <AzCore/Serialization/SerializeContext.h>
 #include <AzToolsFramework/DomPropertyGrid/DomModel.h>
+#include <AzToolsFramework/DomPropertyGrid/internal/DomBuilder.h>
+#include <AzToolsFramework/DomPropertyGrid/internal/DomDescriber.h>
 #include <AzToolsFramework/DomPropertyGrid/internal/DomModelArrayData.h>
 #include <AzToolsFramework/DomPropertyGrid/internal/DomModelNativeData.h>
 #include <AzToolsFramework/DomPropertyGrid/internal/DomModelObjectData.h>
 #include <AzToolsFramework/DomPropertyGrid/internal/DomModelStringData.h>
+#include <AzToolsFramework/DomPropertyGrid/internal/Utils.h>
 
 namespace AzToolsFramework
 {
-    template<typename T>
-    static void AddAttribute(AZ::Edit::AttributeArray& attributes, const AZ::Crc32& id, T&& value)
-    {
-        using ValueType = AZ::AttributeContainerType<T>;
-        attributes.emplace_back(id, aznew ValueType(AZStd::forward<T>(value)));
-    }
-
-    template<typename T>
-    static void AddAttribute(AZ::Edit::AttributeArray& attributes, const AZ::Crc32& id, const T& value)
-    {
-        using ValueType = AZ::AttributeContainerType<T>;
-        attributes.emplace_back(id, aznew ValueType(value));
-    }
-
-    //
-    // DomModelData
-    //
-
-    DomModelData::DomModelData(AZStd::string name, AZStd::string path, rapidjson::Value& value, DomModelContext* context)
-        : DomModelData(AZStd::move(name), AZStd::move(path), value, context, AZ::TypeId::CreateNull())
-    {}
-
-    DomModelData::DomModelData(
-        AZStd::string name, AZStd::string path, rapidjson::Value& value, DomModelContext* context, const AZ::TypeId& targetType)
-        : m_name(AZStd::move(name))
-        , m_path(AZStd::move(path))
-        , m_domValue(&value)
-        , m_context(context)
-    {
-        m_domElement.m_name = m_name.c_str();
-        m_domElement.m_description = "A value in the DOM.";
-        m_domElement.m_elementId = AZ::Edit::UIHandlers::Default;
-        m_domElement.m_serializeClassElement = nullptr;
-
-        if (!targetType.IsNull())
-        {
-            m_value = DomModelNativeData(value, m_path, context, targetType);
-            AddAttribute(m_domElement.m_attributes, AZ::Edit::Attributes::ChangeNotify, &DomModelData::CommitNativeToDom);
-        }
-        else
-        {
-            if (value.IsBool())
-            {
-                m_value = value.GetBool();
-                AddAttribute(m_domElement.m_attributes, AZ::Edit::Attributes::ChangeNotify, &DomModelData::CommitBoolToDom);
-            }
-            else if (value.IsUint64())
-            {
-                m_value = value.GetUint64();
-                AddAttribute(m_domElement.m_attributes, AZ::Edit::Attributes::ChangeNotify, &DomModelData::CommitUint64ToDom);
-            }
-            else if (value.IsInt64())
-            {
-                m_value = value.GetInt64();
-                AddAttribute(m_domElement.m_attributes, AZ::Edit::Attributes::ChangeNotify, &DomModelData::CommitInt64ToDom);
-            }
-            else if (value.IsDouble())
-            {
-                m_value = value.GetDouble();
-                AddAttribute(m_domElement.m_attributes, AZ::Edit::Attributes::ChangeNotify, &DomModelData::CommitDoubleToDom);
-            }
-            else if (value.IsString())
-            {
-                m_value = DomModelStringData(value, context);
-                AddAttribute(m_domElement.m_attributes, AZ::Edit::Attributes::ChangeNotify, &DomModelData::CommitStringToDom);
-            }
-            else if (value.IsObject())
-            {
-                m_value = DomModelObjectData(value, m_path, context);
-                // Doesn't need to write anything back as that will be done by the values contained within.
-            }
-            else if (value.IsArray())
-            {
-                m_value = DomModelArrayData(value, m_path, context);
-                // Doesn't need to write anything back as that will be done by the values contained within.
-            }
-        }
-    }
-
-    DomModelData::~DomModelData()
-    {
-        m_domElement.ClearAttributes();
-    }
-
-    const AZ::Edit::ElementData* DomModelData::ProvideEditData(
-        const void* handlerPtr, const void* /*elementPtr*/, const AZ::Uuid& elementType)
-    {
-        auto modelData = reinterpret_cast<const DomModelData*>(handlerPtr);
-        return (modelData->m_value.is<DomModelNativeData>() && elementType != azrtti_typeid<DomModelNativeData>()) ? nullptr : &(modelData->m_domElement);
-    }
-
-    void DomModelData::Reflect(AZ::ReflectContext* context)
-    {
-        if (AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context); serializeContext != nullptr)
-        {
-            serializeContext->Class<DomModelData>()
-                ->Field("Value", &DomModelData::m_value);
-            if (AZ::EditContext* editContext = serializeContext->GetEditContext(); editContext != nullptr)
-            {
-                editContext->Class<DomModelData>("", "")
-                    ->SetDynamicEditDataProvider(&DomModelData::ProvideEditData)
-                    // AZStd::any is a presented as a container. By expending it and only showing the one container entry, the stored
-                    // edit data will be used for the element.
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &DomModelData::m_value, "", "")
-                        ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
-                        ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly);
-            }
-        }
-    }
-
-    AZ::u32 DomModelData::CommitBoolToDom()
-    {
-        m_domValue->SetBool(AZStd::any_cast<bool>(m_value));
-        m_context->m_eventCallback(DomModelEventType::Add, m_path);
-        return AZ::Edit::PropertyRefreshLevels::None;
-    }
-
-    AZ::u32 DomModelData::CommitUint64ToDom()
-    {
-        m_domValue->SetUint64(AZStd::any_cast<uint64_t>(m_value));
-        m_context->m_eventCallback(DomModelEventType::Add, m_path);
-        return AZ::Edit::PropertyRefreshLevels::None;
-    }
-
-    AZ::u32 DomModelData::CommitInt64ToDom()
-    {
-        m_domValue->SetInt64(AZStd::any_cast<int64_t>(m_value));
-        m_context->m_eventCallback(DomModelEventType::Add, m_path);
-        return AZ::Edit::PropertyRefreshLevels::None;
-    }
-
-    AZ::u32 DomModelData::CommitDoubleToDom()
-    {
-        m_domValue->SetDouble(AZStd::any_cast<double>(m_value));
-        m_context->m_eventCallback(DomModelEventType::Add, m_path);
-        return AZ::Edit::PropertyRefreshLevels::None;
-    }
-
-    AZ::u32 DomModelData::CommitStringToDom()
-    {
-        AZStd::any_cast<const DomModelStringData&>(m_value).CommitToDom(*m_domValue);
-        m_context->m_eventCallback(DomModelEventType::Add, m_path);
-        return AZ::Edit::PropertyRefreshLevels::None;
-    }
-
-    AZ::u32 DomModelData::CommitNativeToDom()
-    {
-        AZStd::any_cast<const DomModelNativeData&>(m_value).CommitToDom(*m_domValue);
-        m_context->m_eventCallback(DomModelEventType::Add, m_path);
-        return AZ::Edit::PropertyRefreshLevels::AttributesAndValues;
-    }
-
-
-    //
-    // DomModel
-    //
-
     DomModel::DomModel()
     {
         AZ::ComponentApplicationBus::BroadcastResult(m_context.m_serializeContext, &AZ::ComponentApplicationBus::Events::GetSerializeContext);
         AZ_Assert(m_context.m_serializeContext, "Unable to retrieve serialize context.");
+
+        m_context.m_hiddenElementDescription.m_name = "Hidden";
+        DomPropertyGridInternal::AddAttribute(m_context.m_hiddenElementDescription.m_attributes, AZ::Edit::Attributes::AutoExpand, true);
+        DomPropertyGridInternal::AddAttribute(
+            m_context.m_hiddenElementDescription.m_attributes, AZ::Edit::Attributes::Visibility,
+            AZ::Edit::PropertyVisibility::ShowChildrenOnly);
     }
 
     void DomModel::SetDom(rapidjson::Value& dom, rapidjson::Document::AllocatorType& domAllocator)
@@ -188,7 +42,20 @@ namespace AzToolsFramework
 
     void DomModel::SetDom(rapidjson::Value& dom, rapidjson::Document::AllocatorType& domAllocator, DomModelEvent eventCallback)
     {
-        SetDom(dom, domAllocator, AZ::TypeId::CreateNull(), AZStd::move(eventCallback));
+        m_dom = &dom;
+        m_context.m_domAllocator = &domAllocator;
+        m_context.m_eventCallback = AZStd::move(eventCallback);
+
+        DomModelData root;
+        bool result = DomBuilder::BuildFromDom(root, dom, &m_context);
+        if (result)
+        {
+            m_root = AZStd::move(root);
+        }
+        else
+        {
+            AZ_TracePrintf("DomModel", "Failed to (fully) load the Dom into the property grid.\n");
+        }
     }
 
     void DomModel::SetDom(rapidjson::Value& dom, rapidjson::Document::AllocatorType& domAllocator, const AZ::TypeId& targetType)
@@ -197,15 +64,22 @@ namespace AzToolsFramework
     }
 
     void DomModel::SetDom(
-        rapidjson::Value& dom, rapidjson::Document::AllocatorType& domAllocator, const AZ::TypeId& targetType, DomModelEvent eventCallback)
+        rapidjson::Value& dom, rapidjson::Document::AllocatorType& domAllocator, const AZ::TypeId& /*targetType*/, DomModelEvent eventCallback)
     {
         m_dom = &dom;
         m_context.m_domAllocator = &domAllocator;
         m_context.m_eventCallback = AZStd::move(eventCallback);
 
-        // TODO: Turn this into a single entry. The first attempt at this crashed though in the value changed callback.
-        m_elements.clear();
-        m_elements.emplace_back("", "/", dom, &m_context, targetType);
+        DomModelData root;
+        bool result = DomBuilder::BuildFromDom(root, dom, &m_context);
+        if (result)
+        {
+            m_root = AZStd::move(root);
+        }
+        else
+        {
+            AZ_TracePrintf("DomModel", "Failed to (fully) load the Dom into the property grid.\n");
+        }
     }
 
     void DomModel::Reflect(AZ::ReflectContext* context)
@@ -219,11 +93,11 @@ namespace AzToolsFramework
         if (AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context); serializeContext != nullptr)
         {
             serializeContext->Class<DomModel>()
-                ->Field("Elements", &DomModel::m_elements);
+                ->Field("Root", &DomModel::m_root);
             if (AZ::EditContext* editContext = serializeContext->GetEditContext(); editContext != nullptr)
             {
                 editContext->Class<DomModel>("DOM model", "Data model use to interact with a DOM.")
-                    ->DataElement(0, &DomModel::m_elements, "Elements", "Data models for all values in the DOM.")
+                    ->DataElement(0, &DomModel::m_root, "Root", "Data model at the root of the DOM.")
                         ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
                         ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly);
             }

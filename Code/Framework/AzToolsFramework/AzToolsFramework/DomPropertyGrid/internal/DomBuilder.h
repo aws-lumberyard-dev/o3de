@@ -13,29 +13,23 @@
 #pragma once
 
 #include <AzCore/JSON/document.h>
-#include <AzCore/RTTI/TypeInfo.h>
-#include <AzCore/std/smart_ptr/shared_ptr.h>
 #include <AzToolsFramework/DomPropertyGrid/internal/DomModelData.h>
+
+namespace AZ
+{
+    class StackedString;
+}
 
 namespace AzToolsFramework
 {
     struct DomModelContext;
 
-    class DomModelObjectData final
+    class DomBuilder
     {
     public:
-        AZ_TYPE_INFO(AzToolsFramework::DomModelObjectData, "{9AD75854-8397-470D-808C-C979BF925B3B}");
-
-        DomModelObjectData() = default;
-        DomModelObjectData(rapidjson::Value& value);
-
-        AZStd::vector<AZStd::shared_ptr<DomModelData>>& GetElements();
-        const AZStd::vector<AZStd::shared_ptr<DomModelData>>& GetElements() const;
-
-        static void Reflect(AZ::ReflectContext* context);
+        static bool BuildFromDom(DomModelData& root, rapidjson::Value& dom, DomModelContext* context);
 
     private:
-        AZStd::vector<AZStd::shared_ptr<DomModelData>> m_elements;
-        rapidjson::Value* m_domValue{nullptr};
+        static bool BuildFromDom(DomModelData& root, rapidjson::Value& dom, DomModelContext* context, AZ::StackedString& path);
     };
 } // namespace AzToolsFramework

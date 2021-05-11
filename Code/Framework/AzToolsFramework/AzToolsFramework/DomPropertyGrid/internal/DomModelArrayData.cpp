@@ -14,42 +14,34 @@
 
 namespace AzToolsFramework
 {
-    DomModelArrayData::DomModelArrayData(rapidjson::Value& value, AZStd::string_view path, DomModelContext* context)
+    DomModelArrayData::DomModelArrayData(rapidjson::Value& value)
         : m_domValue(&value)
     {
         AZ_Assert(value.IsArray(), "DomModelArrayData only supports DOM objects.");
+    }
 
-        auto&& array = value.GetArray();
-        size_t size = array.Size();
-        m_elements.reserve(size);
-        for (size_t i = 0; i < size; ++i)
-        {
-            AZStd::string name = AZStd::string::format("[%llu]", i);
-            AZStd::string elementPath = path;
-            if (elementPath.back() != '/')
-            {
-                elementPath += '/';
-            }
-            elementPath += AZStd::to_string(i);
-            m_elements.emplace_back(AZStd::move(name), AZStd::move(elementPath), array[i], context);
-        }
+    AZStd::vector<AZStd::shared_ptr<DomModelData>>& DomModelArrayData::GetElements()
+    {
+        return m_elements;
+    }
+
+    const AZStd::vector<AZStd::shared_ptr<DomModelData>>& DomModelArrayData::GetElements() const
+    {
+        return m_elements;
     }
 
     void DomModelArrayData::Reflect(AZ::ReflectContext* context)
     {
         if (AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context); serializeContext != nullptr)
         {
-            serializeContext->Class<DomModelArrayData>()->Field("Container", &DomModelArrayData::m_elements);
+            serializeContext->Class<DomModelArrayData>()
+                ->Field("Container", &DomModelArrayData::m_elements);
 
             if (AZ::EditContext* editContext = serializeContext->GetEditContext(); editContext != nullptr)
             {
                 editContext->Class<DomModelArrayData>("DOM Model data for arrays", "Data used to display array.")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
-                        ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
-                        ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly)
-                    ->DataElement(0, &DomModelArrayData::m_elements, "Elements", "Storage for the array elements.")
-                        ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
-                        ->Attribute(AZ::Edit::Attributes::ContainerCanBeModified, false);
+                    ->DataElement(0, &DomModelArrayData::m_elements, "Elements", "Storage for the array elements.");
             }
         }
     }

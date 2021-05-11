@@ -13,14 +13,11 @@
 #pragma once
 
 #include <AzCore/JSON/document.h>
-#include <AzCore/Serialization/SerializeContext.h>
-#include <AzCore/Serialization/EditContext.h>
-#include <AzCore/std/any.h>
 #include <AzCore/std/containers/vector.h>
 #include <AzCore/std/functional.h>
-#include <AzCore/std/string/string.h>
-#include <AzCore/std/string/string_view.h>
 #include <AzCore/RTTI/TypeInfo.h>
+#include <AzCore/Serialization/EditContext.h>
+#include <AzToolsFramework/DomPropertyGrid/internal/DomModelData.h>
 
 namespace AzToolsFramework
 {
@@ -35,41 +32,11 @@ namespace AzToolsFramework
 
     struct DomModelContext final
     {
+        //! Standard element data that can be reused by all models to expand and hide elements.
+        AZ::Edit::ElementData m_hiddenElementDescription;
         rapidjson::Document::AllocatorType* m_domAllocator{nullptr};
         AZ::SerializeContext* m_serializeContext{nullptr};
         DomModelEvent m_eventCallback;
-    };
-
-
-    class DomModelData final
-    {
-    public:
-        AZ_TYPE_INFO(AzToolsFramework::DomModelData, "{D9D86827-12FA-4A7F-841E-A5E85EE33ADF}");
-
-        DomModelData() = default;
-        DomModelData(AZStd::string name, AZStd::string path, rapidjson::Value& value, DomModelContext* context);
-        DomModelData(
-            AZStd::string name, AZStd::string path, rapidjson::Value& value, DomModelContext* context, const AZ::TypeId& targetType);
-        ~DomModelData();
-
-        static const AZ::Edit::ElementData* ProvideEditData(const void* handlerPtr, const void* elementPtr, const AZ::Uuid& elementType);
-        static void Reflect(AZ::ReflectContext* context);
-
-    private:
-        AZ::u32 CommitBoolToDom();
-        AZ::u32 CommitUint64ToDom();
-        AZ::u32 CommitInt64ToDom();
-        AZ::u32 CommitDoubleToDom();
-        AZ::u32 CommitStringToDom();
-        AZ::u32 CommitNativeToDom();
-
-        AZ::Edit::ElementData m_domElement;
-        AZStd::any m_value;
-        AZStd::string m_name;
-        AZStd::string m_path;
-        AZ::TypeId m_targetType;
-        rapidjson::Value* m_domValue{nullptr};
-        DomModelContext* m_context{nullptr};
     };
 
     class DomModel final
@@ -89,7 +56,7 @@ namespace AzToolsFramework
 
     private:
         DomModelContext m_context;
-        AZStd::vector<DomModelData> m_elements;
+        DomModelData m_root;
         rapidjson::Value* m_dom{ nullptr };
     };
 } // AzToolsFramework

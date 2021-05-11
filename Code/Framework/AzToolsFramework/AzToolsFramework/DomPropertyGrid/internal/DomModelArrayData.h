@@ -12,6 +12,7 @@
 
 #pragma once
 
+#include <AzCore/std/smart_ptr/shared_ptr.h>
 #include <AzToolsFramework/DomPropertyGrid/DomModel.h>
 
 namespace AzToolsFramework
@@ -22,12 +23,15 @@ namespace AzToolsFramework
         AZ_TYPE_INFO(AzToolsFramework::DomModelArrayData, "{71C9618D-3C6A-4510-B778-31B3FEBB2F3B}");
 
         DomModelArrayData() = default;
-        DomModelArrayData(rapidjson::Value& value, AZStd::string_view path, DomModelContext* context);
+        DomModelArrayData(rapidjson::Value& value);
+
+        AZStd::vector<AZStd::shared_ptr<DomModelData>>& GetElements();
+        const AZStd::vector<AZStd::shared_ptr<DomModelData>>& GetElements() const;
 
         static void Reflect(AZ::ReflectContext* context);
 
     private:
-        AZStd::vector<DomModelData> m_elements;
+        AZStd::vector<AZStd::shared_ptr<DomModelData>> m_elements;
         rapidjson::Value* m_domValue{nullptr};
     };
 } // namespace AzToolsFramework

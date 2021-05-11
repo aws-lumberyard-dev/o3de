@@ -30,7 +30,6 @@ namespace AzToolsFramework
             {
                 editContext->Class<DomModelStringData>("DOM Model data for strings", "Data used to display strings.")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
-                    ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly)
                     ->DataElement(0, &DomModelStringData::m_string, "Data", "Storage for the string.");
             }
         }

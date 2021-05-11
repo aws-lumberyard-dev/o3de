@@ -116,14 +116,21 @@ set(FILES
     Component/EditorLevelComponentAPIComponent.h
     DomPropertyGrid/DomModel.h
     DomPropertyGrid/DomModel.cpp
+    DomPropertyGrid/internal/DomBuilder.h
+    DomPropertyGrid/internal/DomBuilder.cpp
+    DomPropertyGrid/internal/DomDescriber.h
+    DomPropertyGrid/internal/DomDescriber.cpp
     DomPropertyGrid/internal/DomModelArrayData.h
     DomPropertyGrid/internal/DomModelArrayData.cpp
+    DomPropertyGrid/internal/DomModelData.h
+    DomPropertyGrid/internal/DomModelData.cpp
     DomPropertyGrid/internal/DomModelNativeData.h
     DomPropertyGrid/internal/DomModelNativeData.cpp
     DomPropertyGrid/internal/DomModelObjectData.h
     DomPropertyGrid/internal/DomModelObjectData.cpp
     DomPropertyGrid/internal/DomModelStringData.h
     DomPropertyGrid/internal/DomModelStringData.cpp
+    DomPropertyGrid/internal/Utils.h
     Editor/EditorContextMenuBus.h
     Editor/EditorSettingsAPIBus.h
     Entity/EditorEntityStartStatus.h
