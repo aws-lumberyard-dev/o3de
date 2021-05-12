@@ -28,7 +28,7 @@ namespace AWSGameLift
 
             if (AZ::EditContext* ec = serialize->GetEditContext())
             {
-                ec->Class<AWSGameLiftClientSystemComponent>("AWSGameLiftClient", "[Description of functionality provided by this System Component]")
+                ec->Class<AWSGameLiftClientSystemComponent>("AWSGameLiftClient", "Create the GameLift client manager that handles communication between game clients and the GameLift service.")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                         ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC("System"))
                         ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
@@ -63,12 +63,10 @@ namespace AWSGameLift
 
     void AWSGameLiftClientSystemComponent::Activate()
     {
-        AWSGameLiftClientRequestBus::Handler::BusConnect();
     }
 
     void AWSGameLiftClientSystemComponent::Deactivate()
     {
-        AWSGameLiftClientRequestBus::Handler::BusDisconnect();
     }
 
 } // namespace AWSGameLift

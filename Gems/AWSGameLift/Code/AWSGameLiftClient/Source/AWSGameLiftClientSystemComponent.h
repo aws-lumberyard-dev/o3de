@@ -13,13 +13,12 @@
 #pragma once
 
 #include <AzCore/Component/Component.h>
-#include <AWSGameLift/AWSGameLiftClientBus.h>
 
 namespace AWSGameLift
 {
+    //! Gem client system component. Responsible for creating the backend client service.
     class AWSGameLiftClientSystemComponent
         : public AZ::Component
-        , protected AWSGameLiftClientRequestBus::Handler
     {
     public:
         AZ_COMPONENT(AWSGameLiftClientSystemComponent, "{d481c15c-732a-4eea-9853-4965ed1bc2be}");
@@ -32,11 +31,6 @@ namespace AWSGameLift
         static void GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent);
 
     protected:
-        ////////////////////////////////////////////////////////////////////////
-        // AWSGameLiftClientRequestBus interface implementation
-
-        ////////////////////////////////////////////////////////////////////////
-
         ////////////////////////////////////////////////////////////////////////
         // AZ::Component interface implementation
         void Init() override;

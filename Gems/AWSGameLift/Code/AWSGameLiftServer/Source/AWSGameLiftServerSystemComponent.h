@@ -13,13 +13,12 @@
 #pragma once
 
 #include <AzCore/Component/Component.h>
-#include <AWSGameLift/AWSGameLiftServerBus.h>
 
 namespace AWSGameLift
 {
+    //! Gem server system component. Responsible for creating the Game server.
     class AWSGameLiftServerSystemComponent
         : public AZ::Component
-        , protected AWSGameLiftServerRequestBus::Handler
     {
     public:
         AZ_COMPONENT(AWSGameLiftServerSystemComponent, "{fa2b46d6-82a9-408d-abab-62bae5ab38c9}");
@@ -32,11 +31,6 @@ namespace AWSGameLift
         static void GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent);
 
     protected:
-        ////////////////////////////////////////////////////////////////////////
-        // AWSGameLiftServerRequestBus interface implementation
-
-        ////////////////////////////////////////////////////////////////////////
-
         ////////////////////////////////////////////////////////////////////////
         // AZ::Component interface implementation
         void Init() override;

@@ -17,6 +17,7 @@
 
 namespace AWSGameLift
 {
+    //! Provide the entry point for the gem and register the system component.
     class AWSGameLiftServerModule
         : public AZ::Module
     {
@@ -45,4 +46,4 @@ namespace AWSGameLift
     };
 }// namespace AWSGameLift
 
-AZ_DECLARE_MODULE_CLASS(Gem_AWSGameLift, AWSGameLift::AWSGameLiftServerModule)
+AZ_DECLARE_MODULE_CLASS(Gem_AWSGameLift_Server, AWSGameLift::AWSGameLiftServerModule)
