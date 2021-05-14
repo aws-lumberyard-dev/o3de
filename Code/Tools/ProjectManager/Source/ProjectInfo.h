@@ -25,6 +25,8 @@ namespace O3DE::ProjectManager
         ProjectInfo() = default;
         ProjectInfo(const QString& path, const QString& projectName, const QString& productName, const AZ::Uuid projectId);
 
+        bool IsValid() const;
+
         // from o3de_manifest.json and o3de_projects.json
         QString m_path;
 
@@ -32,7 +34,5 @@ namespace O3DE::ProjectManager
         QString m_projectName;
         QString m_productName;
         AZ::Uuid m_projectId;
-
-        bool IsValid() const;
     };
 } // namespace O3DE::ProjectManager

@@ -24,13 +24,13 @@ namespace O3DE::ProjectManager
         ProjectTemplateInfo() = default;
         ProjectTemplateInfo(const QString& path);
 
+        bool IsValid() const;
+
         QString m_displayName;
         QString m_name;
         QString m_path;
         QString m_summary;
         QStringList m_canonicalTags;
         QStringList m_userTags;
-
-        bool IsValid() const;
     };
 } // namespace O3DE::ProjectManager

@@ -51,7 +51,7 @@ namespace Platform
 } // namespace Platform
 
 #define Py_To_String(obj) obj.cast<std::string>().c_str()
-#define Py_Optional_String(dict, key, default_string) dict.contains(key) ? Py_To_String(dict[key]) : default_string
+#define Py_To_String_Optional(dict, key, default_string) dict.contains(key) ? Py_To_String(dict[key]) : default_string
 
 namespace O3DE::ProjectManager 
 {
@@ -237,9 +237,9 @@ namespace O3DE::ProjectManager
                 gemInfo.m_uuid        = AZ::Uuid(Py_To_String(data["Uuid"])); 
 
                 // optional
-                gemInfo.m_displayName = Py_Optional_String(data, "DisplayName", gemInfo.m_name); 
-                gemInfo.m_summary     = Py_Optional_String(data, "Summary", ""); 
-                gemInfo.m_version     = Py_Optional_String(data, "Version", ""); 
+                gemInfo.m_displayName = Py_To_String_Optional(data, "DisplayName", gemInfo.m_name); 
+                gemInfo.m_summary     = Py_To_String_Optional(data, "Summary", ""); 
+                gemInfo.m_version     = Py_To_String_Optional(data, "Version", ""); 
 
                 if (data.contains("Dependencies"))
                 {
