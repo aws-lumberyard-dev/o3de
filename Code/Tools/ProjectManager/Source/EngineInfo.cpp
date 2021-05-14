@@ -10,22 +10,12 @@
 *
 */
 
-#include "GemInfo.h"
+#include "EngineInfo.h"
 
 namespace O3DE::ProjectManager
 {
-    GemInfo::GemInfo(const QString& name, const QString& creator, const QString& summary, Platforms platforms, bool isAdded)
-        : m_name(name)
-        , m_creator(creator)
-        , m_summary(summary)
-        , m_platforms(platforms)
-        , m_isAdded(isAdded)
+    EngineInfo::EngineInfo(const QString& path)
+        : m_path(path)
     {
     }
-
-    bool GemInfo::IsValid() const
-    {
-        return !m_path.isEmpty() && !m_uuid.IsNull();
-    }
-
 } // namespace O3DE::ProjectManager

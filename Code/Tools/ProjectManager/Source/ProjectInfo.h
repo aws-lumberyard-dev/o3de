@@ -32,5 +32,7 @@ namespace O3DE::ProjectManager
         QString m_projectName;
         QString m_productName;
         AZ::Uuid m_projectId;
+
+        bool IsValid() const;
     };
 } // namespace O3DE::ProjectManager

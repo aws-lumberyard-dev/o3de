@@ -10,22 +10,27 @@
 *
 */
 
-#include "GemInfo.h"
+#pragma once
+
+#if !defined(Q_MOC_RUN)
+#include <QString>
+#endif
 
 namespace O3DE::ProjectManager
 {
-    GemInfo::GemInfo(const QString& name, const QString& creator, const QString& summary, Platforms platforms, bool isAdded)
-        : m_name(name)
-        , m_creator(creator)
-        , m_summary(summary)
-        , m_platforms(platforms)
-        , m_isAdded(isAdded)
+    class ProjectTemplateInfo
     {
-    }
+    public:
+        ProjectTemplateInfo() = default;
+        ProjectTemplateInfo(const QString& path);
 
-    bool GemInfo::IsValid() const
-    {
-        return !m_path.isEmpty() && !m_uuid.IsNull();
-    }
+        QString m_displayName;
+        QString m_name;
+        QString m_path;
+        QString m_summary;
+        QStringList m_canonicalTags;
+        QStringList m_userTags;
 
+        bool IsValid() const;
+    };
 } // namespace O3DE::ProjectManager

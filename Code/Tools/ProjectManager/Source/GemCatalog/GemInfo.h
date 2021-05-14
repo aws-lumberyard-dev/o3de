@@ -35,6 +35,7 @@ namespace O3DE::ProjectManager
         };
         Q_DECLARE_FLAGS(Platforms, Platform)
 
+        GemInfo() = default;
         GemInfo(const QString& name, const QString& creator, const QString& summary, Platforms platforms, bool isAdded);
 
         QString m_path;
@@ -51,6 +52,8 @@ namespace O3DE::ProjectManager
         QString m_documentationUrl;
         QVector<AZ::Uuid> m_dependingGemUuids;
         QVector<AZ::Uuid> m_conflictingGemUuids;
+
+        bool IsValid() const;
     };
 } // namespace O3DE::ProjectManager
 
