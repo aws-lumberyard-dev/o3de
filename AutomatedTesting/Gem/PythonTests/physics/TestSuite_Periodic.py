@@ -481,3 +481,23 @@ class TestAutomation(TestAutomationBase):
     def test_C15425929_Undo_Redo(self, request, workspace, editor, launcher_platform):
         from . import C15425929_Undo_Redo as test_module
         self._run_test(request, workspace, editor, test_module)
+
+    @revert_physics_config
+    def test_C19536276_SetCollisionLayer_PrintsWarning(self, request, workspace, editor, launcher_platform):
+        from . import C19536276_SetCollisionLayer_PrintsWarning as test_module
+        self._run_test(request, workspace, editor, test_module)
+        
+    @revert_physics_config
+    def test_C19723162_ScriptCanvas_ShapeColiderVerifyShapeCastNode(self, request, workspace, editor, launcher_platform):
+        from . import C19723162_ScriptCanvas_ShapeColiderVerifyShapeCastNode as test_module
+        self._run_test(request, workspace, editor, test_module)
+        
+    @revert_physics_config
+    def test_C19536275_SetCollisionGroup_PrintsWarning(self, request, workspace, editor, launcher_platform):
+        from . import C19536275_SetCollisionGroup_PrintsWarning as test_module
+        self._run_test(request, workspace, editor, test_module)
+        
+    @revert_physics_config
+    def test_C19723159_ScriptCanvas_ShapeColliderCollisionEvents(self, request, workspace, editor, launcher_platform):
+        from . import C19723159_ScriptCanvas_ShapeColliderCollisionEvents as test_module
+        self._run_test(request, workspace, editor, test_module)
