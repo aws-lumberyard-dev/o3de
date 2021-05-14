@@ -11,7 +11,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 Test case ID: C19536275
 Test Case Title: Verify that when an invalid or blank name is assigned to the collision group using Set Collision Group
     node, a warning is thrown on console
-URL of the test case: https://testrail.agscollab.com/index.php?/cases/view/19536275
 """
 
 

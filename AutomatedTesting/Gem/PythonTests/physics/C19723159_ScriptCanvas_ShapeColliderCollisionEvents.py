@@ -12,7 +12,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 
 # Test Case ID    : C19723159
 # Test Case Title : Verify Script Canvas Collision Events for Shape Colliders
-# Test Case URL   : https://testrail.agscollab.com/index.php?/cases/view/19723159
 
 
 # fmt: off

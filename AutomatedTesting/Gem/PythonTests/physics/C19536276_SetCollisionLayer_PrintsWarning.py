@@ -11,7 +11,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 Test case ID: C19536276
 Test Case Title: Verify that when an invalid or blank name is assigned to the collision layer
                  using Set Collision Layer node, a warning is printed on the console
-URL of the test case: https://testrail.agscollab.com/index.php?/cases/view/19536276
 """
 
 
