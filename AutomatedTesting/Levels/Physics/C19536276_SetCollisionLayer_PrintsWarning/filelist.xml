@@ -1,6 +1,6 @@
 <download name="C19536276_SetCollisionLayer_PrintsWarning" type="Map">
  <index src="filelist.xml" dest="filelist.xml"/>
  <files>
-  <file src="level.pak" dest="level.pak" size="13FD" md5="b69765d5f1eb5388d546843b9cbea6a7"/>
+  <file src="level.pak" dest="level.pak" size="6BD" md5="f79e1eaa7a955a6521869129d8766cfd"/>
  </files>
 </download>

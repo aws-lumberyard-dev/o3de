@@ -10,7 +10,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 
 Test case ID : C19723162
 Test Case Title : Verify Shape Cast nodes in script canvas for Shape Colliders
-URL of the test case : https://testrail.agscollab.com/index.php?/cases/view/19723162
 """
 
 
