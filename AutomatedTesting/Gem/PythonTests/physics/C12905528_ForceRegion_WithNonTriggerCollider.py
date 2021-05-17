@@ -10,7 +10,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 
 Test case ID : C12905528
 Test Case Title : Check that user is warned if non-trigger collider component is used with force region
-
 """
 
 
@@ -23,7 +22,7 @@ class Tests():
 # fmt: on
 
 
-def run():
+def C12905528_ForceRegion_WithNonTriggerCollider():
     """
     Summary:
      Create entity with PhysX Force Region component. Check that user is warned if new PhysX Collider component is
@@ -57,6 +56,9 @@ def run():
     from editor_python_test_tools.utils import TestHelper as helper
     from editor_python_test_tools.utils import Tracer
 
+    EXPECTED_WARNING = "Please ensure collider component marked as trigger exists in entity"
+    EDITOR_IDLE_SECONDS = 3.0
+
     helper.init_idle()
     # 1) Load the empty level
     helper.open_level("Physics", "Base")
@@ -75,11 +77,16 @@ def run():
         test_entity.add_component("PhysX Collider")
         Report.result(Tests.add_physx_collider, test_entity.has_component("PhysX Collider"))
 
-    # ) Verify there is warning in the logs
-    success_condition = section_tracer.has_warnings
-    # Checking if warning exist and the exact warning is caught in the expected lines in Test file
-    Report.result(Tests.warnings_found, success_condition)
+        # 6) Verify there is warning in the logs
+        warning_found = helper.wait_for_condition(
+            lambda: any(EXPECTED_WARNING in warning.message for warning in section_tracer.warnings), EDITOR_IDLE_SECONDS
+        )
+        Report.result(Tests.warnings_found, warning_found)
 
 
 if __name__ == "__main__":
-    run()
+    import ImportPathHelper as imports
+    imports.init()
+
+    from editor_python_test_tools.utils import Report
+    Report.start_test(C12905528_ForceRegion_WithNonTriggerCollider)
