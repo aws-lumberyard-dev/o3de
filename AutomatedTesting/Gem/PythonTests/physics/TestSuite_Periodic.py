@@ -402,7 +402,6 @@ class TestAutomation(TestAutomationBase):
 
     def test_C12905528_ForceRegion_WithNonTriggerCollider(self, request, workspace, editor, launcher_platform):
         from . import C12905528_ForceRegion_WithNonTriggerCollider as test_module
-        # Fixme: expected_lines = ["[Warning] (PhysX Force Region) - Please ensure collider component marked as trigger exists in entity"]
         self._run_test(request, workspace, editor, test_module)
 
     def test_C5932040_ForceRegion_CubeExertsWorldForce(self, request, workspace, editor, launcher_platform):
@@ -500,4 +499,9 @@ class TestAutomation(TestAutomationBase):
     @revert_physics_config
     def test_C19723159_ScriptCanvas_ShapeColliderCollisionEvents(self, request, workspace, editor, launcher_platform):
         from . import C19723159_ScriptCanvas_ShapeColliderCollisionEvents as test_module
+        self._run_test(request, workspace, editor, test_module)
+
+    @revert_physics_config
+    def test_C17411467_AddPhysxRagdollComponent(self, request, workspace, editor, launcher_platform):
+        from . import C17411467_AddPhysxRagdollComponent as test_module
         self._run_test(request, workspace, editor, test_module)

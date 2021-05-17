@@ -26,7 +26,7 @@ class Tests():
 # fmt: on
 
 
-def run():
+def C14861504_RenderMeshAsset_WithNoPxAsset():
     """
     Summary:
      Create entity with Mesh component and assign a render mesh that has no physics asset to the Mesh component.
@@ -106,4 +106,8 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    import ImportPathHelper as imports
+    imports.init()
+
+    from editor_python_test_tools.utils import Report
+    Report.start_test(C14861504_RenderMeshAsset_WithNoPxAsset)
