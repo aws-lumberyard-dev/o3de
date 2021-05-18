@@ -10,171 +10,147 @@
 *
 */
 
-#include <AWSCoreBus.h>
-#include <AWSGameLiftClientSystemComponent.h>
-
-#include <AzCore/Component/Entity.h>
+#include <AzCore/Component/ComponentApplication.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/SerializeContext.h>
-#include <AzCore/UnitTest/TestTypes.h>
-#include <AzTest/AzTest.h>
+#include <AzCore/std/smart_ptr/unique_ptr.h>
 
-namespace AWSGameLiftClientUnitTest
+#include <AWSGameLiftClientFixture.h>
+#include <AWSGameLiftClientManager.h>
+#include <AWSGameLiftClientSystemComponent.h>
+
+#include <aws/gamelift/GameLiftClient.h>
+
+using namespace AWSGameLift;
+
+class AWSGameLiftClientManagerMock
+    : public AWSGameLiftClientManager
 {
-    class AWSGameLiftClientSystemComponentMock
-        : public AWSGameLift::AWSGameLiftClientSystemComponent
+public:
+    AWSGameLiftClientManagerMock() = default;
+    ~AWSGameLiftClientManagerMock() = default;
+
+    MOCK_METHOD0(ActivateManager, void());
+    MOCK_METHOD0(DeactivateManager, void());
+};
+
+class TestAWSGameLiftClientSystemComponent
+    : public AWSGameLiftClientSystemComponent
+{
+public:
+    TestAWSGameLiftClientSystemComponent()
     {
-    public:
-        void InitMock()
-        {
-            AWSGameLift::AWSGameLiftClientSystemComponent::Init();
-        }
-
-        void ActivateMock()
-        {
-            AWSGameLift::AWSGameLiftClientSystemComponent::Activate();
-        }
-
-        void DeactivateMock()
-        {
-            AWSGameLift::AWSGameLiftClientSystemComponent::Deactivate();
-        }
-
-        AWSGameLiftClientSystemComponentMock()
-        {
-            ON_CALL(*this, Init()).WillByDefault(testing::Invoke(this, &AWSGameLiftClientSystemComponentMock::InitMock));
-            ON_CALL(*this, Activate()).WillByDefault(testing::Invoke(this, &AWSGameLiftClientSystemComponentMock::ActivateMock));
-            ON_CALL(*this, Deactivate()).WillByDefault(testing::Invoke(this, &AWSGameLiftClientSystemComponentMock::DeactivateMock));
-        }
-
-        MOCK_METHOD0(Init, void());
-        MOCK_METHOD0(Activate, void());
-        MOCK_METHOD0(Deactivate, void());  
-    };
-
-    class AWSCoreSystemComponentMock
-        : public AZ::Component
+        m_gameliftClientManagerMockPtr = nullptr;
+    }
+    ~TestAWSGameLiftClientSystemComponent()
     {
-    public:
+        m_gameliftClientManagerMockPtr = nullptr;
+    }
 
-        AZ_COMPONENT(AWSCoreSystemComponentMock, "{72e81433-313f-41a1-bc29-96cc0fc29658}");
- 
-        static void Reflect(AZ::ReflectContext* context)
-        {
-            if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
-            {
-                serialize->Class<AWSCoreSystemComponentMock, AZ::Component>()
-                    ->Version(0)
-                    ;
+    void SetUpMockManager()
+    {
+        AZStd::unique_ptr<AWSGameLiftClientManagerMock> gameliftClientManagerMock = AZStd::make_unique<AWSGameLiftClientManagerMock>();
+        m_gameliftClientManagerMockPtr = gameliftClientManagerMock.get();
+        SetGameLiftClientManager(AZStd::move(gameliftClientManagerMock));
+    }
 
-                if (AZ::EditContext* ec = serialize->GetEditContext())
-                {
-                    ec->Class<AWSCoreSystemComponentMock>("AWSCoreMock", "Adds core support for working with AWS")
-                        ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
-                        ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC("System"))
-                        ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
-                        ;
-                }
-            }
-        }
+    AWSGameLiftClientManagerMock* m_gameliftClientManagerMockPtr;
+};
 
-        static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
-        {
-            provided.push_back(AZ_CRC_CE("AWSCoreService"));
-        }
+class AWSCoreSystemComponentMock
+    : public AZ::Component
+{
+public:
+    AZ_COMPONENT(AWSCoreSystemComponentMock, "{52DB1342-30C6-412F-B7CC-B23F8B0629EA}");
 
-        static void GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible)
-        {
-            AZ_UNUSED(incompatible);
-        }
-        static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
-        {
-            AZ_UNUSED(required);
-        }
-        static void GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent)
-        {
-            AZ_UNUSED(dependent);
-        }
+    static void Reflect(AZ::ReflectContext* context)
+    {
+        AZ_UNUSED(context);
+    }
 
-        void ActivateMock()
-        {
-            AWSCore::AWSCoreNotificationsBus::Broadcast(&AWSCore::AWSCoreNotifications::OnSDKInitialized);
-        }
+    static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
+    {
+        provided.push_back(AZ_CRC_CE("AWSCoreService"));
+    }
+    static void GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible)
+    {
+        AZ_UNUSED(incompatible);
+    }
+    static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
+    {
+        AZ_UNUSED(required);
+    }
+    static void GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent)
+    {
+        AZ_UNUSED(dependent);
+    }
 
-        AWSCoreSystemComponentMock()
-        {
-            ON_CALL(*this, Activate()).WillByDefault(testing::Invoke(this, &AWSCoreSystemComponentMock::ActivateMock));
-        }
+    AWSCoreSystemComponentMock() = default;
+    ~AWSCoreSystemComponentMock() = default;
 
-        ~AWSCoreSystemComponentMock() = default;
-
-        MOCK_METHOD0(Init, void());
-        MOCK_METHOD0(Activate, void());
-        MOCK_METHOD0(Deactivate, void());
-    };
-}
+    void Init() override {}
+    void Activate() override {}
+    void Deactivate() override {}
+};
 
 class AWSGameLiftClientSystemComponentTest
-    : public UnitTest::ScopedAllocatorSetupFixture
+    : public AWSGameLiftClientFixture
 {
 protected:
-    AZStd::unique_ptr<AZ::ComponentDescriptor> m_componentDescriptor;
-    AZStd::unique_ptr<AZ::ComponentDescriptor> m_awsCoreComponentDescriptor;
-
     AZStd::unique_ptr<AZ::SerializeContext> m_serializeContext;
     AZStd::unique_ptr<AZ::BehaviorContext> m_behaviorContext;
+    AZStd::unique_ptr<AZ::ComponentDescriptor> m_coreComponentDescriptor;
+    AZStd::unique_ptr<AZ::ComponentDescriptor> m_gameliftClientComponentDescriptor;
 
     void SetUp() override
     {
-        m_componentDescriptor.reset(AWSGameLift::AWSGameLiftClientSystemComponent::CreateDescriptor());
-        m_awsCoreComponentDescriptor.reset(AWSGameLiftClientUnitTest::AWSCoreSystemComponentMock::CreateDescriptor());
-        m_componentDescriptor->Reflect(m_serializeContext.get());
-        m_awsCoreComponentDescriptor->Reflect(m_serializeContext.get());
+        AWSGameLiftClientFixture::SetUp();
+
+        m_serializeContext = AZStd::make_unique<AZ::SerializeContext>();
+        m_serializeContext->CreateEditContext();
+        m_behaviorContext = AZStd::make_unique<AZ::BehaviorContext>();
+        m_coreComponentDescriptor.reset(AWSCoreSystemComponentMock::CreateDescriptor());
+        m_gameliftClientComponentDescriptor.reset(TestAWSGameLiftClientSystemComponent::CreateDescriptor());
+        m_gameliftClientComponentDescriptor->Reflect(m_serializeContext.get());
+        m_gameliftClientComponentDescriptor->Reflect(m_behaviorContext.get());
 
         m_entity = aznew AZ::Entity();
-
-        m_AWSGameLiftClientSystemsComponent = aznew testing::NiceMock<AWSGameLiftClientUnitTest::AWSGameLiftClientSystemComponentMock>();
-        m_awsCoreSystemsComponent = aznew testing::NiceMock<AWSGameLiftClientUnitTest::AWSCoreSystemComponentMock>();
-        m_entity->AddComponent(m_awsCoreSystemsComponent);
-        m_entity->AddComponent(m_AWSGameLiftClientSystemsComponent);
+        m_coreSystemComponent = AZStd::make_unique<AWSCoreSystemComponentMock>();
+        m_entity->AddComponent(m_coreSystemComponent.get());
+        m_gameliftClientSystemComponent = AZStd::make_unique<TestAWSGameLiftClientSystemComponent>();
+        m_gameliftClientSystemComponent->SetUpMockManager();
+        m_entity->AddComponent(m_gameliftClientSystemComponent.get());
     }
 
     void TearDown() override
     {
-        m_entity->RemoveComponent(m_AWSGameLiftClientSystemsComponent);
-        m_entity->RemoveComponent(m_awsCoreSystemsComponent);
-        delete m_awsCoreSystemsComponent;
-        delete m_AWSGameLiftClientSystemsComponent;
+        m_entity->RemoveComponent(m_gameliftClientSystemComponent.get());
+        m_gameliftClientSystemComponent.reset();
+        m_entity->RemoveComponent(m_coreSystemComponent.get());
+        m_coreSystemComponent.reset();
         delete m_entity;
+        m_entity = nullptr;
 
-        m_componentDescriptor.reset();
-        m_awsCoreComponentDescriptor.reset();
+        m_gameliftClientComponentDescriptor.reset();
+        m_coreComponentDescriptor.reset();
+        m_behaviorContext.reset();
+        m_serializeContext.reset();
+
+        AWSGameLiftClientFixture::TearDown();
     }
 
 public:
-    testing::NiceMock<AWSGameLiftClientUnitTest::AWSGameLiftClientSystemComponentMock> *m_AWSGameLiftClientSystemsComponent;
-    testing::NiceMock<AWSGameLiftClientUnitTest::AWSCoreSystemComponentMock> *m_awsCoreSystemsComponent;
-    AZ::Entity* m_entity = nullptr;
+    AZStd::unique_ptr<AWSCoreSystemComponentMock> m_coreSystemComponent;
+    AZStd::unique_ptr<TestAWSGameLiftClientSystemComponent> m_gameliftClientSystemComponent;
+    AZ::Entity* m_entity;
 };
 
-
-
-TEST_F(AWSGameLiftClientSystemComponentTest, ActivateDeactivate_Success)
+TEST_F(AWSGameLiftClientSystemComponentTest, ActivateDeactivate_Call_GameLiftClientManagerGetsInvoked)
 {
-    testing::Sequence s1, s2;
-
-    EXPECT_CALL(*m_awsCoreSystemsComponent, Init()).Times(1).InSequence(s1);
-    EXPECT_CALL(*m_AWSGameLiftClientSystemsComponent, Init()).Times(1).InSequence(s1);
-    EXPECT_CALL(*m_awsCoreSystemsComponent, Activate()).Times(1).InSequence(s1);
-    EXPECT_CALL(*m_AWSGameLiftClientSystemsComponent, Activate()).Times(1).InSequence(s1);
-
-    EXPECT_CALL(*m_AWSGameLiftClientSystemsComponent, Deactivate()).Times(1).InSequence(s2);
-    EXPECT_CALL(*m_awsCoreSystemsComponent, Deactivate()).Times(1).InSequence(s2);
-
-    // activate component
     m_entity->Init();
+    EXPECT_CALL(*(m_gameliftClientSystemComponent->m_gameliftClientManagerMockPtr), ActivateManager()).Times(1);
     m_entity->Activate();
 
-    // deactivate component
+    EXPECT_CALL(*(m_gameliftClientSystemComponent->m_gameliftClientManagerMockPtr), DeactivateManager()).Times(1);
     m_entity->Deactivate();
 }

@@ -10,6 +10,10 @@
 #
 
 set(FILES
-    Tests/AWSGameLiftClientTest.cpp
+    Tests/Activity/AWSGameLiftCreateSessionActivityTest.cpp
+    Tests/AWSGameLiftClientFixture.h
+    Tests/AWSGameLiftClientManagerTest.cpp
+    Tests/AWSGameLiftClientMocks.h
     Tests/AWSGameLiftClientSystemComponentTest.cpp
+    Tests/AWSGameLiftClientTest.cpp
 )

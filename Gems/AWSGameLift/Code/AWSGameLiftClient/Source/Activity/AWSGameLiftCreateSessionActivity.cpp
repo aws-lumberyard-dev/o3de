@@ -1,0 +1,55 @@
+/*
+ * All or portions of this file Copyright (c) Amazon.com, Inc. or its affiliates or
+ * its licensors.
+ *
+ * For complete copyright and license terms please see the LICENSE at the root of this
+ * distribution (the "License"). All use of this software is governed by the License,
+ * or, if provided, by the license below or the license accompanying this file. Do not
+ * remove or modify any license notices. This file is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *
+ */
+
+#include <Activity/AWSGameLiftCreateSessionActivity.h>
+
+namespace AWSGameLift
+{
+    namespace AWSGameLiftCreateSessionActivity
+    {
+        Aws::GameLift::Model::CreateGameSessionRequest BuildAWSGameLiftCreateGameSessionRequest(
+            const AWSGameLiftCreateSessionRequest& createSessionRequest)
+        {
+            Aws::GameLift::Model::CreateGameSessionRequest request;
+            request.SetCreatorId(createSessionRequest.m_creatorId.c_str());
+            request.SetName(createSessionRequest.m_sessionName.c_str());
+            request.SetMaximumPlayerSessionCount(createSessionRequest.m_maxPlayer);
+            for (auto iter = createSessionRequest.m_sessionProperties.begin(); iter != createSessionRequest.m_sessionProperties.end();
+                 iter++)
+            {
+                Aws::GameLift::Model::GameProperty sessionProperty;
+                sessionProperty.SetKey(iter->first.c_str());
+                sessionProperty.SetValue(iter->second.c_str());
+                request.AddGameProperties(sessionProperty);
+            }
+            request.SetAliasId(createSessionRequest.m_aliasId.c_str());
+            request.SetFleetId(createSessionRequest.m_fleetId.c_str());
+            request.SetIdempotencyToken(createSessionRequest.m_idempotencyToken.c_str());
+            return request;
+        }
+
+        Aws::GameLift::Model::CreateGameSessionOutcome CreateSession(
+            const AZStd::unique_ptr<Aws::GameLift::GameLiftClient>& gameliftClient,
+            const AWSGameLiftCreateSessionRequest& createSessionRequest)
+        {
+            Aws::GameLift::Model::CreateGameSessionRequest request = BuildAWSGameLiftCreateGameSessionRequest(createSessionRequest);
+            return gameliftClient->CreateGameSession(request);
+        }
+
+        bool ValidateCreateSessionRequest(const AzFramework::CreateSessionRequest& createSessionRequest)
+        {
+            auto gameliftCreateSessionRequest = azrtti_cast<const AWSGameLiftCreateSessionRequest*>(&createSessionRequest);
+            return gameliftCreateSessionRequest && gameliftCreateSessionRequest->m_maxPlayer >= 0 &&
+                (!gameliftCreateSessionRequest->m_aliasId.empty() || !gameliftCreateSessionRequest->m_fleetId.empty());
+        }
+    } // namespace AWSGameLiftCreateSessionActivity
+} // namespace AWSGameLift
