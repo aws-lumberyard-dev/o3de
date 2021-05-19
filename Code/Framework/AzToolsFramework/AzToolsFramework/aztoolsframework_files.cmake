@@ -131,6 +131,7 @@ set(FILES
     DomPropertyGrid/internal/DomModelStringData.h
     DomPropertyGrid/internal/DomModelStringData.cpp
     DomPropertyGrid/internal/Utils.h
+    DomPropertyGrid/internal/Utils.cpp
     Editor/EditorContextMenuBus.h
     Editor/EditorSettingsAPIBus.h
     Entity/EditorEntityStartStatus.h

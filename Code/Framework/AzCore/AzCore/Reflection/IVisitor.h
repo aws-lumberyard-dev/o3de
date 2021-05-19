@@ -12,7 +12,11 @@
 
 #pragma once
 
+#include <AzCore/Reflection/ReflectionConfig.h>
+#if AZ_REFLECTION_PROTOTYPE_ENABLED
+
 #include <AzCore/base.h>
+#include <AzCore/Reflection/Attributes.h>
 #include <AzCore/std/string/string.h>
 #include <AzCore/std/string/string_view.h>
 
@@ -23,22 +27,26 @@ namespace AZ::Reflection
     public:
         virtual ~IVisitor() = default;
 
-        virtual void Visit([[maybe_unused]] int8_t& value){};
-        virtual void Visit([[maybe_unused]] int16_t& value){};
-        virtual void Visit([[maybe_unused]] int32_t& value){};
-        virtual void Visit([[maybe_unused]] int64_t& value){};
+        virtual void Visit([[maybe_unused]] bool& value, [[maybe_unused]] const IAttributes& attributes){};
 
-        virtual void Visit([[maybe_unused]] uint8_t& value){};
-        virtual void Visit([[maybe_unused]] uint16_t& value){};
-        virtual void Visit([[maybe_unused]] uint32_t& value){};
-        virtual void Visit([[maybe_unused]] uint64_t& value){};
+        virtual void Visit([[maybe_unused]] int8_t& value, [[maybe_unused]] const IAttributes& attributes){};
+        virtual void Visit([[maybe_unused]] int16_t& value, [[maybe_unused]] const IAttributes& attributes){};
+        virtual void Visit([[maybe_unused]] int32_t& value, [[maybe_unused]] const IAttributes& attributes){};
+        virtual void Visit([[maybe_unused]] int64_t& value, [[maybe_unused]] const IAttributes& attributes){};
 
-        virtual void Visit([[maybe_unused]] float& value){};
-        virtual void Visit([[maybe_unused]] double& value){};
+        virtual void Visit([[maybe_unused]] uint8_t& value, [[maybe_unused]] const IAttributes& attributes){};
+        virtual void Visit([[maybe_unused]] uint16_t& value, [[maybe_unused]] const IAttributes& attributes){};
+        virtual void Visit([[maybe_unused]] uint32_t& value, [[maybe_unused]] const IAttributes& attributes){};
+        virtual void Visit([[maybe_unused]] uint64_t& value, [[maybe_unused]] const IAttributes& attributes){};
 
-        virtual void Visit([[maybe_unused]] AZStd::string& value){};
+        virtual void Visit([[maybe_unused]] float& value, [[maybe_unused]] const IAttributes& attributes){};
+        virtual void Visit([[maybe_unused]] double& value, [[maybe_unused]] const IAttributes& attributes){};
 
-        virtual void VisitObjectBegin([[maybe_unused]] const AZ::TypeId& typeId){};
+        virtual void Visit([[maybe_unused]] AZStd::string& value, [[maybe_unused]] const IAttributes& attributes){};
+
+        virtual void VisitObjectBegin([[maybe_unused]] const AZ::TypeId& typeId, [[maybe_unused]] const IAttributes& attributes){};
         virtual void VisitObjectEnd(){};
     };
-}
+} // namespace AZ::Reflection
+
+#endif // AZ_REFLECTION_PROTOTYPE_ENABLED

@@ -34,9 +34,10 @@ namespace AzToolsFramework
         DomModelData(const DomModelData&) = delete;
         DomModelData(DomModelData&& rhs) noexcept;
 
-        DomModelData(AZStd::string name, AZStd::string path, rapidjson::Value& value, DomModelContext* context);
+        DomModelData(AZStd::string name, AZStd::string description, AZStd::string path, rapidjson::Value& value, DomModelContext* context);
         DomModelData(
-            AZStd::string name, AZStd::string path, rapidjson::Value& value, DomModelContext* context, const AZ::TypeId& targetType);
+            AZStd::string name, AZStd::string description, AZStd::string path, rapidjson::Value& value, DomModelContext* context,
+            const AZ::TypeId& targetType);
         ~DomModelData();
 
         DomModelData& operator=(const DomModelData&) = delete;
@@ -45,10 +46,25 @@ namespace AzToolsFramework
         static const AZ::Edit::ElementData* ProvideEditData(const void* handlerPtr, const void* elementPtr, const AZ::Uuid& elementType);
         static void Reflect(AZ::ReflectContext* context);
 
+        bool IsEmpty() const;
+        bool IsValid() const;
+
+        bool IsObject() const;
         DomModelObjectData* GetObjectData();
         const DomModelObjectData* GetObjectData() const;
+
+        bool IsArray() const;
         DomModelArrayData* GetArrayData();
         const DomModelArrayData* GetArrayData() const;
+
+        AZ::Edit::ElementData& GetDomElement();
+        const AZ::Edit::ElementData& GetDomElement() const;
+        rapidjson::Value* GetDomValue();
+        const rapidjson::Value* GetDomValue() const;
+
+        const AZStd::string& GetName() const;
+        const AZStd::string& GetDescription() const;
+        const AZStd::string& GetPath() const;
 
     private:
         AZ::u32 CommitBoolToDom();
@@ -61,6 +77,7 @@ namespace AzToolsFramework
         AZ::Edit::ElementData m_domElement;
         AZStd::any m_value;
         AZStd::string m_name;
+        AZStd::string m_description;
         AZStd::string m_path;
         AZ::TypeId m_targetType;
         rapidjson::Value* m_domValue{nullptr};

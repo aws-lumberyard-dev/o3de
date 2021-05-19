@@ -52,7 +52,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 {% endmacro                                                                                         -%}
 
 
-{% macro ListAttributes(holder, group)      -%}
+{% macro ListGroupAttributes(holder, group) -%}
 {% for field in holder                      -%}
 {%  if field.tag == "Attribute"             -%}
 {%      if field.attrib['group'] == group   -%}
@@ -61,3 +61,12 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 {%  endif                                   -%}
 {% endfor                                   -%}
 {% endmacro                                 -%}
+
+
+{%- macro ListAllAttributes(holder)          -%}
+{%- for field in holder                      -%}
+{%-  if field.tag == "Attribute"             -%}
+{{ caller(field.attrib['group'], field.attrib['name'], __find_and_print_attribute_value(field)) }}
+{%-  endif                                   -%}
+{%- endfor                                   -%}
+{%- endmacro                                 -%}

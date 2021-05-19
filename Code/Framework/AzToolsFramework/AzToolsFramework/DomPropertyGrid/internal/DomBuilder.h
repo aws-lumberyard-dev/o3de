@@ -12,12 +12,19 @@
 
 #pragma once
 
+#include <AzCore/Reflection/ReflectionConfig.h>
+
 #include <AzCore/JSON/document.h>
 #include <AzToolsFramework/DomPropertyGrid/internal/DomModelData.h>
 
 namespace AZ
 {
     class StackedString;
+
+    namespace Reflection
+    {
+        class IDescriber;
+    }
 }
 
 namespace AzToolsFramework
@@ -28,8 +35,14 @@ namespace AzToolsFramework
     {
     public:
         static bool BuildFromDom(DomModelData& root, rapidjson::Value& dom, DomModelContext* context);
+        static bool BuildFromDom(DomModelData& root, rapidjson::Value& dom, DomModelContext* context, const AZ::TypeId& targetType);
 
     private:
         static bool BuildFromDom(DomModelData& root, rapidjson::Value& dom, DomModelContext* context, AZ::StackedString& path);
+#if AZ_REFLECTION_PROTOTYPE_ENABLED
+        static bool Describe(
+            AZ::Reflection::IDescriber& describer, DomModelData& root, rapidjson::Value& dom, DomModelContext* context,
+            const AZ::TypeId& targetType);
+#endif
     };
 } // namespace AzToolsFramework

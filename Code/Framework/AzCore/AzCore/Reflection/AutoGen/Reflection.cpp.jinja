@@ -55,7 +55,7 @@ AZ_CRC_CE({{value}})
                 editContext->Class<{{structure.attrib['name']}}>(
                     {{- Attrib.PrintAttribute(structure, "Class", "Name", '""') }}, {{  Attrib.PrintAttribute(structure, "Class", "Description", '""') }})
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
-{%  call(name, value) Attrib.ListAttributes(structure, "PropertyGrid")                        %}
+{%  call(name, value) Attrib.ListGroupAttributes(structure, "PropertyGrid")                   %}
                         ->Attribute(AZ_CRC_CE("{{name}}"), {{value}})
 {%  endcall                                                                                  -%}
 {%  call(variable, name, type, codeName) Macros.ListVariablesInOrder(structure)               %}
@@ -65,7 +65,7 @@ AZ_CRC_CE({{value}})
 {%      set fullname = "&" ~ structure.attrib['name'] ~ "::" ~codeName                        %}
 {%      set description = Attrib.PrintAttribute(variable, "Variable", "Description", '""')    %}
                     ->DataElement({{editor}}, {{fullname}}, {{conditionalName}}, {{description}}) 
-{%-     call(name, value) Attrib.ListAttributes(variable, "PropertyGrid")                    -%}
+{%-     call(name, value) Attrib.ListGroupAttributes(variable, "PropertyGrid")               -%}
 {%-         if name != "Editor" and name != "HideName"                                        %}
                         ->Attribute(AZ_CRC_CE("{{name}}"), {{value}})
 {%-         endif                                                                            -%}
@@ -77,6 +77,8 @@ AZ_CRC_CE({{value}})
     }
 {% endmacro                                                                                  -%}
 
+#include <AzCore/Reflection/ReflectionConfig.h>
+#if AZ_REFLECTION_PROTOTYPE_ENABLED
 
 {% for xml in dataFiles                                             %}
 {%  for include in xml.iter('Include')                              %}
@@ -101,3 +103,5 @@ namespace {{ xml.attrib['namespace'] }}
 {%  endfor                                                             -%}
 }
 {%- endfor                                                              %}
+
+#endif // AZ_REFLECTION_PROTOTYPE_ENABLED

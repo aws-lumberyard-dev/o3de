@@ -12,12 +12,15 @@
 
 #pragma once
 
+#include <AzCore/Reflection/ReflectionConfig.h>
+
+#include <AzCore/Reflection/Attributes.h>
 #include <AzCore/Serialization/EditContext.h>
 
 namespace AzToolsFramework::DomPropertyGridInternal
 {
     template<typename T>
-    static void AddAttribute(AZ::Edit::AttributeArray& attributes, const AZ::Crc32& id, T&& value)
+    static void AddAttribute(AZ::Edit::AttributeArray& attributes, AZ::Crc32 id, T&& value)
     {
         using ValueType = AZ::AttributeContainerType<T>;
         attributes.emplace_back(id, aznew ValueType(AZStd::forward<T>(value)));
@@ -25,9 +28,13 @@ namespace AzToolsFramework::DomPropertyGridInternal
 
     // Needed to make sure the correct ValueType is used.
     template<typename T>
-    static void AddAttribute(AZ::Edit::AttributeArray& attributes, const AZ::Crc32& id, const T& value)
+    static void AddAttribute(AZ::Edit::AttributeArray& attributes, AZ::Crc32 id, const T& value)
     {
         using ValueType = AZ::AttributeContainerType<T>;
         attributes.emplace_back(id, aznew ValueType(value));
     }
+
+#if AZ_REFLECTION_PROTOTYPE_ENABLED
+    void ConvertAndAddAttribute(AZ::Edit::AttributeArray& attributes, AZ::Crc32 id, const AZ::Reflection::AttributeDataType& value);
+#endif
 } // namespace AzToolsFramework

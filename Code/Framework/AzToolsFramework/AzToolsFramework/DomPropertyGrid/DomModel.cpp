@@ -64,14 +64,14 @@ namespace AzToolsFramework
     }
 
     void DomModel::SetDom(
-        rapidjson::Value& dom, rapidjson::Document::AllocatorType& domAllocator, const AZ::TypeId& /*targetType*/, DomModelEvent eventCallback)
+        rapidjson::Value& dom, rapidjson::Document::AllocatorType& domAllocator, const AZ::TypeId& targetType, DomModelEvent eventCallback)
     {
         m_dom = &dom;
         m_context.m_domAllocator = &domAllocator;
         m_context.m_eventCallback = AZStd::move(eventCallback);
 
         DomModelData root;
-        bool result = DomBuilder::BuildFromDom(root, dom, &m_context);
+        bool result = DomBuilder::BuildFromDom(root, dom, &m_context, targetType);
         if (result)
         {
             m_root = AZStd::move(root);

@@ -12,7 +12,11 @@
 
 #pragma once
 
+#include <AzCore/Reflection/ReflectionConfig.h>
+#if AZ_REFLECTION_PROTOTYPE_ENABLED
+
 #include <AzCore/base.h>
+#include <AzCore/Reflection/Attributes.h>
 #include <AzCore/RTTI/TypeInfo.h>
 
 namespace AZ::Reflection
@@ -22,22 +26,29 @@ namespace AZ::Reflection
     public:
         virtual ~IDescriber() = default;
 
-        virtual void DescribeInt8(){};
-        virtual void DescribeInt16(){};
-        virtual void DescribeInt32(){};
-        virtual void DescribeInt64(){};
+        virtual void DescribeBool([[maybe_unused]] const IAttributes& attributes){};
 
-        virtual void DescribeUint8(){};
-        virtual void DescribeUint16(){};
-        virtual void DescribeUint32(){};
-        virtual void DescribeUint64(){};
+        virtual void DescribeInt8([[maybe_unused]] const IAttributes& attributes){};
+        virtual void DescribeInt16([[maybe_unused]] const IAttributes& attributes){};
+        virtual void DescribeInt32([[maybe_unused]] const IAttributes& attributes){};
+        virtual void DescribeInt64([[maybe_unused]] const IAttributes& attributes){};
 
-        virtual void DescribeFloat(){};
-        virtual void DescribeDouble(){};
+        virtual void DescribeUint8([[maybe_unused]] const IAttributes& attributes){};
+        virtual void DescribeUint16([[maybe_unused]] const IAttributes& attributes){};
+        virtual void DescribeUint32([[maybe_unused]] const IAttributes& attributes){};
+        virtual void DescribeUint64([[maybe_unused]] const IAttributes& attributes){};
 
-        virtual void DescribeString(){};
+        virtual void DescribeFloat([[maybe_unused]] const IAttributes& attributes){};
+        virtual void DescribeDouble([[maybe_unused]] const IAttributes& attributes){};
 
-        virtual void DescribeObjectBegin([[maybe_unused]] AZStd::string_view type, [[maybe_unused]] const AZ::TypeId& typeId){};
+        virtual void DescribeString([[maybe_unused]] const IAttributes& attributes){};
+
+        virtual void DescribeObjectBegin(
+            [[maybe_unused]] AZStd::string_view type,
+            [[maybe_unused]] const AZ::TypeId& typeId,
+            [[maybe_unused]] const IAttributes& attributes){};
         virtual void DescribeObjectEnd(){};
     };
-}
+} // namespace AZ::Reflection
+
+#endif // AZ_REFLECTION_PROTOTYPE_ENABLED

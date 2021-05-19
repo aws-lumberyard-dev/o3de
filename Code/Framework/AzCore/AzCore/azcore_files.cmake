@@ -438,9 +438,13 @@ set(FILES
     Reflection/AutoGen/Reflection.cpp.jinja
     Reflection/AutoGen/Reflection_Attributes.cpp.jinja
     Reflection/AutoGen/Reflection_Macros.cpp.jinja
+    Reflection/Attributes.h
+    Reflection/Attributes.inl
+    Reflection/Attributes.cpp
     Reflection/IDescriber.h
     Reflection/IVisitor.h
     Reflection/Reflection.h
+    Reflection/ReflectionConfig.h
     RTTI/RTTI.h
     RTTI/TypeInfo.h
     RTTI/ReflectContext.h

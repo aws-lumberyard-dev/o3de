@@ -22,37 +22,10 @@
 
 namespace AzToolsFramework
 {
-    DomModelData::DomModelData(AZStd::string name, AZStd::string path, rapidjson::Value& value, DomModelContext* context)
-        : DomModelData(AZStd::move(name), AZStd::move(path), value, context, AZ::TypeId::CreateNull())
+    DomModelData::DomModelData(
+        AZStd::string name, AZStd::string description, AZStd::string path, rapidjson::Value& value, DomModelContext* context)
+        : DomModelData(AZStd::move(name), AZStd::move(description), AZStd::move(path), value, context, AZ::TypeId::CreateNull())
     {
-    }
-
-    static bool Describe(AZ::Reflection::IDescriber& describer, const AZ::Uuid& type, AZ::SerializeContext* sc)
-    {
-        bool result = false;
-        const AZ::SerializeContext::ClassData* targetClass = sc->FindClassData(type);
-        if (targetClass)
-        {
-            AZ::Attribute* describerAttribute = targetClass->FindAttribute(AZ_CRC_CE("Describer"));
-            if (describerAttribute)
-            {
-                using DecriberFunction = void (*)(AZ::Reflection::IDescriber & describer);
-                auto invocableDescriber = azrtti_cast<AZ::AttributeInvocable<DecriberFunction>*>(describerAttribute);
-                if (invocableDescriber)
-                {
-                    (*invocableDescriber)(describer);
-                    result = true;
-                }
-            }
-            for (const AZ::SerializeContext::ClassElement& element : targetClass->m_elements)
-            {
-                if (element.m_flags & AZ::SerializeContext::ClassElement::FLG_BASE_CLASS)
-                {
-                    result = Describe(describer, element.m_typeId, sc) || result;
-                }
-            }
-        }
-        return result;
     }
 
     DomModelData::DomModelData(DomModelData&& rhs) noexcept
@@ -61,8 +34,10 @@ namespace AzToolsFramework
     }
 
     DomModelData::DomModelData(
-        AZStd::string name, AZStd::string path, rapidjson::Value& value, DomModelContext* context, const AZ::TypeId& targetType)
+        AZStd::string name, AZStd::string description, AZStd::string path, rapidjson::Value& value, DomModelContext* context,
+        const AZ::TypeId& targetType)
         : m_name(AZStd::move(name))
+        , m_description(AZStd::move(description))
         , m_path(AZStd::move(path))
         , m_domValue(&value)
         , m_context(context)
@@ -70,26 +45,16 @@ namespace AzToolsFramework
         using namespace DomPropertyGridInternal;
 
         m_domElement.m_name = m_name.c_str();
-        m_domElement.m_description = "A value in the DOM.";
+        m_domElement.m_description = m_description.c_str();
         m_domElement.m_elementId = AZ::Edit::UIHandlers::Default;
         m_domElement.m_serializeClassElement = nullptr;
 
         if (!targetType.IsNull())
         {
-            bool hasBeenDescribed = false;
-            AZ::SerializeContext* sc = nullptr;
-            AZ::ComponentApplicationBus::BroadcastResult(sc, &AZ::ComponentApplicationBus::Events::GetSerializeContext);
-            if (sc)
-            {
-                DomDescriber describer(value);
-                hasBeenDescribed = Describe(describer, targetType, sc);
-            }
-
-            if (!hasBeenDescribed)
-            {
-                m_value = AZStd::make_any<DomModelNativeData>(value, m_path, context, targetType);
-                AddAttribute(m_domElement.m_attributes, AZ::Edit::Attributes::ChangeNotify, &DomModelData::CommitNativeToDom);
-            }
+            m_value = AZStd::make_any<DomModelNativeData>(value, m_path, context, targetType);
+            AddAttribute(m_domElement.m_attributes, AZ::Edit::Attributes::ChangeNotify, &DomModelData::CommitNativeToDom);
+            AddAttribute(m_domElement.m_attributes, AZ::Edit::Attributes::AutoExpand, true);
+            AddAttribute(m_domElement.m_attributes, AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly);
         }
         else
         {
@@ -143,6 +108,7 @@ namespace AzToolsFramework
         if (this != &rhs)
         {
             m_value = AZStd::move(rhs.m_value);
+            m_description = AZStd::move(rhs.m_description);
             m_name = AZStd::move(rhs.m_name);
             m_path = AZStd::move(rhs.m_path);
             m_targetType = rhs.m_targetType;
@@ -153,7 +119,7 @@ namespace AzToolsFramework
             rhs.m_context = nullptr;
 
             m_domElement.m_elementId = rhs.m_domElement.m_elementId;
-            m_domElement.m_description = rhs.m_domElement.m_description;
+            m_domElement.m_description = m_description.c_str();
             m_domElement.m_name = m_name.c_str();
             m_domElement.m_deprecatedName = rhs.m_domElement.m_deprecatedName;
             m_domElement.m_serializeClassElement = rhs.m_domElement.m_serializeClassElement;
@@ -175,7 +141,17 @@ namespace AzToolsFramework
         auto modelData = reinterpret_cast<const DomModelData*>(handlerPtr);
         if (modelData->m_value.is<DomModelNativeData>())
         {
-            return elementType == azrtti_typeid<DomModelNativeData>() ? &(modelData->m_domElement) : nullptr;
+            if (elementType == azrtti_typeid<DomModelNativeData>())
+            {
+                return &(modelData->m_domElement); 
+            }
+            else if (elementType == azrtti_typeid<AZStd::any>())
+            {
+                return &modelData->m_context->m_hiddenElementDescription;
+            }
+            // Needs to return null instead of the dom element because it should be using any
+            // Edit Context information on the wrapped component.
+            return nullptr;
         }
         else if (
             elementType == azrtti_typeid<DomModelData>() ||
@@ -213,6 +189,22 @@ namespace AzToolsFramework
         }
     }
 
+    bool DomModelData::IsEmpty() const
+    {
+        return m_value.empty();
+    }
+
+    bool DomModelData::IsValid() const
+    {
+        auto data = AZStd::any_cast<DomModelNativeData>(&m_value);
+        return data ? !data->IsEmpty() : !m_value.empty();
+    }
+
+    bool DomModelData::IsObject() const
+    {
+        return m_value.is<AZStd::shared_ptr<DomModelObjectData>>();
+    }
+
     DomModelObjectData* DomModelData::GetObjectData()
     {
         auto data = AZStd::any_cast<AZStd::shared_ptr<DomModelObjectData>>(&m_value);
@@ -225,6 +217,11 @@ namespace AzToolsFramework
         return data != nullptr ? (*data).get() : nullptr;
     }
 
+    bool DomModelData::IsArray() const
+    {
+        return m_value.is<AZStd::shared_ptr<DomModelArrayData>>();
+    }
+
     DomModelArrayData* DomModelData::GetArrayData()
     {
         auto data = AZStd::any_cast<AZStd::shared_ptr<DomModelArrayData>>(&m_value);
@@ -235,6 +232,41 @@ namespace AzToolsFramework
     {
         auto data = AZStd::any_cast<AZStd::shared_ptr<const DomModelArrayData>>(&m_value);
         return data != nullptr ? (*data).get() : nullptr;
+    }
+
+    AZ::Edit::ElementData& DomModelData::GetDomElement()
+    {
+        return m_domElement;
+    }
+
+    const AZ::Edit::ElementData& DomModelData::GetDomElement() const
+    {
+        return m_domElement;
+    }
+
+    rapidjson::Value* DomModelData::GetDomValue()
+    {
+        return m_domValue;
+    }
+
+    const rapidjson::Value* DomModelData::GetDomValue() const
+    {
+        return m_domValue;
+    }
+
+    const AZStd::string& DomModelData::GetName() const
+    {
+        return m_name;
+    }
+
+    const AZStd::string& DomModelData::GetDescription() const
+    {
+        return m_description;
+    }
+
+    const AZStd::string& DomModelData::GetPath() const
+    {
+        return m_path;
     }
 
     AZ::u32 DomModelData::CommitBoolToDom()

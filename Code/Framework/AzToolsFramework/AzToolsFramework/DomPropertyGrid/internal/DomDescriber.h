@@ -12,40 +12,60 @@
 
 #pragma once
 
+#include <AzCore/Reflection/ReflectionConfig.h>
+#if AZ_REFLECTION_PROTOTYPE_ENABLED
+
 #include <AzCore/JSON/document.h>
 #include <AzCore/Reflection/IDescriber.h>
 #include <AzCore/Serialization/Json/StackedString.h>
+#include <AzCore/std/containers/stack.h>
+#include <AzCore/std/string/string_view.h>
 
 namespace AzToolsFramework
 {
+    class DomModelData;
+    struct DomModelContext;
+
     class DomDescriber
         : public AZ::Reflection::IDescriber
     {
     public:
-        explicit DomDescriber(rapidjson::Value& rootValue);
+        DomDescriber(rapidjson::Value& rootValue, DomModelData& rootModel, DomModelContext* context);
         ~DomDescriber() override = default;
 
-        void DescribeInt8() override;
-        void DescribeInt16() override;
-        void DescribeInt32() override;
-        void DescribeInt64() override;
+        void DescribeBool(const AZ::Reflection::IAttributes& attributes) override;
+
+        void DescribeInt8(const AZ::Reflection::IAttributes& attributes) override;
+        void DescribeInt16(const AZ::Reflection::IAttributes& attributes) override;
+        void DescribeInt32(const AZ::Reflection::IAttributes& attributes) override;
+        void DescribeInt64(const AZ::Reflection::IAttributes& attributes) override;
         
-        void DescribeUint8() override;
-        void DescribeUint16() override;
-        void DescribeUint32() override;
-        void DescribeUint64() override;
+        void DescribeUint8(const AZ::Reflection::IAttributes& attributes) override;
+        void DescribeUint16(const AZ::Reflection::IAttributes& attributes) override;
+        void DescribeUint32(const AZ::Reflection::IAttributes& attributes) override;
+        void DescribeUint64(const AZ::Reflection::IAttributes& attributes) override;
         
-        void DescribeFloat() override;
-        void DescribeDouble() override;
+        void DescribeFloat(const AZ::Reflection::IAttributes& attributes) override;
+        void DescribeDouble(const AZ::Reflection::IAttributes& attributes) override;
         
-        void DescribeString() override;
+        void DescribeString(const AZ::Reflection::IAttributes& attributes) override;
         
-        void DescribeObjectBegin(AZStd::string_view type, const AZ::TypeId& typeId) override;
+        void DescribeObjectBegin(AZStd::string_view type, const AZ::TypeId& typeId, const AZ::Reflection::IAttributes& attributes) override;
         void DescribeObjectEnd() override;
 
     private:
-        rapidjson::Value& m_rootValue;
+        DomModelData* AddEntry(
+            rapidjson::Type type, AZStd::string_view defaultName, AZ::Crc32 elementGroup, const AZ::Reflection::IAttributes& attributes,
+            bool isRoot = false);
+        DomModelData* AddModelData(AZStd::string_view name, AZStd::string_view description, rapidjson::Value& value);
+        rapidjson::Value& FindOrAddValue(AZStd::string_view name, rapidjson::Type type);
+
+        AZStd::stack<DomModelData*> m_modelStack;
+        AZStd::stack<rapidjson::Value*> m_valueStack;
         AZ::StackedString m_path{ AZ::StackedString::Format::JsonPointer };
-        size_t m_depth{ 0 };
+        DomModelContext* m_context;
+        size_t m_stackDepth{0};
     };
 } // namespace AzToolsFramework
+
+#endif // AZ_REFLECTION_PROTOTYPE_ENABLED

@@ -66,4 +66,9 @@ namespace AzToolsFramework
                 "Failed to commit native RPE element to JSON because: ", result.ToString(m_path).c_str());
         }
     }
+
+    bool DomModelNativeData::IsEmpty() const
+    {
+        return m_object.empty();
+    }
 } // namespace AzToolsFramework

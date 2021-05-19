@@ -27,7 +27,7 @@ namespace AzToolsFramework
         AZ_TYPE_INFO(AzToolsFramework::DomModelObjectData, "{9AD75854-8397-470D-808C-C979BF925B3B}");
 
         DomModelObjectData() = default;
-        DomModelObjectData(rapidjson::Value& value);
+        explicit DomModelObjectData(rapidjson::Value& value);
 
         AZStd::vector<AZStd::shared_ptr<DomModelData>>& GetElements();
         const AZStd::vector<AZStd::shared_ptr<DomModelData>>& GetElements() const;

@@ -8,7 +8,7 @@ or, if provided, by the license below or the license accompanying this file. Do 
 remove or modify any license notices. This file is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #}
-
+{%- import "Reflection_Attributes.cpp.jinja" as Attrib -%}
 {%- import "Reflection_Macros.cpp.jinja" as Macros -%}
 
 {% macro ExtendableClass(xml, struct)                                                                %}
@@ -44,20 +44,48 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     template<> 
     struct Reflect<{{fullStructName}}>
     {
-        void operator()(IVisitor& visitor, {{fullStructName}}& value)
+    private:
+        auto GetAttributesFor{{struct.attrib['name']}}()
         {
-            visitor.VisitObjectBegin(azrtti_typeid<{{fullStructName}}>());
+            return AZ::Reflection::BuildAttributes(
+{%      set comma = joiner(",")                                                                     -%}
+{%      call(group, name, value) Attrib.ListAllAttributes(struct)                                    %}
+                {{ comma() }} AZ::Reflection::AttributeArgument( AZ_CRC_CE("{{group}}"), AZ_CRC_CE("{{name}}"), {{value}})
+{%       endcall                                                                                    %}
+            );
+        }
+
 {%-  call(variable, name, type, codeName) Macros.ListVariablesInOrder(struct)                        %}
-            Visit(visitor, value.{{codeName}});
+        auto GetAttributesForVariable{{name}}()
+        {
+            return AZ::Reflection::BuildAttributes(
+                AZ::Reflection::AttributeArgument( AZ_CRC_CE("Variable"), AZ_CRC_CE("Name"), "{{name}}")
+{%      call(group, name, value) Attrib.ListAllAttributes(variable)                                  %}
+                , AZ::Reflection::AttributeArgument( AZ_CRC_CE("{{group}}"), AZ_CRC_CE("{{name}}"), {{value}})
+{%       endcall                                                                                     %}
+            );
+        }
+{%-  endcall                                                                                         %}
+
+    public:
+        void operator()(IVisitor& visitor, {{fullStructName}}& value, [[maybe_unused]] const IAttributes& attributes)
+        {
+            auto objectAttributes = GetAttributesFor{{struct.attrib['name']}}();
+            visitor.VisitObjectBegin(azrtti_typeid<{{fullStructName}}>(), 
+                AZ::Reflection::AttributeCombiner(attributes, objectAttributes));
+{%-  call(variable, name, type, codeName) Macros.ListVariablesInOrder(struct)                        %}
+            Visit(visitor, value.{{codeName}}, GetAttributesForVariable{{name}}());
 {%-  endcall                                                                                         %}
             visitor.VisitObjectEnd();
         }
 
-        void operator()(IDescriber& describer)
+        void operator()(IDescriber& describer, [[maybe_unused]] const IAttributes& attributes)
         {
-            describer.DescribeObjectBegin("{{fullStructName}}", azrtti_typeid<{{fullStructName}}>());
+            auto objectAttributes = GetAttributesFor{{struct.attrib['name']}}();
+            describer.DescribeObjectBegin("{{fullStructName}}", azrtti_typeid<{{fullStructName}}>(), 
+                AZ::Reflection::AttributeCombiner(attributes, objectAttributes));
 {%-  call(variable, name, type, codeName) Macros.ListVariablesInOrder(struct)                        %}
-            Describe<{{type}}>(describer);
+            Describe<{{type}}>(describer, GetAttributesForVariable{{name}}());
 {%-  endcall                                                                                         %}
             describer.DescribeObjectEnd();
         }
@@ -65,6 +93,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 {% endmacro                                                                                         -%}
 
 #pragma once
+
+#include <AzCore/Reflection/ReflectionConfig.h>
+#if AZ_REFLECTION_PROTOTYPE_ENABLED
 
 #include <AzCore/base.h>
 #include <AzCore/Reflection/Reflection.h>
@@ -102,3 +133,5 @@ namespace AZ::Reflection
 {%  endfor                                                               %}
 {% endfor                                                                %}
 }
+
+#endif // AZ_REFLECTION_PROTOTYPE_ENABLED

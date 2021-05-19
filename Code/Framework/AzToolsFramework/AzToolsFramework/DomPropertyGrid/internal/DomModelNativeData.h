@@ -29,6 +29,8 @@ namespace AzToolsFramework
 
         void CommitToDom(rapidjson::Value& value) const;
 
+        bool IsEmpty() const;
+
     private:
         AZStd::any m_object;
         AZStd::string_view m_path;
