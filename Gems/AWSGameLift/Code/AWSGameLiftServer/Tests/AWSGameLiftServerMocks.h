@@ -59,36 +59,30 @@ namespace UnitTest
     class AWSGameLiftServerManagerMock : public AWSGameLiftServerManager
     {
     public:
-        AWSGameLiftServerManagerMock(const GameLiftServerProcessDesc desc)
-            : AWSGameLiftServerManager(desc)
+        AWSGameLiftServerManagerMock()
+            : m_gameLiftServerSDKWrapper(AZStd::make_unique<NiceMock<GameLiftServerSDKWrapperMock>>())
+            , m_gameLiftServerSDKWrapperRef(*m_gameLiftServerSDKWrapper)
         {
-            ON_CALL(*this, GetGameLiftServerSDKWrapper())
-                .WillByDefault(Invoke(this, &AWSGameLiftServerManagerMock::GetGameLiftServerSDKWrapperMock));
-        }
-        ~AWSGameLiftServerManagerMock()
-        {
-            m_gameLiftServerSDKWrapperMock.reset();
+            SetGameLiftServerSDKWrapper(AZStd::move(m_gameLiftServerSDKWrapper));
         }
 
-        MOCK_METHOD0(GetGameLiftServerSDKWrapper, AZStd::weak_ptr<GameLiftServerSDKWrapper>());
+        AZStd::unique_ptr<NiceMock<GameLiftServerSDKWrapperMock>> m_gameLiftServerSDKWrapper;
+        NiceMock<GameLiftServerSDKWrapperMock>& m_gameLiftServerSDKWrapperRef;
 
-        AZStd::weak_ptr<GameLiftServerSDKWrapper> GetGameLiftServerSDKWrapperMock()
-        {
-            if (!m_gameLiftServerSDKWrapperMock)
-            {
-                m_gameLiftServerSDKWrapperMock = AZStd::make_shared<NiceMock<GameLiftServerSDKWrapperMock>>();
-            }
-
-            return m_gameLiftServerSDKWrapperMock;
-        }
-
-    protected:
-        AZStd::shared_ptr<NiceMock<GameLiftServerSDKWrapperMock>> m_gameLiftServerSDKWrapperMock;
     };
 
     class AWSGameLiftServerSystemComponentMock : public AWSGameLift::AWSGameLiftServerSystemComponent
     {
     public:
+        AWSGameLiftServerSystemComponentMock()
+        {
+            SetGameLiftServerManager(AZStd::make_unique<NiceMock<AWSGameLiftServerManagerMock>>());
+
+            ON_CALL(*this, Init()).WillByDefault(testing::Invoke(this, &AWSGameLiftServerSystemComponentMock::InitMock));
+            ON_CALL(*this, Activate()).WillByDefault(testing::Invoke(this, &AWSGameLiftServerSystemComponentMock::ActivateMock));
+            ON_CALL(*this, Deactivate()).WillByDefault(testing::Invoke(this, &AWSGameLiftServerSystemComponentMock::DeactivateMock));
+        }
+
         void InitMock()
         {
             AWSGameLift::AWSGameLiftServerSystemComponent::Init();
@@ -104,32 +98,10 @@ namespace UnitTest
             AWSGameLift::AWSGameLiftServerSystemComponent::Deactivate();
         }
 
-        AWSGameLiftServerSystemComponentMock()
-        {
-            ON_CALL(*this, Init()).WillByDefault(testing::Invoke(this, &AWSGameLiftServerSystemComponentMock::InitMock));
-            ON_CALL(*this, Activate()).WillByDefault(testing::Invoke(this, &AWSGameLiftServerSystemComponentMock::ActivateMock));
-            ON_CALL(*this, Deactivate()).WillByDefault(testing::Invoke(this, &AWSGameLiftServerSystemComponentMock::DeactivateMock));
-            ON_CALL(*this, GetGameLiftServerManager())
-                .WillByDefault(testing::Invoke(this, &AWSGameLiftServerSystemComponentMock::GetGameLiftServerManagerMock));
-        }
-
         MOCK_METHOD0(Init, void());
         MOCK_METHOD0(Activate, void());
         MOCK_METHOD0(Deactivate, void());
-        MOCK_METHOD0(GetGameLiftServerManager, AZStd::weak_ptr<AWSGameLiftServerManager>());
 
-        AZStd::weak_ptr<AWSGameLiftServerManager> GetGameLiftServerManagerMock()
-        {
-            if (!m_gameLiftServerManagerMock)
-            {
-                SetGameLiftServerProcessDesc(m_serverProcessDesc);
-                m_gameLiftServerManagerMock = AZStd::make_shared<NiceMock<AWSGameLiftServerManagerMock>>(m_serverProcessDesc);
-            }
-
-            return m_gameLiftServerManagerMock;
-        }
-
-        AZStd::shared_ptr<NiceMock<AWSGameLiftServerManagerMock>> m_gameLiftServerManagerMock;
         GameLiftServerProcessDesc m_serverProcessDesc;
     };
 };

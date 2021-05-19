@@ -15,8 +15,9 @@
 #include <aws/gamelift/server/GameLiftServerAPI.h>
 #include <aws/gamelift/server/model/GameSession.h>
 
-#include <AzCore/std/smart_ptr/shared_ptr.h>
-#include <AzCore/std/smart_ptr/weak_ptr.h>
+#include <AzCore/std/containers/vector.h>
+#include <AzCore/std/string/string.h>
+#include <AzCore/std/smart_ptr/unique_ptr.h>
 
 namespace AWSGameLift
 {
@@ -25,7 +26,7 @@ namespace AWSGameLift
     //! GameLift server process settings.
     struct GameLiftServerProcessDesc
     {
-        std::vector<std::string> m_logPaths; //!< Log paths the servers will write to. Both relative to the game root folder and absolute paths supported.
+        AZStd::vector<AZStd::string> m_logPaths; //!< Log paths the servers will write to. Both relative to the game root folder and absolute paths supported.
 
         int m_port = 0; //!< The port the server will be listening on.
     };
@@ -34,24 +35,24 @@ namespace AWSGameLift
     class AWSGameLiftServerManager
     {
     public:
-        AWSGameLiftServerManager(const GameLiftServerProcessDesc& desc);
+        AWSGameLiftServerManager();
         virtual ~AWSGameLiftServerManager();
-
-        //! Get the GameLift Server SDK wrapper.
-        //! @return GameLift Server SDK wrapper.
-        virtual AZStd::weak_ptr<GameLiftServerSDKWrapper> GetGameLiftServerSDKWrapper();
 
         //! Initialize GameLift API client by calling InitSDK().
         //! @return Whether the initialization is successful.
         bool InitializeGameLiftServerSDK();
 
         //! Notify GameLift that the server process is ready to host a game session.
+        //! @param desc GameLift server process settings.
         //! @return Whether the ProcessReady notification is sent to GameLift.
-        bool NotifyGameLiftProcessReady();
+        bool NotifyGameLiftProcessReady(const GameLiftServerProcessDesc& desc);
 
         //! Handle the destroy game session request.
         //! @return Whether the game session and the server process are shut down.
         bool ShutDownGameSession();
+
+    protected:
+        void SetGameLiftServerSDKWrapper(AZStd::unique_ptr<GameLiftServerSDKWrapper> gameLiftServerSDKWrapper);
 
     private:
         //! Callback function that the GameLift service invokes to activate a new game session.
@@ -68,9 +69,8 @@ namespace AWSGameLift
         //! @return Whether the server process is healthy.
         bool OnHealthCheck();
 
-        GameLiftServerProcessDesc m_serverProcessDesc;
-        Aws::GameLift::GenericOutcomeCallable* m_serverProcessInitOutcome;
-        AZStd::shared_ptr<GameLiftServerSDKWrapper> m_gameLiftServerSDKWrapper;
+        AZStd::unique_ptr<Aws::GameLift::GenericOutcomeCallable> m_serverProcessInitOutcome;
+        AZStd::unique_ptr<GameLiftServerSDKWrapper> m_gameLiftServerSDKWrapper;
         bool m_serverSDKInitialized;
     };
 } // namespace AWSGameLift

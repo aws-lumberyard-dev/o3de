@@ -23,7 +23,7 @@ namespace UnitTest
             ScopedAllocatorSetupFixture::SetUp();
 
             GameLiftServerProcessDesc serverDesc;
-            m_serverManager = AZStd::make_unique<NiceMock<AWSGameLiftServerManagerMock>>(serverDesc);
+            m_serverManager = AZStd::make_unique<NiceMock<AWSGameLiftServerManagerMock>>();
         }
 
         void TearDown() override
@@ -38,7 +38,7 @@ namespace UnitTest
 
     TEST_F(GameLiftServerManagerTest, InitializeGameLiftServerSDK_InitializeTwice_InitSDKCalledOnce)
     {
-        EXPECT_CALL(*((GameLiftServerSDKWrapperMock*)m_serverManager->GetGameLiftServerSDKWrapper().lock().get()), InitSDK()).Times(1);
+        EXPECT_CALL(m_serverManager->m_gameLiftServerSDKWrapperRef, InitSDK()).Times(1);
 
         EXPECT_TRUE(m_serverManager->InitializeGameLiftServerSDK());
 
@@ -49,12 +49,10 @@ namespace UnitTest
 
     TEST_F(GameLiftServerManagerTest, NotifyGameLiftProcessReady_SDKNotInitialized_FailToNotifyGameLift)
     {
-        EXPECT_CALL(
-            *((GameLiftServerSDKWrapperMock*)m_serverManager->GetGameLiftServerSDKWrapper().lock().get()), ProcessReadyAsync(testing::_))
-            .Times(0);
+        EXPECT_CALL(m_serverManager->m_gameLiftServerSDKWrapperRef, ProcessReadyAsync(testing::_)).Times(0);
 
         AZ_TEST_START_TRACE_SUPPRESSION;
-        EXPECT_FALSE(m_serverManager->NotifyGameLiftProcessReady());
+        EXPECT_FALSE(m_serverManager->NotifyGameLiftProcessReady(GameLiftServerProcessDesc()));
         AZ_TEST_STOP_TRACE_SUPPRESSION(1);
     }
 
@@ -62,18 +60,14 @@ namespace UnitTest
     {
         EXPECT_TRUE(m_serverManager->InitializeGameLiftServerSDK());
 
-        EXPECT_CALL(
-            *((GameLiftServerSDKWrapperMock*)m_serverManager->GetGameLiftServerSDKWrapper().lock().get()), ProcessReadyAsync(testing::_))
-            .Times(1);
+        EXPECT_CALL(m_serverManager->m_gameLiftServerSDKWrapperRef, ProcessReadyAsync(testing::_)).Times(1);
 
-        EXPECT_TRUE(m_serverManager->NotifyGameLiftProcessReady());
+        EXPECT_TRUE(m_serverManager->NotifyGameLiftProcessReady(GameLiftServerProcessDesc()));
     }
 
     TEST_F(GameLiftServerManagerTest, TerminateServerProcess_SDKNotInitialized_FailToNotifyGameLift)
     {
-        EXPECT_CALL(
-            *((GameLiftServerSDKWrapperMock*)m_serverManager->GetGameLiftServerSDKWrapper().lock().get()), ProcessEnding())
-            .Times(0);
+        EXPECT_CALL(m_serverManager->m_gameLiftServerSDKWrapperRef, ProcessEnding()).Times(0);
 
         AZ_TEST_START_TRACE_SUPPRESSION;
         EXPECT_FALSE(m_serverManager->ShutDownGameSession());
@@ -84,8 +78,7 @@ namespace UnitTest
     {
         EXPECT_TRUE(m_serverManager->InitializeGameLiftServerSDK());
 
-        EXPECT_CALL(*((GameLiftServerSDKWrapperMock*)m_serverManager->GetGameLiftServerSDKWrapper().lock().get()), ProcessEnding())
-            .Times(1);
+        EXPECT_CALL(m_serverManager->m_gameLiftServerSDKWrapperRef, ProcessEnding()).Times(1);
 
         EXPECT_TRUE(m_serverManager->ShutDownGameSession());
     }

@@ -89,20 +89,5 @@ namespace UnitTest
         m_entity->Deactivate();
     }
 
-    TEST_F(AWSGameLiftServerSystemComponentTest, SetGameLiftServerProcessDesc_ValidLogPath_AddToServerProcessDesc)
-    {
-        m_AWSGameLiftServerSystemsComponent->GetGameLiftServerManager();
 
-        EXPECT_EQ(m_AWSGameLiftServerSystemsComponent->m_serverProcessDesc.m_logPaths.size(), 1);
-    }
-
-    TEST_F(AWSGameLiftServerSystemComponentTest, SetGameLiftServerProcessDesc_InvalidFileIO_FailToSetLogPath)
-    {
-        AZ::IO::FileIOBase::SetInstance(nullptr);
-        AZ_TEST_START_TRACE_SUPPRESSION;
-        m_AWSGameLiftServerSystemsComponent->GetGameLiftServerManager();
-        AZ_TEST_STOP_TRACE_SUPPRESSION(1);
-
-        EXPECT_EQ(m_AWSGameLiftServerSystemsComponent->m_serverProcessDesc.m_logPaths.size(), 0);
-    }
 } // namespace UnitTest

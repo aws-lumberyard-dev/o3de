@@ -15,30 +15,20 @@
 
 #include <AzCore/Debug/Trace.h>
 #include <AzCore/std/bind/bind.h>
-#include <AzCore/std/smart_ptr/make_shared.h>
 
 namespace AWSGameLift
 {
-    AWSGameLiftServerManager::AWSGameLiftServerManager(const GameLiftServerProcessDesc& desc)
-        : m_serverProcessDesc(desc)
-        , m_serverProcessInitOutcome(nullptr)
+    AWSGameLiftServerManager::AWSGameLiftServerManager()
+        : m_serverProcessInitOutcome(nullptr)
         , m_serverSDKInitialized(false)
+        , m_gameLiftServerSDKWrapper(AZStd::make_unique<GameLiftServerSDKWrapper>())
     {
     }
 
     AWSGameLiftServerManager::~AWSGameLiftServerManager()
     {
         m_gameLiftServerSDKWrapper.reset();
-    }
-
-    AZStd::weak_ptr<GameLiftServerSDKWrapper> AWSGameLiftServerManager::GetGameLiftServerSDKWrapper()
-    {
-        if (!m_gameLiftServerSDKWrapper)
-        {
-            m_gameLiftServerSDKWrapper = AZStd::make_shared<GameLiftServerSDKWrapper>();
-        }
-
-        return m_gameLiftServerSDKWrapper;
+        m_serverProcessInitOutcome.reset();
     }
 
     bool AWSGameLiftServerManager::InitializeGameLiftServerSDK()
@@ -49,7 +39,8 @@ namespace AWSGameLift
             return false;
         }
 
-        Aws::GameLift::Server::InitSDKOutcome initOutcome = GetGameLiftServerSDKWrapper().lock()->InitSDK();
+        AZ_TracePrintf("AWSGameLift", "Initiating Amazon GameLift server SDK...");
+        Aws::GameLift::Server::InitSDKOutcome initOutcome = m_gameLiftServerSDKWrapper->InitSDK();
         m_serverSDKInitialized = initOutcome.IsSuccess();
 
         AZ_Error("AWSGameLift", m_serverSDKInitialized, "Failed to initialize GameLift Server SDK.\n");
@@ -57,7 +48,7 @@ namespace AWSGameLift
         return m_serverSDKInitialized;
     }
 
-    bool AWSGameLiftServerManager::NotifyGameLiftProcessReady()
+    bool AWSGameLiftServerManager::NotifyGameLiftProcessReady(const GameLiftServerProcessDesc& desc)
     {
         if (!m_serverSDKInitialized)
         {
@@ -65,10 +56,11 @@ namespace AWSGameLift
             return false;
         }
 
-        AZ_Warning("AWSGameLift", m_serverProcessDesc.m_port != 0, "Server will be listening on ephemeral port");
+        AZ_Warning("AWSGameLift", desc.m_port != 0, "Server will be listening on ephemeral port");
 
+        // The GameLift ProcessParameters object expects an vector (std::vector) of standard strings (std::string) as the log paths.
         std::vector<std::string> logPaths;
-        for (const std::string& path : m_serverProcessDesc.m_logPaths)
+        for (const AZStd::string& path : desc.m_logPaths)
         {
             logPaths.push_back(path.c_str());
         }
@@ -76,11 +68,12 @@ namespace AWSGameLift
         Aws::GameLift::Server::ProcessParameters processReadyParameter = Aws::GameLift::Server::ProcessParameters(
             AZStd::bind(&AWSGameLiftServerManager::OnStartGameSession, this, AZStd::placeholders::_1),
             AZStd::bind(&AWSGameLiftServerManager::OnUpdateGameSession, this),
-            AZStd::bind(&AWSGameLiftServerManager::OnProcessTerminate, this), AZStd::bind(&AWSGameLiftServerManager::OnHealthCheck, this),
-            m_serverProcessDesc.m_port, Aws::GameLift::Server::LogParameters(logPaths));
+            AZStd::bind(&AWSGameLiftServerManager::OnProcessTerminate, this),
+            AZStd::bind(&AWSGameLiftServerManager::OnHealthCheck, this),
+            desc.m_port, Aws::GameLift::Server::LogParameters(logPaths));
 
         m_serverProcessInitOutcome =
-            new Aws::GameLift::GenericOutcomeCallable(GetGameLiftServerSDKWrapper().lock()->ProcessReadyAsync(processReadyParameter));
+            AZStd::make_unique<Aws::GameLift::GenericOutcomeCallable>(m_gameLiftServerSDKWrapper->ProcessReadyAsync(processReadyParameter));
 
         return true;
     }
@@ -105,7 +98,7 @@ namespace AWSGameLift
 
         // TODO: Game-specific tasks required to gracefully shut down the game session and the server process.
 
-        Aws::GameLift::GenericOutcome processEndingOutcome = GetGameLiftServerSDKWrapper().lock()->ProcessEnding();
+        Aws::GameLift::GenericOutcome processEndingOutcome = m_gameLiftServerSDKWrapper->ProcessEnding();
         bool processEndingIsSuccess = processEndingOutcome.IsSuccess();
 
         AZ_Error(
@@ -125,5 +118,11 @@ namespace AWSGameLift
     {
         // TODO: Perform game-specific tasks to prep for newly matched players
         return;
+    }
+
+    void AWSGameLiftServerManager::SetGameLiftServerSDKWrapper(AZStd::unique_ptr<GameLiftServerSDKWrapper> gameLiftServerSDKWrapper)
+    {
+        m_gameLiftServerSDKWrapper.reset();
+        m_gameLiftServerSDKWrapper = AZStd::move(gameLiftServerSDKWrapper);
     }
 } // namespace AWSGameLift

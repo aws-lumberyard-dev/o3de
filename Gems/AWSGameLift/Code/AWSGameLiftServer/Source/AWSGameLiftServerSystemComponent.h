@@ -19,7 +19,7 @@ namespace AWSGameLift
     struct GameLiftServerProcessDesc;
     class AWSGameLiftServerManager;
 
-    //! Gem server system component. Responsible for creating the Game server.
+    //! Gem server system component. Responsible for managing the server process for hosting game sessions via the GameLift server manager.
     class AWSGameLiftServerSystemComponent
         : public AZ::Component
     {
@@ -44,11 +44,14 @@ namespace AWSGameLift
         void Deactivate() override;
         ////////////////////////////////////////////////////////////////////////
 
-        virtual AZStd::weak_ptr<AWSGameLiftServerManager> GetGameLiftServerManager();
-        void SetGameLiftServerProcessDesc(GameLiftServerProcessDesc& serverProcessDesc);
+        void SetGameLiftServerManager(AZStd::unique_ptr<AWSGameLiftServerManager> gameLiftServerManager);
 
     private:
-        AZStd::shared_ptr<AWSGameLiftServerManager> m_gameLiftServerManager;
+        //! Update the serverProcessDesc with appropriate server port number and log paths.
+        //! @param serverProcessDesc Desc object to update.
+        void UpdateGameLiftServerProcessDesc(GameLiftServerProcessDesc& serverProcessDesc);
+
+        AZStd::unique_ptr<AWSGameLiftServerManager> m_gameLiftServerManager;
     };
 
 } // namespace AWSGameLift
