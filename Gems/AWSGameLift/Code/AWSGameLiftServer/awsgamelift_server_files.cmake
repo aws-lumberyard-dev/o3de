@@ -10,6 +10,10 @@
 #
 
 set(FILES
+    Source/AWSGameLiftServerManager.cpp
+    Source/AWSGameLiftServerManager.h
     Source/AWSGameLiftServerSystemComponent.cpp
     Source/AWSGameLiftServerSystemComponent.h
+    Source/GameLiftServerSDKWrapper.cpp
+    Source/GameLiftServerSDKWrapper.h
 )

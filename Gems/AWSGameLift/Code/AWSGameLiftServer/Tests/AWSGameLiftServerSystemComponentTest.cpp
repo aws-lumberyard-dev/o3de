@@ -10,97 +10,99 @@
 *
 */
 
-#include <AWSGameLiftServerSystemComponent.h>
+#include <AWSGameLiftServerMocks.h>
 
 #include <AzCore/Component/Entity.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/UnitTest/TestTypes.h>
+#include <AzFramework/IO/LocalFileIO.h>
 #include <AzTest/AzTest.h>
 
-namespace AWSGameLiftServerUnitTest
+namespace UnitTest
 {
-    class AWSGameLiftServerSystemComponentMock
-        : public AWSGameLift::AWSGameLiftServerSystemComponent
+    class AWSGameLiftServerSystemComponentTest
+        : public ScopedAllocatorSetupFixture
     {
     public:
-        void InitMock()
+        void SetUp() override
         {
-            AWSGameLift::AWSGameLiftServerSystemComponent::Init();
+            ScopedAllocatorSetupFixture::SetUp();
+
+            m_componentDescriptor.reset(AWSGameLift::AWSGameLiftServerSystemComponent::CreateDescriptor());
+            m_componentDescriptor->Reflect(m_serializeContext.get());
+
+            m_entity = aznew AZ::Entity();
+
+            m_AWSGameLiftServerSystemsComponent = aznew NiceMock<AWSGameLiftServerSystemComponentMock>();
+            m_entity->AddComponent(m_AWSGameLiftServerSystemsComponent);
+
+            // Set up the file IO and alias
+            m_localFileIO = aznew AZ::IO::LocalFileIO();
+            m_priorFileIO = AZ::IO::FileIOBase::GetInstance();
+
+            AZ::IO::FileIOBase::SetInstance(nullptr);
+            AZ::IO::FileIOBase::SetInstance(m_localFileIO);
+            m_localFileIO->SetAlias("@log@", AZ_TRAIT_TEST_ROOT_FOLDER);
         }
 
-        void ActivateMock()
+        void TearDown() override
         {
-            AWSGameLift::AWSGameLiftServerSystemComponent::Activate();
+            AZ::IO::FileIOBase::SetInstance(nullptr);
+            delete m_localFileIO;
+            AZ::IO::FileIOBase::SetInstance(m_priorFileIO);
+
+            m_entity->RemoveComponent(m_AWSGameLiftServerSystemsComponent);
+            delete m_AWSGameLiftServerSystemsComponent;
+            delete m_entity;
+
+            m_serializeContext.reset();
+            m_componentDescriptor.reset();
+
+            ScopedAllocatorSetupFixture::TearDown();
         }
 
-        void DeactivateMock()
-        {
-            AWSGameLift::AWSGameLiftServerSystemComponent::Deactivate();
-        }
+        AZStd::unique_ptr<AZ::ComponentDescriptor> m_componentDescriptor;
+        AZStd::unique_ptr<AZ::SerializeContext> m_serializeContext;
 
-        AWSGameLiftServerSystemComponentMock()
-        {
-            ON_CALL(*this, Init()).WillByDefault(testing::Invoke(this, &AWSGameLiftServerSystemComponentMock::InitMock));
-            ON_CALL(*this, Activate()).WillByDefault(testing::Invoke(this, &AWSGameLiftServerSystemComponentMock::ActivateMock));
-            ON_CALL(*this, Deactivate()).WillByDefault(testing::Invoke(this, &AWSGameLiftServerSystemComponentMock::DeactivateMock));
-        }
+        AZ::Entity* m_entity;      
+        NiceMock<AWSGameLiftServerSystemComponentMock>* m_AWSGameLiftServerSystemsComponent;
 
-        MOCK_METHOD0(Init, void());
-        MOCK_METHOD0(Activate, void());
-        MOCK_METHOD0(Deactivate, void());  
+        AZ::IO::FileIOBase* m_priorFileIO;
+        AZ::IO::FileIOBase* m_localFileIO;
     };
-}
 
-class AWSGameLiftServerSystemComponentTest
-    : public UnitTest::ScopedAllocatorSetupFixture
-{
-protected:
-    AZStd::unique_ptr<AZ::ComponentDescriptor> m_componentDescriptor;
-
-    AZStd::unique_ptr<AZ::SerializeContext> m_serializeContext;
-    AZStd::unique_ptr<AZ::BehaviorContext> m_behaviorContext;
-
-    void SetUp() override
+    TEST_F(AWSGameLiftServerSystemComponentTest, ActivateDeactivateComponent_ExecuteInOrder_Success)
     {
-        m_componentDescriptor.reset(AWSGameLift::AWSGameLiftServerSystemComponent::CreateDescriptor());
-        m_componentDescriptor->Reflect(m_serializeContext.get());
+        testing::Sequence s1, s2;
 
-        m_entity = aznew AZ::Entity();
+        EXPECT_CALL(*m_AWSGameLiftServerSystemsComponent, Init()).Times(1).InSequence(s1);
+        EXPECT_CALL(*m_AWSGameLiftServerSystemsComponent, Activate()).Times(1).InSequence(s1);
 
-        m_AWSGameLiftServerSystemsComponent = aznew testing::NiceMock<AWSGameLiftServerUnitTest::AWSGameLiftServerSystemComponentMock>();
-        m_entity->AddComponent(m_AWSGameLiftServerSystemsComponent);
+        EXPECT_CALL(*m_AWSGameLiftServerSystemsComponent, Deactivate()).Times(1).InSequence(s2);
+
+        // activate component
+        m_entity->Init();
+        m_entity->Activate();
+
+        // deactivate component
+        m_entity->Deactivate();
     }
 
-    void TearDown() override
+    TEST_F(AWSGameLiftServerSystemComponentTest, SetGameLiftServerProcessDesc_ValidLogPath_AddToServerProcessDesc)
     {
-        m_entity->RemoveComponent(m_AWSGameLiftServerSystemsComponent);
-        delete m_AWSGameLiftServerSystemsComponent;
-        delete m_entity;
+        m_AWSGameLiftServerSystemsComponent->GetGameLiftServerManager();
 
-        m_componentDescriptor.reset();
+        EXPECT_EQ(m_AWSGameLiftServerSystemsComponent->m_serverProcessDesc.m_logPaths.size(), 1);
     }
 
-public:
-    testing::NiceMock<AWSGameLiftServerUnitTest::AWSGameLiftServerSystemComponentMock> *m_AWSGameLiftServerSystemsComponent;
-    AZ::Entity* m_entity = nullptr;
-};
+    TEST_F(AWSGameLiftServerSystemComponentTest, SetGameLiftServerProcessDesc_InvalidFileIO_FailToSetLogPath)
+    {
+        AZ::IO::FileIOBase::SetInstance(nullptr);
+        AZ_TEST_START_TRACE_SUPPRESSION;
+        m_AWSGameLiftServerSystemsComponent->GetGameLiftServerManager();
+        AZ_TEST_STOP_TRACE_SUPPRESSION(1);
 
-
-
-TEST_F(AWSGameLiftServerSystemComponentTest, ActivateDeactivate_Success)
-{
-    testing::Sequence s1, s2;
-
-    EXPECT_CALL(*m_AWSGameLiftServerSystemsComponent, Init()).Times(1).InSequence(s1);
-    EXPECT_CALL(*m_AWSGameLiftServerSystemsComponent, Activate()).Times(1).InSequence(s1);
-
-    EXPECT_CALL(*m_AWSGameLiftServerSystemsComponent, Deactivate()).Times(1).InSequence(s2);
-
-    // activate component
-    m_entity->Init();
-    m_entity->Activate();
-
-    // deactivate component
-    m_entity->Deactivate();
-}
+        EXPECT_EQ(m_AWSGameLiftServerSystemsComponent->m_serverProcessDesc.m_logPaths.size(), 0);
+    }
+} // namespace UnitTest
