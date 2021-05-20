@@ -15,17 +15,5 @@
 
 namespace GradientSignal
 {
-    EditorImageGradientComponentMode::EditorImageGradientComponentMode(
-        const AZ::EntityComponentIdPair& entityComponentIdPair, AZ::Uuid componentType)
-        : EditorBaseComponentMode(entityComponentIdPair, componentType)
-    {
-    }
-  
-    EditorImageGradientComponentMode::~EditorImageGradientComponentMode()
-    {
-    }
-  
-    void EditorImageGradientComponentMode::Refresh()
-    {
-    }
+    // TODO: Implement "Component Mode" functionality for Image Gradient Component
 } // namespace GradientSignal

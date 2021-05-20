@@ -20,11 +20,11 @@ namespace GradientSignal
         : public AzToolsFramework::ComponentModeFramework::EditorBaseComponentMode
     {
     public:
-        EditorImageGradientComponentMode(
-            const AZ::EntityComponentIdPair& entityComponentIdPair, AZ::Uuid componentType);
-        ~EditorImageGradientComponentMode();
-  
-        // EditorBaseComponentMode
-        void Refresh() override;
+        EditorImageGradientComponentMode(const AZ::EntityComponentIdPair& entityComponentIdPair, AZ::Uuid componentType)
+            : EditorBaseComponentMode(entityComponentIdPair, componentType) {  }
+
+        ~EditorImageGradientComponentMode() override = default;
+
+        void Refresh() override { }
     };
 } // namespace GradientSignal

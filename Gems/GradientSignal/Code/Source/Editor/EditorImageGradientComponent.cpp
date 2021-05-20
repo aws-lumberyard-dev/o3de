@@ -13,25 +13,18 @@
 #include "GradientSignal_precompiled.h"
 #include "EditorImageGradientComponent.h"
 
-// Begin adding "component mode"
 #include "EditorImageGradientComponentMode.h"
-// End add
 
 namespace GradientSignal
 {
     void EditorImageGradientComponent::Reflect(AZ::ReflectContext* context)
     {
-        // Original code inherits EditorGradientComponentBase, but I don't know how to add the fields on top of the original?
-        // EditorGradientComponentBase::ReflectSubClass<EditorImageGradientComponent, BaseClassType>(context);
-
-        // Begin add
         BaseClassType::Reflect(context);
 
         if (auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serializeContext->Class<EditorImageGradientComponent, BaseClassType>()
                 ->Version(1)
-                // Component Mode concept added
                 ->Field("ComponentMode", &EditorImageGradientComponent::m_componentModeDelegate)
                 ;
 
@@ -43,9 +36,8 @@ namespace GradientSignal
                     ->Attribute(AZ::Edit::Attributes::ViewportIcon, s_viewportIcon)
                     ->Attribute(AZ::Edit::Attributes::HelpPageURL, s_helpUrl)
                     ->Attribute(AZ::Edit::Attributes::Category, s_categoryName)
-                    ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC("Game", 0x232b318c))
+                    ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC_CE("Game"))
                     ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
-                    // Component Mode concept added
                     ->DataElement(AZ::Edit::UIHandlers::Default, &EditorImageGradientComponent::m_componentModeDelegate,
                         "Component Mode", "Image Gradient Component Mode")
                     ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly);
@@ -53,7 +45,6 @@ namespace GradientSignal
         }
     }
 
-    // Begin adding Activate() and Deactivate() functions to override and connect with component mode
     void EditorImageGradientComponent::Activate()
     {
         BaseClassType::Activate();
