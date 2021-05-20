@@ -15,6 +15,8 @@
 #include <GradientSignal/Editor/EditorGradientComponentBase.h>
 #include <Components/ImageGradientComponent.h>
 
+#include <AzToolsFramework/ComponentMode/ComponentModeDelegate.h> // Add component mode functionality
+
 namespace GradientSignal
 {
     class EditorImageGradientComponent
@@ -25,11 +27,19 @@ namespace GradientSignal
         AZ_EDITOR_COMPONENT(EditorImageGradientComponent, EditorImageGradientComponentTypeId, BaseClassType);
         static void Reflect(AZ::ReflectContext* context);
 
+        void Activate() override;
+        void Deactivate() override;
+
         static constexpr const char* const s_categoryName = "Gradients";
         static constexpr const char* const s_componentName = "Image Gradient";
         static constexpr const char* const s_componentDescription = "Generates a gradient by sampling an image asset";
         static constexpr const char* const s_icon = "Editor/Icons/Components/Gradient.svg";
         static constexpr const char* const s_viewportIcon = "Editor/Icons/Components/Viewport/Gradient.png";
         static constexpr const char* const s_helpUrl = "https://docs.aws.amazon.com/console/lumberyard/gradients/image-gradient";
+
+    protected:
+        // Component mode functionality
+        using ComponentModeDelegate = AzToolsFramework::ComponentModeFramework::ComponentModeDelegate;
+        ComponentModeDelegate m_componentModeDelegate; 
     };
 }
