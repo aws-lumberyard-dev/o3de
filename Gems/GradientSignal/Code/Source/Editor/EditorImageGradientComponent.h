@@ -15,7 +15,7 @@
 #include <GradientSignal/Editor/EditorGradientComponentBase.h>
 #include <Components/ImageGradientComponent.h>
 
-#include <AzToolsFramework/ComponentMode/ComponentModeDelegate.h> // Add component mode functionality
+#include <AzToolsFramework/ComponentMode/ComponentModeDelegate.h>
 
 namespace GradientSignal
 {
@@ -38,7 +38,6 @@ namespace GradientSignal
         static constexpr const char* const s_helpUrl = "https://docs.aws.amazon.com/console/lumberyard/gradients/image-gradient";
 
     protected:
-        // Component mode functionality
         using ComponentModeDelegate = AzToolsFramework::ComponentModeFramework::ComponentModeDelegate;
         ComponentModeDelegate m_componentModeDelegate; 
     };
