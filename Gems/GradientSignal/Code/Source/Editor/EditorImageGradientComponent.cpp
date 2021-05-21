@@ -12,7 +12,6 @@
 
 #include "GradientSignal_precompiled.h"
 #include "EditorImageGradientComponent.h"
-
 #include "EditorImageGradientComponentMode.h"
 
 namespace GradientSignal
@@ -48,7 +47,8 @@ namespace GradientSignal
     void EditorImageGradientComponent::Activate()
     {
         BaseClassType::Activate();
-        m_componentModeDelegate.ConnectWithSingleComponentMode<EditorImageGradientComponent, EditorImageGradientComponentMode>(AZ::EntityComponentIdPair(GetEntityId(), GetId()), nullptr);
+        m_componentModeDelegate.ConnectWithSingleComponentMode<EditorImageGradientComponent, EditorImageGradientComponentMode>(
+            AZ::EntityComponentIdPair(GetEntityId(), GetId()), nullptr);
     }
 
     void EditorImageGradientComponent::Deactivate()
