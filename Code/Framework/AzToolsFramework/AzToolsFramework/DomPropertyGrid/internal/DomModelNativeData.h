@@ -35,5 +35,6 @@ namespace AzToolsFramework
         AZStd::any m_object;
         AZStd::string_view m_path;
         DomModelContext* m_context{nullptr};
+        bool m_storeTypeId{false};
     };
 } // namespace AzToolsFramework

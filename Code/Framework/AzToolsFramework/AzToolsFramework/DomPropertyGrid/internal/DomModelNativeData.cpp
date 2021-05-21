@@ -23,8 +23,15 @@ namespace AzToolsFramework
         AZStd::any instance = m_context->m_serializeContext->CreateAny(targetType);
         if (!instance.empty())
         {
+            if (value.IsObject())
+            {
+                m_storeTypeId = value.FindMember(AZ::JsonSerialization::TypeIdFieldIdentifier) != value.MemberEnd();
+            }
+
+            AZ::JsonDeserializerSettings settings;
+            settings.m_serializeContext = m_context->m_serializeContext;
             AZ::JsonSerializationResult::ResultCode result =
-                AZ::JsonSerialization::Load(AZStd::any_cast<void>(&instance), targetType, value);
+                AZ::JsonSerialization::Load(AZStd::any_cast<void>(&instance), targetType, value, settings);
             if (result.GetProcessing() != AZ::JsonSerializationResult::Processing::Halted)
             {
                 m_object = AZStd::move(instance);
@@ -54,16 +61,23 @@ namespace AzToolsFramework
     void DomModelNativeData::CommitToDom(rapidjson::Value& value) const
     {
         if (!m_object.empty())
-        {
+        {   
             value.SetNull();
             AZ::JsonSerializerSettings settings;
             settings.m_keepDefaults = true;
+            settings.m_serializeContext = m_context->m_serializeContext;
             [[maybe_unused]] AZ::JsonSerializationResult::ResultCode result =
             AZ::JsonSerialization::Store(
                 value, *(m_context->m_domAllocator), AZStd::any_cast<void>(&m_object), nullptr, m_object.type(), settings);
             AZ_Assert(
                 result.GetProcessing() != AZ::JsonSerializationResult::Processing::Halted,
                 "Failed to commit native RPE element to JSON because: ", result.ToString(m_path).c_str());
+
+            if (m_storeTypeId)
+            {
+                AZ::JsonSerialization::StoreTypeId(
+                    value, *(m_context->m_domAllocator), m_object.type(), m_path, settings);
+            }
         }
     }
 
