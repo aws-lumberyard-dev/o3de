@@ -10,6 +10,8 @@
 #
 
 set(FILES
+    Tests/AWSGameLiftServerMocks.h
+    Tests/AWSGameLiftServerManagerTest.cpp
     Tests/AWSGameLiftServerTest.cpp
     Tests/AWSGameLiftServerSystemComponentTest.cpp
 )

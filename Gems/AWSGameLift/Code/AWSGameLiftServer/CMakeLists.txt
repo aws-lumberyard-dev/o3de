@@ -50,7 +50,6 @@ if(PAL_TRAIT_BUILD_TESTS_SUPPORTED)
         NAME AWSGameLift.Server.Tests ${PAL_TRAIT_TEST_TARGET_TYPE}
         NAMESPACE Gem
         FILES_CMAKE
-            awsgamelift_server_files.cmake
             awsgamelift_server_tests_files.cmake
         INCLUDE_DIRECTORIES
             PRIVATE
@@ -58,8 +57,9 @@ if(PAL_TRAIT_BUILD_TESTS_SUPPORTED)
                 Source
         BUILD_DEPENDENCIES
             PRIVATE
-                AZ::AzTest
                 AZ::AzCore
+                AZ::AzFramework
+                AZ::AzTest
                 Gem::AWSGameLift.Server.Static
                 3rdParty::AWSGameLiftServerSDK
     )
