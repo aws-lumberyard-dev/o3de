@@ -557,8 +557,15 @@ namespace AZ
         const SerializeContext::ClassData* data = context.GetSerializeContext()->FindClassData(typeId);
         if (data)
         {
-            output = JsonSerializer::StoreTypeName(*data, context);
-            return context.Report(Tasks::WriteValue, Outcomes::Success, "Type id successfully stored to json value.");
+            if (output.IsObject())
+            {
+                return InsertTypeId(output, *data, context);
+            }
+            else
+            {
+                output = JsonSerializer::StoreTypeName(*data, context);
+                return context.Report(Tasks::WriteValue, Outcomes::Success, "Type id successfully stored to json value.");
+            }
         }
         else
         {
@@ -575,17 +582,26 @@ namespace AZ
 
         if (output.IsObject())
         {
-            rapidjson::Value insertedObject(rapidjson::kObjectType);
-            insertedObject.AddMember(
-                rapidjson::StringRef(JsonSerialization::TypeIdFieldIdentifier), StoreTypeName(classData, context),
-                context.GetJsonAllocator());
-
-            for (auto& element : output.GetObject())
+            if (output.MemberCount() > 0)
             {
-                insertedObject.AddMember(AZStd::move(element.name), AZStd::move(element.value), context.GetJsonAllocator());
+                rapidjson::Value insertedObject(rapidjson::kObjectType);
+                insertedObject.AddMember(
+                    rapidjson::StringRef(JsonSerialization::TypeIdFieldIdentifier), StoreTypeName(classData, context),
+                    context.GetJsonAllocator());
+
+                for (auto& element : output.GetObject())
+                {
+                    insertedObject.AddMember(AZStd::move(element.name), AZStd::move(element.value), context.GetJsonAllocator());
+                }
+                output = AZStd::move(insertedObject);
             }
-            output = AZStd::move(insertedObject);
-            return ResultCode(Tasks::WriteValue, Outcomes::Success);
+            else
+            {
+                output.AddMember(
+                    rapidjson::StringRef(JsonSerialization::TypeIdFieldIdentifier), StoreTypeName(classData, context),
+                    context.GetJsonAllocator());
+            }
+            return context.Report(Tasks::WriteValue, Outcomes::Success, "Type id successfully inserted into JSON Object.");
         }
         else
         {

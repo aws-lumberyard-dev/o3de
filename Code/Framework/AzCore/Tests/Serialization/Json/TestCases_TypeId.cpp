@@ -278,7 +278,7 @@ namespace JsonSerializationTests
         Expect_DocStrEq(R"("{E7829F37-C577-4F2B-A85B-6F331548354C} Inherited")", false);
     }
 
-    TEST_F(JsonSerializationTests, StoreTypeId_UnknowmType_StoresUuidWithName)
+    TEST_F(JsonSerializationTests, StoreTypeId_UnknowmType_ReportsError)
     {
         using namespace AZ;
         using namespace AZ::JsonSerializationResult;
@@ -289,5 +289,29 @@ namespace JsonSerializationTests
 
         EXPECT_EQ(Processing::Halted, result.GetProcessing());
         EXPECT_EQ(Outcomes::Unknown, result.GetOutcome());
+    }
+
+    TEST_F(JsonSerializationTests, StoreTypeId_InsertInObject_ObjectContainsAllElementsAndHasTypeIdAtTop)
+    {
+        using namespace AZ;
+        using namespace AZ::JsonSerializationResult;
+
+        m_jsonDocument->Parse(R"(
+            {
+                "Val1": 1,
+                "Val2": "hello"
+            })");
+
+        Uuid input = azrtti_typeid<Vector3>();
+        ResultCode result = JsonSerialization::StoreTypeId(
+            *m_jsonDocument, m_jsonDocument->GetAllocator(), input, AZStd::string_view{}, *m_serializationSettings);
+
+        EXPECT_EQ(Processing::Completed, result.GetProcessing());
+        Expect_DocStrEq(R"(
+            {
+                "$type": "Vector3",
+                "Val1": 1,
+                "Val2": "hello"
+            })");
     }
 } // namespace JsonSerializationTests
