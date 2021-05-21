@@ -17,13 +17,12 @@
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/EditContextConstants.inl>
 #include <AzCore/Console/IConsole.h>
+#include <AzCore/Interface/Interface.h>
 #include <AzCore/IO/FileIO.h>
 #include <AzCore/IO/SystemFile.h>
 
 namespace AWSGameLift
 {
-    AZ_CVAR(uint16_t, sv_gameliftServerPort, 0, nullptr, AZ::ConsoleFunctorFlags::ServerOnly, "Port number the server process listens on for new player connections.");
-
     AWSGameLiftServerSystemComponent::AWSGameLiftServerSystemComponent()
         : m_gameLiftServerManager(AZStd::make_unique<AWSGameLiftServerManager>())
     {
@@ -107,7 +106,14 @@ namespace AWSGameLift
         {
             AZ_Error("AWSGameLift", false, "Failed to get File IO.");
         }
-        serverProcessDesc.m_port = sv_gameliftServerPort;
+
+        if (auto console = AZ::Interface<AZ::IConsole>::Get(); console != nullptr)
+        {
+            AZ::GetValueResult getCvarResult = console->GetCvarValue("sv_port", serverProcessDesc.m_port);
+            AZ_Error(
+                "AWSGameLift", getCvarResult == AZ::GetValueResult::Success, "Lookup of 'sv_port' console variable failed with error %s",
+                AZ::GetEnumString(getCvarResult));
+        }
     }
 
     void AWSGameLiftServerSystemComponent::Deactivate()

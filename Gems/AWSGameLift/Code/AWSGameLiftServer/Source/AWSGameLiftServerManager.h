@@ -28,7 +28,7 @@ namespace AWSGameLift
     {
         AZStd::vector<AZStd::string> m_logPaths; //!< Log paths the servers will write to. Both relative to the game root folder and absolute paths supported.
 
-        int m_port = 0; //!< The port the server will be listening on.
+        uint16_t m_port = 0; //!< The port the server will be listening on.
     };
 
     //! Manage the server process for hosting game sessions via GameLiftServerSDK.

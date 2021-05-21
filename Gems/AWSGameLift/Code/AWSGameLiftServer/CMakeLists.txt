@@ -57,9 +57,9 @@ if(PAL_TRAIT_BUILD_TESTS_SUPPORTED)
                 Source
         BUILD_DEPENDENCIES
             PRIVATE
-                AZ::AzTest
-                AZ::AzFramework
                 AZ::AzCore
+                AZ::AzFramework
+                AZ::AzTest
                 Gem::AWSGameLift.Server.Static
                 3rdParty::AWSGameLiftServerSDK
     )
