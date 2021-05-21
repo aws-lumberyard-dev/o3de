@@ -1231,8 +1231,15 @@ namespace AzToolsFramework
 
         AZ::Component* TransformComponent::FindPresentOrPendingComponent(AZ::Uuid componentUuid)
         {
+            // This function may be called when the component hasn't been activated yet and hasn't yet been attached to an entity.
+            AZ::Entity* entity = GetEntity();
+            if (entity == nullptr)
+            {
+                return nullptr;
+            }
+
             // first check if the component is present and valid
-            if (AZ::Component* foundComponent = GetEntity()->FindComponent(componentUuid))
+            if (AZ::Component* foundComponent = entity->FindComponent(componentUuid))
             {
                 return foundComponent;
             }
