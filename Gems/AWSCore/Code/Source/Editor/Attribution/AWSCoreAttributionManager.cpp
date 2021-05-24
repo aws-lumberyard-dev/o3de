@@ -17,12 +17,12 @@
 
 namespace AWSCore
 {
-    void AWSCoreAttributionManager::Init()
+    void AWSAttributionManager::Init()
     {
-  
+        // TODO: Perform any setup
     }
 
-    void AWSCoreAttributionManager::MetricCheck()
+    void AWSAttributionManager::MetricCheck()
     {
         if (ShouldGenerateMetric())
         {
@@ -37,36 +37,36 @@ namespace AWSCore
         UpdateLastCheck();
     }
 
-    bool AWSCoreAttributionManager::ShouldGenerateMetric() const
+    bool AWSAttributionManager::ShouldGenerateMetric() const
     {
         // 1. Check settings reg/config to see if metric emission is enabled
         // 2. Check last check time
         return false;
     }
 
-    void AWSCoreAttributionManager::UpdateLastCheck()
+    void AWSAttributionManager::UpdateLastCheck()
     {
-        // Update registry setting
+        // Update registry setting about time check
     }
 
-    AZStd::string AWSCoreAttributionManager::GetEngineVersion() const
+    AZStd::string AWSAttributionManager::GetEngineVersion() const
     {
         // Read from engine.json
         return "";
     }
 
-    AZStd::string AWSCoreAttributionManager::GetPlatform() const
+    AZStd::string AWSAttributionManager::GetPlatform() const
     {
         return AZ::GetPlatformName(AZ::g_currentPlatform);
     }
 
-    void AWSCoreAttributionManager::GetActiveAWSGems(AZStd::vector<AZStd::string>& gems)
+    void AWSAttributionManager::GetActiveAWSGems(AZStd::vector<AZStd::string>& gems)
     {
         // Read from project's runtimedependencies.cmake?
         AZ_UNUSED(gems);
     }
 
-    void AWSCoreAttributionManager::UpdateMetric(AttributionMetric& metric)
+    void AWSAttributionManager::UpdateMetric(AttributionMetric& metric)
     {
         AZStd::string engineVersion = this->GetEngineVersion();
         metric.SetO3DEVersion(engineVersion);
@@ -74,6 +74,12 @@ namespace AWSCore
         AZStd::string platform = this->GetPlatform();
         metric.SetPlatform(platform, "");
         // etc.
+    }
+
+    void AWSAttributionManager::SubmitMetric(AttributionMetric& metric)
+    {
+        // Submit metric
+        AZ_UNUSED(metric);
     }
 
 } // namespace AWSCore

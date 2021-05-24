@@ -28,11 +28,16 @@ namespace AWSCore
         AZ_TYPE_INFO(MetricsAttribute, "{6483F481-0C18-4171-8B59-A44F2F28EAE5}")
 
         AttributionMetric();
+        AttributionMetric(const AZStd::string& timestamp);
         ~AttributionMetric() = default;
 
         void SetO3DEVersion(const AZStd::string& version);
         void SetPlatform(const AZStd::string& platform, const AZStd::string& platformVersion);
         void AddActiveGem(const AZStd::string& gemName);
+
+        //! Serialize the metrics object queue to a string.
+        //! @return Serialized string.
+        AZStd::string SerializeToJson();
 
         //! Serialize the metrics object to JSON for the sending requests.
         //! @param writer JSON writer for the serialization.
@@ -44,6 +49,8 @@ namespace AWSCore
         //! @return Whether the metrics event is created successfully.
         bool ReadFromJson(rapidjson::Value& metricsObjVal);
 
+        //! Generates a UTC 8601 formatted timestamp
+        static AZStd::string GenerateTimeStamp();
     private:
         AZStd::string m_version;        //!< Schema version in use
         AZStd::string m_o3deVersion;    //!< O3DE editor version in use
@@ -52,4 +59,4 @@ namespace AWSCore
         AZStd::string m_timestamp;       //!< Metric generation time
         AZStd::vector<AZStd::string> m_activeAWSGems; //!< Active AWS Gems in project
     };
-} // namespace AWSMetrics
+} // namespace AWSCore

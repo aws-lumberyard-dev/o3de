@@ -11,6 +11,7 @@
 
 set(FILES
     Include/Private/AWSCoreEditorSystemComponent.h
+    Include/Private/Editor/Attribution/AWSCoreAttributionConstant.h
     Include/Private/Editor/Attribution/AWSCoreAttributionMetric.h
     Include/Private/Editor/Attribution/AWSCoreAttributionManager.h
     Include/Private/Editor/Attribution/AWSCoreAttributionSystemComponent.h

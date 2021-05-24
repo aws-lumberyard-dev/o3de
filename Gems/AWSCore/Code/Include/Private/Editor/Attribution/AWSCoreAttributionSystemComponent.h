@@ -17,17 +17,17 @@
 
 namespace AWSCore
 {
-    class AWSCoreAttributionManager;
+    class AWSAttributionManager;
 
     //! Attribution System Component. Responsible for instantiating and managing AWS Attribution Manager
-    class AWSCoreAttributionSystemComponent:
+    class AWSAttributionSystemComponent:
         public AZ::Component
     {
     public:
-        AZ_COMPONENT(AWSCoreAttributionSystemComponent, "{366861EC-8337-4180-A202-4E4DF082A3A8}");
+        AZ_COMPONENT(AWSAttributionSystemComponent, "{366861EC-8337-4180-A202-4E4DF082A3A8}");
 
-        AWSCoreAttributionSystemComponent();
-        ~AWSCoreAttributionSystemComponent();
+        AWSAttributionSystemComponent();
+        ~AWSAttributionSystemComponent() = default;
 
         static void Reflect(AZ::ReflectContext* context);\
 
@@ -45,6 +45,6 @@ namespace AWSCore
         ////////////////////////////////////////////////////////////////////////
 
     private:
-        AZStd::unique_ptr<AWSCoreAttributionManager> m_manager; //!< pointer to the attribution manager which handles operational metrics
+        AZStd::unique_ptr<AWSAttributionManager> m_manager; //!< pointer to the attribution manager which handles operational metrics
     };
 } // namespace AWSCore

@@ -20,11 +20,11 @@ namespace AWSCore
     class AttributionMetric;
 
     //! Manages operational metrics for AWS gems
-    class AWSCoreAttributionManager
+    class AWSAttributionManager
     {
     public:
-        AWSCoreAttributionManager() = default;
-        virtual ~AWSCoreAttributionManager() = default;
+        AWSAttributionManager() = default;
+        virtual ~AWSAttributionManager() = default;
 
         //! Perform initialization
         void Init();
@@ -35,6 +35,7 @@ namespace AWSCore
     private:
         bool ShouldGenerateMetric() const;
         void UpdateMetric(AttributionMetric& metric);
+        void SubmitMetric(AttributionMetric& metric);
         void UpdateLastCheck();
 
         AZStd::string GetEngineVersion() const;
