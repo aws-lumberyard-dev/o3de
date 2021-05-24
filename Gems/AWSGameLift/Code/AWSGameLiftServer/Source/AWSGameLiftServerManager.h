@@ -18,6 +18,8 @@
 #include <AzCore/std/containers/vector.h>
 #include <AzCore/std/string/string.h>
 #include <AzCore/std/smart_ptr/unique_ptr.h>
+#include <AzFramework/Session/ISessionHandlingRequests.h>
+#include <AzFramework/Session/SessionConfig.h>
 
 namespace AWSGameLift
 {
@@ -33,8 +35,28 @@ namespace AWSGameLift
 
     //! Manage the server process for hosting game sessions via GameLiftServerSDK.
     class AWSGameLiftServerManager
+        : public AzFramework::ISessionHandlingServerRequests
     {
     public:
+        static constexpr const char AWSGameLiftServerManagerName[] = "AWSGameLiftServerManager";
+        static constexpr const char AWSGameLiftServerSDKNotInitErrorMessage[] =
+            "Amazon GameLift Server SDK is not initialized yet.";
+        static constexpr const char AWSGameLiftServerSDKAlreadyInitErrorMessage[] =
+            "Amazon GameLift Server SDK has already been initialized.";
+        static constexpr const char AWSGameLiftServerTempPortErrorMessage[] =
+            "No server port specified, server will be listening on ephemeral port.";
+        static constexpr const char AWSGameLiftServerGameInitErrorMessage[] =
+            "Failed to process game dependent initialization during OnStartGameSession.";
+
+        static constexpr const char AWSGameLiftServerInitSDKErrorMessage[] =
+            "Failed to initialize Amazon GameLift Server SDK. ErrorMessage: %s";
+        static constexpr const char AWSGameLiftServerProcessReadyErrorMessage[] =
+            "Failed to notify GameLift server process ready. ErrorMessage: %s";
+        static constexpr const char AWSGameLiftServerActivateGameSessionErrorMessage[] =
+            "Failed to activate GameLift game session. ErrorMessage: %s";
+        static constexpr const char AWSGameLiftServerProcessEndingErrorMessage[] =
+            "Failed to end notify GameLift server process ending. ErrorMessage: %s";
+
         AWSGameLiftServerManager();
         virtual ~AWSGameLiftServerManager();
 
@@ -47,16 +69,20 @@ namespace AWSGameLift
         //! @return Whether the ProcessReady notification is sent to GameLift.
         bool NotifyGameLiftProcessReady(const GameLiftServerProcessDesc& desc);
 
-        //! Handle the destroy game session request.
-        //! @return Whether the game session and the server process are shut down.
-        bool ShutDownGameSession();
+        // ISessionHandlingServerRequests interface implementation
+        void HandleDestroySession() override;
+        bool ValidatePlayerJoinSession(const AzFramework::PlayerConnectionConfig& playerConnectionConfig) override;
+        void HandlePlayerLeaveSession(const AzFramework::PlayerConnectionConfig& playerConnectionConfig) override;
 
     protected:
         void SetGameLiftServerSDKWrapper(AZStd::unique_ptr<GameLiftServerSDKWrapper> gameLiftServerSDKWrapper);
 
     private:
+        // Build session config by using AWS GameLift Server GameSession Model
+        AzFramework::SessionConfig BuildSessionConfig(const Aws::GameLift::Server::Model::GameSession& gameSession);
+
         //! Callback function that the GameLift service invokes to activate a new game session.
-        void OnStartGameSession(Aws::GameLift::Server::Model::GameSession myGameSession);
+        void OnStartGameSession(const Aws::GameLift::Server::Model::GameSession& gameSession);
 
         //! Callback function that the GameLift service invokes to pass an updated game session object to the server process.
         void OnUpdateGameSession();
@@ -69,7 +95,6 @@ namespace AWSGameLift
         //! @return Whether the server process is healthy.
         bool OnHealthCheck();
 
-        AZStd::unique_ptr<Aws::GameLift::GenericOutcomeCallable> m_serverProcessInitOutcome;
         AZStd::unique_ptr<GameLiftServerSDKWrapper> m_gameLiftServerSDKWrapper;
         bool m_serverSDKInitialized;
     };

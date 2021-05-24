@@ -28,7 +28,8 @@ using testing::Eq;
 
 namespace UnitTest
 {
-    class GameLiftServerSDKWrapperMock : public GameLiftServerSDKWrapper
+    class GameLiftServerSDKWrapperMock
+        : public GameLiftServerSDKWrapper
     {
     public:
         GameLiftServerSDKWrapperMock()
@@ -37,41 +38,50 @@ namespace UnitTest
             Server::InitSDKOutcome sdkOutcome(nullptr);
 
             ON_CALL(*this, InitSDK()).WillByDefault(Return(sdkOutcome));
-            ON_CALL(*this, ProcessReadyAsync(_)).WillByDefault(Invoke(this, &GameLiftServerSDKWrapperMock::ProcessReadyAsyncMock));
+            ON_CALL(*this, ProcessReady(_)).WillByDefault(Invoke(this, &GameLiftServerSDKWrapperMock::ProcessReadyMock));
             ON_CALL(*this, ProcessEnding()).WillByDefault(Return(successOutcome));
         }
+
+        MOCK_METHOD0(ActivateGameSession, Aws::GameLift::GenericOutcome());
         MOCK_METHOD0(InitSDK, Server::InitSDKOutcome());
-        MOCK_METHOD1(ProcessReadyAsync, GenericOutcomeCallable(const Server::ProcessParameters& processParameters));
+        MOCK_METHOD1(ProcessReady, GenericOutcome(const Server::ProcessParameters& processParameters));
         MOCK_METHOD0(ProcessEnding, GenericOutcome());
 
-        GenericOutcomeCallable ProcessReadyAsyncMock(const Server::ProcessParameters& processParameters)
+        GenericOutcome ProcessReadyMock(const Server::ProcessParameters& processParameters)
         {
-            AZ_UNUSED(processParameters);
+            m_healthCheckFunc = processParameters.getOnHealthCheck();
+            m_onStartGameSessionFunc = processParameters.getOnStartGameSession();
 
             GenericOutcome successOutcome(nullptr);
-
-            std::promise<GenericOutcome> outcomePromise;
-            outcomePromise.set_value(successOutcome);
-            return outcomePromise.get_future();
+            return successOutcome;
         }
+
+        AZStd::function<bool()> m_healthCheckFunc;
+        AZStd::function<void(Aws::GameLift::Server::Model::GameSession)> m_onStartGameSessionFunc;
     };
 
-    class AWSGameLiftServerManagerMock : public AWSGameLiftServerManager
+    class AWSGameLiftServerManagerMock
+        : public AWSGameLiftServerManager
     {
     public:
         AWSGameLiftServerManagerMock()
-            : m_gameLiftServerSDKWrapper(AZStd::make_unique<NiceMock<GameLiftServerSDKWrapperMock>>())
-            , m_gameLiftServerSDKWrapperRef(*m_gameLiftServerSDKWrapper)
         {
-            SetGameLiftServerSDKWrapper(AZStd::move(m_gameLiftServerSDKWrapper));
+            AZStd::unique_ptr<NiceMock<GameLiftServerSDKWrapperMock>> gameLiftServerSDKWrapper =
+                AZStd::make_unique<NiceMock<GameLiftServerSDKWrapperMock>>();
+            m_gameLiftServerSDKWrapperMockPtr = gameLiftServerSDKWrapper.get();
+            SetGameLiftServerSDKWrapper(AZStd::move(gameLiftServerSDKWrapper));
         }
 
-        AZStd::unique_ptr<NiceMock<GameLiftServerSDKWrapperMock>> m_gameLiftServerSDKWrapper;
-        NiceMock<GameLiftServerSDKWrapperMock>& m_gameLiftServerSDKWrapperRef;
+        ~AWSGameLiftServerManagerMock()
+        {
+            m_gameLiftServerSDKWrapperMockPtr = nullptr;
+        }
 
+        NiceMock<GameLiftServerSDKWrapperMock>* m_gameLiftServerSDKWrapperMockPtr;
     };
 
-    class AWSGameLiftServerSystemComponentMock : public AWSGameLift::AWSGameLiftServerSystemComponent
+    class AWSGameLiftServerSystemComponentMock
+        : public AWSGameLift::AWSGameLiftServerSystemComponent
     {
     public:
         AWSGameLiftServerSystemComponentMock()

@@ -83,7 +83,12 @@ namespace AWSGameLift
             GameLiftServerProcessDesc serverProcessDesc;
             UpdateGameLiftServerProcessDesc(serverProcessDesc);
             m_gameLiftServerManager->NotifyGameLiftProcessReady(serverProcessDesc);
-        } 
+        }
+    }
+
+    void AWSGameLiftServerSystemComponent::Deactivate()
+    {
+        m_gameLiftServerManager->HandleDestroySession();
     }
 
     void AWSGameLiftServerSystemComponent::UpdateGameLiftServerProcessDesc(GameLiftServerProcessDesc& serverProcessDesc)
@@ -114,11 +119,6 @@ namespace AWSGameLift
                 "AWSGameLift", getCvarResult == AZ::GetValueResult::Success, "Lookup of 'sv_port' console variable failed with error %s",
                 AZ::GetEnumString(getCvarResult));
         }
-    }
-
-    void AWSGameLiftServerSystemComponent::Deactivate()
-    {
-        m_gameLiftServerManager->ShutDownGameSession();
     }
 
     void AWSGameLiftServerSystemComponent::SetGameLiftServerManager(AZStd::unique_ptr<AWSGameLiftServerManager> gameLiftServerManager)

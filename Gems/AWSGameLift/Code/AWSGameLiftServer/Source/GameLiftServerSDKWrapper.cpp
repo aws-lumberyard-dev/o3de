@@ -14,15 +14,20 @@
 
 namespace AWSGameLift
 {
+    Aws::GameLift::GenericOutcome GameLiftServerSDKWrapper::ActivateGameSession()
+    {
+        return Aws::GameLift::Server::ActivateGameSession();
+    }
+
     Aws::GameLift::Server::InitSDKOutcome GameLiftServerSDKWrapper::InitSDK()
     {
         return Aws::GameLift::Server::InitSDK();
     }
 
-    Aws::GameLift::GenericOutcomeCallable GameLiftServerSDKWrapper::ProcessReadyAsync(
+    Aws::GameLift::GenericOutcome GameLiftServerSDKWrapper::ProcessReady(
         const Aws::GameLift::Server::ProcessParameters& processParameters)
     {
-        return Aws::GameLift::Server::ProcessReadyAsync(processParameters);
+        return Aws::GameLift::Server::ProcessReady(processParameters);
     }
 
     Aws::GameLift::GenericOutcome GameLiftServerSDKWrapper::ProcessEnding()
