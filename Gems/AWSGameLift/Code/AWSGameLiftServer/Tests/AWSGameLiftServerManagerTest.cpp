@@ -129,6 +129,17 @@ namespace UnitTest
         EXPECT_TRUE(m_serverManager->m_gameLiftServerSDKWrapperMockPtr->m_healthCheckFunc());
     }
 
+    TEST_F(GameLiftServerManagerTest, OnHealthCheck_OnSessionHealthCheckReturnsFalseAndTrue_CallbackFunctionReturnsFalse)
+    {
+        m_serverManager->InitializeGameLiftServerSDK();
+        m_serverManager->NotifyGameLiftProcessReady(GameLiftServerProcessDesc());
+        SessionNotificationsHandlerMock handlerMock1;
+        EXPECT_CALL(handlerMock1, OnSessionHealthCheck()).Times(1).WillOnce(testing::Return(false));
+        SessionNotificationsHandlerMock handlerMock2;
+        EXPECT_CALL(handlerMock2, OnSessionHealthCheck()).Times(1).WillOnce(testing::Return(true));
+        EXPECT_FALSE(m_serverManager->m_gameLiftServerSDKWrapperMockPtr->m_healthCheckFunc());
+    }
+
     TEST_F(GameLiftServerManagerTest, OnHealthCheck_OnSessionHealthCheckReturnsFalse_CallbackFunctionReturnsFalse)
     {
         m_serverManager->InitializeGameLiftServerSDK();

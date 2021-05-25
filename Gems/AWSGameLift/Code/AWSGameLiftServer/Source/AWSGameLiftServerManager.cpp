@@ -15,7 +15,6 @@
 #include <GameLiftServerSDKWrapper.h>
 
 #include <AzCore/Debug/Trace.h>
-#include <AZCore/EBus/Results.h>
 #include <AzCore/Interface/Interface.h>
 #include <AzCore/Jobs/JobFunction.h>
 #include <AzCore/Jobs/JobManagerBus.h>
@@ -38,6 +37,7 @@ namespace AWSGameLift
     AzFramework::SessionConfig AWSGameLiftServerManager::BuildSessionConfig(const Aws::GameLift::Server::Model::GameSession& gameSession)
     {
         AzFramework::SessionConfig sessionConfig;
+
         sessionConfig.m_dnsName = gameSession.GetDnsName().c_str();
         AZStd::string propertiesOutput = "";
         for (const auto& gameProperty : gameSession.GetGameProperties())
@@ -55,6 +55,7 @@ namespace AWSGameLift
         sessionConfig.m_sessionName = gameSession.GetName().c_str();
         sessionConfig.m_port = gameSession.GetPort();
         sessionConfig.m_status = AWSGameLiftSessionStatusNames[(int)gameSession.GetStatus()];
+
         AZ_TracePrintf(AWSGameLiftServerManagerName,
             "Built SessionConfig with Name=%s, Id=%s, Status=%s, DnsName=%s, IpAddress=%s, Port=%d, MaxPlayer=%d and Properties=%s",
             sessionConfig.m_sessionName.c_str(),
@@ -65,6 +66,7 @@ namespace AWSGameLift
             sessionConfig.m_port,
             sessionConfig.m_maxPlayer,
             AZStd::string::format("[%s]", propertiesOutput.c_str()).c_str());
+
         return sessionConfig;
     }
 
@@ -124,8 +126,10 @@ namespace AWSGameLift
                     AZStd::bind(&AWSGameLiftServerManager::OnProcessTerminate, this),
                     AZStd::bind(&AWSGameLiftServerManager::OnHealthCheck, this), desc.m_port,
                     Aws::GameLift::Server::LogParameters(logPaths));
+
                 AZ_TracePrintf(AWSGameLiftServerManagerName, "Notifying GameLift server process is ready...");
                 auto processReadyOutcome = m_gameLiftServerSDKWrapper->ProcessReady(processReadyParameter);
+
                 if (!processReadyOutcome.IsSuccess())
                 {
                     AZ_Error(AWSGameLiftServerManagerName, false,
@@ -145,10 +149,12 @@ namespace AWSGameLift
         AZ::EBusReduceResult<bool&, AZStd::logical_and<bool>> result(createSessionResult);
         AzFramework::SessionNotificationBus::BroadcastResult(
             result, &AzFramework::SessionNotifications::OnCreateSessionBegin, sessionConfig);
+
         if (createSessionResult)
         {
             AZ_TracePrintf(AWSGameLiftServerManagerName, "Activating GameLift game session...");
             Aws::GameLift::GenericOutcome activationOutcome = m_gameLiftServerSDKWrapper->ActivateGameSession();
+
             if (activationOutcome.IsSuccess())
             {
                 // Register server manager as handler once game session has been activated
@@ -202,6 +208,7 @@ namespace AWSGameLift
         bool healthCheckResult = true;
         AZ::EBusReduceResult<bool&, AZStd::logical_and<bool>> result(healthCheckResult);
         AzFramework::SessionNotificationBus::BroadcastResult(result, &AzFramework::SessionNotifications::OnSessionHealthCheck);
+
         return m_serverSDKInitialized && healthCheckResult;
     }
 

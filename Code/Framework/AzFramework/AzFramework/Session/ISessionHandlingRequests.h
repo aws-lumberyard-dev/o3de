@@ -51,6 +51,8 @@ namespace AzFramework
     {
     public:
         AZ_RTTI(ISessionHandlingClientRequests, "{41DE6BD3-72BC-4443-BFF9-5B1B9396657A}");
+        ISessionHandlingClientRequests() = default;
+        virtual ~ISessionHandlingClientRequests() = default;
 
         // Handle the player join session process
         // @param  sessionConnectionConfig The required properties to handle the player join session process
@@ -67,6 +69,8 @@ namespace AzFramework
     {
     public:
         AZ_RTTI(ISessionHandlingServerRequests, "{4F0C17BA-F470-4242-A8CB-EC7EA805257C}");
+        ISessionHandlingServerRequests() = default;
+        virtual ~ISessionHandlingServerRequests() = default;
 
         // Handle the destroy session process
         virtual void HandleDestroySession() = 0;
