@@ -95,6 +95,78 @@ namespace
             return RetrieveValue<ePixelFormat_Unknown>(mem, index);
         }
     }
+
+    template<ImageProcessingAtom::EPixelFormat>
+    void UpdateValue(AZ::u8* mem, size_t index, float newValue)
+    {
+        AZ_Assert(false, "Unimplemented!");
+    }
+
+    template<>
+    void UpdateValue<ImageProcessingAtom::EPixelFormat::ePixelFormat_Unknown>(
+        [[maybe_unused]] AZ::u8* mem, [[maybe_unused]] size_t index, [[maybe_unused]] float newValue)
+    {
+        // Should it be updated to 0?
+    }
+
+    template<>
+    void UpdateValue<ImageProcessingAtom::EPixelFormat::ePixelFormat_R8>(AZ::u8* mem, size_t index, float newValue)
+    {
+        mem[index] = newValue * static_cast<float>(std::numeric_limits<AZ::u8>::max());
+    }
+
+    template<>
+    void UpdateValue<ImageProcessingAtom::EPixelFormat::ePixelFormat_R16>(AZ::u8* mem, size_t index, float newValue)
+    {
+        // 16 bits per channel
+        auto actualMem = reinterpret_cast<AZ::u16*>(mem);
+        actualMem += index;
+
+        *actualMem = newValue * static_cast<float>(std::numeric_limits<AZ::u16>::max());
+    }
+
+    template<>
+    void UpdateValue<ImageProcessingAtom::EPixelFormat::ePixelFormat_R32>(AZ::u8* mem, size_t index, float newValue)
+    {
+        // 32 bits per channel
+        auto actualMem = reinterpret_cast<AZ::u32*>(mem);
+        actualMem += index;
+
+        *actualMem = newValue * static_cast<float>(std::numeric_limits<AZ::u32>::max());
+    }
+
+    template<>
+    void UpdateValue<ImageProcessingAtom::EPixelFormat::ePixelFormat_R32F>(AZ::u8* mem, size_t index, float newValue)
+    {
+        // 32 bits per channel
+        auto actualMem = reinterpret_cast<float*>(mem);
+        actualMem += index;
+
+        *actualMem = newValue;
+    }
+
+    void UpdateValue(AZ::u8* mem, size_t index, ImageProcessingAtom::EPixelFormat format, float newValue)
+    {
+        using namespace ImageProcessingAtom;
+
+        switch (format)
+        {
+        case ePixelFormat_R8:
+            UpdateValue<ePixelFormat_R8>(mem, index, newValue);
+            break;
+        case ePixelFormat_R16:
+            UpdateValue<ePixelFormat_R16>(mem, index, newValue);
+            break;
+        case ePixelFormat_R32:
+            UpdateValue<ePixelFormat_R32>(mem, index, newValue);
+            break;
+        case ePixelFormat_R32F:
+            UpdateValue<ePixelFormat_R32F>(mem, index, newValue);
+            break;
+        default:
+            UpdateValue<ePixelFormat_Unknown>(mem, index, newValue);
+        }
+    }
 }
 
 namespace GradientSignal
@@ -212,5 +284,30 @@ namespace GradientSignal
         }
 
         return defaultValue;
+    }
+
+    void UpdateValueFromImageAsset(const AZ::Data::Asset<ImageAsset>& imageAsset, const AZ::Vector3& uvw, float tilingX, float tilingY, float newValue)
+    {
+        AZ_PROFILE_FUNCTION(AZ::Debug::ProfileCategory::Entity);
+
+        if (imageAsset.IsReady())
+        {
+            const auto& image = imageAsset.Get();
+            AZStd::size_t imageSize = image->m_imageWidth * image->m_imageHeight * static_cast<AZ::u32>(image->m_bytesPerPixel);
+
+            if (image->m_imageWidth > 0 && image->m_imageHeight > 0 && image->m_imageData.size() == imageSize)
+            {
+                const AZ::Vector3 tiledDimensions((image->m_imageWidth * tilingX), (image->m_imageHeight * tilingY), 0.0f);
+
+                AZ::Vector3 pixelLookup = (uvw * tiledDimensions);
+
+                size_t x = static_cast<size_t>(pixelLookup.GetX()) % image->m_imageWidth;
+                size_t y = static_cast<size_t>(pixelLookup.GetY()) % image->m_imageHeight;
+
+                size_t index = ((image->m_imageHeight - 1) - y) * image->m_imageWidth + x;
+
+                UpdateValue(image->m_imageData.data(), index, image->m_imageFormat, newValue);
+            }
+        }
     }
 }
