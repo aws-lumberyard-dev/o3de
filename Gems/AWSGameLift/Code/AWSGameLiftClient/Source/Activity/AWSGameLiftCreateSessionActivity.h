@@ -22,7 +22,7 @@
 
 namespace AWSGameLift
 {
-    namespace AWSGameLiftCreateSessionActivity
+    namespace CreateSessionActivity
     {
         // Build AWS GameLift CreateGameSessionRequest by using AWSGameLiftCreateSessionRequest
         Aws::GameLift::Model::CreateGameSessionRequest BuildAWSGameLiftCreateGameSessionRequest(const AWSGameLiftCreateSessionRequest& createSessionRequest);
@@ -34,5 +34,5 @@ namespace AWSGameLift
         // Validate CreateSessionRequest and check required request parameters
         bool ValidateCreateSessionRequest(const AzFramework::CreateSessionRequest& createSessionRequest);
 
-    } // namespace AWSGameLiftCreateSessionActivity
+    } // namespace CreateSessionActivity
 } // namespace AWSGameLift

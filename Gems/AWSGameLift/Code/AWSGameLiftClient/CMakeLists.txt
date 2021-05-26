@@ -9,6 +9,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #
 
+set(awsgameliftclient_compile_definition $<IF:$<CONFIG:release>,AWSGAMELIFT_RELEASE,AWSGAMELIFT_DEV>)
+
 ly_add_target(
     NAME AWSGameLift.Client.Static STATIC
     NAMESPACE Gem
@@ -19,6 +21,9 @@ ly_add_target(
             Include
         PRIVATE
             Source
+    COMPILE_DEFINITIONS
+        PRIVATE
+            ${awsgameliftclient_compile_definition}
     BUILD_DEPENDENCIES
         PRIVATE
             AZ::AzCore

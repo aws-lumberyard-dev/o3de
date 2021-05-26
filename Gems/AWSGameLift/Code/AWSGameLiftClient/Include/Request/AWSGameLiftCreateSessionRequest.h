@@ -17,7 +17,8 @@
 namespace AWSGameLift
 {
     //! AWSGameLiftCreateSessionRequest
-    //! GameLift create session on fleet request
+    //! GameLift create session on fleet request which corresponds to Amazon GameLift
+    //! CreateGameSessionRequest
     struct AWSGameLiftCreateSessionRequest
         : public AzFramework::CreateSessionRequest
     {

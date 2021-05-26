@@ -27,7 +27,7 @@ TEST_F(AWSGameLiftCreateSessionActivityTest, BuildAWSGameLiftCreateGameSessionRe
     request.m_aliasId = "dummyAliasId";
     request.m_fleetId = "dummyFleetId";
     request.m_idempotencyToken = "dummyIdempotencyToken";
-    auto awsRequest = AWSGameLiftCreateSessionActivity::BuildAWSGameLiftCreateGameSessionRequest(request);
+    auto awsRequest = CreateSessionActivity::BuildAWSGameLiftCreateGameSessionRequest(request);
 
     EXPECT_TRUE(strcmp(awsRequest.GetCreatorId().c_str(), request.m_creatorId.c_str()) == 0);
     EXPECT_TRUE(strcmp(awsRequest.GetName().c_str(), request.m_sessionName.c_str()) == 0);
@@ -41,7 +41,7 @@ TEST_F(AWSGameLiftCreateSessionActivityTest, BuildAWSGameLiftCreateGameSessionRe
 
 TEST_F(AWSGameLiftCreateSessionActivityTest, ValidateCreateSessionRequest_CallWithBaseType_GetFalseResult)
 {
-    auto result = AWSGameLiftCreateSessionActivity::ValidateCreateSessionRequest(AzFramework::CreateSessionRequest());
+    auto result = CreateSessionActivity::ValidateCreateSessionRequest(AzFramework::CreateSessionRequest());
     EXPECT_FALSE(result);
 }
 
@@ -49,7 +49,7 @@ TEST_F(AWSGameLiftCreateSessionActivityTest, ValidateCreateSessionRequest_CallWi
 {
     AWSGameLiftCreateSessionRequest request;
     request.m_maxPlayer = -1;
-    auto result = AWSGameLiftCreateSessionActivity::ValidateCreateSessionRequest(request);
+    auto result = CreateSessionActivity::ValidateCreateSessionRequest(request);
     EXPECT_FALSE(result);
 }
 
@@ -57,7 +57,7 @@ TEST_F(AWSGameLiftCreateSessionActivityTest, ValidateCreateSessionRequest_CallWi
 {
     AWSGameLiftCreateSessionRequest request;
     request.m_maxPlayer = 1;
-    auto result = AWSGameLiftCreateSessionActivity::ValidateCreateSessionRequest(request);
+    auto result = CreateSessionActivity::ValidateCreateSessionRequest(request);
     EXPECT_FALSE(result);
 }
 
@@ -66,7 +66,7 @@ TEST_F(AWSGameLiftCreateSessionActivityTest, ValidateCreateSessionRequest_CallWi
     AWSGameLiftCreateSessionRequest request;
     request.m_maxPlayer = 1;
     request.m_aliasId = "dummyAliasId";
-    auto result = AWSGameLiftCreateSessionActivity::ValidateCreateSessionRequest(request);
+    auto result = CreateSessionActivity::ValidateCreateSessionRequest(request);
     EXPECT_TRUE(result);
 }
 
@@ -75,6 +75,6 @@ TEST_F(AWSGameLiftCreateSessionActivityTest, ValidateCreateSessionRequest_CallWi
     AWSGameLiftCreateSessionRequest request;
     request.m_maxPlayer = 1;
     request.m_fleetId = "dummyFleetId";
-    auto result = AWSGameLiftCreateSessionActivity::ValidateCreateSessionRequest(request);
+    auto result = CreateSessionActivity::ValidateCreateSessionRequest(request);
     EXPECT_TRUE(result);
 }

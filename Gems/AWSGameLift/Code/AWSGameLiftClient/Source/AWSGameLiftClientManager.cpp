@@ -27,7 +27,9 @@
 
 namespace AWSGameLift
 {
+#if defined(AWSGAMELIFT_DEV)
     AZ_CVAR(AZ::CVarFixedString, cl_gameliftLocalEndpoint, "", nullptr, AZ::ConsoleFunctorFlags::Null, "The local endpoint to test with GameLiftLocal SDK.");
+#endif
 
     AWSGameLiftClientManager::AWSGameLiftClientManager()
     {
@@ -64,10 +66,13 @@ namespace AWSGameLift
 
         Aws::Client::ClientConfiguration clientConfig;
         // Set up client endpoint or region
-        auto localEndpoint = static_cast<AZ::CVarFixedString>(cl_gameliftLocalEndpoint);
+        AZStd::string localEndpoint = "";
+#if defined(AWSGAMELIFT_DEV)
+        localEndpoint = static_cast<AZ::CVarFixedString>(cl_gameliftLocalEndpoint);
+#endif
         if (!localEndpoint.empty())
         {
-            clientConfig.scheme = Aws::Http::Scheme::HTTP;
+            // The attribute needs to override to interact with GameLiftLocal
             clientConfig.endpointOverride = localEndpoint.c_str();
         }
         else if (!region.empty())
@@ -89,7 +94,11 @@ namespace AWSGameLift
         // Fetch AWS credential for client
         AWSCore::AWSCredentialResult credentialResult;
         AWSCore::AWSCredentialRequestBus::BroadcastResult(credentialResult, &AWSCore::AWSCredentialRequests::GetCredentialsProvider);
-        if (!credentialResult.result && localEndpoint.empty())
+        if (!localEndpoint.empty())
+        {
+            credentialResult.result = std::make_shared<Aws::Auth::AnonymousAWSCredentialsProvider>();
+        }
+        else if (!credentialResult.result)
         {
             AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftClientCredentialMissingErrorMessage);
             return false;
@@ -100,31 +109,36 @@ namespace AWSGameLift
 
     AZStd::string AWSGameLiftClientManager::CreateSession(const AzFramework::CreateSessionRequest& createSessionRequest)
     {
+        AZStd::string result = "";
         if (!m_gameliftClient)
         {
             AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftClientMissingErrorMessage);
-            return "";
         }
-
-        if (AWSGameLiftCreateSessionActivity::ValidateCreateSessionRequest(createSessionRequest))
+        else
         {
-            auto& gameliftCreateSessionRequest = static_cast<const AWSGameLiftCreateSessionRequest&>(createSessionRequest);
-            auto createSessionOutcome = AWSGameLiftCreateSessionActivity::CreateSession(m_gameliftClient, gameliftCreateSessionRequest);
-            if (createSessionOutcome.IsSuccess())
+            if (CreateSessionActivity::ValidateCreateSessionRequest(createSessionRequest))
             {
-                return AZStd::string(createSessionOutcome.GetResult().GetGameSession().GetGameSessionId().c_str());
+                auto& gameliftCreateSessionRequest = static_cast<const AWSGameLiftCreateSessionRequest&>(createSessionRequest);
+                auto createSessionOutcome = CreateSessionActivity::CreateSession(m_gameliftClient, gameliftCreateSessionRequest);
+
+                if (createSessionOutcome.IsSuccess())
+                {
+                    result = AZStd::string(createSessionOutcome.GetResult().GetGameSession().GetGameSessionId().c_str());
+                }
+                else
+                {
+                    auto error = createSessionOutcome.GetError();
+                    AZ_Error(AWSGameLiftClientManagerName, false,
+                        AWSGameLiftClientErrorMessageTemplate, error.GetExceptionName().c_str(), error.GetMessage().c_str());
+                }
             }
             else
             {
-                auto error = createSessionOutcome.GetError();
-                AZ_Error(AWSGameLiftClientManagerName, false,
-                    AWSGameLiftClientErrorMessageTemplate, error.GetExceptionName().c_str(), error.GetMessage().c_str());
-                return "";
+                AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftCreateSessionRequestInvalidErrorMessage);
             }
         }
 
-        AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftCreateSessionRequestInvalidErrorMessage);
-        return "";
+        return result;
     }
 
     void AWSGameLiftClientManager::CreateSessionAsync(const AzFramework::CreateSessionRequest& createSessionRequest)
@@ -132,39 +146,47 @@ namespace AWSGameLift
         if (!m_gameliftClient)
         {
             AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftClientMissingErrorMessage);
-            return;
+            AzFramework::SessionAsyncRequestNotificationBus::Broadcast(
+                &AzFramework::SessionAsyncRequestNotifications::OnCreateSessionAsyncComplete, "");
         }
-
-        if (AWSGameLiftCreateSessionActivity::ValidateCreateSessionRequest(createSessionRequest))
+        else
         {
-            AZ::JobContext* jobContext = nullptr;
-            AWSCore::AWSCoreRequestBus::BroadcastResult(jobContext, &AWSCore::AWSCoreRequests::GetDefaultJobContext);
-            auto& gameliftCreateSessionRequest = static_cast<const AWSGameLiftCreateSessionRequest&>(createSessionRequest);
-            AZ::Job* createSessionJob = AZ::CreateJobFunction(
-                [this, gameliftCreateSessionRequest]() {
-                    auto createSessionOutcome =
-                        AWSGameLiftCreateSessionActivity::CreateSession(m_gameliftClient, gameliftCreateSessionRequest);
-                    if (createSessionOutcome.IsSuccess())
-                    {
-                        auto gameSession = createSessionOutcome.GetResult().GetGameSession();
+            if (CreateSessionActivity::ValidateCreateSessionRequest(createSessionRequest))
+            {
+                AZ::JobContext* jobContext = nullptr;
+                AWSCore::AWSCoreRequestBus::BroadcastResult(jobContext, &AWSCore::AWSCoreRequests::GetDefaultJobContext);
+                auto& gameliftCreateSessionRequest = static_cast<const AWSGameLiftCreateSessionRequest&>(createSessionRequest);
+
+                AZ::Job* createSessionJob = AZ::CreateJobFunction(
+                    [this, gameliftCreateSessionRequest]() {
+                        auto createSessionOutcome =
+                            CreateSessionActivity::CreateSession(m_gameliftClient, gameliftCreateSessionRequest);
+
+                        AZStd::string result = "";
+                        if (createSessionOutcome.IsSuccess())
+                        {
+                            auto gameSession = createSessionOutcome.GetResult().GetGameSession();
+                            result = gameSession.GetGameSessionId().c_str();
+                        }
+                        else
+                        {
+                            auto error = createSessionOutcome.GetError();
+                            AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftClientErrorMessageTemplate,
+                                error.GetExceptionName().c_str(), error.GetMessage().c_str());
+                        }
                         AzFramework::SessionAsyncRequestNotificationBus::Broadcast(
-                            &AzFramework::SessionAsyncRequestNotifications::OnCreateSessionAsyncComplete,
-                            gameSession.GetGameSessionId().c_str());
-                    }
-                    else
-                    {
-                        auto error = createSessionOutcome.GetError();
-                        AZ_Error(AWSGameLiftClientManagerName, false,
-                            AWSGameLiftClientErrorMessageTemplate, error.GetExceptionName().c_str(), error.GetMessage().c_str());
-                        AzFramework::SessionAsyncRequestNotificationBus::Broadcast(
-                            &AzFramework::SessionAsyncRequestNotifications::OnCreateSessionAsyncComplete, "");
-                    }
-                },
-                true, jobContext);
-            createSessionJob->Start();
-            return;
+                            &AzFramework::SessionAsyncRequestNotifications::OnCreateSessionAsyncComplete, result);
+                    },
+                    true, jobContext);
+                createSessionJob->Start();
+            }
+            else
+            {
+                AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftCreateSessionRequestInvalidErrorMessage);
+                AzFramework::SessionAsyncRequestNotificationBus::Broadcast(
+                    &AzFramework::SessionAsyncRequestNotifications::OnCreateSessionAsyncComplete, "");
+            }
         }
-        AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftCreateSessionRequestInvalidErrorMessage);
     }
 
     bool AWSGameLiftClientManager::JoinSession(const AzFramework::JoinSessionRequest& joinSessionRequest)

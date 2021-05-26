@@ -14,7 +14,7 @@
 
 namespace AWSGameLift
 {
-    namespace AWSGameLiftCreateSessionActivity
+    namespace CreateSessionActivity
     {
         Aws::GameLift::Model::CreateGameSessionRequest BuildAWSGameLiftCreateGameSessionRequest(
             const AWSGameLiftCreateSessionRequest& createSessionRequest)
@@ -51,5 +51,5 @@ namespace AWSGameLift
             return gameliftCreateSessionRequest && gameliftCreateSessionRequest->m_maxPlayer >= 0 &&
                 (!gameliftCreateSessionRequest->m_aliasId.empty() || !gameliftCreateSessionRequest->m_fleetId.empty());
         }
-    } // namespace AWSGameLiftCreateSessionActivity
+    } // namespace CreateSessionActivity
 } // namespace AWSGameLift
