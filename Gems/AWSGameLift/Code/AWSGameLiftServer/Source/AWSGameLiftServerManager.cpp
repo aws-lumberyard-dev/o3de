@@ -11,16 +11,20 @@
  */
 
 #include <AWSGameLiftServerManager.h>
+#include <AWSGameLiftSessionConstants.h>
 #include <GameLiftServerSDKWrapper.h>
 
 #include <AzCore/Debug/Trace.h>
+#include <AzCore/Interface/Interface.h>
+#include <AzCore/Jobs/JobFunction.h>
+#include <AzCore/Jobs/JobManagerBus.h>
 #include <AzCore/std/bind/bind.h>
+#include <AzFramework/Session/SessionNotifications.h>
 
 namespace AWSGameLift
 {
     AWSGameLiftServerManager::AWSGameLiftServerManager()
-        : m_serverProcessInitOutcome(nullptr)
-        , m_serverSDKInitialized(false)
+        : m_serverSDKInitialized(false)
         , m_gameLiftServerSDKWrapper(AZStd::make_unique<GameLiftServerSDKWrapper>())
     {
     }
@@ -28,90 +32,184 @@ namespace AWSGameLift
     AWSGameLiftServerManager::~AWSGameLiftServerManager()
     {
         m_gameLiftServerSDKWrapper.reset();
-        m_serverProcessInitOutcome.reset();
+    }
+
+    AzFramework::SessionConfig AWSGameLiftServerManager::BuildSessionConfig(const Aws::GameLift::Server::Model::GameSession& gameSession)
+    {
+        AzFramework::SessionConfig sessionConfig;
+
+        sessionConfig.m_dnsName = gameSession.GetDnsName().c_str();
+        AZStd::string propertiesOutput = "";
+        for (const auto& gameProperty : gameSession.GetGameProperties())
+        {
+            sessionConfig.m_sessionProperties.emplace(gameProperty.GetKey().c_str(), gameProperty.GetValue().c_str());
+            propertiesOutput += AZStd::string::format("{Key=%s,Value=%s},", gameProperty.GetKey().c_str(), gameProperty.GetValue().c_str());
+        }
+        if (!propertiesOutput.empty())
+        {
+            propertiesOutput = propertiesOutput.substr(0, propertiesOutput.size() - 1); // Trim last comma to fit array format
+        }
+        sessionConfig.m_sessionId = gameSession.GetGameSessionId().c_str();
+        sessionConfig.m_ipAddress = gameSession.GetIpAddress().c_str();
+        sessionConfig.m_maxPlayer = gameSession.GetMaximumPlayerSessionCount();
+        sessionConfig.m_sessionName = gameSession.GetName().c_str();
+        sessionConfig.m_port = gameSession.GetPort();
+        sessionConfig.m_status = AWSGameLiftSessionStatusNames[(int)gameSession.GetStatus()];
+
+        AZ_TracePrintf(AWSGameLiftServerManagerName,
+            "Built SessionConfig with Name=%s, Id=%s, Status=%s, DnsName=%s, IpAddress=%s, Port=%d, MaxPlayer=%d and Properties=%s",
+            sessionConfig.m_sessionName.c_str(),
+            sessionConfig.m_sessionId.c_str(),
+            sessionConfig.m_status.c_str(),
+            sessionConfig.m_dnsName.c_str(),
+            sessionConfig.m_ipAddress.c_str(),
+            sessionConfig.m_port,
+            sessionConfig.m_maxPlayer,
+            AZStd::string::format("[%s]", propertiesOutput.c_str()).c_str());
+
+        return sessionConfig;
     }
 
     bool AWSGameLiftServerManager::InitializeGameLiftServerSDK()
     {
         if (m_serverSDKInitialized)
         {
-            AZ_Error("AWSGameLift", false, "Server process has already been initialized.\n");
+            AZ_Error(AWSGameLiftServerManagerName, false, AWSGameLiftServerSDKAlreadyInitErrorMessage);
             return false;
         }
 
-        AZ_TracePrintf("AWSGameLift", "Initiating Amazon GameLift server SDK...");
+        AZ_TracePrintf(AWSGameLiftServerManagerName, "Initiating Amazon GameLift Server SDK...");
         Aws::GameLift::Server::InitSDKOutcome initOutcome = m_gameLiftServerSDKWrapper->InitSDK();
         m_serverSDKInitialized = initOutcome.IsSuccess();
 
-        AZ_Error("AWSGameLift", m_serverSDKInitialized, "Failed to initialize GameLift Server SDK.\n");
+        AZ_Error(AWSGameLiftServerManagerName, m_serverSDKInitialized,
+            AWSGameLiftServerInitSDKErrorMessage, initOutcome.GetError().GetErrorMessage().c_str());
 
         return m_serverSDKInitialized;
+    }
+
+    void AWSGameLiftServerManager::HandleDestroySession()
+    {
+        OnProcessTerminate();
+    }
+
+    void AWSGameLiftServerManager::HandlePlayerLeaveSession(const AzFramework::PlayerConnectionConfig& playerConnectionConfig)
+    {
+        // TODO: Perform player data cleanup in game session after player has disconnected from server
+        AZ_UNUSED(playerConnectionConfig);
     }
 
     bool AWSGameLiftServerManager::NotifyGameLiftProcessReady(const GameLiftServerProcessDesc& desc)
     {
         if (!m_serverSDKInitialized)
         {
-            AZ_Error("AWSGameLift", false, "GameLift Server SDK has not been initialized.\n");
+            AZ_Error(AWSGameLiftServerManagerName, false, AWSGameLiftServerSDKNotInitErrorMessage);
             return false;
         }
 
-        AZ_Warning("AWSGameLift", desc.m_port != 0, "Server will be listening on ephemeral port");
+        AZ_Warning(AWSGameLiftServerManagerName, desc.m_port != 0, AWSGameLiftServerTempPortErrorMessage);
 
-        // The GameLift ProcessParameters object expects an vector (std::vector) of standard strings (std::string) as the log paths.
-        std::vector<std::string> logPaths;
-        for (const AZStd::string& path : desc.m_logPaths)
-        {
-            logPaths.push_back(path.c_str());
-        }
+        AZ::JobContext* jobContext = nullptr;
+        AZ::JobManagerBus::BroadcastResult(jobContext, &AZ::JobManagerEvents::GetGlobalContext);
+        AZ::Job* processReadyJob = AZ::CreateJobFunction(
+            [this, desc]() {
+                // The GameLift ProcessParameters object expects an vector (std::vector) of standard strings (std::string) as the log paths.
+                std::vector<std::string> logPaths;
+                for (const AZStd::string& path : desc.m_logPaths)
+                {
+                    logPaths.push_back(path.c_str());
+                }
 
-        Aws::GameLift::Server::ProcessParameters processReadyParameter = Aws::GameLift::Server::ProcessParameters(
-            AZStd::bind(&AWSGameLiftServerManager::OnStartGameSession, this, AZStd::placeholders::_1),
-            AZStd::bind(&AWSGameLiftServerManager::OnUpdateGameSession, this),
-            AZStd::bind(&AWSGameLiftServerManager::OnProcessTerminate, this),
-            AZStd::bind(&AWSGameLiftServerManager::OnHealthCheck, this),
-            desc.m_port, Aws::GameLift::Server::LogParameters(logPaths));
+                Aws::GameLift::Server::ProcessParameters processReadyParameter = Aws::GameLift::Server::ProcessParameters(
+                    AZStd::bind(&AWSGameLiftServerManager::OnStartGameSession, this, AZStd::placeholders::_1),
+                    AZStd::bind(&AWSGameLiftServerManager::OnUpdateGameSession, this),
+                    AZStd::bind(&AWSGameLiftServerManager::OnProcessTerminate, this),
+                    AZStd::bind(&AWSGameLiftServerManager::OnHealthCheck, this), desc.m_port,
+                    Aws::GameLift::Server::LogParameters(logPaths));
 
-        m_serverProcessInitOutcome =
-            AZStd::make_unique<Aws::GameLift::GenericOutcomeCallable>(m_gameLiftServerSDKWrapper->ProcessReadyAsync(processReadyParameter));
+                AZ_TracePrintf(AWSGameLiftServerManagerName, "Notifying GameLift server process is ready...");
+                auto processReadyOutcome = m_gameLiftServerSDKWrapper->ProcessReady(processReadyParameter);
 
+                if (!processReadyOutcome.IsSuccess())
+                {
+                    AZ_Error(AWSGameLiftServerManagerName, false,
+                        AWSGameLiftServerProcessReadyErrorMessage, processReadyOutcome.GetError().GetErrorMessage().c_str());
+                    this->HandleDestroySession();
+                }
+        }, true, jobContext);
+        processReadyJob->Start();
         return true;
     }
 
-    bool AWSGameLiftServerManager::ShutDownGameSession()
+    void AWSGameLiftServerManager::OnStartGameSession(const Aws::GameLift::Server::Model::GameSession& gameSession)
     {
-        return OnProcessTerminate();
-    }
+        AzFramework::SessionConfig sessionConfig = BuildSessionConfig(gameSession);
 
-    void AWSGameLiftServerManager::OnStartGameSession(Aws::GameLift::Server::Model::GameSession)
-    {
-        // TODO: Game-specific tasks when starting a new game session, such as loading map.
+        bool createSessionResult = true;
+        AZ::EBusReduceResult<bool&, AZStd::logical_and<bool>> result(createSessionResult);
+        AzFramework::SessionNotificationBus::BroadcastResult(
+            result, &AzFramework::SessionNotifications::OnCreateSessionBegin, sessionConfig);
+
+        if (createSessionResult)
+        {
+            AZ_TracePrintf(AWSGameLiftServerManagerName, "Activating GameLift game session...");
+            Aws::GameLift::GenericOutcome activationOutcome = m_gameLiftServerSDKWrapper->ActivateGameSession();
+
+            if (activationOutcome.IsSuccess())
+            {
+                // Register server manager as handler once game session has been activated
+                if (!AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Get())
+                {
+                    AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Register(this);
+                }
+            }
+            else
+            {
+                AZ_Error(AWSGameLiftServerManagerName, false, AWSGameLiftServerActivateGameSessionErrorMessage,
+                    activationOutcome.GetError().GetErrorMessage().c_str());
+                HandleDestroySession();
+            }
+        }
+        else
+        {
+            AZ_Error(AWSGameLiftServerManagerName, false, AWSGameLiftServerGameInitErrorMessage);
+            HandleDestroySession();
+        }
     }
 
     bool AWSGameLiftServerManager::OnProcessTerminate()
     {
         if (!m_serverSDKInitialized)
         {
-            AZ_Error("AWSGameLift", false, "No server process was initialized.\n");
+            AZ_Error(AWSGameLiftServerManagerName, false, AWSGameLiftServerSDKNotInitErrorMessage);
             return false;
+        }
+
+        // No further request should be handled by GameLift server manager at this point
+        if (AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Get())
+        {
+            AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Unregister(this);
         }
 
         // TODO: Game-specific tasks required to gracefully shut down the game session and the server process.
 
+        AZ_TracePrintf(AWSGameLiftServerManagerName, "Notifying GameLift server process is ending...");
         Aws::GameLift::GenericOutcome processEndingOutcome = m_gameLiftServerSDKWrapper->ProcessEnding();
         bool processEndingIsSuccess = processEndingOutcome.IsSuccess();
 
-        AZ_Error(
-            "AWSGameLift", processEndingIsSuccess, "Attempt to end process failed:%s:%s\n",
-            processEndingOutcome.GetError().GetErrorName().c_str(), processEndingOutcome.GetError().GetErrorMessage().c_str());
+        AZ_Error(AWSGameLiftServerManagerName, processEndingIsSuccess,
+            AWSGameLiftServerProcessEndingErrorMessage, processEndingOutcome.GetError().GetErrorMessage().c_str());
 
         return processEndingIsSuccess;
     }
 
     bool AWSGameLiftServerManager::OnHealthCheck()
     {
-        // TODO: Complete health evaluation within 60 seconds and set health
-        return true;
+        bool healthCheckResult = true;
+        AZ::EBusReduceResult<bool&, AZStd::logical_and<bool>> result(healthCheckResult);
+        AzFramework::SessionNotificationBus::BroadcastResult(result, &AzFramework::SessionNotifications::OnSessionHealthCheck);
+
+        return m_serverSDKInitialized && healthCheckResult;
     }
 
     void AWSGameLiftServerManager::OnUpdateGameSession()
@@ -124,5 +222,12 @@ namespace AWSGameLift
     {
         m_gameLiftServerSDKWrapper.reset();
         m_gameLiftServerSDKWrapper = AZStd::move(gameLiftServerSDKWrapper);
+    }
+
+    bool AWSGameLiftServerManager::ValidatePlayerJoinSession(const AzFramework::PlayerConnectionConfig& playerConnectionConfig)
+    {
+        // TODO: Perform connection validation for new joined player on server side
+        AZ_UNUSED(playerConnectionConfig);
+        return false;
     }
 } // namespace AWSGameLift

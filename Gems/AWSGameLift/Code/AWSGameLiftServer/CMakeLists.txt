@@ -20,10 +20,12 @@ ly_add_target(
         awsgamelift_server_files.cmake
     INCLUDE_DIRECTORIES
         PRIVATE
+            ../AWSGameLiftCommon/Source
             Source
     BUILD_DEPENDENCIES
         PRIVATE
             AZ::AzCore
+            AZ::AzFramework
             3rdParty::AWSGameLiftServerSDK
     )
 

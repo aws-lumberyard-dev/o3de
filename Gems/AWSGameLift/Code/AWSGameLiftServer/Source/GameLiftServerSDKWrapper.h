@@ -24,14 +24,21 @@ namespace AWSGameLift
         GameLiftServerSDKWrapper() = default;
         virtual ~GameLiftServerSDKWrapper() = default;
 
+        //! Reports to GameLift that the server process is now ready to receive player sessions.
+        //! Should be called once all GameSession initialization has finished.
+        //! @return Returns a generic outcome consisting of success or failure with an error message.
+        virtual Aws::GameLift::GenericOutcome ActivateGameSession();
+
         //! Initializes the GameLift SDK.
+        //! Should be called when the server starts, before any GameLift-dependent initialization happens.
         //! @return If successful, returns an InitSdkOutcome object indicating that the server process is ready to call ProcessReady().
         virtual Aws::GameLift::Server::InitSDKOutcome InitSDK();
 
         //! Notifies the GameLift service that the server process is ready to host game sessions.
-        //! @param processParameters A ProcessParameters object communicating the names of callback methods, port number and game session-specific log files about the server process.
+        //! @param processParameters A ProcessParameters object communicating the names of callback methods, port number and game
+        //! session-specific log files about the server process.
         //! @return Returns a generic outcome consisting of success or failure with an error message.
-        virtual Aws::GameLift::GenericOutcomeCallable ProcessReadyAsync(const Aws::GameLift::Server::ProcessParameters& processParameters);
+        virtual Aws::GameLift::GenericOutcome ProcessReady(const Aws::GameLift::Server::ProcessParameters& processParameters);
 
         //! Notifies the GameLift service that the server process is shutting down.
         //! @return Returns a generic outcome consisting of success or failure with an error message.

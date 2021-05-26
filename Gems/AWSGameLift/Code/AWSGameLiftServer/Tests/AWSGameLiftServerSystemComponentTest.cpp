@@ -10,6 +10,7 @@
 *
 */
 
+#include <AWSGameLiftServerFixture.h>
 #include <AWSGameLiftServerMocks.h>
 
 #include <AzCore/Component/Entity.h>
@@ -22,15 +23,19 @@
 namespace UnitTest
 {
     class AWSGameLiftServerSystemComponentTest
-        : public ScopedAllocatorSetupFixture
+        : public AWSGameLiftServerFixture
     {
     public:
         void SetUp() override
         {
-            ScopedAllocatorSetupFixture::SetUp();
+            AWSGameLiftServerFixture::SetUp();
 
+            m_serializeContext = AZStd::make_unique<AZ::SerializeContext>();
+            m_serializeContext->CreateEditContext();
+            m_behaviorContext = AZStd::make_unique<AZ::BehaviorContext>();
             m_componentDescriptor.reset(AWSGameLift::AWSGameLiftServerSystemComponent::CreateDescriptor());
             m_componentDescriptor->Reflect(m_serializeContext.get());
+            m_componentDescriptor->Reflect(m_behaviorContext.get());
 
             m_entity = aznew AZ::Entity();
 
@@ -56,14 +61,16 @@ namespace UnitTest
             delete m_AWSGameLiftServerSystemsComponent;
             delete m_entity;
 
-            m_serializeContext.reset();
             m_componentDescriptor.reset();
+            m_behaviorContext.reset();
+            m_serializeContext.reset();
 
-            ScopedAllocatorSetupFixture::TearDown();
+            AWSGameLiftServerFixture::TearDown();
         }
 
         AZStd::unique_ptr<AZ::ComponentDescriptor> m_componentDescriptor;
         AZStd::unique_ptr<AZ::SerializeContext> m_serializeContext;
+        AZStd::unique_ptr<AZ::BehaviorContext> m_behaviorContext;
 
         AZ::Entity* m_entity;      
         NiceMock<AWSGameLiftServerSystemComponentMock>* m_AWSGameLiftServerSystemsComponent;
@@ -88,6 +95,5 @@ namespace UnitTest
         // deactivate component
         m_entity->Deactivate();
     }
-
 
 } // namespace UnitTest
