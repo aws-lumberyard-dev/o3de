@@ -115,6 +115,7 @@ namespace GradientSignal
                 ->Event("GetTilingY", &ImageGradientRequestBus::Events::GetTilingY)
                 ->Event("SetTilingY", &ImageGradientRequestBus::Events::SetTilingY)
                 ->VirtualProperty("TilingY", "GetTilingY", "SetTilingY")
+                ->Event("SetValue", &ImageGradientRequestBus::Events::SetValue)
                 ;
         }
     }
@@ -211,6 +212,17 @@ namespace GradientSignal
         }
 
         return 0.0f;
+    }
+
+    void ImageGradientComponent::SetValue(AZ::Vector3 uvw, float newValue)
+    {
+        //bool wasPointRejected = false;
+        //const bool shouldNormalizeOutput = true;
+        // I am not too sure how this check works, because it would be rejected every point I would select on uvw(..., ..., 0)
+        //GradientTransformRequestBus::Event(GetEntityId(), &GradientTransformRequestBus::Events::TransformPositionToUVW, uvw, uvw, shouldNormalizeOutput, wasPointRejected);
+
+        AZStd::lock_guard<decltype(m_imageMutex)> imageLock(m_imageMutex);
+        UpdateValueFromImageAsset(m_configuration.m_imageAsset, uvw, m_configuration.m_tilingX, m_configuration.m_tilingY, newValue);
     }
 
     AZStd::string ImageGradientComponent::GetImageAssetPath() const
