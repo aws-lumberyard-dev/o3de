@@ -29,6 +29,14 @@ namespace Physics
     /// =========================
     /// This is the interface to the wrapper around native material type (such as PxMaterial in PhysX gem)
     /// that stores extra metadata, like Surface Type name.
+    ///
+    /// Usage example
+    /// -------------------------
+    /// Create new material using Physics::SystemRequestBus and Physics::MaterialConfiguration:
+    ///
+    ///     Physics::MaterialConfiguration materialProperties;
+    ///     AZStd::shared_ptr<Physics::Material> newMaterial = AZ::Interface<Physics::System>::Get()->CreateMaterial(materialProperties);
+    /// 
     class Material
     {
     public:
