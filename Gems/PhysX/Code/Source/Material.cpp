@@ -418,14 +418,8 @@ namespace PhysX
             return;
         }
 
-        auto* materialLibrary = GetMaterialLibrary();
-        if (!materialLibrary)
-        {
-            return;
-        }
-
+        // Update material IDs in the selection for each slot
         const AZStd::vector<AZStd::string>& meshMaterialNames = meshAsset->m_assetData.m_materialNames;
-
         for (size_t slotIndex = 0; slotIndex < meshMaterialNames.size(); ++slotIndex)
         {
             auto it = FindOrCreateMaterial(meshMaterialNames[slotIndex]);
@@ -433,25 +427,6 @@ namespace PhysX
             {
                 materialSelection.SetMaterialId(Physics::MaterialId::FromUUID(it->first), slotIndex);
             }
-        }
-
-        // Update material IDs in the selection for each slot
-        int slotIndex = 0;
-        for (const AZStd::string& meshMaterialName : meshMaterialNames)
-        {
-            Physics::MaterialFromAssetConfiguration materialData;
-            bool found = materialLibrary->GetDataForMaterialName(meshMaterialName, materialData);
-
-            AZ_Warning("PhysX", found,
-                "UpdateMaterialSelectionFromPhysicsAsset: No material found for surfaceType (%s) in the collider material library",
-                meshMaterialName.c_str());
-
-            if (found)
-            {
-                materialSelection.SetMaterialId(materialData.m_id, slotIndex);
-            }
-
-            slotIndex++;
         }
     }
 
@@ -494,18 +469,6 @@ namespace PhysX
             return m_materials.end();
         }
 
-        auto* materialLibrary = GetMaterialLibrary();
-        if (!materialLibrary)
-        {
-            return m_materials.end();
-        }
-
-        Physics::MaterialFromAssetConfiguration configuration;
-        if (!materialLibrary->GetDataForMaterialId(materialId, configuration))
-        {
-            return m_materials.end();
-        }
-
         auto iterator = m_materials.find(materialId.GetUuid());
         if (iterator != m_materials.end())
         {
@@ -513,6 +476,18 @@ namespace PhysX
         }
         else
         {
+            auto* materialLibrary = GetMaterialLibrary();
+            if (!materialLibrary)
+            {
+                return m_materials.end();
+            }
+
+            Physics::MaterialFromAssetConfiguration configuration;
+            if (!materialLibrary->GetDataForMaterialId(materialId, configuration))
+            {
+                return m_materials.end();
+            }
+
             auto newMaterial = AZStd::make_shared<Material>(configuration.m_configuration);
             auto insertedPair = m_materials.emplace(materialId.GetUuid(), AZStd::move(newMaterial));
             return insertedPair.first;
@@ -526,25 +501,28 @@ namespace PhysX
             return m_materials.end();
         }
 
-        auto* materialLibrary = GetMaterialLibrary();
-        if (!materialLibrary)
-        {
-            return m_materials.end();
-        }
-
-        Physics::MaterialFromAssetConfiguration configuration;
-        if (!materialLibrary->GetDataForMaterialName(materialName, configuration))
-        {
-            return m_materials.end();
-        }
-
-        auto iterator = m_materials.find(configuration.m_id.GetUuid());
+        auto iterator = AZStd::find_if(m_materials.begin(), m_materials.end(), [&materialName](const auto& data)
+            {
+                return data.second->GetSurfaceTypeName() == materialName;
+            });
         if (iterator != m_materials.end())
         {
             return iterator;
         }
         else
         {
+            auto* materialLibrary = GetMaterialLibrary();
+            if (!materialLibrary)
+            {
+                return m_materials.end();
+            }
+
+            Physics::MaterialFromAssetConfiguration configuration;
+            if (!materialLibrary->GetDataForMaterialName(materialName, configuration))
+            {
+                return m_materials.end();
+            }
+
             auto newMaterial = AZStd::make_shared<Material>(configuration.m_configuration);
             auto insertedPair = m_materials.emplace(configuration.m_id.GetUuid(), AZStd::move(newMaterial));
             return insertedPair.first;
@@ -604,7 +582,7 @@ namespace PhysX
             }
             else
             {
-                // Remove materials not present in the library anymore.
+                // Add for removal the materials not present in the library anymore.
                 materialsToRemove.push_back(materialId.GetUuid());
             }
         }
