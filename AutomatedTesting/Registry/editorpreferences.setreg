@@ -4,7 +4,7 @@
             "EnablePrefabSystem": false,
             "AWS": {
             	"AWSAttributionEnabled": false,
-            	"AWSAttributionDelaySeconds": 30
+            	"AWSAttributionDelaySeconds": 86400
             }
         }
     }
