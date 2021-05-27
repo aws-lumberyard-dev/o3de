@@ -171,14 +171,14 @@ namespace PhysX
     private:
         using Materials = AZStd::unordered_map<AZ::Uuid, AZStd::shared_ptr<Material>>;
 
-        /// Search a material by name, if it exists already it returns its iterator,
-        /// if it doesn't exists is tries to create it and add it to the list.
+        /// Search a material by id, if it exists already it returns its iterator,
+        /// if it doesn't exists it tries to create it and add it to the list.
         /// If the material id is null or not part of the material library then the
         /// iterator returned is end().
         Materials::iterator FindOrCreateMaterial(Physics::MaterialId materialId);
 
         /// Search a material by name, if it exists already it returns its iterator,
-        /// if it doesn't exists is tries to create it and add it to the list.
+        /// if it doesn't exists it tries to create it and add it to the list.
         /// If the material id is null or not part of the material library then the
         /// iterator returned is end().
         Materials::iterator FindOrCreateMaterial(const AZStd::string& materialName);
