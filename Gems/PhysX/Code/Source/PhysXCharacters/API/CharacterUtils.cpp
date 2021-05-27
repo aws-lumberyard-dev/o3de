@@ -15,9 +15,7 @@
 #include <PhysXCharacters/API/CharacterController.h>
 #include <PhysXCharacters/API/Ragdoll.h>
 #include <AzCore/std/smart_ptr/make_shared.h>
-#include <AzFramework/Physics/PhysicsScene.h>
-#include <AzFramework/Physics/PhysicsSystem.h>
-#include <AzFramework/Physics/SystemBus.h>
+#include <AzFramework/Physics/MaterialBus.h>
 #include <cfloat>
 #include <PhysX/PhysXLocks.h>
 #include <Source/RigidBody.h>
@@ -51,17 +49,17 @@ namespace PhysX
             static void AppendShapeIndependentProperties(physx::PxControllerDesc& controllerDesc,
                 const Physics::CharacterConfiguration& characterConfig, CharacterControllerCallbackManager* callbackManager)
             {
-                AZStd::vector<AZStd::shared_ptr<Physics::Material> > materials;
+                AZStd::vector<AZStd::shared_ptr<Physics::Material>> materials;
 
-                Physics::SystemRequestBus::BroadcastResult(
-                    materials,
-                    &Physics::SystemRequests::CreateMaterialsFromLibrary,
-                    characterConfig.m_materialSelection
+                Physics::PhysicsMaterialRequestBus::Broadcast(
+                    &Physics::PhysicsMaterialRequestBus::Events::GetMaterials,
+                    characterConfig.m_materialSelection,
+                    materials
                 );
 
                 if (materials.empty())
                 {
-                    AZ_Error("PhysX Character Controller", false, "Could not create character controller, material was invalid.");
+                    AZ_Error("PhysX Character Controller", false, "Could not create character controller, material list was empty.");
                     return;
                 }
 
