@@ -51,16 +51,30 @@ namespace PhysX
             {
                 AZStd::vector<AZStd::shared_ptr<Physics::Material>> materials;
 
-                Physics::PhysicsMaterialRequestBus::Broadcast(
-                    &Physics::PhysicsMaterialRequestBus::Events::GetMaterials,
-                    characterConfig.m_materialSelection,
-                    materials
-                );
-
-                if (materials.empty())
+                if (characterConfig.m_materialSelection.GetMaterialIdsAssignedToSlots().empty())
                 {
-                    AZ_Error("PhysX Character Controller", false, "Could not create character controller, material list was empty.");
-                    return;
+                    // If material selection has no slots, falling back to default material.
+                    AZStd::shared_ptr<Physics::Material> defaultMaterial;
+                    Physics::PhysicsMaterialRequestBus::BroadcastResult(defaultMaterial,
+                        &Physics::PhysicsMaterialRequestBus::Events::GetGenericDefaultMaterial);
+                    if (!defaultMaterial)
+                    {
+                        AZ_Error("PhysX Character Controller", false, "Invalid default material.");
+                        return;
+                    }
+                    materials.push_back(AZStd::move(defaultMaterial));
+                }
+                else
+                {
+                    Physics::PhysicsMaterialRequestBus::Broadcast(
+                        &Physics::PhysicsMaterialRequestBus::Events::GetMaterials,
+                        characterConfig.m_materialSelection,
+                        materials);
+                    if (materials.empty())
+                    {
+                        AZ_Error("PhysX Character Controller", false, "Could not create character controller, material list was empty.");
+                        return;
+                    }
                 }
 
                 physx::PxMaterial* pxMaterial = static_cast<physx::PxMaterial*>(materials.front()->GetNativePointer());

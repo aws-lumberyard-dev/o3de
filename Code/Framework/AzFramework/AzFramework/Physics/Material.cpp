@@ -467,7 +467,6 @@ namespace Physics
         auto* materialLibrary = GetMaterialLibrary().Get();
         if (!materialLibrary)
         {
-            AZ_Warning("PhysX", false, "MaterialSelection: invalid material library");
             return;
         }
 
@@ -491,7 +490,10 @@ namespace Physics
     {
         if (auto* physicsSystem = AZ::Interface<AzPhysics::SystemInterface>::Get())
         {
-            return physicsSystem->GetConfiguration()->m_materialLibraryAsset;
+            if (const auto* physicsConfiguration = physicsSystem->GetConfiguration())
+            {
+                return physicsConfiguration->m_materialLibraryAsset;
+            }
         }
         return s_invalidMaterialLibrary;
     }

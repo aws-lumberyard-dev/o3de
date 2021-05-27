@@ -553,13 +553,14 @@ namespace PhysX
 
     Physics::MaterialLibraryAsset* MaterialsManager::GetMaterialLibrary()
     {
-        auto* physicsSystem = AZ::Interface<AzPhysics::SystemInterface>::Get();
-        if (!physicsSystem)
+        if (auto* physicsSystem = AZ::Interface<AzPhysics::SystemInterface>::Get())
         {
-            return nullptr;
+            if (const auto* physicsConfiguration = physicsSystem->GetConfiguration())
+            {
+                return physicsConfiguration->m_materialLibraryAsset.Get();
+            }
         }
-
-        return physicsSystem->GetConfiguration()->m_materialLibraryAsset.Get();
+        return nullptr;
     }
 
     void MaterialsManager::OnPhysicsConfigurationChanged(const AzPhysics::SystemConfiguration* config)

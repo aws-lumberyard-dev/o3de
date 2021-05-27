@@ -113,6 +113,7 @@ namespace PhysX
 
         // Physics::SystemRequestBus::Handler
         AZStd::shared_ptr<Physics::Shape> CreateShape(const Physics::ColliderConfiguration& colliderConfiguration, const Physics::ShapeConfiguration& configuration) override;
+        AZStd::shared_ptr<Physics::Material> CreateMaterial(const Physics::MaterialConfiguration& materialConfiguration) override;
 
         AZStd::vector<AZ::TypeId> GetSupportedJointTypes() override;
         AZStd::shared_ptr<Physics::JointLimitConfiguration> CreateJointLimitConfiguration(AZ::TypeId jointType) override;

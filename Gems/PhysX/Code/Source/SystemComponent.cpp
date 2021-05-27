@@ -342,6 +342,11 @@ namespace PhysX
         return nullptr;
     }
 
+    AZStd::shared_ptr<Physics::Material> SystemComponent::CreateMaterial(const Physics::MaterialConfiguration& materialConfiguration)
+    {
+        return AZStd::make_shared<PhysX::Material>(materialConfiguration);
+    }
+
     AZStd::vector<AZ::TypeId> SystemComponent::GetSupportedJointTypes()
     {
         return JointUtils::GetSupportedJointTypes();
