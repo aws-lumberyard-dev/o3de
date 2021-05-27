@@ -17,8 +17,7 @@
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Settings/SettingsRegistry.h>
 
-// Editor
-//#include "Settings.h"
+constexpr char AWSAttributionEnabledKey[] = "/Amazon/Preferences/AWS/AWSAttributionEnabled";
 
 void CEditorPreferencesPage_AWS::Reflect(AZ::SerializeContext& serialize)
 {
@@ -34,8 +33,8 @@ void CEditorPreferencesPage_AWS::Reflect(AZ::SerializeContext& serialize)
     if (editContext)
     {
         editContext->Class<UsageOptions>("Options", "")
-            ->DataElement(AZ::Edit::UIHandlers::CheckBox, &UsageOptions::m_awsAttributionEnabled, "Send Metrics usage to AWS <html><a href=\"http://google.com\">read more</a></html>",
-            "Enable Total Illumination");
+            ->DataElement(AZ::Edit::UIHandlers::CheckBox, &UsageOptions::m_awsAttributionEnabled, "Send Metrics usage to AWS",
+            "Reports Gem usage to AWS on Editor launch");
 
         editContext->Class<CEditorPreferencesPage_AWS>("AWS Preferences", "AWS Preferences")
             ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
@@ -72,7 +71,7 @@ void CEditorPreferencesPage_AWS::OnApply()
         return;
     }
 
-    registry->Set("/Amazon/Preferences/AWS/AWSAttributionEnabled", m_usageOptions.m_awsAttributionEnabled);
+    registry->Set(AWSAttributionEnabledKey, m_usageOptions.m_awsAttributionEnabled);
 }
 
 const CEditorPreferencesPage_AWS::UsageOptions& CEditorPreferencesPage_AWS::GetUsageOptions()
@@ -89,5 +88,5 @@ void CEditorPreferencesPage_AWS::InitializeSettings()
         return;
     }
 
-    registry->Get(m_usageOptions.m_awsAttributionEnabled, "/Amazon/Preferences/AWS/AWSAttributionEnabled");
+    registry->Get(m_usageOptions.m_awsAttributionEnabled, AWSAttributionEnabledKey);
 }
