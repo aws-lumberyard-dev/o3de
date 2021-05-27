@@ -13,13 +13,31 @@
 #include <Editor/Attribution/AWSCoreAttributionManager.h>
 #include <Editor/Attribution/AWSCoreAttributionMetric.h>
 #include <AzCore/std/string/string.h>
+#include <AzCore/IO/FileIO.h>
 #include <AzCore/PlatformId/PlatformId.h>
+#include <AzCore/Settings/SettingsRegistry.h>
+#include <AzCore/Settings/SettingsRegistryMergeUtils.h>
+#include <AzCore/Settings/SettingsRegistryImpl.h>
+#include <AzCore/Utils/Utils.h>
+#include <AzCore/Jobs/JobFunction.h>
+#include <AzCore/IO/ByteContainerStream.h>
+
 
 namespace AWSCore
 {
+    constexpr char EditorPreferencesFileName[] = "editorpreferences.setreg";
+    constexpr char AWSAttributionEnabledKey[] = "/Amazon/Preferences/AWS/AWSAttributionEnabled";
+    constexpr char AWSAttributionDelaySecondsKey[] = "/Amazon/Preferences/AWS/AWSAttributionDelaySeconds";
+    constexpr char AWSAttributionLastTimeStampKey[] = "/Amazon/Preferences/AWS/AWSAttributionLastTimeStamp";
+
+    AWSAttributionManager::~AWSAttributionManager()
+    {
+        m_settingsRegistry.reset();
+    }
+
     void AWSAttributionManager::Init()
     {
-        // TODO: Perform any setup
+        m_settingsRegistry = AZStd::make_unique<AZ::SettingsRegistryImpl>();
     }
 
     void AWSAttributionManager::MetricCheck()
@@ -28,25 +46,124 @@ namespace AWSCore
         {
             // 1. Gather metadata and assemble metric
             AttributionMetric metric;
-            UpdateMetric(metric);
-
+            UpdateMetric(metric);            
             // 2. Identify region and chose attribution endpoint
             
             // 3. Post metric
+            SubmitMetric(metric);
         }
-        UpdateLastCheck();
     }
 
     bool AWSAttributionManager::ShouldGenerateMetric() const
     {
-        // 1. Check settings reg/config to see if metric emission is enabled
-        // 2. Check last check time
+        AZ::IO::FileIOBase* fileIO = AZ::IO::FileIOBase::GetInstance();
+        AZ_Assert(fileIO, "File IO is not initialized.");
+
+        // Resolve path to editorpreferences.setreg
+        AZStd::string editorPreferencesFilePath = AZStd::string::format("@user@/%s/%s", AZ::SettingsRegistryInterface::RegistryFolder, EditorPreferencesFileName);
+        AZStd::array<char, AZ::IO::MaxPathLength> resolvedPath {};
+        if (!fileIO->ResolvePath(editorPreferencesFilePath.c_str(), resolvedPath.data(), resolvedPath.size()))
+        {
+            AZ_Warning("AWSAttributionManager", false, "Error resolving path", editorPreferencesFilePath.c_str());
+            return false;
+        }
+
+        if (!m_settingsRegistry->MergeSettingsFile(resolvedPath.data(), AZ::SettingsRegistryInterface::Format::JsonMergePatch))
+        {
+            AZ_Warning("AWSAttributionManager", false, "Error merging settings registry for path: %s", resolvedPath.data());
+            return false;
+        }
+
+        bool awsAttributionEnabled = false;
+        if (!m_settingsRegistry->Get(awsAttributionEnabled, AWSAttributionEnabledKey))
+        {
+            AZ_Warning("AWSAttributionManager", false, "%s key not found in %s", AWSAttributionEnabledKey, resolvedPath.data());
+            return false;
+        }
+
+        if (!awsAttributionEnabled)
+        {
+            return false;
+        }
+
+        // If delay not set do not send metrics.
+        AZ::u64 delayInSeconds = AZStd::chrono::seconds::max().count();
+        m_settingsRegistry->Get(delayInSeconds, AWSAttributionDelaySecondsKey);
+
+        AZ::u64 lastSendTimeStampSeconds = 0;
+        if (!m_settingsRegistry->Get(lastSendTimeStampSeconds, AWSAttributionLastTimeStampKey))
+        {
+            // If last time stamp not found, assume this is the first attempt at sending.
+            return true;
+        }
+
+        AZStd::chrono::seconds lastSendTimeStamp = AZStd::chrono::seconds(lastSendTimeStampSeconds);
+        AZStd::chrono::seconds secondsSinceLastSend =
+            AZStd::chrono::duration_cast<AZStd::chrono::seconds>(AZStd::chrono::system_clock::now().time_since_epoch()) - lastSendTimeStamp;
+        if (secondsSinceLastSend.count() >= delayInSeconds)
+        {
+            return true;
+        }
+
         return false;
     }
 
-    void AWSAttributionManager::UpdateLastCheck()
+    void AWSAttributionManager::SaveSettingsRegistryFile()
     {
-        // Update registry setting about time check
+        AZ::Job* job = AZ::CreateJobFunction(
+            [this]()
+            {
+                AZ::IO::FileIOBase* fileIO = AZ::IO::FileIOBase::GetInstance();
+                AZ_Assert(fileIO, "File IO is not initialized.");
+
+                // Resolve path to editorpreferences.setreg
+                AZStd::string editorPreferencesFilePath = AZStd::string::format("@user@/%s/%s", AZ::SettingsRegistryInterface::RegistryFolder, EditorPreferencesFileName);
+                AZStd::array<char, AZ::IO::MaxPathLength> resolvedPath {};
+                fileIO->ResolvePath(editorPreferencesFilePath.c_str(), resolvedPath.data(), resolvedPath.size());
+
+                AZ::SettingsRegistryMergeUtils::DumperSettings dumperSettings;
+                dumperSettings.m_prettifyOutput = true;
+                dumperSettings.m_jsonPointerPrefix = "/Amazon/Preferences";
+
+                AZStd::string stringBuffer;
+                AZ::IO::ByteContainerStream stringStream(&stringBuffer);
+                if (!AZ::SettingsRegistryMergeUtils::DumpSettingsRegistryToStream(
+                        *m_settingsRegistry, "/Amazon/Preferences", stringStream, dumperSettings))
+                {
+                    AZ_Warning(
+                        "AWSAttributionManager", false, R"(Unable to save changes to the Editor Preferences registry file at "%s"\n)",
+                        resolvedPath.data());
+                    return;
+                }
+
+                bool saved {};
+                constexpr auto configurationMode =
+                    AZ::IO::SystemFile::SF_OPEN_CREATE | AZ::IO::SystemFile::SF_OPEN_CREATE_PATH | AZ::IO::SystemFile::SF_OPEN_WRITE_ONLY;
+                if (AZ::IO::SystemFile outputFile; outputFile.Open(resolvedPath.data(), configurationMode))
+                {
+                    saved = outputFile.Write(stringBuffer.data(), stringBuffer.size()) == stringBuffer.size();
+                }
+
+                AZ_Warning(
+                    "AWSAttributionManager", saved, R"(Unable to save Editor Preferences registry file to path "%s"\n)",
+                    editorPreferencesFilePath.c_str());
+            },
+            true);
+        job->Start();
+        
+    }
+
+    void AWSAttributionManager::UpdateLastSend()
+    {
+        if (!m_settingsRegistry->Set(AWSAttributionLastTimeStampKey,
+            AZStd::chrono::duration_cast<AZStd::chrono::seconds>(AZStd::chrono::system_clock::now().time_since_epoch()).count()))
+        {
+            AZ_Error("AWSAttributionManager", true, "Failed to set AWSAttributionLastTimeStamp");
+            return;
+        }
+
+        AZ_Warning("AWSAttributionManager", false, "UpdateLastSend");
+        SaveSettingsRegistryFile();
     }
 
     AZStd::string AWSAttributionManager::GetEngineVersion() const
@@ -80,6 +197,7 @@ namespace AWSCore
     {
         // Submit metric
         AZ_UNUSED(metric);
+        UpdateLastSend();
     }
 
 } // namespace AWSCore

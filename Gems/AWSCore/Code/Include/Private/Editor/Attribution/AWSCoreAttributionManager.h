@@ -15,6 +15,11 @@
 #include <AzCore/std/string/string.h>
 #include <AzCore/std/containers/vector.h>
 
+namespace AZ
+{
+    class SettingsRegistryInterface;
+}
+
 namespace AWSCore
 {
     class AttributionMetric;
@@ -24,7 +29,7 @@ namespace AWSCore
     {
     public:
         AWSAttributionManager() = default;
-        virtual ~AWSAttributionManager() = default;
+        virtual ~AWSAttributionManager();
 
         //! Perform initialization
         void Init();
@@ -36,11 +41,14 @@ namespace AWSCore
         bool ShouldGenerateMetric() const;
         void UpdateMetric(AttributionMetric& metric);
         void SubmitMetric(AttributionMetric& metric);
-        void UpdateLastCheck();
+        void UpdateLastSend();
 
         AZStd::string GetEngineVersion() const;
         AZStd::string GetPlatform() const;
         void GetActiveAWSGems(AZStd::vector<AZStd::string>& gemNames);
+        void SaveSettingsRegistryFile();
+
+        AZStd::unique_ptr<AZ::SettingsRegistryInterface> m_settingsRegistry;
     };
 
 } // namespace AWSCore
