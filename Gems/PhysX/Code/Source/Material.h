@@ -16,7 +16,7 @@
 #include <AzFramework/Physics/Material.h>
 #include <AzFramework/Physics/MaterialBus.h>
 #include <AzFramework/Physics/ShapeConfiguration.h>
-#include <AzCore/Asset/AssetCommon.h>
+#include <AzFramework/Physics/Common/PhysicsEvents.h>
 #include <AzCore/std/smart_ptr/enable_shared_from_this.h>
 
 namespace PhysX
