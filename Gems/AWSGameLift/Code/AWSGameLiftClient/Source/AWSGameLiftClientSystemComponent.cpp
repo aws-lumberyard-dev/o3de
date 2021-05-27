@@ -10,30 +10,65 @@
  *
  */
 
-#include <AWSGameLiftClientSystemComponent.h>
-
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/EditContextConstants.inl>
 
+#include <AWSGameLiftClientManager.h>
+#include <AWSGameLiftClientSystemComponent.h>
+#include <Request/AWSGameLiftCreateSessionRequest.h>
+
+#include <aws/gamelift/GameLiftClient.h>
+
 namespace AWSGameLift
 {
+    AWSGameLiftClientSystemComponent::AWSGameLiftClientSystemComponent()
+    {
+        m_gameliftClientManager = AZStd::make_unique<AWSGameLiftClientManager>();
+    }
+
     void AWSGameLiftClientSystemComponent::Reflect(AZ::ReflectContext* context)
     {
+        AWSGameLiftCreateSessionRequest::Reflect(context);
+
         if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serialize->Class<AWSGameLiftClientSystemComponent, AZ::Component>()
                 ->Version(0)
                 ;
 
-            if (AZ::EditContext* ec = serialize->GetEditContext())
+            if (AZ::EditContext* editContext = serialize->GetEditContext())
             {
-                ec->Class<AWSGameLiftClientSystemComponent>("AWSGameLiftClient", "Create the GameLift client manager that handles communication between game clients and the GameLift service.")
+                editContext
+                    ->Class<AWSGameLiftClientSystemComponent>(
+                        "AWSGameLiftClient",
+                        "Create the GameLift client manager that handles communication between game clients and the GameLift service.")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                         ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC("System"))
                         ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
                     ;
             }
+        }
+
+        if (AZ::BehaviorContext* behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context))
+        {
+            behaviorContext->EBus<AWSGameLiftRequestBus>("AWSGameLiftRequestBus")
+                ->Attribute(AZ::Script::Attributes::Category, "AWSGameLift")
+                ->Event("ConfigureGameLiftClient", &AWSGameLiftRequestBus::Events::ConfigureGameLiftClient)
+                ;
+            behaviorContext->EBus<AWSGameLiftSessionAsyncRequestBus>("AWSGameLiftSessionAsyncRequestBus")
+                ->Attribute(AZ::Script::Attributes::Category, "AWSGameLift")
+                ->Event("CreateSessionAsync", &AWSGameLiftSessionAsyncRequestBus::Events::CreateSessionAsync)
+                ;
+            behaviorContext
+                ->EBus<AzFramework::SessionAsyncRequestNotificationBus>("AWSGameLiftSessionAsyncRequestNotificationBus")
+                ->Attribute(AZ::Script::Attributes::Category, "AWSGameLift")
+                ->Handler<AWSGameLiftSessionAsyncRequestNotificationBusHandler>()
+                ;
+            behaviorContext->EBus<AWSGameLiftSessionRequestBus>("AWSGameLiftSessionRequestBus")
+                ->Attribute(AZ::Script::Attributes::Category, "AWSGameLift")
+                ->Event("CreateSession", &AWSGameLiftSessionRequestBus::Events::CreateSession)
+                ;
         }
     }
 
@@ -63,10 +98,17 @@ namespace AWSGameLift
 
     void AWSGameLiftClientSystemComponent::Activate()
     {
+        m_gameliftClientManager->ActivateManager();
     }
 
     void AWSGameLiftClientSystemComponent::Deactivate()
     {
+        m_gameliftClientManager->DeactivateManager();
     }
 
+    void AWSGameLiftClientSystemComponent::SetGameLiftClientManager(AZStd::unique_ptr<AWSGameLiftClientManager> gameliftClientManager)
+    {
+        m_gameliftClientManager.reset();
+        m_gameliftClientManager = AZStd::move(gameliftClientManager);
+    }
 } // namespace AWSGameLift

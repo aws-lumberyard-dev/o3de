@@ -9,19 +9,27 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #
 
+set(awsgameliftclient_compile_definition $<IF:$<CONFIG:release>,AWSGAMELIFT_RELEASE,AWSGAMELIFT_DEV>)
+
 ly_add_target(
     NAME AWSGameLift.Client.Static STATIC
     NAMESPACE Gem
     FILES_CMAKE
         awsgamelift_client_files.cmake
     INCLUDE_DIRECTORIES
+        PUBLIC
+            Include
         PRIVATE
             Source
+    COMPILE_DEFINITIONS
+        PRIVATE
+            ${awsgameliftclient_compile_definition}
     BUILD_DEPENDENCIES
         PRIVATE
             AZ::AzCore
+            AZ::AzFramework
             Gem::AWSCore
-            3rdParty::AWSNativeSDK::GameLift
+            3rdParty::AWSNativeSDK::GameLiftClient
 )
 
 ly_add_target(
@@ -36,8 +44,9 @@ ly_add_target(
         PRIVATE
             AZ::AzCore
             Gem::AWSCore
+            3rdParty::AWSNativeSDK::GameLiftClient
+        PUBLIC
             Gem::AWSGameLift.Client.Static
-            3rdParty::AWSNativeSDK::GameLift
 )
 
 ################################################################################
@@ -48,18 +57,24 @@ if(PAL_TRAIT_BUILD_TESTS_SUPPORTED)
         NAME AWSGameLift.Client.Tests ${PAL_TRAIT_TEST_TARGET_TYPE}
         NAMESPACE Gem
         FILES_CMAKE
-            awsgamelift_client_files.cmake
             awsgamelift_client_tests_files.cmake
         INCLUDE_DIRECTORIES
             PRIVATE
+                Include
                 Tests
                 Source
         BUILD_DEPENDENCIES
             PRIVATE
                 AZ::AzTest
                 AZ::AzCore
+                AZ::AzFramework
                 Gem::AWSCore
                 Gem::AWSGameLift.Client.Static
-                3rdParty::AWSNativeSDK::GameLift
+                3rdParty::AWSNativeSDK::GameLiftClient
+                AZ::AWSNativeSDKInit
+    )
+    # Add AWSGameLift.Client.Tests to googletest
+    ly_add_googletest(
+        NAME Gem::AWSGameLift.Client.Tests
     )
 endif()

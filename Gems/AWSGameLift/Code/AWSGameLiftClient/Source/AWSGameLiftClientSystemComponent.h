@@ -13,15 +13,21 @@
 #pragma once
 
 #include <AzCore/Component/Component.h>
+#include <AzCore/std/smart_ptr/unique_ptr.h>
 
 namespace AWSGameLift
 {
-    //! Gem client system component. Responsible for creating the backend client service.
+    class AWSGameLiftClientManager;
+
+    //! Gem client system component. Responsible for creating the gamelift client manager.
     class AWSGameLiftClientSystemComponent
         : public AZ::Component
     {
     public:
         AZ_COMPONENT(AWSGameLiftClientSystemComponent, "{d481c15c-732a-4eea-9853-4965ed1bc2be}");
+
+        AWSGameLiftClientSystemComponent();
+        virtual ~AWSGameLiftClientSystemComponent() = default;
 
         static void Reflect(AZ::ReflectContext* context);
 
@@ -37,6 +43,11 @@ namespace AWSGameLift
         void Activate() override;
         void Deactivate() override;
         ////////////////////////////////////////////////////////////////////////
+
+        void SetGameLiftClientManager(AZStd::unique_ptr<AWSGameLiftClientManager> gameliftClientManager);
+
+    private:
+        AZStd::unique_ptr<AWSGameLiftClientManager> m_gameliftClientManager;
     };
 
 } // namespace AWSGameLift
