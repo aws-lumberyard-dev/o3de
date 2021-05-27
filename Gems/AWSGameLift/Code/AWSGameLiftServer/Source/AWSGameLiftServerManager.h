@@ -47,6 +47,8 @@ namespace AWSGameLift
             "No server port specified, server will be listening on ephemeral port.";
         static constexpr const char AWSGameLiftServerGameInitErrorMessage[] =
             "Failed to process game dependent initialization during OnStartGameSession.";
+        static constexpr const char AWSGameLiftServerGameSessionDestroyErrorMessage[] =
+            "Failed to destroy game session during OnProcessTerminate.";
 
         static constexpr const char AWSGameLiftServerInitSDKErrorMessage[] =
             "Failed to initialize Amazon GameLift Server SDK. ErrorMessage: %s";

@@ -184,16 +184,30 @@ namespace AWSGameLift
 
     bool AWSGameLiftServerManager::OnProcessTerminate()
     {
+        // Send notifications to handler(s) to gracefully shut down the server process.
+        bool destroySessionResult = true;
+        AZ::EBusReduceResult<bool&, AZStd::logical_and<bool>> result(destroySessionResult);
+        AzFramework::SessionNotificationBus::BroadcastResult(result, &AzFramework::SessionNotifications::OnDestroySessionBegin);
+
+        if (destroySessionResult)
+        {
+            // No further request should be handled by GameLift server manager at this point
+            if (AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Get())
+            {
+                AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Unregister(this);
+            }
+        }
+        else
+        {
+            AZ_Error("AWSGameLift", false, AWSGameLiftServerGameSessionDestroyErrorMessage);
+            return false;
+        }
+
+        // Notifies the GameLift service that the server process is shutting down.
         if (!m_serverSDKInitialized)
         {
             AZ_Error(AWSGameLiftServerManagerName, false, AWSGameLiftServerSDKNotInitErrorMessage);
             return false;
-        }
-
-        // No further request should be handled by GameLift server manager at this point
-        if (AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Get())
-        {
-            AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Unregister(this);
         }
 
         // TODO: Game-specific tasks required to gracefully shut down the game session and the server process.
