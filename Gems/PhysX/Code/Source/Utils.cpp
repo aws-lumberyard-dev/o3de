@@ -676,7 +676,7 @@ namespace PhysX
             const float boundsInflationFactor = 1.0f;
             AZ::Transform overallTransformNoScale = GetColliderWorldTransform(worldTransform,
                 colliderConfiguration.m_position, colliderConfiguration.m_rotation);
-            overallTransformNoScale.ExtractScale();
+            overallTransformNoScale.ExtractUniformScale();
             const physx::PxBounds3 bounds = physx::PxGeometryQuery::getWorldBounds(geometryHolder.any(),
                 PxMathConvert(overallTransformNoScale),
                 boundsInflationFactor);
@@ -1336,7 +1336,7 @@ namespace PhysX
             AZ::TransformBus::EventResult(worldTransformWithoutScale
                 , entityId
                 , &AZ::TransformInterface::GetWorldTM);
-            worldTransformWithoutScale.ExtractScale();
+            worldTransformWithoutScale.ExtractUniformScale();
             return worldTransformWithoutScale;
         }
 
@@ -1344,10 +1344,10 @@ namespace PhysX
             const AZ::Transform& entityWorldTransform)
         {
             AZ::Transform jointWorldTransformWithoutScale = jointWorldTransform;
-            jointWorldTransformWithoutScale.ExtractScale();
+            jointWorldTransformWithoutScale.ExtractUniformScale();
 
             AZ::Transform entityWorldTransformWithoutScale = entityWorldTransform;
-            entityWorldTransformWithoutScale.ExtractScale();
+            entityWorldTransformWithoutScale.ExtractUniformScale();
             AZ::Transform entityWorldTransformInverse = entityWorldTransformWithoutScale.GetInverse();
 
             return entityWorldTransformInverse * jointWorldTransformWithoutScale;
@@ -1357,10 +1357,10 @@ namespace PhysX
             const AZ::Transform& entityWorldTransform)
         {
             AZ::Transform jointLocalTransformWithoutScale = jointLocalTransform;
-            jointLocalTransformWithoutScale.ExtractScale();
+            jointLocalTransformWithoutScale.ExtractUniformScale();
 
             AZ::Transform entityWorldTransformWithoutScale = entityWorldTransform;
-            entityWorldTransformWithoutScale.ExtractScale();
+            entityWorldTransformWithoutScale.ExtractUniformScale();
 
             return entityWorldTransformWithoutScale * jointLocalTransformWithoutScale;
         }
