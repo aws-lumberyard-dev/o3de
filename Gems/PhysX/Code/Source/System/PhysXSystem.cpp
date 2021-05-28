@@ -452,13 +452,9 @@ namespace PhysX
         if (m_systemConfig.m_materialLibraryAsset == materialLibrary)
         {
             // Same library asset, check if its data has changed.
-            const bool hasDifferentData =
-                m_systemConfig.m_materialLibraryAsset->GetMaterialsData() != materialLibrary->GetMaterialsData();
-
-            m_systemConfig.m_materialLibraryAsset = materialLibrary;
-
-            if (hasDifferentData)
+            if (m_systemConfig.m_materialLibraryAsset->GetMaterialsData() != materialLibrary->GetMaterialsData())
             {
+                m_systemConfig.m_materialLibraryAsset = materialLibrary;
                 m_onMaterialLibraryChangedEvent.Signal(materialLibrary.GetId());
             }
         }
