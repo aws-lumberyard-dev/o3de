@@ -11,14 +11,8 @@
  */
 
 #pragma once
-#include <AzCore/std/smart_ptr/unique_ptr.h>
 #include <AzCore/std/string/string.h>
 #include <AzCore/std/containers/vector.h>
-
-namespace AZ
-{
-    class SettingsRegistryInterface;
-}
 
 namespace AWSCore
 {
@@ -29,7 +23,7 @@ namespace AWSCore
     {
     public:
         AWSAttributionManager() = default;
-        virtual ~AWSAttributionManager();
+        virtual ~AWSAttributionManager() = default;
 
         //! Perform initialization
         void Init();
@@ -47,8 +41,6 @@ namespace AWSCore
         AZStd::string GetPlatform() const;
         void GetActiveAWSGems(AZStd::vector<AZStd::string>& gemNames);
         void SaveSettingsRegistryFile();
-
-        AZStd::unique_ptr<AZ::SettingsRegistryInterface> m_settingsRegistry;
     };
 
 } // namespace AWSCore

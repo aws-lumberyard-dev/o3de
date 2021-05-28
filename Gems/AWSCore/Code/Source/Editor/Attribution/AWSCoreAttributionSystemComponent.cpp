@@ -10,8 +10,8 @@
  *
  */
 
-#include <Editor/Attribution/AWSCoreAttributionSystemComponent.h>
 #include <Editor/Attribution/AWSCoreAttributionManager.h>
+#include <Editor/Attribution/AWSCoreAttributionSystemComponent.h>
 
 #include <AzCore/IO/FileIO.h>
 #include <AzCore/RTTI/BehaviorContext.h>
@@ -53,7 +53,7 @@ namespace AWSCore
 
     void AWSAttributionSystemComponent::GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
     {
-        required.push_back(AZ_CRC_CE("AWSCoreService"));
+        AZ_UNUSED(required);
     }
 
     void AWSAttributionSystemComponent::GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent)

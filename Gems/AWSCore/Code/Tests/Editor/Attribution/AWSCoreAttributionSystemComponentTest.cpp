@@ -23,7 +23,8 @@ using namespace AWSCore;
 
 namespace AWSCoreUnitTest
 {
-    class AWSCoreSystemComponentMock : public AZ::Component
+    class AWSCoreSystemComponentMock
+        : public AZ::Component
     {
     public:
         AZ_COMPONENT(AWSCoreSystemComponentMock, "{5F48030D-EB59-4820-BC65-69EC7CC6C119}");
@@ -128,7 +129,9 @@ namespace AWSCoreUnitTest
     {
         m_entity->Init();
 
+        AZ_TEST_START_TRACE_SUPPRESSION;
         m_entity->Activate();
+        AZ_TEST_STOP_TRACE_SUPPRESSION(1);
     }
 }
 

@@ -3,8 +3,8 @@
         "Preferences": {
             "EnablePrefabSystem": false,
             "AWS": {
-            	"AWSAttributionEnabled": false,
-            	"AWSAttributionDelaySeconds": 86400
+                "AWSAttributionEnabled": true,
+                "AWSAttributionDelaySeconds": 86400
             }
         }
     }

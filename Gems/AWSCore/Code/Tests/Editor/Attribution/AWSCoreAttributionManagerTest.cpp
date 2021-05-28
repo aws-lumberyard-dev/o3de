@@ -72,6 +72,8 @@ namespace AWSCoreUnitTest
             m_settingsRegistry->SetContext(m_serializeContext.get());
             m_settingsRegistry->SetContext(m_registrationContext.get());
 
+            AZ::SettingsRegistry::Register(m_settingsRegistry.get());
+
             AZ::JobManagerDesc jobManagerDesc;
             AZ::JobManagerThreadDesc threadDesc;
 
@@ -88,6 +90,8 @@ namespace AWSCoreUnitTest
             m_jobContext.reset();
             m_jobCancelGroup.reset();
             m_jobManager.reset();
+
+            AZ::SettingsRegistry::Unregister(m_settingsRegistry.get());
 
             m_settingsRegistry.reset();
             m_serializeContext.reset();
@@ -125,8 +129,6 @@ namespace AWSCoreUnitTest
         manager.MetricCheck();
 
         // THEN
-        m_settingsRegistry->MergeSettingsFile(m_resolvedSettingsPath.data(), AZ::SettingsRegistryInterface::Format::JsonMergePatch, {});
-
         AZ::u64 timeStamp = 0;
         m_settingsRegistry->Get(timeStamp, "/Amazon/Preferences/AWS/AWSAttributionLastTimeStamp");
         ASSERT_TRUE(timeStamp == 0);
@@ -156,8 +158,6 @@ namespace AWSCoreUnitTest
         manager.MetricCheck();
 
         // THEN
-        m_settingsRegistry->MergeSettingsFile(m_resolvedSettingsPath.data(), AZ::SettingsRegistryInterface::Format::JsonMergePatch, {});
-
         AZ::u64 timeStamp = 0;
         m_settingsRegistry->Get(timeStamp, "/Amazon/Preferences/AWS/AWSAttributionLastTimeStamp");
         ASSERT_TRUE(timeStamp > 0);
@@ -189,8 +189,6 @@ namespace AWSCoreUnitTest
         manager.MetricCheck();
 
         // THEN
-        m_settingsRegistry->MergeSettingsFile(m_resolvedSettingsPath.data(), AZ::SettingsRegistryInterface::Format::JsonMergePatch, {});
-
         AZ::u64 timeStamp = 0;
         m_settingsRegistry->Get(timeStamp, "/Amazon/Preferences/AWS/AWSAttributionLastTimeStamp");
         ASSERT_TRUE(timeStamp > 0);
@@ -218,9 +216,8 @@ namespace AWSCoreUnitTest
             }
         })");
 
-        m_settingsRegistry->MergeSettingsFile(m_resolvedSettingsPath.data(), AZ::SettingsRegistryInterface::Format::JsonMergePatch, {});
-        AZ::u64 delayInSeconds = AZStd::chrono::seconds::max().count();
-        m_settingsRegistry->Set("/Amazon/Preferences/AWS/AWSAttributionLastTimeStamp", delayInSeconds);
+        AZ::u64 delayInSeconds = AZStd::chrono::duration_cast<AZStd::chrono::seconds>(AZStd::chrono::system_clock::now().time_since_epoch()).count();
+        ASSERT_TRUE(m_settingsRegistry->Set("/Amazon/Preferences/AWS/AWSAttributionLastTimeStamp", delayInSeconds));
 
         // WHEN
         manager.MetricCheck();
@@ -233,7 +230,7 @@ namespace AWSCoreUnitTest
         RemoveFile(m_resolvedSettingsPath.data());
     }
 
-    TEST_F(AttributionManagerTest, AttributionEnabledNotFound_SendFail)
+    TEST_F(AttributionManagerTest, AttributionEnabledNotFound_SendSuccess)
     {
         // GIVEN
         AWSAttributionManager manager;
@@ -255,7 +252,7 @@ namespace AWSCoreUnitTest
         // THEN
         AZ::u64 timeStamp = 0;
         m_settingsRegistry->Get(timeStamp, "/Amazon/Preferences/AWS/AWSAttributionLastTimeStamp");
-        ASSERT_TRUE(timeStamp == 0);
+        ASSERT_TRUE(timeStamp != 0);
 
         RemoveFile(m_resolvedSettingsPath.data());
     }

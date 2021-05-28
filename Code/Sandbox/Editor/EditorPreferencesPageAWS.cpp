@@ -67,7 +67,7 @@ void CEditorPreferencesPage_AWS::OnApply()
     auto registry = AZ::SettingsRegistry::Get();
     if (registry == nullptr)
     {
-        AZ_Warning("SEditorSettings", false, "Unable to access global settings registry. Editor Preferences cannot be saved");
+        AZ_Warning("CEditorPreferencesPage_AWS", false, "Unable to access global settings registry. Editor Preferences cannot be saved");
         return;
     }
 
@@ -88,5 +88,9 @@ void CEditorPreferencesPage_AWS::InitializeSettings()
         return;
     }
 
-    registry->Get(m_usageOptions.m_awsAttributionEnabled, AWSAttributionEnabledKey);
+    if (!registry->Get(m_usageOptions.m_awsAttributionEnabled, AWSAttributionEnabledKey))
+    {
+        // If key is missing default to on.
+        m_usageOptions.m_awsAttributionEnabled = true;
+    }
 }
