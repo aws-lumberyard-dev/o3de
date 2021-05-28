@@ -12,6 +12,7 @@
 
 #include "GradientSignal_precompiled.h"
 #include "EditorImageGradientComponentMode.h"
+#include <GradientSignal/Ebuses/GradientRequestBus.h>
 #include <GradientSignal/Ebuses/ImageGradientRequestBus.h>
 
 namespace GradientSignal
@@ -20,7 +21,11 @@ namespace GradientSignal
         const AZ::EntityComponentIdPair& entityComponentIdPair, AZ::Uuid componentType)
         : EditorBaseComponentMode(entityComponentIdPair, componentType)
     {
-        AZ::Vector3 coordinateExample{0.0f, 0.0f, 0.0f};
-        ImageGradientRequestBus::Event(entityComponentIdPair.GetEntityId(), &ImageGradientRequestBus::Events::SetValue, coordinateExample, 1.0);
+        GradientSignal::GradientSampleParams params;
+        params.m_position = AZ::Vector3::CreateZero();
+
+        const float newValue = 1.0f;
+
+        GradientRequestBus::Event(entityComponentIdPair.GetEntityId(), &GradientRequestBus::Events::SetValue, params, newValue);
     }
 } // namespace GradientSignal

@@ -73,6 +73,7 @@ namespace GradientSignal
         //////////////////////////////////////////////////////////////////////////
         // GradientRequestBus
         float GetValue(const GradientSampleParams& sampleParams) const override;
+        void SetValue(const GradientSampleParams& sampleParams, float newValue) override;
 
         //////////////////////////////////////////////////////////////////////////
         // AZ::Data::AssetBus::Handler
@@ -94,8 +95,6 @@ namespace GradientSignal
 
         float GetTilingY() const override;
         void SetTilingY(float tilingY) override;
-
-        void SetValue(AZ::Vector3 uvw, float newValue) override;
 
     private:
         ImageGradientConfig m_configuration;
