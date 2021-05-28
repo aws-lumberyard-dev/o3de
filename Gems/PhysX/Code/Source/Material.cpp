@@ -422,10 +422,23 @@ namespace PhysX
         const AZStd::vector<AZStd::string>& meshMaterialNames = meshAsset->m_assetData.m_materialNames;
         for (size_t slotIndex = 0; slotIndex < meshMaterialNames.size(); ++slotIndex)
         {
-            auto it = FindOrCreateMaterial(meshMaterialNames[slotIndex]);
+            const AZStd::string& physicsMaterialNameFromPhysicsAsset = meshMaterialNames[slotIndex];
+            if (physicsMaterialNameFromPhysicsAsset == DefaultPhysicsMaterialNameFromPhysicsAsset)
+            {
+                continue;
+            }
+
+            auto it = FindOrCreateMaterial(physicsMaterialNameFromPhysicsAsset);
             if (it != m_materials.end())
             {
                 materialSelection.SetMaterialId(Physics::MaterialId::FromUUID(it->first), slotIndex);
+            }
+            else
+            {
+                AZ_Warning("PhysX", false,
+                    "UpdateMaterialSelectionFromPhysicsAsset: Physics material '%s' not found in the material library. Mesh surface '%s' will use the default material.",
+                    physicsMaterialNameFromPhysicsAsset.c_str(),
+                    meshAsset->m_assetData.m_surfaceNames[slotIndex].c_str());
             }
         }
     }
