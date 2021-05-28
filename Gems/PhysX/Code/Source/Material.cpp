@@ -251,7 +251,7 @@ namespace PhysX
             MaterialConfiguration::MinDensityLimit, MaterialConfiguration::MaxDensityLimit);
     }
 
-    const AZ::Color& Material::GetDebugColor() const
+    AZ::Color Material::GetDebugColor() const
     {
         return m_debugColor;
     }
@@ -331,8 +331,8 @@ namespace PhysX
         {
             const auto& materialId = materialIdsAssignedToSlots[slotIndex];
 
-            auto iterator = FindOrCreateMaterial(materialId);
-            if (iterator != m_materials.end())
+            if (auto iterator = FindOrCreateMaterial(materialId);
+                iterator != m_materials.end())
             {
                 outMaterials[slotIndex] = iterator->second;
             }
@@ -341,8 +341,8 @@ namespace PhysX
 
     AZStd::shared_ptr<Physics::Material> MaterialsManager::GetMaterialById(Physics::MaterialId id)
     {
-        auto it = FindOrCreateMaterial(id);
-        if (it != m_materials.end())
+        if (auto it = FindOrCreateMaterial(id);
+            it != m_materials.end())
         {
             return it->second;
         }
@@ -351,8 +351,8 @@ namespace PhysX
 
     AZStd::shared_ptr<Physics::Material> MaterialsManager::GetMaterialByName(const AZStd::string& name)
     {
-        auto it = FindOrCreateMaterial(name);
-        if (it != m_materials.end())
+        if (auto it = FindOrCreateMaterial(name);
+            it != m_materials.end())
         {
             return it->second;
         }
@@ -428,8 +428,8 @@ namespace PhysX
                 continue;
             }
 
-            auto it = FindOrCreateMaterial(physicsMaterialNameFromPhysicsAsset);
-            if (it != m_materials.end())
+            if (auto it = FindOrCreateMaterial(physicsMaterialNameFromPhysicsAsset);
+                it != m_materials.end())
             {
                 materialSelection.SetMaterialId(Physics::MaterialId::FromUUID(it->first), slotIndex);
             }
@@ -482,10 +482,10 @@ namespace PhysX
             return m_materials.end();
         }
 
-        auto iterator = m_materials.find(materialId.GetUuid());
-        if (iterator != m_materials.end())
+        if (auto it = m_materials.find(materialId.GetUuid());
+            it != m_materials.end())
         {
-            return iterator;
+            return it;
         }
         else
         {
@@ -514,13 +514,13 @@ namespace PhysX
             return m_materials.end();
         }
 
-        auto iterator = AZStd::find_if(m_materials.begin(), m_materials.end(), [&materialName](const auto& data)
+        auto it = AZStd::find_if(m_materials.begin(), m_materials.end(), [&materialName](const auto& data)
             {
                 return data.second->GetSurfaceTypeName() == materialName;
             });
-        if (iterator != m_materials.end())
+        if (it != m_materials.end())
         {
-            return iterator;
+            return it;
         }
         else
         {

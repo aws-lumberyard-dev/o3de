@@ -223,7 +223,7 @@ namespace ScriptCanvasPhysicsTests
         MOCK_METHOD0(GetNativePointer, void*());
         MOCK_CONST_METHOD0(GetDensity, float());
         MOCK_METHOD1(SetDensity, void(float));
-        MOCK_CONST_METHOD0(GetDebugColor, const AZ::Color&());
+        MOCK_CONST_METHOD0(GetDebugColor, AZ::Color());
         MOCK_METHOD1(SetDebugColor, void(const AZ::Color&));
     };
 

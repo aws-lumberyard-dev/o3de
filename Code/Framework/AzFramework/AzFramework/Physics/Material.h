@@ -77,7 +77,7 @@ namespace Physics
         virtual float GetDensity() const = 0;
         virtual void SetDensity(float density) = 0;
 
-        virtual const AZ::Color& GetDebugColor() const = 0;
+        virtual AZ::Color GetDebugColor() const = 0;
         virtual void SetDebugColor(const AZ::Color& debugColor) = 0;
 
         /// If the name of this material matches the name of one of the CrySurface types, it will return its CrySurface Id.\n

@@ -87,7 +87,7 @@ namespace PhysX
         float GetDensity() const override;
         void SetDensity(float density) override;
 
-        const AZ::Color& GetDebugColor() const override;
+        AZ::Color GetDebugColor() const override;
         void SetDebugColor(const AZ::Color& debugColor) override;
 
         AZ::u32 GetCryEngineSurfaceId() const override;
@@ -178,18 +178,18 @@ namespace PhysX
         using Materials = AZStd::unordered_map<AZ::Uuid, AZStd::shared_ptr<Material>>;
 
         /// Search a material by id, if it exists already it returns its iterator,
-        /// if it doesn't exists it tries to create it and add it to the list.
+        /// if it doesn't exist it tries to create it and add it to the list.
         /// If the material id is null or not part of the material library then the
-        /// iterator returned is end().
+        /// iterator returned is end of material list.
         Materials::iterator FindOrCreateMaterial(Physics::MaterialId materialId);
 
         /// Search a material by name, if it exists already it returns its iterator,
-        /// if it doesn't exists it tries to create it and add it to the list.
+        /// if it doesn't exist it tries to create it and add it to the list.
         /// If the material id is null or not part of the material library then the
-        /// iterator returned is end().
+        /// iterator returned is end of material list.
         Materials::iterator FindOrCreateMaterial(const AZStd::string& materialName);
 
-        /// Returns the material library of the project
+        /// Returns the material library of the project.
         Physics::MaterialLibraryAsset* GetMaterialLibrary();
 
         void OnPhysicsConfigurationChanged(const AzPhysics::SystemConfiguration* config);
