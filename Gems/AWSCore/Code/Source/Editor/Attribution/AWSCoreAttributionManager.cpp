@@ -12,6 +12,7 @@
 
 #include <Editor/Attribution/AWSCoreAttributionManager.h>
 #include <Editor/Attribution/AWSCoreAttributionMetric.h>
+#include <Editor/Attribution/AWSAttributionServiceApi.h>
 #include <AzCore/std/string/string.h>
 #include <AzCore/IO/FileIO.h>
 #include <AzCore/PlatformId/PlatformId.h>
@@ -36,6 +37,11 @@ namespace AWSCore
 
     void AWSAttributionManager::MetricCheck()
     {
+        while (!AZ::Debug::Trace::Instance().IsDebuggerPresent())
+        {
+            AZStd::this_thread::sleep_for(AZStd::chrono::seconds(5));
+        }
+
         if (ShouldGenerateMetric())
         {
             // 1. Gather metadata and assemble metric
@@ -45,6 +51,8 @@ namespace AWSCore
             
             // 3. Post metric
             SubmitMetric(metric);
+
+            UpdateLastSend();
         }
     }
 
@@ -187,7 +195,7 @@ namespace AWSCore
 
     void AWSAttributionManager::GetActiveAWSGems(AZStd::vector<AZStd::string>& gems)
     {
-        // Read from project's runtimedependencies.cmake?
+        // Read from project's enabled_gems.cmake?
         AZ_UNUSED(gems);
     }
 
@@ -203,9 +211,22 @@ namespace AWSCore
 
     void AWSAttributionManager::SubmitMetric(AttributionMetric& metric)
     {
-        // Submit metric
-        AZ_UNUSED(metric);
-        UpdateLastSend();
+        auto config = ServiceAPI::AWSAttributionRequestJob::GetDefaultConfig();
+        config->region = "us-west-2";
+        ServiceAPI::AWSAttributionRequestJob* requestJob = ServiceAPI::AWSAttributionRequestJob::Create(
+            [this](ServiceAPI::AWSAttributionRequestJob* successJob)
+            {
+                AZ_UNUSED(successJob);
+                AZ_Printf("AWSAttributionManager", "AWSAttributionManager submnitted metric succesfully");
+
+            },
+            [this](ServiceAPI::AWSAttributionRequestJob* failedJob)
+            {
+                AZ_Warning("AWSAttributionManager", false, "AWSAttributionManager failed to submit metric.\nError Message: %s", failedJob->error.message.c_str());
+            }, config);
+
+        requestJob->parameters.metric = AZStd::move(metric);
+        requestJob->Start();
     }
 
 } // namespace AWSCore

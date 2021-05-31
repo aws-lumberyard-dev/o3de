@@ -1,0 +1,115 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "TestAPI1",
+    "version" : "2021-05-31T20:25:20Z"
+  },
+  "servers" : [ {
+    "url" : "https://xbzx78kvbk.execute-api.us-west-2.amazonaws.com/{basePath}",
+    "variables" : {
+      "basePath" : {
+        "default" : "/prod"
+      }
+    }
+  } ],
+  "paths" : {
+    "/metrics" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AttributionMetric"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-request-validator" : "Validate body",
+        "x-amazon-apigateway-integration" : {
+          "httpMethod" : "POST",
+          "uri" : "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:729543576514:function:TestFunction/invocations",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "contentHandling" : "CONVERT_TO_TEXT",
+          "type" : "aws"
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Empty" : {
+        "title" : "Empty Schema",
+        "type" : "object"
+      },
+      "AttributionMetric" : {
+        "title" : "AWS Gem metrics usage schema v1.1",
+        "required" : [ "o3de_version", "platform", "timestamp", "version" ],
+        "type" : "object",
+        "properties" : {
+          "version" : {
+            "type" : "string",
+            "description" : "The current schema version for this metric",
+            "enum" : [ "1.1" ]
+          },
+          "o3de_version" : {
+            "maxLength" : 25,
+            "minLength" : 5,
+            "pattern" : "^[A-Za-z0-9-_.]+$",
+            "type" : "string",
+            "description" : "The defined O3DE IDE version string"
+          },
+          "platform" : {
+            "type" : "string",
+            "description" : "The Editor platform in use",
+            "enum" : [ "PC", "Linux", "Mac" ]
+          },
+          "platform_version" : {
+            "maxLength" : 25,
+            "pattern" : "^[A-Za-z0-9-_.]+$",
+            "type" : "string",
+            "description" : "The platform identify such as version, code name",
+            "default" : ""
+          },
+          "timestamp" : {
+            "type" : "string",
+            "description" : "The ISO 8601 formatted timestamp of the event.",
+            "format" : "date-time"
+          },
+          "active_aws_gems" : {
+            "type" : "array",
+            "items" : {
+              "maxLength" : 80,
+              "minLength" : 1,
+              "pattern" : "^[A-Za-z0-9-_./]+$",
+              "type" : "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-amazon-apigateway-request-validators" : {
+    "Validate body" : {
+      "validateRequestParameters" : false,
+      "validateRequestBody" : true
+    }
+  }
+}
