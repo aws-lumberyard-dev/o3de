@@ -13,6 +13,7 @@
 #pragma once
   
 #include <AzToolsFramework/ComponentMode/EditorBaseComponentMode.h>
+#include <AzToolsFramework/Manipulators/AngularManipulator.h>
 
 namespace GradientSignal
 {
@@ -24,5 +25,7 @@ namespace GradientSignal
         ~EditorImageGradientComponentMode() override = default;
 
         void Refresh() override { }
+    private:
+        AZStd::shared_ptr<AzToolsFramework::AngularManipulator> m_angularManipulator;
     };
 } // namespace GradientSignal
