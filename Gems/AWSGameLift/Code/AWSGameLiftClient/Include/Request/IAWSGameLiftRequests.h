@@ -27,7 +27,18 @@ namespace AWSGameLift
         IAWSGameLiftRequests() = default;
         virtual ~IAWSGameLiftRequests() = default;
 
+        //! ConfigureGameLiftClient
+        //! Configure GameLift client to interact with Amazon GameLift service
+        //! @param region Specifies the AWS region to use
+        //! @return True if client configuration succeeds, false otherwise
         virtual bool ConfigureGameLiftClient(const AZStd::string& region) = 0;
+
+        //! CreatePlayerId
+        //! Create a new, random ID number for every player in every new game session.
+        //! @param includeBrackets Whether includes brackets in player id
+        //! @param includeDashes Whether includes dashes in player id
+        //! @return The player id to use in game session
+        virtual AZStd::string CreatePlayerId(bool includeBrackets, bool includeDashes) = 0;
     };
 
     // IAWSGameLiftRequests EBus wrapper for scripting

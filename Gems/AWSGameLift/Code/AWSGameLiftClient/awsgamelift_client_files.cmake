@@ -11,12 +11,16 @@
 
 set(FILES
     Include/Request/AWSGameLiftCreateSessionRequest.h
+    Include/Request/AWSGameLiftJoinSessionRequest.h
     Include/Request/IAWSGameLiftRequests.h
     Source/Activity/AWSGameLiftCreateSessionActivity.cpp
     Source/Activity/AWSGameLiftCreateSessionActivity.h
+    Source/Activity/AWSGameLiftJoinSessionActivity.cpp
+    Source/Activity/AWSGameLiftJoinSessionActivity.h
     Source/AWSGameLiftClientManager.cpp
     Source/AWSGameLiftClientManager.h
     Source/AWSGameLiftClientSystemComponent.cpp
     Source/AWSGameLiftClientSystemComponent.h
     Source/Request/AWSGameLiftCreateSessionRequest.cpp
+    Source/Request/AWSGameLiftJoinSessionRequest.cpp
 )

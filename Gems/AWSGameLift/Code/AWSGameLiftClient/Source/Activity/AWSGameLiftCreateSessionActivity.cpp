@@ -37,12 +37,24 @@ namespace AWSGameLift
             return request;
         }
 
-        Aws::GameLift::Model::CreateGameSessionOutcome CreateSession(
+        AZStd::string CreateSession(
             const AZStd::unique_ptr<Aws::GameLift::GameLiftClient>& gameliftClient,
-            const AWSGameLiftCreateSessionRequest& createSessionRequest)
+            const AWSGameLiftCreateSessionRequest& createSessionRequest,
+            const AWSErrorCallback& errorCallback)
         {
             Aws::GameLift::Model::CreateGameSessionRequest request = BuildAWSGameLiftCreateGameSessionRequest(createSessionRequest);
-            return gameliftClient->CreateGameSession(request);
+            auto createSessionOutcome = gameliftClient->CreateGameSession(request);
+
+            AZStd::string result = "";
+            if (createSessionOutcome.IsSuccess())
+            {
+                result = AZStd::string(createSessionOutcome.GetResult().GetGameSession().GetGameSessionId().c_str());
+            }
+            else
+            {
+                errorCallback(createSessionOutcome.GetError());
+            }
+            return result;
         }
 
         bool ValidateCreateSessionRequest(const AzFramework::CreateSessionRequest& createSessionRequest)

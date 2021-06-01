@@ -12,6 +12,9 @@
 
 #pragma once
 
+#include <AzCore/Interface/Interface.h>
+#include <AzFramework/Session/ISessionRequests.h>
+#include <AzFramework/Session/ISessionHandlingRequests.h>
 #include <AzTest/AzTest.h>
 
 #include <aws/core/auth/AWSCredentialsProvider.h>
@@ -20,6 +23,8 @@
 #include <aws/gamelift/GameLiftErrors.h>
 #include <aws/gamelift/model/CreateGameSessionRequest.h>
 #include <aws/gamelift/model/CreateGameSessionResult.h>
+#include <aws/gamelift/model/CreatePlayerSessionRequest.h>
+#include <aws/gamelift/model/CreatePlayerSessionResult.h>
 
 using namespace Aws::GameLift;
 
@@ -32,5 +37,44 @@ public:
     {
     }
 
-    MOCK_CONST_METHOD1(CreateGameSession, Model::CreateGameSessionOutcome(const Model::CreateGameSessionRequest& request));
+    MOCK_CONST_METHOD1(CreateGameSession, Model::CreateGameSessionOutcome(const Model::CreateGameSessionRequest&));
+    MOCK_CONST_METHOD1(CreatePlayerSession, Model::CreatePlayerSessionOutcome(const Model::CreatePlayerSessionRequest&));
+};
+
+class SessionAsyncRequestNotificationsHandlerMock
+    : public AzFramework::SessionAsyncRequestNotificationBus::Handler
+{
+public:
+    SessionAsyncRequestNotificationsHandlerMock()
+    {
+        AzFramework::SessionAsyncRequestNotificationBus::Handler::BusConnect();
+    }
+
+    ~SessionAsyncRequestNotificationsHandlerMock()
+    {
+        AzFramework::SessionAsyncRequestNotificationBus::Handler::BusDisconnect();
+    }
+
+    MOCK_METHOD1(OnCreateSessionAsyncComplete, void(const AZStd::string&));
+    MOCK_METHOD1(OnSearchSessionsAsyncComplete, void(const AzFramework::SearchSessionsResponse&));
+    MOCK_METHOD1(OnJoinSessionAsyncComplete, void(bool));
+    MOCK_METHOD0(OnLeaveSessionAsyncComplete, void());
+};
+
+class SessionHandlingClientRequestsMock
+    : public AzFramework::ISessionHandlingClientRequests
+{
+public:
+    SessionHandlingClientRequestsMock()
+    {
+        AZ::Interface<AzFramework::ISessionHandlingClientRequests>::Register(this);
+    }
+
+    virtual ~SessionHandlingClientRequestsMock()
+    {
+        AZ::Interface<AzFramework::ISessionHandlingClientRequests>::Unregister(this);
+    }
+
+    MOCK_METHOD1(RequestPlayerJoinSession, bool(const AzFramework::SessionConnectionConfig&));
+    MOCK_METHOD0(RequestPlayerLeaveSession, void());
 };

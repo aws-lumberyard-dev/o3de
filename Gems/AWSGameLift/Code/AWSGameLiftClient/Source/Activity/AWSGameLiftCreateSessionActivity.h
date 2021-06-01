@@ -28,8 +28,11 @@ namespace AWSGameLift
         Aws::GameLift::Model::CreateGameSessionRequest BuildAWSGameLiftCreateGameSessionRequest(const AWSGameLiftCreateSessionRequest& createSessionRequest);
 
         // Create CreateGameSessionRequest and make a CreateGameSession call through GameLift client
-        Aws::GameLift::Model::CreateGameSessionOutcome CreateSession(const AZStd::unique_ptr<Aws::GameLift::GameLiftClient>& gameliftClient,
-            const AWSGameLiftCreateSessionRequest& createSessionRequest);
+        using AWSErrorCallback = AZStd::function<void(const Aws::Client::AWSError<Aws::GameLift::GameLiftErrors>&)>;
+        AZStd::string CreateSession(
+            const AZStd::unique_ptr<Aws::GameLift::GameLiftClient>& gameliftClient,
+            const AWSGameLiftCreateSessionRequest& createSessionRequest,
+            const AWSErrorCallback& errorCallback);
 
         // Validate CreateSessionRequest and check required request parameters
         bool ValidateCreateSessionRequest(const AzFramework::CreateSessionRequest& createSessionRequest);

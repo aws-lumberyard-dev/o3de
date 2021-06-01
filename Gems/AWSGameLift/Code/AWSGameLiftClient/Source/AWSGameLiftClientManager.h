@@ -15,6 +15,7 @@
 #include <AzCore/RTTI/BehaviorContext.h>
 #include <AzCore/std/smart_ptr/unique_ptr.h>
 #include <Request/AWSGameLiftCreateSessionRequest.h>
+#include <Request/AWSGameLiftJoinSessionRequest.h>
 #include <Request/IAWSGameLiftRequests.h>
 
 namespace Aws
@@ -97,17 +98,23 @@ namespace AWSGameLift
             "Missing AWS credential for GameLift client.";
         static constexpr const char AWSGameLiftClientMissingErrorMessage[] =
             "GameLift client is not configured yet.";
+
         static constexpr const char AWSGameLiftCreateSessionRequestInvalidErrorMessage[] =
             "Invalid GameLift CreateSession request.";
+        static constexpr const char AWSGameLiftJoinSessionRequestInvalidErrorMessage[] =
+            "Invalid GameLift JoinSession request.";
+        static constexpr const char AWSGameLiftJoinSessionMissingRequestHandlerErrorMessage[] =
+            "Missing GameLift JoinSession request handler.";
 
         AWSGameLiftClientManager();
         virtual ~AWSGameLiftClientManager() = default;
 
-        // AWSGameLiftRequestBus interface implementation
-        bool ConfigureGameLiftClient(const AZStd::string& region);
-
         virtual void ActivateManager();
         virtual void DeactivateManager();
+
+        // AWSGameLiftRequestBus interface implementation
+        bool ConfigureGameLiftClient(const AZStd::string& region);
+        AZStd::string CreatePlayerId(bool includeBrackets, bool includeDashes);
 
         // AWSGameLiftSessionAsyncRequestBus interface implementation
         void CreateSessionAsync(const AzFramework::CreateSessionRequest& createSessionRequest) override;
