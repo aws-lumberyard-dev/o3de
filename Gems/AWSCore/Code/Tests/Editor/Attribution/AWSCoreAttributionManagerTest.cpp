@@ -39,9 +39,20 @@ namespace AWSCoreUnitTest
         : public AWSAttributionManager
     {
     public:
+
+        AWSAttributionManagerMock()
+        {
+            ON_CALL(*this, SubmitMetric(testing::_)).WillByDefault(testing::Invoke(this, &AWSAttributionManagerMock::SubmitMetricMock));
+        }
         using AWSAttributionManager::SubmitMetric;
 
         MOCK_METHOD1(SubmitMetric, void(AttributionMetric& metric));
+
+        void SubmitMetricMock(AttributionMetric& metric)
+        {
+            AZ_UNUSED(metric);
+            UpdateLastSend();
+        }
     };
 
     class AttributionManagerTest

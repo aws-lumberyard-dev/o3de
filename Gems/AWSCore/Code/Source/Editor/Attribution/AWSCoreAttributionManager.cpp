@@ -30,6 +30,10 @@ namespace AWSCore
     constexpr char AWSAttributionEnabledKey[] = "/Amazon/Preferences/AWS/AWSAttributionEnabled";
     constexpr char AWSAttributionDelaySecondsKey[] = "/Amazon/Preferences/AWS/AWSAttributionDelaySeconds";
     constexpr char AWSAttributionLastTimeStampKey[] = "/Amazon/Preferences/AWS/AWSAttributionLastTimeStamp";
+    constexpr char AWSAttributionEndPointPattern[] = "https://xbzx78kvbk.execute-api.%s.amazonaws.com/";
+    constexpr char AWSAttributionEndPointDefaultRegion[] = "us-west-2";
+    constexpr char AWSChineNorthRegion[] = "cn-north-1";
+    constexpr char AWSChinaNorthWestRegion[] = "cn-northwest-1";
 
     void AWSAttributionManager::Init()
     {
@@ -37,11 +41,6 @@ namespace AWSCore
 
     void AWSAttributionManager::MetricCheck()
     {
-        while (!AZ::Debug::Trace::Instance().IsDebuggerPresent())
-        {
-            AZStd::this_thread::sleep_for(AZStd::chrono::seconds(5));
-        }
-
         if (ShouldGenerateMetric())
         {
             // 1. Gather metadata and assemble metric
@@ -51,8 +50,6 @@ namespace AWSCore
             
             // 3. Post metric
             SubmitMetric(metric);
-
-            UpdateLastSend();
         }
     }
 
@@ -92,7 +89,7 @@ namespace AWSCore
             return false;
         }
 
-        // If delay not set default to a day
+        // If delayInSeconds is not found, set default to a day
         AZ::u64 delayInSeconds = 0;
         if (!registry->Get(delayInSeconds, AWSAttributionDelaySecondsKey))
         {
@@ -212,20 +209,31 @@ namespace AWSCore
     void AWSAttributionManager::SubmitMetric(AttributionMetric& metric)
     {
         auto config = ServiceAPI::AWSAttributionRequestJob::GetDefaultConfig();
-        config->region = "us-west-2";
+        config->region = AWSAttributionEndPointDefaultRegion;
+
+        // Get default client config for region.
+        Aws::Client::ClientConfiguration clientConfig;
+       
+        if (clientConfig.region == AWSChineNorthRegion || clientConfig.region == AWSChinaNorthWestRegion)
+        {
+            config->region = AWSChineNorthRegion;
+        }
+
+        config->endpointOverride = AZStd::string::format(AWSAttributionEndPointPattern, config->region.value().c_str()).c_str();
         ServiceAPI::AWSAttributionRequestJob* requestJob = ServiceAPI::AWSAttributionRequestJob::Create(
             [this](ServiceAPI::AWSAttributionRequestJob* successJob)
             {
                 AZ_UNUSED(successJob);
-                AZ_Printf("AWSAttributionManager", "AWSAttributionManager submnitted metric succesfully");
+                AZ_Printf("AWSAttributionManager", "AWSAttributionManager submitted metric succesfully");
+                UpdateLastSend();
 
             },
             [this](ServiceAPI::AWSAttributionRequestJob* failedJob)
             {
-                AZ_Warning("AWSAttributionManager", false, "AWSAttributionManager failed to submit metric.\nError Message: %s", failedJob->error.message.c_str());
+                AZ_Warning("AWSAttributionManager", false, "AWSAttributionManager failed to submit metric.\nError Message: %s", failedJob->responseError.message.c_str());
             }, config);
 
-        requestJob->parameters.metric = AZStd::move(metric);
+        requestJob->parameters.metric = metric;
         requestJob->Start();
     }
 

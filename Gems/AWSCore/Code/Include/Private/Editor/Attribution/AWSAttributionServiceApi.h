@@ -71,7 +71,7 @@ namespace AWSCore
             };
 
             AWSAtrributionSuccessResponse responseData;
-            AWSAtrributionErrorResponse error; //! Failure response.
+            AWSAtrributionErrorResponse responseError; //! Failure response.
             Parameters parameters; //! Request parameter.
         };
 

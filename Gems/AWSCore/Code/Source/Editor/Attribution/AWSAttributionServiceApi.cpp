@@ -30,7 +30,6 @@ namespace AWSCore
             return reader.Ignore();
         }
 
-
         bool AWSAtrributionErrorResponse::OnJsonKey(const char* key, AWSCore::JsonReader& reader)
         {
             if (strcmp(key, AwsAttributionServiceErrorMessageKey) == 0) return reader.Accept(message);
@@ -42,7 +41,6 @@ namespace AWSCore
         bool AWSAttributionRequest::Parameters::BuildRequest(AWSCore::RequestBuilder& request)
         {
             bool ok = true;
-
             ok = ok && request.WriteJsonBodyParameter(*this);
             return ok;
         }
@@ -50,14 +48,7 @@ namespace AWSCore
         bool AWSAttributionRequest::Parameters::WriteJson(AWSCore::JsonWriter& writer) const
         {
             bool ok = true;
-
-            //ok = ok && writer.StartObject();
-
-            //ok = ok && writer.Key(AwsAttributionServiceMetricKey);
             ok = ok && metric.SerializeToJson(writer);
-
-            //ok = ok && writer.EndObject();
-
             return ok;
         }
     }
