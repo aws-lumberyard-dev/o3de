@@ -54,6 +54,11 @@ namespace GradientSignal
         virtual float GetValue(const GradientSampleParams& sampleParams) const = 0;
 
         /**
+         * Given a certain position and a new value, update the bit's value.
+         */
+        virtual void SetValue([[maybe_unused]] const GradientSampleParams& sampleParams, [[maybe_unused]] float newValue) { AZ_Assert(false, "SetValue() not implemented"); }
+
+        /**
         * Call to check the hierarchy to see if a given entityId exists in the gradient signal chain
         */
         virtual bool IsEntityInHierarchy([[maybe_unused]] const AZ::EntityId& entityId) const { return false; }

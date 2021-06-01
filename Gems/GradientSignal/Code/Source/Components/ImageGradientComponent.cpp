@@ -213,6 +213,22 @@ namespace GradientSignal
         return 0.0f;
     }
 
+    void ImageGradientComponent::SetValue(const GradientSampleParams& sampleParams, float newValue)
+    {
+        AZ::Vector3 uvw = sampleParams.m_position;
+
+        bool wasPointRejected = true;
+        const bool shouldNormalizeOutput = true;
+        GradientTransformRequestBus::Event(
+            GetEntityId(), &GradientTransformRequestBus::Events::TransformPositionToUVW, sampleParams.m_position, uvw, shouldNormalizeOutput, wasPointRejected);
+
+        if (!wasPointRejected)
+        {
+            AZStd::lock_guard<decltype(m_imageMutex)> imageLock(m_imageMutex);
+            SetValueInImageAsset(m_configuration.m_imageAsset, uvw, m_configuration.m_tilingX, m_configuration.m_tilingY, newValue);
+        }
+    }
+
     AZStd::string ImageGradientComponent::GetImageAssetPath() const
     {
         AZStd::string assetPathString;
