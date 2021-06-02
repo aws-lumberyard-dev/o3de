@@ -13,8 +13,6 @@
 #include <Editor/Attribution/AWSCoreAttributionMetric.h>
 #include <Editor/Attribution/AWSAttributionServiceApi.h>
 
-#include <AWSCoreBus.h>
-
 namespace AWSCore
 {
     namespace ServiceAPI
