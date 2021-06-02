@@ -32,7 +32,7 @@
 
 using namespace AWSCore;
 
-namespace AWSCoreUnitTest
+namespace AWSAttributionUnitTest
 {
 
     class AWSAttributionManagerMock
