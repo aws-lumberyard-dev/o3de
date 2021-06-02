@@ -34,7 +34,7 @@ namespace AWSCore
         // Service RequestJobs
         AWS_FEATURE_GEM_SERVICE(AWSAttribution);
 
-        //! POST request defined by api_spec.json to send attribution metric to the backend.
+        //! POST request to send attribution metric to the backend.
         //! The path for this service API is "/prod/metrics".
         class AWSAttributionRequest
             : public AWSCore::ServiceRequest
