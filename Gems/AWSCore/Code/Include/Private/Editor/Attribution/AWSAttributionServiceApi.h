@@ -31,20 +31,8 @@ namespace AWSCore
             AZStd::string result; //!< Processing result for the input record.
         };
 
-        //! Struct for storing the failure response.
-        struct AWSAtrributionErrorResponse
-        {
-            //! Identify the expected property type and provide a location where the property value can be stored.
-            //! @param key Name of the property.
-            //! @param reader JSON reader to read the property.
-            bool OnJsonKey(const char* key, AWSCore::JsonReader& reader);
-
-            AZStd::string message; //!< Error message.
-            AZStd::string type; //!< Error type.
-        };
-
         // Service RequestJobs
-        AWS_FEATURE_GEM_SERVICE(AWSCore);
+        AWS_FEATURE_GEM_SERVICE(AWSAttribution);
 
         //! POST request defined by api_spec.json to send attribution metric to the backend.
         //! The path for this service API is "/prod/metrics".
@@ -52,7 +40,12 @@ namespace AWSCore
             : public AWSCore::ServiceRequest
         {
         public:
-            SERVICE_REQUEST(AWSCore, HttpMethod::HTTP_POST, "/prod/metrics");
+            SERVICE_REQUEST(AWSAttribution, HttpMethod::HTTP_POST, "/metrics");
+
+            bool UseAWSCredentials()
+            {
+                return false;
+            }
 
             //! Request body for the service API request.
             struct Parameters
@@ -70,8 +63,7 @@ namespace AWSCore
                 AttributionMetric metric;
             };
 
-            AWSAtrributionSuccessResponse responseData;
-            AWSAtrributionErrorResponse responseError; //! Failure response.
+            AWSAtrributionSuccessResponse result;
             Parameters parameters; //! Request parameter.
         };
 

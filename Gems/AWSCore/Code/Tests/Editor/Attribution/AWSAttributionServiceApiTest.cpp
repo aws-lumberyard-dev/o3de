@@ -66,21 +66,6 @@ namespace AWSCoreUnitTest
         response.OnJsonKey("", JsonReader);
     }
 
-    TEST_F(AWSAttributionServiceApiTest, AWSAtrributionErrorResponse_Serialization)
-    {
-        ServiceAPI::AWSAtrributionErrorResponse error;
-        error.message = "error message";
-        error.type = "404";
-
-        EXPECT_CALL(JsonReader, Accept(error.message)).Times(1);
-        EXPECT_CALL(JsonReader, Accept(error.type)).Times(1);
-        EXPECT_CALL(JsonReader, Ignore()).Times(1);
-
-        error.OnJsonKey("type", JsonReader);
-        error.OnJsonKey("message", JsonReader);
-        error.OnJsonKey("other", JsonReader);
-    }
-
     TEST_F(AWSAttributionServiceApiTest, BuildRequestBody_PostProducerEventsRequest_SerializedMetricsQueue)
     {
         ServiceAPI::AWSAttributionRequest request;
@@ -95,6 +80,6 @@ namespace AWSCoreUnitTest
         std::istreambuf_iterator<AZStd::string::value_type> eos;
         bodyString = AZStd::string{ std::istreambuf_iterator<AZStd::string::value_type>(*bodyContent), eos };
         AZ_Printf("AWSAttributionServiceApiTest", bodyString.c_str());
-        EXPECT_TRUE(bodyString.find(AZStd::string::format("{\"version\":\"1.1\"", AwsAttributionAttributeKeyVersion)) != AZStd::string::npos);
+        EXPECT_TRUE(bodyString.find(AZStd::string::format("{\"%s\":\"1.1\"", AwsAttributionAttributeKeyVersion)) != AZStd::string::npos);
     }
 }

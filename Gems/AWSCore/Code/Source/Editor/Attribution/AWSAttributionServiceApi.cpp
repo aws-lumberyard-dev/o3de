@@ -19,10 +19,7 @@ namespace AWSCore
 {
     namespace ServiceAPI
     {
-        constexpr char AwsAttributionServiceErrorMessageKey[] = "message";
-        constexpr char AwsAttributionServiceErrorTypeKey[] = "type";
         constexpr char AwsAttributionServiceResultResponseKey[] = "statusCode";
-        constexpr char AwsAttributionServiceMetricKey[] = "metric";
 
         bool AWSAtrributionSuccessResponse::OnJsonKey(const char* key, AWSCore::JsonReader& reader)
         {
@@ -30,14 +27,6 @@ namespace AWSCore
             return reader.Ignore();
         }
 
-        bool AWSAtrributionErrorResponse::OnJsonKey(const char* key, AWSCore::JsonReader& reader)
-        {
-            if (strcmp(key, AwsAttributionServiceErrorMessageKey) == 0) return reader.Accept(message);
-            if (strcmp(key, AwsAttributionServiceErrorTypeKey) == 0) return reader.Accept(type);
-            return reader.Ignore();
-        }
-
-        // Generated Function Parameters
         bool AWSAttributionRequest::Parameters::BuildRequest(AWSCore::RequestBuilder& request)
         {
             bool ok = true;
