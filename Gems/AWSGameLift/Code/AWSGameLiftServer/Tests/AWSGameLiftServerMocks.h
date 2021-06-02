@@ -42,7 +42,8 @@ namespace UnitTest
             ON_CALL(*this, ProcessEnding()).WillByDefault(Return(successOutcome));
         }
 
-        MOCK_METHOD0(ActivateGameSession, Aws::GameLift::GenericOutcome());
+        MOCK_METHOD1(AcceptPlayerSession, GenericOutcome(const std::string&));
+        MOCK_METHOD0(ActivateGameSession, GenericOutcome());
         MOCK_METHOD0(InitSDK, Server::InitSDKOutcome());
         MOCK_METHOD1(ProcessReady, GenericOutcome(const Server::ProcessParameters& processParameters));
         MOCK_METHOD0(ProcessEnding, GenericOutcome());

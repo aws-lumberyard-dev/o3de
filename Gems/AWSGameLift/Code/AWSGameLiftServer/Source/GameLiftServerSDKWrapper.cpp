@@ -18,6 +18,11 @@
 
 namespace AWSGameLift
 {
+    Aws::GameLift::GenericOutcome GameLiftServerSDKWrapper::AcceptPlayerSession(const std::string& playerSessionId)
+    {
+        return Aws::GameLift::Server::AcceptPlayerSession(playerSessionId);
+    }
+
     Aws::GameLift::GenericOutcome GameLiftServerSDKWrapper::ActivateGameSession()
     {
         return Aws::GameLift::Server::ActivateGameSession();
