@@ -33,8 +33,6 @@ namespace GradientSignal
 
         GradientRequestBus::Event(entityComponentIdPair.GetEntityId(), &GradientRequestBus::Events::SetValue, params, newValue);
 
-        ///////////////////////
-
         const AZ::Color manipulatorColor = AZ::Color(1.0f, 0.0f, 0.0f, 0.6f);
         const float manipulatorRadius = 2.0f;
         const float manipulatorWidth = 0.05f;
@@ -43,11 +41,11 @@ namespace GradientSignal
         AZ::TransformBus::EventResult(worldFromLocal, GetEntityId(), &AZ::TransformInterface::GetWorldTM);
 
         m_angularManipulator = AzToolsFramework::AngularManipulator::MakeShared(worldFromLocal);
-
+        m_angularManipulator->SetAxis(AZ::Vector3::CreateAxisZ());
         Refresh();
 
         m_angularManipulator->SetView(AzToolsFramework::CreateManipulatorViewCircle(
-            AZ::Vector3::CreateAxisZ(), manipulatorColor, manipulatorRadius, manipulatorWidth,
+            *m_angularManipulator, manipulatorColor, manipulatorRadius, manipulatorWidth,
             AzToolsFramework::DrawFullCircle));
 
         m_angularManipulator->Register(AzToolsFramework::g_mainManipulatorManagerId);
