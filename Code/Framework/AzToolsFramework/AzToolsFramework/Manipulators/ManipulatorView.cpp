@@ -724,15 +724,8 @@ namespace AzToolsFramework
         const AngularManipulator& angularManipulator, const AZ::Color& color, const float radius, const float width,
         const ManipulatorViewCircle::DrawCircleFunc drawFunc)
     {
-        return CreateManipulatorViewCircle(angularManipulator.GetAxis(), color, radius, width, drawFunc);
-    }
-
-    AZStd::unique_ptr<ManipulatorViewCircle> CreateManipulatorViewCircle(
-        const AZ::Vector3 axis, const AZ::Color& color,
-        const float radius, const float width, const ManipulatorViewCircle::DrawCircleFunc drawFunc)
-    {
         AZStd::unique_ptr<ManipulatorViewCircle> viewCircle = AZStd::make_unique<ManipulatorViewCircle>();
-        viewCircle->m_axis = axis;
+        viewCircle->m_axis = angularManipulator.GetAxis();
         viewCircle->m_color = color;
         viewCircle->m_radius = radius;
         viewCircle->m_width = width;

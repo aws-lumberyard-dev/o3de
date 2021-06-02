@@ -395,10 +395,6 @@ namespace AzToolsFramework
         const AngularManipulator& angularManipulator, const AZ::Color& color,
         float radius, float width, ManipulatorViewCircle::DrawCircleFunc drawFunc);
 
-    AZStd::unique_ptr<ManipulatorViewCircle> CreateManipulatorViewCircle(
-        const AZ::Vector3 axis, const AZ::Color& color, float radius, float width,
-        ManipulatorViewCircle::DrawCircleFunc drawFunc);
-
     AZStd::unique_ptr<ManipulatorViewSplineSelect> CreateManipulatorViewSplineSelect(
         const SplineSelectionManipulator& splineManipulator, const AZ::Color& color,
         float width);
