@@ -13,7 +13,7 @@
 #pragma once
   
 #include <AzToolsFramework/ComponentMode/EditorBaseComponentMode.h>
-#include <AzToolsFramework/Manipulators/AngularManipulator.h>
+#include <AzToolsFramework/Manipulators/BrushManipulator.h>
 
 namespace GradientSignal
 {
@@ -26,6 +26,6 @@ namespace GradientSignal
 
         void Refresh() override { }
     private:
-        AZStd::shared_ptr<AzToolsFramework::AngularManipulator> m_angularManipulator;
+        AZStd::shared_ptr<AzToolsFramework::BrushManipulator> m_brushManipulator;
     };
 } // namespace GradientSignal
