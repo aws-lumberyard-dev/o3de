@@ -1,7 +1,7 @@
 {
     "Amazon": {
         "Preferences": {
-            "EnablePrefabSystem": false,
+            "EnablePrefabSystem": true,
             "AWS": {
                 "AWSAttributionEnabled": true,
                 "AWSAttributionDelaySeconds": 86400
