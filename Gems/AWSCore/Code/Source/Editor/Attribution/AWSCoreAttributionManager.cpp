@@ -175,11 +175,9 @@ namespace AWSCore
         if (!registry->Set(AWSAttributionLastTimeStampKey,
             AZStd::chrono::duration_cast<AZStd::chrono::seconds>(AZStd::chrono::system_clock::now().time_since_epoch()).count()))
         {
-            AZ_Error("AWSAttributionManager", true, "Failed to set AWSAttributionLastTimeStamp");
+            AZ_Warning("AWSAttributionManager", true, "Failed to set AWSAttributionLastTimeStamp");
             return;
         }
-
-        AZ_Warning("AWSAttributionManager", false, "UpdateLastSend");
         SaveSettingsRegistryFile();
     }
 
