@@ -12,7 +12,6 @@
 
 #include <Editor/Attribution/AWSCoreAttributionMetric.h>
 #include <Editor/Attribution/AWSCoreAttributionManager.h>
-#include <Editor/Attribution/AWSAttributionServiceApi.h>
 #include <AzCore/std/string/string.h>
 #include <AzCore/IO/FileIO.h>
 #include <AzCore/PlatformId/PlatformId.h>
@@ -22,12 +21,16 @@
 #include <AzCore/Utils/Utils.h>
 #include <AzCore/Jobs/JobFunction.h>
 #include <AzCore/IO/ByteContainerStream.h>
+#include <AzCore/Component/Entity.h>
+#include <AzCore/Module/ModuleManagerBus.h>
 #include <ResourceMapping/AWSResourceMappingUtils.h>
 
 
 
 namespace AWSCore
 {
+    static constexpr const char* EngineVersionJsonKey = "O3DEVersion";
+
     constexpr char EditorPreferencesFileName[] = "editorpreferences.setreg";
     constexpr char AWSAttributionEnabledKey[] = "/Amazon/Preferences/AWS/AWSAttributionEnabled";
     constexpr char AWSAttributionDelaySecondsKey[] = "/Amazon/Preferences/AWS/AWSAttributionDelaySeconds";
@@ -180,38 +183,8 @@ namespace AWSCore
         SaveSettingsRegistryFile();
     }
 
-    AZStd::string AWSAttributionManager::GetEngineVersion() const
+    void AWSAttributionManager::SetApiEndpointAndRegion(AWSCore::ServiceAPI::AWSAttributionRequestJob::Config* config)
     {
-        // Read from engine.json
-        return "";
-    }
-
-    AZStd::string AWSAttributionManager::GetPlatform() const
-    {
-        return AZ::GetPlatformName(AZ::g_currentPlatform);
-    }
-
-    void AWSAttributionManager::GetActiveAWSGems(AZStd::vector<AZStd::string>& gems)
-    {
-        // Read from project's enabled_gems.cmake?
-        AZ_UNUSED(gems);
-    }
-
-    void AWSAttributionManager::UpdateMetric(AttributionMetric& metric)
-    {
-        AZStd::string engineVersion = this->GetEngineVersion();
-        metric.SetO3DEVersion(engineVersion);
-
-        AZStd::string platform = this->GetPlatform();
-        metric.SetPlatform(platform, "");
-        // etc.
-    }
-
-    void AWSAttributionManager::SubmitMetric(AttributionMetric& metric)
-    {
-        auto config = ServiceAPI::AWSAttributionRequestJob::GetDefaultConfig();
-        config->region = Aws::Region::US_WEST_2;
-
         // Get default config for the process to check the region.
         // Assumption to determine China region is the default profile is set to China region.
         auto profile_name = Aws::Auth::GetConfigProfileName();
@@ -224,19 +197,75 @@ namespace AWSCore
             apiId = AWSAttributionChinaApiId;
         }
 
-        config->endpointOverride = AWSResourceMappingUtils::FormatRESTApiUrl(apiId, config->region.value().c_str(), AWSAttributionApiStage).c_str();
+        config->region = Aws::Region::US_WEST_2;
+        config->endpointOverride =
+            AWSResourceMappingUtils::FormatRESTApiUrl(apiId, config->region.value().c_str(), AWSAttributionApiStage).c_str();
+    }
+
+    AZStd::string AWSAttributionManager::GetEngineVersion() const
+    {
+        AZStd::string engineVersion;
+        auto engineSettingsPath = AZ::IO::FixedMaxPath{ AZ::Utils::GetEnginePath() } / "engine.json";
+        if (AZ::IO::SystemFile::Exists(engineSettingsPath.c_str()))
+        {
+            using FixedValueString = AZ::SettingsRegistryInterface::FixedValueString;
+            AZ::SettingsRegistryImpl settingsRegistry;
+            if (settingsRegistry.MergeSettingsFile(
+                    engineSettingsPath.Native(), AZ::SettingsRegistryInterface::Format::JsonMergePatch, AZ::SettingsRegistryMergeUtils::EngineSettingsRootKey))
+            {
+                settingsRegistry.Get(engineVersion, FixedValueString(AZ::SettingsRegistryMergeUtils::EngineSettingsRootKey) + "/" + EngineVersionJsonKey);
+            }
+        }
+        return engineVersion;
+    }
+
+    AZStd::string AWSAttributionManager::GetPlatform() const
+    {
+        return AZ::GetPlatformName(AZ::g_currentPlatform);
+    }
+
+    void AWSAttributionManager::GetActiveAWSGems(AZStd::vector<AZStd::string>& gems)
+    {
+        AZ::ModuleManagerRequestBus::Broadcast(
+            &AZ::ModuleManagerRequestBus::Events::EnumerateModules,
+            [this, &gems](const AZ::ModuleData& moduleData)
+            {
+                AZ::Entity* moduleEntity = moduleData.GetEntity();
+                auto moduleEntityName = moduleEntity->GetName();
+                if (moduleEntityName.contains("AWS"))
+                    gems.push_back(moduleEntityName.substr(0, moduleEntityName.find_last_of(".")));
+                return true;
+            });
+    }
+
+    void AWSAttributionManager::UpdateMetric(AttributionMetric& metric)
+    {
+        AZStd::string engineVersion = this->GetEngineVersion();
+        metric.SetO3DEVersion(engineVersion);
+
+        AZStd::string platform = this->GetPlatform();
+        metric.SetPlatform(platform, "");
+
+        AZStd::vector<AZStd::string> gemNames;
+        GetActiveAWSGems(gemNames);
+        for (AZStd::string& gemName : gemNames)
+        {
+            metric.AddActiveGem(gemName);
+        }
+    }
+
+    void AWSAttributionManager::SubmitMetric(AttributionMetric& metric)
+    {
+        AWSCore::ServiceAPI::AWSAttributionRequestJob::Config* config = ServiceAPI::AWSAttributionRequestJob::GetDefaultConfig();
+        SetApiEndpointAndRegion(config);
+
         ServiceAPI::AWSAttributionRequestJob* requestJob = ServiceAPI::AWSAttributionRequestJob::Create(
             [this](ServiceAPI::AWSAttributionRequestJob* successJob)
             {
                 AZ_UNUSED(successJob);
-                AZ_Printf("AWSAttributionManager", "AWSAttributionManager submitted metric succesfully");
                 UpdateLastSend();
 
-            },
-            [this](ServiceAPI::AWSAttributionRequestJob* failedJob)
-            {
-                AZ_Warning("AWSAttributionManager", false, "AWSAttributionManager failed to submit metric.\nError Message: %s", failedJob->error.message.c_str());
-            }, config);
+            }, {}, config);
 
         requestJob->parameters.metric = metric;
         requestJob->Start();

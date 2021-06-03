@@ -14,10 +14,10 @@
 #include <AzCore/std/string/string.h>
 #include <AzCore/std/containers/vector.h>
 
+#include <Editor/Attribution/AWSAttributionServiceApi.h>
+
 namespace AWSCore
 {
-    class AttributionMetric;
-
     //! Manages operational metrics for AWS gems
     class AWSAttributionManager
     {
@@ -33,15 +33,17 @@ namespace AWSCore
 
     protected:
         virtual void SubmitMetric(AttributionMetric& metric);
+        virtual void UpdateMetric(AttributionMetric& metric);
         void UpdateLastSend();
+        void SetApiEndpointAndRegion(ServiceAPI::AWSAttributionRequestJob::Config* config);
 
     private:
         bool ShouldGenerateMetric() const;
-        void UpdateMetric(AttributionMetric& metric);
 
         AZStd::string GetEngineVersion() const;
         AZStd::string GetPlatform() const;
         void GetActiveAWSGems(AZStd::vector<AZStd::string>& gemNames);
+
         void SaveSettingsRegistryFile();
     };
 
