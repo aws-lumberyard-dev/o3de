@@ -54,13 +54,13 @@ namespace AzFramework
         ISessionHandlingClientRequests() = default;
         virtual ~ISessionHandlingClientRequests() = default;
 
-        // Handle the player join session process
+        // Request the player join session
         // @param  sessionConnectionConfig The required properties to handle the player join session process
         // @return The result of player join session process
-        virtual bool HandlePlayerJoinSession(const SessionConnectionConfig& sessionConnectionConfig) = 0;
+        virtual bool RequestPlayerJoinSession(const SessionConnectionConfig& sessionConnectionConfig) = 0;
 
-        // Handle the player leave session process
-        virtual void HandlePlayerLeaveSession() = 0;
+        // Request the connected player leave session
+        virtual void RequestPlayerLeaveSession() = 0;
     };
 
     //! ISessionHandlingServerRequests
@@ -83,5 +83,10 @@ namespace AzFramework
         // Handle the player leave session process
         // @param  playerConnectionConfig The required properties to handle the player leave session process
         virtual void HandlePlayerLeaveSession(const PlayerConnectionConfig& playerConnectionConfig) = 0;
+
+        // Retrieves the file location of a pem-encoded TLS certificate
+        // @return If successful, returns the file location of TLS certificate file; if not successful, returns
+        //         empty string.
+        virtual AZStd::string GetSessionCertificate() = 0;
     };
 } // namespace AzFramework
