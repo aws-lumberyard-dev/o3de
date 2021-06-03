@@ -43,11 +43,19 @@ ly_add_target(
     BUILD_DEPENDENCIES
         PRIVATE
             AZ::AzCore
-            Gem::AWSCore
             3rdParty::AWSNativeSDK::GameLiftClient
         PUBLIC
             Gem::AWSGameLift.Client.Static
+    RUNTIME_DEPENDENCIES
+        Gem::AWSCore
 )
+
+# Load the "Gem::AWSGameLift" module in all types of applications.
+ly_create_alias(NAME AWSGameLift.Clients NAMESPACE Gem TARGETS Gem::AWSGameLift.Client)
+if (PAL_TRAIT_BUILD_HOST_TOOLS)
+    ly_create_alias(NAME AWSGameLift.Tools NAMESPACE Gem TARGETS Gem::AWSGameLift.Client)
+    ly_create_alias(NAME AWSGameLift.Builders NAMESPACE Gem TARGETS Gem::AWSGameLift.Client)
+endif()
 
 ################################################################################
 # Tests
@@ -65,9 +73,9 @@ if(PAL_TRAIT_BUILD_TESTS_SUPPORTED)
                 Source
         BUILD_DEPENDENCIES
             PRIVATE
-                AZ::AzTest
                 AZ::AzCore
                 AZ::AzFramework
+                AZ::AzTest
                 Gem::AWSCore
                 Gem::AWSGameLift.Client.Static
                 3rdParty::AWSNativeSDK::GameLiftClient

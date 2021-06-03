@@ -19,6 +19,7 @@
         "Gems/AWSClientAuth",
         "Gems/AWSCore",
         "Gems/AWSMetrics",
+        "Gems/AWSGameLift",
         "Gems/Blast",
         "Gems/Camera",
         "Gems/CameraFramework",

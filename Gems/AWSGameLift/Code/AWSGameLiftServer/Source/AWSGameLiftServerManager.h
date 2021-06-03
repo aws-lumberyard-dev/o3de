@@ -73,6 +73,7 @@ namespace AWSGameLift
         void HandleDestroySession() override;
         bool ValidatePlayerJoinSession(const AzFramework::PlayerConnectionConfig& playerConnectionConfig) override;
         void HandlePlayerLeaveSession(const AzFramework::PlayerConnectionConfig& playerConnectionConfig) override;
+        AZStd::string GetSessionCertificate() override;
 
     protected:
         void SetGameLiftServerSDKWrapper(AZStd::unique_ptr<GameLiftServerSDKWrapper> gameLiftServerSDKWrapper);

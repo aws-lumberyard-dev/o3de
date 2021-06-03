@@ -70,6 +70,11 @@ namespace AWSGameLift
         return sessionConfig;
     }
 
+    AZStd::string AWSGameLiftServerManager::GetSessionCertificate()
+    {
+        return "";
+    }
+
     bool AWSGameLiftServerManager::InitializeGameLiftServerSDK()
     {
         if (m_serverSDKInitialized)

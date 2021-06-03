@@ -44,6 +44,9 @@ ly_add_target(
             3rdParty::AWSGameLiftServerSDK
 )
 
+# Load the "Gem::AWSGameLift" module in all types of applications.
+ly_create_alias(NAME AWSGameLift.Servers NAMESPACE Gem TARGETS Gem::AWSGameLift.Server)
+
 ################################################################################
 # Tests
 ################################################################################
@@ -65,7 +68,6 @@ if(PAL_TRAIT_BUILD_TESTS_SUPPORTED)
                 Gem::AWSGameLift.Server.Static
                 3rdParty::AWSGameLiftServerSDK
     )
-
     # Add AWSGameLift.Server.Tests to googletest
     ly_add_googletest(
         NAME Gem::AWSGameLift.Server.Tests
