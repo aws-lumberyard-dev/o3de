@@ -14,7 +14,7 @@
 #include "EditorImageGradientComponentMode.h"
 
 #include <AzCore/Component/TransformBus.h>
-#include <AzToolsFramework/Manipulators/AngularManipulator.h>
+#include <AzToolsFramework/Manipulators/BrushManipulator.h>
 #include <AzToolsFramework/Manipulators/ManipulatorManager.h>
 #include <AzToolsFramework/Manipulators/ManipulatorView.h>
 #include <GradientSignal/Ebuses/GradientRequestBus.h>
@@ -33,21 +33,19 @@ namespace GradientSignal
 
         GradientRequestBus::Event(entityComponentIdPair.GetEntityId(), &GradientRequestBus::Events::SetValue, params, newValue);
 
-        const AZ::Color manipulatorColor = AZ::Color(1.0f, 0.0f, 0.0f, 0.6f);
+        const AZ::Color manipulatorColor = AZ::Color(1.0f, 0.0f, 0.0f, 1.0f);
         const float manipulatorRadius = 2.0f;
         const float manipulatorWidth = 0.05f;
 
         AZ::Transform worldFromLocal = AZ::Transform::CreateIdentity();
         AZ::TransformBus::EventResult(worldFromLocal, GetEntityId(), &AZ::TransformInterface::GetWorldTM);
 
-        m_angularManipulator = AzToolsFramework::AngularManipulator::MakeShared(worldFromLocal);
-        m_angularManipulator->SetAxis(AZ::Vector3::CreateAxisZ());
+        m_brushManipulator = AzToolsFramework::BrushManipulator::MakeShared(worldFromLocal);
         Refresh();
 
-        m_angularManipulator->SetView(AzToolsFramework::CreateManipulatorViewCircle(
-            *m_angularManipulator, manipulatorColor, manipulatorRadius, manipulatorWidth,
-            AzToolsFramework::DrawFullCircle));
+        m_brushManipulator->SetView(AzToolsFramework::CreateManipulatorViewProjectedCircle(
+            *m_brushManipulator, manipulatorColor, manipulatorRadius, manipulatorWidth));
 
-        m_angularManipulator->Register(AzToolsFramework::g_mainManipulatorManagerId);
+        m_brushManipulator->Register(AzToolsFramework::g_mainManipulatorManagerId);
     }
 } // namespace GradientSignal
