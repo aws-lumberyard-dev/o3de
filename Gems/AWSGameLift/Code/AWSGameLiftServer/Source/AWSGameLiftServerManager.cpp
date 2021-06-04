@@ -21,10 +21,6 @@
 #include <AzCore/std/bind/bind.h>
 #include <AzFramework/Session/SessionNotifications.h>
 
-#include <ctime>
-
-#pragma warning(disable : 4996)
-
 namespace AWSGameLift
 {
     AWSGameLiftServerManager::AWSGameLiftServerManager()
@@ -105,7 +101,8 @@ namespace AWSGameLift
             AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Unregister(this);
         }
 
-        AZ_TracePrintf(AWSGameLiftServerManagerName, "Server process is scheduled to be shut down at %s", GetTerminationTime().c_str());
+        AZ_TracePrintf(AWSGameLiftServerManagerName, "Server process is scheduled to be shut down at %s",
+            m_gameLiftServerSDKWrapper->GetTerminationTime().c_str());
 
         // Send notifications to handler(s) to gracefully shut down the server process.
         bool destroySessionResult = true;
@@ -124,26 +121,6 @@ namespace AWSGameLift
 
         AZ_Error(AWSGameLiftServerManagerName, processEndingIsSuccess, AWSGameLiftServerProcessEndingErrorMessage,
             processEndingOutcome.GetError().GetErrorMessage().c_str());
-    }
-    
-    AZStd::string AWSGameLiftServerManager::GetTerminationTime() const
-    {
-        // Timestamp format is using the UTC ISO8601 format
-        std::time_t terminationTime;
-        Aws::GameLift::AwsLongOutcome GetTerminationTimeOutcome = Aws::GameLift::Server::GetTerminationTime();
-        if (GetTerminationTimeOutcome.IsSuccess())
-        {
-            terminationTime = GetTerminationTimeOutcome.GetResult();
-        }
-        else
-        {
-            time(&terminationTime);
-        }
-
-        char buffer[50];
-        strftime(buffer, sizeof(buffer), "%FT%TZ", gmtime(&terminationTime));
-
-        return AZStd::string(buffer);
     }
 
     void AWSGameLiftServerManager::HandlePlayerLeaveSession(const AzFramework::PlayerConnectionConfig& playerConnectionConfig)

@@ -97,8 +97,6 @@ namespace AWSGameLift
         //! @return Whether the server process is healthy.
         bool OnHealthCheck();
 
-        AZStd::string GetTerminationTime() const;
-
         AZStd::unique_ptr<GameLiftServerSDKWrapper> m_gameLiftServerSDKWrapper;
         bool m_serverSDKInitialized;
     };

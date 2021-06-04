@@ -12,6 +12,10 @@
 
 #include <GameLiftServerSDKWrapper.h>
 
+#include <ctime>
+
+#pragma warning(disable : 4996)
+
 namespace AWSGameLift
 {
     Aws::GameLift::GenericOutcome GameLiftServerSDKWrapper::ActivateGameSession()
@@ -33,5 +37,26 @@ namespace AWSGameLift
     Aws::GameLift::GenericOutcome GameLiftServerSDKWrapper::ProcessEnding()
     {
         return Aws::GameLift::Server::ProcessEnding();
+    }
+
+    AZStd::string GameLiftServerSDKWrapper::GetTerminationTime()
+    {
+        // Timestamp format is using the UTC ISO8601 format
+        std::time_t terminationTime;
+        Aws::GameLift::AwsLongOutcome GetTerminationTimeOutcome = Aws::GameLift::Server::GetTerminationTime();
+        if (GetTerminationTimeOutcome.IsSuccess())
+        {
+            terminationTime = GetTerminationTimeOutcome.GetResult();
+        }
+        else
+        {
+            // Use the current system time if the termination time is not available from GameLift.
+            time(&terminationTime);
+        }
+
+        char buffer[50];
+        strftime(buffer, sizeof(buffer), "%FT%TZ", gmtime(&terminationTime));
+
+        return AZStd::string(buffer);
     }
 } // namespace AWSGameLift

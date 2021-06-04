@@ -113,6 +113,7 @@ namespace UnitTest
 
         SessionNotificationsHandlerMock handlerMock;
         EXPECT_CALL(handlerMock, OnDestroySessionBegin()).Times(1).WillOnce(testing::Return(false));
+        EXPECT_CALL(*(m_serverManager->m_gameLiftServerSDKWrapperMockPtr), GetTerminationTime()).Times(1);
         EXPECT_CALL(*(m_serverManager->m_gameLiftServerSDKWrapperMockPtr), ProcessEnding()).Times(0);
 
         AZ_TEST_START_TRACE_SUPPRESSION;
@@ -133,6 +134,7 @@ namespace UnitTest
 
         SessionNotificationsHandlerMock handlerMock;
         EXPECT_CALL(handlerMock, OnDestroySessionBegin()).Times(1).WillOnce(testing::Return(true));
+        EXPECT_CALL(*(m_serverManager->m_gameLiftServerSDKWrapperMockPtr), GetTerminationTime()).Times(1);
         EXPECT_CALL(*(m_serverManager->m_gameLiftServerSDKWrapperMockPtr), ProcessEnding()).Times(1);
 
         m_serverManager->m_gameLiftServerSDKWrapperMockPtr->m_onProcessTerminateFunc();

@@ -46,6 +46,7 @@ namespace UnitTest
         MOCK_METHOD0(InitSDK, Server::InitSDKOutcome());
         MOCK_METHOD1(ProcessReady, GenericOutcome(const Server::ProcessParameters& processParameters));
         MOCK_METHOD0(ProcessEnding, GenericOutcome());
+        MOCK_METHOD0(GetTerminationTime, AZStd::string());
 
         GenericOutcome ProcessReadyMock(const Server::ProcessParameters& processParameters)
         {
