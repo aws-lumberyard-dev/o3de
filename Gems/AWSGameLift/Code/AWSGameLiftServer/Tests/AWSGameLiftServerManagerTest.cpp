@@ -102,9 +102,10 @@ namespace UnitTest
         AZ_TEST_STOP_TRACE_SUPPRESSION(1);
     }
 
-    TEST_F(GameLiftServerManagerTest, TerminateServerProcess_OnDestroySessionBeginReturnsFalse_FailToNotifyGameLift)
+    TEST_F(GameLiftServerManagerTest, OnProcessTerminate_OnDestroySessionBeginReturnsFalse_FailToNotifyGameLift)
     {
-        EXPECT_TRUE(m_serverManager->InitializeGameLiftServerSDK());
+        m_serverManager->InitializeGameLiftServerSDK();
+        m_serverManager->NotifyGameLiftProcessReady(GameLiftServerProcessDesc());
         if (!AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Get())
         {
             AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Register(m_serverManager.get());
@@ -115,34 +116,16 @@ namespace UnitTest
         EXPECT_CALL(*(m_serverManager->m_gameLiftServerSDKWrapperMockPtr), ProcessEnding()).Times(0);
 
         AZ_TEST_START_TRACE_SUPPRESSION;
-        m_serverManager->HandleDestroySession();
-        AZ_TEST_STOP_TRACE_SUPPRESSION(1);
-
-        EXPECT_TRUE(AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Get());
-        AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Unregister(m_serverManager.get());
-    }
-
-    TEST_F(GameLiftServerManagerTest, TerminateServerProcess_SDKNotInitialized_FailToNotifyGameLift)
-    {
-        if (!AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Get())
-        {
-            AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Register(m_serverManager.get());
-        }
-
-        SessionNotificationsHandlerMock handlerMock;
-        EXPECT_CALL(handlerMock, OnDestroySessionBegin()).Times(1).WillOnce(testing::Return(true));
-        EXPECT_CALL(*(m_serverManager->m_gameLiftServerSDKWrapperMockPtr), ProcessEnding()).Times(0);
-
-        AZ_TEST_START_TRACE_SUPPRESSION;
-        m_serverManager->HandleDestroySession();
+        m_serverManager->m_gameLiftServerSDKWrapperMockPtr->m_onProcessTerminateFunc();
         AZ_TEST_STOP_TRACE_SUPPRESSION(1);
 
         EXPECT_FALSE(AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Get());
     }
 
-    TEST_F(GameLiftServerManagerTest, TerminateServerProcess_OnDestroySessionBeginReturnsTrueSDKInitialized_TerminationNotificationSent)
+    TEST_F(GameLiftServerManagerTest, OnProcessTerminate_OnDestroySessionBeginReturnsTrue_TerminationNotificationSent)
     {
-        EXPECT_TRUE(m_serverManager->InitializeGameLiftServerSDK());
+        m_serverManager->InitializeGameLiftServerSDK();
+        m_serverManager->NotifyGameLiftProcessReady(GameLiftServerProcessDesc());
         if (!AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Get())
         {
             AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Register(m_serverManager.get());
@@ -152,7 +135,7 @@ namespace UnitTest
         EXPECT_CALL(handlerMock, OnDestroySessionBegin()).Times(1).WillOnce(testing::Return(true));
         EXPECT_CALL(*(m_serverManager->m_gameLiftServerSDKWrapperMockPtr), ProcessEnding()).Times(1);
 
-        m_serverManager->HandleDestroySession();
+        m_serverManager->m_gameLiftServerSDKWrapperMockPtr->m_onProcessTerminateFunc();
 
         EXPECT_FALSE(AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Get());
     }

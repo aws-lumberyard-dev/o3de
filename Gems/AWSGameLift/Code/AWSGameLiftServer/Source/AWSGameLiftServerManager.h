@@ -91,12 +91,13 @@ namespace AWSGameLift
         void OnUpdateGameSession();
 
         //! Callback function that the server process or GameLift service invokes to force the server process to shut down.
-        //! @return whether the server process is terminated and the ProcessEnding notification is sent to GameLift.
-        bool OnProcessTerminate();
+        void OnProcessTerminate();
 
         //! Callback function that the GameLift service invokes to request a health status report from the server process.
         //! @return Whether the server process is healthy.
         bool OnHealthCheck();
+
+        AZStd::string GetTerminationTime() const;
 
         AZStd::unique_ptr<GameLiftServerSDKWrapper> m_gameLiftServerSDKWrapper;
         bool m_serverSDKInitialized;

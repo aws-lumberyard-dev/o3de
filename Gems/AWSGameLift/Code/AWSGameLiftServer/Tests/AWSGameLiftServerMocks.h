@@ -51,12 +51,14 @@ namespace UnitTest
         {
             m_healthCheckFunc = processParameters.getOnHealthCheck();
             m_onStartGameSessionFunc = processParameters.getOnStartGameSession();
+            m_onProcessTerminateFunc = processParameters.getOnProcessTerminate();
 
             GenericOutcome successOutcome(nullptr);
             return successOutcome;
         }
 
         AZStd::function<bool()> m_healthCheckFunc;
+        AZStd::function<void()> m_onProcessTerminateFunc;
         AZStd::function<void(Aws::GameLift::Server::Model::GameSession)> m_onStartGameSessionFunc;
     };
 

@@ -21,6 +21,10 @@
 #include <AzCore/std/bind/bind.h>
 #include <AzFramework/Session/SessionNotifications.h>
 
+#include <ctime>
+
+#pragma warning(disable : 4996)
+
 namespace AWSGameLift
 {
     AWSGameLiftServerManager::AWSGameLiftServerManager()
@@ -95,7 +99,51 @@ namespace AWSGameLift
 
     void AWSGameLiftServerManager::HandleDestroySession()
     {
-        OnProcessTerminate();
+        // No further request should be handled by GameLift server manager at this point
+        if (AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Get())
+        {
+            AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Unregister(this);
+        }
+
+        AZ_TracePrintf(AWSGameLiftServerManagerName, "Server process is scheduled to be shut down at %s", GetTerminationTime().c_str());
+
+        // Send notifications to handler(s) to gracefully shut down the server process.
+        bool destroySessionResult = true;
+        AZ::EBusReduceResult<bool&, AZStd::logical_and<bool>> result(destroySessionResult);
+        AzFramework::SessionNotificationBus::BroadcastResult(result, &AzFramework::SessionNotifications::OnDestroySessionBegin);
+
+        if (!destroySessionResult)
+        {
+            AZ_Error("AWSGameLift", destroySessionResult, AWSGameLiftServerGameSessionDestroyErrorMessage);
+            return;
+        }
+
+        AZ_TracePrintf(AWSGameLiftServerManagerName, "Notifying GameLift server process is ending...");
+        Aws::GameLift::GenericOutcome processEndingOutcome = m_gameLiftServerSDKWrapper->ProcessEnding();
+        bool processEndingIsSuccess = processEndingOutcome.IsSuccess();
+
+        AZ_Error(AWSGameLiftServerManagerName, processEndingIsSuccess, AWSGameLiftServerProcessEndingErrorMessage,
+            processEndingOutcome.GetError().GetErrorMessage().c_str());
+    }
+    
+    AZStd::string AWSGameLiftServerManager::GetTerminationTime() const
+    {
+        // Timestamp format is using the UTC ISO8601 format
+        std::time_t terminationTime;
+        Aws::GameLift::AwsLongOutcome GetTerminationTimeOutcome = Aws::GameLift::Server::GetTerminationTime();
+        if (GetTerminationTimeOutcome.IsSuccess())
+        {
+            terminationTime = GetTerminationTimeOutcome.GetResult();
+        }
+        else
+        {
+            time(&terminationTime);
+        }
+
+        char buffer[50];
+        strftime(buffer, sizeof(buffer), "%FT%TZ", gmtime(&terminationTime));
+
+        return AZStd::string(buffer);
     }
 
     void AWSGameLiftServerManager::HandlePlayerLeaveSession(const AzFramework::PlayerConnectionConfig& playerConnectionConfig)
@@ -182,44 +230,11 @@ namespace AWSGameLift
         }
     }
 
-    bool AWSGameLiftServerManager::OnProcessTerminate()
+    void AWSGameLiftServerManager::OnProcessTerminate()
     {
-        // Send notifications to handler(s) to gracefully shut down the server process.
-        bool destroySessionResult = true;
-        AZ::EBusReduceResult<bool&, AZStd::logical_and<bool>> result(destroySessionResult);
-        AzFramework::SessionNotificationBus::BroadcastResult(result, &AzFramework::SessionNotifications::OnDestroySessionBegin);
+        AZ_TracePrintf(AWSGameLiftServerManagerName, "GameLift is shutting down server process...");
 
-        if (destroySessionResult)
-        {
-            // No further request should be handled by GameLift server manager at this point
-            if (AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Get())
-            {
-                AZ::Interface<AzFramework::ISessionHandlingServerRequests>::Unregister(this);
-            }
-        }
-        else
-        {
-            AZ_Error("AWSGameLift", false, AWSGameLiftServerGameSessionDestroyErrorMessage);
-            return false;
-        }
-
-        // Notifies the GameLift service that the server process is shutting down.
-        if (!m_serverSDKInitialized)
-        {
-            AZ_Error(AWSGameLiftServerManagerName, false, AWSGameLiftServerSDKNotInitErrorMessage);
-            return false;
-        }
-
-        // TODO: Game-specific tasks required to gracefully shut down the game session and the server process.
-
-        AZ_TracePrintf(AWSGameLiftServerManagerName, "Notifying GameLift server process is ending...");
-        Aws::GameLift::GenericOutcome processEndingOutcome = m_gameLiftServerSDKWrapper->ProcessEnding();
-        bool processEndingIsSuccess = processEndingOutcome.IsSuccess();
-
-        AZ_Error(AWSGameLiftServerManagerName, processEndingIsSuccess,
-            AWSGameLiftServerProcessEndingErrorMessage, processEndingOutcome.GetError().GetErrorMessage().c_str());
-
-        return processEndingIsSuccess;
+        HandleDestroySession();
     }
 
     bool AWSGameLiftServerManager::OnHealthCheck()
