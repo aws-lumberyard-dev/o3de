@@ -14,6 +14,7 @@
 #include <AzCore/std/string/string.h>
 #include <AzCore/std/containers/vector.h>
 
+#include <AzCore/Settings/SettingsRegistryImpl.h>
 #include <Editor/Attribution/AWSAttributionServiceApi.h>
 
 namespace AWSCore
@@ -22,8 +23,8 @@ namespace AWSCore
     class AWSAttributionManager
     {
     public:
-        AWSAttributionManager() = default;
-        virtual ~AWSAttributionManager() = default;
+        AWSAttributionManager();
+        virtual ~AWSAttributionManager();
 
         //! Perform initialization
         void Init();
@@ -45,6 +46,8 @@ namespace AWSCore
         void GetActiveAWSGems(AZStd::vector<AZStd::string>& gemNames);
 
         void SaveSettingsRegistryFile();
+
+        AZStd::unique_ptr<AZ::SettingsRegistryImpl> m_settingsRegistry;
     };
 
 } // namespace AWSCore

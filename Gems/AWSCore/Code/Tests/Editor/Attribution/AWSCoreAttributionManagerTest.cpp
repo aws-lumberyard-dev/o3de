@@ -156,7 +156,7 @@ namespace AWSAttributionUnitTest
             m_localFileIO->ResolvePath("@user@/Registry/", m_resolvedSettingsPath.data(), m_resolvedSettingsPath.size());
             AZ::IO::SystemFile::CreateDir(m_resolvedSettingsPath.data());
 
-            m_localFileIO->ResolvePath("@user@/Registry/editorpreferences.setreg", m_resolvedSettingsPath.data(), m_resolvedSettingsPath.size());
+            m_localFileIO->ResolvePath("@user@/Registry/editor_aws_preferences.setreg", m_resolvedSettingsPath.data(), m_resolvedSettingsPath.size());
 
             m_serializeContext = AZStd::make_unique<AZ::SerializeContext>();
 
@@ -210,9 +210,8 @@ namespace AWSAttributionUnitTest
        
         CreateFile(m_resolvedSettingsPath.data(), R"({
             "Amazon": {
-                "Preferences": {
-                    "EnablePrefabSystem": false,
-                    "AWS": {
+                "AWS": {
+                    "Preferences": {
                         "AWSAttributionEnabled": false,
                         "AWSAttributionDelaySeconds": 30
                     }
@@ -227,8 +226,9 @@ namespace AWSAttributionUnitTest
         manager.MetricCheck();
 
         // THEN
+        m_settingsRegistry->MergeSettingsFile(m_resolvedSettingsPath.data(), AZ::SettingsRegistryInterface::Format::JsonMergePatch, "");
         AZ::u64 timeStamp = 0;
-        m_settingsRegistry->Get(timeStamp, "/Amazon/Preferences/AWS/AWSAttributionLastTimeStamp");
+        m_settingsRegistry->Get(timeStamp, "/Amazon/AWS/Preferences/AWSAttributionLastTimeStamp");
         ASSERT_TRUE(timeStamp == 0);
 
         RemoveFile(m_resolvedSettingsPath.data());
@@ -242,9 +242,8 @@ namespace AWSAttributionUnitTest
 
         CreateFile(m_resolvedSettingsPath.data(), R"({
             "Amazon": {
-                "Preferences": {
-                    "EnablePrefabSystem": false,
-                    "AWS": {
+                "AWS": {
+                    "Preferences": {
                         "AWSAttributionEnabled": true,
                         "AWSAttributionDelaySeconds": 30,
                     }
@@ -259,8 +258,9 @@ namespace AWSAttributionUnitTest
         manager.MetricCheck();
 
         // THEN
+        m_settingsRegistry->MergeSettingsFile(m_resolvedSettingsPath.data(), AZ::SettingsRegistryInterface::Format::JsonMergePatch, "");
         AZ::u64 timeStamp = 0;
-        m_settingsRegistry->Get(timeStamp, "/Amazon/Preferences/AWS/AWSAttributionLastTimeStamp");
+        m_settingsRegistry->Get(timeStamp, "/Amazon/AWS/Preferences/AWSAttributionLastTimeStamp");
         ASSERT_TRUE(timeStamp > 0);
 
 
@@ -275,9 +275,8 @@ namespace AWSAttributionUnitTest
 
         CreateFile(m_resolvedSettingsPath.data(), R"({
             "Amazon": {
-                "Preferences": {
-                    "EnablePrefabSystem": false,
-                    "AWS": {
+                "AWS": {
+                    "Preferences": {
                         "AWSAttributionEnabled": true,
                         "AWSAttributionDelaySeconds": 30,
                         "AWSAttributionLastTimeStamp": 629400
@@ -293,8 +292,9 @@ namespace AWSAttributionUnitTest
         manager.MetricCheck();
 
         // THEN
+        m_settingsRegistry->MergeSettingsFile(m_resolvedSettingsPath.data(), AZ::SettingsRegistryInterface::Format::JsonMergePatch, "");
         AZ::u64 timeStamp = 0;
-        m_settingsRegistry->Get(timeStamp, "/Amazon/Preferences/AWS/AWSAttributionLastTimeStamp");
+        m_settingsRegistry->Get(timeStamp, "/Amazon/AWS/Preferences/AWSAttributionLastTimeStamp");
         ASSERT_TRUE(timeStamp > 0);
 
         RemoveFile(m_resolvedSettingsPath.data());
@@ -309,9 +309,8 @@ namespace AWSAttributionUnitTest
 
         CreateFile(m_resolvedSettingsPath.data(), R"({
             "Amazon": {
-                "Preferences": {
-                    "EnablePrefabSystem": false,
-                    "AWS": {
+                "AWS": {
+                    "Preferences": {
                         "AWSAttributionEnabled": true,
                         "AWSAttributionDelaySeconds": 300,
                         "AWSAttributionLastTimeStamp": 0
@@ -321,7 +320,7 @@ namespace AWSAttributionUnitTest
         })");
 
         AZ::u64 delayInSeconds = AZStd::chrono::duration_cast<AZStd::chrono::seconds>(AZStd::chrono::system_clock::now().time_since_epoch()).count();
-        ASSERT_TRUE(m_settingsRegistry->Set("/Amazon/Preferences/AWS/AWSAttributionLastTimeStamp", delayInSeconds));
+        ASSERT_TRUE(m_settingsRegistry->Set("/Amazon/AWS/Preferences/AWSAttributionLastTimeStamp", delayInSeconds));
 
         EXPECT_CALL(manager, SubmitMetric(testing::_)).Times(1);
         EXPECT_CALL(m_moduleManagerRequestBusMock, EnumerateModules(testing::_)).Times(1);
@@ -330,8 +329,9 @@ namespace AWSAttributionUnitTest
         manager.MetricCheck();
 
         // THEN
+        m_settingsRegistry->MergeSettingsFile(m_resolvedSettingsPath.data(), AZ::SettingsRegistryInterface::Format::JsonMergePatch, "");
         AZ::u64 timeStamp = 0;
-        m_settingsRegistry->Get(timeStamp, "/Amazon/Preferences/AWS/AWSAttributionLastTimeStamp");
+        m_settingsRegistry->Get(timeStamp, "/Amazon/AWS/Preferences/AWSAttributionLastTimeStamp");
         ASSERT_TRUE(timeStamp == delayInSeconds);
 
         RemoveFile(m_resolvedSettingsPath.data());
@@ -345,9 +345,8 @@ namespace AWSAttributionUnitTest
 
         CreateFile(m_resolvedSettingsPath.data(), R"({
             "Amazon": {
-                "Preferences": {
-                    "EnablePrefabSystem": false,
-                    "AWS": {
+                "AWS": {
+                    "Preferences": {
                     }
                 }
             }
@@ -360,8 +359,9 @@ namespace AWSAttributionUnitTest
         manager.MetricCheck();
 
         // THEN
+        m_settingsRegistry->MergeSettingsFile(m_resolvedSettingsPath.data(), AZ::SettingsRegistryInterface::Format::JsonMergePatch, "");
         AZ::u64 timeStamp = 0;
-        m_settingsRegistry->Get(timeStamp, "/Amazon/Preferences/AWS/AWSAttributionLastTimeStamp");
+        m_settingsRegistry->Get(timeStamp, "/Amazon/AWS/Preferences/AWSAttributionLastTimeStamp");
         ASSERT_TRUE(timeStamp != 0);
 
         RemoveFile(m_resolvedSettingsPath.data());
@@ -391,10 +391,7 @@ namespace AWSAttributionUnitTest
 
         AZStd::array<char, AZ::IO::MaxPathLength> engineJsonPath;
         m_localFileIO->ResolvePath("@user@/Registry/engine.json", engineJsonPath.data(), engineJsonPath.size());
-        CreateFile(engineJsonPath.data(), R"({
-                "O3DEVersion": "1.0.0.0"
-            }
-        })");
+        CreateFile(engineJsonPath.data(), R"({"O3DEVersion": "1.0.0.0"})");
 
         m_localFileIO->ResolvePath("@user@/Registry/", engineJsonPath.data(), engineJsonPath.size());
         m_settingsRegistry->Set(AZ::SettingsRegistryMergeUtils::FilePathKey_EngineRootFolder, engineJsonPath.data());

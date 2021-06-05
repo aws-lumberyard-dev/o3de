@@ -13,11 +13,11 @@
 #include <Editor/Attribution/AWSCoreAttributionMetric.h>
 #include <Editor/Attribution/AWSCoreAttributionManager.h>
 #include <AzCore/std/string/string.h>
+#include <AzCore/std/smart_ptr/unique_ptr.h>
 #include <AzCore/IO/FileIO.h>
 #include <AzCore/PlatformId/PlatformId.h>
 #include <AzCore/Settings/SettingsRegistry.h>
 #include <AzCore/Settings/SettingsRegistryMergeUtils.h>
-#include <AzCore/Settings/SettingsRegistryImpl.h>
 #include <AzCore/Utils/Utils.h>
 #include <AzCore/Jobs/JobFunction.h>
 #include <AzCore/IO/ByteContainerStream.h>
@@ -31,13 +31,24 @@ namespace AWSCore
 {
     static constexpr const char* EngineVersionJsonKey = "O3DEVersion";
 
-    constexpr char EditorPreferencesFileName[] = "editorpreferences.setreg";
-    constexpr char AWSAttributionEnabledKey[] = "/Amazon/Preferences/AWS/AWSAttributionEnabled";
-    constexpr char AWSAttributionDelaySecondsKey[] = "/Amazon/Preferences/AWS/AWSAttributionDelaySeconds";
-    constexpr char AWSAttributionLastTimeStampKey[] = "/Amazon/Preferences/AWS/AWSAttributionLastTimeStamp";
+    constexpr char EditorAWSPreferencesFileName[] = "editor_aws_preferences.setreg";
+    constexpr char AWSAttributionSettingsPrefixKey[] = "/Amazon/AWS/Preferences";
+    constexpr char AWSAttributionEnabledKey[] = "/Amazon/AWS/Preferences/AWSAttributionEnabled";
+    constexpr char AWSAttributionDelaySecondsKey[] = "/Amazon/AWS/Preferences/AWSAttributionDelaySeconds";
+    constexpr char AWSAttributionLastTimeStampKey[] = "/Amazon/AWS/Preferences/AWSAttributionLastTimeStamp";
     constexpr char AWSAttributionApiId[] = "xbzx78kvbk";
     constexpr char AWSAttributionChinaApiId[] = "";
     constexpr char AWSAttributionApiStage[] = "prod";
+
+    AWSAttributionManager::AWSAttributionManager()
+    {
+        m_settingsRegistry = AZStd::make_unique<AZ::SettingsRegistryImpl>();
+    }
+
+    AWSAttributionManager::~AWSAttributionManager()
+    {
+        m_settingsRegistry.reset();
+    }
 
     void AWSAttributionManager::Init()
     {
@@ -62,28 +73,24 @@ namespace AWSCore
         AZ::IO::FileIOBase* fileIO = AZ::IO::FileIOBase::GetInstance();
         AZ_Assert(fileIO, "File IO is not initialized.");
 
-        auto registry = AZ::SettingsRegistry::Get();
-        AZ_Assert(registry, "Settings registry is not initialized.");
-
-        // Resolve path to editorpreferences.setreg
-        AZStd::string editorPreferencesFilePath = AZStd::string::format("@user@/%s/%s", AZ::SettingsRegistryInterface::RegistryFolder, EditorPreferencesFileName);
-        AZStd::array<char, AZ::IO::MaxPathLength> resolvedPath {};
-        if (!fileIO->ResolvePath(editorPreferencesFilePath.c_str(), resolvedPath.data(), resolvedPath.size()))
+        // Resolve path to editor_aws_preferences.setreg
+        AZStd::string editorAWSPreferencesFilePath =
+            AZStd::string::format("@user@/%s/%s", AZ::SettingsRegistryInterface::RegistryFolder, EditorAWSPreferencesFileName);
+        AZStd::array<char, AZ::IO::MaxPathLength> resolvedPathAWSPreference{};
+        if (!fileIO->ResolvePath(editorAWSPreferencesFilePath.c_str(), resolvedPathAWSPreference.data(), resolvedPathAWSPreference.size()))
         {
-            AZ_Warning("AWSAttributionManager", false, "Error resolving path", editorPreferencesFilePath.c_str());
+            AZ_Warning("AWSAttributionManager", false, "Error resolving path", resolvedPathAWSPreference.data());
             return false;
         }
 
-        if (!registry->MergeSettingsFile(resolvedPath.data(), AZ::SettingsRegistryInterface::Format::JsonMergePatch))
+        if (fileIO->Exists(resolvedPathAWSPreference.data()))
         {
-            AZ_Warning("AWSAttributionManager", false, "Error merging settings registry for path: %s", resolvedPath.data());
-            return false;
+            m_settingsRegistry->MergeSettingsFile(resolvedPathAWSPreference.data(), AZ::SettingsRegistryInterface::Format::JsonMergePatch, "");
         }
 
         bool awsAttributionEnabled = false;
-        if (!registry->Get(awsAttributionEnabled, AWSAttributionEnabledKey))
+        if (!m_settingsRegistry->Get(awsAttributionEnabled, AWSAttributionEnabledKey))
         {
-            AZ_Warning("AWSAttributionManager", false, "%s key not found in %s. Defaulting AWSAttributionEnabled to true", AWSAttributionEnabledKey, resolvedPath.data());
             // If not found default to sending the metric.
             awsAttributionEnabled = true;
         }
@@ -92,17 +99,18 @@ namespace AWSCore
         {
             return false;
         }
-
+        
         // If delayInSeconds is not found, set default to a day
         AZ::u64 delayInSeconds = 0;
-        if (!registry->Get(delayInSeconds, AWSAttributionDelaySecondsKey))
+        if (!m_settingsRegistry->Get(delayInSeconds, AWSAttributionDelaySecondsKey))
         {
             AZ_Warning("AWSAttributionManager", false, "AWSAttribution delay key not found. Defaulting to delay to day");
             delayInSeconds = 86400;
+            m_settingsRegistry->Set(AWSAttributionDelaySecondsKey, delayInSeconds);
         }
 
         AZ::u64 lastSendTimeStampSeconds = 0;
-        if (!registry->Get(lastSendTimeStampSeconds, AWSAttributionLastTimeStampKey))
+        if (!m_settingsRegistry->Get(lastSendTimeStampSeconds, AWSAttributionLastTimeStampKey))
         {
             // If last time stamp not found, assume this is the first attempt at sending.
             return true;
@@ -127,25 +135,22 @@ namespace AWSCore
                 AZ::IO::FileIOBase* fileIO = AZ::IO::FileIOBase::GetInstance();
                 AZ_Assert(fileIO, "File IO is not initialized.");
 
-                auto registry = AZ::SettingsRegistry::Get();
-                AZ_Assert(registry, "Settings registry is not initialized.");
-
-                // Resolve path to editorpreferences.setreg
-                AZStd::string editorPreferencesFilePath = AZStd::string::format("@user@/%s/%s", AZ::SettingsRegistryInterface::RegistryFolder, EditorPreferencesFileName);
+                // Resolve path to editor_aws_preferences.setreg
+                AZStd::string editorPreferencesFilePath = AZStd::string::format("@user@/%s/%s", AZ::SettingsRegistryInterface::RegistryFolder, EditorAWSPreferencesFileName);
                 AZStd::array<char, AZ::IO::MaxPathLength> resolvedPath {};
                 fileIO->ResolvePath(editorPreferencesFilePath.c_str(), resolvedPath.data(), resolvedPath.size());
 
                 AZ::SettingsRegistryMergeUtils::DumperSettings dumperSettings;
                 dumperSettings.m_prettifyOutput = true;
-                dumperSettings.m_jsonPointerPrefix = "/Amazon/Preferences";
+                dumperSettings.m_jsonPointerPrefix = AWSAttributionSettingsPrefixKey;
 
                 AZStd::string stringBuffer;
                 AZ::IO::ByteContainerStream stringStream(&stringBuffer);
                 if (!AZ::SettingsRegistryMergeUtils::DumpSettingsRegistryToStream(
-                        *registry, "/Amazon/Preferences", stringStream, dumperSettings))
+                        *m_settingsRegistry, AWSAttributionSettingsPrefixKey, stringStream, dumperSettings))
                 {
                     AZ_Warning(
-                        "AWSAttributionManager", false, R"(Unable to save changes to the Editor Preferences registry file at "%s"\n)",
+                        "AWSAttributionManager", false, R"(Unable to save changes to the Editor AWS Preferences registry file at "%s"\n)",
                         resolvedPath.data());
                     return;
                 }
@@ -159,7 +164,7 @@ namespace AWSCore
                 }
 
                 AZ_Warning(
-                    "AWSAttributionManager", saved, R"(Unable to save Editor Preferences registry file to path "%s"\n)",
+                    "AWSAttributionManager", saved, R"(Unable to save Editor AWS Preferences registry file to path "%s"\n)",
                     editorPreferencesFilePath.c_str());
             },
             true);
@@ -168,11 +173,8 @@ namespace AWSCore
     }
 
     void AWSAttributionManager::UpdateLastSend()
-    {
-        auto registry = AZ::SettingsRegistry::Get();
-        AZ_Assert(registry, "Settings registry is not initialized.");
-       
-        if (!registry->Set(AWSAttributionLastTimeStampKey,
+    {  
+        if (!m_settingsRegistry->Set(AWSAttributionLastTimeStampKey,
             AZStd::chrono::duration_cast<AZStd::chrono::seconds>(AZStd::chrono::system_clock::now().time_since_epoch()).count()))
         {
             AZ_Warning("AWSAttributionManager", true, "Failed to set AWSAttributionLastTimeStamp");
@@ -206,12 +208,11 @@ namespace AWSCore
         auto engineSettingsPath = AZ::IO::FixedMaxPath{ AZ::Utils::GetEnginePath() } / "engine.json";
         if (AZ::IO::SystemFile::Exists(engineSettingsPath.c_str()))
         {
-            using FixedValueString = AZ::SettingsRegistryInterface::FixedValueString;
             AZ::SettingsRegistryImpl settingsRegistry;
             if (settingsRegistry.MergeSettingsFile(
                     engineSettingsPath.Native(), AZ::SettingsRegistryInterface::Format::JsonMergePatch, AZ::SettingsRegistryMergeUtils::EngineSettingsRootKey))
             {
-                settingsRegistry.Get(engineVersion, FixedValueString(AZ::SettingsRegistryMergeUtils::EngineSettingsRootKey) + "/" + EngineVersionJsonKey);
+                settingsRegistry.Get(engineVersion, AZ::SettingsRegistryInterface::FixedValueString(AZ::SettingsRegistryMergeUtils::EngineSettingsRootKey) + "/" + EngineVersionJsonKey);
             }
         }
         return engineVersion;
@@ -261,7 +262,9 @@ namespace AWSCore
             [this](ServiceAPI::AWSAttributionRequestJob* successJob)
             {
                 AZ_UNUSED(successJob);
+                
                 UpdateLastSend();
+                AZ_Printf("AWSAttributionManager", "AWSAttribution metric submit success");
 
             }, {}, config);
 
