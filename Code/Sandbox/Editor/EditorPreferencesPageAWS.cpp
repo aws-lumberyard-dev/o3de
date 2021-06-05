@@ -134,7 +134,7 @@ void CEditorPreferencesPage_AWS::InitializeSettings()
     AZStd::array<char, AZ::IO::MaxPathLength> resolvedPathAWSPreference{};
     if (!fileIO->ResolvePath(editorAWSPreferencesFilePath.c_str(), resolvedPathAWSPreference.data(), resolvedPathAWSPreference.size()))
     {
-        AZ_Warning("AWSAttributionManager", false, "Error resolving path", resolvedPathAWSPreference.data());
+        AZ_Warning("AWSAttributionManager", false, "Error resolving path %s", resolvedPathAWSPreference.data());
         return;
     }
 
