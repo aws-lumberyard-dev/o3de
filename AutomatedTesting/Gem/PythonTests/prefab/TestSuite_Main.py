@@ -28,7 +28,7 @@ from base import TestAutomationBase
 class TestAutomation(TestAutomationBase):
 
     def _run_prefab_test(self, request, workspace, editor, test_module):
-        self._run_test(request, workspace, editor, test_module)
+        self._run_test(request, workspace, editor, test_module, ["--regset=/Amazon/Preferences/EnablePrefabSystem=true"])
 
     def test_PrefabLevel_OpensLevelWithEntities(self, request, workspace, editor, launcher_platform):
         from . import PrefabLevel_OpensLevelWithEntities as test_module
