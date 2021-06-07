@@ -104,7 +104,7 @@ namespace AWSGameLift
         static constexpr const char AWSGameLiftJoinSessionRequestInvalidErrorMessage[] =
             "Invalid GameLift JoinSession request.";
         static constexpr const char AWSGameLiftJoinSessionMissingRequestHandlerErrorMessage[] =
-            "Missing GameLift JoinSession request handler.";
+            "Missing GameLift JoinSession request handler, please make sure Multiplayer Gem is enabled and registered as handler.";
 
         AWSGameLiftClientManager();
         virtual ~AWSGameLiftClientManager() = default;

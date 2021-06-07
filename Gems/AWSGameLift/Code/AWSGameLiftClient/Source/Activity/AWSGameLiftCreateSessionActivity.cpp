@@ -38,12 +38,12 @@ namespace AWSGameLift
         }
 
         AZStd::string CreateSession(
-            const AZStd::unique_ptr<Aws::GameLift::GameLiftClient>& gameliftClient,
+            const Aws::GameLift::GameLiftClient& gameliftClient,
             const AWSGameLiftCreateSessionRequest& createSessionRequest,
             const AWSErrorCallback& errorCallback)
         {
             Aws::GameLift::Model::CreateGameSessionRequest request = BuildAWSGameLiftCreateGameSessionRequest(createSessionRequest);
-            auto createSessionOutcome = gameliftClient->CreateGameSession(request);
+            auto createSessionOutcome = gameliftClient.CreateGameSession(request);
 
             AZStd::string result = "";
             if (createSessionOutcome.IsSuccess())
