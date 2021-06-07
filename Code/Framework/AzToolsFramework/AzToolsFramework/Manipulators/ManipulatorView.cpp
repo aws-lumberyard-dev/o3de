@@ -551,13 +551,10 @@ namespace AzToolsFramework
     void ManipulatorViewProjectedCircle::Draw(
         const ManipulatorManagerId managerId, const ManipulatorManagerState& /*managerState*/, const ManipulatorId manipulatorId,
         const ManipulatorState& manipulatorState, AzFramework::DebugDisplayRequests& debugDisplay,
-        const AzFramework::CameraState& cameraState, const ViewportInteraction::MouseInteraction& /*mouseInteraction*/)
+        [[maybe_unused]] const AzFramework::CameraState& cameraState, const ViewportInteraction::MouseInteraction& /*mouseInteraction*/)
     {
-        const float viewScale =
-            ManipulatorViewScaleMultiplier(manipulatorState.m_worldFromLocal.TransformPoint(manipulatorState.m_localPosition), cameraState);
-
         const Picking::BoundShapeTorus torusBound = CalculateTorusBound(
-            manipulatorState.m_localPosition, manipulatorState.m_worldFromLocal, m_axis, m_radius * viewScale, m_width * viewScale);
+            manipulatorState.m_localPosition, manipulatorState.m_worldFromLocal, m_axis, m_radius, m_width);
 
         // transform circle based on delta between default z up axis and other axes
         const AZ::Transform worldFromLocalWithOrientation =
