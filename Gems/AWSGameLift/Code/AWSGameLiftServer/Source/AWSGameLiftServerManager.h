@@ -47,6 +47,8 @@ namespace AWSGameLift
             "No server port specified, server will be listening on ephemeral port.";
         static constexpr const char AWSGameLiftServerGameInitErrorMessage[] =
             "Failed to process game dependent initialization during OnStartGameSession.";
+        static constexpr const char AWSGameLiftServerGameSessionDestroyErrorMessage[] =
+            "Failed to destroy game session during OnProcessTerminate.";
 
         static constexpr const char AWSGameLiftServerInitSDKErrorMessage[] =
             "Failed to initialize Amazon GameLift Server SDK. ErrorMessage: %s";
@@ -89,8 +91,7 @@ namespace AWSGameLift
         void OnUpdateGameSession();
 
         //! Callback function that the server process or GameLift service invokes to force the server process to shut down.
-        //! @return whether the server process is terminated and the ProcessEnding notification is sent to GameLift.
-        bool OnProcessTerminate();
+        void OnProcessTerminate();
 
         //! Callback function that the GameLift service invokes to request a health status report from the server process.
         //! @return Whether the server process is healthy.

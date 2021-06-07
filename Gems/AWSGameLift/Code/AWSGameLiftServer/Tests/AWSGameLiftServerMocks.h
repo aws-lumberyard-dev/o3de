@@ -46,17 +46,20 @@ namespace UnitTest
         MOCK_METHOD0(InitSDK, Server::InitSDKOutcome());
         MOCK_METHOD1(ProcessReady, GenericOutcome(const Server::ProcessParameters& processParameters));
         MOCK_METHOD0(ProcessEnding, GenericOutcome());
+        MOCK_METHOD0(GetTerminationTime, AZStd::string());
 
         GenericOutcome ProcessReadyMock(const Server::ProcessParameters& processParameters)
         {
             m_healthCheckFunc = processParameters.getOnHealthCheck();
             m_onStartGameSessionFunc = processParameters.getOnStartGameSession();
+            m_onProcessTerminateFunc = processParameters.getOnProcessTerminate();
 
             GenericOutcome successOutcome(nullptr);
             return successOutcome;
         }
 
         AZStd::function<bool()> m_healthCheckFunc;
+        AZStd::function<void()> m_onProcessTerminateFunc;
         AZStd::function<void(Aws::GameLift::Server::Model::GameSession)> m_onStartGameSessionFunc;
     };
 

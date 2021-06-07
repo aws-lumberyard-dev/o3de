@@ -14,6 +14,8 @@
 
 #include <aws/gamelift/server/GameLiftServerAPI.h>
 
+#include <AzCore/std/string/string.h>
+
 namespace AWSGameLift
 {
     /* Wrapper to use to GameLift Server SDK.
@@ -43,5 +45,9 @@ namespace AWSGameLift
         //! Notifies the GameLift service that the server process is shutting down.
         //! @return Returns a generic outcome consisting of success or failure with an error message.
         virtual Aws::GameLift::GenericOutcome ProcessEnding();
+
+        //! Returns the time that a server process is scheduled to be shut down.
+        //! @return Timestamp using the UTC ISO8601 format.
+        virtual AZStd::string GetTerminationTime();
     };
 } // namespace AWSGameLift
