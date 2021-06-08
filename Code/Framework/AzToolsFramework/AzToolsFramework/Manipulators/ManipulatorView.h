@@ -288,7 +288,7 @@ namespace AzToolsFramework
         bool m_depthTest = false;
     };
 
-    /// Displays a full, projected circle that is used for a brush manipulator.
+    /// Displays a full, projected circle.
     class ManipulatorViewProjectedCircle : public ManipulatorView
     {
     public:

@@ -37,7 +37,7 @@ namespace AzToolsFramework
             mouseInteraction);
     }
 
-    void BrushManipulator::SetView(AZStd::shared_ptr<ManipulatorView>&& view)
+    void BrushManipulator::SetView(AZStd::shared_ptr<ManipulatorView> view)
     {
         m_manipulatorView = AZStd::move(view);
     }

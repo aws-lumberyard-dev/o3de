@@ -42,7 +42,7 @@ namespace AzToolsFramework
 
         //! The state of the manipulator at the start of an interaction.
         struct Start
-        { //! Maybe need world position?
+        {
         };
 
         //! The state of the manipulator during an interaction.
@@ -62,7 +62,7 @@ namespace AzToolsFramework
             const ManipulatorManagerState& managerState, AzFramework::DebugDisplayRequests& debugDisplay,
             const AzFramework::CameraState& cameraState, const ViewportInteraction::MouseInteraction& mouseInteraction) override;
 
-        void SetView(AZStd::shared_ptr<ManipulatorView>&& view);
+        void SetView(AZStd::shared_ptr<ManipulatorView> view);
 
     private:
         struct StartInternal
