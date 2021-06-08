@@ -21,7 +21,7 @@
 
 #include <AWSGameLiftClientManager.h>
 #include <Activity/AWSGameLiftCreateSessionActivity.h>
-#include <Request/AWSGameLiftCreateSessionRequest.h>
+#include <Activity/AWSGameLiftJoinSessionActivity.h>
 
 #include <aws/core/auth/AWSCredentialsProvider.h>
 
@@ -107,6 +107,11 @@ namespace AWSGameLift
         return true;
     }
 
+    AZStd::string AWSGameLiftClientManager::CreatePlayerId(bool includeBrackets, bool includeDashes)
+    {
+        return AZ::Uuid::CreateRandom().ToString<AZStd::string>(includeBrackets, includeDashes);
+    }
+
     AZStd::string AWSGameLiftClientManager::CreateSession(const AzFramework::CreateSessionRequest& createSessionRequest)
     {
         AZStd::string result = "";
@@ -118,19 +123,13 @@ namespace AWSGameLift
         {
             if (CreateSessionActivity::ValidateCreateSessionRequest(createSessionRequest))
             {
+                AZ_TracePrintf(AWSGameLiftClientManagerName, "Requesting CreateGameSession against Amazon GameLift service...");
                 auto& gameliftCreateSessionRequest = static_cast<const AWSGameLiftCreateSessionRequest&>(createSessionRequest);
-                auto createSessionOutcome = CreateSessionActivity::CreateSession(m_gameliftClient, gameliftCreateSessionRequest);
-
-                if (createSessionOutcome.IsSuccess())
-                {
-                    result = AZStd::string(createSessionOutcome.GetResult().GetGameSession().GetGameSessionId().c_str());
-                }
-                else
-                {
-                    auto error = createSessionOutcome.GetError();
-                    AZ_Error(AWSGameLiftClientManagerName, false,
-                        AWSGameLiftClientErrorMessageTemplate, error.GetExceptionName().c_str(), error.GetMessage().c_str());
-                }
+                result = CreateSessionActivity::CreateSession(*(m_gameliftClient.get()), gameliftCreateSessionRequest,
+                    [](const Aws::Client::AWSError<Aws::GameLift::GameLiftErrors>& error) {
+                        AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftClientErrorMessageTemplate,
+                            error.GetExceptionName().c_str(), error.GetMessage().c_str());
+                    });
             }
             else
             {
@@ -159,21 +158,13 @@ namespace AWSGameLift
 
                 AZ::Job* createSessionJob = AZ::CreateJobFunction(
                     [this, gameliftCreateSessionRequest]() {
-                        auto createSessionOutcome =
-                            CreateSessionActivity::CreateSession(m_gameliftClient, gameliftCreateSessionRequest);
-
-                        AZStd::string result = "";
-                        if (createSessionOutcome.IsSuccess())
-                        {
-                            auto gameSession = createSessionOutcome.GetResult().GetGameSession();
-                            result = gameSession.GetGameSessionId().c_str();
-                        }
-                        else
-                        {
-                            auto error = createSessionOutcome.GetError();
-                            AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftClientErrorMessageTemplate,
-                                error.GetExceptionName().c_str(), error.GetMessage().c_str());
-                        }
+                        AZ_TracePrintf(AWSGameLiftClientManagerName, "Requesting CreateGameSession against Amazon GameLift service asynchronously...");
+                        AZStd::string result = CreateSessionActivity::CreateSession(
+                            *(m_gameliftClient.get()), gameliftCreateSessionRequest,
+                            [](const Aws::Client::AWSError<Aws::GameLift::GameLiftErrors>& error) {
+                                AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftClientErrorMessageTemplate,
+                                    error.GetExceptionName().c_str(), error.GetMessage().c_str());
+                            });
                         AzFramework::SessionAsyncRequestNotificationBus::Broadcast(
                             &AzFramework::SessionAsyncRequestNotifications::OnCreateSessionAsyncComplete, result);
                     },
@@ -191,15 +182,81 @@ namespace AWSGameLift
 
     bool AWSGameLiftClientManager::JoinSession(const AzFramework::JoinSessionRequest& joinSessionRequest)
     {
-        // TODO: Add implementation for join session
-        AZ_UNUSED(joinSessionRequest);
-        return false;
+        bool result = false;
+        if (!m_gameliftClient)
+        {
+            AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftClientMissingErrorMessage);
+        }
+        else
+        {
+            if (JoinSessionActivity::ValidateJoinSessionRequest(joinSessionRequest))
+            {
+                AZ_TracePrintf(AWSGameLiftClientManagerName, "Requesting CreatePlayerSession call against Amazon GameLift service...");
+                auto& gameliftJoinSessionRequest = static_cast<const AWSGameLiftJoinSessionRequest&>(joinSessionRequest);
+                auto createPlayerSessionOutcome = JoinSessionActivity::CreatePlayerSession(
+                    *(m_gameliftClient.get()), gameliftJoinSessionRequest,
+                    [](const Aws::Client::AWSError<Aws::GameLift::GameLiftErrors>& error) {
+                        AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftClientErrorMessageTemplate,
+                            error.GetExceptionName().c_str(), error.GetMessage().c_str());
+                    });
+
+                AZ_TracePrintf(AWSGameLiftClientManagerName, "Requesting player to connect to game session...");
+                result = JoinSessionActivity::RequestPlayerJoinSession(createPlayerSessionOutcome, []() {
+                    AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftJoinSessionMissingRequestHandlerErrorMessage);
+                });
+            }
+            else
+            {
+                AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftJoinSessionRequestInvalidErrorMessage);
+            }
+        }
+
+        return result;
     }
 
     void AWSGameLiftClientManager::JoinSessionAsync(const AzFramework::JoinSessionRequest& joinSessionRequest)
     {
-        // TODO: Add implementation for join session
-        AZ_UNUSED(joinSessionRequest);
+        if (!m_gameliftClient)
+        {
+            AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftClientMissingErrorMessage);
+            AzFramework::SessionAsyncRequestNotificationBus::Broadcast(
+                &AzFramework::SessionAsyncRequestNotifications::OnJoinSessionAsyncComplete, false);
+        }
+        else
+        {
+            if (JoinSessionActivity::ValidateJoinSessionRequest(joinSessionRequest))
+            {
+                AZ::JobContext* jobContext = nullptr;
+                AWSCore::AWSCoreRequestBus::BroadcastResult(jobContext, &AWSCore::AWSCoreRequests::GetDefaultJobContext);
+                auto& gameliftJoinSessionRequest = static_cast<const AWSGameLiftJoinSessionRequest&>(joinSessionRequest);
+
+                AZ::Job* joinSessionJob = AZ::CreateJobFunction(
+                    [this, gameliftJoinSessionRequest]() {
+                        AZ_TracePrintf(AWSGameLiftClientManagerName, "Requesting CreatePlayerSession call against Amazon GameLift service asynchronously...");
+                        auto createPlayerSessionOutcome = JoinSessionActivity::CreatePlayerSession(
+                            *(m_gameliftClient.get()), gameliftJoinSessionRequest,
+                            [](const Aws::Client::AWSError<Aws::GameLift::GameLiftErrors>& error) {
+                                AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftClientErrorMessageTemplate,
+                                    error.GetExceptionName().c_str(), error.GetMessage().c_str());
+                            });
+
+                        AZ_TracePrintf(AWSGameLiftClientManagerName, "Requesting player to connect to game session asynchronously...");
+                        bool result = JoinSessionActivity::RequestPlayerJoinSession(createPlayerSessionOutcome, []() {
+                            AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftJoinSessionMissingRequestHandlerErrorMessage);
+                        });
+                        AzFramework::SessionAsyncRequestNotificationBus::Broadcast(
+                            &AzFramework::SessionAsyncRequestNotifications::OnJoinSessionAsyncComplete, result);
+                    },
+                    true, jobContext);
+                joinSessionJob->Start();
+            }
+            else
+            {
+                AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftJoinSessionRequestInvalidErrorMessage);
+                AzFramework::SessionAsyncRequestNotificationBus::Broadcast(
+                    &AzFramework::SessionAsyncRequestNotifications::OnJoinSessionAsyncComplete, false);
+            }
+        }
     }
 
     void AWSGameLiftClientManager::LeaveSession()
