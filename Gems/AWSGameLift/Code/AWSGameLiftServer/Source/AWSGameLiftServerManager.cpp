@@ -288,7 +288,7 @@ namespace AWSGameLift
             return false;
         }
 
-        AZ_TracePrintf(AWSGameLiftServerManagerName, "Validating player session connection with Amazon GameLift service...");
+        AZ_TracePrintf(AWSGameLiftServerManagerName, "Attempting to accept player session connection with Amazon GameLift service...");
         auto acceptPlayerSessionOutcome = m_gameLiftServerSDKWrapper->AcceptPlayerSession(playerSessionId.c_str());
 
         if (!acceptPlayerSessionOutcome.IsSuccess())

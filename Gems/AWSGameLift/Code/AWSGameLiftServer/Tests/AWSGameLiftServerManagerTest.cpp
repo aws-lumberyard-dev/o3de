@@ -310,12 +310,57 @@ namespace UnitTest
                 connectionConfig.m_playerConnectionId = 123;
                 connectionConfig.m_playerSessionId = "dummyPlayerSessionId";
                 auto result = m_serverManager->ValidatePlayerJoinSession(connectionConfig);
+                // First should be true, the rest should be false
                 if (index == 0)
                 {
                     EXPECT_TRUE(result);
                 }
                 else
                 {
+                    EXPECT_FALSE(result);
+                }
+            }));
+        }
+
+        for (auto& testThread : testThreadPool)
+        {
+            testThread.join();
+        }
+    }
+
+    TEST_F(GameLiftServerManagerTest, ValidatePlayerJoinSession_CallWithMultithread_GetFirstFalseAndSecondTrue)
+    {
+        int testThreadNumber = 5;
+        GenericOutcome successOutcome(nullptr);
+        Aws::GameLift::GameLiftError error;
+        GenericOutcome errorOutcome(error);
+        EXPECT_CALL(*(m_serverManager->m_gameLiftServerSDKWrapperMockPtr), AcceptPlayerSession(testing::_))
+            .Times(2)
+            .WillOnce(Return(errorOutcome))
+            .WillOnce(Return(successOutcome));
+        AZStd::vector<AZStd::thread> testThreadPool;
+        for (int index = 0; index < testThreadNumber; index++)
+        {
+            testThreadPool.emplace_back(AZStd::thread([&, index]() {
+                AzFramework::PlayerConnectionConfig connectionConfig;
+                connectionConfig.m_playerConnectionId = 123;
+                connectionConfig.m_playerSessionId = "dummyPlayerSessionId";
+                // Second should be true, the rest should be false
+                if (index == 0)
+                {
+                    AZ_TEST_START_TRACE_SUPPRESSION;
+                    auto result = m_serverManager->ValidatePlayerJoinSession(connectionConfig);
+                    AZ_TEST_STOP_TRACE_SUPPRESSION(1);
+                    EXPECT_FALSE(result);
+                }
+                else if (index == 1)
+                {
+                    auto result = m_serverManager->ValidatePlayerJoinSession(connectionConfig);
+                    EXPECT_TRUE(result);
+                }
+                else
+                {
+                    auto result = m_serverManager->ValidatePlayerJoinSession(connectionConfig);
                     EXPECT_FALSE(result);
                 }
             }));

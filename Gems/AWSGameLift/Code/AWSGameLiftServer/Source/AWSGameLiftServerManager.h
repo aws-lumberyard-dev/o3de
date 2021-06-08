@@ -50,9 +50,9 @@ namespace AWSGameLift
         static constexpr const char AWSGameLiftServerGameSessionDestroyErrorMessage[] =
             "Failed to destroy game session during OnProcessTerminate.";
         static constexpr const char AWSGameLiftServerPlayerConnectionRegisteredErrorMessage[] =
-            "Player connection id %d was registered with different player session id %s";
+            "Player connection id %d is already registered to player session id %s. Remove connected player first.";
         static constexpr const char AWSGameLiftServerPlayerConnectionMissingErrorMessage[] =
-            "Player connection id %d is not exist, nothing to remove.";
+            "Player connection id %d does not exist.";
 
         static constexpr const char AWSGameLiftServerInitSDKErrorMessage[] =
             "Failed to initialize Amazon GameLift Server SDK. ErrorMessage: %s";
@@ -61,7 +61,7 @@ namespace AWSGameLift
         static constexpr const char AWSGameLiftServerActivateGameSessionErrorMessage[] =
             "Failed to activate GameLift game session. ErrorMessage: %s";
         static constexpr const char AWSGameLiftServerProcessEndingErrorMessage[] =
-            "Failed to end notify GameLift server process ending. ErrorMessage: %s";
+            "Failed to notify GameLift server process ending. ErrorMessage: %s";
         static constexpr const char AWSGameLiftServerAcceptPlayerSessionErrorMessage[] =
             "Failed to validate player session connection with id %s. ErrorMessage: %s";
         static constexpr const char AWSGameLiftServerInvalidConnectionConfigErrorMessage[] =
