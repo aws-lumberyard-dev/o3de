@@ -26,6 +26,12 @@ namespace AWSGameLift
         GameLiftServerSDKWrapper() = default;
         virtual ~GameLiftServerSDKWrapper() = default;
 
+        //! Processes and validates a player session connection.
+        //! This method should be called when a client requests a connection to the server.
+        //! @param playerSessionId the ID of the joining player's session.
+        //! @return Returns a generic outcome consisting of success or failure with an error message.
+        virtual Aws::GameLift::GenericOutcome AcceptPlayerSession(const std::string& playerSessionId);
+
         //! Reports to GameLift that the server process is now ready to receive player sessions.
         //! Should be called once all GameSession initialization has finished.
         //! @return Returns a generic outcome consisting of success or failure with an error message.

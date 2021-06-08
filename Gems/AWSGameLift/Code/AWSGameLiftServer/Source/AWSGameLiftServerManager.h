@@ -49,6 +49,10 @@ namespace AWSGameLift
             "Failed to process game dependent initialization during OnStartGameSession.";
         static constexpr const char AWSGameLiftServerGameSessionDestroyErrorMessage[] =
             "Failed to destroy game session during OnProcessTerminate.";
+        static constexpr const char AWSGameLiftServerPlayerConnectionRegisteredErrorMessage[] =
+            "Player connection id %d is already registered to player session id %s. Remove connected player first.";
+        static constexpr const char AWSGameLiftServerPlayerConnectionMissingErrorMessage[] =
+            "Player connection id %d does not exist.";
 
         static constexpr const char AWSGameLiftServerInitSDKErrorMessage[] =
             "Failed to initialize Amazon GameLift Server SDK. ErrorMessage: %s";
@@ -57,7 +61,11 @@ namespace AWSGameLift
         static constexpr const char AWSGameLiftServerActivateGameSessionErrorMessage[] =
             "Failed to activate GameLift game session. ErrorMessage: %s";
         static constexpr const char AWSGameLiftServerProcessEndingErrorMessage[] =
-            "Failed to end notify GameLift server process ending. ErrorMessage: %s";
+            "Failed to notify GameLift server process ending. ErrorMessage: %s";
+        static constexpr const char AWSGameLiftServerAcceptPlayerSessionErrorMessage[] =
+            "Failed to validate player session connection with id %s. ErrorMessage: %s";
+        static constexpr const char AWSGameLiftServerInvalidConnectionConfigErrorMessage[] =
+            "Invalid player connection config, player connection id: %d, player session id: %s";
 
         AWSGameLiftServerManager();
         virtual ~AWSGameLiftServerManager();
@@ -81,7 +89,10 @@ namespace AWSGameLift
         void SetGameLiftServerSDKWrapper(AZStd::unique_ptr<GameLiftServerSDKWrapper> gameLiftServerSDKWrapper);
 
     private:
-        // Build session config by using AWS GameLift Server GameSession Model
+        //! Add connected player session id
+        bool AddConnectedPlayer(const AzFramework::PlayerConnectionConfig& playerConnectionConfig);
+
+        //! Build session config by using AWS GameLift Server GameSession Model
         AzFramework::SessionConfig BuildSessionConfig(const Aws::GameLift::Server::Model::GameSession& gameSession);
 
         //! Callback function that the GameLift service invokes to activate a new game session.
@@ -97,7 +108,15 @@ namespace AWSGameLift
         //! @return Whether the server process is healthy.
         bool OnHealthCheck();
 
+        //! Remove connected player session id
+        bool RemoveConnectedPlayer(const AzFramework::PlayerConnectionConfig& playerConnectionConfig);
+
         AZStd::unique_ptr<GameLiftServerSDKWrapper> m_gameLiftServerSDKWrapper;
         bool m_serverSDKInitialized;
+
+        AZStd::mutex m_gameliftMutex;
+        using PlayerConnectionId = uint32_t;
+        using PlayerSessionId = AZStd::string;
+        AZStd::unordered_map<PlayerConnectionId, PlayerSessionId> m_connectedPlayers;
     };
 } // namespace AWSGameLift

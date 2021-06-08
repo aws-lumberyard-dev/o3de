@@ -219,4 +219,156 @@ namespace UnitTest
         m_serverManager->m_gameLiftServerSDKWrapperMockPtr->m_onStartGameSessionFunc(Aws::GameLift::Server::Model::GameSession());
         AZ_TEST_STOP_TRACE_SUPPRESSION(1);
     }
+
+    TEST_F(GameLiftServerManagerTest, ValidatePlayerJoinSession_CallWithInvalidConnectionConfig_GetFalseResultAndExpectedErrorLog)
+    {
+        AZ_TEST_START_TRACE_SUPPRESSION;
+        auto result = m_serverManager->ValidatePlayerJoinSession(AzFramework::PlayerConnectionConfig());
+        AZ_TEST_STOP_TRACE_SUPPRESSION(1);
+        EXPECT_FALSE(result);
+    }
+
+    TEST_F(GameLiftServerManagerTest, ValidatePlayerJoinSession_CallWithDuplicatedConnectionId_GetFalseResultAndExpectedErrorLog)
+    {
+        AzFramework::PlayerConnectionConfig connectionConfig1;
+        connectionConfig1.m_playerConnectionId = 123;
+        connectionConfig1.m_playerSessionId = "dummyPlayerSessionId1";
+        GenericOutcome successOutcome(nullptr);
+        EXPECT_CALL(*(m_serverManager->m_gameLiftServerSDKWrapperMockPtr), AcceptPlayerSession(testing::_))
+            .Times(1)
+            .WillOnce(Return(successOutcome));
+        m_serverManager->ValidatePlayerJoinSession(connectionConfig1);
+        AzFramework::PlayerConnectionConfig connectionConfig2;
+        connectionConfig2.m_playerConnectionId = 123;
+        connectionConfig2.m_playerSessionId = "dummyPlayerSessionId2";
+        AZ_TEST_START_TRACE_SUPPRESSION;
+        auto result = m_serverManager->ValidatePlayerJoinSession(connectionConfig2);
+        AZ_TEST_STOP_TRACE_SUPPRESSION(1);
+        EXPECT_FALSE(result);
+    }
+
+    TEST_F(GameLiftServerManagerTest, ValidatePlayerJoinSession_CallWithValidConnectionConfigButErrorOutcome_GetFalseResultAndExpectedErrorLog)
+    {
+        AzFramework::PlayerConnectionConfig connectionConfig;
+        connectionConfig.m_playerConnectionId = 123;
+        connectionConfig.m_playerSessionId = "dummyPlayerSessionId1";
+        EXPECT_CALL(*(m_serverManager->m_gameLiftServerSDKWrapperMockPtr), AcceptPlayerSession(testing::_)).Times(1);
+        AZ_TEST_START_TRACE_SUPPRESSION;
+        auto result = m_serverManager->ValidatePlayerJoinSession(connectionConfig);
+        AZ_TEST_STOP_TRACE_SUPPRESSION(1);
+        EXPECT_FALSE(result);
+    }
+
+    TEST_F(GameLiftServerManagerTest, ValidatePlayerJoinSession_CallWithValidConnectionConfigAndSuccessOutcome_GetTrueResult)
+    {
+        AzFramework::PlayerConnectionConfig connectionConfig;
+        connectionConfig.m_playerConnectionId = 123;
+        connectionConfig.m_playerSessionId = "dummyPlayerSessionId1";
+        GenericOutcome successOutcome(nullptr);
+        EXPECT_CALL(*(m_serverManager->m_gameLiftServerSDKWrapperMockPtr), AcceptPlayerSession(testing::_))
+            .Times(1)
+            .WillOnce(Return(successOutcome));
+        auto result = m_serverManager->ValidatePlayerJoinSession(connectionConfig);
+        EXPECT_TRUE(result);
+    }
+
+    TEST_F(GameLiftServerManagerTest, ValidatePlayerJoinSession_CallWithFirstErrorSecondSuccess_GetFirstFalseSecondTrueResult)
+    {
+        AzFramework::PlayerConnectionConfig connectionConfig1;
+        connectionConfig1.m_playerConnectionId = 123;
+        connectionConfig1.m_playerSessionId = "dummyPlayerSessionId1";
+        GenericOutcome successOutcome(nullptr);
+        Aws::GameLift::GameLiftError error;
+        GenericOutcome errorOutcome(error);
+        EXPECT_CALL(*(m_serverManager->m_gameLiftServerSDKWrapperMockPtr), AcceptPlayerSession(testing::_))
+            .Times(2)
+            .WillOnce(Return(errorOutcome))
+            .WillOnce(Return(successOutcome));
+        AZ_TEST_START_TRACE_SUPPRESSION;
+        auto result = m_serverManager->ValidatePlayerJoinSession(connectionConfig1);
+        AZ_TEST_STOP_TRACE_SUPPRESSION(1);
+        EXPECT_FALSE(result);
+        AzFramework::PlayerConnectionConfig connectionConfig2;
+        connectionConfig2.m_playerConnectionId = 123;
+        connectionConfig2.m_playerSessionId = "dummyPlayerSessionId2";
+        result = m_serverManager->ValidatePlayerJoinSession(connectionConfig2);
+        EXPECT_TRUE(result);
+    }
+
+    TEST_F(GameLiftServerManagerTest, ValidatePlayerJoinSession_CallWithMultithread_GetFirstTrueAndRestFalse)
+    {
+        int testThreadNumber = 5;
+        GenericOutcome successOutcome(nullptr);
+        EXPECT_CALL(*(m_serverManager->m_gameLiftServerSDKWrapperMockPtr), AcceptPlayerSession(testing::_))
+            .Times(1)
+            .WillOnce(Return(successOutcome));
+        AZStd::vector<AZStd::thread> testThreadPool;
+        for (int index = 0; index < testThreadNumber; index++)
+        {
+            testThreadPool.emplace_back(AZStd::thread([&, index]() {
+                AzFramework::PlayerConnectionConfig connectionConfig;
+                connectionConfig.m_playerConnectionId = 123;
+                connectionConfig.m_playerSessionId = "dummyPlayerSessionId";
+                auto result = m_serverManager->ValidatePlayerJoinSession(connectionConfig);
+                // First should be true, the rest should be false
+                if (index == 0)
+                {
+                    EXPECT_TRUE(result);
+                }
+                else
+                {
+                    EXPECT_FALSE(result);
+                }
+            }));
+        }
+
+        for (auto& testThread : testThreadPool)
+        {
+            testThread.join();
+        }
+    }
+
+    TEST_F(GameLiftServerManagerTest, ValidatePlayerJoinSession_CallWithMultithread_GetFirstFalseAndSecondTrue)
+    {
+        int testThreadNumber = 5;
+        GenericOutcome successOutcome(nullptr);
+        Aws::GameLift::GameLiftError error;
+        GenericOutcome errorOutcome(error);
+        EXPECT_CALL(*(m_serverManager->m_gameLiftServerSDKWrapperMockPtr), AcceptPlayerSession(testing::_))
+            .Times(2)
+            .WillOnce(Return(errorOutcome))
+            .WillOnce(Return(successOutcome));
+        AZStd::vector<AZStd::thread> testThreadPool;
+        for (int index = 0; index < testThreadNumber; index++)
+        {
+            testThreadPool.emplace_back(AZStd::thread([&, index]() {
+                AzFramework::PlayerConnectionConfig connectionConfig;
+                connectionConfig.m_playerConnectionId = 123;
+                connectionConfig.m_playerSessionId = "dummyPlayerSessionId";
+                // Second should be true, the rest should be false
+                if (index == 0)
+                {
+                    AZ_TEST_START_TRACE_SUPPRESSION;
+                    auto result = m_serverManager->ValidatePlayerJoinSession(connectionConfig);
+                    AZ_TEST_STOP_TRACE_SUPPRESSION(1);
+                    EXPECT_FALSE(result);
+                }
+                else if (index == 1)
+                {
+                    auto result = m_serverManager->ValidatePlayerJoinSession(connectionConfig);
+                    EXPECT_TRUE(result);
+                }
+                else
+                {
+                    auto result = m_serverManager->ValidatePlayerJoinSession(connectionConfig);
+                    EXPECT_FALSE(result);
+                }
+            }));
+        }
+
+        for (auto& testThread : testThreadPool)
+        {
+            testThread.join();
+        }
+    }
 } // namespace UnitTest

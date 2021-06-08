@@ -26,12 +26,33 @@ namespace AWSGameLift
     AWSGameLiftServerManager::AWSGameLiftServerManager()
         : m_serverSDKInitialized(false)
         , m_gameLiftServerSDKWrapper(AZStd::make_unique<GameLiftServerSDKWrapper>())
+        , m_connectedPlayers()
     {
     }
 
     AWSGameLiftServerManager::~AWSGameLiftServerManager()
     {
         m_gameLiftServerSDKWrapper.reset();
+        m_connectedPlayers.clear();
+    }
+
+    bool AWSGameLiftServerManager::AddConnectedPlayer(const AzFramework::PlayerConnectionConfig& playerConnectionConfig)
+    {
+        AZStd::lock_guard<AZStd::mutex> lock(m_gameliftMutex);
+        if (m_connectedPlayers.contains(playerConnectionConfig.m_playerConnectionId))
+        {
+            if (m_connectedPlayers[playerConnectionConfig.m_playerConnectionId] != playerConnectionConfig.m_playerSessionId)
+            {
+                AZ_Error(AWSGameLiftServerManagerName, false, AWSGameLiftServerPlayerConnectionRegisteredErrorMessage,
+                    playerConnectionConfig.m_playerConnectionId, playerConnectionConfig.m_playerSessionId.c_str());
+            }
+            return false;
+        }
+        else
+        {
+            m_connectedPlayers.emplace(playerConnectionConfig.m_playerConnectionId, playerConnectionConfig.m_playerSessionId);
+            return true;
+        }
     }
 
     AzFramework::SessionConfig AWSGameLiftServerManager::BuildSessionConfig(const Aws::GameLift::Server::Model::GameSession& gameSession)
@@ -229,6 +250,22 @@ namespace AWSGameLift
         return;
     }
 
+    bool AWSGameLiftServerManager::RemoveConnectedPlayer(const AzFramework::PlayerConnectionConfig& playerConnectionConfig)
+    {
+        AZStd::lock_guard<AZStd::mutex> lock(m_gameliftMutex);
+        if (m_connectedPlayers.contains(playerConnectionConfig.m_playerConnectionId))
+        {
+            m_connectedPlayers.erase(playerConnectionConfig.m_playerConnectionId);
+            return true;
+        }
+        else
+        {
+            AZ_Error(AWSGameLiftServerManagerName, false, AWSGameLiftServerPlayerConnectionMissingErrorMessage,
+                playerConnectionConfig.m_playerConnectionId);
+            return false;
+        }
+    }
+
     void AWSGameLiftServerManager::SetGameLiftServerSDKWrapper(AZStd::unique_ptr<GameLiftServerSDKWrapper> gameLiftServerSDKWrapper)
     {
         m_gameLiftServerSDKWrapper.reset();
@@ -237,8 +274,30 @@ namespace AWSGameLift
 
     bool AWSGameLiftServerManager::ValidatePlayerJoinSession(const AzFramework::PlayerConnectionConfig& playerConnectionConfig)
     {
-        // TODO: Perform connection validation for new joined player on server side
-        AZ_UNUSED(playerConnectionConfig);
-        return false;
+        uint32_t playerConnectionId = playerConnectionConfig.m_playerConnectionId;
+        AZStd::string playerSessionId = playerConnectionConfig.m_playerSessionId;
+        if (playerSessionId.empty())
+        {
+            AZ_Error(AWSGameLiftServerManagerName, false, AWSGameLiftServerInvalidConnectionConfigErrorMessage,
+                playerConnectionId, playerSessionId.c_str());
+            return false;
+        }
+
+        if (!AddConnectedPlayer(playerConnectionConfig))
+        {
+            return false;
+        }
+
+        AZ_TracePrintf(AWSGameLiftServerManagerName, "Attempting to accept player session connection with Amazon GameLift service...");
+        auto acceptPlayerSessionOutcome = m_gameLiftServerSDKWrapper->AcceptPlayerSession(playerSessionId.c_str());
+
+        if (!acceptPlayerSessionOutcome.IsSuccess())
+        {
+            AZ_Error(AWSGameLiftServerManagerName, false, AWSGameLiftServerAcceptPlayerSessionErrorMessage,
+                playerSessionId.c_str(), acceptPlayerSessionOutcome.GetError().GetErrorMessage().c_str());
+            RemoveConnectedPlayer(playerConnectionConfig);
+            return false;
+        }
+        return true;
     }
 } // namespace AWSGameLift
