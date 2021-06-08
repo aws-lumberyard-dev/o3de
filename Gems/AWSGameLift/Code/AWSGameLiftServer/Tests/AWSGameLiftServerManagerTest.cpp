@@ -303,29 +303,25 @@ namespace UnitTest
             .Times(1)
             .WillOnce(Return(successOutcome));
         AZStd::vector<AZStd::thread> testThreadPool;
+        AZStd::atomic<int> trueCount = 0;
         for (int index = 0; index < testThreadNumber; index++)
         {
-            testThreadPool.emplace_back(AZStd::thread([&, index]() {
+            testThreadPool.emplace_back(AZStd::thread([&]() {
                 AzFramework::PlayerConnectionConfig connectionConfig;
                 connectionConfig.m_playerConnectionId = 123;
                 connectionConfig.m_playerSessionId = "dummyPlayerSessionId";
                 auto result = m_serverManager->ValidatePlayerJoinSession(connectionConfig);
-                // First should be true, the rest should be false
-                if (index == 0)
+                if (result)
                 {
-                    EXPECT_TRUE(result);
-                }
-                else
-                {
-                    EXPECT_FALSE(result);
+                    trueCount++;
                 }
             }));
         }
-
         for (auto& testThread : testThreadPool)
         {
             testThread.join();
         }
+        EXPECT_TRUE(trueCount == 1);
     }
 
     TEST_F(GameLiftServerManagerTest, ValidatePlayerJoinSession_CallWithMultithread_GetFirstFalseAndSecondTrue)
@@ -339,36 +335,26 @@ namespace UnitTest
             .WillOnce(Return(errorOutcome))
             .WillOnce(Return(successOutcome));
         AZStd::vector<AZStd::thread> testThreadPool;
+        AZStd::atomic<int> trueCount = 0;
         for (int index = 0; index < testThreadNumber; index++)
         {
-            testThreadPool.emplace_back(AZStd::thread([&, index]() {
+            testThreadPool.emplace_back(AZStd::thread([&]() {
                 AzFramework::PlayerConnectionConfig connectionConfig;
                 connectionConfig.m_playerConnectionId = 123;
                 connectionConfig.m_playerSessionId = "dummyPlayerSessionId";
-                // Second should be true, the rest should be false
-                if (index == 0)
+                AZ_TEST_START_TRACE_SUPPRESSION;
+                auto result = m_serverManager->ValidatePlayerJoinSession(connectionConfig);
+                AZ_TEST_STOP_TRACE_SUPPRESSION_NO_COUNT;
+                if (result)
                 {
-                    AZ_TEST_START_TRACE_SUPPRESSION;
-                    auto result = m_serverManager->ValidatePlayerJoinSession(connectionConfig);
-                    AZ_TEST_STOP_TRACE_SUPPRESSION(1);
-                    EXPECT_FALSE(result);
-                }
-                else if (index == 1)
-                {
-                    auto result = m_serverManager->ValidatePlayerJoinSession(connectionConfig);
-                    EXPECT_TRUE(result);
-                }
-                else
-                {
-                    auto result = m_serverManager->ValidatePlayerJoinSession(connectionConfig);
-                    EXPECT_FALSE(result);
+                    trueCount++;
                 }
             }));
         }
-
         for (auto& testThread : testThreadPool)
         {
             testThread.join();
         }
+        EXPECT_TRUE(trueCount == 1);
     }
 } // namespace UnitTest
