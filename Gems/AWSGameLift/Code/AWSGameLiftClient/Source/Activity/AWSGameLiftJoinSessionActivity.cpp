@@ -14,6 +14,7 @@
 #include <AzFramework/Session/ISessionHandlingRequests.h>
 
 #include <Activity/AWSGameLiftJoinSessionActivity.h>
+#include <AWSGameLiftSessionConstants.h>
 
 namespace AWSGameLift
 {
@@ -49,12 +50,17 @@ namespace AWSGameLift
             Aws::GameLift::Model::CreatePlayerSessionRequest request =
                 BuildAWSGameLiftCreatePlayerSessionRequest(joinSessionRequest);
             auto createPlayerSessionOutcome = gameliftClient.CreatePlayerSession(request);
+
+            if (!createPlayerSessionOutcome.IsSuccess())
+            {
+                AZ_Error(AWSGameLiftJoinSessionActivityName, false, AWSGameLiftErrorMessageTemplate,
+                    createPlayerSessionOutcome.GetError().GetExceptionName().c_str(),
+                    createPlayerSessionOutcome.GetError().GetMessage().c_str());
+            }
             return createPlayerSessionOutcome;
         }
 
-        bool RequestPlayerJoinSession(
-            const Aws::GameLift::Model::CreatePlayerSessionOutcome& createPlayerSessionOutcome,
-            const AZStd::function<void()>& errorCallback)
+        bool RequestPlayerJoinSession(const Aws::GameLift::Model::CreatePlayerSessionOutcome& createPlayerSessionOutcome)
         {
             bool result = false;
             if (createPlayerSessionOutcome.IsSuccess())
@@ -68,7 +74,7 @@ namespace AWSGameLift
                 }
                 else
                 {
-                    errorCallback();
+                    AZ_Error(AWSGameLiftJoinSessionActivityName, false, AWSGameLiftJoinSessionMissingRequestHandlerErrorMessage);
                 }
             }
             return result;
@@ -77,8 +83,19 @@ namespace AWSGameLift
         bool ValidateJoinSessionRequest(const AzFramework::JoinSessionRequest& joinSessionRequest)
         {
             auto gameliftJoinSessionRequest = azrtti_cast<const AWSGameLiftJoinSessionRequest*>(&joinSessionRequest);
-            return gameliftJoinSessionRequest &&
-                !gameliftJoinSessionRequest->m_playerId.empty() && !gameliftJoinSessionRequest->m_sessionId.empty();
+
+            if (gameliftJoinSessionRequest &&
+                !gameliftJoinSessionRequest->m_playerId.empty() &&
+                !gameliftJoinSessionRequest->m_sessionId.empty())
+            {
+                return true;
+            }
+            else
+            {
+                AZ_Error(AWSGameLiftJoinSessionActivityName, false, AWSGameLiftJoinSessionRequestInvalidErrorMessage);
+
+                return false;
+            }
         }
     } // namespace JoinSessionActivity
 } // namespace AWSGameLift

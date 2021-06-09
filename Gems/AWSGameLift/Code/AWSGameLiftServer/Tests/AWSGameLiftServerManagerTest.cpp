@@ -323,38 +323,4 @@ namespace UnitTest
         }
         EXPECT_TRUE(trueCount == 1);
     }
-
-    TEST_F(GameLiftServerManagerTest, ValidatePlayerJoinSession_CallWithMultithread_GetFirstFalseAndSecondTrue)
-    {
-        int testThreadNumber = 5;
-        GenericOutcome successOutcome(nullptr);
-        Aws::GameLift::GameLiftError error;
-        GenericOutcome errorOutcome(error);
-        EXPECT_CALL(*(m_serverManager->m_gameLiftServerSDKWrapperMockPtr), AcceptPlayerSession(testing::_))
-            .Times(2)
-            .WillOnce(Return(errorOutcome))
-            .WillOnce(Return(successOutcome));
-        AZStd::vector<AZStd::thread> testThreadPool;
-        AZStd::atomic<int> trueCount = 0;
-        for (int index = 0; index < testThreadNumber; index++)
-        {
-            testThreadPool.emplace_back(AZStd::thread([&]() {
-                AzFramework::PlayerConnectionConfig connectionConfig;
-                connectionConfig.m_playerConnectionId = 123;
-                connectionConfig.m_playerSessionId = "dummyPlayerSessionId";
-                AZ_TEST_START_TRACE_SUPPRESSION;
-                auto result = m_serverManager->ValidatePlayerJoinSession(connectionConfig);
-                AZ_TEST_STOP_TRACE_SUPPRESSION_NO_COUNT;
-                if (result)
-                {
-                    trueCount++;
-                }
-            }));
-        }
-        for (auto& testThread : testThreadPool)
-        {
-            testThread.join();
-        }
-        EXPECT_TRUE(trueCount == 1);
-    }
 } // namespace UnitTest

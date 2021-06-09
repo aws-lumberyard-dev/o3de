@@ -24,12 +24,16 @@ namespace AWSGameLift
 {
     namespace SearchSessionsActivity
     {
+        static constexpr const char AWSGameLiftSearchSessionsActivityName[] = "AWSGameLiftSearchSessionsActivity";
+        static constexpr const char AWSGameLiftSearchSessionsRequestInvalidErrorMessage[] =
+            "Invalid GameLift SearchSessions request.";
+
         // Build AWS GameLift SearchGameSessionsRequest by using AWSGameLiftSearchSessionsRequest
         Aws::GameLift::Model::SearchGameSessionsRequest BuildAWSGameLiftSearchGameSessionsRequest(
             const AWSGameLiftSearchSessionsRequest& searchSessionsRequest);
 
         // Create SearchGameSessionsRequest and make a SeachGameSessions call through GameLift client
-        Aws::GameLift::Model::SearchGameSessionsOutcome SearchSessions(
+        AzFramework::SearchSessionsResponse SearchSessions(
             const Aws::GameLift::GameLiftClient& gameliftClient,
             const AWSGameLiftSearchSessionsRequest& searchSessionsRequest);
 

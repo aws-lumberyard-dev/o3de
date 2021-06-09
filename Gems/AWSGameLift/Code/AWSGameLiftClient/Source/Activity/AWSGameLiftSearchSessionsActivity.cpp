@@ -32,14 +32,25 @@ namespace AWSGameLift
             return request;
         }
 
-        Aws::GameLift::Model::SearchGameSessionsOutcome SearchSessions(
+        AzFramework::SearchSessionsResponse SearchSessions(
             const Aws::GameLift::GameLiftClient& gameliftClient,
             const AWSGameLiftSearchSessionsRequest& searchSessionsRequest)
         {
+            AzFramework::SearchSessionsResponse response;
             Aws::GameLift::Model::SearchGameSessionsRequest request = BuildAWSGameLiftSearchGameSessionsRequest(searchSessionsRequest);
             Aws::GameLift::Model::SearchGameSessionsOutcome outcome = gameliftClient.SearchGameSessions(request);
 
-            return outcome;
+            if (outcome.IsSuccess())
+            {
+                response = SearchSessionsActivity::ParseResponse(outcome.GetResult());
+            }
+            else
+            {
+                AZ_Error(AWSGameLiftSearchSessionsActivityName, false, AWSGameLiftErrorMessageTemplate,
+                    outcome.GetError().GetExceptionName().c_str(), outcome.GetError().GetMessage().c_str());
+            }
+
+            return response;
         }
 
         AzFramework::SearchSessionsResponse ParseResponse(
@@ -79,8 +90,17 @@ namespace AWSGameLift
         bool ValidateSearchSessionsRequest(const AzFramework::SearchSessionsRequest& searchSessionsRequest)
         {
             auto gameliftSearchSessionsRequest = azrtti_cast<const AWSGameLiftSearchSessionsRequest*>(&searchSessionsRequest);
-            return gameliftSearchSessionsRequest &&
-                (!gameliftSearchSessionsRequest->m_aliasId.empty() || !gameliftSearchSessionsRequest->m_fleetId.empty());
+            if (gameliftSearchSessionsRequest &&
+                (!gameliftSearchSessionsRequest->m_aliasId.empty() || !gameliftSearchSessionsRequest->m_fleetId.empty()))
+            {
+                return true;
+            }
+            else
+            {
+                AZ_Error(AWSGameLiftSearchSessionsActivityName, false, AWSGameLiftSearchSessionsRequestInvalidErrorMessage);
+
+                return false;
+            }
         }
     }
 } // namespace AWSGameLift

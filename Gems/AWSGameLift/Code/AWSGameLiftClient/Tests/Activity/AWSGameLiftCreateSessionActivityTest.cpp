@@ -41,15 +41,20 @@ TEST_F(AWSGameLiftCreateSessionActivityTest, BuildAWSGameLiftCreateGameSessionRe
 
 TEST_F(AWSGameLiftCreateSessionActivityTest, ValidateCreateSessionRequest_CallWithBaseType_GetFalseResult)
 {
+    AZ_TEST_START_TRACE_SUPPRESSION;
     auto result = CreateSessionActivity::ValidateCreateSessionRequest(AzFramework::CreateSessionRequest());
-    EXPECT_FALSE(result);
+    AZ_TEST_STOP_TRACE_SUPPRESSION(1); // capture 1 error message
+    EXPECT_FALSE(result);   
 }
 
 TEST_F(AWSGameLiftCreateSessionActivityTest, ValidateCreateSessionRequest_CallWithNegativeMaxPlayer_GetFalseResult)
 {
     AWSGameLiftCreateSessionRequest request;
     request.m_maxPlayer = -1;
+
+    AZ_TEST_START_TRACE_SUPPRESSION;
     auto result = CreateSessionActivity::ValidateCreateSessionRequest(request);
+    AZ_TEST_STOP_TRACE_SUPPRESSION(1); // capture 1 error message
     EXPECT_FALSE(result);
 }
 
@@ -57,7 +62,9 @@ TEST_F(AWSGameLiftCreateSessionActivityTest, ValidateCreateSessionRequest_CallWi
 {
     AWSGameLiftCreateSessionRequest request;
     request.m_maxPlayer = 1;
+    AZ_TEST_START_TRACE_SUPPRESSION;
     auto result = CreateSessionActivity::ValidateCreateSessionRequest(request);
+    AZ_TEST_STOP_TRACE_SUPPRESSION(1); // capture 1 error message   
     EXPECT_FALSE(result);
 }
 

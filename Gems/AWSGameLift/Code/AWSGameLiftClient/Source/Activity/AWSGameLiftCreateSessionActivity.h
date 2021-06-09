@@ -24,11 +24,15 @@ namespace AWSGameLift
 {
     namespace CreateSessionActivity
     {
+        static constexpr const char AWSGameLiftCreateSessionActivityName[] = "AWSGameLiftCreateSessionActivity";
+        static constexpr const char AWSGameLiftCreateSessionRequestInvalidErrorMessage[] =
+            "Invalid GameLift CreateSession request.";
+
         // Build AWS GameLift CreateGameSessionRequest by using AWSGameLiftCreateSessionRequest
         Aws::GameLift::Model::CreateGameSessionRequest BuildAWSGameLiftCreateGameSessionRequest(const AWSGameLiftCreateSessionRequest& createSessionRequest);
 
         // Create CreateGameSessionRequest and make a CreateGameSession call through GameLift client
-        Aws::GameLift::Model::CreateGameSessionOutcome CreateSession(
+        AZStd::string CreateSession(
             const Aws::GameLift::GameLiftClient& gameliftClient,
             const AWSGameLiftCreateSessionRequest& createSessionRequest);
 

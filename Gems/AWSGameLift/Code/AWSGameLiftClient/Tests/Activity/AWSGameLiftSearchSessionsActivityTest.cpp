@@ -43,14 +43,18 @@ TEST_F(AWSGameLiftSearchSessionsActivityTest, BuildAWSGameLiftSearchGameSessions
 
 TEST_F(AWSGameLiftSearchSessionsActivityTest, ValidateSearchSessionsRequest_CallWithBaseType_GetFalseResult)
 {
+    AZ_TEST_START_TRACE_SUPPRESSION;
     auto result = SearchSessionsActivity::ValidateSearchSessionsRequest(AzFramework::SearchSessionsRequest());
+    AZ_TEST_STOP_TRACE_SUPPRESSION(1); // capture 1 error message    
     EXPECT_FALSE(result);
 }
 
 TEST_F(AWSGameLiftSearchSessionsActivityTest, ValidateSearchSessionsRequest_CallWithoutAliasOrFleetId_GetFalseResult)
 {
     AWSGameLiftSearchSessionsRequest request;
+    AZ_TEST_START_TRACE_SUPPRESSION;
     auto result = SearchSessionsActivity::ValidateSearchSessionsRequest(request);
+    AZ_TEST_STOP_TRACE_SUPPRESSION(1); // capture 1 error message    
     EXPECT_FALSE(result);
 }
 

@@ -89,23 +89,12 @@ namespace AWSGameLift
     {
     public:
         static constexpr const char AWSGameLiftClientManagerName[] = "AWSGameLiftClientManager";
-        static constexpr const char AWSGameLiftClientErrorMessageTemplate[] =
-            "Exception: %s, Message: %s";
         static constexpr const char AWSGameLiftClientRegionMissingErrorMessage[] =
             "Missing AWS region for GameLift client.";
         static constexpr const char AWSGameLiftClientCredentialMissingErrorMessage[] =
             "Missing AWS credential for GameLift client.";
         static constexpr const char AWSGameLiftClientMissingErrorMessage[] =
             "GameLift client is not configured yet.";
-
-        static constexpr const char AWSGameLiftCreateSessionRequestInvalidErrorMessage[] =
-            "Invalid GameLift CreateSession request.";
-        static constexpr const char AWSGameLiftJoinSessionRequestInvalidErrorMessage[] =
-            "Invalid GameLift JoinSession request.";
-        static constexpr const char AWSGameLiftSearchSessionsRequestInvalidErrorMessage[] =
-            "Invalid GameLift SearchSessions request.";
-        static constexpr const char AWSGameLiftJoinSessionMissingRequestHandlerErrorMessage[] =
-            "Missing GameLift JoinSession request handler, please make sure Multiplayer Gem is enabled and registered as handler.";
 
         AWSGameLiftClientManager();
         virtual ~AWSGameLiftClientManager() = default;

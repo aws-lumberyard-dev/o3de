@@ -116,7 +116,7 @@ namespace AWSGameLift
 
     AZStd::string AWSGameLiftClientManager::CreateSession(const AzFramework::CreateSessionRequest& createSessionRequest)
     {
-        // Increate the reference count of the GameLift client by 1 to avoid it from being reset during the request.
+        // Keep the original GameLift client object when another thread tries to reset the client during this request.
         AZStd::shared_ptr<Aws::GameLift::GameLiftClient> gameLiftClient = m_gameliftClient;
 
         AZStd::string result = "";
@@ -126,23 +126,9 @@ namespace AWSGameLift
             {
                 AZ_TracePrintf(AWSGameLiftClientManagerName, "Requesting CreateGameSession against Amazon GameLift service...");
 
-                auto& gameliftCreateSessionRequest = static_cast<const AWSGameLiftCreateSessionRequest&>(createSessionRequest);
-                Aws::GameLift::Model::CreateGameSessionOutcome outcome =
-                    CreateSessionActivity::CreateSession(*gameLiftClient, gameliftCreateSessionRequest);
-
-                if (outcome.IsSuccess())
-                {
-                    result = AZStd::string(outcome.GetResult().GetGameSession().GetGameSessionId().c_str());
-                }
-                else
-                {
-                    AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftClientErrorMessageTemplate,
-                        outcome.GetError().GetExceptionName().c_str(), outcome.GetError().GetMessage().c_str());
-                }
-            }
-            else
-            {
-                AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftCreateSessionRequestInvalidErrorMessage);
+                const AWSGameLiftCreateSessionRequest& gameliftCreateSessionRequest =
+                    static_cast<const AWSGameLiftCreateSessionRequest&>(createSessionRequest);
+                result = CreateSessionActivity::CreateSession(*gameLiftClient, gameliftCreateSessionRequest);
             }
         }
         else
@@ -155,13 +141,10 @@ namespace AWSGameLift
 
     void AWSGameLiftClientManager::CreateSessionAsync(const AzFramework::CreateSessionRequest& createSessionRequest)
     {
-        // Increate the reference count of the GameLift client by 1 to avoid it from being reset during the request.
-        AZStd::shared_ptr<Aws::GameLift::GameLiftClient> gameLiftClient = m_gameliftClient;
-
         AZ::JobContext* jobContext = nullptr;
         AWSCore::AWSCoreRequestBus::BroadcastResult(jobContext, &AWSCore::AWSCoreRequests::GetDefaultJobContext);
         AZ::Job* createSessionJob = AZ::CreateJobFunction(
-            [this, gameLiftClient, &createSessionRequest]()
+            [this, &createSessionRequest]()
             {
                 AZStd::string result = CreateSession(createSessionRequest);
                 AzFramework::SessionAsyncRequestNotificationBus::Broadcast(
@@ -174,7 +157,7 @@ namespace AWSGameLift
 
     bool AWSGameLiftClientManager::JoinSession(const AzFramework::JoinSessionRequest& joinSessionRequest)
     {
-        // Increate the reference count of the GameLift client by 1 to avoid it from being reset during the request.
+        // Keep the original GameLift client object when another thread tries to reset the client during this request.
         AZStd::shared_ptr<Aws::GameLift::GameLiftClient> gameLiftClient = m_gameliftClient;
 
         bool result = false;
@@ -184,30 +167,16 @@ namespace AWSGameLift
             {
                 AZ_TracePrintf(AWSGameLiftClientManagerName, "Requesting CreatePlayerSession call against Amazon GameLift service...");
 
-                auto& gameliftJoinSessionRequest = static_cast<const AWSGameLiftJoinSessionRequest&>(joinSessionRequest);
+                const AWSGameLiftJoinSessionRequest& gameliftJoinSessionRequest =
+                    static_cast<const AWSGameLiftJoinSessionRequest&>(joinSessionRequest);
                 Aws::GameLift::Model::CreatePlayerSessionOutcome createPlayerSessionOutcome =
                     JoinSessionActivity::CreatePlayerSession(*gameLiftClient, gameliftJoinSessionRequest);
 
                 if (createPlayerSessionOutcome.IsSuccess())
                 {
                     AZ_TracePrintf(AWSGameLiftClientManagerName, "Requesting player to connect to game session...");
-                    result = JoinSessionActivity::RequestPlayerJoinSession(
-                        createPlayerSessionOutcome,
-                        []()
-                        {
-                            AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftJoinSessionMissingRequestHandlerErrorMessage);
-                        });
+                    result = JoinSessionActivity::RequestPlayerJoinSession(createPlayerSessionOutcome);
                 }
-                else
-                {
-                    AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftClientErrorMessageTemplate,
-                        createPlayerSessionOutcome.GetError().GetExceptionName().c_str(),
-                        createPlayerSessionOutcome.GetError().GetMessage().c_str());
-                }
-            }
-            else
-            {
-                AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftJoinSessionRequestInvalidErrorMessage);
             }
         }
         else
@@ -220,13 +189,10 @@ namespace AWSGameLift
 
     void AWSGameLiftClientManager::JoinSessionAsync(const AzFramework::JoinSessionRequest& joinSessionRequest)
     {
-        // Increate the reference count of the GameLift client by 1 to avoid it from being reset during the request.
-        AZStd::shared_ptr<Aws::GameLift::GameLiftClient> gameLiftClient = m_gameliftClient;
-
         AZ::JobContext* jobContext = nullptr;
         AWSCore::AWSCoreRequestBus::BroadcastResult(jobContext, &AWSCore::AWSCoreRequests::GetDefaultJobContext);
         AZ::Job* joinSessionJob = AZ::CreateJobFunction(
-            [this, gameLiftClient, &joinSessionRequest]()
+            [this, &joinSessionRequest]()
             {
                 bool result = JoinSession(joinSessionRequest);
                 AzFramework::SessionAsyncRequestNotificationBus::Broadcast(
@@ -260,24 +226,9 @@ namespace AWSGameLift
             {
                 AZ_TracePrintf(AWSGameLiftClientManagerName, "Requesting SearchGameSessions against Amazon GameLift service...");
 
-                auto& gameliftSearchSessionsRequest = static_cast<const AWSGameLiftSearchSessionsRequest&>(searchSessionsRequest);
-                Aws::GameLift::Model::SearchGameSessionsOutcome outcome =
-                    SearchSessionsActivity::SearchSessions(*gameLiftClient, gameliftSearchSessionsRequest);
-
-                if (outcome.IsSuccess())
-                {
-                    response = SearchSessionsActivity::ParseResponse(outcome.GetResult());
-                }
-                else
-                {
-                    AZ_Error(
-                        AWSGameLiftClientManagerName, false, AWSGameLiftClientErrorMessageTemplate,
-                        outcome.GetError().GetExceptionName().c_str(), outcome.GetError().GetMessage().c_str());
-                }
-            }
-            else
-            {
-                AZ_Error(AWSGameLiftClientManagerName, false, AWSGameLiftSearchSessionsRequestInvalidErrorMessage);
+                const AWSGameLiftSearchSessionsRequest& gameliftSearchSessionsRequest =
+                    static_cast<const AWSGameLiftSearchSessionsRequest&>(searchSessionsRequest);
+                response = SearchSessionsActivity::SearchSessions(*gameLiftClient, gameliftSearchSessionsRequest);               
             }
         }
         else
@@ -290,13 +241,10 @@ namespace AWSGameLift
 
     void AWSGameLiftClientManager::SearchSessionsAsync(const AzFramework::SearchSessionsRequest& searchSessionsRequest) const
     {
-        // Increate the reference count of the GameLift client by 1 to avoid it from being reset during the request.
-        AZStd::shared_ptr<Aws::GameLift::GameLiftClient> gameLiftClient = m_gameliftClient;
-
         AZ::JobContext* jobContext = nullptr;
         AWSCore::AWSCoreRequestBus::BroadcastResult(jobContext, &AWSCore::AWSCoreRequests::GetDefaultJobContext);
         AZ::Job* searchSessionsJob = AZ::CreateJobFunction(
-            [this, gameLiftClient, & searchSessionsRequest]()
+            [this, & searchSessionsRequest]()
             {
                 AzFramework::SearchSessionsResponse response = SearchSessions(searchSessionsRequest);
 

@@ -25,6 +25,12 @@ namespace AWSGameLift
 {
     namespace JoinSessionActivity
     {
+        static constexpr const char AWSGameLiftJoinSessionActivityName[] = "AWSGameLiftJoinSessionActivity";
+        static constexpr const char AWSGameLiftJoinSessionRequestInvalidErrorMessage[] =
+            "Invalid GameLift JoinSession request.";
+        static constexpr const char AWSGameLiftJoinSessionMissingRequestHandlerErrorMessage[] =
+            "Missing GameLift JoinSession request handler, please make sure Multiplayer Gem is enabled and registered as handler.";
+
         // Build AWS GameLift CreatePlayerSessionRequest by using AWSGameLiftJoinSessionRequest
         Aws::GameLift::Model::CreatePlayerSessionRequest BuildAWSGameLiftCreatePlayerSessionRequest(
             const AWSGameLiftJoinSessionRequest& joinSessionRequest);
@@ -40,8 +46,7 @@ namespace AWSGameLift
 
         // Request to setup networking connection for player
         bool RequestPlayerJoinSession(
-            const Aws::GameLift::Model::CreatePlayerSessionOutcome& createPlayerSessionOutcome,
-            const AZStd::function<void()>& errorCallback);
+            const Aws::GameLift::Model::CreatePlayerSessionOutcome& createPlayerSessionOutcome);
 
         // Validate JoinSessionRequest and check required request parameters
         bool ValidateJoinSessionRequest(const AzFramework::JoinSessionRequest& joinSessionRequest);

@@ -19,4 +19,6 @@ namespace AWSGameLift
 
     // Reference https://sdk.amazonaws.com/cpp/api/LATEST/_game_session_status_reason_8h.html
     static const char* AWSGameLiftSessionStatusReasons[2] = { "NotSet", "Interrupted" };
+
+    static constexpr const char AWSGameLiftErrorMessageTemplate[] = "Exception: %s, Message: %s";
 } // namespace AWSGameLift

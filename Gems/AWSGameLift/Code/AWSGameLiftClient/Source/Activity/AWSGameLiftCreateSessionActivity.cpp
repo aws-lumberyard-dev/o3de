@@ -11,6 +11,7 @@
  */
 
 #include <Activity/AWSGameLiftCreateSessionActivity.h>
+#include <AWSGameLiftSessionConstants.h>
 
 namespace AWSGameLift
 {
@@ -38,22 +39,42 @@ namespace AWSGameLift
             return request;
         }
 
-        Aws::GameLift::Model::CreateGameSessionOutcome CreateSession(
+        AZStd::string CreateSession(
             const Aws::GameLift::GameLiftClient& gameliftClient,
             const AWSGameLiftCreateSessionRequest& createSessionRequest)
         {
+            AZStd::string result = "";
             Aws::GameLift::Model::CreateGameSessionRequest request = BuildAWSGameLiftCreateGameSessionRequest(createSessionRequest);
             auto createSessionOutcome = gameliftClient.CreateGameSession(request);
 
-            return createSessionOutcome;
+            if (createSessionOutcome.IsSuccess())
+            {
+                result = AZStd::string(createSessionOutcome.GetResult().GetGameSession().GetGameSessionId().c_str());
+            }
+            else
+            {
+                AZ_Error(AWSGameLiftCreateSessionActivityName, false, AWSGameLiftErrorMessageTemplate,
+                    createSessionOutcome.GetError().GetExceptionName().c_str(), createSessionOutcome.GetError().GetMessage().c_str());
+            }
+            return result;
         }
 
         bool ValidateCreateSessionRequest(const AzFramework::CreateSessionRequest& createSessionRequest)
         {
             auto gameliftCreateSessionRequest = azrtti_cast<const AWSGameLiftCreateSessionRequest*>(&createSessionRequest);
 
-            return gameliftCreateSessionRequest && gameliftCreateSessionRequest->m_maxPlayer >= 0 &&
-                (!gameliftCreateSessionRequest->m_aliasId.empty() || !gameliftCreateSessionRequest->m_fleetId.empty());
+            if (gameliftCreateSessionRequest &&
+                gameliftCreateSessionRequest->m_maxPlayer >= 0 &&
+                (!gameliftCreateSessionRequest->m_aliasId.empty() || !gameliftCreateSessionRequest->m_fleetId.empty()))
+            {
+                return true;
+            }
+            else
+            {
+                AZ_Error(AWSGameLiftCreateSessionActivityName, false, AWSGameLiftCreateSessionRequestInvalidErrorMessage);
+
+                return false;
+            }
         }
     } // namespace CreateSessionActivity
 } // namespace AWSGameLift
