@@ -13,7 +13,7 @@
 #include <AzCore/Component/ComponentApplication.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/SerializeContext.h>
-#include <AzCore/std/smart_ptr/unique_ptr.h>
+#include <AzCore/std/smart_ptr/make_shared.h>
 #include <Credential/AWSCredentialBus.h>
 #include <ResourceMapping/AWSResourceMappingBus.h>
 
@@ -22,9 +22,41 @@
 #include <AWSGameLiftClientManager.h>
 #include <AWSGameLiftClientMocks.h>
 
+#include <Request/AWSGameLiftCreateSessionRequest.h>
+#include <Request/AWSGameLiftJoinSessionRequest.h>
+#include <Request/AWSGameLiftSearchSessionsRequest.h>
+
 #include <aws/gamelift/GameLiftClient.h>
 
 using namespace AWSGameLift;
+
+MATCHER_P(SearchSessionsResponseMatcher, expectedResponse, "")
+{
+    // Custome matcher for checking the SearchSessionsResponse type argument.
+    AZ_UNUSED(result_listener);
+
+    bool result = arg.m_nextToken == expectedResponse.m_nextToken;
+    result &= arg.m_sessionConfigs.size() == expectedResponse.m_sessionConfigs.size();
+
+    for (int index = 0; index < arg.m_sessionConfigs.size(); ++index)
+    {
+        result &= arg.m_sessionConfigs[index].m_creationTime == expectedResponse.m_sessionConfigs[index].m_creationTime;
+        result &= arg.m_sessionConfigs[index].m_terminationTime == expectedResponse.m_sessionConfigs[index].m_terminationTime;
+        result &= arg.m_sessionConfigs[index].m_creatorId == expectedResponse.m_sessionConfigs[index].m_creatorId;
+        result &= arg.m_sessionConfigs[index].m_sessionProperties == expectedResponse.m_sessionConfigs[index].m_sessionProperties;
+        result &= arg.m_sessionConfigs[index].m_sessionId == expectedResponse.m_sessionConfigs[index].m_sessionId;
+        result &= arg.m_sessionConfigs[index].m_sessionName == expectedResponse.m_sessionConfigs[index].m_sessionName;
+        result &= arg.m_sessionConfigs[index].m_dnsName == expectedResponse.m_sessionConfigs[index].m_dnsName;
+        result &= arg.m_sessionConfigs[index].m_ipAddress == expectedResponse.m_sessionConfigs[index].m_ipAddress;
+        result &= arg.m_sessionConfigs[index].m_port == expectedResponse.m_sessionConfigs[index].m_port;
+        result &= arg.m_sessionConfigs[index].m_maxPlayer == expectedResponse.m_sessionConfigs[index].m_maxPlayer;
+        result &= arg.m_sessionConfigs[index].m_currentPlayer == expectedResponse.m_sessionConfigs[index].m_currentPlayer;
+        result &= arg.m_sessionConfigs[index].m_status == expectedResponse.m_sessionConfigs[index].m_status;
+        result &= arg.m_sessionConfigs[index].m_statusReason == expectedResponse.m_sessionConfigs[index].m_statusReason;
+    }
+
+    return result;
+}
 
 class AWSResourceMappingRequestsHandlerMock
     : public AWSCore::AWSResourceMappingRequestBus::Handler
@@ -102,12 +134,11 @@ public:
 
     void SetUpMockClient()
     {
-        AZStd::unique_ptr<GameLiftClientMock> gameliftClientMock = AZStd::make_unique<GameLiftClientMock>();
-        m_gameliftClientMockPtr = gameliftClientMock.get();
-        SetGameLiftClient(AZStd::move(gameliftClientMock));
+        m_gameliftClientMockPtr = AZStd::make_shared<GameLiftClientMock>();
+        SetGameLiftClient(m_gameliftClientMockPtr);
     }
 
-    GameLiftClientMock* m_gameliftClientMockPtr;
+    AZStd::shared_ptr<GameLiftClientMock> m_gameliftClientMockPtr;
 };
 
 class AWSGameLiftClientManagerTest
@@ -129,6 +160,75 @@ protected:
         m_gameliftClientManager.reset();
 
         AWSGameLiftClientFixture::TearDown();
+    }
+
+    AWSGameLiftSearchSessionsRequest GetValidSearchSessionsRequest()
+    {
+        AWSGameLiftSearchSessionsRequest request;
+        request.m_aliasId = "dummyAliasId";
+        request.m_fleetId = "dummyFleetId";
+        request.m_location = "dummyLocation";
+        request.m_filterExpression = "dummyFilterExpression";
+        request.m_sortExpression = "dummySortExpression";
+        request.m_maxResult = 1;
+        request.m_nextToken = "dummyNextToken";
+
+        return request;
+    }
+
+    Aws::GameLift::Model::SearchGameSessionsOutcome GetValidSearchGameSessionsOutcome()
+    {
+        Aws::GameLift::Model::GameProperty gameProperty;
+        gameProperty.SetKey("dummyKey");
+        gameProperty.SetValue("dummyValue");
+        Aws::Vector<Aws::GameLift::Model::GameProperty> gameProperties = { gameProperty };
+
+        Aws::GameLift::Model::GameSession gameSession;
+        gameSession.SetCreationTime(Aws::Utils::DateTime(0.0));
+        gameSession.SetTerminationTime(Aws::Utils::DateTime(0.0));
+        gameSession.SetCreatorId("dummyCreatorId");
+        gameSession.SetGameProperties(gameProperties);
+        gameSession.SetGameSessionId("dummyGameSessionId");
+        gameSession.SetName("dummyGameSessionName");
+        gameSession.SetIpAddress("dummyIpAddress");
+        gameSession.SetPort(0);
+        gameSession.SetMaximumPlayerSessionCount(2);
+        gameSession.SetCurrentPlayerSessionCount(1);
+        gameSession.SetStatus(Aws::GameLift::Model::GameSessionStatus::TERMINATED);
+        gameSession.SetStatusReason(Aws::GameLift::Model::GameSessionStatusReason::INTERRUPTED);
+        // TODO: Update the AWS Native SDK to set the new game session attributes.
+        // gameSession.SetDnsName("dummyDnsName");
+
+        Aws::GameLift::Model::SearchGameSessionsResult result;
+        result.SetNextToken("dummyNextToken");
+        result.SetGameSessions({ gameSession });
+
+        return Aws::GameLift::Model::SearchGameSessionsOutcome(result);
+    }
+
+    AzFramework::SearchSessionsResponse GetValidSearchSessionsResponse()
+    {
+        AzFramework::SessionConfig sessionConfig;
+        sessionConfig.m_creationTime = 0;
+        sessionConfig.m_terminationTime = 0;
+        sessionConfig.m_creatorId = "dummyCreatorId";
+        sessionConfig.m_sessionProperties["dummyKey"] = "dummyValue";
+        sessionConfig.m_sessionId = "dummyGameSessionId";
+        sessionConfig.m_sessionName = "dummyGameSessionName";
+        sessionConfig.m_ipAddress = "dummyIpAddress";
+        sessionConfig.m_port = 0;
+        sessionConfig.m_maxPlayer = 2;
+        sessionConfig.m_currentPlayer = 1;
+        sessionConfig.m_status = "Terminated";
+        sessionConfig.m_statusReason = "Interrupted";
+        // TODO: Update the AWS Native SDK to set the new game session attributes.
+        // sessionConfig.m_dnsName = "dummyDnsName";
+
+        AzFramework::SearchSessionsResponse response;
+        response.m_nextToken = "dummyNextToken";
+        response.m_sessionConfigs = { sessionConfig };
+
+        return response;
     }
 
 public:
@@ -473,4 +573,76 @@ TEST_F(AWSGameLiftClientManagerTest, JoinSessionAsync_CallWithValidRequestAndReq
     SessionAsyncRequestNotificationsHandlerMock sessionHandlerMock;
     EXPECT_CALL(sessionHandlerMock, OnJoinSessionAsyncComplete(true)).Times(1);
     m_gameliftClientManager->JoinSessionAsync(request);
+}
+
+TEST_F(AWSGameLiftClientManagerTest, SearchSessionsAsync_CallWithoutClientSetup_GetErrorWithEmptyResponse)
+{
+    AWSCoreRequestsHandlerMock handlerMock;
+    EXPECT_CALL(handlerMock, GetDefaultJobContext()).Times(1).WillOnce(::testing::Return(m_jobContext.get()));
+
+    AZ_TEST_START_TRACE_SUPPRESSION;
+    EXPECT_FALSE(m_gameliftClientManager->ConfigureGameLiftClient(""));
+
+    SessionAsyncRequestNotificationsHandlerMock sessionHandlerMock;
+    EXPECT_CALL(sessionHandlerMock,
+        OnSearchSessionsAsyncComplete(SearchSessionsResponseMatcher(AzFramework::SearchSessionsResponse()))).Times(1);
+
+    m_gameliftClientManager->SearchSessionsAsync(AzFramework::SearchSessionsRequest());
+    AZ_TEST_STOP_TRACE_SUPPRESSION(2); // capture 2 error message
+}
+
+TEST_F(AWSGameLiftClientManagerTest, SearchSessionsAsync_CallWithInvalidRequest_GetErrorWithEmptyResponse)
+{
+    AWSCoreRequestsHandlerMock handlerMock;
+    EXPECT_CALL(handlerMock, GetDefaultJobContext()).Times(1).WillOnce(::testing::Return(m_jobContext.get()));
+
+    AZ_TEST_START_TRACE_SUPPRESSION;
+    SessionAsyncRequestNotificationsHandlerMock sessionHandlerMock;
+    EXPECT_CALL(sessionHandlerMock,
+        OnSearchSessionsAsyncComplete(SearchSessionsResponseMatcher(AzFramework::SearchSessionsResponse()))).Times(1);
+
+    m_gameliftClientManager->SearchSessionsAsync(AzFramework::SearchSessionsRequest());
+    AZ_TEST_STOP_TRACE_SUPPRESSION(1); // capture 1 error message
+}
+
+TEST_F(AWSGameLiftClientManagerTest, SearchSessionsAsync_CallWithValidRequestAndErrorOutcome_GetErrorWithEmptyResponse)
+{
+    AWSGameLiftSearchSessionsRequest request = GetValidSearchSessionsRequest();
+
+    AWSCoreRequestsHandlerMock handlerMock;
+    EXPECT_CALL(handlerMock, GetDefaultJobContext()).Times(1).WillOnce(::testing::Return(m_jobContext.get()));
+
+    Aws::Client::AWSError<Aws::GameLift::GameLiftErrors> error;
+    Aws::GameLift::Model::SearchGameSessionsOutcome outcome(error);
+    EXPECT_CALL(*(m_gameliftClientManager->m_gameliftClientMockPtr), SearchGameSessions(::testing::_))
+        .Times(1)
+        .WillOnce(::testing::Return(outcome));
+
+    SessionAsyncRequestNotificationsHandlerMock sessionHandlerMock;
+    EXPECT_CALL(sessionHandlerMock,
+        OnSearchSessionsAsyncComplete(SearchSessionsResponseMatcher(AzFramework::SearchSessionsResponse()))).Times(1);
+
+    AZ_TEST_START_TRACE_SUPPRESSION;
+    m_gameliftClientManager->SearchSessionsAsync(request);
+    AZ_TEST_STOP_TRACE_SUPPRESSION(1); // capture 1 error message
+}
+
+TEST_F(AWSGameLiftClientManagerTest, SearchSessionsAsync_CallWithValidRequestAndSuccessOutcome_GetNotificationWithValidResponse)
+{
+    AWSGameLiftSearchSessionsRequest request = GetValidSearchSessionsRequest();
+
+    AWSCoreRequestsHandlerMock coreHandlerMock;
+    EXPECT_CALL(coreHandlerMock, GetDefaultJobContext()).Times(1).WillOnce(::testing::Return(m_jobContext.get()));
+
+    Aws::GameLift::Model::SearchGameSessionsOutcome outcome = GetValidSearchGameSessionsOutcome();
+    EXPECT_CALL(*(m_gameliftClientManager->m_gameliftClientMockPtr), SearchGameSessions(::testing::_))
+        .Times(1)
+        .WillOnce(::testing::Return(outcome));
+
+    AzFramework::SearchSessionsResponse expectedResponse = GetValidSearchSessionsResponse();
+    SessionAsyncRequestNotificationsHandlerMock sessionHandlerMock;
+    EXPECT_CALL(sessionHandlerMock,
+        OnSearchSessionsAsyncComplete(SearchSessionsResponseMatcher(expectedResponse))).Times(1);
+
+    m_gameliftClientManager->SearchSessionsAsync(request);
 }

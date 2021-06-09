@@ -13,9 +13,8 @@
 #pragma once
 
 #include <AzCore/RTTI/BehaviorContext.h>
-#include <AzCore/std/smart_ptr/unique_ptr.h>
-#include <Request/AWSGameLiftCreateSessionRequest.h>
-#include <Request/AWSGameLiftJoinSessionRequest.h>
+#include <AzCore/std/smart_ptr/shared_ptr.h>
+#include <AzFramework/Session/ISessionRequests.h>
 #include <Request/IAWSGameLiftRequests.h>
 
 namespace Aws
@@ -103,6 +102,8 @@ namespace AWSGameLift
             "Invalid GameLift CreateSession request.";
         static constexpr const char AWSGameLiftJoinSessionRequestInvalidErrorMessage[] =
             "Invalid GameLift JoinSession request.";
+        static constexpr const char AWSGameLiftSearchSessionsRequestInvalidErrorMessage[] =
+            "Invalid GameLift SearchSessions request.";
         static constexpr const char AWSGameLiftJoinSessionMissingRequestHandlerErrorMessage[] =
             "Missing GameLift JoinSession request handler, please make sure Multiplayer Gem is enabled and registered as handler.";
 
@@ -129,9 +130,10 @@ namespace AWSGameLift
         void LeaveSession() override;
 
     protected:
-        void SetGameLiftClient(AZStd::unique_ptr<Aws::GameLift::GameLiftClient> gameliftClient);
+        // Use for automation tests only to inject mock objects. 
+        void SetGameLiftClient(AZStd::shared_ptr<Aws::GameLift::GameLiftClient> gameliftClient);
 
     private:
-        AZStd::unique_ptr<Aws::GameLift::GameLiftClient> m_gameliftClient;
+        AZStd::shared_ptr<Aws::GameLift::GameLiftClient> m_gameliftClient;
     };
 } // namespace AWSGameLift

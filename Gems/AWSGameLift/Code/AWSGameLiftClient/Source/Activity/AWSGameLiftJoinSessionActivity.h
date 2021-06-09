@@ -34,11 +34,9 @@ namespace AWSGameLift
             const Aws::GameLift::Model::CreatePlayerSessionOutcome& createPlayerSessionOutcome);
 
         // Create CreatePlayerSessionRequest and make a CreatePlayerSession call through GameLift client
-        using AWSErrorCallback = AZStd::function<void(const Aws::Client::AWSError<Aws::GameLift::GameLiftErrors>&)>;
         Aws::GameLift::Model::CreatePlayerSessionOutcome CreatePlayerSession(
             const Aws::GameLift::GameLiftClient& gameliftClient,
-            const AWSGameLiftJoinSessionRequest& joinSessionRequest,
-            const AWSErrorCallback& errorCallback);
+            const AWSGameLiftJoinSessionRequest& joinSessionRequest);
 
         // Request to setup networking connection for player
         bool RequestPlayerJoinSession(

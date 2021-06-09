@@ -21,6 +21,7 @@ ly_add_target(
             Include
         PRIVATE
             Source
+            ../AWSGameLiftCommon/Source
     COMPILE_DEFINITIONS
         PRIVATE
             ${awsgameliftclient_compile_definition}
@@ -71,6 +72,7 @@ if(PAL_TRAIT_BUILD_TESTS_SUPPORTED)
                 Include
                 Tests
                 Source
+                ../AWSGameLiftCommon/Source
         BUILD_DEPENDENCIES
             PRIVATE
                 AZ::AzCore

@@ -18,6 +18,7 @@
 #include <AWSGameLiftClientSystemComponent.h>
 #include <Request/AWSGameLiftCreateSessionRequest.h>
 #include <Request/AWSGameLiftJoinSessionRequest.h>
+#include <Request/AWSGameLiftSearchSessionsRequest.h>
 
 #include <aws/gamelift/GameLiftClient.h>
 
@@ -32,6 +33,7 @@ namespace AWSGameLift
     {
         AWSGameLiftCreateSessionRequest::Reflect(context);
         AWSGameLiftJoinSessionRequest::Reflect(context);
+        AWSGameLiftSearchSessionsRequest::Reflect(context);
 
         if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
         {
@@ -63,6 +65,7 @@ namespace AWSGameLift
                 ->Attribute(AZ::Script::Attributes::Category, "AWSGameLift")
                 ->Event("CreateSessionAsync", &AWSGameLiftSessionAsyncRequestBus::Events::CreateSessionAsync)
                 ->Event("JoinSessionAsync", &AWSGameLiftSessionAsyncRequestBus::Events::JoinSessionAsync)
+                ->Event("SearchSessionsAsync", &AWSGameLiftSessionAsyncRequestBus::Events::SearchSessionsAsync)
                 ;
             behaviorContext
                 ->EBus<AzFramework::SessionAsyncRequestNotificationBus>("AWSGameLiftSessionAsyncRequestNotificationBus")
@@ -73,6 +76,7 @@ namespace AWSGameLift
                 ->Attribute(AZ::Script::Attributes::Category, "AWSGameLift")
                 ->Event("CreateSession", &AWSGameLiftSessionRequestBus::Events::CreateSession)
                 ->Event("JoinSession", &AWSGameLiftSessionRequestBus::Events::JoinSession)
+                ->Event("SearchSessions", &AWSGameLiftSessionRequestBus::Events::SearchSessions)
                 ;
         }
     }
