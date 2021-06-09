@@ -342,11 +342,15 @@ TEST_F(AWSGameLiftClientManagerTest, CreateSession_CallWithValidRequest_GetError
 TEST_F(AWSGameLiftClientManagerTest, CreateSessionAsync_CallWithoutClientSetup_GetNotificationWithEmptyResponse)
 {
     AZ_TEST_START_TRACE_SUPPRESSION;
-    m_gameliftClientManager->ConfigureGameLiftClient("");
+    EXPECT_FALSE(m_gameliftClientManager->ConfigureGameLiftClient(""));
+    AZ_TEST_STOP_TRACE_SUPPRESSION(1); // capture 1 error message
+
     SessionAsyncRequestNotificationsHandlerMock sessionHandlerMock;
     EXPECT_CALL(sessionHandlerMock, OnCreateSessionAsyncComplete(AZStd::string())).Times(1);
+
+    AZ_TEST_START_TRACE_SUPPRESSION;
     m_gameliftClientManager->CreateSessionAsync(AzFramework::CreateSessionRequest());
-    AZ_TEST_STOP_TRACE_SUPPRESSION(2); // capture 2 error message
+    AZ_TEST_STOP_TRACE_SUPPRESSION(1); // capture 1 error message
 }
 
 TEST_F(AWSGameLiftClientManagerTest, CreateSessionAsync_CallWithInvalidRequest_GetNotificationWithEmptyResponse)
@@ -480,11 +484,15 @@ TEST_F(AWSGameLiftClientManagerTest, JoinSession_CallWithValidRequestAndRequestH
 TEST_F(AWSGameLiftClientManagerTest, JoinSessionAsync_CallWithoutClientSetup_GetNotificationWithFalseResponse)
 {
     AZ_TEST_START_TRACE_SUPPRESSION;
-    m_gameliftClientManager->ConfigureGameLiftClient("");
+    EXPECT_FALSE(m_gameliftClientManager->ConfigureGameLiftClient(""));
+    AZ_TEST_STOP_TRACE_SUPPRESSION(1); // capture 1 error message
+
     SessionAsyncRequestNotificationsHandlerMock sessionHandlerMock;
     EXPECT_CALL(sessionHandlerMock, OnJoinSessionAsyncComplete(false)).Times(1);
+
+    AZ_TEST_START_TRACE_SUPPRESSION;
     m_gameliftClientManager->JoinSessionAsync(AzFramework::JoinSessionRequest());
-    AZ_TEST_STOP_TRACE_SUPPRESSION(2); // capture 2 error message
+    AZ_TEST_STOP_TRACE_SUPPRESSION(1); // capture 1 error message
 }
 
 TEST_F(AWSGameLiftClientManagerTest, JoinSessionAsync_CallWithInvalidRequest_GetNotificationWithFalseResponse)
@@ -577,25 +585,23 @@ TEST_F(AWSGameLiftClientManagerTest, JoinSessionAsync_CallWithValidRequestAndReq
 
 TEST_F(AWSGameLiftClientManagerTest, SearchSessionsAsync_CallWithoutClientSetup_GetErrorWithEmptyResponse)
 {
-    AWSCoreRequestsHandlerMock handlerMock;
-    EXPECT_CALL(handlerMock, GetDefaultJobContext()).Times(1).WillOnce(::testing::Return(m_jobContext.get()));
-
     AZ_TEST_START_TRACE_SUPPRESSION;
     EXPECT_FALSE(m_gameliftClientManager->ConfigureGameLiftClient(""));
+    AZ_TEST_STOP_TRACE_SUPPRESSION(1); // capture 1 error message
+
+    AWSGameLiftSearchSessionsRequest request = GetValidSearchSessionsRequest();
 
     SessionAsyncRequestNotificationsHandlerMock sessionHandlerMock;
     EXPECT_CALL(sessionHandlerMock,
         OnSearchSessionsAsyncComplete(SearchSessionsResponseMatcher(AzFramework::SearchSessionsResponse()))).Times(1);
 
-    m_gameliftClientManager->SearchSessionsAsync(AzFramework::SearchSessionsRequest());
-    AZ_TEST_STOP_TRACE_SUPPRESSION(2); // capture 2 error message
+    AZ_TEST_START_TRACE_SUPPRESSION;
+    m_gameliftClientManager->SearchSessionsAsync(request);
+    AZ_TEST_STOP_TRACE_SUPPRESSION(1); // capture 1 error message
 }
 
 TEST_F(AWSGameLiftClientManagerTest, SearchSessionsAsync_CallWithInvalidRequest_GetErrorWithEmptyResponse)
 {
-    AWSCoreRequestsHandlerMock handlerMock;
-    EXPECT_CALL(handlerMock, GetDefaultJobContext()).Times(1).WillOnce(::testing::Return(m_jobContext.get()));
-
     AZ_TEST_START_TRACE_SUPPRESSION;
     SessionAsyncRequestNotificationsHandlerMock sessionHandlerMock;
     EXPECT_CALL(sessionHandlerMock,
