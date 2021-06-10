@@ -27,6 +27,7 @@
 #include <EMotionFX/Source/Node.h>
 #include <EMotionFX/Source/PhysicsSetup.h>
 #include <MCore/Source/AzCoreConversions.h>
+#include <PhysX/Joint/Configuration/PhysXJointConfiguration.h>
 
 namespace EMotionFX
 {
@@ -108,6 +109,7 @@ namespace EMotionFX
             AZ_Assert(jointLimitConfig, "Could not create joint limit configuration.");
             return jointLimitConfig;
         }
+        AZ_Assert(false, "Could not create joint limit configuration.");
         return nullptr;
     }
 
