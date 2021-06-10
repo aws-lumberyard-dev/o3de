@@ -18,6 +18,8 @@
 #include <EMotionFX/Source/EMotionFXManager.h>
 #include <EMotionFX/Source/SimulatedObjectSetup.h>
 
+#include <PhysX/Joint/Configuration/PhysXJointConfiguration.h>
+
 #include <Tests/TestAssetCode/JackActor.h>
 #include <Tests/TestAssetCode/ActorFactory.h>
 
@@ -29,6 +31,8 @@ namespace EMotionFX
 
         m_actor = ActorFactory::CreateAndInit<JackNoMeshesActor>();
         m_actorInstance = ActorInstance::Create(m_actor.get());
+
+        PhysX::D6ApiJointLimitConfiguration::Reflect(GetSerializeContext());
     }
 
     void ActorFixture::TearDown()
