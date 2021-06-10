@@ -27,6 +27,7 @@
 #include <EMotionFX/Source/Node.h>
 #include <EMotionFX/Source/PhysicsSetup.h>
 #include <MCore/Source/AzCoreConversions.h>
+#include <PhysX/Joint/Configuration/PhysXJointConfiguration.h>
 
 namespace EMotionFX
 {
@@ -71,12 +72,7 @@ namespace EMotionFX
         newNodeConfig.m_debugName = jointName;
 
         // Create joint limit on default.
-        AZStd::vector<AZ::TypeId> supportedJointLimitTypes;
-        Physics::SystemRequestBus::BroadcastResult(supportedJointLimitTypes, &Physics::SystemRequests::GetSupportedJointTypes);
-        if (!supportedJointLimitTypes.empty())
-        {
-            newNodeConfig.m_jointLimit = CommandRagdollHelpers::CreateJointLimitByType(supportedJointLimitTypes[0], skeleton, joint);
-        }
+        newNodeConfig.m_jointConfig = CommandRagdollHelpers::CreateJointLimitByType(skeleton, joint);
 
         if (index)
         {
@@ -91,8 +87,8 @@ namespace EMotionFX
         }
     }
 
-    AZStd::unique_ptr<Physics::JointLimitConfiguration> CommandRagdollHelpers::CreateJointLimitByType(
-        const AZ::TypeId& typeId, const Skeleton* skeleton, const Node* node)
+    AZStd::unique_ptr<AzPhysics::ApiJointConfiguration> CommandRagdollHelpers::CreateJointLimitByType(
+        const Skeleton* skeleton, const Node* node)
     {
         const Pose* bindPose = skeleton->GetBindPose();
         const Transform& nodeBindTransform = bindPose->GetModelSpaceTransform(node->GetNodeIndex());
@@ -105,11 +101,11 @@ namespace EMotionFX
         AZ::Vector3 boneDirection = GetBoneDirection(skeleton, node);
         AZStd::vector<AZ::Quaternion> exampleRotationsLocal;
 
-        AZStd::unique_ptr<Physics::JointLimitConfiguration> jointLimitConfig =
-            AZ::Interface<Physics::System>::Get()->ComputeInitialJointLimitConfiguration(
-                typeId, parentBindRotationWorld, nodeBindRotationWorld, boneDirection, exampleRotationsLocal);
+        AZStd::unique_ptr<AzPhysics::ApiJointConfiguration> jointLimitConfig =
+            PhysX::ApiJointUtils::ComputeInitialJointLimitConfiguration(
+                parentBindRotationWorld, nodeBindRotationWorld, boneDirection, exampleRotationsLocal);
 
-        AZ_Assert(jointLimitConfig, "Could not create joint limit configuration with type '%s'.", typeId.ToString<AZStd::string>().c_str());
+        AZ_Assert(jointLimitConfig, "Could not create joint limit configuration.");
         return jointLimitConfig;
     }
 
@@ -532,7 +528,7 @@ namespace EMotionFX
         if (m_serializedJointLimits)
         {
             AZ::Outcome<AZStd::string> oldSerializedJointLimits = SerializeJointLimits(nodeConfig);
-            success |= MCore::ReflectionSerializer::DeserializeMembers(nodeConfig->m_jointLimit.get(), m_serializedJointLimits.value());
+            success |= MCore::ReflectionSerializer::DeserializeMembers(nodeConfig->m_jointConfig.get(), m_serializedJointLimits.value());
             if (success && oldSerializedJointLimits.IsSuccess())
             {
                 m_oldSerializedJointLimits = oldSerializedJointLimits.GetValue();
@@ -565,7 +561,7 @@ namespace EMotionFX
     AZ::Outcome<AZStd::string> CommandAdjustRagdollJoint::SerializeJointLimits(const Physics::RagdollNodeConfiguration* ragdollNodeConfig)
     {
         return MCore::ReflectionSerializer::SerializeMembersExcept(
-            ragdollNodeConfig->m_jointLimit.get(),
+            ragdollNodeConfig->m_jointConfig.get(),
             {"ParentLocalRotation", "ParentLocalPosition", "ChildLocalRotation", "ChildLocalPosition", }
         );
     }

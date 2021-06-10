@@ -40,6 +40,7 @@ ly_add_target(
         PUBLIC
             AZ::AtomCore
             Gem::Atom_RPI.Public
+            Gem::PhysX.Static
     COMPILE_DEFINITIONS
         PUBLIC
             EMFX_DEVELOPMENT_BUILD
