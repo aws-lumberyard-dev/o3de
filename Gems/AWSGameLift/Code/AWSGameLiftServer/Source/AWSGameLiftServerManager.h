@@ -66,6 +66,8 @@ namespace AWSGameLift
             "Failed to validate player session connection with id %s. ErrorMessage: %s";
         static constexpr const char AWSGameLiftServerInvalidConnectionConfigErrorMessage[] =
             "Invalid player connection config, player connection id: %d, player session id: %s";
+        static constexpr const char AWSGameLiftServerRemovePlayerSessionErrorMessage[] =
+            "Failed to notify GameLift that the player with the player session id %s has disconnected from the server process. ErrorMessage: %s";
 
         AWSGameLiftServerManager();
         virtual ~AWSGameLiftServerManager();
@@ -89,10 +91,13 @@ namespace AWSGameLift
     protected:
         void SetGameLiftServerSDKWrapper(AZStd::unique_ptr<GameLiftServerSDKWrapper> gameLiftServerSDKWrapper);
 
-    private:
         //! Add connected player session id
         bool AddConnectedPlayer(const AzFramework::PlayerConnectionConfig& playerConnectionConfig);
 
+        //! Remove connected player session id
+        bool RemoveConnectedPlayer(const AzFramework::PlayerConnectionConfig& playerConnectionConfig);
+
+    private:
         //! Build session config by using AWS GameLift Server GameSession Model
         AzFramework::SessionConfig BuildSessionConfig(const Aws::GameLift::Server::Model::GameSession& gameSession);
 
@@ -108,9 +113,6 @@ namespace AWSGameLift
         //! Callback function that the GameLift service invokes to request a health status report from the server process.
         //! @return Whether the server process is healthy.
         bool OnHealthCheck();
-
-        //! Remove connected player session id
-        bool RemoveConnectedPlayer(const AzFramework::PlayerConnectionConfig& playerConnectionConfig);
 
         AZStd::unique_ptr<GameLiftServerSDKWrapper> m_gameLiftServerSDKWrapper;
         bool m_serverSDKInitialized;

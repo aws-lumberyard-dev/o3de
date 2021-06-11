@@ -153,8 +153,16 @@ namespace AWSGameLift
 
     void AWSGameLiftServerManager::HandlePlayerLeaveSession(const AzFramework::PlayerConnectionConfig& playerConnectionConfig)
     {
-        // TODO: Perform player data cleanup in game session after player has disconnected from server
-        AZ_UNUSED(playerConnectionConfig);
+        if (!RemoveConnectedPlayer(playerConnectionConfig))
+        {
+            return;
+        }
+
+        Aws::GameLift::GenericOutcome disconnectOutcome =
+            m_gameLiftServerSDKWrapper->RemovePlayerSession(playerConnectionConfig.m_playerSessionId);
+
+        AZ_Error(AWSGameLiftServerManagerName, disconnectOutcome.IsSuccess(), AWSGameLiftServerRemovePlayerSessionErrorMessage,
+            playerConnectionConfig.m_playerSessionId.c_str(), disconnectOutcome.GetError().GetErrorMessage().c_str());
     }
 
     bool AWSGameLiftServerManager::NotifyGameLiftProcessReady(const GameLiftServerProcessDesc& desc)
@@ -262,15 +270,21 @@ namespace AWSGameLift
         AZStd::lock_guard<AZStd::mutex> lock(m_gameliftMutex);
         if (m_connectedPlayers.contains(playerConnectionConfig.m_playerConnectionId))
         {
-            m_connectedPlayers.erase(playerConnectionConfig.m_playerConnectionId);
-            return true;
+            if (m_connectedPlayers[playerConnectionConfig.m_playerConnectionId] == playerConnectionConfig.m_playerSessionId)
+            {
+                m_connectedPlayers.erase(playerConnectionConfig.m_playerConnectionId);
+                return true;
+            }
+
+            AZ_Error(AWSGameLiftServerManagerName, false, AWSGameLiftServerInvalidConnectionConfigErrorMessage,
+                playerConnectionConfig.m_playerConnectionId, playerConnectionConfig.m_playerSessionId.c_str());
         }
         else
         {
             AZ_Error(AWSGameLiftServerManagerName, false, AWSGameLiftServerPlayerConnectionMissingErrorMessage,
                 playerConnectionConfig.m_playerConnectionId);
-            return false;
         }
+        return false;
     }
 
     void AWSGameLiftServerManager::SetGameLiftServerSDKWrapper(AZStd::unique_ptr<GameLiftServerSDKWrapper> gameLiftServerSDKWrapper)
