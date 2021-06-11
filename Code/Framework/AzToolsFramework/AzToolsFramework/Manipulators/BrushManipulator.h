@@ -22,7 +22,7 @@ namespace AzToolsFramework
 {
     class ManipulatorView;
 
-    class BrushManipulator : public BaseManipulator, public ManipulatorSpaceWithLocalTransform
+    class BrushManipulator : public BaseManipulator, public ManipulatorSpace
     {
         //! Private constructor.
         BrushManipulator(const AZ::Transform& worldFromLocal);

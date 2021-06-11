@@ -11,20 +11,22 @@
  */
 
 #pragma once
-  
+
 #include <AzToolsFramework/ComponentMode/EditorBaseComponentMode.h>
 #include <AzToolsFramework/Manipulators/BrushManipulator.h>
 
 namespace GradientSignal
 {
-    class EditorImageGradientComponentMode
-        : public AzToolsFramework::ComponentModeFramework::EditorBaseComponentMode
+    class EditorImageGradientComponentMode : public AzToolsFramework::ComponentModeFramework::EditorBaseComponentMode
     {
     public:
         EditorImageGradientComponentMode(const AZ::EntityComponentIdPair& entityComponentIdPair, AZ::Uuid componentType);
-        ~EditorImageGradientComponentMode() override = default;
+        ~EditorImageGradientComponentMode();
+
+        bool HandleMouseInteraction(const AzToolsFramework::ViewportInteraction::MouseInteractionEvent& mouseInteraction);
 
         void Refresh() override { }
+
     private:
         AZStd::shared_ptr<AzToolsFramework::BrushManipulator> m_brushManipulator;
     };

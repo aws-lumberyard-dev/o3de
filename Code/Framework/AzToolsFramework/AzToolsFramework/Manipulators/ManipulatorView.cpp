@@ -21,7 +21,6 @@
 #include <AzToolsFramework/Manipulators/BrushManipulator.h>
 #include <AzToolsFramework/Manipulators/LinearManipulator.h>
 #include <AzToolsFramework/Manipulators/LineSegmentSelectionManipulator.h>
-#include <AzToolsFramework/Manipulators/LinearManipulator.h>
 #include <AzToolsFramework/Manipulators/ManipulatorManager.h>
 #include <AzToolsFramework/Manipulators/PlanarManipulator.h>
 #include <AzToolsFramework/Manipulators/SplineSelectionManipulator.h>

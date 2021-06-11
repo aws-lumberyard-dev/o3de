@@ -33,7 +33,7 @@ namespace AzToolsFramework
     {
         m_manipulatorView->Draw(
             GetManipulatorManagerId(), managerState, GetManipulatorId(),
-            {ApplySpace(GetLocalTransform()), GetNonUniformScale(), AZ::Vector3::CreateZero(), MouseOver()}, debugDisplay, cameraState,
+            {GetSpace(), GetNonUniformScale(), AZ::Vector3::CreateZero(), MouseOver()}, debugDisplay, cameraState,
             mouseInteraction);
     }
 
