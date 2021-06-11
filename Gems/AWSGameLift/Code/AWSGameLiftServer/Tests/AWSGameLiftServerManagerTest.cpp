@@ -333,26 +333,7 @@ namespace UnitTest
         AZ_TEST_STOP_TRACE_SUPPRESSION(1);
     }
 
-    TEST_F(GameLiftServerManagerTest, HandlePlayerLeaveSession_CallWithInvalidPlayerSessionId_GetExpectedErrorLog)
-    {
-        AzFramework::PlayerConnectionConfig connectionConfig;
-        connectionConfig.m_playerConnectionId = 123;
-        connectionConfig.m_playerSessionId = "dummyPlayerSessionId";
-        auto result = m_serverManager->AddConnectedTestPlayer(connectionConfig);
-        EXPECT_TRUE(result);
-
-        AzFramework::PlayerConnectionConfig connectionConfig1;
-        connectionConfig1.m_playerConnectionId = 123;
-        connectionConfig1.m_playerSessionId = "dummyPlayerSessionId1";
-
-        EXPECT_CALL(*(m_serverManager->m_gameLiftServerSDKWrapperMockPtr), RemovePlayerSession(testing::_)).Times(0);
-
-        AZ_TEST_START_TRACE_SUPPRESSION;
-        m_serverManager->HandlePlayerLeaveSession(connectionConfig1);
-        AZ_TEST_STOP_TRACE_SUPPRESSION(1);
-    }
-
-    TEST_F(GameLiftServerManagerTest, HandlePlayerLeaveSession_CallWithInvalidPlayerConnectionId_GetExpectedErrorLog)
+    TEST_F(GameLiftServerManagerTest, HandlePlayerLeaveSession_CallWithNonExistentPlayerConnectionId_GetExpectedErrorLog)
     {
         AzFramework::PlayerConnectionConfig connectionConfig;
         connectionConfig.m_playerConnectionId = 123;

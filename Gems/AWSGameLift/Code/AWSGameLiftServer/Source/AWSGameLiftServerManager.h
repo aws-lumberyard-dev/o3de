@@ -91,14 +91,11 @@ namespace AWSGameLift
     protected:
         void SetGameLiftServerSDKWrapper(AZStd::unique_ptr<GameLiftServerSDKWrapper> gameLiftServerSDKWrapper);
 
-        //! Add connected player session id
+        //! Add connected player session id.
         bool AddConnectedPlayer(const AzFramework::PlayerConnectionConfig& playerConnectionConfig);
 
-        //! Remove connected player session id
-        bool RemoveConnectedPlayer(const AzFramework::PlayerConnectionConfig& playerConnectionConfig);
-
     private:
-        //! Build session config by using AWS GameLift Server GameSession Model
+        //! Build session config by using AWS GameLift Server GameSession Model.
         AzFramework::SessionConfig BuildSessionConfig(const Aws::GameLift::Server::Model::GameSession& gameSession);
 
         //! Callback function that the GameLift service invokes to activate a new game session.
@@ -113,6 +110,16 @@ namespace AWSGameLift
         //! Callback function that the GameLift service invokes to request a health status report from the server process.
         //! @return Whether the server process is healthy.
         bool OnHealthCheck();
+
+        //! Remove connected player session id.
+        //! @param playerConnectionConfig Config for the player connection.
+        //! @return Whether the player is removed successfully.
+        bool RemoveConnectedPlayer(const AzFramework::PlayerConnectionConfig& playerConnectionConfig);
+
+        //! Remove connected player by the connection id.
+        //! @param playerConnectionId Connection id of the player to remove.
+        //! @return Session id of the removed player. Empty if the player cannot be removed.
+        AZStd::string RemoveConnectedPlayerByConnectionId(uint32_t playerConnectionId);
 
         AZStd::unique_ptr<GameLiftServerSDKWrapper> m_gameLiftServerSDKWrapper;
         bool m_serverSDKInitialized;

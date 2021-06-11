@@ -153,16 +153,33 @@ namespace AWSGameLift
 
     void AWSGameLiftServerManager::HandlePlayerLeaveSession(const AzFramework::PlayerConnectionConfig& playerConnectionConfig)
     {
-        if (!RemoveConnectedPlayer(playerConnectionConfig))
+        AZStd::string playerSessionId = RemoveConnectedPlayerByConnectionId(playerConnectionConfig.m_playerConnectionId);
+        if (playerSessionId.empty())
         {
             return;
         }
 
-        Aws::GameLift::GenericOutcome disconnectOutcome =
-            m_gameLiftServerSDKWrapper->RemovePlayerSession(playerConnectionConfig.m_playerSessionId);
-
+        Aws::GameLift::GenericOutcome disconnectOutcome = m_gameLiftServerSDKWrapper->RemovePlayerSession(playerSessionId);
         AZ_Error(AWSGameLiftServerManagerName, disconnectOutcome.IsSuccess(), AWSGameLiftServerRemovePlayerSessionErrorMessage,
-            playerConnectionConfig.m_playerSessionId.c_str(), disconnectOutcome.GetError().GetErrorMessage().c_str());
+            playerSessionId.c_str(), disconnectOutcome.GetError().GetErrorMessage().c_str());
+    }
+
+    AZStd::string AWSGameLiftServerManager::RemoveConnectedPlayerByConnectionId(uint32_t playerConnectionId)
+    {
+        AZStd::string playerSessionId;
+
+        AZStd::lock_guard<AZStd::mutex> lock(m_gameliftMutex);
+        if (m_connectedPlayers.contains(playerConnectionId))
+        {
+            playerSessionId = m_connectedPlayers[playerConnectionId];
+            m_connectedPlayers.erase(playerConnectionId);
+        }
+        else
+        {
+            AZ_Error(AWSGameLiftServerManagerName, false, AWSGameLiftServerPlayerConnectionMissingErrorMessage, playerConnectionId);
+        }
+
+        return playerSessionId;
     }
 
     bool AWSGameLiftServerManager::NotifyGameLiftProcessReady(const GameLiftServerProcessDesc& desc)
@@ -270,14 +287,8 @@ namespace AWSGameLift
         AZStd::lock_guard<AZStd::mutex> lock(m_gameliftMutex);
         if (m_connectedPlayers.contains(playerConnectionConfig.m_playerConnectionId))
         {
-            if (m_connectedPlayers[playerConnectionConfig.m_playerConnectionId] == playerConnectionConfig.m_playerSessionId)
-            {
-                m_connectedPlayers.erase(playerConnectionConfig.m_playerConnectionId);
-                return true;
-            }
-
-            AZ_Error(AWSGameLiftServerManagerName, false, AWSGameLiftServerInvalidConnectionConfigErrorMessage,
-                playerConnectionConfig.m_playerConnectionId, playerConnectionConfig.m_playerSessionId.c_str());
+            m_connectedPlayers.erase(playerConnectionConfig.m_playerConnectionId);
+            return true;
         }
         else
         {
