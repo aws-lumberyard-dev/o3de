@@ -27,7 +27,6 @@
 #include <EMotionFX/Source/Node.h>
 #include <EMotionFX/Source/PhysicsSetup.h>
 #include <MCore/Source/AzCoreConversions.h>
-#include <PhysX/Joint/Configuration/PhysXJointConfiguration.h>
 
 namespace EMotionFX
 {
@@ -101,12 +100,15 @@ namespace EMotionFX
         AZ::Vector3 boneDirection = GetBoneDirection(skeleton, node);
         AZStd::vector<AZ::Quaternion> exampleRotationsLocal;
 
-        AZStd::unique_ptr<AzPhysics::ApiJointConfiguration> jointLimitConfig =
-            PhysX::ApiJointUtils::ComputeInitialJointLimitConfiguration(
-                parentBindRotationWorld, nodeBindRotationWorld, boneDirection, exampleRotationsLocal);
+        if (auto* jointHelpers = AZ::Interface<AzPhysics::JointHelpersInterface>::Get())
+        {
+            AZStd::unique_ptr<AzPhysics::ApiJointConfiguration> jointLimitConfig = jointHelpers->ComputeInitialJointLimitConfiguration(
+                AzPhysics::JointTypes::D6Joint, parentBindRotationWorld, nodeBindRotationWorld, boneDirection, exampleRotationsLocal);
 
-        AZ_Assert(jointLimitConfig, "Could not create joint limit configuration.");
-        return jointLimitConfig;
+            AZ_Assert(jointLimitConfig, "Could not create joint limit configuration.");
+            return jointLimitConfig;
+        }
+        return nullptr;
     }
 
     void CommandRagdollHelpers::AddJointsToRagdoll(AZ::u32 actorId, const AZStd::vector<AZStd::string>& jointNames,

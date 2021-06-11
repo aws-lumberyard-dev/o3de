@@ -39,7 +39,6 @@ ly_add_target(
         PUBLIC
             AZ::AtomCore
             Gem::Atom_RPI.Public
-            Gem::PhysX.Static
             Gem::LmbrCentral
     COMPILE_DEFINITIONS
         PUBLIC

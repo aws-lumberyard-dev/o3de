@@ -104,25 +104,4 @@ namespace PhysX
         ApiJointGenericProperties m_genericProperties;
         ApiJointLimitProperties m_limitProperties;
     };
-
-    namespace ApiJointUtils
-    {
-        void GenerateJointLimitVisualizationData(
-            const AzPhysics::ApiJointConfiguration& configuration,
-            const AZ::Quaternion& parentRotation,
-            const AZ::Quaternion& childRotation,
-            float scale,
-            AZ::u32 angularSubdivisions,
-            AZ::u32 radialSubdivisions,
-            AZStd::vector<AZ::Vector3>& vertexBufferOut,
-            AZStd::vector<AZ::u32>& indexBufferOut,
-            AZStd::vector<AZ::Vector3>& lineBufferOut,
-            AZStd::vector<bool>& lineValidityBufferOut);
-
-        AZStd::unique_ptr<AzPhysics::ApiJointConfiguration> ComputeInitialJointLimitConfiguration(
-            const AZ::Quaternion& parentWorldRotation,
-            const AZ::Quaternion& childWorldRotation,
-            const AZ::Vector3& axis,
-            const AZStd::vector<AZ::Quaternion>& exampleLocalRotations);
-    };
 } // namespace PhysX
