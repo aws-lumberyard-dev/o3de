@@ -136,6 +136,13 @@ namespace AzToolsFramework
     static const char* const s_duplicateUndoRedoDesc = s_duplicateTitle;
     static const char* const s_deleteUndoRedoDesc = s_deleteTitle;
 
+    static const char* const TransformModeClusterTranslateTooltip = "Switch to translate mode";
+    static const char* const TransformModeClusterRotateTooltip = "Switch to rotate mode";
+    static const char* const TransformModeClusterScaleTooltip = "Switch to scale mode";
+    static const char* const SpaceClusterWorldTooltip = "Toggle world space lock";
+    static const char* const SpaceClusterParentTooltip = "Toggle parent space lock";
+    static const char* const SpaceClusterLocalTooltip = "Toggle local space lock";
+
     static const AZ::Color s_fadedXAxisColor = AZ::Color(AZ::u8(200), AZ::u8(127), AZ::u8(127), AZ::u8(255));
     static const AZ::Color s_fadedYAxisColor = AZ::Color(AZ::u8(127), AZ::u8(190), AZ::u8(127), AZ::u8(255));
     static const AZ::Color s_fadedZAxisColor = AZ::Color(AZ::u8(120), AZ::u8(120), AZ::u8(180), AZ::u8(255));
@@ -2240,42 +2247,31 @@ namespace AzToolsFramework
                 RegenerateManipulators();
             });
 
-        bool isPrefabSystemEnabled = false;
-        AzFramework::ApplicationRequests::Bus::BroadcastResult(
-            isPrefabSystemEnabled, &AzFramework::ApplicationRequests::IsPrefabSystemEnabled);
+        // duplicate selection
+        AddAction(
+            m_actions, { QKeySequence(Qt::CTRL + Qt::Key_D) },
+            /*ID_EDIT_CLONE =*/33525, s_duplicateTitle, s_duplicateDesc,
+            []()
+            {
+                AZ_PROFILE_FUNCTION(AZ::Debug::ProfileCategory::AzToolsFramework);
 
-        bool prefabWipFeaturesEnabled = false;
-        AzFramework::ApplicationRequests::Bus::BroadcastResult(
-            prefabWipFeaturesEnabled, &AzFramework::ApplicationRequests::ArePrefabWipFeaturesEnabled);
-
-        if (!isPrefabSystemEnabled || (isPrefabSystemEnabled && prefabWipFeaturesEnabled))
-        {
-            // duplicate selection
-            AddAction(
-                m_actions, { QKeySequence(Qt::CTRL + Qt::Key_D) },
-                /*ID_EDIT_CLONE =*/33525, s_duplicateTitle, s_duplicateDesc,
-                []()
+                // Clear Widget selection - Prevents issues caused by cloning entities while a property in the Reflected Property Editor
+                // is being edited.
+                if (QApplication::focusWidget())
                 {
-                    AZ_PROFILE_FUNCTION(AZ::Debug::ProfileCategory::AzToolsFramework);
+                    QApplication::focusWidget()->clearFocus();
+                }
 
-                    // Clear Widget selection - Prevents issues caused by cloning entities while a property in the Reflected Property Editor
-                    // is being edited.
-                    if (QApplication::focusWidget())
-                    {
-                        QApplication::focusWidget()->clearFocus();
-                    }
+                ScopedUndoBatch undoBatch(s_duplicateUndoRedoDesc);
+                auto selectionCommand = AZStd::make_unique<SelectionCommand>(EntityIdList(), s_duplicateUndoRedoDesc);
+                selectionCommand->SetParent(undoBatch.GetUndoBatch());
+                selectionCommand.release();
 
-                    ScopedUndoBatch undoBatch(s_duplicateUndoRedoDesc);
-                    auto selectionCommand = AZStd::make_unique<SelectionCommand>(EntityIdList(), s_duplicateUndoRedoDesc);
-                    selectionCommand->SetParent(undoBatch.GetUndoBatch());
-                    selectionCommand.release();
+                bool handled = false;
+                EditorRequestBus::Broadcast(&EditorRequests::CloneSelection, handled);
 
-                    bool handled = false;
-                    EditorRequestBus::Broadcast(&EditorRequests::CloneSelection, handled);
-
-                    // selection update handled in AfterEntitySelectionChanged
-                });
-        }
+                // selection update handled in AfterEntitySelectionChanged
+            });
 
         // delete selection
         AddAction(
@@ -2471,6 +2467,17 @@ namespace AzToolsFramework
         m_rotateButtonId = RegisterClusterButton(m_transformModeClusterId, "Translate");
         m_scaleButtonId = RegisterClusterButton(m_transformModeClusterId, "Scale");
 
+        // set button tooltips
+        ViewportUi::ViewportUiRequestBus::Event(
+            ViewportUi::DefaultViewportId, &ViewportUi::ViewportUiRequestBus::Events::SetClusterButtonTooltip, m_transformModeClusterId,
+            m_translateButtonId, TransformModeClusterTranslateTooltip);
+        ViewportUi::ViewportUiRequestBus::Event(
+            ViewportUi::DefaultViewportId, &ViewportUi::ViewportUiRequestBus::Events::SetClusterButtonTooltip, m_transformModeClusterId,
+            m_rotateButtonId, TransformModeClusterRotateTooltip);
+        ViewportUi::ViewportUiRequestBus::Event(
+            ViewportUi::DefaultViewportId, &ViewportUi::ViewportUiRequestBus::Events::SetClusterButtonTooltip, m_transformModeClusterId,
+            m_scaleButtonId, TransformModeClusterScaleTooltip);
+
         auto onButtonClicked = [this](ViewportUi::ButtonId buttonId)
         {
             if (buttonId == m_translateButtonId)
@@ -2508,6 +2515,17 @@ namespace AzToolsFramework
         m_spaceCluster.m_worldButtonId = RegisterClusterButton(m_spaceCluster.m_spaceClusterId, "World");
         m_spaceCluster.m_parentButtonId = RegisterClusterButton(m_spaceCluster.m_spaceClusterId, "Parent");
         m_spaceCluster.m_localButtonId = RegisterClusterButton(m_spaceCluster.m_spaceClusterId, "Local");
+
+        // set button tooltips
+        ViewportUi::ViewportUiRequestBus::Event(
+            ViewportUi::DefaultViewportId, &ViewportUi::ViewportUiRequestBus::Events::SetClusterButtonTooltip,
+            m_spaceCluster.m_spaceClusterId, m_spaceCluster.m_worldButtonId, SpaceClusterWorldTooltip);
+        ViewportUi::ViewportUiRequestBus::Event(
+            ViewportUi::DefaultViewportId, &ViewportUi::ViewportUiRequestBus::Events::SetClusterButtonTooltip,
+            m_spaceCluster.m_spaceClusterId, m_spaceCluster.m_parentButtonId, SpaceClusterParentTooltip);
+        ViewportUi::ViewportUiRequestBus::Event(
+            ViewportUi::DefaultViewportId, &ViewportUi::ViewportUiRequestBus::Events::SetClusterButtonTooltip,
+            m_spaceCluster.m_spaceClusterId, m_spaceCluster.m_localButtonId, SpaceClusterLocalTooltip);
 
         auto onButtonClicked = [this](ViewportUi::ButtonId buttonId)
         {
