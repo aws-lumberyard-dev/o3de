@@ -85,12 +85,6 @@ namespace AzPhysics
     //! Alias for a list of non owning weak pointers to ApiJoint objects.
     using ApiJointList = AZStd::vector<ApiJoint*>;
 
-    //! List of supported Joint types.
-    enum class JointTypes
-    {
-        D6Joint
-    };
-
     //! Interface to access Joint utilities and helper functions
     class JointHelpersInterface
     {
@@ -105,6 +99,7 @@ namespace AzPhysics
         virtual const AZStd::vector<AZ::TypeId> GetSupportedJointTypeIds() const = 0;
 
         //! Returns a TypeID if the request joint type is supported.
+        //! If the Physics backend supports this joint type JointHelpersInterface::GetSupportedJointTypeId will return a AZ::TypeId.
         virtual AZStd::optional<const AZ::TypeId> GetSupportedJointTypeId(JointTypes typeEnum) const = 0;
 
         //! Computes parameters such as joint limit local rotations to give the desired initial joint limit orientation.

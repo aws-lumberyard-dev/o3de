@@ -182,11 +182,29 @@ namespace PhysX
             lineBufferOut.push_back(twistVector);
             lineValidityBufferOut.push_back(true);
         }
+
+        template<typename Configuration>
+        AZStd::unique_ptr<AzPhysics::ApiJointConfiguration> ConfigurationFactory(
+            const AZ::Quaternion& parentLocalRotation, const AZ::Quaternion& childLocalRotation)
+        {
+            Configuration d6JointLimitConfig;
+            d6JointLimitConfig.m_childLocalRotation = childLocalRotation;
+            d6JointLimitConfig.m_parentLocalRotation = parentLocalRotation;
+
+            return AZStd::make_unique<Configuration>(d6JointLimitConfig);
+        }
+
     } // namespace
 
     const AZStd::vector<AZ::TypeId> PhysXJointHelpersInterface::GetSupportedJointTypeIds() const
     {
-        return AZStd::vector<AZ::TypeId>{ D6ApiJointLimitConfiguration::RTTI_Type() };
+        return AZStd::vector<AZ::TypeId>
+        {
+            D6ApiJointLimitConfiguration::RTTI_Type(),
+            FixedApiJointConfiguration::RTTI_Type(),
+            BallApiJointConfiguration::RTTI_Type(),
+            HingeApiJointConfiguration::RTTI_Type()
+        };
     }
 
     AZStd::optional<const AZ::TypeId> PhysXJointHelpersInterface::GetSupportedJointTypeId(AzPhysics::JointTypes typeEnum) const
@@ -195,6 +213,14 @@ namespace PhysX
         {
         case AzPhysics::JointTypes::D6Joint:
             return azrtti_typeid<D6ApiJointLimitConfiguration>();
+        case AzPhysics::JointTypes::FixedJoint:
+            return azrtti_typeid<FixedApiJointConfiguration>();
+        case AzPhysics::JointTypes::BallJoint:
+            return azrtti_typeid<BallApiJointConfiguration>();
+        case AzPhysics::JointTypes::HingeJoint:
+            return azrtti_typeid<HingeApiJointConfiguration>();
+        default:
+            AZ_Warning("PhysX Joint Utils", false, "Unsupported joint type in GetSupportedJointTypeId");
         }
         return AZStd::nullopt;
     }
@@ -206,17 +232,26 @@ namespace PhysX
         const AZ::Vector3& axis,
         [[maybe_unused]] const AZStd::vector<AZ::Quaternion>& exampleLocalRotations)
     {
+        const AZ::Vector3& normalizedAxis = axis.IsZero() ? AZ::Vector3::CreateAxisX() : axis.GetNormalized();
+        const AZ::Quaternion childLocalRotation = AZ::Quaternion::CreateShortestArc(
+            AZ::Vector3::CreateAxisX(), childWorldRotation.GetConjugate().TransformVector(normalizedAxis));
+        const AZ::Quaternion parentLocalRotation = parentWorldRotation.GetConjugate() * childWorldRotation * childLocalRotation;
+
         if (jointLimitTypeId == azrtti_typeid<D6ApiJointLimitConfiguration>())
         {
-            const AZ::Vector3& normalizedAxis = axis.IsZero() ? AZ::Vector3::CreateAxisX() : axis.GetNormalized();
-
-            D6ApiJointLimitConfiguration d6JointLimitConfig;
-            const AZ::Quaternion childLocalRotation = AZ::Quaternion::CreateShortestArc(
-                AZ::Vector3::CreateAxisX(), childWorldRotation.GetConjugate().TransformVector(normalizedAxis));
-            d6JointLimitConfig.m_childLocalRotation = childLocalRotation;
-            d6JointLimitConfig.m_parentLocalRotation = parentWorldRotation.GetConjugate() * childWorldRotation * childLocalRotation;
-
-            return AZStd::make_unique<D6ApiJointLimitConfiguration>(d6JointLimitConfig);
+            return ConfigurationFactory<D6ApiJointLimitConfiguration>(parentLocalRotation, childLocalRotation);
+        }
+        else if (jointLimitTypeId == azrtti_typeid<FixedApiJointConfiguration>())
+        {
+            return ConfigurationFactory<FixedApiJointConfiguration>(parentLocalRotation, childLocalRotation);
+        }
+        else if (jointLimitTypeId == azrtti_typeid<BallApiJointConfiguration>())
+        {
+            return ConfigurationFactory<BallApiJointConfiguration>(parentLocalRotation, childLocalRotation);
+        }
+        else if (jointLimitTypeId == azrtti_typeid<HingeApiJointConfiguration>())
+        {
+            return ConfigurationFactory<HingeApiJointConfiguration>(parentLocalRotation, childLocalRotation);
         }
 
         AZ_Warning("PhysX Joint Utils", false, "Unsupported joint type in ComputeInitialJointLimitConfiguration");
