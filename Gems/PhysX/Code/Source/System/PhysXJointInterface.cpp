@@ -187,24 +187,24 @@ namespace PhysX
         AZStd::unique_ptr<AzPhysics::ApiJointConfiguration> ConfigurationFactory(
             const AZ::Quaternion& parentLocalRotation, const AZ::Quaternion& childLocalRotation)
         {
-            Configuration d6JointLimitConfig;
-            d6JointLimitConfig.m_childLocalRotation = childLocalRotation;
-            d6JointLimitConfig.m_parentLocalRotation = parentLocalRotation;
+            auto jointConfig = AZStd::make_unique<Configuration>();
+            jointConfig->m_childLocalRotation = childLocalRotation;
+            jointConfig->m_parentLocalRotation = parentLocalRotation;
 
-            return AZStd::make_unique<Configuration>(d6JointLimitConfig);
+            return jointConfig;
         }
 
     } // namespace
 
     const AZStd::vector<AZ::TypeId> PhysXJointHelpersInterface::GetSupportedJointTypeIds() const
     {
-        return AZStd::vector<AZ::TypeId>
-        {
+        static AZStd::vector<AZ::TypeId> jointTypes = {
             D6ApiJointLimitConfiguration::RTTI_Type(),
             FixedApiJointConfiguration::RTTI_Type(),
             BallApiJointConfiguration::RTTI_Type(),
             HingeApiJointConfiguration::RTTI_Type()
         };
+        return jointTypes;
     }
 
     AZStd::optional<const AZ::TypeId> PhysXJointHelpersInterface::GetSupportedJointTypeId(AzPhysics::JointTypes typeEnum) const
