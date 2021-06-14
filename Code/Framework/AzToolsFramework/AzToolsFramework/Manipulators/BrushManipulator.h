@@ -68,6 +68,7 @@ namespace AzToolsFramework
         struct StartInternal
         {
             AZ::Transform m_worldFromLocal;
+            AZ::Transform m_localTransform;
         };
 
         struct CurrentInternal
@@ -85,3 +86,4 @@ namespace AzToolsFramework
         AZStd::shared_ptr<ManipulatorView> m_manipulatorView;
     };
 } // namespace AzToolsFramework
+#pragma once
