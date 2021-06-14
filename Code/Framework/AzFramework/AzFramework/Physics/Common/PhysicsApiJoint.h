@@ -100,7 +100,7 @@ namespace AzPhysics
 
         //! Returns a TypeID if the request joint type is supported.
         //! If the Physics backend supports this joint type JointHelpersInterface::GetSupportedJointTypeId will return a AZ::TypeId.
-        virtual AZStd::optional<const AZ::TypeId> GetSupportedJointTypeId(JointTypes typeEnum) const = 0;
+        virtual AZStd::optional<const AZ::TypeId> GetSupportedJointTypeId(JointType typeEnum) const = 0;
 
         //! Computes parameters such as joint limit local rotations to give the desired initial joint limit orientation.
         //! @param jointLimitTypeId The type ID used to identify the particular kind of joint limit configuration to be created.

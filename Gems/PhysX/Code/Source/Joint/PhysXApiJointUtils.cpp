@@ -335,8 +335,8 @@ namespace PhysX {
             bool IsD6SwingValid(float swingAngleY, float swingAngleZ, float swingLimitY, float swingLimitZ)
             {
                 const float epsilon = AZ::Constants::FloatEpsilon;
-                const float yFactor = tanf(0.25f * swingAngleY) / AZStd::GetMax(epsilon, tanf(0.25f * swingLimitY));
-                const float zFactor = tanf(0.25f * swingAngleZ) / AZStd::GetMax(epsilon, tanf(0.25f * swingLimitZ));
+                const float yFactor = AZStd::tan(0.25f * swingAngleY) / AZStd::GetMax(epsilon, AZStd::tan(0.25f * swingLimitY));
+                const float zFactor = AZStd::tan(0.25f * swingAngleZ) / AZStd::GetMax(epsilon, AZStd::tan(0.25f * swingLimitZ));
 
                 return (yFactor * yFactor + zFactor * zFactor <= 1.0f + epsilon);
             }
@@ -362,8 +362,8 @@ namespace PhysX {
                 // writing t = tan(x / 4)
                 // sin(x / 2) = 2 * t / (1 + t * t)
                 // cos(x / 2) = (1 - t * t) / (1 + t * t)
-                const float tanQuarterSwingZ = tanf(0.25f * swingLimitZ);
-                const float tanQuarterSwingY = tanf(0.25f * swingLimitY);
+                const float tanQuarterSwingZ = AZStd::tan(0.25f * swingLimitZ);
+                const float tanQuarterSwingY = AZStd::tan(0.25f * swingLimitY);
 
                 AZ::Vector3 previousRadialVector = AZ::Vector3::CreateZero();
                 for (AZ::u32 angularIndex = 0; angularIndex <= angularSubdivisions; angularIndex++)

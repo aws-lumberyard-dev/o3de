@@ -207,17 +207,17 @@ namespace PhysX
         return jointTypes;
     }
 
-    AZStd::optional<const AZ::TypeId> PhysXJointHelpersInterface::GetSupportedJointTypeId(AzPhysics::JointTypes typeEnum) const
+    AZStd::optional<const AZ::TypeId> PhysXJointHelpersInterface::GetSupportedJointTypeId(AzPhysics::JointType typeEnum) const
     {
         switch (typeEnum)
         {
-        case AzPhysics::JointTypes::D6Joint:
+        case AzPhysics::JointType::D6Joint:
             return azrtti_typeid<D6ApiJointLimitConfiguration>();
-        case AzPhysics::JointTypes::FixedJoint:
+        case AzPhysics::JointType::FixedJoint:
             return azrtti_typeid<FixedApiJointConfiguration>();
-        case AzPhysics::JointTypes::BallJoint:
+        case AzPhysics::JointType::BallJoint:
             return azrtti_typeid<BallApiJointConfiguration>();
-        case AzPhysics::JointTypes::HingeJoint:
+        case AzPhysics::JointType::HingeJoint:
             return azrtti_typeid<HingeApiJointConfiguration>();
         default:
             AZ_Warning("PhysX Joint Utils", false, "Unsupported joint type in GetSupportedJointTypeId");

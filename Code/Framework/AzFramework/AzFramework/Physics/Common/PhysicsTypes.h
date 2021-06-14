@@ -84,7 +84,7 @@ namespace AzPhysics
 
     //! Joint types are used to request for AZ::TypeId with the JointHelpersInterface::GetSupportedJointTypeId.
     //! If the Physics backend supports this joint type JointHelpersInterface::GetSupportedJointTypeId will return a AZ::TypeId.
-    enum class JointTypes
+    enum class JointType
     {
         D6Joint,
         FixedJoint,

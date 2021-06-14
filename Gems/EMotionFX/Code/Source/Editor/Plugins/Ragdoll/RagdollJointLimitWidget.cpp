@@ -93,8 +93,8 @@ namespace EMotionFX
             //D6 joint is the only currently supported joint for ragdoll
             if (auto* jointHelpers = AZ::Interface<AzPhysics::JointHelpersInterface>::Get())
             {
-                AZStd::optional<const AZ::TypeId> d6jointTypeId = jointHelpers->GetSupportedJointTypeId(AzPhysics::JointTypes::D6Joint);
-                if (d6jointTypeId.has_value())
+                if (AZStd::optional<const AZ::TypeId> d6jointTypeId = jointHelpers->GetSupportedJointTypeId(AzPhysics::JointType::D6Joint);
+                    d6jointTypeId.has_value())
                 {
                     const char* jointLimitName = serializeContext->FindClassData(*d6jointTypeId)->m_editData->m_name;
                     m_typeComboBox->addItem(jointLimitName, (*d6jointTypeId).ToString<AZStd::string>().c_str());
@@ -272,7 +272,7 @@ namespace EMotionFX
                 const Node* node = m_nodeIndex.data(SkeletonModel::ROLE_POINTER).value<Node*>();
                 const Skeleton* skeleton = m_nodeIndex.data(SkeletonModel::ROLE_ACTOR_POINTER).value<Actor*>()->GetSkeleton();
                 ragdollNodeConfig->m_jointConfig =
-                    CommandRagdollHelpers::CreateJointLimitByType(AzPhysics::JointTypes::D6Joint, skeleton, node);
+                    CommandRagdollHelpers::CreateJointLimitByType(AzPhysics::JointType::D6Joint, skeleton, node);
             }
 
             Update();

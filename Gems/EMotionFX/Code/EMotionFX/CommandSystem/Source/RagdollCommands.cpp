@@ -71,7 +71,7 @@ namespace EMotionFX
         newNodeConfig.m_debugName = jointName;
 
         // Create joint limit on default.
-        newNodeConfig.m_jointConfig = CommandRagdollHelpers::CreateJointLimitByType(AzPhysics::JointTypes::D6Joint, skeleton, joint);
+        newNodeConfig.m_jointConfig = CommandRagdollHelpers::CreateJointLimitByType(AzPhysics::JointType::D6Joint, skeleton, joint);
 
         if (index)
         {
@@ -87,7 +87,7 @@ namespace EMotionFX
     }
 
     AZStd::unique_ptr<AzPhysics::ApiJointConfiguration> CommandRagdollHelpers::CreateJointLimitByType(
-        AzPhysics::JointTypes jointType, const Skeleton* skeleton, const Node* node)
+        AzPhysics::JointType jointType, const Skeleton* skeleton, const Node* node)
     {
         const Pose* bindPose = skeleton->GetBindPose();
         const Transform& nodeBindTransform = bindPose->GetModelSpaceTransform(node->GetNodeIndex());
