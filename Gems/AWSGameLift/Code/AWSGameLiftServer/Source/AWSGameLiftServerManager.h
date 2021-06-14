@@ -112,14 +112,10 @@ namespace AWSGameLift
         bool OnHealthCheck();
 
         //! Remove connected player session id.
-        //! @param playerConnectionConfig Config for the player connection.
-        //! @return Whether the player is removed successfully.
-        bool RemoveConnectedPlayer(const AzFramework::PlayerConnectionConfig& playerConnectionConfig);
-
-        //! Remove connected player by the connection id.
         //! @param playerConnectionId Connection id of the player to remove.
-        //! @return Session id of the removed player. Empty if the player cannot be removed.
-        AZStd::string RemoveConnectedPlayerByConnectionId(uint32_t playerConnectionId);
+        //! @param outPlayerSessionId Session id of the removed player. Empty if the player cannot be removed.
+        //! @return Whether the player is removed successfully.
+        bool RemoveConnectedPlayer(uint32_t playerConnectionId, AZStd::string& outPlayerSessionId);
 
         AZStd::unique_ptr<GameLiftServerSDKWrapper> m_gameLiftServerSDKWrapper;
         bool m_serverSDKInitialized;
