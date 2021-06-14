@@ -75,6 +75,7 @@ namespace AWSGameLift
                     {{{"JoinSessionRequest", ""}}})
                 ->Event("SearchSessionsAsync", &AWSGameLiftSessionAsyncRequestBus::Events::SearchSessionsAsync,
                     {{{"SearchSessionsRequest", ""}}})
+                ->Event("LeaveSessionAsync", &AWSGameLiftSessionAsyncRequestBus::Events::LeaveSessionAsync)
                 ;
             behaviorContext
                 ->EBus<AzFramework::SessionAsyncRequestNotificationBus>("AWSGameLiftSessionAsyncRequestNotificationBus")
@@ -89,6 +90,7 @@ namespace AWSGameLift
                     {{{"JoinSessionRequest", ""}}})
                 ->Event("SearchSessions", &AWSGameLiftSessionRequestBus::Events::SearchSessions,
                     {{{"SearchSessionsRequest", ""}}})
+                ->Event("LeaveSession", &AWSGameLiftSessionRequestBus::Events::LeaveSession)
                 ;
         }
     }

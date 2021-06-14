@@ -294,11 +294,9 @@ namespace AWSGameLift
         AZ::JobContext* jobContext = nullptr;
         AWSCore::AWSCoreRequestBus::BroadcastResult(jobContext, &AWSCore::AWSCoreRequests::GetDefaultJobContext);
         AZ::Job* leaveSessionJob = AZ::CreateJobFunction(
-            []()
+            [this]()
             {
-                AZ_TracePrintf(AWSGameLiftClientManagerName, "Requesting to leave the current session asynchronously...");
-
-                AWSGameLift::LeaveSessionActivity::LeaveSession();
+                LeaveSession();
             },
             true, jobContext);
 
