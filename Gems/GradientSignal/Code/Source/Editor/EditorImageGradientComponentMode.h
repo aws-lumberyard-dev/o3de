@@ -21,9 +21,9 @@ namespace GradientSignal
     {
     public:
         EditorImageGradientComponentMode(const AZ::EntityComponentIdPair& entityComponentIdPair, AZ::Uuid componentType);
-        ~EditorImageGradientComponentMode();
+        ~EditorImageGradientComponentMode() override;
 
-        bool HandleMouseInteraction(const AzToolsFramework::ViewportInteraction::MouseInteractionEvent& mouseInteraction);
+        bool HandleMouseInteraction(const AzToolsFramework::ViewportInteraction::MouseInteractionEvent& mouseInteraction) override;
 
         void Refresh() override { }
 
