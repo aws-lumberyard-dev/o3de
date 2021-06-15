@@ -271,7 +271,8 @@ namespace AWSGameLift
         }
         else
         {
-            AZ_TracePrintf(AWSGameLiftClientManagerName, "Requesting CreatePlayerSession call against Amazon GameLift service ...");
+            AZ_TracePrintf(AWSGameLiftClientManagerName,
+                "Requesting CreatePlayerSession for player %s against Amazon GameLift service ...", joinSessionRequest.m_playerId.c_str());
 
             auto createPlayerSessionOutcome = JoinSessionActivity::CreatePlayerSession(*gameliftClient, joinSessionRequest);
 
