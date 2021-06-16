@@ -95,7 +95,6 @@ def C18243584_Joints_HingeSoftLimitsConstrained():
     Report.info_vector3(follower.position, "follower initial position:")
     leadInitialPosition = lead.position
         
-
     # 4) Wait for the follower to move above the lead or Timeout
     normalizedStartPos = JointsHelper.getRelativeVector(lead.position, follower.position)
     normalizedStartPos = normalizedStartPos.GetNormalizedSafe()

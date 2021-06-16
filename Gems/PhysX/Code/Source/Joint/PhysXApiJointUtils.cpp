@@ -22,8 +22,6 @@
 #include <Source/Joint/PhysXApiJointUtils.h>
 #include <Include/PhysX/NativeTypeIdentifiers.h>
 
-#pragma optimize("",off)
-
 namespace PhysX {
     namespace Utils 
     {
@@ -36,7 +34,7 @@ namespace PhysX {
         };
         PxJointActorData PxJointActorData::InvalidPxJointActorData;
 
-        PxJointActorData CalculateActorData(
+        PxJointActorData GetJointPxActors(
             AzPhysics::SceneHandle sceneHandle,
             AzPhysics::SimulatedBodyHandle parentBodyHandle,
             AzPhysics::SimulatedBodyHandle childBodyHandle)
@@ -194,7 +192,7 @@ namespace PhysX {
                 AzPhysics::SimulatedBodyHandle parentBodyHandle,
                 AzPhysics::SimulatedBodyHandle childBodyHandle) 
             {
-                PxJointActorData actorData = CalculateActorData(sceneHandle, parentBodyHandle, childBodyHandle);
+                PxJointActorData actorData = GetJointPxActors(sceneHandle, parentBodyHandle, childBodyHandle);
 
                 if (!actorData.parentActor || !actorData.childActor)
                 {
@@ -243,7 +241,7 @@ namespace PhysX {
                 AzPhysics::SimulatedBodyHandle parentBodyHandle,
                 AzPhysics::SimulatedBodyHandle childBodyHandle) 
             {
-                PxJointActorData actorData = CalculateActorData(sceneHandle, parentBodyHandle, childBodyHandle);
+                PxJointActorData actorData = GetJointPxActors(sceneHandle, parentBodyHandle, childBodyHandle);
 
                 if (!actorData.parentActor || !actorData.childActor)
                 {
@@ -276,7 +274,7 @@ namespace PhysX {
                 AzPhysics::SimulatedBodyHandle parentBodyHandle,
                 AzPhysics::SimulatedBodyHandle childBodyHandle) 
             {
-                PxJointActorData actorData = CalculateActorData(sceneHandle, parentBodyHandle, childBodyHandle);
+                PxJointActorData actorData = GetJointPxActors(sceneHandle, parentBodyHandle, childBodyHandle);
 
                 if (!actorData.parentActor || !actorData.childActor)
                 {
@@ -310,7 +308,7 @@ namespace PhysX {
                 AzPhysics::SimulatedBodyHandle parentBodyHandle,
                 AzPhysics::SimulatedBodyHandle childBodyHandle) 
             {
-                PxJointActorData actorData = CalculateActorData(sceneHandle, parentBodyHandle, childBodyHandle);
+                PxJointActorData actorData = GetJointPxActors(sceneHandle, parentBodyHandle, childBodyHandle);
 
                 if (!actorData.parentActor || !actorData.childActor)
                 {
