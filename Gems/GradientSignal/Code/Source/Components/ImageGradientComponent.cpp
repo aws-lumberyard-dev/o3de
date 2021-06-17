@@ -276,4 +276,14 @@ namespace GradientSignal
         m_configuration.m_tilingY = tilingY;
         LmbrCentral::DependencyNotificationBus::Event(GetEntityId(), &LmbrCentral::DependencyNotificationBus::Events::OnCompositionChanged);
     }
+
+    uint32_t ImageGradientComponent::GetImageHeight() const
+    {
+        return m_configuration.m_imageAsset.Get()->m_imageHeight;
+    }
+
+    uint32_t ImageGradientComponent::GetImageWidth() const
+    {
+        return m_configuration.m_imageAsset.Get()->m_imageWidth;
+    }
 }

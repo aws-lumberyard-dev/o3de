@@ -28,6 +28,10 @@ namespace GradientSignal
         void Refresh() override { }
 
     private:
+        void HandlePaintArea(const AZ::Vector3& center);
+        bool HandleMouseEvent(const AzToolsFramework::ViewportInteraction::MouseInteractionEvent& mouseInteraction);
+
         AZStd::shared_ptr<AzToolsFramework::BrushManipulator> m_brushManipulator;
+        bool m_paintMode = false;
     };
 } // namespace GradientSignal

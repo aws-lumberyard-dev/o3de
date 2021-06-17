@@ -96,6 +96,9 @@ namespace GradientSignal
         float GetTilingY() const override;
         void SetTilingY(float tilingY) override;
 
+        uint32_t GetImageHeight() const override;
+        uint32_t GetImageWidth() const override;
+
     private:
         ImageGradientConfig m_configuration;
         LmbrCentral::DependencyMonitor m_dependencyMonitor;
