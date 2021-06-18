@@ -51,11 +51,32 @@ $ pip install -r requirements.txt
 See https://docs.aws.amazon.com/cdk/latest/guide/environments.html for more information including how to pass parameters
 to use for environment variables.
 
+## Edit the sample fleet configurations
+
+Before deploy the CDK application, please update the sample fleet configurations defined in 
+aws_gamelift/fleet_configurations.py with project specific settings.
+
 ## Synthesize the project
+
 At this point you can now synthesize the CloudFormation template for this code.
 
 ```
 $ cdk synth
+```
+
+## Optional features
+To create a game session queue using this CDK application, provide the following context variable 
+when synthesize the CloudFormation template or deploy the application:
+
+```
+$ cdk deploy -c create_game_session_queue=true
+```
+
+You can also deploy a support stack which is used to upload local build files to S3 and provide GameLift access 
+to the S3 objects when create GameLift builds:
+
+```
+$ cdk deploy -c upload-with-support-stack=true --all
 ```
 
 You may need todo a one time bootstrap, once per account, per region. The CDK application will prompt you on this.

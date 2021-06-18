@@ -11,7 +11,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 
 from aws_cdk import core
 from aws_cdk import aws_gamelift as gamelift
+
 import typing
+import json
 
 
 class GameLiftStack(core.Stack):
@@ -27,19 +29,40 @@ class GameLiftStack(core.Stack):
 
         self._stack_name = stack_name
 
+        fleets = []
         queue_destinations = []
         for index in range(len(fleet_configurations)):
             fleet_configuration = fleet_configurations[index]
-            fleet = self._create_fleet(fleet_configuration, index)
+            # Create a new GameLift fleet using the configuration
+            fleets.append(self._create_fleet(fleet_configuration, index))
 
             if fleet_configuration.get('alias_configuration'):
-                alias = self._create_alias(fleet_configuration['alias_configuration'], fleet.attr_fleet_id)
+                # Create an alias for the fleet if the alias configuration is provided
+                alias = self._create_alias(fleet_configuration['alias_configuration'], fleets[index].attr_fleet_id)
                 queue_destinations.append(alias.get_att('Arn').to_string())
             else:
-                queue_destinations.append(fleet.get_att('Arn').to_string())
+                queue_destinations.append(fleets[index].get_att('Arn').to_string())
+
+        # Export the GameLift fleet ids as a stack output
+        fleets_output = core.CfnOutput(
+            self,
+            id='GameLiftFleets',
+            description='List of GameLift fleet ids',
+            export_name=f'{self._stack_name}:GameLiftFleets',
+            value=json.dumps([fleet.attr_fleet_id for fleet in fleets])
+        )
 
         if create_game_session_queue:
+            # Create a game session queue which fulfills game session placement requests using the fleets
             game_session_queue = self._create_game_session_queue(queue_destinations)
+
+            # Export the game session queue name as a stack output
+            game_session_queue_output = core.CfnOutput(
+                self,
+                id='GameSessionQueue',
+                description='Name of the game session queue',
+                export_name=f'{self._stack_name}:GameSessionQueue',
+                value=game_session_queue.name)
 
     def _create_fleet(self, fleet_configuration: dict, identifier: int) -> gamelift.CfnFleet:
         """
