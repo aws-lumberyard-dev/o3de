@@ -25,6 +25,12 @@ namespace AZ::NativeUI
         NONE,
     };
 
+    enum class Mode
+    {
+        Console = 0,
+        UI,
+    };
+
     class NativeUIRequests
     {
     public:
@@ -55,6 +61,15 @@ namespace AZ::NativeUI
         //! Displays an assert dialog box
         //! Returns the action selected by the user
         virtual AssertAction DisplayAssertDialog([[maybe_unused]] const AZStd::string& message) const { return AssertAction::NONE; }
+
+        //! Set the operation mode of the native UI system
+        void SetMode(NativeUI::Mode mode)
+        {
+            m_mode = mode;
+        }
+
+    protected:
+        NativeUI::Mode m_mode = NativeUI::Mode::Console;
     };
 
     class NativeUIEBusTraits
