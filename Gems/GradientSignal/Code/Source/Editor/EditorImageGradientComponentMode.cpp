@@ -62,36 +62,38 @@ namespace GradientSignal
                 GradientRequestBus::Event(GetEntityId(), &GradientRequestBus::Events::SetValue, params, newValue);
             };
 
-            AZ::Aabb m_shapeBounds;
+            AZ::Aabb shapeBounds;
             LmbrCentral::ShapeComponentRequestsBus::EventResult(
-                m_shapeBounds, GetEntityId(), &LmbrCentral::ShapeComponentRequestsBus::Events::GetEncompassingAabb);
+                shapeBounds, GetEntityId(), &LmbrCentral::ShapeComponentRequestsBus::Events::GetEncompassingAabb);
 
-            uint32_t m_imageHeight, m_imageWidth;
-            ImageGradientRequestBus::EventResult(m_imageHeight, GetEntityId(), &ImageGradientRequestBus::Events::GetImageHeight);
-            ImageGradientRequestBus::EventResult(m_imageWidth, GetEntityId(), &ImageGradientRequestBus::Events::GetImageWidth);
+            uint32_t imageHeight = 0, imageWidth = 0;
+            ImageGradientRequestBus::EventResult(imageHeight, GetEntityId(), &ImageGradientRequestBus::Events::GetImageHeight);
+            ImageGradientRequestBus::EventResult(imageWidth, GetEntityId(), &ImageGradientRequestBus::Events::GetImageWidth);
 
-            float xStep = m_shapeBounds.GetXExtent() / m_imageWidth;
-            float yStep = m_shapeBounds.GetYExtent() / m_imageHeight;
+            const float xStep = shapeBounds.GetXExtent() / imageWidth;
+            const float yStep = shapeBounds.GetYExtent() / imageHeight;
 
             const float manipulatorRadius = 2.0f;
-            float xCenter = center.GetX();
-            float yCenter = center.GetY();
+            const float manipulatorRadiusSq = manipulatorRadius * manipulatorRadius;
+            const float xCenter = center.GetX();
+            const float yCenter = center.GetY();
 
             for (float x = xCenter - manipulatorRadius; x <= xCenter; x += xStep)
             {
                 for (float y = yCenter - manipulatorRadius; y <= yCenter; y += yStep)
                 {
-                    float xDiff = x - xCenter;
-                    float yDiff = y - yCenter;
-                    if ((xDiff * xDiff) + (yDiff * yDiff) <= (manipulatorRadius * manipulatorRadius))
+                    const float xDiffSq = (x - xCenter) * (x - xCenter);
+                    const float yDiffSq = (y - yCenter) * (y - yCenter);
+                    if (xDiffSq + yDiffSq <= manipulatorRadiusSq)
                     {
-                        float symmetricX = xCenter - (x - xCenter);
-                        float symmetricY = yCenter - (y - yCenter);
+                        const float symmetricX = xCenter - (x - xCenter);
+                        const float symmetricY = yCenter - (y - yCenter);
 
-                        updateFunction(x, y);
-                        updateFunction(x, symmetricY);
-                        updateFunction(symmetricX, y);
-                        updateFunction(symmetricX, symmetricY);
+                        for (const auto [xx, yy] : { AZStd::make_pair(x, y), AZStd::make_pair(x, symmetricY),
+                                                     AZStd::make_pair(symmetricX, y), AZStd::make_pair(symmetricX, symmetricY) })
+                        {
+                            updateFunction(xx, yy);
+                        }
                     }
                 }
             }
