@@ -1,12 +1,12 @@
 
-# Welcome to your CDK Python project!
+# Welcome to O3DE GameLift Sample Project!
 
 This is an optional CDK application that provides two stacks:
 
   * A GameLift stack that contains all the GameLift resources required to host game servers
   * An optional support stack which is used to upload local build files and create GameLift builds
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+The `cdk.json` file tells the CDK Toolkit how to execute this application.
 
 This project is set up like a standard Python project.  The initialization
 process also creates a virtualenv within this project, stored under the `.env`
@@ -53,8 +53,9 @@ to use for environment variables.
 
 ## Edit the sample fleet configurations
 
-Before deploy the CDK application, please update the sample fleet configurations defined in 
-aws_gamelift/fleet_configurations.py with project specific settings.
+Before deploy the CDK application, please update the sample fleet configurations defined in the
+[sample fleet configurations](aws_gamelift/fleet_configurations.py)
+ with project specific settings.
 
 ## Synthesize the project
 
@@ -92,5 +93,7 @@ command.
  * `cdk deploy`      deploy this stack to your default AWS account/region
  * `cdk diff`        compare deployed stack with current state
  * `cdk docs`        open CDK documentation
+ 
+## GameLift reference and best practise
+https://docs.aws.amazon.com/gamelift/index.html
 
-Enjoy!

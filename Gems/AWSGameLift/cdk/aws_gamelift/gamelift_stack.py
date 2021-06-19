@@ -9,11 +9,10 @@ remove or modify any license notices. This file is distributed on an "AS IS" BAS
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 """
 
+import typing
+
 from aws_cdk import core
 from aws_cdk import aws_gamelift as gamelift
-
-import typing
-import json
 
 
 class GameLiftStack(core.Stack):
@@ -29,19 +28,30 @@ class GameLiftStack(core.Stack):
 
         self._stack_name = stack_name
 
-        fleets = []
+        fleet_ids = []
         queue_destinations = []
         for index in range(len(fleet_configurations)):
             fleet_configuration = fleet_configurations[index]
             # Create a new GameLift fleet using the configuration
-            fleets.append(self._create_fleet(fleet_configuration, index))
+            fleet_ids.append(self._create_fleet(fleet_configuration, index).attr_fleet_id)
+            destination_arn = core.Fn.sub(
+                body='arn:${AWS::Partition}:gamelift:${AWS::Region}::fleet/${FleetId}',
+                variables={
+                    'FleetId': fleet_ids[index],
+                }
+            )
 
             if fleet_configuration.get('alias_configuration'):
                 # Create an alias for the fleet if the alias configuration is provided
-                alias = self._create_alias(fleet_configuration['alias_configuration'], fleets[index].attr_fleet_id)
-                queue_destinations.append(alias.get_att('Arn').to_string())
-            else:
-                queue_destinations.append(fleets[index].get_att('Arn').to_string())
+                alias = self._create_alias(fleet_configuration['alias_configuration'], fleet_ids[index])
+                destination_arn = core.Fn.sub(
+                    body='arn:${AWS::Partition}:gamelift:${AWS::Region}::alias/${AliasId}',
+                    variables={
+                        'AliasId': alias.attr_alias_id,
+                    }
+                )
+
+            queue_destinations.append(destination_arn)
 
         # Export the GameLift fleet ids as a stack output
         fleets_output = core.CfnOutput(
@@ -49,7 +59,7 @@ class GameLiftStack(core.Stack):
             id='GameLiftFleets',
             description='List of GameLift fleet ids',
             export_name=f'{self._stack_name}:GameLiftFleets',
-            value=json.dumps([fleet.attr_fleet_id for fleet in fleets])
+            value=','.join(fleet_ids)
         )
 
         if create_game_session_queue:
@@ -78,7 +88,7 @@ class GameLiftStack(core.Stack):
             certificate_configuration=gamelift.CfnFleet.CertificateConfigurationProperty(
                 certificate_type=fleet_configuration['certificate_configuration'].get('certificate_type')
             ) if fleet_configuration.get('certificate_configuration') else None,
-            description='Amazon GameLift fleet to host game servers.',
+            description=fleet_configuration.get('description'),
             ec2_inbound_permissions=[
                 gamelift.CfnFleet.IpPermissionProperty(
                     **inbound_permission
@@ -122,6 +132,7 @@ class GameLiftStack(core.Stack):
             build = gamelift.CfnBuild(
                 self,
                 id=f'{self._stack_name}-GameLiftBuild{identifier}',
+                name=f'{self._stack_name}-GameLiftBuild{identifier}',
                 operating_system=build_configuration.get('operating_system'),
                 storage_location=gamelift.CfnBuild.S3LocationProperty(
                     **build_configuration['storage_location']

@@ -9,9 +9,9 @@ remove or modify any license notices. This file is distributed on an "AS IS" BAS
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 """
 
-from aws_cdk import core
 from aws_cdk import aws_iam as iam
 from aws_cdk import aws_s3_assets as assets
+from aws_cdk import core
 
 
 class SupportStack(core.Stack):

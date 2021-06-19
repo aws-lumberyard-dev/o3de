@@ -9,17 +9,13 @@ remove or modify any license notices. This file is distributed on an "AS IS" BAS
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 """
 
-from aws_cdk import core
-from aws_gamelift.gamelift_stack import GameLiftStack
-from aws_gamelift.support_stack import SupportStack
-from aws_gamelift.fleet_configurations import FLEET_CONFIGURATIONS
-
 import copy
 
-# Standard Tag Key for project based tags
-O3DE_PROJECT_TAG_NAME = 'O3DEProject'
-# Standard Tag Key for feature based tags
-O3DE_FEATURE_TAG_NAME = 'O3DEFeature'
+from aws_cdk import core
+
+from aws_gamelift.fleet_configurations import FLEET_CONFIGURATIONS
+from aws_gamelift.gamelift_stack import GameLiftStack
+from aws_gamelift.support_stack import SupportStack
 
 
 class AWSGameLift(core.Construct):
@@ -31,6 +27,7 @@ class AWSGameLift(core.Construct):
                  id_: str,
                  project_name: str,
                  feature_name: str,
+                 tags: dict,
                  env: core.Environment) -> None:
         super().__init__(scope, id_)
 
@@ -45,7 +42,7 @@ class AWSGameLift(core.Construct):
                 stack_name=stack_name,
                 fleet_configurations=fleet_configurations,
                 description='(Optional) Contains resources for creating GameLift builds with local files',
-                tags={O3DE_PROJECT_TAG_NAME: project_name, O3DE_FEATURE_TAG_NAME: feature_name},
+                tags=tags,
                 env=env
             )
 
@@ -57,6 +54,6 @@ class AWSGameLift(core.Construct):
             fleet_configurations=fleet_configurations,
             create_game_session_queue=self.node.try_get_context('create_game_session_queue') == 'true',
             description=f'Contains resources for the AWS GameLift Gem stack as part of the {project_name} project',
-            tags={O3DE_PROJECT_TAG_NAME: project_name, O3DE_FEATURE_TAG_NAME: feature_name},
+            tags=tags,
             env=env
         )
