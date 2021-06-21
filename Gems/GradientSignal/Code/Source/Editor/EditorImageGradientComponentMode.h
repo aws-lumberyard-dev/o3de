@@ -32,6 +32,6 @@ namespace GradientSignal
         bool HandleMouseEvent(const AzToolsFramework::ViewportInteraction::MouseInteractionEvent& mouseInteraction);
 
         AZStd::shared_ptr<AzToolsFramework::BrushManipulator> m_brushManipulator;
-        bool m_paintMode = false;
+        bool m_isPainting = false;
     };
 } // namespace GradientSignal

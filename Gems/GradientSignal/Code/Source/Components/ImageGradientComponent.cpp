@@ -279,11 +279,17 @@ namespace GradientSignal
 
     uint32_t ImageGradientComponent::GetImageHeight() const
     {
-        return m_configuration.m_imageAsset.Get()->m_imageHeight;
+        if (!GetImageAssetPath().empty())
+            return m_configuration.m_imageAsset.Get()->m_imageHeight;
+
+        return 0;
     }
 
     uint32_t ImageGradientComponent::GetImageWidth() const
     {
-        return m_configuration.m_imageAsset.Get()->m_imageWidth;
+        if (!GetImageAssetPath().empty())
+            return m_configuration.m_imageAsset.Get()->m_imageWidth;
+
+        return 0;
     }
 }

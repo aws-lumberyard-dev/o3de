@@ -51,9 +51,9 @@ namespace GradientSignal
 
     void EditorImageGradientComponentMode::HandlePaintArea(const AZ::Vector3& center)
     {
-        if (m_paintMode)
+        if (m_isPainting)
         {
-            auto updateFunction = [this](float x, float y)
+            auto SetValue = [this](float x, float y)
             {
                 GradientSignal::GradientSampleParams params;
                 params.m_position = AZ::Vector3(x, y, 0.0f);
@@ -78,22 +78,15 @@ namespace GradientSignal
             const float xCenter = center.GetX();
             const float yCenter = center.GetY();
 
-            for (float x = xCenter - manipulatorRadius; x <= xCenter; x += xStep)
+            for (float y = yCenter - manipulatorRadius; y <= yCenter + manipulatorRadius; y += yStep)
             {
-                for (float y = yCenter - manipulatorRadius; y <= yCenter; y += yStep)
+                for (float x = xCenter - manipulatorRadius; x <= xCenter + manipulatorRadius; x += xStep)
                 {
                     const float xDiffSq = (x - xCenter) * (x - xCenter);
                     const float yDiffSq = (y - yCenter) * (y - yCenter);
                     if (xDiffSq + yDiffSq <= manipulatorRadiusSq)
                     {
-                        const float symmetricX = xCenter - (x - xCenter);
-                        const float symmetricY = yCenter - (y - yCenter);
-
-                        for (const auto [xx, yy] : { AZStd::make_pair(x, y), AZStd::make_pair(x, symmetricY),
-                                                     AZStd::make_pair(symmetricX, y), AZStd::make_pair(symmetricX, symmetricY) })
-                        {
-                            updateFunction(xx, yy);
-                        }
+                        SetValue(x, y);
                     }
                 }
             }
@@ -147,7 +140,7 @@ namespace GradientSignal
         {
             if (mouseInteraction.m_mouseInteraction.m_mouseButtons.Left())
             {
-                m_paintMode = true;
+                m_isPainting = true;
                 HandleMouseEvent(mouseInteraction);
                 return true;
             }
@@ -156,7 +149,7 @@ namespace GradientSignal
         {
             if (mouseInteraction.m_mouseInteraction.m_mouseButtons.Left())
             {
-                m_paintMode = false;
+                m_isPainting = false;
                 return true;
             }
         }
