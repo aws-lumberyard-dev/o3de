@@ -10,6 +10,7 @@
 *
 */
 
+#include <Atom/RHI/RHIUtils.h>
 #include <Atom/RHI/CommandList.h>
 #include <Atom/RHI/FrameGraphAttachmentInterface.h>
 #include <Atom/RHI/FrameGraphBuilder.h>
@@ -61,6 +62,11 @@ namespace AZ
             {
                 const PassAttachmentBinding& binding = m_attachmentBindings[slotIndex];
 
+                if (!binding.m_attachment)
+                {
+                    continue;
+                }
+
                 // Handle the depth-stencil attachment. There should be only one.
                 if (binding.m_scopeAttachmentUsage == RHI::ScopeAttachmentUsage::DepthStencil)
                 {
@@ -98,6 +104,10 @@ namespace AZ
                 {
                     continue;
                 }
+                if (!binding.m_attachment)
+                {
+                    continue;
+                }
 
                 if (binding.m_scopeAttachmentUsage == RHI::ScopeAttachmentUsage::RenderTarget
                     || binding.m_scopeAttachmentUsage == RHI::ScopeAttachmentUsage::DepthStencil)
@@ -128,7 +138,7 @@ namespace AZ
         }
 
 
-        void RenderPass::OnBuildAttachmentsFinishedInternal()
+        void RenderPass::InitializeInternal()
         {
             if (m_shaderResourceGroup != nullptr)
             {
@@ -165,7 +175,7 @@ namespace AZ
                     }
                     else
                     {
-                        AZ_Error("Pass System", false, "[Pass %s] Could not bind shader buffer index '%s' because it has no attachment.", GetName().GetCStr(), shaderName.GetCStr());
+                        AZ_Error( "Pass System", AZ::RHI::IsNullRenderer(), "[Pass %s] Could not bind shader buffer index '%s' because it has no attachment.", GetName().GetCStr(), shaderName.GetCStr());
                         binding.m_shaderInputIndex = PassAttachmentBinding::ShaderInputNoBind;
                     }
                 }
