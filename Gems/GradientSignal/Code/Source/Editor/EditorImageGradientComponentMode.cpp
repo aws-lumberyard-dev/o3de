@@ -20,6 +20,8 @@
 #include <AzToolsFramework/ViewportSelection/EditorSelectionUtil.h>
 #include <GradientSignal/Ebuses/GradientRequestBus.h>
 #include <GradientSignal/Ebuses/ImageGradientRequestBus.h>
+#include <GradientSignal/Ebuses/PaintBrushRequestBus.h>
+#include <GradientSignal/Ebuses/PaintBrushNotificationBus.h>
 #include <LmbrCentral/Dependency/DependencyNotificationBus.h>
 
 namespace GradientSignal
@@ -28,8 +30,10 @@ namespace GradientSignal
         const AZ::EntityComponentIdPair& entityComponentIdPair, AZ::Uuid componentType)
         : EditorBaseComponentMode(entityComponentIdPair, componentType)
     {
+        PaintBrushNotificationBus::Handler::BusConnect();
+        PaintBrushRequestBus::EventResult(m_radius, GetEntityId(), &PaintBrushRequestBus::Events::GetRadius);
+
         const AZ::Color manipulatorColor = AZ::Color(1.0f, 0.0f, 0.0f, 1.0f);
-        const float manipulatorRadius = 2.0f;
         const float manipulatorWidth = 0.05f;
 
         AZ::Transform worldFromLocal = AZ::Transform::CreateIdentity();
@@ -38,14 +42,15 @@ namespace GradientSignal
         m_brushManipulator = AzToolsFramework::BrushManipulator::MakeShared(worldFromLocal);
         Refresh();
 
-        m_brushManipulator->SetView(AzToolsFramework::CreateManipulatorViewProjectedCircle(
-            *m_brushManipulator, manipulatorColor, manipulatorRadius, manipulatorWidth));
+        m_brushManipulator->SetView(
+            AzToolsFramework::CreateManipulatorViewProjectedCircle(*m_brushManipulator, manipulatorColor, m_radius, manipulatorWidth));
 
         m_brushManipulator->Register(AzToolsFramework::g_mainManipulatorManagerId);
     }
 
     EditorImageGradientComponentMode::~EditorImageGradientComponentMode()
     {
+        PaintBrushNotificationBus::Handler::BusDisconnect();
         m_brushManipulator->Unregister();
     }
 
@@ -53,12 +58,19 @@ namespace GradientSignal
     {
         if (m_isPainting)
         {
-            auto SetValue = [this](float x, float y)
+            float intensity = 1.0f, opacity = 1.0f;
+            PaintBrushRequestBus::EventResult(intensity, GetEntityId(), &PaintBrushRequestBus::Events::GetIntensity);
+            PaintBrushRequestBus::EventResult(opacity, GetEntityId(), &PaintBrushRequestBus::Events::GetOpacity);
+
+            auto SetValue = [this, intensity, opacity](float x, float y)
             {
                 GradientSignal::GradientSampleParams params;
                 params.m_position = AZ::Vector3(x, y, 0.0f);
 
-                const float newValue = 1.0f;
+                float oldValue = 0.0f;
+                GradientRequestBus::EventResult(oldValue, GetEntityId(), &GradientRequestBus::Events::GetValue, params);
+
+                float newValue = opacity * intensity + (1 - opacity) * oldValue;
                 GradientRequestBus::Event(GetEntityId(), &GradientRequestBus::Events::SetValue, params, newValue);
             };
 
@@ -73,14 +85,13 @@ namespace GradientSignal
             const float xStep = shapeBounds.GetXExtent() / imageWidth;
             const float yStep = shapeBounds.GetYExtent() / imageHeight;
 
-            const float manipulatorRadius = 2.0f;
-            const float manipulatorRadiusSq = manipulatorRadius * manipulatorRadius;
+            const float manipulatorRadiusSq = m_radius * m_radius;
             const float xCenter = center.GetX();
             const float yCenter = center.GetY();
 
-            for (float y = yCenter - manipulatorRadius; y <= yCenter + manipulatorRadius; y += yStep)
+            for (float y = yCenter - m_radius; y <= yCenter + m_radius; y += yStep)
             {
-                for (float x = xCenter - manipulatorRadius; x <= xCenter + manipulatorRadius; x += xStep)
+                for (float x = xCenter - m_radius; x <= xCenter + m_radius; x += xStep)
                 {
                     const float xDiffSq = (x - xCenter) * (x - xCenter);
                     const float yDiffSq = (y - yCenter) * (y - yCenter);
@@ -154,5 +165,15 @@ namespace GradientSignal
             }
         }
         return false;
+    }
+
+    void EditorImageGradientComponentMode::OnRadiusChanged(const float radius)
+    {
+        m_radius = radius;
+
+        const AZ::Color manipulatorColor = AZ::Color(1.0f, 0.0f, 0.0f, 1.0f);
+        const float manipulatorWidth = 0.05f;
+        m_brushManipulator->SetView(
+            AzToolsFramework::CreateManipulatorViewProjectedCircle(*m_brushManipulator, manipulatorColor, m_radius, manipulatorWidth));
     }
 } // namespace GradientSignal

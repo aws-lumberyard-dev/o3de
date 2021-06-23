@@ -25,6 +25,7 @@ namespace GradientSignal
             serializeContext->Class<EditorImageGradientComponent, BaseClassType>()
                 ->Version(1)
                 ->Field("ComponentMode", &EditorImageGradientComponent::m_componentModeDelegate)
+                ->Field("paintBrush", &EditorImageGradientComponent::m_paintBrush)
                 ;
 
             if (auto editContext = serializeContext->GetEditContext())
@@ -37,6 +38,8 @@ namespace GradientSignal
                     ->Attribute(AZ::Edit::Attributes::Category, s_categoryName)
                     ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC_CE("Game"))
                     ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
+                    ->DataElement(0, &EditorImageGradientComponent::m_paintBrush, "Paint Brush", "Paint Brush Properties")
+                    ->Attribute(AZ::Edit::Attributes::Visibility, &EditorImageGradientComponent::InComponentMode)
                     ->DataElement(AZ::Edit::UIHandlers::Default, &EditorImageGradientComponent::m_componentModeDelegate,
                         "Component Mode", "Image Gradient Component Mode")
                     ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly);
@@ -44,9 +47,17 @@ namespace GradientSignal
         }
     }
 
+    bool EditorImageGradientComponent::InComponentMode() 
+    {
+        return m_componentModeDelegate.AddedToComponentMode();
+    }
+
     void EditorImageGradientComponent::Activate()
     {
         BaseClassType::Activate();
+        m_paintBrush.m_ownerEntityId = GetEntityId();
+        m_paintBrush.Activate();
+
         m_componentModeDelegate.ConnectWithSingleComponentMode<EditorImageGradientComponent, EditorImageGradientComponentMode>(
             AZ::EntityComponentIdPair(GetEntityId(), GetId()), nullptr);
     }
@@ -54,6 +65,7 @@ namespace GradientSignal
     void EditorImageGradientComponent::Deactivate()
     {
         m_componentModeDelegate.Disconnect();
+        m_paintBrush.Deactivate();
         BaseClassType::Deactivate();
     }
 }

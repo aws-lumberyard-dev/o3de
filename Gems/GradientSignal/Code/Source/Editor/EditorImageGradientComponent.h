@@ -12,10 +12,10 @@
 
 #pragma once
 
-#include <GradientSignal/Editor/EditorGradientComponentBase.h>
-#include <Components/ImageGradientComponent.h>
-
 #include <AzToolsFramework/ComponentMode/ComponentModeDelegate.h>
+#include <Components/ImageGradientComponent.h>
+#include <GradientSignal/Editor/EditorGradientComponentBase.h>
+#include <GradientSignal/PaintBrush.h>
 
 namespace GradientSignal
 {
@@ -30,6 +30,8 @@ namespace GradientSignal
         void Activate() override;
         void Deactivate() override;
 
+        bool InComponentMode();
+
         static constexpr const char* const s_categoryName = "Gradients";
         static constexpr const char* const s_componentName = "Image Gradient";
         static constexpr const char* const s_componentDescription = "Generates a gradient by sampling an image asset";
@@ -39,6 +41,9 @@ namespace GradientSignal
 
     protected:
         using ComponentModeDelegate = AzToolsFramework::ComponentModeFramework::ComponentModeDelegate;
-        ComponentModeDelegate m_componentModeDelegate; 
+        ComponentModeDelegate m_componentModeDelegate;
+
+    private:
+        PaintBrush m_paintBrush;
     };
 }

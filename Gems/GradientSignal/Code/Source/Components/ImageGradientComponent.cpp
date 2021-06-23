@@ -19,6 +19,7 @@
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/SerializeContext.h>
 #include <GradientSignal/Ebuses/GradientTransformRequestBus.h>
+#include <GradientSignal/Ebuses/PaintBrushRequestBus.h>
 
 namespace GradientSignal
 {

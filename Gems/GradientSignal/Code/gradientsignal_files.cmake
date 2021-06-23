@@ -12,12 +12,15 @@
 set(FILES
     Source/GradientSignal_precompiled.h
     Include/GradientSignal/GradientSampler.h
+    Include/GradientSignal/PaintBrush.h
     Include/GradientSignal/SmoothStep.h
     Include/GradientSignal/ImageAsset.h
     Include/GradientSignal/ImageSettings.h
     Include/GradientSignal/PerlinImprovedNoise.h
     Include/GradientSignal/Util.h
     Include/GradientSignal/GradientImageConversion.h
+    Include/GradientSignal/Ebuses/PaintBrushNotificationBus.h
+    Include/GradientSignal/Ebuses/PaintBrushRequestBus.h
     Include/GradientSignal/Ebuses/GradientTransformRequestBus.h
     Include/GradientSignal/Ebuses/GradientRequestBus.h
     Include/GradientSignal/Ebuses/GradientPreviewRequestBus.h
@@ -81,6 +84,7 @@ set(FILES
     Source/GradientSampler.cpp
     Source/GradientSignalSystemComponent.cpp
     Source/GradientSignalSystemComponent.h
+    Source/PaintBrush.cpp
     Source/SmoothStep.cpp
     Source/ImageAsset.cpp
     Source/ImageSettings.cpp

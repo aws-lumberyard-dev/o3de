@@ -14,10 +14,13 @@
 
 #include <AzToolsFramework/ComponentMode/EditorBaseComponentMode.h>
 #include <AzToolsFramework/Manipulators/BrushManipulator.h>
+#include <GradientSignal/Ebuses/PaintBrushNotificationBus.h>
 
 namespace GradientSignal
 {
-    class EditorImageGradientComponentMode : public AzToolsFramework::ComponentModeFramework::EditorBaseComponentMode
+    class EditorImageGradientComponentMode
+        : public AzToolsFramework::ComponentModeFramework::EditorBaseComponentMode
+        , private PaintBrushNotificationBus::Handler
     {
     public:
         EditorImageGradientComponentMode(const AZ::EntityComponentIdPair& entityComponentIdPair, AZ::Uuid componentType);
@@ -27,11 +30,17 @@ namespace GradientSignal
 
         void Refresh() override { }
 
+    protected:
+        ////////////////////////////////////////////////////////////////////////
+        // PaintBrushNotificationBus
+        void OnRadiusChanged(const float radius) override;
+
     private:
         void HandlePaintArea(const AZ::Vector3& center);
         bool HandleMouseEvent(const AzToolsFramework::ViewportInteraction::MouseInteractionEvent& mouseInteraction);
 
         AZStd::shared_ptr<AzToolsFramework::BrushManipulator> m_brushManipulator;
         bool m_isPainting = false;
+        float m_radius = 2.0f;
     };
 } // namespace GradientSignal
