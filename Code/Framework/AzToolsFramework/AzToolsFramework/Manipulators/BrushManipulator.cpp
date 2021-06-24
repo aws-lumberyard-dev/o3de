@@ -37,8 +37,13 @@ namespace AzToolsFramework
             mouseInteraction);
     }
 
-    void BrushManipulator::SetView(AZStd::shared_ptr<ManipulatorView> view)
+    void BrushManipulator::SetView(AZStd::shared_ptr<ManipulatorViewProjectedCircle> view)
     {
         m_manipulatorView = AZStd::move(view);
+    }
+
+    void BrushManipulator::SetRadius(const float radius)
+    {
+        m_manipulatorView->SetRadius(radius);
     }
 } // namespace AzToolsFramework

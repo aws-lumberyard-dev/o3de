@@ -31,8 +31,7 @@ namespace GradientSignal
         void Refresh() override { }
 
     protected:
-        ////////////////////////////////////////////////////////////////////////
-        // PaintBrushNotificationBus
+        // PaintBrushNotificationBus overrides
         void OnRadiusChanged(const float radius) override;
 
     private:

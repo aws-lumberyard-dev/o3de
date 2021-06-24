@@ -20,7 +20,7 @@
 
 namespace AzToolsFramework
 {
-    class ManipulatorView;
+    class ManipulatorViewProjectedCircle;
 
     class BrushManipulator : public BaseManipulator, public ManipulatorSpace
     {
@@ -62,7 +62,8 @@ namespace AzToolsFramework
             const ManipulatorManagerState& managerState, AzFramework::DebugDisplayRequests& debugDisplay,
             const AzFramework::CameraState& cameraState, const ViewportInteraction::MouseInteraction& mouseInteraction) override;
 
-        void SetView(AZStd::shared_ptr<ManipulatorView> view);
+        void SetView(AZStd::shared_ptr<ManipulatorViewProjectedCircle> view);
+        void SetRadius(const float radius);
 
     private:
         struct StartInternal
@@ -83,7 +84,7 @@ namespace AzToolsFramework
 
         ActionInternal m_actionInternal;
 
-        AZStd::shared_ptr<ManipulatorView> m_manipulatorView;
+        AZStd::shared_ptr<ManipulatorViewProjectedCircle> m_manipulatorView;
     };
 } // namespace AzToolsFramework
 #pragma once

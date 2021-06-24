@@ -594,6 +594,11 @@ namespace AzToolsFramework
         RefreshBoundInternal(managerId, manipulatorId, torusBound);
     }
 
+    void ManipulatorViewProjectedCircle::SetRadius(float radius)
+    {
+        m_radius = radius;
+    }
+
     void ManipulatorViewCircle::Draw(
         const ManipulatorManagerId managerId,
         const ManipulatorManagerState& /*managerState*/,

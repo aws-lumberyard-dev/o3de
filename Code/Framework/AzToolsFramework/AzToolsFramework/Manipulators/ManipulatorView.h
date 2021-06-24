@@ -318,6 +318,8 @@ namespace AzToolsFramework
             const ManipulatorState& manipulatorState, AzFramework::DebugDisplayRequests& debugDisplay,
             const AzFramework::CameraState& cameraState, const ViewportInteraction::MouseInteraction& mouseInteraction) override;
 
+        void SetRadius(float radius);
+
         AZ::Vector3 m_axis = AZ::Vector3::CreateAxisZ();
         float m_width = 0.5f;
         float m_radius = 2.0f;

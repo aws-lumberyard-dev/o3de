@@ -30,7 +30,7 @@ namespace GradientSignal
         void Activate() override;
         void Deactivate() override;
 
-        bool InComponentMode();
+        bool InComponentMode() const;
 
         static constexpr const char* const s_categoryName = "Gradients";
         static constexpr const char* const s_componentName = "Image Gradient";

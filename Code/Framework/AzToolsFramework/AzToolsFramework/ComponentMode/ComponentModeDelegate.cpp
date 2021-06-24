@@ -182,7 +182,7 @@ namespace AzToolsFramework
             }
         }
 
-        bool ComponentModeDelegate::AddedToComponentMode()
+        bool ComponentModeDelegate::AddedToComponentMode() const
         {
             bool addedToComponentMode = false;
             ComponentModeSystemRequestBus::BroadcastResult(

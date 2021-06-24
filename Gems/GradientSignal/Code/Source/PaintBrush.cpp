@@ -1,12 +1,7 @@
 /*
- * All or portions of this file Copyright (c) Amazon.com, Inc. or its affiliates or
- * its licensors.
+ * Copyright (c) Contributors to the Open 3D Engine Project
  *
- * For complete copyright and license terms please see the LICENSE at the root of this
- * distribution (the "License"). All use of this software is governed by the License,
- * or, if provided, by the license below or the license accompanying this file. Do not
- * remove or modify any license notices. This file is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
 
@@ -23,20 +18,18 @@ namespace GradientSignal
 {
     void PaintBrush::Reflect(AZ::ReflectContext* context)
     {
-        AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context);
-        if (serialize)
+        if (auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
-            serialize->Class<PaintBrush>()
+            serializeContext->Class<PaintBrush>()
                 ->Version(1)
                 ->Field("Radius", &PaintBrush::m_radius)
                 ->Field("Intensity", &PaintBrush::m_intensity)
                 ->Field("Opacity", &PaintBrush::m_opacity)
                 ;
 
-            AZ::EditContext* edit = serialize->GetEditContext();
-            if (edit)
+            if (auto editContext = serializeContext->GetEditContext())
             {
-                edit->Class<PaintBrush>("Paint Brush", "")
+                editContext->Class<PaintBrush>("Paint Brush", "")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                     ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
                     ->DataElement(AZ::Edit::UIHandlers::Slider, &PaintBrush::m_radius, "Radius", "Radius of the paint brush.")
@@ -62,9 +55,9 @@ namespace GradientSignal
         {
             behaviorContext->Class<PaintBrush>()
                 ->Constructor()
-                ->Property("radius", BehaviorValueProperty(&PaintBrush::m_radius))
-                ->Property("intensity", BehaviorValueProperty(&PaintBrush::m_intensity))
-                ->Property("opacity", BehaviorValueProperty(&PaintBrush::m_opacity));
+                ->Property("radius", BehaviorValueGetter(&PaintBrush::m_radius), nullptr)
+                ->Property("intensity", BehaviorValueGetter(&PaintBrush::m_intensity), nullptr)
+                ->Property("opacity", BehaviorValueGetter(&PaintBrush::m_opacity), nullptr);
         }
     }
 
@@ -89,9 +82,9 @@ namespace GradientSignal
         return m_opacity;
     }
 
-    void PaintBrush::Activate()
+    void PaintBrush::Activate(AZ::EntityComponentIdPair entityComponentIdPair)
     {
-        PaintBrushRequestBus::Handler::BusConnect(m_ownerEntityId);
+        PaintBrushRequestBus::Handler::BusConnect(entityComponentIdPair);
     }
 
     void PaintBrush::Deactivate()

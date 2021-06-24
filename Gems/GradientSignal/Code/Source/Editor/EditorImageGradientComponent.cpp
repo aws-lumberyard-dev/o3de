@@ -25,7 +25,7 @@ namespace GradientSignal
             serializeContext->Class<EditorImageGradientComponent, BaseClassType>()
                 ->Version(1)
                 ->Field("ComponentMode", &EditorImageGradientComponent::m_componentModeDelegate)
-                ->Field("paintBrush", &EditorImageGradientComponent::m_paintBrush)
+                ->Field("PaintBrush", &EditorImageGradientComponent::m_paintBrush)
                 ;
 
             if (auto editContext = serializeContext->GetEditContext())
@@ -47,7 +47,7 @@ namespace GradientSignal
         }
     }
 
-    bool EditorImageGradientComponent::InComponentMode() 
+    bool EditorImageGradientComponent::InComponentMode() const
     {
         return m_componentModeDelegate.AddedToComponentMode();
     }
@@ -55,8 +55,7 @@ namespace GradientSignal
     void EditorImageGradientComponent::Activate()
     {
         BaseClassType::Activate();
-        m_paintBrush.m_ownerEntityId = GetEntityId();
-        m_paintBrush.Activate();
+        m_paintBrush.Activate(AZ::EntityComponentIdPair(GetEntityId(), GetId()));
 
         m_componentModeDelegate.ConnectWithSingleComponentMode<EditorImageGradientComponent, EditorImageGradientComponentMode>(
             AZ::EntityComponentIdPair(GetEntityId(), GetId()), nullptr);

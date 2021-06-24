@@ -31,7 +31,7 @@ namespace GradientSignal
         : EditorBaseComponentMode(entityComponentIdPair, componentType)
     {
         PaintBrushNotificationBus::Handler::BusConnect();
-        PaintBrushRequestBus::EventResult(m_radius, GetEntityId(), &PaintBrushRequestBus::Events::GetRadius);
+        PaintBrushRequestBus::EventResult(m_radius, GetEntityComponentIdPair(), &PaintBrushRequestBus::Events::GetRadius);
 
         const AZ::Color manipulatorColor = AZ::Color(1.0f, 0.0f, 0.0f, 1.0f);
         const float manipulatorWidth = 0.05f;
@@ -58,9 +58,10 @@ namespace GradientSignal
     {
         if (m_isPainting)
         {
-            float intensity = 1.0f, opacity = 1.0f;
-            PaintBrushRequestBus::EventResult(intensity, GetEntityId(), &PaintBrushRequestBus::Events::GetIntensity);
-            PaintBrushRequestBus::EventResult(opacity, GetEntityId(), &PaintBrushRequestBus::Events::GetOpacity);
+            float intensity = 1.0f;
+            float opacity = 1.0f;
+            PaintBrushRequestBus::EventResult(intensity, GetEntityComponentIdPair(), &PaintBrushRequestBus::Events::GetIntensity);
+            PaintBrushRequestBus::EventResult(opacity, GetEntityComponentIdPair(), &PaintBrushRequestBus::Events::GetOpacity);
 
             auto SetValue = [this, intensity, opacity](float x, float y)
             {
@@ -70,7 +71,7 @@ namespace GradientSignal
                 float oldValue = 0.0f;
                 GradientRequestBus::EventResult(oldValue, GetEntityId(), &GradientRequestBus::Events::GetValue, params);
 
-                float newValue = opacity * intensity + (1 - opacity) * oldValue;
+                float newValue = opacity * intensity + (1.0f - opacity) * oldValue;
                 GradientRequestBus::Event(GetEntityId(), &GradientRequestBus::Events::SetValue, params, newValue);
             };
 
@@ -78,7 +79,8 @@ namespace GradientSignal
             LmbrCentral::ShapeComponentRequestsBus::EventResult(
                 shapeBounds, GetEntityId(), &LmbrCentral::ShapeComponentRequestsBus::Events::GetEncompassingAabb);
 
-            uint32_t imageHeight = 0, imageWidth = 0;
+            uint32_t imageHeight = 0;
+            uint32_t imageWidth = 0;
             ImageGradientRequestBus::EventResult(imageHeight, GetEntityId(), &ImageGradientRequestBus::Events::GetImageHeight);
             ImageGradientRequestBus::EventResult(imageWidth, GetEntityId(), &ImageGradientRequestBus::Events::GetImageWidth);
 
@@ -171,9 +173,7 @@ namespace GradientSignal
     {
         m_radius = radius;
 
-        const AZ::Color manipulatorColor = AZ::Color(1.0f, 0.0f, 0.0f, 1.0f);
-        const float manipulatorWidth = 0.05f;
-        m_brushManipulator->SetView(
-            AzToolsFramework::CreateManipulatorViewProjectedCircle(*m_brushManipulator, manipulatorColor, m_radius, manipulatorWidth));
+        //m_brushManipulator->m_manipulatorView.m_radius = radius;
+        m_brushManipulator->SetRadius(radius);
     }
 } // namespace GradientSignal
