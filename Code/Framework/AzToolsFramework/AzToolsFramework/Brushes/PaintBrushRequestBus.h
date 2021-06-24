@@ -10,7 +10,7 @@
 #include <AzCore/Component/ComponentBus.h>
 #include <AzCore/EBus/EBus.h>
 
-namespace GradientSignal
+namespace AzToolsFramework
 {
     class PaintBrushRequests : public AZ::EBusTraits
     {
@@ -31,4 +31,4 @@ namespace GradientSignal
     };
 
     using PaintBrushRequestBus = AZ::EBus<PaintBrushRequests>;
-} // namespace GradientSignal
+} // namespace AzToolsFramework

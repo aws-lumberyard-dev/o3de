@@ -5,16 +5,14 @@
  *
  */
 
-#include "GradientSignal_precompiled.h"
-
 #include <AzCore/RTTI/BehaviorContext.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/SerializeContext.h>
-#include <GradientSignal/Ebuses/PaintBrushNotificationBus.h>
-#include <GradientSignal/Ebuses/PaintBrushRequestBus.h>
-#include <GradientSignal/PaintBrush.h>
+#include <AzToolsFramework/Brushes/PaintBrush.h>
+#include <AzToolsFramework/Brushes/PaintBrushNotificationBus.h>
+#include <AzToolsFramework/Brushes/PaintBrushRequestBus.h>
 
-namespace GradientSignal
+namespace AzToolsFramework
 {
     void PaintBrush::Reflect(AZ::ReflectContext* context)
     {
@@ -91,4 +89,4 @@ namespace GradientSignal
     {
         PaintBrushRequestBus::Handler::BusDisconnect();
     }
-} // namespace GradientSignal
+} // namespace AzToolsFramework

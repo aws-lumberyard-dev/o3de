@@ -14,14 +14,14 @@
 #include "GradientSignal_precompiled.h"
 
 #include <AzCore/Component/TransformBus.h>
+#include <AzToolsFramework/Brushes/PaintBrushRequestBus.h>
+#include <AzToolsFramework/Brushes/PaintBrushNotificationBus.h>
 #include <AzToolsFramework/Manipulators/BrushManipulator.h>
 #include <AzToolsFramework/Manipulators/ManipulatorManager.h>
 #include <AzToolsFramework/Manipulators/ManipulatorView.h>
 #include <AzToolsFramework/ViewportSelection/EditorSelectionUtil.h>
 #include <GradientSignal/Ebuses/GradientRequestBus.h>
 #include <GradientSignal/Ebuses/ImageGradientRequestBus.h>
-#include <GradientSignal/Ebuses/PaintBrushRequestBus.h>
-#include <GradientSignal/Ebuses/PaintBrushNotificationBus.h>
 #include <LmbrCentral/Dependency/DependencyNotificationBus.h>
 
 namespace GradientSignal
@@ -30,8 +30,9 @@ namespace GradientSignal
         const AZ::EntityComponentIdPair& entityComponentIdPair, AZ::Uuid componentType)
         : EditorBaseComponentMode(entityComponentIdPair, componentType)
     {
-        PaintBrushNotificationBus::Handler::BusConnect();
-        PaintBrushRequestBus::EventResult(m_radius, GetEntityComponentIdPair(), &PaintBrushRequestBus::Events::GetRadius);
+        AzToolsFramework::PaintBrushNotificationBus::Handler::BusConnect();
+        AzToolsFramework::PaintBrushRequestBus::EventResult(
+            m_radius, GetEntityComponentIdPair(), &AzToolsFramework::PaintBrushRequestBus::Events::GetRadius);
 
         const AZ::Color manipulatorColor = AZ::Color(1.0f, 0.0f, 0.0f, 1.0f);
         const float manipulatorWidth = 0.05f;
@@ -50,7 +51,7 @@ namespace GradientSignal
 
     EditorImageGradientComponentMode::~EditorImageGradientComponentMode()
     {
-        PaintBrushNotificationBus::Handler::BusDisconnect();
+        AzToolsFramework::PaintBrushNotificationBus::Handler::BusDisconnect();
         m_brushManipulator->Unregister();
     }
 
@@ -60,8 +61,10 @@ namespace GradientSignal
         {
             float intensity = 1.0f;
             float opacity = 1.0f;
-            PaintBrushRequestBus::EventResult(intensity, GetEntityComponentIdPair(), &PaintBrushRequestBus::Events::GetIntensity);
-            PaintBrushRequestBus::EventResult(opacity, GetEntityComponentIdPair(), &PaintBrushRequestBus::Events::GetOpacity);
+            AzToolsFramework::PaintBrushRequestBus::EventResult(
+                intensity, GetEntityComponentIdPair(), &AzToolsFramework::PaintBrushRequestBus::Events::GetIntensity);
+            AzToolsFramework::PaintBrushRequestBus::EventResult(
+                opacity, GetEntityComponentIdPair(), &AzToolsFramework::PaintBrushRequestBus::Events::GetOpacity);
 
             auto SetValue = [this, intensity, opacity](float x, float y)
             {
@@ -172,8 +175,6 @@ namespace GradientSignal
     void EditorImageGradientComponentMode::OnRadiusChanged(const float radius)
     {
         m_radius = radius;
-
-        //m_brushManipulator->m_manipulatorView.m_radius = radius;
         m_brushManipulator->SetRadius(radius);
     }
 } // namespace GradientSignal

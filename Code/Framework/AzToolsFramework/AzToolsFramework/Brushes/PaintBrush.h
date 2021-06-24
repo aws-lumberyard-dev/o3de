@@ -9,9 +9,9 @@
 
 #include <AzCore/Component/EntityId.h>
 #include <AzCore/RTTI/ReflectContext.h>
-#include <GradientSignal/Ebuses/PaintBrushRequestBus.h>
+#include "PaintBrushRequestBus.h"
 
-namespace GradientSignal
+namespace AzToolsFramework
 {
     class PaintBrush : public PaintBrushRequestBus::Handler
     {
@@ -35,4 +35,4 @@ namespace GradientSignal
 
         AZ::u32 OnRadiusChange() const;
     };
-} // namespace GradientSignal
+} // namespace AzToolsFramework

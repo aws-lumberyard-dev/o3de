@@ -94,6 +94,10 @@ set(FILES
     AssetBundle/AssetBundleComponent.h
     AssetDatabase/AssetDatabaseConnection.cpp
     AssetDatabase/AssetDatabaseConnection.h
+    Brushes/PaintBrush.h
+    Brushes/PaintBrush.cpp
+    Brushes/PaintBrushNotificationBus.h
+    Brushes/PaintBrushRequestBus.h
     Debug/TraceContext.inl
     Debug/TraceContext.h
     Debug/TraceContextStackInterface.h

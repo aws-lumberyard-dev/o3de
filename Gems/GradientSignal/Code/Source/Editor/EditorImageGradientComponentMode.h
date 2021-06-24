@@ -12,15 +12,15 @@
 
 #pragma once
 
+#include <AzToolsFramework/Brushes/PaintBrushNotificationBus.h>
 #include <AzToolsFramework/ComponentMode/EditorBaseComponentMode.h>
 #include <AzToolsFramework/Manipulators/BrushManipulator.h>
-#include <GradientSignal/Ebuses/PaintBrushNotificationBus.h>
 
 namespace GradientSignal
 {
     class EditorImageGradientComponentMode
         : public AzToolsFramework::ComponentModeFramework::EditorBaseComponentMode
-        , private PaintBrushNotificationBus::Handler
+        , private AzToolsFramework::PaintBrushNotificationBus::Handler
     {
     public:
         EditorImageGradientComponentMode(const AZ::EntityComponentIdPair& entityComponentIdPair, AZ::Uuid componentType);

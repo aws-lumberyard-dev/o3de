@@ -13,9 +13,9 @@
 #pragma once
 
 #include <AzToolsFramework/ComponentMode/ComponentModeDelegate.h>
+#include <AzToolsFramework/Brushes/PaintBrush.h>
 #include <Components/ImageGradientComponent.h>
 #include <GradientSignal/Editor/EditorGradientComponentBase.h>
-#include <GradientSignal/PaintBrush.h>
 
 namespace GradientSignal
 {
@@ -44,6 +44,6 @@ namespace GradientSignal
         ComponentModeDelegate m_componentModeDelegate;
 
     private:
-        PaintBrush m_paintBrush;
+        AzToolsFramework::PaintBrush m_paintBrush;
     };
 }

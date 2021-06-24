@@ -8,7 +8,7 @@
 
 #include <AzCore/EBus/EBus.h>
 
-namespace GradientSignal
+namespace AzToolsFramework
 {
     class PaintBrushNotifications : public AZ::EBusTraits
     {
@@ -22,4 +22,4 @@ namespace GradientSignal
     };
 
     using PaintBrushNotificationBus = AZ::EBus<PaintBrushNotifications>;
-} // namespace GradientSignal
+} // namespace AzToolsFramework
