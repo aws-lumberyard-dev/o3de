@@ -41,10 +41,12 @@ namespace AzToolsFramework
                     ->Attribute(AZ::Edit::Attributes::Min, 0.0f)
                     ->Attribute(AZ::Edit::Attributes::Max, 1.0f)
                     ->Attribute(AZ::Edit::Attributes::Step, 0.1f)
+                    ->Attribute(AZ::Edit::Attributes::ChangeNotify, &PaintBrush::OnIntensityChange)
                     ->DataElement(AZ::Edit::UIHandlers::Slider, &PaintBrush::m_opacity, "Opacity", "Opacity of the paint brush.")
                     ->Attribute(AZ::Edit::Attributes::Min, 0.0f)
                     ->Attribute(AZ::Edit::Attributes::Max, 1.0f)
                     ->Attribute(AZ::Edit::Attributes::Step, 0.1f)
+                    ->Attribute(AZ::Edit::Attributes::ChangeNotify, &PaintBrush::OnOpacityChange)
                     ;
             }
         }
@@ -57,6 +59,16 @@ namespace AzToolsFramework
                 ->Property("intensity", BehaviorValueGetter(&PaintBrush::m_intensity), nullptr)
                 ->Property("opacity", BehaviorValueGetter(&PaintBrush::m_opacity), nullptr);
         }
+    }
+
+    AZ::u32 PaintBrush::OnIntensityChange() const
+    {
+        return AZ::Edit::PropertyRefreshLevels::AttributesAndValues;
+    }
+
+    AZ::u32 PaintBrush::OnOpacityChange() const
+    {
+        return AZ::Edit::PropertyRefreshLevels::AttributesAndValues;
     }
 
     AZ::u32 PaintBrush::OnRadiusChange() const
