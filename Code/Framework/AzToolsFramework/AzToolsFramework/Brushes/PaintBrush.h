@@ -8,8 +8,10 @@
 #pragma once
 
 #include <AzCore/Component/EntityId.h>
+#include <AzCore/Math/Vector3.h>
 #include <AzCore/RTTI/ReflectContext.h>
-#include "PaintBrushRequestBus.h"
+
+#include <AzToolsFramework/Brushes/PaintBrushRequestBus.h>
 
 namespace AzToolsFramework
 {
@@ -32,8 +34,20 @@ namespace AzToolsFramework
         void SetIntensity(float intensity) override;
         void SetOpacity(float opacity) override;
 
+        void GetValue(const AZ::Vector3& point, float& intensity, float& opacity, bool& isValid) override;
+        bool HandleMouseInteraction(const ViewportInteraction::MouseInteractionEvent& mouseInteraction) override;
+
     private:
+        bool HandleMouseEvent(const ViewportInteraction::MouseInteractionEvent& mouseInteraction);
+
+        AZ::EntityComponentIdPair m_ownerEntity;
+        
+        bool m_isPainting = false;
+
+        float m_xCenter = 0.0f;
+        float m_yCenter = 0.0f;
         float m_radius = 2.0f;
+
         float m_intensity = 1.0f;
         float m_opacity = 1.0f;
 

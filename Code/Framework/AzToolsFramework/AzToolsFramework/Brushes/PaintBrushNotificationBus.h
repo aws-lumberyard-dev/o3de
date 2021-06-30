@@ -7,6 +7,8 @@
 #pragma once
 
 #include <AzCore/EBus/EBus.h>
+#include <AzCore/Math/Aabb.h>
+#include <AzCore/Math/Transform.h>
 
 namespace AzToolsFramework
 {
@@ -18,7 +20,9 @@ namespace AzToolsFramework
 
         virtual void OnIntensityChanged([[maybe_unused]] float radius) { }
         virtual void OnOpacityChanged([[maybe_unused]] float radius) { }
+        virtual void OnPaint([[maybe_unused]] const AZ::Aabb& dirtyArea) { }
         virtual void OnRadiusChanged([[maybe_unused]] float radius) { }
+        virtual void OnWorldSpaceChanged([[maybe_unused]] AZ::Transform result) { }
     };
 
     using PaintBrushNotificationBus = AZ::EBus<PaintBrushNotifications>;

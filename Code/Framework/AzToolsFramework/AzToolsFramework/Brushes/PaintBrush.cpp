@@ -5,12 +5,16 @@
  *
  */
 
+#include <AzCore/Component/Entity.h>
+#include <AzCore/Component/TransformBus.h>
+#include <AzCore/Math/Aabb.h>
 #include <AzCore/RTTI/BehaviorContext.h>
 #include <AzCore/Serialization/EditContext.h>
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzToolsFramework/Brushes/PaintBrush.h>
 #include <AzToolsFramework/Brushes/PaintBrushNotificationBus.h>
 #include <AzToolsFramework/Brushes/PaintBrushRequestBus.h>
+#include <AzToolsFramework/ViewportSelection/EditorSelectionUtil.h>
 
 namespace AzToolsFramework
 {
@@ -22,8 +26,7 @@ namespace AzToolsFramework
                 ->Version(1)
                 ->Field("Radius", &PaintBrush::m_radius)
                 ->Field("Intensity", &PaintBrush::m_intensity)
-                ->Field("Opacity", &PaintBrush::m_opacity)
-                ;
+                ->Field("Opacity", &PaintBrush::m_opacity);
 
             if (auto editContext = serializeContext->GetEditContext())
             {
@@ -46,8 +49,7 @@ namespace AzToolsFramework
                     ->Attribute(AZ::Edit::Attributes::Min, 0.0f)
                     ->Attribute(AZ::Edit::Attributes::Max, 1.0f)
                     ->Attribute(AZ::Edit::Attributes::Step, 0.1f)
-                    ->Attribute(AZ::Edit::Attributes::ChangeNotify, &PaintBrush::OnOpacityChange)
-                    ;
+                    ->Attribute(AZ::Edit::Attributes::ChangeNotify, &PaintBrush::OnOpacityChange);
             }
         }
 
@@ -105,6 +107,91 @@ namespace AzToolsFramework
     void PaintBrush::SetOpacity(float opacity)
     {
         m_opacity = opacity;
+    }
+
+    bool PaintBrush::HandleMouseInteraction(const AzToolsFramework::ViewportInteraction::MouseInteractionEvent& mouseInteraction)
+    {
+        if (mouseInteraction.m_mouseEvent == AzToolsFramework::ViewportInteraction::MouseEvent::Move)
+        {
+            return HandleMouseEvent(mouseInteraction);
+        }
+        else if (mouseInteraction.m_mouseEvent == AzToolsFramework::ViewportInteraction::MouseEvent::Down)
+        {
+            if (mouseInteraction.m_mouseInteraction.m_mouseButtons.Left())
+            {
+                m_isPainting = true;
+                HandleMouseEvent(mouseInteraction);
+                return true;
+            }
+        }
+        else if (mouseInteraction.m_mouseEvent == AzToolsFramework::ViewportInteraction::MouseEvent::Up)
+        {
+            if (mouseInteraction.m_mouseInteraction.m_mouseButtons.Left())
+            {
+                m_isPainting = false;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    bool PaintBrush::HandleMouseEvent(const AzToolsFramework::ViewportInteraction::MouseInteractionEvent& mouseInteraction)
+    {
+        float closestDistance = std::numeric_limits<float>::max();
+        AZ::EntityId entityIdUnderCursor;
+        const int viewportId = mouseInteraction.m_mouseInteraction.m_interactionId.m_viewportId;
+
+        auto selectionFunction = [this, &closestDistance, &entityIdUnderCursor, &mouseInteraction, &viewportId](AZ::Entity* entity)
+        {
+            if (AzToolsFramework::PickEntity(entity->GetId(), mouseInteraction.m_mouseInteraction, closestDistance, viewportId))
+            {
+                entityIdUnderCursor = entity->GetId();
+            }
+        };
+
+        AZ::ComponentApplicationBus::Broadcast(&AZ::ComponentApplicationRequests::EnumerateEntities, selectionFunction);
+
+        AZ::Vector3 result = mouseInteraction.m_mouseInteraction.m_mousePick.m_rayOrigin +
+            mouseInteraction.m_mouseInteraction.m_mousePick.m_rayDirection * closestDistance;
+
+        m_xCenter = result.GetX();
+        m_yCenter = result.GetY();
+
+        if (entityIdUnderCursor.IsValid())
+        {
+            AZ::Transform space = AZ::Transform::CreateTranslation(result);
+            PaintBrushNotificationBus::Broadcast(&PaintBrushNotificationBus::Events::OnWorldSpaceChanged, space);
+
+            if (m_isPainting)
+            {
+                PaintBrushNotificationBus::Broadcast(
+                    &PaintBrushNotificationBus::Events::OnPaint, AZ::Aabb::CreateCenterRadius(result, m_radius));
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    void PaintBrush::GetValue(const AZ::Vector3& point, float& intensity, float& opacity, bool& isValid)
+    {
+        const float xDiffSq = (point.GetX() - m_xCenter) * (point.GetX() - m_xCenter);
+        const float yDiffSq = (point.GetY() - m_yCenter) * (point.GetY() - m_yCenter);
+        const float manipulatorRadiusSq = m_radius * m_radius;
+
+        if (xDiffSq + yDiffSq <= manipulatorRadiusSq)
+        {
+            intensity = GetIntensity();
+            opacity = GetOpacity();
+            isValid = true;
+        }
+        else
+        {
+            intensity = 0.0f;
+            opacity = 0.0f;
+            isValid = false;
+        }
     }
 
     void PaintBrush::Activate(const AZ::EntityComponentIdPair& entityComponentIdPair)

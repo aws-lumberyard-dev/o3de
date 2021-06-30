@@ -18,7 +18,6 @@
 #include <GradientSignal/ImageAsset.h>
 #include <Vegetation/DescriptorListAsset.h>
 #include <Vegetation/AreaComponentBase.h>
-#include <../AzToolsFramework/AzToolsFramework/Brushes/PaintBrush.h>
 #include <AzFramework/Asset/GenericAssetHandler.h>
 
 #include <Vegetation/Ebuses/FilterRequestBus.h>
@@ -78,7 +77,6 @@ namespace Vegetation
         AreaConfig::Reflect(context);
         AreaComponentBase::Reflect(context);
         DescriptorListAsset::Reflect(context);
-        AzToolsFramework::PaintBrush::Reflect(context);
 
         if (AZ::SerializeContext* serialize = azrtti_cast<AZ::SerializeContext*>(context))
         {

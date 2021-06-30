@@ -33,13 +33,10 @@ namespace GradientSignal
     protected:
         // PaintBrushNotificationBus overrides
         void OnRadiusChanged(float radius) override;
+        void OnPaint(const AZ::Aabb& dirtyArea) override;
+        void OnWorldSpaceChanged(AZ::Transform result) override;
 
     private:
-        void HandlePaintArea(const AZ::Vector3& center);
-        bool HandleMouseEvent(const AzToolsFramework::ViewportInteraction::MouseInteractionEvent& mouseInteraction);
-
         AZStd::shared_ptr<AzToolsFramework::BrushManipulator> m_brushManipulator;
-        bool m_isPainting = false;
-        float m_radius = 2.0f;
     };
 } // namespace GradientSignal
