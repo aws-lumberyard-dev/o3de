@@ -172,7 +172,7 @@ namespace GradientSignal
         return false;
     }
 
-    void EditorImageGradientComponentMode::OnRadiusChanged(const float radius)
+    void EditorImageGradientComponentMode::OnRadiusChanged(float radius)
     {
         m_radius = radius;
         m_brushManipulator->SetRadius(radius);

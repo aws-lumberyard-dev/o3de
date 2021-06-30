@@ -16,9 +16,9 @@ namespace AzToolsFramework
         static const AZ::EBusAddressPolicy AddressPolicy = AZ::EBusAddressPolicy::Single;
         static const AZ::EBusHandlerPolicy HandlerPolicy = AZ::EBusHandlerPolicy::Multiple;
 
-        virtual void OnIntensityChanged([[maybe_unused]] const float radius) { }
-        virtual void OnOpacityChanged([[maybe_unused]] const float radius) { }
-        virtual void OnRadiusChanged([[maybe_unused]] const float radius) { }
+        virtual void OnIntensityChanged([[maybe_unused]] float radius) { }
+        virtual void OnOpacityChanged([[maybe_unused]] float radius) { }
+        virtual void OnRadiusChanged([[maybe_unused]] float radius) { }
     };
 
     using PaintBrushNotificationBus = AZ::EBus<PaintBrushNotifications>;

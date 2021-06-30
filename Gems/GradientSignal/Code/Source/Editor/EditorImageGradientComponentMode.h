@@ -32,7 +32,7 @@ namespace GradientSignal
 
     protected:
         // PaintBrushNotificationBus overrides
-        void OnRadiusChanged(const float radius) override;
+        void OnRadiusChanged(float radius) override;
 
     private:
         void HandlePaintArea(const AZ::Vector3& center);

@@ -92,7 +92,22 @@ namespace AzToolsFramework
         return m_opacity;
     }
 
-    void PaintBrush::Activate(AZ::EntityComponentIdPair entityComponentIdPair)
+    void PaintBrush::SetRadius(float radius)
+    {
+        m_radius = radius;
+    }
+
+    void PaintBrush::SetIntensity(float intensity)
+    {
+        m_intensity = intensity;
+    }
+
+    void PaintBrush::SetOpacity(float opacity)
+    {
+        m_opacity = opacity;
+    }
+
+    void PaintBrush::Activate(const AZ::EntityComponentIdPair& entityComponentIdPair)
     {
         PaintBrushRequestBus::Handler::BusConnect(entityComponentIdPair);
     }

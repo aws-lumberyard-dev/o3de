@@ -21,10 +21,14 @@ namespace AzToolsFramework
         using BusIdType = AZ::EntityComponentIdPair;
         using MutexType = AZStd::recursive_mutex;
 
-        // PaintBrushRequests methods
+        // PaintBrushRequests interface...
         virtual float GetRadius() const = 0;
         virtual float GetIntensity() const = 0;
         virtual float GetOpacity() const = 0;
+
+        virtual void SetRadius(float radius) = 0;
+        virtual void SetIntensity(float intensity) = 0;
+        virtual void SetOpacity(float opacity) = 0;
 
     protected:
         ~PaintBrushRequests() = default;
