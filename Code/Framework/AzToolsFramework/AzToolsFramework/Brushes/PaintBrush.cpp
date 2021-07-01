@@ -65,11 +65,13 @@ namespace AzToolsFramework
 
     AZ::u32 PaintBrush::OnIntensityChange() const
     {
+        PaintBrushNotificationBus::Broadcast(&PaintBrushNotificationBus::Events::OnIntensityChanged, m_radius);
         return AZ::Edit::PropertyRefreshLevels::AttributesAndValues;
     }
 
     AZ::u32 PaintBrush::OnOpacityChange() const
     {
+        PaintBrushNotificationBus::Broadcast(&PaintBrushNotificationBus::Events::OnOpacityChanged, m_radius);
         return AZ::Edit::PropertyRefreshLevels::AttributesAndValues;
     }
 
@@ -97,16 +99,19 @@ namespace AzToolsFramework
     void PaintBrush::SetRadius(float radius)
     {
         m_radius = radius;
+        OnRadiusChange();
     }
 
     void PaintBrush::SetIntensity(float intensity)
     {
         m_intensity = intensity;
+        OnIntensityChange();
     }
 
     void PaintBrush::SetOpacity(float opacity)
     {
         m_opacity = opacity;
+        OnOpacityChange();
     }
 
     bool PaintBrush::HandleMouseInteraction(const AzToolsFramework::ViewportInteraction::MouseInteractionEvent& mouseInteraction)
@@ -154,8 +159,7 @@ namespace AzToolsFramework
         AZ::Vector3 result = mouseInteraction.m_mouseInteraction.m_mousePick.m_rayOrigin +
             mouseInteraction.m_mouseInteraction.m_mousePick.m_rayDirection * closestDistance;
 
-        m_xCenter = result.GetX();
-        m_yCenter = result.GetY();
+        m_center = result;
 
         if (entityIdUnderCursor.IsValid())
         {
@@ -176,11 +180,11 @@ namespace AzToolsFramework
 
     void PaintBrush::GetValue(const AZ::Vector3& point, float& intensity, float& opacity, bool& isValid)
     {
-        const float xDiffSq = (point.GetX() - m_xCenter) * (point.GetX() - m_xCenter);
-        const float yDiffSq = (point.GetY() - m_yCenter) * (point.GetY() - m_yCenter);
+        const float xDiffSq = (point.GetX() - m_center.GetX()) * (point.GetX() - m_center.GetX());
+        const float yDiffSq = (point.GetY() - m_center.GetY()) * (point.GetY() - m_center.GetY());
         const float manipulatorRadiusSq = m_radius * m_radius;
 
-        if (xDiffSq + yDiffSq <= manipulatorRadiusSq)
+        if (m_isPainting && xDiffSq + yDiffSq <= manipulatorRadiusSq)
         {
             intensity = GetIntensity();
             opacity = GetOpacity();

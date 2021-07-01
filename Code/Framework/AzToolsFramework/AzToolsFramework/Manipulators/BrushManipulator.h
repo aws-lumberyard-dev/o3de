@@ -25,7 +25,7 @@ namespace AzToolsFramework
     class BrushManipulator : public BaseManipulator, public ManipulatorSpace
     {
         //! Private constructor.
-        BrushManipulator(const AZ::Transform& worldFromLocal);
+        BrushManipulator(const AZ::Transform& worldFromLocal, const AZ::EntityComponentIdPair& entityComponentIdPair);
 
     public:
         AZ_RTTI(BrushManipulator, "{0621CB58-21FD-474A-A296-5B1192E714E7}", BaseManipulator);
@@ -38,7 +38,8 @@ namespace AzToolsFramework
         ~BrushManipulator() = default;
 
         //! A Manipulator must only be created and managed through a shared_ptr.
-        static AZStd::shared_ptr<BrushManipulator> MakeShared(const AZ::Transform& worldFromLocal);
+        static AZStd::shared_ptr<BrushManipulator> MakeShared(
+            const AZ::Transform& worldFromLocal, const AZ::EntityComponentIdPair& entityComponentIdPair);
 
         //! The state of the manipulator at the start of an interaction.
         struct Start

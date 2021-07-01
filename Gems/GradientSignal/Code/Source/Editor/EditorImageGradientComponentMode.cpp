@@ -30,22 +30,13 @@ namespace GradientSignal
         const AZ::EntityComponentIdPair& entityComponentIdPair, AZ::Uuid componentType)
         : EditorBaseComponentMode(entityComponentIdPair, componentType)
     {
-        float radius = 2.0f;
         AzToolsFramework::PaintBrushNotificationBus::Handler::BusConnect();
-        AzToolsFramework::PaintBrushRequestBus::EventResult(
-            radius, GetEntityComponentIdPair(), &AzToolsFramework::PaintBrushRequestBus::Events::GetRadius);
-
-        const AZ::Color manipulatorColor = AZ::Color(1.0f, 0.0f, 0.0f, 1.0f);
-        const float manipulatorWidth = 0.05f;
 
         AZ::Transform worldFromLocal = AZ::Transform::CreateIdentity();
         AZ::TransformBus::EventResult(worldFromLocal, GetEntityId(), &AZ::TransformInterface::GetWorldTM);
 
-        m_brushManipulator = AzToolsFramework::BrushManipulator::MakeShared(worldFromLocal);
+        m_brushManipulator = AzToolsFramework::BrushManipulator::MakeShared(worldFromLocal, entityComponentIdPair);
         Refresh();
-
-        m_brushManipulator->SetView(
-            AzToolsFramework::CreateManipulatorViewProjectedCircle(*m_brushManipulator, manipulatorColor, radius, manipulatorWidth));
 
         m_brushManipulator->Register(AzToolsFramework::g_mainManipulatorManagerId);
     }

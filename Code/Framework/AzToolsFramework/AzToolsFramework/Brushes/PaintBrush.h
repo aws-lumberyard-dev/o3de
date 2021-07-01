@@ -44,8 +44,7 @@ namespace AzToolsFramework
         
         bool m_isPainting = false;
 
-        float m_xCenter = 0.0f;
-        float m_yCenter = 0.0f;
+        AZ::Vector3 m_center;
         float m_radius = 2.0f;
 
         float m_intensity = 1.0f;

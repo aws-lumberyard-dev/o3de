@@ -11,20 +11,30 @@
  */
 
 #include <AzFramework/Entity/EntityDebugDisplayBus.h>
+#include <AzToolsFramework/Brushes/PaintBrushRequestBus.h>
 #include <AzToolsFramework/Manipulators/BrushManipulator.h>
 #include <AzToolsFramework/Manipulators/ManipulatorSnapping.h>
 #include <AzToolsFramework/Manipulators/ManipulatorView.h>
 
 namespace AzToolsFramework
 {
-    AZStd::shared_ptr<BrushManipulator> BrushManipulator::MakeShared(const AZ::Transform& worldFromLocal)
+    AZStd::shared_ptr<BrushManipulator> BrushManipulator::MakeShared(
+        const AZ::Transform& worldFromLocal, const AZ::EntityComponentIdPair& entityComponentIdPair)
     {
-        return AZStd::shared_ptr<BrushManipulator>(aznew BrushManipulator(worldFromLocal));
+        return AZStd::shared_ptr<BrushManipulator>(aznew BrushManipulator(worldFromLocal, entityComponentIdPair));
     }
 
-    BrushManipulator::BrushManipulator(const AZ::Transform& worldFromLocal)
+    BrushManipulator::BrushManipulator(const AZ::Transform& worldFromLocal, const AZ::EntityComponentIdPair& entityComponentIdPair)
     {
         SetSpace(worldFromLocal);
+
+        float radius = 2.0f;
+        PaintBrushRequestBus::EventResult(radius, entityComponentIdPair, &AzToolsFramework::PaintBrushRequestBus::Events::GetRadius);
+
+        const AZ::Color manipulatorColor = AZ::Color(1.0f, 0.0f, 0.0f, 1.0f);
+        const float manipulatorWidth = 0.05f;
+        SetView(
+            AzToolsFramework::CreateManipulatorViewProjectedCircle(*this, manipulatorColor, radius, manipulatorWidth));
     }
 
     void BrushManipulator::Draw(
