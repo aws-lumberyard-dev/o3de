@@ -40,7 +40,7 @@ namespace AzToolsFramework
     private:
         bool HandleMouseEvent(const ViewportInteraction::MouseInteractionEvent& mouseInteraction);
 
-        AZ::EntityComponentIdPair m_ownerEntity;
+        AZ::EntityComponentIdPair m_ownerEntityComponentId;
         
         bool m_isPainting = false;
 
