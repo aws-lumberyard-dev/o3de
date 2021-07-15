@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Contributors to the Open 3D Engine Project
+ * Copyright (c) Contributors to the Open 3D Engine Project. For complete copyright and license terms please see the LICENSE at the root of this distribution.
  * 
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
@@ -61,7 +61,6 @@ namespace AZ
             LegacyTerrain,
             Terrain,
             Cloth,
-            Hair,
             // Add new major categories here (and add names to the parallel position in ProfileCategoryNames) - these categories are enabled by default
 
             FirstDetailedCategory,
@@ -123,7 +122,6 @@ namespace AZ
             "LegacyTerrain",
             "Terrain",
             "Cloth",
-            "Hair",
 
             "RendererDetailed",
             "3DEngineDetailed",
