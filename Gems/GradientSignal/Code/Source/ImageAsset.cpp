@@ -224,7 +224,7 @@ namespace GradientSignal
                 ->Field("Format", &ImageAsset::m_imageFormat)
                 ->Field("Data", &ImageAsset::m_imageData)
                 ;
-
+            
             AZ::EditContext* edit = serialize->GetEditContext();
             if (edit)
             {
@@ -266,6 +266,11 @@ namespace GradientSignal
         }
 
         return true;
+    }
+
+    void ImageAsset::UpdateStatusToReady()
+    {
+        m_status = AZ::Data::AssetData::AssetStatus::Ready;
     }
 
     float GetValueFromImageAsset(const AZ::Data::Asset<ImageAsset>& imageAsset, const AZ::Vector3& uvw, float tilingX, float tilingY, float defaultValue)

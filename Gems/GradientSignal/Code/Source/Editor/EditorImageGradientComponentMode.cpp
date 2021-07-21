@@ -14,6 +14,7 @@
 #include "GradientSignal_precompiled.h"
 
 #include <AzCore/Component/TransformBus.h>
+#include <AzToolsFramework/Brushes/PaintBrushComponentRequestBus.h>
 #include <AzToolsFramework/Brushes/PaintBrushRequestBus.h>
 #include <AzToolsFramework/Brushes/PaintBrushNotificationBus.h>
 #include <AzToolsFramework/Manipulators/BrushManipulator.h>
@@ -45,6 +46,10 @@ namespace GradientSignal
     {
         AzToolsFramework::PaintBrushNotificationBus::Handler::BusDisconnect();
         m_brushManipulator->Unregister();
+
+        AzToolsFramework::ScopedUndoBatch undo("Save Paint Layer");
+        AzToolsFramework::PaintBrushComponentRequestBus::Event(GetEntityId(), &AzToolsFramework::PaintBrushComponentRequestBus::Events::SavePaintLayer);
+        undo.MarkEntityDirty(GetEntityId());
     }
 
     bool EditorImageGradientComponentMode::HandleMouseInteraction(

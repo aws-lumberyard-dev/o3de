@@ -64,6 +64,7 @@ namespace GradientSignal
         builderDescriptor.m_patterns.push_back(AssetBuilderSDK::AssetBuilderPattern("*.tga", AssetBuilderSDK::AssetBuilderPattern::PatternType::Wildcard));
         builderDescriptor.m_patterns.push_back(AssetBuilderSDK::AssetBuilderPattern("*.gif", AssetBuilderSDK::AssetBuilderPattern::PatternType::Wildcard));
         builderDescriptor.m_patterns.push_back(AssetBuilderSDK::AssetBuilderPattern("*.bt", AssetBuilderSDK::AssetBuilderPattern::PatternType::Wildcard));
+        builderDescriptor.m_patterns.push_back(AssetBuilderSDK::AssetBuilderPattern("*.dds", AssetBuilderSDK::AssetBuilderPattern::PatternType::Wildcard));
 
         builderDescriptor.m_busId = EditorImageBuilderWorker::GetUUID();
         builderDescriptor.m_createJobFunction = AZStd::bind(&EditorImageBuilderWorker::CreateJobs, &m_imageBuilder, AZStd::placeholders::_1, AZStd::placeholders::_2);

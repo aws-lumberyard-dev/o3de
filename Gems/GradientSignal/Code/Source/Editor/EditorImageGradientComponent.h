@@ -14,13 +14,18 @@
 
 #include <AzToolsFramework/ComponentMode/ComponentModeDelegate.h>
 #include <AzToolsFramework/Brushes/PaintBrush.h>
+#include <AzToolsFramework/Brushes/PaintBrushComponentRequestBus.h>
 #include <Components/ImageGradientComponent.h>
 #include <GradientSignal/Editor/EditorGradientComponentBase.h>
+
+#include <Atom/RHI.Reflect/Format.h>
 
 namespace GradientSignal
 {
     class EditorImageGradientComponent
         : public EditorGradientComponentBase<ImageGradientComponent, ImageGradientConfig>
+        , private AZ::Data::AssetBus::Handler
+        , private AzToolsFramework::PaintBrushComponentRequestBus::Handler
     {
     public:
         using BaseClassType = EditorGradientComponentBase<ImageGradientComponent, ImageGradientConfig>;
@@ -29,8 +34,12 @@ namespace GradientSignal
 
         void Activate() override;
         void Deactivate() override;
+        
+        void SavePaintLayer() override;
+        AZ::RHI::Format GetFormat(const AZ::Data::Asset<ImageAsset>& imageAsset);
+        void WriteOutputFile(AZStd::string filePath);
 
-        bool InComponentMode() const;
+        void OnCompositionChanged() override;
 
         static constexpr const char* const s_categoryName = "Gradients";
         static constexpr const char* const s_componentName = "Image Gradient";
@@ -42,8 +51,17 @@ namespace GradientSignal
     protected:
         using ComponentModeDelegate = AzToolsFramework::ComponentModeFramework::ComponentModeDelegate;
         ComponentModeDelegate m_componentModeDelegate;
+        
+        void OnAssetReady(AZ::Data::Asset<AZ::Data::AssetData> asset) override;
+
+        bool InComponentMode() const;
+        AZ::Crc32 InOverrideMode() const;
 
     private:
         AzToolsFramework::PaintBrush m_paintBrush;
+
+        bool m_saveInProgress = false;
+
+        AZStd::string m_path = "";
     };
 }

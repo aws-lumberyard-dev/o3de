@@ -77,6 +77,8 @@ if(PAL_TRAIT_BUILD_HOST_TOOLS)
                 AZ::AssetBuilderSDK
                 Gem::GradientSignal.Static
                 Gem::SurfaceData
+                Gem::Atom_Utils.Static
+                Gem::Atom_RHI.Reflect
         RUNTIME_DEPENDENCIES
             Gem::LmbrCentral.Editor
     )

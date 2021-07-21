@@ -38,6 +38,8 @@ namespace GradientSignal
         static void Reflect(AZ::ReflectContext* context);
         static bool VersionConverter(AZ::SerializeContext& context,
             AZ::SerializeContext::DataElementNode& classElement);
+        
+        void UpdateStatusToReady();
 
         AZ::u32 m_imageWidth = 0;
         AZ::u32 m_imageHeight = 0;

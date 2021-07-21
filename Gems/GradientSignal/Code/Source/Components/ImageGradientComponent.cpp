@@ -12,7 +12,9 @@
 
 #include "GradientSignal_precompiled.h"
 #include "ImageGradientComponent.h"
+
 #include <AzCore/Asset/AssetManager.h>
+#include <AzCore/Component/EntityUtils.h>
 #include <AzCore/Debug/Profiler.h>
 #include <AzCore/Math/MathUtils.h>
 #include <AzCore/RTTI/BehaviorContext.h>
@@ -30,8 +32,10 @@ namespace GradientSignal
             serialize->Class<ImageGradientConfig, AZ::ComponentConfig>()
                 ->Version(1)
                 ->Field("ImageAsset", &ImageGradientConfig::m_imageAsset)
+                ->Field("OverrideAsset", &ImageGradientConfig::m_overrideAsset)
                 ->Field("TilingX", &ImageGradientConfig::m_tilingX)
                 ->Field("TilingY", &ImageGradientConfig::m_tilingY)
+                ->Field("UseOverridePaintLayer", &ImageGradientConfig::m_useOverride)
                 ;
 
             AZ::EditContext* edit = serialize->GetEditContext();
@@ -55,6 +59,8 @@ namespace GradientSignal
                     ->Attribute(AZ::Edit::Attributes::Max, std::numeric_limits<float>::max())
                     ->Attribute(AZ::Edit::Attributes::SoftMax, 1024.0f)
                     ->Attribute(AZ::Edit::Attributes::Step, 0.25f)
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &ImageGradientConfig::m_useOverride, "Override Paint Layer", "")
+                    ->Attribute(AZ::Edit::Attributes::ChangeNotify, AZ::Edit::PropertyRefreshLevels::EntireTree)
                     ;
             }
         }
@@ -129,6 +135,7 @@ namespace GradientSignal
         m_dependencyMonitor.Reset();
         m_dependencyMonitor.ConnectOwner(GetEntityId());
         m_dependencyMonitor.ConnectDependency(m_configuration.m_imageAsset.GetId());
+        m_dependencyMonitor.ConnectDependency(m_configuration.m_overrideAsset.GetId());
     }
 
     void ImageGradientComponent::Activate()
@@ -137,15 +144,17 @@ namespace GradientSignal
 
         ImageGradientRequestBus::Handler::BusConnect(GetEntityId());
         GradientRequestBus::Handler::BusConnect(GetEntityId());
-        AZ::Data::AssetBus::Handler::BusConnect(m_configuration.m_imageAsset.GetId());
+        AZ::Data::AssetBus::MultiHandler::BusConnect(m_configuration.m_imageAsset.GetId());
+        AZ::Data::AssetBus::MultiHandler::BusConnect(m_configuration.m_overrideAsset.GetId());
 
         AZStd::lock_guard<decltype(m_imageMutex)> imageLock(m_imageMutex);
         m_configuration.m_imageAsset.QueueLoad();
+        m_configuration.m_overrideAsset.QueueLoad();
     }
 
     void ImageGradientComponent::Deactivate()
     {
-        AZ::Data::AssetBus::Handler::BusDisconnect();
+        AZ::Data::AssetBus::MultiHandler::BusDisconnect();
         GradientRequestBus::Handler::BusDisconnect();
         ImageGradientRequestBus::Handler::BusDisconnect();
 
@@ -153,6 +162,7 @@ namespace GradientSignal
 
         AZStd::lock_guard<decltype(m_imageMutex)> imageLock(m_imageMutex);
         m_configuration.m_imageAsset.Release();
+        m_configuration.m_overrideAsset.Release();
     }
 
     bool ImageGradientComponent::ReadInConfig(const AZ::ComponentConfig* baseConfig)
@@ -174,23 +184,41 @@ namespace GradientSignal
         }
         return false;
     }
+    
+    void ImageGradientComponent::CopyImageAsset(AZ::Data::Asset<ImageAsset>& source, AZ::Data::Asset<ImageAsset>& destination)
+    {
+        AZStd::lock_guard<decltype(m_imageMutex)> imageLock(m_imageMutex);
+
+        auto serializeContext = AZ::EntityUtils::GetApplicationSerializeContext();
+        serializeContext->CloneObjectInplace((*destination.GetData()), source.GetData());
+        destination.Get()->UpdateStatusToReady();
+    }
 
     void ImageGradientComponent::OnAssetReady(AZ::Data::Asset<AZ::Data::AssetData> asset)
     {
         AZStd::lock_guard<decltype(m_imageMutex)> imageLock(m_imageMutex);
-        m_configuration.m_imageAsset = asset;
+        if (m_configuration.m_imageAsset.GetId() == asset.GetId())
+            m_configuration.m_imageAsset = asset;
+        else
+            m_configuration.m_overrideAsset = asset;
     }
 
     void ImageGradientComponent::OnAssetMoved(AZ::Data::Asset<AZ::Data::AssetData> asset, [[maybe_unused]] void* oldDataPointer)
     {
         AZStd::lock_guard<decltype(m_imageMutex)> imageLock(m_imageMutex);
-        m_configuration.m_imageAsset = asset;
+        if (m_configuration.m_imageAsset.GetId() == asset.GetId())
+            m_configuration.m_imageAsset = asset;
+        else
+            m_configuration.m_overrideAsset = asset;
     }
 
     void ImageGradientComponent::OnAssetReloaded(AZ::Data::Asset<AZ::Data::AssetData> asset)
     {
         AZStd::lock_guard<decltype(m_imageMutex)> imageLock(m_imageMutex);
-        m_configuration.m_imageAsset = asset;
+        if (m_configuration.m_imageAsset.GetId() == asset.GetId())
+            m_configuration.m_imageAsset = asset;
+        else
+            m_configuration.m_overrideAsset = asset;
     }
 
     float ImageGradientComponent::GetValue(const GradientSampleParams& sampleParams) const
@@ -207,7 +235,11 @@ namespace GradientSignal
         if (!wasPointRejected)
         {
             AZStd::lock_guard<decltype(m_imageMutex)> imageLock(m_imageMutex);
-            return GetValueFromImageAsset(m_configuration.m_imageAsset, uvw, m_configuration.m_tilingX, m_configuration.m_tilingY, 0.0f);
+            AZ::Data::Asset<ImageAsset> sourceAsset = m_configuration.m_imageAsset;
+            if (m_configuration.m_useOverride)
+                sourceAsset = m_configuration.m_overrideAsset;
+
+            return GetValueFromImageAsset(sourceAsset, uvw, m_configuration.m_tilingX, m_configuration.m_tilingY, 0.0f);
         }
 
         return 0.0f;
@@ -225,7 +257,11 @@ namespace GradientSignal
         if (!wasPointRejected)
         {
             AZStd::lock_guard<decltype(m_imageMutex)> imageLock(m_imageMutex);
-            SetValueInImageAsset(m_configuration.m_imageAsset, uvw, m_configuration.m_tilingX, m_configuration.m_tilingY, newValue);
+            AZ::Data::Asset<ImageAsset> sourceAsset = m_configuration.m_imageAsset;
+            if (m_configuration.m_useOverride)
+                sourceAsset = m_configuration.m_overrideAsset;
+
+            SetValueInImageAsset(sourceAsset, uvw, m_configuration.m_tilingX, m_configuration.m_tilingY, newValue);
         }
     }
 
@@ -236,21 +272,27 @@ namespace GradientSignal
         return assetPathString;
     }
 
+    void ImageGradientComponent::ClearOverrideConfiguration()
+    {
+        m_configuration.m_useOverride = false;
+        m_configuration.m_overrideAsset = { AZ::Data::AssetLoadBehavior::QueueLoad };
+    }
+
     void ImageGradientComponent::SetImageAssetPath(const AZStd::string& assetPath)
     {
         AZ::Data::AssetId assetId;
         AZ::Data::AssetCatalogRequestBus::BroadcastResult(assetId, &AZ::Data::AssetCatalogRequestBus::Events::GetAssetIdByPath, assetPath.c_str(), AZ::Data::s_invalidAssetType, false);
         if (assetId.IsValid())
         {
-            AZ::Data::AssetBus::Handler::BusDisconnect(m_configuration.m_imageAsset.GetId());
-
+            AZ::Data::AssetBus::MultiHandler::BusDisconnect();
             {
                 AZStd::lock_guard<decltype(m_imageMutex)> imageLock(m_imageMutex);
                 m_configuration.m_imageAsset = AZ::Data::AssetManager::Instance().FindOrCreateAsset(assetId, azrtti_typeid<ImageAsset>(), m_configuration.m_imageAsset.GetAutoLoadBehavior());
             }
 
             SetupDependencies();
-            AZ::Data::AssetBus::Handler::BusConnect(m_configuration.m_imageAsset.GetId());
+            AZ::Data::AssetBus::MultiHandler::BusConnect(m_configuration.m_imageAsset.GetId());
+            AZ::Data::AssetBus::MultiHandler::BusConnect(m_configuration.m_overrideAsset.GetId());
             LmbrCentral::DependencyNotificationBus::Event(GetEntityId(), &LmbrCentral::DependencyNotificationBus::Events::OnCompositionChanged);
         }
     }

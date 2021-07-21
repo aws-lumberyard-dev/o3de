@@ -36,6 +36,8 @@ namespace GradientSignal
         AZ_RTTI(ImageGradientConfig, "{1BDB5DA4-A4A8-452B-BE6D-6BD451D4E7CD}", AZ::ComponentConfig);
         static void Reflect(AZ::ReflectContext* context);
         AZ::Data::Asset<ImageAsset> m_imageAsset = { AZ::Data::AssetLoadBehavior::QueueLoad };
+        AZ::Data::Asset<ImageAsset> m_overrideAsset = { AZ::Data::AssetLoadBehavior::QueueLoad };
+        bool m_useOverride = false;
         float m_tilingX = 1.0f;
         float m_tilingY = 1.0f;
     };
@@ -47,7 +49,7 @@ namespace GradientSignal
     */
     class ImageGradientComponent
         : public AZ::Component
-        , private AZ::Data::AssetBus::Handler
+        , private AZ::Data::AssetBus::MultiHandler
         , private GradientRequestBus::Handler
         , private ImageGradientRequestBus::Handler
     {
@@ -62,6 +64,9 @@ namespace GradientSignal
         ImageGradientComponent(const ImageGradientConfig& configuration);
         ImageGradientComponent() = default;
         ~ImageGradientComponent() = default;
+
+        void ClearOverrideConfiguration();
+        void CopyImageAsset(AZ::Data::Asset<ImageAsset>& source, AZ::Data::Asset<ImageAsset>& destination);
 
         //////////////////////////////////////////////////////////////////////////
         // AZ::Component interface implementation
