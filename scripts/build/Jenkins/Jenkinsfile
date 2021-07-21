@@ -266,8 +266,9 @@ def CheckoutRepo(boolean disableSubmodules = false) {
     palRm('commitdate')
 }
 
-def HandleDriveMount(String snapshot, String repositoryName, String projectName, String pipeline, String branchName, String platform, String buildType, String workspace, boolean recreateVolume = false) {
-    
+def MountOrRecreateDrive(String snapshot, String repositoryName, String projectName, String pipeline, String branchName, String platform, String buildType, String workspace, boolean recreateVolume = false) {
+    echo 'Mounting or Recreate drive...'
+
     unstash name: 'incremental_build_script'
 
     def pythonCmd = ''
@@ -297,7 +298,7 @@ def PreBuildCommonSteps(Map pipelineConfig, String snapshot, String repositoryNa
     echo 'Starting pre-build common steps...'
 
     if (mount) {
-        HandleDriveMount(snapshot, repositoryName, projectName, pipeline, branchName, platform, buildType, workspace, env.RECREATE_VOLUME?.toBoolean())
+        MountOrRecreateDrive(snapshot, repositoryName, projectName, pipeline, branchName, platform, buildType, workspace, env.RECREATE_VOLUME?.toBoolean())
     }
 
     // Cleanup previous repo location, we are currently at the root of the workspace, if we have a .git folder
@@ -408,7 +409,7 @@ def CreateSetupStage(Map pipelineConfig, String snapshot, String repositoryName,
     return {
         stage('Setup') {
             if(onlyMountEBSVolume) {
-                HandleDriveMount(snapshot, repositoryName, projectName, pipelineName, branchName, platformName, jobName, environmentVars['WORKSPACE'])
+                MountOrRecreateDrive(snapshot, repositoryName, projectName, pipelineName, branchName, platformName, jobName, environmentVars['WORKSPACE'])
             } else {
                 PreBuildCommonSteps(pipelineConfig, snapshot, repositoryName, projectName, pipelineName, branchName, platformName, jobName,  environmentVars['WORKSPACE'], environmentVars['MOUNT_VOLUME'])
             }
