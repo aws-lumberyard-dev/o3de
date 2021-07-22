@@ -9,6 +9,7 @@
 #include <AzCore/EBus/EBus.h>
 #include <AzCore/Math/Aabb.h>
 #include <AzCore/Math/Transform.h>
+#include <AzCore/Component/ComponentBus.h>
 
 namespace AzToolsFramework
 {
