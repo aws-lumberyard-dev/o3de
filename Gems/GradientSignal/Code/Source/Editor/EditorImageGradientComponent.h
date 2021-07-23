@@ -37,7 +37,7 @@ namespace GradientSignal
         
         void SavePaintLayer() override;
         AZ::RHI::Format GetFormat(const AZ::Data::Asset<ImageAsset>& imageAsset);
-        void WriteOutputFile(const AZStd::string filePath);
+        void WriteOutputFile(const AZStd::string& filePath);
 
         void OnCompositionChanged() override;
 
@@ -60,8 +60,6 @@ namespace GradientSignal
     private:
         AzToolsFramework::PaintBrush m_paintBrush;
 
-        bool m_saveInProgress = false;
-
-        AZStd::string m_path = "";
+        AZStd::string m_path;
     };
 }

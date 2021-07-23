@@ -15,6 +15,7 @@
 #include "EditorImageGradientComponentMode.h"
 
 #include <AzCore/Asset/AssetManager.h>
+#include <AzCore/Utils/Utils.h>
 #include <Atom/Utils/DdsFile.h>
 #include <Atom/RHI.Reflect/Format.h>
 #include <Atom/ImageProcessing/PixelFormats.h>
@@ -112,7 +113,7 @@ namespace GradientSignal
         {
             m_configuration.m_useOverride = false;
             m_configuration.m_overrideAsset = { AZ::Data::AssetLoadBehavior::QueueLoad };
-            m_path = "";
+            m_path.clear();
 
             m_component.ClearOverrideConfiguration();
 
@@ -123,16 +124,14 @@ namespace GradientSignal
 
     void EditorImageGradientComponent::SavePaintLayer()
     {
-        char projectPath[AZ_MAX_PATH_LEN];
-        AZ::IO::FileIOBase::GetInstance()->ResolvePath("@devassets@", projectPath, AZ_MAX_PATH_LEN);
+        AZ::IO::FixedMaxPath projectPath = AZ::Utils::GetProjectPath();
 
-        AZStd::string relativePath = m_path;
-        AZStd::string fullPath;
+        AZ::IO::FixedMaxPath relativePath = m_path;
+        AZ::IO::FixedMaxPath fullPath;
 
         if (!relativePath.empty())
         {
-            AzFramework::StringFunc::Path::Join(projectPath, relativePath.c_str(), fullPath, true, true);
-
+            fullPath = projectPath / relativePath;
             if (!AZ::IO::FileIOBase::GetInstance()->Exists(fullPath.c_str()))
             {
                 relativePath.clear();
@@ -141,28 +140,26 @@ namespace GradientSignal
 
         if (relativePath.empty())
         {
-            AZ::Uuid uuid = AZ::Uuid::CreateRandom();
-            AZStd::string uuidString;
-            uuid.ToString(uuidString);
-
-            relativePath = "ImageGradientOverride/" + uuidString + "_gsi.dds";
+            auto uuidString = AZ::Uuid::CreateRandom().ToString<AZ::IO::FixedMaxPathString>() + "_gsi.dds";
+            relativePath = AZ::IO::FixedMaxPath("ImageGradientOverride") / uuidString;
 
             auto invalidCharacters = [](char letter)
             {
-                return letter == ':' || letter == '"' || letter == '\'' || letter == '{' || letter == '}' || letter == '<' || letter == '>';
+                return AZStd::string_view(R"(:"'{}<>)").contains(letter);
             };
-            AZStd::replace_if(relativePath.begin(), relativePath.end(), invalidCharacters, '_');
+            AZStd::string relativePathStr = relativePath.String();
+            AZStd::replace_if(relativePathStr.begin(), relativePathStr.end(), invalidCharacters, '_');
 
-            AzFramework::StringFunc::Path::Join(projectPath, relativePath.c_str(), fullPath, true, true);
+            relativePath = relativePathStr;
+            fullPath = projectPath / relativePath;
         }
 
-        AZStd::string overrideFolder;
-        AzFramework::StringFunc::Path::GetFolderPath(fullPath.data(), overrideFolder);
+        AZ::IO::FixedMaxPath overrideFolder = fullPath.ParentPath();
         AZ::IO::SystemFile::CreateDir(overrideFolder.c_str());
 
-        m_path = relativePath;
-        m_configuration.m_overrideAsset.SetHint(relativePath);
-        WriteOutputFile(fullPath.c_str());
+        m_path = relativePath.String();
+        m_configuration.m_overrideAsset.SetHint(relativePath.String());
+        WriteOutputFile(fullPath.String());
         
         bool assetFound = false;
         AZ::Data::AssetInfo sourceInfo;
@@ -178,7 +175,7 @@ namespace GradientSignal
         m_configuration.m_overrideAsset.QueueLoad();
     }
 
-    void EditorImageGradientComponent::WriteOutputFile(const AZStd::string filePath)
+    void EditorImageGradientComponent::WriteOutputFile(const AZStd::string& filePath)
     {
         AZ::DdsFile::DdsFileData ddsFileData;
         const auto& image = m_configuration.m_overrideAsset.Get();
