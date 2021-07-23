@@ -66,7 +66,8 @@ namespace GradientSignal
         ~ImageGradientComponent() = default;
 
         void ClearOverrideConfiguration();
-        void CopyImageAsset(AZ::Data::Asset<ImageAsset>& source, AZ::Data::Asset<ImageAsset>& destination);
+        void CopyImageAsset(const AZ::Data::Asset<ImageAsset>& source, AZ::Data::Asset<ImageAsset>& destination);
+        void UpdateCurrentAsset(const AZ::Data::Asset<AZ::Data::AssetData> asset);
 
         //////////////////////////////////////////////////////////////////////////
         // AZ::Component interface implementation

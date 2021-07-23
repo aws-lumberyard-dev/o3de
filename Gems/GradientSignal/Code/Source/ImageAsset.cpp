@@ -224,7 +224,7 @@ namespace GradientSignal
                 ->Field("Format", &ImageAsset::m_imageFormat)
                 ->Field("Data", &ImageAsset::m_imageData)
                 ;
-            
+
             AZ::EditContext* edit = serialize->GetEditContext();
             if (edit)
             {

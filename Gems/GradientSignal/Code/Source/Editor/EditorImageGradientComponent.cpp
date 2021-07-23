@@ -74,7 +74,7 @@ namespace GradientSignal
         m_paintBrush.Activate(AZ::EntityComponentIdPair(GetEntityId(), GetId()));
 
         AZ::Data::AssetBus::Handler::BusConnect(m_configuration.m_imageAsset.GetId());
-        AzToolsFramework::PaintBrushComponentRequestBus::Handler::BusConnect(GetEntityId());
+        AzToolsFramework::PaintBrushComponentRequestBus::Handler::BusConnect(AZ::EntityComponentIdPair(GetEntityId(), GetId()));
 
         m_componentModeDelegate.ConnectWithSingleComponentMode<EditorImageGradientComponent, EditorImageGradientComponentMode>(
             AZ::EntityComponentIdPair(GetEntityId(), GetId()), nullptr);
@@ -178,8 +178,7 @@ namespace GradientSignal
         m_configuration.m_overrideAsset.QueueLoad();
     }
 
-    void EditorImageGradientComponent::WriteOutputFile(
-        AZStd::string filePath)
+    void EditorImageGradientComponent::WriteOutputFile(const AZStd::string filePath)
     {
         AZ::DdsFile::DdsFileData ddsFileData;
         const auto& image = m_configuration.m_overrideAsset.Get();
@@ -198,16 +197,15 @@ namespace GradientSignal
 
     AZ::RHI::Format EditorImageGradientComponent::GetFormat(const AZ::Data::Asset<ImageAsset>& imageAsset)
     {
-        using namespace ImageProcessingAtom;
         switch (imageAsset.Get()->m_imageFormat)
         {
-        case ePixelFormat_R8:
+        case ImageProcessingAtom::ePixelFormat_R8:
             return AZ::RHI::Format::R8_UNORM;
-        case ePixelFormat_R16:
+        case ImageProcessingAtom::ePixelFormat_R16:
             return AZ::RHI::Format::R16_UINT;
-        case ePixelFormat_R32:
+        case ImageProcessingAtom::ePixelFormat_R32:
             return AZ::RHI::Format::R32_UINT;
-        case ePixelFormat_R32F:
+        case ImageProcessingAtom::ePixelFormat_R32F:
             return AZ::RHI::Format::R32_FLOAT;
         default:
             return AZ::RHI::Format::Unknown;

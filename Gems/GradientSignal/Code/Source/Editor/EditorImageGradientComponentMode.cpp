@@ -48,7 +48,7 @@ namespace GradientSignal
         m_brushManipulator->Unregister();
 
         AzToolsFramework::ScopedUndoBatch undo("Save Paint Layer");
-        AzToolsFramework::PaintBrushComponentRequestBus::Event(GetEntityId(), &AzToolsFramework::PaintBrushComponentRequestBus::Events::SavePaintLayer);
+        AzToolsFramework::PaintBrushComponentRequestBus::Event(GetEntityComponentIdPair(), &AzToolsFramework::PaintBrushComponentRequestBus::Events::SavePaintLayer);
         undo.MarkEntityDirty(GetEntityId());
     }
 
