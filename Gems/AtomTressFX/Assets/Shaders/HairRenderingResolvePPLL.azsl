@@ -61,7 +61,7 @@ ShaderResourceGroup PassSrg : SRG_PerPass_WithFallback
     Texture2D<float4>               m_frameBuffer;  // The merged MSAA output
 
     // Linear depth is used for getting the screen to world transform
-    Texture2D<float>                m_linearDepth;
+    RWTexture2D<float>              m_linearDepth;
 
     //------------------------------
     //        Lighting Data
@@ -503,6 +503,10 @@ PSColorDepthOutput PPLLResolvePS(VSOutput input)
 //    pixOut.m_color = GatherLinkedList(input.m_position.xy, pixOut.m_depth);
 
     pixOut.m_color = GatherLinkedList(input.m_position.xy, input.m_texCoord, pixOut.m_depth);
+
+    // Write depth value into linear depth
+    uint2 px = input.m_position.xy;
+    PassSrg::m_linearDepth[px] = abs(((ViewSrg::GetFarZTimesNearZ()) / (ViewSrg::GetFarZMinusNearZ() * pixOut.m_depth - ViewSrg::GetFarZ()))); 
 
     return pixOut;
 }

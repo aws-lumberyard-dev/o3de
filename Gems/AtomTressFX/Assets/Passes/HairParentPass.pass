@@ -29,7 +29,7 @@
                 // If DepthLinear is not availbale - connect to another viewport (non MSAA) image.
                 {
                     "Name": "DepthLinear",
-                    "SlotType": "Input"
+                    "SlotType": "InputOutput"
                 },
 
                 // Lights & Shadows resources
