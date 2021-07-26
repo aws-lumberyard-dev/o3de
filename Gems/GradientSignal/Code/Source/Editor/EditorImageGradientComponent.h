@@ -14,7 +14,7 @@
 
 #include <AzToolsFramework/ComponentMode/ComponentModeDelegate.h>
 #include <AzToolsFramework/Brushes/PaintBrush.h>
-#include <AzToolsFramework/Brushes/PaintBrushComponentRequestBus.h>
+#include <AzToolsFramework/Brushes/PaintBrushComponentNotificationBus.h>
 #include <Components/ImageGradientComponent.h>
 #include <GradientSignal/Editor/EditorGradientComponentBase.h>
 
@@ -25,7 +25,7 @@ namespace GradientSignal
     class EditorImageGradientComponent
         : public EditorGradientComponentBase<ImageGradientComponent, ImageGradientConfig>
         , private AZ::Data::AssetBus::Handler
-        , private AzToolsFramework::PaintBrushComponentRequestBus::Handler
+        , private AzToolsFramework::PaintBrushComponentNotificationBus::Handler
     {
     public:
         using BaseClassType = EditorGradientComponentBase<ImageGradientComponent, ImageGradientConfig>;

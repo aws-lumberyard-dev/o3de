@@ -96,7 +96,7 @@ set(FILES
     AssetDatabase/AssetDatabaseConnection.h
     Brushes/PaintBrush.h
     Brushes/PaintBrush.cpp
-    Brushes/PaintBrushComponentRequestBus.h
+    Brushes/PaintBrushComponentNotificationBus.h
     Brushes/PaintBrushNotificationBus.h
     Brushes/PaintBrushRequestBus.h
     Debug/TraceContext.inl

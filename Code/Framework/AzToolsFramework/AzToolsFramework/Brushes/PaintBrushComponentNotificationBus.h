@@ -15,20 +15,19 @@
 
 namespace AzToolsFramework
 {
-    class PaintBrushComponentRequests : public AZ::EBusTraits
+    class PaintBrushComponentNotifications : public AZ::EBusTraits
     {
     public:
         // EBusTraits
-        static const AZ::EBusHandlerPolicy HandlerPolicy = AZ::EBusHandlerPolicy::Single;
+        static const AZ::EBusHandlerPolicy HandlerPolicy = AZ::EBusHandlerPolicy::Multiple;
         static const AZ::EBusAddressPolicy AddressPolicy = AZ::EBusAddressPolicy::ById;
         using BusIdType = AZ::EntityComponentIdPair;
-        using MutexType = AZStd::recursive_mutex;
 
         virtual void SavePaintLayer() = 0;
 
     protected:
-        ~PaintBrushComponentRequests() = default;
+        ~PaintBrushComponentNotifications() = default;
     };
 
-    using PaintBrushComponentRequestBus = AZ::EBus<PaintBrushComponentRequests>;
+    using PaintBrushComponentNotificationBus = AZ::EBus<PaintBrushComponentNotifications>;
 } // namespace AzToolsFramework

@@ -75,7 +75,7 @@ namespace GradientSignal
         m_paintBrush.Activate(AZ::EntityComponentIdPair(GetEntityId(), GetId()));
 
         AZ::Data::AssetBus::Handler::BusConnect(m_configuration.m_imageAsset.GetId());
-        AzToolsFramework::PaintBrushComponentRequestBus::Handler::BusConnect(AZ::EntityComponentIdPair(GetEntityId(), GetId()));
+        AzToolsFramework::PaintBrushComponentNotificationBus::Handler::BusConnect(AZ::EntityComponentIdPair(GetEntityId(), GetId()));
 
         m_componentModeDelegate.ConnectWithSingleComponentMode<EditorImageGradientComponent, EditorImageGradientComponentMode>(
             AZ::EntityComponentIdPair(GetEntityId(), GetId()), nullptr);
@@ -99,7 +99,7 @@ namespace GradientSignal
         m_componentModeDelegate.Disconnect();
 
         AZ::Data::AssetBus::Handler::BusDisconnect();
-        AzToolsFramework::PaintBrushComponentRequestBus::Handler::BusDisconnect();
+        AzToolsFramework::PaintBrushComponentNotificationBus::Handler::BusDisconnect();
 
         m_paintBrush.Deactivate();
         BaseClassType::Deactivate();
