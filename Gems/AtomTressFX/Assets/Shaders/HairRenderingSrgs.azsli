@@ -177,7 +177,7 @@ struct HairObjectShadeParams
 
     // Original TressFX Kajiya lighting model parameters
     float       m_hairEx2;
-    float4		m_matKValue;   // KAmbient, KDiffuse, KSpec1, Exp1
+    float4      m_matKValue;   // KAmbient, KDiffuse, KSpec1, Exp1
     float       m_hairKs2;
 
     // Marschner lighting model parameters 
