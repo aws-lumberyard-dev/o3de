@@ -155,10 +155,10 @@ namespace AMD
         int         MaxShadowFibers = 50;
 
         // Marschner lighting model parameters 
-        float		Roughness;
-        float		CuticleTilt;  // tile angle in radians
+        float       Roughness;
+        float       CuticleTilt;  // tile angle in radians
 
-        float		fPadding1;
+        float       fPadding1;
     };
 
     // If you change this, you MUST also change TressFXStrandParameters in HairRenderingSrgs.azsli
@@ -208,10 +208,10 @@ namespace AMD
         float       HairKs2 = 0.072f;
 
         // Marschner lighting model parameters 
-        float		Roughness;
-        float		CuticleTilt;  // tile angle in radians
+        float       Roughness;
+        float       CuticleTilt;  // tile angle in radians
 
-        float		fPadding0;
+        float       fPadding0;
     };
 
     //! Hair objects material array - passed as a constant structure used by

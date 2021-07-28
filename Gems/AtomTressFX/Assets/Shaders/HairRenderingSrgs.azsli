@@ -72,10 +72,10 @@ struct TressFXRenderParameters
     int         m_maxShadowFibers;
 
     // Marschner lighting model parameters 
-    float		m_roughness;
-    float		m_cuticleTilt;
+    float       m_roughness;
+    float       m_cuticleTilt;
 
-    float		m_fPadding1;
+    float       m_fPadding1;
 };
 
 // Separate strand params from pixel render params (so we can index for PPLL)
@@ -181,10 +181,10 @@ struct HairObjectShadeParams
     float       m_hairKs2;
 
     // Marschner lighting model parameters 
-    float		m_roughness;
-    float		m_cuticleTilt;
+    float       m_roughness;
+    float       m_cuticleTilt;
 
-    float		fPadding0;
+    float       fPadding0;
 };
 
 //------------------------------------------------------------------------------
