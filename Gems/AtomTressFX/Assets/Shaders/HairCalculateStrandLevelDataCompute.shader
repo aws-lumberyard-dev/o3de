@@ -1,5 +1,4 @@
 { 
-//    "Source" : "HairCalculateStrandLevelData.azsl",
     "Source" : "HairSimulationCompute.azsl",
 
     "CompilerHints" : { 

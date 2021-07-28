@@ -1,5 +1,4 @@
 { 
-//    "Source" : "HairLocalShapeConstraints.azsl",
     "Source" : "HairSimulationCompute.azsl",
 
     "CompilerHints" : { 

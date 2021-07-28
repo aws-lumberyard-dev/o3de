@@ -1,5 +1,4 @@
 { 
-//    "Source" : "HairVelocityShockPropagation.azsl",
     "Source" : "HairSimulationCompute.azsl",
 
     "CompilerHints" : { 

@@ -1,5 +1,4 @@
 { 
-//    "Source" : "HairLengthConstraintsWindAndCollision.azsl",
     "Source" : "HairSimulationCompute.azsl",	
 
     "CompilerHints" : { 

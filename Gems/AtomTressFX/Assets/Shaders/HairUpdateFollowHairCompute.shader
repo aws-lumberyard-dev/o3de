@@ -1,5 +1,4 @@
 { 
-//    "Source" : "HairUpdateFollowHair.azsl",
     "Source" : "HairSimulationCompute.azsl",
 
     "CompilerHints" : { 
