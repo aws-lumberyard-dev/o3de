@@ -1,6 +1,7 @@
 { 
-    "Source" : "HairGlobalShapeConstraints.azsl",
-	
+//    "Source" : "HairGlobalShapeConstraints.azsl",
+    "Source" : "HairSimulationCompute.azsl",	
+
     "CompilerHints" : { 
         "DxcDisableOptimizations" : false,
         "DxcGenerateDebugInfo" : true

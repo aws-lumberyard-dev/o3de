@@ -92,22 +92,22 @@ set(FILES
     Assets/Shaders/HairSurface.azsli
 
     # Simulation Compute shaders
-    Assets/Shaders/HairSimulation.azsl
-    Assets/Shaders/HairGlobalShapeConstraints.azsl
-    Assets/Shaders/HairCalculateStrandLevelData.azsl
-    Assets/Shaders/HairVelocityShockPropagation.azsl
-    Assets/Shaders/HairLocalShapeConstraints.azsl
-    Assets/Shaders/HairLengthConstraintsWindAndCollision.azsl  
-    Assets/Shaders/HairUpdateFollowHair.azsl
+    Assets/Shaders/HairSimulation.azsl    
+    Assets/Shaders/HairSimulationCompute.azsl   
+#    Assets/Shaders/HairGlobalShapeConstraints.azsl
+#    Assets/Shaders/HairCalculateStrandLevelData.azsl
+#    Assets/Shaders/HairVelocityShockPropagation.azsl
+#    Assets/Shaders/HairLocalShapeConstraints.azsl
+#    Assets/Shaders/HairLengthConstraintsWindAndCollision.azsl  
+#    Assets/Shaders/HairUpdateFollowHair.azsl
     
-    # Rendering shaders
-    Assets/Shaders/HairRenderingFillPPLL.azsl
-    Assets/Shaders/HairRenderingResolvePPLL.azsl
-
     # Collision shaders - to be included soon
 #    Assets/Shaders/HairCollisionPrepareSDF.azsl
 #    Assets/Shaders/HairCollisionWithSDF.azsl
-    
+
+    # Rendering shaders
+    Assets/Shaders/HairRenderingFillPPLL.azsl
+    Assets/Shaders/HairRenderingResolvePPLL.azsl  
 
     # Simulation .shader files
     Assets/Shaders/HairSkinningCompute.shader
