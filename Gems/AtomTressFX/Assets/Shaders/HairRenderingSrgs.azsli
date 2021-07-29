@@ -198,7 +198,7 @@ struct PPLL_STRUCT
 //------------------------------------------------------------------------------
 
 //---------------------------- Hair Shader Options -----------------------------
-option enum class HairLightingModel {GGX, Marschner} o_hairLightingModel = HairLightingModel::Marschner;
+option enum class HairLightingModel {GGX, Marschner, Kajiya} o_lightingModel = HairLightingModel::Marschner;
 
 option bool o_enableMarschner_R = true;
 option bool o_enableMarschner_TRT = true;
