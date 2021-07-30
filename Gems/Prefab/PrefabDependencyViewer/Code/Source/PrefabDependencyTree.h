@@ -22,8 +22,11 @@ namespace PrefabDependencyViewer
     using PrefabDom                      = AzToolsFramework::Prefab::PrefabDom;
     using PrefabSystemComponentInterface = AzToolsFramework::Prefab::PrefabSystemComponentInterface;
     using Outcome                        = AZ::Outcome<PrefabDependencyTree, const char*>;
+    using AssetList                      = AZStd::vector<AZ::Data::Asset<AZ::Data::AssetData>>;
+    using LoadInstanceFlags              = AzToolsFramework::Prefab::PrefabDomUtils::LoadInstanceFlags;
+    using NodePtr                        = AZStd::shared_ptr<Utils::Node>;
 
-    class PrefabDependencyTree : public Utils::DirectedGraph
+    class PrefabDependencyTree : public Utils::DirectedTree
     {
     public:
         static Outcome GenerateTreeAndSetRoot(TemplateId tid,
@@ -67,9 +70,20 @@ namespace PrefabDependencyViewer
 
                 // Create a new node for the current Template and
                 // Connect it to it's parent.
-                Utils::Node* node = aznew Utils::Node(templateId, sourceFileName);
-                graph.AddNode(node);
-                graph.AddChild(parent, node);
+                NodePtr node = Utils::Node::CreatePrefabNode(templateId, sourceFileName);
+                if (parent)
+                {
+                    parent->AddChildAndSetParent(node);
+                }
+                else
+                {
+                    // Only during the first iteration is the parent going to be nullptr
+                    // and only at this point graph should have a root. If were reach
+                    // this block and root is already set and then SetRoot would assert.
+                    graph.SetRoot(node);
+                }
+                AssetList assetList = GetAssets(prefabDom);
+                AddAssetNodeToPrefab(prefabDom, node);
 
                 // Go through current Template's nested instances
                 // and put their TemplateId and current Template node
@@ -95,13 +109,38 @@ namespace PrefabDependencyViewer
 
                             // Checks for InvalidTemplateId when we pop the element off of the stack above.
                             TemplateId childtid = s_prefabSystemComponentInterface->GetTemplateIdFromFilePath(sourceFileName);
-                            stack.push(AZStd::make_pair(childtid, node));
+                            stack.push(AZStd::make_pair(childtid, node.get()));
                         }
                     }
                 }
             }
 
             return AZ::Success(graph);
+        }
+
+        static AssetList GetAssets(const PrefabDom& prefabDom)
+        {
+            AzToolsFramework::Prefab::Instance instance;
+            AssetList referencedAssets;
+            LoadInstanceFlags flags = LoadInstanceFlags::AssignRandomEntityId;
+
+            bool result = AzToolsFramework::Prefab::PrefabDomUtils::LoadInstanceFromPrefabDom(
+                                                    instance, prefabDom, referencedAssets, flags);
+
+            AZ_Assert(result, "Prefab Dependency Viewer Gem - An error happened while loading nested assets");
+
+            AZStd::vector<Utils::Node*> referencedAssetsNode;
+
+            return referencedAssets;
+        }
+
+        static void AddAssetNodeToPrefab(const PrefabDom& prefabDom, NodePtr node)
+        {
+            AssetList assetList = GetAssets(prefabDom);
+            for (const auto& asset : assetList) {
+                AZStd::string assetDescription = asset.GetHint();
+                node->AddChildAndSetParent(Utils::Node::CreateAssetNode(assetDescription));
+            }
         }
     };
 }

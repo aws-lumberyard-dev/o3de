@@ -27,9 +27,15 @@ namespace PrefabDependencyViewer::Utils
         AZ_CLASS_ALLOCATOR(MetaData, AZ::SystemAllocator, 0);
 
         MetaData() = default;
+        virtual AZStd::string_view GetDisplayName() = 0;
+    };
 
-        MetaData(TemplateId tid, AZStd::string source)
-            : m_tid(tid)
+    struct PrefabMetaData : public MetaData
+    {
+    public:
+        PrefabMetaData(TemplateId tid, AZStd::string source)
+            : MetaData()
+            , m_tid(tid)
             , m_source(AZStd::move(source))
         {
         }
@@ -44,8 +50,30 @@ namespace PrefabDependencyViewer::Utils
             return m_source;
         }
 
-    private:
+        AZStd::string_view GetDisplayName() override {
+            return GetSource();
+        }
+
+        private:
         TemplateId m_tid;
         AZStd::string m_source;
+    };
+
+    struct AssetMetaData : public MetaData
+    {
+    public:
+        AssetMetaData(AZStd::string assetDescription)
+            : MetaData()
+            , m_assetDescription(assetDescription)
+        {
+        }
+
+        AZStd::string_view GetDisplayName() override
+        {
+            return m_assetDescription;
+        }
+
+    private:
+        AZStd::string m_assetDescription;
     };
 } // namespace PrefabDependencyViewer::Utils

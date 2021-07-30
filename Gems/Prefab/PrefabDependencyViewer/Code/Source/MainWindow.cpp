@@ -56,7 +56,7 @@ namespace PrefabDependencyViewer
         m_nodePalette = nullptr;
     }
 
-    void PrefabDependencyViewerWidget::DisplayTree(const Utils::DirectedGraph& graph)
+    void PrefabDependencyViewerWidget::DisplayTree(const Utils::DirectedTree& graph)
     {
         m_sceneId = CreateNewGraph();
         GraphCanvas::GraphModelRequestBus::Handler::BusConnect(m_sceneId);
@@ -65,10 +65,11 @@ namespace PrefabDependencyViewer
         DisplayNodesByLevel(graph, nodeCountAtEachLevel, widestLevelSize);
     }
 
-    void PrefabDependencyViewerWidget::DisplayNodesByLevel(const Utils::DirectedGraph& graph, [[maybe_unused]] AZStd::vector<int> numNodesAtEachLevel, [[maybe_unused]] int widestLevelSize)
+    void PrefabDependencyViewerWidget::DisplayNodesByLevel(const Utils::DirectedTree& graph,
+                                AZStd::vector<int> numNodesAtEachLevel, int widestLevelSize)
     {
         AZStd::queue<Utils::Node*> queue;
-        queue.push(graph.GetRoot());
+        queue.push(graph.GetRoot().get());
 
         int stepDown = 100;
         int stepRight = 250;
@@ -86,14 +87,12 @@ namespace PrefabDependencyViewer
 
                 DisplayNode(currNode, pos);
 
-                AZStd::optional<Utils::NodeSet> currChildren = graph.GetChildren(currNode);
-                if (AZStd::nullopt != currChildren && currChildren.has_value())
+                ChildrenList currChildren = currNode->GetChildren();
+                for (const NodePtr& currChild : currChildren)
                 {
-                    for (Utils::Node* currChild : currChildren.value())
-                    {
-                        queue.push(currChild);
-                    }
+                    queue.push(currChild.get());
                 }
+
                 currRight += stepRight;
             }
 
@@ -117,7 +116,7 @@ namespace PrefabDependencyViewer
         AZ::EntityId nodeUiId = graphCanvasNode->GetId();
         nodeToNodeUiId[node] = nodeUiId;
 
-        GraphCanvas::NodeTitleRequestBus::Event(nodeUiId, &GraphCanvas::NodeTitleRequests::SetTitle, node->GetMetaData().GetSource());
+        GraphCanvas::NodeTitleRequestBus::Event(nodeUiId, &GraphCanvas::NodeTitleRequests::SetTitle, node->GetMetaData()->GetDisplayName());
 
         GraphCanvas::SceneRequestBus::Event(m_sceneId, &GraphCanvas::SceneRequests::AddNode, nodeUiId, pos, false);
         GraphCanvas::SceneMemberUIRequestBus::Event(nodeUiId, &GraphCanvas::SceneMemberUIRequests::SetSelected, true);
