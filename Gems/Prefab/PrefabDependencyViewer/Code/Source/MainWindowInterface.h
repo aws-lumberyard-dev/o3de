@@ -22,7 +22,7 @@
     public:
         AZ_RTTI(PrefabDependencyViewerInterface, "{9F550542-7184-42BE-B33D-CB9BDF88A758}");
 
-        virtual void DisplayTree(const Utils::DirectedGraph& graph) = 0;
+        virtual void DisplayTree(const Utils::DirectedTree& graph) = 0;
     };
 } // namespace AzToolsFramework
 

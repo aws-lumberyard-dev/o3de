@@ -21,6 +21,9 @@
 
 namespace PrefabDependencyViewer
 {
+    using NodePtr = AZStd::shared_ptr<Utils::Node>;
+    using ChildrenList = AZStd::vector<NodePtr>;
+
     struct PrefabDependencyViewerConfig
         : GraphCanvas::AssetEditorWindowConfig
     {
@@ -47,9 +50,9 @@ namespace PrefabDependencyViewer
         void SetupUI() override;
 
         ////////////////// PrefabDependencyViewerWidget overrides ////////////////////
-        void DisplayTree(const Utils::DirectedGraph& graph) override;
+        void DisplayTree(const Utils::DirectedTree& graph) override;
 
-        void DisplayNodesByLevel(const Utils::DirectedGraph& graph, AZStd::vector<int> numNodesAtEachLevel, int widestLevel);
+        void DisplayNodesByLevel(const Utils::DirectedTree& graph, AZStd::vector<int> numNodesAtEachLevel, int widestLevel);
 
         void DisplayNode(Utils::Node* node, AZ::Vector2 pos);
 
