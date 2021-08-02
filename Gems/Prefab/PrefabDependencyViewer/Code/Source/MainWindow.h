@@ -58,8 +58,8 @@ namespace PrefabDependencyViewer
 
         GraphCanvas::SlotId CreateDataSlot(
             GraphCanvas::NodeId nodeId,
-            AZStd::string&& slotName,
-            AZStd::string&& tooltip,
+            AZStd::string slotName,
+            AZStd::string tooltip,
             AZ::Uuid dataType,
             GraphCanvas::SlotGroup slotGroup,
             bool isInput);
