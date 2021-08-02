@@ -40,46 +40,19 @@ namespace PrefabDependencyViewer::Utils
 
         AZ_CLASS_ALLOCATOR(Node, AZ::SystemAllocator, 0);
 
-        Node(MetaData* metaData, Node* parent)
-            : m_metaData(metaData)
-            , m_parent(parent)
-        {
-        }
+        Node(MetaData* metaData, Node* parent);
 
-        void AddChildAndSetParent(NodePtr child)
-        {
-            child->SetParent(this);
-            m_children.push_back(child);
-        }
+        void AddChildAndSetParent(NodePtr child);
 
-        MetaData* GetMetaData()
-        {
-            return m_metaData.get();
-        }
+        MetaData* GetMetaData();
 
-        Node* GetParent()
-        {
-            return m_parent;
-        }
+        Node* GetParent();
+        void SetParent(Node* parent);
 
-        void SetParent(Node* parent)
-        {
-            m_parent = parent;
-        }
+        ChildrenList& GetChildren();
 
-        ChildrenList& GetChildren()
-        {
-            return m_children;
-        }
-
-        static NodePtr CreatePrefabNode(TemplateId tid, AZStd::string source, Node* parent=nullptr) {
-            return AZStd::make_shared<Node>(aznew PrefabMetaData(tid, source), parent);
-        }
-
-        static NodePtr CreateAssetNode(AZStd::string asset_description) {
-            return AZStd::make_shared<Node>(aznew AssetMetaData(asset_description), nullptr);
-        }
-
+        static NodePtr CreatePrefabNode(TemplateId tid, AZStd::string source, Node* parent = nullptr);
+        static NodePtr CreateAssetNode(AZStd::string asset_description);
     private:
         AZStd::unique_ptr<MetaData> m_metaData;
         Node* m_parent;
