@@ -30,7 +30,6 @@
 //==============================================================================
 // Include options first
 #include <Atom/Features/PBR/LightingOptions.azsli>
-#include <HairRenderingSrgs.azsli>
 #include <HairSurface.azsli>
 #include <HairUtilities.azsli>
 #include <Atom/Features/PBR/Lighting/LightingData.azsli>
@@ -42,6 +41,17 @@
 #include <Atom/Features/PBR/Decals.azsli>
 
 #include <HairLightingEquations.azsli>
+//===================== Hair Lighting Shader Options ===========================
+enum class HairLightingModel {GGX, Marschner, Kajiya};
+option HairLightingModel o_lightingModel = HairLightingModel::Marschner;
+
+option bool o_enableMarschner_R = true;
+option bool o_enableMarschner_TRT = true;
+option bool o_enableMarschner_TT = true;
+ 
+option bool o_enableDiffuseLobe = true;
+option bool o_enableSpecularLobe = true;
+option bool o_enableTransmitanceLobe = true;
 //==============================================================================
 float3 GetSpecularLighting(Surface surface, LightingData lightingData, const float3 lightIntensity, const float3 dirToLight)
 {
