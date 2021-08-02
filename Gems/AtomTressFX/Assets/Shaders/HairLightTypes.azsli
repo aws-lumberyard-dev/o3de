@@ -56,11 +56,11 @@ option bool o_enableTransmitanceLobe = true;
 float3 GetSpecularLighting(Surface surface, LightingData lightingData, const float3 lightIntensity, const float3 dirToLight)
 {
     float3 specular = float3(1, 0, 1);  // purple - error color
-    if (o_lightingModel == HairLightingModel::GGX)
+    if (o_hairLightingModel == HairLightingModel::GGX)
     {
         specular = SpecularGGX(lightingData.dirToCamera, dirToLight, surface.normal, surface.specularF0, lightingData.NdotV, surface.roughnessA2, lightingData.multiScatterCompensation);
     }
-    else if(o_lightingModel == HairLightingModel::Marschner)
+    else if(o_hairLightingModel == HairLightingModel::Marschner)
     {
         specular = HairBSDF(surface, lightingData, dirToLight);
     }
@@ -70,7 +70,7 @@ float3 GetSpecularLighting(Surface surface, LightingData lightingData, const flo
 
 float3 GetHairBackLighting(Surface surface, LightingData lightingData, float3 lightIntensity, float3 dirToLight, float shadowRatio)
 {
-    if (o_lightingModel == HairLightingModel::GGX)
+    if (o_hairLightingModel == HairLightingModel::GGX)
     {
         float3 result = float3(0.0, 0.0, 0.0);
         float thickness = 0.0;
@@ -86,7 +86,7 @@ float3 GetHairBackLighting(Surface surface, LightingData lightingData, float3 li
 
         return result;
     }
-    else // if (o_lightingModel == HairLightingModel::Marschner)
+    else // if (o_hairLightingModel == HairLightingModel::Marschner)
     {
         return float3(0.0f, 0.0f, 0.0f);
     }
@@ -107,12 +107,12 @@ float3 GetDiffuseLighting(Surface surface, LightingData lightingData, float3 lig
 {
     float3 diffuse = float3(0, 1, 0);   // Green - error color
 
-    if (o_lightingModel == HairLightingModel::GGX)
+    if (o_hairLightingModel == HairLightingModel::GGX)
     {
         // Notice that addition of the response (1-F) here
         diffuse = HairDiffuseLambertian(surface.albedo, surface.normal, dirToLight) * lightingData.diffuseResponse;
     }
-    else if (o_lightingModel == HairLightingModel::Marschner)
+    else if (o_hairLightingModel == HairLightingModel::Marschner)
     {
         return float3(0.0f, 0.0f, 0.0f);
     }
@@ -143,7 +143,7 @@ void SetNormal(
 {
     // Direct towards close to half vector by never cross fully (more weight to camera direction)
     float3 biNormal;
-    if (o_lightingModel == HairLightingModel::GGX)
+    if (o_hairLightingModel == HairLightingModel::GGX)
     {
         float3 halfDir = normalize( dirToLight + 1.2 * lightingData.dirToCamera);
         biNormal = cross(tangent, halfDir);
