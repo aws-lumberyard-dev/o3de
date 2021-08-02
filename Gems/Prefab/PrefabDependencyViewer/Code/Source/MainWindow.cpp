@@ -150,8 +150,8 @@ namespace PrefabDependencyViewer
     }
     GraphCanvas::SlotId PrefabDependencyViewerWidget::CreateDataSlot(
         GraphCanvas::NodeId nodeId,
-        AZStd::string&& slotName,
-        AZStd::string&& tooltip,
+        AZStd::string slotName,
+        AZStd::string tooltip,
         AZ::Uuid dataType,
         GraphCanvas::SlotGroup slotGroup,
         bool isInput)
@@ -160,8 +160,8 @@ namespace PrefabDependencyViewer
         dataSlotConfiguration.m_typeId = dataType;
         dataSlotConfiguration.m_dataSlotType = GraphCanvas::DataSlotType::Value;
 
-        dataSlotConfiguration.m_name = slotName;
-        dataSlotConfiguration.m_tooltip = tooltip;
+        dataSlotConfiguration.m_name = AZStd::move(slotName);
+        dataSlotConfiguration.m_tooltip = AZStd::move(tooltip);
         dataSlotConfiguration.m_slotGroup = slotGroup;
 
         // Need to specify the ConnectionType for this slot.
