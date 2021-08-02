@@ -13,7 +13,10 @@ set(FILES
     Source/MainWindow.cpp
     Source/MainWindowInterface.h
     Source/DirectedGraph.h
+    Source/DirectedGraph.cpp
     Source/Node.h
+    Source/Node.cpp
     Source/MetaData.h
+    Source/MetaData.cpp
     Source/PrefabDependencyTree.h
 )

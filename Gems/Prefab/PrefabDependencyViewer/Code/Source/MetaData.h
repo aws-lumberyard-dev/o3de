@@ -33,28 +33,13 @@ namespace PrefabDependencyViewer::Utils
     struct PrefabMetaData : public MetaData
     {
     public:
-        PrefabMetaData(TemplateId tid, AZStd::string source)
-            : MetaData()
-            , m_tid(tid)
-            , m_source(AZStd::move(source))
-        {
-        }
+        PrefabMetaData(TemplateId tid, AZStd::string source);
 
-        TemplateId GetTemplateId()
-        {
-            return m_tid;
-        }
+        TemplateId GetTemplateId();
+        AZStd::string_view GetSource();
+        AZStd::string_view GetDisplayName();
 
-        AZStd::string_view GetSource()
-        {
-            return m_source;
-        }
-
-        AZStd::string_view GetDisplayName() override {
-            return GetSource();
-        }
-
-        private:
+    private:
         TemplateId m_tid;
         AZStd::string m_source;
     };
@@ -62,18 +47,11 @@ namespace PrefabDependencyViewer::Utils
     struct AssetMetaData : public MetaData
     {
     public:
-        AssetMetaData(AZStd::string assetDescription)
-            : MetaData()
-            , m_assetDescription(assetDescription)
-        {
-        }
+        AssetMetaData(AZStd::string source);
 
-        AZStd::string_view GetDisplayName() override
-        {
-            return m_assetDescription;
-        }
+        AZStd::string_view GetDisplayName() override;
 
     private:
-        AZStd::string m_assetDescription;
+        AZStd::string m_source;
     };
 } // namespace PrefabDependencyViewer::Utils
