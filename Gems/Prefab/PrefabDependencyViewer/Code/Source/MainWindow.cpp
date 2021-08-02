@@ -61,12 +61,12 @@ namespace PrefabDependencyViewer
         m_sceneId = CreateNewGraph();
         GraphCanvas::GraphModelRequestBus::Handler::BusConnect(m_sceneId);
 
-        const auto [nodeCountAtEachLevel, widestLevelSize] = graph.countNodesAtEachLevel();
+        const auto [nodeCountAtEachLevel, widestLevelSize] = graph.CountNodesAtEachLevel();
         DisplayNodesByLevel(graph, nodeCountAtEachLevel, widestLevelSize);
     }
 
     void PrefabDependencyViewerWidget::DisplayNodesByLevel(const Utils::DirectedTree& graph,
-                                AZStd::vector<int> numNodesAtEachLevel, int widestLevelSize)
+                                const AZStd::vector<int>& numNodesAtEachLevel, int widestLevelSize)
     {
         AZStd::queue<Utils::Node*> queue;
         queue.push(graph.GetRoot().get());

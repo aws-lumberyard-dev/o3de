@@ -52,7 +52,7 @@ namespace PrefabDependencyViewer
         ////////////////// PrefabDependencyViewerWidget overrides ////////////////////
         void DisplayTree(const Utils::DirectedTree& graph) override;
 
-        void DisplayNodesByLevel(const Utils::DirectedTree& graph, AZStd::vector<int> numNodesAtEachLevel, int widestLevel);
+        void DisplayNodesByLevel(const Utils::DirectedTree& graph, const AZStd::vector<int>& numNodesAtEachLevel, int widestLevel);
 
         void DisplayNode(Utils::Node* node, AZ::Vector2 pos);
 

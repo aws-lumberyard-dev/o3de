@@ -25,7 +25,7 @@ namespace PrefabDependencyViewer::Utils
         return m_root;
     }
 
-    AZStd::tuple<AZStd::vector<int>, int> DirectedTree::countNodesAtEachLevel() const
+    AZStd::tuple<AZStd::vector<int>, int> DirectedTree::CountNodesAtEachLevel() const
     {
         /** Directed Graph can't have cycles because of the
         non-circular nature of the Prefab. */
@@ -63,6 +63,6 @@ namespace PrefabDependencyViewer::Utils
 
         // Check if the last level was the widest.
         widestLevelSize = AZStd::max(widestLevelSize, count[count.size() - 1]);
-        return AZStd::make_tuple(count, widestLevelSize);
+        return AZStd::make_tuple(AZStd::move(count), widestLevelSize);
     }
 }

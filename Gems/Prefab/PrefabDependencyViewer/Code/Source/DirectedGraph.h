@@ -43,7 +43,7 @@ namespace PrefabDependencyViewer::Utils
 
         void SetRoot(AZStd::shared_ptr<Node> root);
         AZStd::shared_ptr<Node> GetRoot() const;
-        AZStd::tuple<AZStd::vector<int>, int> countNodesAtEachLevel() const;
+        AZStd::tuple<AZStd::vector<int>, int> CountNodesAtEachLevel() const;
 
     private:
         NodePtr m_root = nullptr;
