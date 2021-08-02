@@ -43,7 +43,7 @@
 #include <HairLightingEquations.azsli>
 //===================== Hair Lighting Shader Options ===========================
 enum class HairLightingModel {GGX, Marschner, Kajiya};
-option HairLightingModel o_lightingModel = HairLightingModel::Marschner;
+option HairLightingModel o_hairLightingModel = HairLightingModel::Marschner;
 
 option bool o_enableMarschner_R = true;
 option bool o_enableMarschner_TRT = true;
