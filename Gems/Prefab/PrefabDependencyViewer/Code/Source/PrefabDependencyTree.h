@@ -12,6 +12,7 @@
 #include <AzCore/std/containers/stack.h>
 #include <AzCore/std/utils.h>
 
+#include <AzToolsFramework/API/EditorAssetSystemAPI.h>
 #include <AzToolsFramework/Prefab/PrefabDomUtils.h>
 
 namespace PrefabDependencyViewer
@@ -138,8 +139,15 @@ namespace PrefabDependencyViewer
         {
             AssetList assetList = GetAssets(prefabDom);
             for (const auto& asset : assetList) {
-                AZStd::string assetDescription = asset.GetHint();
-                node->AddChildAndSetParent(Utils::Node::CreateAssetNode(assetDescription));
+                bool result;
+                AZ::Data::AssetInfo assetInfo;
+                AZStd::string watchFolder;
+                
+                AzToolsFramework::AssetSystemRequestBus::BroadcastResult(
+                    result, &AzToolsFramework::AssetSystemRequestBus::Events::GetSourceInfoBySourceUUID,
+                    asset.GetId().m_guid, assetInfo, watchFolder);
+
+                node->AddChildAndSetParent(Utils::Node::CreateAssetNode(assetInfo.m_relativePath));
             }
         }
     };
