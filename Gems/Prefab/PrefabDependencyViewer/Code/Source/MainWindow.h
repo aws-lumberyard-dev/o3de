@@ -42,7 +42,7 @@ namespace PrefabDependencyViewer
     {
         Q_OBJECT;
     public:
-        explicit PrefabDependencyViewerWidget(QWidget* pParent = NULL);
+        explicit PrefabDependencyViewerWidget(QWidget* parent = nullptr);
         ~PrefabDependencyViewerWidget() override;
 
         ////////////////// GraphCanvas::AssetEditorMainWindow overrides //////////////
