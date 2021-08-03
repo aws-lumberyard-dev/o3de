@@ -57,33 +57,14 @@ namespace PrefabDependencyViewer
     void PrefabDependencyViewerEditorSystemComponent::Activate()
     {
         m_prefabEntityMapperInterface = AZ::Interface<InstanceEntityMapperInterface>::Get();
-        if (nullptr == m_prefabEntityMapperInterface)
-        {
-            // Since the Viewer is listed as "Tools", it might be loaded into Tools that
-            // are not in the Editor. => Shouldn't assert in light of that situation.
-            AZ_Error("Prefab Dependency Viewer", false,
-                "could not get InstanceEntityMapperInterface during it's EditorSystemComponent activation.")
-            return;
-        }
-
         m_prefabSystemComponentInterface = AZ::Interface<PrefabSystemComponentInterface>::Get();
-        if (nullptr == m_prefabSystemComponentInterface)
-        {
-            AZ_Error("Prefab Dependency Viewer", false,
-                "could not get PrefabSystemComponentInterface during it's EditorSystemComponent activation.");
-            return;
-        }
-
         m_prefabPublicInterface = AZ::Interface<PrefabPublicInterface>::Get();
-        if (nullptr == m_prefabPublicInterface)
-        {
-            AZ_Error("Prefab Dependency Viewer", false,
-                "could not get PrefabPublicInterface during it's EditorSystemComponent activation.");
-            return;
-        }
 
-        AzToolsFramework::EditorContextMenuBus::Handler::BusConnect();
-        AzToolsFramework::EditorEvents::Bus::Handler::BusConnect();
+        if (DependentServicesPresent())
+        {
+            AzToolsFramework::EditorContextMenuBus::Handler::BusConnect();
+            AzToolsFramework::EditorEvents::Bus::Handler::BusConnect();
+        }
     }
 
     void PrefabDependencyViewerEditorSystemComponent::Deactivate()
@@ -105,42 +86,37 @@ namespace PrefabDependencyViewer
     void PrefabDependencyViewerEditorSystemComponent::PopulateEditorGlobalContextMenu(
         QMenu* menu, [[maybe_unused]] const AZ::Vector2& point, [[maybe_unused]] int flags)
     {
-        AzToolsFramework::EntityIdList selectedEntities;
-        AzToolsFramework::ToolsApplicationRequestBus::BroadcastResult(
-            selectedEntities, &AzToolsFramework::ToolsApplicationRequests::GetSelectedEntities);
-
-        if (nullptr == m_prefabPublicInterface        ||
-            nullptr == m_prefabEntityMapperInterface  ||
-            nullptr == m_prefabSystemComponentInterface)
+        if (DependentServicesPresent())
         {
-            AZ_Error("Prefab Dependency Viewer", false, "one of the required interfaces is a nullptr.");
-            return;
-        }
-        if (selectedEntities.size() == 1 &&
-            m_prefabPublicInterface->IsInstanceContainerEntity(selectedEntities[0]))
-        {
-            AZ::EntityId selectedEntity = selectedEntities[0];
-            InstanceOptionalReference optionalReference = m_prefabEntityMapperInterface->FindOwningInstance(selectedEntity);
+            AzToolsFramework::EntityIdList selectedEntities;
+            AzToolsFramework::ToolsApplicationRequestBus::BroadcastResult(
+                selectedEntities, &AzToolsFramework::ToolsApplicationRequests::GetSelectedEntities);
 
-            if (AZStd::nullopt == optionalReference || !optionalReference.has_value())
+            if (selectedEntities.size() == 1 && m_prefabPublicInterface->IsInstanceContainerEntity(selectedEntities[0]))
             {
-                AZ_Error("Prefab Dependency Viewer", false,
-                    "couldn't retrieve the owning Prefab Instance of the corresponding ContainerEntity");
-                return;
-            }
+                AZ::EntityId selectedEntity = selectedEntities[0];
+                InstanceOptionalReference optionalReference = m_prefabEntityMapperInterface->FindOwningInstance(selectedEntity);
 
-            Instance& prefabInstance = optionalReference.value().get();
-            const TemplateId& tid = prefabInstance.GetTemplateId();
-
-            QAction* dependencyViewerAction = menu->addAction(QObject::tr("View Dependencies"));
-            QObject::connect(
-                dependencyViewerAction, &QAction::triggered, dependencyViewerAction,
-                [this, &tid]
+                if (AZStd::nullopt == optionalReference || !optionalReference.has_value())
                 {
-                    ContextMenu_DisplayAssetDependencies(tid);
-                });
-        }
+                    AZ_Error(
+                        "Prefab Dependency Viewer", false,
+                        "couldn't retrieve the owning Prefab Instance of the corresponding ContainerEntity");
+                    return;
+                }
 
+                Instance& prefabInstance = optionalReference.value().get();
+                const TemplateId& tid = prefabInstance.GetTemplateId();
+
+                QAction* dependencyViewerAction = menu->addAction(QObject::tr("View Dependencies"));
+                QObject::connect(
+                    dependencyViewerAction, &QAction::triggered, dependencyViewerAction,
+                    [this, &tid]
+                    {
+                        ContextMenu_DisplayAssetDependencies(tid);
+                    });
+            }
+        }
     }
 
     void PrefabDependencyViewerEditorSystemComponent::ContextMenu_DisplayAssetDependencies(const TemplateId& tid)
@@ -176,5 +152,35 @@ namespace PrefabDependencyViewer
     {
         AzToolsFramework::RegisterViewPane<PrefabDependencyViewerWidget>(
             s_prefabViewerTitle, LyViewPane::CategoryTools, AzToolsFramework::ViewPaneOptions());
+    }
+
+    bool PrefabDependencyViewerEditorSystemComponent::DependentServicesPresent() const
+    {
+        if (nullptr == m_prefabEntityMapperInterface)
+        {
+            // Since the Viewer is listed as "Tools", it might be loaded into Tools that
+            // are not in the Editor. => Shouldn't assert in light of that situation.
+            AZ_Error(
+                "Prefab Dependency Viewer", false,
+                "could not get InstanceEntityMapperInterface during it's EditorSystemComponent activation.");
+        }
+
+        if (nullptr == m_prefabSystemComponentInterface)
+        {
+            AZ_Error(
+                "Prefab Dependency Viewer", false,
+                "could not get PrefabSystemComponentInterface during it's EditorSystemComponent activation.");
+        }
+
+        if (nullptr == m_prefabPublicInterface)
+        {
+            AZ_Error(
+                "Prefab Dependency Viewer", false,
+                "could not get PrefabPublicInterface during it's EditorSystemComponent activation.");
+        }
+
+        return !(nullptr == m_prefabEntityMapperInterface
+                || nullptr == m_prefabSystemComponentInterface
+                || nullptr == m_prefabPublicInterface);
     }
 } // namespace PrefabDependencyViewer
