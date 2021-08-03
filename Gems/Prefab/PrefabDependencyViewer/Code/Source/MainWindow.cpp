@@ -40,8 +40,8 @@ namespace PrefabDependencyViewer
 
     // Memory leak happens here because AssetEditorMainWindow isn't deallocating
     // the config pointer.
-    PrefabDependencyViewerWidget::PrefabDependencyViewerWidget(QWidget* pParent)
-        : GraphCanvas::AssetEditorMainWindow(GetDefaultConfig(), pParent)
+    PrefabDependencyViewerWidget::PrefabDependencyViewerWidget(QWidget* parent)
+        : GraphCanvas::AssetEditorMainWindow(GetDefaultConfig(), parent)
     {
         AZ::Interface<PrefabDependencyViewerInterface>::Register(this);
     }
