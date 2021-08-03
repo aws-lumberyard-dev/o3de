@@ -22,12 +22,12 @@ namespace PrefabDependencyViewer::Utils
         m_children.push_back(child);
     }
 
-    MetaData* Node::GetMetaData()
+    const MetaData* Node::GetMetaData() const
     {
         return m_metaData.get();
     }
 
-    Node* Node::GetParent()
+    const Node* Node::GetParent() const
     {
         return m_parent;
     }
@@ -37,7 +37,7 @@ namespace PrefabDependencyViewer::Utils
         m_parent = parent;
     }
 
-    ChildrenList& Node::GetChildren()
+    const ChildrenList& Node::GetChildren() const
     {
         return m_children;
     }

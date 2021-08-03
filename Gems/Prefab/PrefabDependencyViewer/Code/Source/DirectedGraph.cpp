@@ -10,13 +10,13 @@
 
 namespace PrefabDependencyViewer::Utils
 {
-    void DirectedTree::SetRoot(AZStd::shared_ptr<Node> root)
+    void DirectedTree::SetRoot(NodePtr root)
     {
         AZ_Assert(!m_root, "Prefab Dependency Viewer - Memory leak in the graph because the root was already set.");
         m_root = root;
     }
 
-    AZStd::shared_ptr<Node> DirectedTree::GetRoot() const
+    AZStd::shared_ptr<const Node> DirectedTree::GetRoot() const
     {
         return m_root;
     }

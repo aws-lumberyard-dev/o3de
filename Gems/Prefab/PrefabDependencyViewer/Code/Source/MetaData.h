@@ -27,7 +27,7 @@ namespace PrefabDependencyViewer::Utils
         AZ_CLASS_ALLOCATOR(MetaData, AZ::SystemAllocator, 0);
 
         MetaData() = default;
-        virtual AZStd::string_view GetDisplayName() = 0;
+        virtual AZStd::string_view GetDisplayName() const = 0;
     };
 
     struct PrefabMetaData : public MetaData
@@ -35,9 +35,9 @@ namespace PrefabDependencyViewer::Utils
     public:
         PrefabMetaData(TemplateId tid, AZStd::string source);
 
-        TemplateId GetTemplateId();
-        AZStd::string_view GetSource();
-        AZStd::string_view GetDisplayName();
+        TemplateId GetTemplateId() const;
+        AZStd::string_view GetSource() const;
+        AZStd::string_view GetDisplayName() const override;
 
     private:
         TemplateId m_tid;
@@ -49,7 +49,7 @@ namespace PrefabDependencyViewer::Utils
     public:
         AssetMetaData(AZStd::string source);
 
-        AZStd::string_view GetDisplayName() override;
+        AZStd::string_view GetDisplayName() const override;
 
     private:
         AZStd::string m_source;

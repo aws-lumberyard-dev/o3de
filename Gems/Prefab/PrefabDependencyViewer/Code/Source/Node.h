@@ -44,12 +44,12 @@ namespace PrefabDependencyViewer::Utils
 
         void AddChildAndSetParent(NodePtr child);
 
-        MetaData* GetMetaData();
+        const MetaData* GetMetaData() const;
 
-        Node* GetParent();
+        const Node* GetParent() const;
         void SetParent(Node* parent);
 
-        ChildrenList& GetChildren();
+        const ChildrenList& GetChildren() const;
 
         static NodePtr CreatePrefabNode(TemplateId tid, AZStd::string source, Node* parent = nullptr);
         static NodePtr CreateAssetNode(AZStd::string asset_description);
