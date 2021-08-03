@@ -19,4 +19,5 @@ set(FILES
     Source/MetaData.h
     Source/MetaData.cpp
     Source/PrefabDependencyTree.h
+    Source/PrefabDependencyTree.cpp
 )
