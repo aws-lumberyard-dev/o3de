@@ -74,7 +74,7 @@ namespace PrefabDependencyViewer
                 NodePtr node = Utils::Node::CreatePrefabNode(templateId, sourceFileName);
                 if (parent)
                 {
-                    parent->AddChildAndSetParent(node);
+                    parent->AddChild(node);
                 }
                 else
                 {
@@ -147,7 +147,7 @@ namespace PrefabDependencyViewer
                     result, &AzToolsFramework::AssetSystemRequestBus::Events::GetSourceInfoBySourceUUID,
                     asset.GetId().m_guid, assetInfo, watchFolder);
 
-                node->AddChildAndSetParent(Utils::Node::CreateAssetNode(assetInfo.m_relativePath));
+                node->AddChild(Utils::Node::CreateAssetNode(assetInfo.m_relativePath));
             }
         }
     };

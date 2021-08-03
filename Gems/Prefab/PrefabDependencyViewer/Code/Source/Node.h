@@ -42,7 +42,12 @@ namespace PrefabDependencyViewer::Utils
 
         Node(MetaData* metaData, Node* parent);
 
-        void AddChildAndSetParent(NodePtr child);
+        /**
+         * Adds the child to the ChildrenList of this Node.
+         * It also sets the parent of the child to this Node pointer.
+         * @param child A Node pointer to be added to this Node's ChildrenList.
+         */
+        void AddChild(NodePtr child);
 
         const MetaData* GetMetaData() const;
 
