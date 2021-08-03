@@ -22,10 +22,7 @@ namespace PrefabDependencyViewer
 
     GraphCanvas::GraphCanvasTreeItem* PrefabDependencyViewerConfig::CreateNodePaletteRoot()
     {
-        const GraphCanvas::EditorId& editorId = PrefabDependencyViewerEditorId;
-        GraphCanvas::NodePaletteTreeItem* rootItem = aznew GraphCanvas::NodePaletteTreeItem("Root", editorId);
-
-        return rootItem;
+        return aznew GraphCanvas::NodePaletteTreeItem("Root", PrefabDependencyViewerEditorId);
     }
 
     /** Returns a bare minimum configuration to configure GraphCanvas UI
