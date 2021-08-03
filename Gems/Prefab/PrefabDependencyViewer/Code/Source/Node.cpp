@@ -44,11 +44,11 @@ namespace PrefabDependencyViewer::Utils
 
     /* static */ NodePtr Node::CreatePrefabNode(TemplateId tid, AZStd::string source, Node* parent)
     {
-        return AZStd::make_shared<Node>(aznew PrefabMetaData(tid, source), parent);
+        return AZStd::make_shared<Node>(aznew PrefabMetaData(tid, AZStd::move(source)), parent);
     }
 
-    /* static */ NodePtr Node::CreateAssetNode(AZStd::string asset_description)
+    /* static */ NodePtr Node::CreateAssetNode(AZStd::string source)
     {
-        return AZStd::make_shared<Node>(aznew AssetMetaData(asset_description), nullptr);
+        return AZStd::make_shared<Node>(aznew AssetMetaData(AZStd::move(source)), nullptr);
     }
 }
