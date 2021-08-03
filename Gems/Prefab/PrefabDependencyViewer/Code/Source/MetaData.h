@@ -33,7 +33,8 @@ namespace PrefabDependencyViewer::Utils
     struct PrefabMetaData : public MetaData
     {
     public:
-        PrefabMetaData(TemplateId tid, AZStd::string source);
+        AZ_CLASS_ALLOCATOR(PrefabMetaData, AZ::SystemAllocator, 0);
+        explicit PrefabMetaData(TemplateId tid, AZStd::string source);
 
         TemplateId GetTemplateId() const;
         AZStd::string_view GetSource() const;
@@ -47,7 +48,8 @@ namespace PrefabDependencyViewer::Utils
     struct AssetMetaData : public MetaData
     {
     public:
-        AssetMetaData(AZStd::string source);
+        AZ_CLASS_ALLOCATOR(AssetMetaData, AZ::SystemAllocator, 0);
+        explicit AssetMetaData(AZStd::string source);
 
         AZStd::string_view GetDisplayName() const override;
 
