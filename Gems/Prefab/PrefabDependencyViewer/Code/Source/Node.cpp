@@ -16,7 +16,7 @@ namespace PrefabDependencyViewer::Utils
     {
     }
 
-    void Node::AddChildAndSetParent(NodePtr child)
+    void Node::AddChild(NodePtr child)
     {
         child->SetParent(this);
         m_children.push_back(child);
