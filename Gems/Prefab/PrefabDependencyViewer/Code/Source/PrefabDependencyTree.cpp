@@ -59,7 +59,7 @@ namespace PrefabDependencyViewer
             else
             {
                 // Only during the first iteration is the parent going to be nullptr
-                // and only at this point graph should have a root. If were reach
+                // and only at this point graph should have a root. If we reach
                 // this block and root is already set and then SetRoot would assert.
                 graph.SetRoot(node);
             }

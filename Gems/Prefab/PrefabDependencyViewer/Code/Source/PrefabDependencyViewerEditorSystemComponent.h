@@ -94,6 +94,8 @@ namespace PrefabDependencyViewer
          */ 
         void ContextMenu_DisplayAssetDependencies(const TemplateId& tid);
 
+        bool DependentServicesPresent() const;
+
         InstanceEntityMapperInterface* m_prefabEntityMapperInterface     = nullptr;
         PrefabSystemComponentInterface* m_prefabSystemComponentInterface = nullptr;
         PrefabPublicInterface* m_prefabPublicInterface                   = nullptr;
