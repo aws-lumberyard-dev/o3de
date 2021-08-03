@@ -112,6 +112,7 @@ namespace AZ
                 EMotionFX::Integration::ActorComponentNotificationBus::Handler::BusConnect(m_entityId);
                 HairRequestsBus::Handler::BusConnect(m_entityId);
                 TickBus::Handler::BusConnect();
+                HairGlobalSettingsNotificationBus::Handler::BusConnect();
             }
 
             void HairComponentController::Deactivate()
@@ -120,6 +121,7 @@ namespace AZ
                 EMotionFX::Integration::ActorComponentNotificationBus::Handler::BusDisconnect(m_entityId);
                 Data::AssetBus::MultiHandler::BusDisconnect();
                 TickBus::Handler::BusDisconnect();
+                HairGlobalSettingsNotificationBus::Handler::BusDisconnect();
 
                 m_entityId.SetInvalid();
             }
@@ -147,6 +149,11 @@ namespace AZ
                 {
                     RemoveHairObject();
                 }
+            }
+
+            void HairComponentController::OnHairGlobalSettingsChanged(const HairGlobalSettings& hairGlobalSettings)
+            {
+                m_configuration.m_hairGlobalSettings = hairGlobalSettings;
             }
 
             void HairComponentController::RemoveHairObject()
@@ -211,7 +218,6 @@ namespace AZ
                     const float updateShadows = false;
                     m_renderObject->UpdateRenderingParameters(
                         &m_configuration.m_renderingSettings, RESERVED_PIXELS_FOR_OIT, distanceFromCamera, updateShadows);
-                    m_renderObject->SetLightingModel(m_configuration.m_hairGlobalSettings.m_hairLightingModel);
                     m_configChanged = false;
 
                     // Only load the image asset when the dirty flag has been set on the settings.
