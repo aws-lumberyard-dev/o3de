@@ -68,7 +68,7 @@ namespace PrefabDependencyViewer
     void PrefabDependencyViewerWidget::DisplayNodesByLevel(const Utils::DirectedTree& graph,
                                 const AZStd::vector<int>& numNodesAtEachLevel, int widestLevelSize)
     {
-        AZStd::queue<Utils::Node*> queue;
+        AZStd::queue<const Utils::Node*> queue;
         queue.push(graph.GetRoot().get());
 
         int stepDown = 100;
@@ -80,14 +80,14 @@ namespace PrefabDependencyViewer
             double currRight = (widestLevelSize - 1.0 * (numNodesAtEachLevel[level] - 1) / 2) * stepRight;
             for (int nodeNum = 0; nodeNum < numNodesAtEachLevel[level]; ++nodeNum)
             {
-                Utils::Node* currNode = queue.front();
+                const Utils::Node* currNode = queue.front();
                 queue.pop();
 
                 AZ::Vector2 pos(currRight, currDepth);
 
                 DisplayNode(currNode, pos);
 
-                ChildrenList currChildren = currNode->GetChildren();
+                const ChildrenList& currChildren = currNode->GetChildren();
                 for (const NodePtr& currChild : currChildren)
                 {
                     queue.push(currChild.get());
@@ -103,7 +103,7 @@ namespace PrefabDependencyViewer
         AZ_Assert(queue.empty(), "Queue should be empty.");
     }
 
-    void PrefabDependencyViewerWidget::DisplayNode(Utils::Node* node, AZ::Vector2 pos)
+    void PrefabDependencyViewerWidget::DisplayNode(const Utils::Node* node, AZ::Vector2 pos)
     {
         const char* nodeStyle = "";
         const AZ::Entity* graphCanvasNode = nullptr;

@@ -41,8 +41,8 @@ namespace PrefabDependencyViewer::Utils
         DirectedTree() = default;
         ~DirectedTree() = default;
 
-        void SetRoot(AZStd::shared_ptr<Node> root);
-        AZStd::shared_ptr<Node> GetRoot() const;
+        void SetRoot(NodePtr root);
+        AZStd::shared_ptr<const Node> GetRoot() const;
         AZStd::tuple<AZStd::vector<int>, int> CountNodesAtEachLevel() const;
 
     private:

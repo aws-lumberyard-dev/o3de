@@ -17,17 +17,17 @@ namespace PrefabDependencyViewer::Utils
     {
     }
 
-    TemplateId PrefabMetaData::GetTemplateId()
+    TemplateId PrefabMetaData::GetTemplateId() const
     {
         return m_tid;
     }
 
-    AZStd::string_view PrefabMetaData::GetSource()
+    AZStd::string_view PrefabMetaData::GetSource() const
     {
         return m_source;
     }
 
-    AZStd::string_view PrefabMetaData::GetDisplayName()
+    AZStd::string_view PrefabMetaData::GetDisplayName() const
     {
         return GetSource();
     }
@@ -38,7 +38,7 @@ namespace PrefabDependencyViewer::Utils
     {
     }
 
-    AZStd::string_view AssetMetaData::GetDisplayName()
+    AZStd::string_view AssetMetaData::GetDisplayName() const
     {
         return m_source;
     }

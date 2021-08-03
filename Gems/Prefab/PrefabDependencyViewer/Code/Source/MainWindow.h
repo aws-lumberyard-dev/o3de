@@ -54,7 +54,7 @@ namespace PrefabDependencyViewer
 
         void DisplayNodesByLevel(const Utils::DirectedTree& graph, const AZStd::vector<int>& numNodesAtEachLevel, int widestLevel);
 
-        void DisplayNode(Utils::Node* node, AZ::Vector2 pos);
+        void DisplayNode(const Utils::Node* node, AZ::Vector2 pos);
 
         GraphCanvas::SlotId CreateDataSlot(
             GraphCanvas::NodeId nodeId,
@@ -113,9 +113,9 @@ namespace PrefabDependencyViewer
 
     private:
         AZ::EntityId m_sceneId;
-        AZStd::unordered_map<Utils::Node*, AZ::EntityId> nodeToNodeUiId;
+        AZStd::unordered_map<const Utils::Node*, AZ::EntityId> nodeToNodeUiId;
         // To be able to map a Node to it's input and output slots in that order.
-        AZStd::unordered_map<Utils::Node*, AZStd::pair<AZ::EntityId, AZ::EntityId>> nodeToSlotId;
+        AZStd::unordered_map<const Utils::Node*, AZStd::pair<AZ::EntityId, AZ::EntityId>> nodeToSlotId;
 
     };
 }; // namespace AzToolsFramework
