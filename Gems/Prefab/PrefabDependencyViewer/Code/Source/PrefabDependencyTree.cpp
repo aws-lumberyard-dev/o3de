@@ -19,7 +19,7 @@ namespace PrefabDependencyViewer
 
         using pair = AZStd::pair<TemplateId, Utils::Node*>;
         AZStd::stack<pair> stack;
-        stack.push(AZStd::make_pair(tid, nullptr));
+        stack.emplace(tid, nullptr);
 
         while (!stack.empty())
         {
@@ -90,7 +90,7 @@ namespace PrefabDependencyViewer
 
                         // Checks for InvalidTemplateId when we pop the element off of the stack above.
                         TemplateId childtid = s_prefabSystemComponentInterface->GetTemplateIdFromFilePath(sourceFileName);
-                        stack.push(AZStd::make_pair(childtid, node.get()));
+                        stack.emplace(childtid, node.get());
                     }
                 }
             }
