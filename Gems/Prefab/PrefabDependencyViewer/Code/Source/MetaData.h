@@ -27,6 +27,7 @@ namespace PrefabDependencyViewer::Utils
         AZ_CLASS_ALLOCATOR(MetaData, AZ::SystemAllocator, 0);
 
         MetaData() = default;
+        virtual ~MetaData() = default;
         virtual AZStd::string_view GetDisplayName() const = 0;
     };
 
