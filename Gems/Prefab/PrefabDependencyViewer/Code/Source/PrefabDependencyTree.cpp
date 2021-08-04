@@ -31,7 +31,7 @@ namespace PrefabDependencyViewer
 
             if (InvalidTemplateId == templateId)
             {
-                return AZ::Failure("PrefabDependencyTreeGenerator - Invalid TemplateId found");
+                return AZ::Failure(AZStd::string_view("PrefabDependencyTreeGenerator - Invalid TemplateId found"));
             }
 
             Utils::Node* parent = tidAndParent.second;
@@ -43,7 +43,7 @@ namespace PrefabDependencyViewer
             auto sourceIterator = prefabDom.FindMember(AzToolsFramework::Prefab::PrefabDomUtils::SourceName);
             if (sourceIterator == prefabDom.MemberEnd() || !sourceIterator->value.IsString())
             {
-                return AZ::Failure("PrefabDependencyTree - Source Attribute missing or it's not a String");
+                return AZ::Failure(AZStd::string_view("PrefabDependencyTree - Source Attribute missing or it's not a String"));
             }
 
             auto&& source = sourceIterator->value;
@@ -107,7 +107,7 @@ namespace PrefabDependencyViewer
 
         bool result = AzToolsFramework::Prefab::PrefabDomUtils::LoadInstanceFromPrefabDom(instance, prefabDom, referencedAssets, flags);
 
-        AZ_Assert(result, "Prefab Dependency Viewer Gem - An error happened while loading nested assets");
+        AZ_Assert(result, "Prefab Dependency Viewer Gem - An error happened while loading the assets.");
 
         AZStd::vector<Utils::Node*> referencedAssetsNode;
 

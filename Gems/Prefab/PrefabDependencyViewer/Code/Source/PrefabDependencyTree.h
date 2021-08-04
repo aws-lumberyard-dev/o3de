@@ -24,7 +24,7 @@ namespace PrefabDependencyViewer
     using TemplateId                     = AzToolsFramework::Prefab::TemplateId;
     using PrefabDom                      = AzToolsFramework::Prefab::PrefabDom;
     using PrefabSystemComponentInterface = AzToolsFramework::Prefab::PrefabSystemComponentInterface;
-    using Outcome                        = AZ::Outcome<PrefabDependencyTree, const char*>;
+    using Outcome                        = AZ::Outcome<PrefabDependencyTree, AZStd::string_view>;
     using AssetList                      = AZStd::vector<AZ::Data::Asset<AZ::Data::AssetData>>;
     using LoadInstanceFlags              = AzToolsFramework::Prefab::PrefabDomUtils::LoadInstanceFlags;
     using NodePtr                        = AZStd::shared_ptr<Utils::Node>;
