@@ -99,6 +99,9 @@ namespace AZ
                     OnHairAssetChanged();
                 }
 
+                
+                HairGlobalSettingsRequestBus::Broadcast(&HairGlobalSettingsRequests::SetHairGlobalSettings, m_configuration.m_hairGlobalSettings);
+
                 EMotionFX::Integration::ActorComponentNotificationBus::Handler::BusConnect(m_entityId);
                 HairRequestsBus::Handler::BusConnect(m_entityId);
                 TickBus::Handler::BusConnect();
