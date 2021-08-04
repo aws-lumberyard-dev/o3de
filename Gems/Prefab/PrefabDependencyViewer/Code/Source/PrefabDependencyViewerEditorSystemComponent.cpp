@@ -21,8 +21,6 @@
 
 namespace PrefabDependencyViewer
 {
-    using Outcome = AZ::Outcome<PrefabDependencyTree, const char*>;
-
     void PrefabDependencyViewerEditorSystemComponent::Reflect(AZ::ReflectContext* context)
     {
         if (auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
@@ -139,7 +137,7 @@ namespace PrefabDependencyViewer
         }
         else
         {
-            AZ_Error("Prefab Dependency Viewer", false, outcome.GetError());
+            AZ_Assert(false, "Prefab Dependency Viewer - %.*s", AZ_STRING_ARG(outcome.GetError()));
         }
     }
 

@@ -36,7 +36,7 @@ namespace PrefabDependencyViewer
     using Instance                       = AzToolsFramework::Prefab::Instance;
     using TemplateId                     = AzToolsFramework::Prefab::TemplateId;
     using PrefabDom                      = AzToolsFramework::Prefab::PrefabDom;
-    using Outcome                        = AZ::Outcome<PrefabDependencyTree, const char*>;
+    using Outcome                        = AZ::Outcome<PrefabDependencyTree, AZStd::string_view>;
 
     /// System component for PrefabDependencyViewer editor
     class PrefabDependencyViewerEditorSystemComponent
