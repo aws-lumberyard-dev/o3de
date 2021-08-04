@@ -22,6 +22,7 @@
 #include <Components/HairBus.h>
 #include <Rendering/HairGlobalSettingsBus.h>
 #include <Components/HairComponentConfig.h>
+#include <Rendering/HairRenderObject.h>
 
 // EMotionFX
 #include <Integration/ActorComponentBus.h>
@@ -40,7 +41,6 @@ namespace AZ
         namespace Hair
         {
             class HairFeatureProcessor;
-            class HairRenderObject;
 
             class HairComponentController final
                 : public HairRequestsBus::Handler
@@ -106,13 +106,11 @@ namespace AZ
                 HairComponentConfig m_configuration;     // Settings per hair component
 
                 //! Hair render object for connecting to the skeleton and connecting to the feature processor.
-                HairRenderObject* m_renderObject = nullptr;     // unique to this component - this is the data source.
+                Data::Instance<HairRenderObject> m_renderObject;     // unique to this component - this is the data source.
 
                 AZStd::mutex m_mutex;
 
                 EntityId m_entityId;
-
-                Data::Asset<HairAsset> m_hairAsset;
 
                 // Store a cache of the bone index lookup we generated during the creation of hair object.
                 AMD::LocalToGlobalBoneIndexLookup m_hairBoneIndexLookup;

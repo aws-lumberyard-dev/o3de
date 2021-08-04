@@ -171,6 +171,10 @@ namespace AZ
 
                 for (auto objIter = m_hairRenderObjects.begin(); objIter != m_hairRenderObjects.end(); ++objIter)
                 {
+                    if (!objIter->get()->IsEnabled())
+                    {
+                        return;
+                    }
                     objIter->get()->Update();
                 }
             }
@@ -227,7 +231,10 @@ namespace AZ
                 for ( auto objIter = m_hairRenderObjects.begin() ; objIter != m_hairRenderObjects.end(); ++objIter, ++obj )
                 {
                     HairRenderObject* renderObject = objIter->get();
-
+                    if (!renderObject->IsEnabled())
+                    {
+                        continue;
+                    }
                     renderObject->Update();
 
                     // [To Do] Adi: the next section can be skipped for now - only distance related parameters
@@ -263,6 +270,10 @@ namespace AZ
                 for (auto objIter = m_hairRenderObjects.begin(); objIter != m_hairRenderObjects.end(); ++objIter)
                 {
                     HairRenderObject* renderObject = objIter->get();
+                    if (!renderObject->IsEnabled())
+                    {
+                        continue;
+                    }
 
                     // Compute pases
                     if (m_addDispatchEnabled)
