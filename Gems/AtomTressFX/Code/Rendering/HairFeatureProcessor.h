@@ -123,7 +123,7 @@ namespace AZ
 
                 bool CreatePerPassResources();
 
-                const HairGlobalSettings& GetHairGlobalSettings() const override;
+                void GetHairGlobalSettings(HairGlobalSettings& hairGlobalSettings) override;
                 void SetHairGlobalSettings(const HairGlobalSettings& hairGlobalSettings) override;
 
             private:
@@ -181,6 +181,7 @@ namespace AZ
                 static uint32_t s_instanceCount;
 
                 HairGlobalSettings m_hairGlobalSettings;
+                AZStd::mutex m_hairGlobalSettingsMutex;
             };
         } // namespace Hair
     } // namespace Render
