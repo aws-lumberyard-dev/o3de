@@ -50,7 +50,7 @@ namespace PrefabDependencyViewer::Utils
     {
     public:
         AZ_CLASS_ALLOCATOR(AssetMetaData, AZ::SystemAllocator, 0);
-        AssetMetaData(AZStd::string source);
+        explicit AssetMetaData(AZStd::string source);
 
         AZStd::string_view GetDisplayName() const override;
 
