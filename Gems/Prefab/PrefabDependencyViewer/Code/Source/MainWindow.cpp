@@ -74,7 +74,7 @@ namespace PrefabDependencyViewer
 
         for (int level = 0; level < numNodesAtEachLevel.size(); ++level)
         {
-            double currRight = (widestLevelSize - 1.0 * (numNodesAtEachLevel[level] - 1) / 2) * stepRight;
+            double currRight = (widestLevelSize - aznumeric_cast<float>(numNodesAtEachLevel[level] - 1) / 2) * stepRight;
             for (int nodeNum = 0; nodeNum < numNodesAtEachLevel[level]; ++nodeNum)
             {
                 const Utils::Node* currNode = queue.front();
