@@ -107,9 +107,9 @@ namespace PrefabDependencyViewer
 
         bool result = AzToolsFramework::Prefab::PrefabDomUtils::LoadInstanceFromPrefabDom(instance, prefabDom, referencedAssets, flags);
 
-        AZ_Assert(result, "Prefab Dependency Viewer Gem - An error happened while loading the assets.");
-
-        AZStd::vector<Utils::Node*> referencedAssetsNode;
+        AZ_Error("Prefab Dependency Viewer", result,  "An error happened while loading the prefab data(Assets). "
+                                                      "Check the log output for errors, and the prefab "
+                                                      "files for corruption.");
 
         return referencedAssets;
     }
