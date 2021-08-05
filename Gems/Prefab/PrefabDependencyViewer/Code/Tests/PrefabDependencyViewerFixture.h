@@ -1,0 +1,154 @@
+/*
+ * Copyright (c) Contributors to the Open 3D Engine Project.
+ * For complete copyright and license terms please see the LICENSE at the root of this distribution.
+ *
+ * SPDX-License-Identifier: Apache-2.0 OR MIT
+ *
+ */
+
+#pragma once
+
+#include <AzCore/UnitTest/TestTypes.h>
+#include <AzToolsFramework/Prefab/PrefabDomTypes.h>
+#include <MockPrefabSystemComponentInterface.h>
+#include <AzToolsFramework/Prefab/PrefabDomUtils.h>
+
+namespace PrefabDependencyViewer
+{
+    using PrefabDom    = AzToolsFramework::Prefab::PrefabDom;
+    using PrefabDomMap = AZStd::unordered_map<AZStd::string, PrefabDom>;
+    using NodeList      = AZStd::vector<Utils::Node*>;
+
+    struct PrefabDependencyViewerFixture : public UnitTest::ScopedAllocatorSetupFixture
+    {
+        PrefabDependencyViewerFixture()
+            : m_prefabDomsCases(PrefabDomMap())
+            , m_prefabSystemComponent(aznew MockPrefabSystemComponent())
+            {}
+
+        void SetUp() override
+        {
+            UnitTest::ScopedAllocatorSetupFixture::SetUp();
+
+            // Setup for an invalid empty prefab
+            m_prefabDomsCases["emptyJSON"] = PrefabDom();
+            m_prefabDomsCases["emptyJSON"].SetObject();
+
+            // Setup for a root level Prefab with only Source Attribute
+            CreatePrefabAddSourceAndValue("emptyJSONWithSource", "Prefabs/emptySavedJSON.prefab");
+
+            // Setup for root level Prefab with nested instances but one of the nested instances is missing source
+            CreatePrefabAddSourceAndValue("NestedPrefabWithAtleastOneInvalidNestedInstance", "Prefabs/Root.prefab");
+            CreatePrefabAddSourceAndValue("GoodNestedPrefab", "Prefabs/goodPrefab.prefab");
+            CreatePrefabAddSourceAndValue("BadNestedPrefab", "");
+            AddInstance("NestedPrefabWithAtleastOneInvalidNestedInstance", "GoodNestedPrefab");
+            AddInstance("NestedPrefabWithAtleastOneInvalidNestedInstance", "BadNestedPrefab");
+
+            // Setup for valid nested Prefab
+            CreatePrefabAddSourceAndValue("ValidPrefab",   "Prefabs/ValidPrefab.prefab");
+            CreatePrefabAddSourceAndValue("level11Prefab", "Prefabs/level11.prefab");
+            CreatePrefabAddSourceAndValue("level12Prefab", "Prefabs/level12.prefab");
+            CreatePrefabAddSourceAndValue("level13Prefab", "Prefabs/level13.prefab");
+            CreatePrefabAddSourceAndValue("level22Prefab", "Prefabs/level22.prefab");
+            CreatePrefabAddSourceAndValue("level23Prefab", "Prefabs/level23.prefab");
+            CreatePrefabAddSourceAndValue("level31Prefab", "Prefabs/level31.prefab");
+
+            // Level 1 setup
+            AddInstance("ValidPrefab", "level11Prefab");
+            AddInstance("ValidPrefab", "level12Prefab");
+            AddInstance("ValidPrefab", "level13Prefab");
+
+            // Level 2 setup
+            AddInstance("level11Prefab", "level12Prefab");
+            AddInstance("level13Prefab", "level22Prefab");
+            AddInstance("level13Prefab", "level23Prefab");
+
+            // Level 3 setup
+            AddInstance("level23Prefab", "level31Prefab");
+        }
+
+        void CreatePrefabAddSourceAndValue(const AZStd::string& prefabName, const char* prefabSource)
+        {
+            const char* sourceKey = AzToolsFramework::Prefab::PrefabDomUtils::SourceName;
+            m_prefabDomsCases[prefabName] = PrefabDom();
+            m_prefabDomsCases[prefabName].SetObject();
+
+            auto& allocator = m_prefabDomsCases[prefabName].GetAllocator();
+            rapidjson::Value key(sourceKey, allocator);
+
+            rapidjson::Value value(prefabSource, allocator);
+
+            m_prefabDomsCases[prefabName].AddMember(key, value, allocator);
+        }
+
+        void AddInstance(AZStd::string root, AZStd::string child)
+        {
+            const char* sourceKey = AzToolsFramework::Prefab::PrefabDomUtils::SourceName;
+            const char* instancesName = AzToolsFramework::Prefab::PrefabDomUtils::InstancesName;
+
+            auto& allocator = m_prefabDomsCases[root].GetAllocator();
+
+            if (m_prefabDomsCases[root].HasMember(instancesName))
+            {
+                AddInstance(m_prefabDomsCases[root][instancesName], m_prefabDomsCases[child][sourceKey].GetString(), allocator);
+            }
+            else
+            {
+                rapidjson::Value instancesKey(instancesName, allocator);
+
+                rapidjson::Value instancesValue;
+                instancesValue.SetObject();
+
+                AddInstance(instancesValue, m_prefabDomsCases[child][sourceKey].GetString(), allocator);
+                m_prefabDomsCases[root].AddMember(instancesKey, instancesValue, allocator);
+            }
+
+        }
+
+        void AddInstance(rapidjson::Value& instancesValue, const char* nestedInstanceSource, rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>& allocator)
+        {
+            static int counter = 0;
+            const char* sourceKey = AzToolsFramework::Prefab::PrefabDomUtils::SourceName;
+
+            // Instance alias can be anything as long as they are unique.
+            // So using counter as a unique name for it.
+            rapidjson::Value nestedInstanceAliasKey(AZStd::to_string(counter).c_str(), allocator);
+
+            rapidjson::Value nestedInstanceAliasValue;
+            nestedInstanceAliasValue.SetObject();
+
+            {
+                rapidjson::Value nestedInstanceSourceKey(sourceKey, allocator);
+                rapidjson::Value nestedInstanceSourceValue(nestedInstanceSource, allocator);
+
+                nestedInstanceAliasValue.AddMember(nestedInstanceSourceKey, nestedInstanceSourceValue, allocator);
+            }
+
+            instancesValue.AddMember(nestedInstanceAliasKey, nestedInstanceAliasValue, allocator);
+            ++counter;
+        }
+
+        void TearDown() override
+        {
+            delete m_prefabSystemComponent;
+        }
+
+        NodeList FindNodes(Utils::NodeSet& nodeSet, TemplateId tid, const char* source)
+        {
+            NodeList nodes;
+
+            for (Utils::Node* node : nodeSet)
+            {
+                if (node->GetMetaData().GetTemplateId() == tid && node->GetMetaData().GetSource() == source)
+                {
+                    nodes.push_back(node);
+                }
+            }
+            return nodes;
+        }
+
+        PrefabDomMap m_prefabDomsCases;
+        MockPrefabSystemComponent* m_prefabSystemComponent;
+        const TemplateId InvalidTemplateId = AzToolsFramework::Prefab::InvalidTemplateId;
+    };
+} // namespace PrefabDependencyViewer

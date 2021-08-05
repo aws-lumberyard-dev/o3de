@@ -6,5 +6,9 @@
 #
 #
 
-add_subdirectory(PrefabBuilder)
-add_subdirectory(PrefabDependencyViewer)
+set(FILES
+    Tests/PrefabDependencyViewerEditorTest.cpp
+    Tests/PrefabDependencyTreeGenerationTests.cpp
+    Tests/MockPrefabSystemComponentInterface.h
+    Tests/PrefabDependencyViewerFixture.h
+)

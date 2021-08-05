@@ -6,5 +6,6 @@
 #
 #
 
-add_subdirectory(PrefabBuilder)
-add_subdirectory(PrefabDependencyViewer)
+set(FILES
+    Source/PrefabDependencyViewerEditorModule.cpp
+)

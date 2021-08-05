@@ -12,6 +12,11 @@
 #include <AzCore/std/any.h>
 #include <AzCore/std/string/string.h>
 
+namespace AZ
+{
+    class Vector2;
+}
+
 class QMenu;
 
 namespace AzToolsFramework
