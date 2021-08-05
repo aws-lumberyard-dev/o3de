@@ -45,9 +45,6 @@
 enum class HairLightingModel {GGX, Marschner, Kajiya};
 option HairLightingModel o_hairLightingModel = HairLightingModel::Marschner;
 
-//option bool o_enableDiffuseLobe = true;
-//option bool o_enableSpecularLobe = true;
-//option bool o_enableTransmittanceLobe = true;
 //==============================================================================
 float3 GetSpecularLighting(Surface surface, LightingData lightingData, const float3 lightIntensity, const float3 dirToLight)
 {
@@ -58,7 +55,7 @@ float3 GetSpecularLighting(Surface surface, LightingData lightingData, const flo
     }
     else if(o_hairLightingModel == HairLightingModel::Marschner)
     {
-        specular = HairBSDF(surface, lightingData, dirToLight);
+        specular = HairMarschnerBSDF(surface, lightingData, dirToLight);
     }
 
     return specular * lightIntensity;
