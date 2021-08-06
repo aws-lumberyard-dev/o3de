@@ -123,11 +123,11 @@ namespace PrefabDependencyViewer
             nodeUiId, &GraphCanvas::SlotLayoutRequests::ConfigureSlotGroup, GraphCanvas::SlotGroups::DataGroup,
             GraphCanvas::SlotGroupConfiguration(1));
 
-        GraphCanvas::SlotId inputSlotId = CreateDataSlot(nodeUiId, "Input", "Parent",
+        GraphCanvas::SlotId inputSlotId = CreateDataSlot(nodeUiId, "", "Parent",
                                                         azrtti_typeid<AZ::EntityId>(),
                                                         GraphCanvas::SlotGroups::DataGroup, true);
 
-        GraphCanvas::SlotId outputSlotId = CreateDataSlot(nodeUiId, "Output", "Child",
+        GraphCanvas::SlotId outputSlotId = CreateDataSlot(nodeUiId, "", "Child",
                                                         azrtti_typeid<AZ::EntityId>(),
                                                         GraphCanvas::SlotGroups::DataGroup, false);
 
