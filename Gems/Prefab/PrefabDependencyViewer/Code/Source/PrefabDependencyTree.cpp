@@ -205,6 +205,6 @@ namespace PrefabDependencyViewer
             }
         }
 
-        return AZStd::move(count);
+        return count;
     }
 } // namespace PrefabDependencyViewer
