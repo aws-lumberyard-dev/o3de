@@ -45,7 +45,9 @@ namespace PrefabDependencyViewer
             AssetDescriptionCountMap& count);
 
         static AssetDescriptionCountMap GetAssetsDescriptionCount(AssetList allNestedAssets);
-        static void AddAssetNodeToPrefab(const PrefabDom& prefabDom, NodePtr node, AssetDescriptionCountMap& count);
+        static void AddAssetNodeToPrefab(const PrefabDom& prefabDom, NodePtr node,
+                                AssetDescriptionCountMap& assetDescriptionCountMap);
+
         static AssetList GetAssets(const PrefabDom& prefabDom);
     };
 }
