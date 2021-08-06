@@ -139,15 +139,15 @@ void SetNormal(
     if (o_hairLightingModel == HairLightingModel::GGX)
     {
         float3 halfDir = normalize( dirToLight + 1.2 * lightingData.dirToCamera);
-        biNormal = cross(tangent, halfDir);
+        biNormal = normalize(cross(tangent, halfDir));
     }
     else
     {
-        biNormal = cross(tangent, lightingData.dirToCamera);   // Original - simple face forward
+        biNormal = normalize(cross(tangent, lightingData.dirToCamera));   // Original - simple face forward
     }
 
     float3 projectedNormal = cross(biNormal, tangent);
-    surface.normal = normalize(projectedNormal);
+    surface.normal = normalize(projectedNormal);    // the normalization might be redundunt 
 
     // Next is important in order to set NdotV and other PBR settings - needs ot be set once per light
     UpdateLightingParameters(lightingData, surface.position, surface.normal, surface.roughnessLinear);
@@ -568,9 +568,11 @@ float3 ApplyIblDiffuse(Surface surface, LightingData lightingData)
     float3 irradianceDir = MultiplyVectorQuaternion(surface.normal, SceneSrg::m_iblOrientation);
     float3 diffuseSample = SceneSrg::m_diffuseEnvMap.Sample(SceneSrg::m_samplerEnv, GetCubemapCoords(irradianceDir)).rgb;
 
-    float3 diffuseLighting = HairDiffuseLambertian(surface.albedo, surface.normal, lightingData.dirToCamera) * lightingData.diffuseResponse * diffuseSample;
+//    float3 diffuseLighting = HairDiffuseLambertian(surface.albedo, surface.normal, lightingData.dirToCamera) * lightingData.diffuseResponse * diffuseSample;
 //    float3 diffuseLighting = GetDiffuseLighting(surface, lightingData, diffuseSample, surface.normal);
-    return diffuseLighting;
+
+    // Notice the multiplication with inverse thickness tat is used as measure of occlusion
+    return lightingData.diffuseResponse * surface.albedo * diffuseSample * (1.0f - surface.thickness);
 }
 
 float3 ApplyIblSpecular(Surface surface, LightingData lightingData)
