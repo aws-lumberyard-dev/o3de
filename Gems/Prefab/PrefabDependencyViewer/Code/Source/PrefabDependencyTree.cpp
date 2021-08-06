@@ -22,7 +22,7 @@ namespace PrefabDependencyViewer
             PrefabDom& rootPrefabDom = prefabSystemComponentInterface->FindTemplateDom(tid);
 
             AssetList allNestedAssets = GetAssets(rootPrefabDom);
-            AssetDescriptionCountMap count = GetAssetsDescriptionCount(allNestedAssets);
+            AssetDescriptionCountMap count = GetAssetsDescriptionCountMap(allNestedAssets);
 
             NodePtrOutcome outcome = GenerateTreeAndSetRootRecursive(tid, prefabSystemComponentInterface, count);
             if (outcome.IsSuccess())
@@ -89,10 +89,10 @@ namespace PrefabDependencyViewer
                         }
 
                         // Get the TemplateId for the nested Instance.
-                        TemplateId childtid = prefabSystemComponentInterface->GetTemplateIdFromFilePath(sourceFileName);
+                        TemplateId childTemplateId = prefabSystemComponentInterface->GetTemplateIdFromFilePath(sourceFileName);
 
                         // Recurse on the nested instance.
-                        NodePtrOutcome outcome = GenerateTreeAndSetRootRecursive(childtid, prefabSystemComponentInterface, count);
+                        NodePtrOutcome outcome = GenerateTreeAndSetRootRecursive(childTemplateId, prefabSystemComponentInterface, count);
                         if (outcome.IsSuccess())
                         {
                             parent->AddChild(outcome.GetValue());
@@ -166,7 +166,7 @@ namespace PrefabDependencyViewer
         return referencedAssets;
     }
 
-    /* static */ AssetDescriptionCountMap PrefabDependencyTree::GetAssetsDescriptionCount(AssetList allNestedAssets)
+    /* static */ AssetDescriptionCountMap PrefabDependencyTree::GetAssetsDescriptionCountMap(AssetList allNestedAssets)
     {
         AssetDescriptionCountMap count;
 
