@@ -112,7 +112,8 @@ namespace PrefabDependencyViewer
         }
     }
 
-    /* static */ void PrefabDependencyTree::AddAssetNodeToPrefab(const PrefabDom& prefabDom, NodePtr node, AssetDescriptionCountMap& count)
+    /* static */ void PrefabDependencyTree::AddAssetNodeToPrefab(const PrefabDom& prefabDom, NodePtr node,
+                                                        AssetDescriptionCountMap& assetDescriptionCountMap)
     {
         AssetList assetList = GetAssets(prefabDom);
         for (const auto& asset : assetList)
@@ -140,10 +141,10 @@ namespace PrefabDependencyViewer
 
                 // If all the children claimed the asset, then the asset description count should
                 // go to 0 which implies that the current asset is not a node dependency.
-                if (count[assetDescription] > 0)
+                if (assetDescriptionCountMap[assetDescription] > 0)
                 {
                     node->AddChild(Utils::Node::CreateAssetNode(assetInfo.m_relativePath/* assetDescription */));
-                    --count[assetDescription];
+                    --assetDescriptionCountMap[assetDescription];
                 }
             }
         }
