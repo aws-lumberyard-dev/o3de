@@ -44,7 +44,7 @@ namespace PrefabDependencyViewer
             PrefabSystemComponentInterface* prefabSystemComponentInterface,
             AssetDescriptionCountMap& count);
 
-        static AssetDescriptionCountMap GetAssetsDescriptionCount(AssetList allNestedAssets);
+        static AssetDescriptionCountMap GetAssetsDescriptionCountMap(AssetList allNestedAssets);
         static void AddAssetNodeToPrefab(const PrefabDom& prefabDom, NodePtr node,
                                 AssetDescriptionCountMap& assetDescriptionCountMap);
 
