@@ -128,7 +128,7 @@ namespace PrefabDependencyViewer
 
             // Unassigned default assets would have an empty source and
             // therefore are an invalid asset.
-            if (assetInfo.m_relativePath != "")
+            if (!assetInfo.m_relativePath.empty())
             {
                 AZ::Data::AssetInfo productAssetInfo;
                 AZ::Data::AssetCatalogRequestBus::BroadcastResult(productAssetInfo,
@@ -181,13 +181,13 @@ namespace PrefabDependencyViewer
 
             // Unassigned default assets would have an empty source and
             // therefore are an invalid asset.
-            if (assetInfo.m_relativePath != "")
+            if (!assetInfo.m_relativePath.empty())
             {
                 AZ::Data::AssetInfo productAssetInfo;
                 AZ::Data::AssetCatalogRequestBus::BroadcastResult(
                     productAssetInfo, &AZ::Data::AssetCatalogRequestBus::Events::GetAssetInfoById, asset.GetId());
 
-                AZStd::string productAssetDesciption = productAssetInfo.m_relativePath == "" ? "" : ": " + productAssetInfo.m_relativePath;
+                AZStd::string productAssetDesciption = productAssetInfo.m_relativePath.empty() ? "" : ": " + productAssetInfo.m_relativePath;
 
                 AZStd::string assetDescription = assetInfo.m_relativePath + productAssetDesciption;
 
