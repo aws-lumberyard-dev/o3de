@@ -139,7 +139,7 @@ namespace AMD
         if (auto* serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
             serializeContext->Class<TressFXRenderingSettings>()
-                ->Version(2)
+                ->Version(3)
                 // Albedo assets
                 ->Field("BaseAlbedoAsset", &TressFXRenderingSettings::m_baseAlbedoAsset)
                 ->Field("StrandAlbedoAsset", &TressFXRenderingSettings::m_strandAlbedoAsset)
