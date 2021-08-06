@@ -224,6 +224,42 @@
                         }
                     ]
                 },
+                {
+                    "Name": "LinearDepthCopyPass",
+                    "TemplateName": "FullscreenCopyTemplate",
+                    "Connections": [
+                        {
+                            "LocalSlot": "Input",
+                            "AttachmentRef": {
+                                "Pass": "Parent",
+                                "Attachment": "DepthLinear"
+                            }
+                        },
+                        {
+                            "LocalSlot": "Output",
+                            "AttachmentRef": {
+                                "Pass": "This",
+                                "Attachment": "Output"
+                            }
+                        }
+                    ],
+                    "ImageAttachments": [
+                        {
+                            "Name": "Output",
+                            "SizeSource": {
+                                "Source": {
+                                    "Pass": "This",
+                                    "Attachment": "Input"
+                                }
+                            },
+                            "FormatSource": {
+                                "Pass": "This",
+                                "Attachment": "Input"
+                            },
+                            "GenerateFullMipChain": false
+                        }
+                    ]
+                },
 
                 {
                     "Name": "HairPPLLResolvePass",
@@ -236,6 +272,13 @@
                             "AttachmentRef": {
                                 "Pass": "Parent",
                                 "Attachment": "RenderTargetInputOutput"
+                            }
+                        },
+                        {
+                            "LocalSlot": "LinearDepthRenderTargetInputOutput",
+                            "AttachmentRef": {
+                                "Pass": "Parent",
+                                "Attachment": "DepthLinear"
                             }
                         },
                         {
@@ -255,8 +298,8 @@
                         {
                             "LocalSlot": "DepthLinear",
                             "AttachmentRef": {
-                                "Pass": "Parent",
-                                "Attachment": "DepthLinear"
+                                "Pass": "LinearDepthCopyPass",
+                                "Attachment": "Output"
                             }
                         },
 
