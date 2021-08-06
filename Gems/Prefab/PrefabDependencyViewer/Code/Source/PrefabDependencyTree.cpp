@@ -141,10 +141,11 @@ namespace PrefabDependencyViewer
 
                 // If all the children claimed the asset, then the asset description count should
                 // go to 0 which implies that the current asset is not a node dependency.
-                if (assetDescriptionCountMap[assetDescription] > 0)
+                auto it = assetDescriptionCountMap.find(assetDescription);
+                if (it != assetDescriptionCountMap.end() && it->second > 0)
                 {
                     node->AddChild(Utils::Node::CreateAssetNode(assetInfo.m_relativePath/* assetDescription */));
-                    --assetDescriptionCountMap[assetDescription];
+                    it->second -= 1;
                 }
             }
         }
