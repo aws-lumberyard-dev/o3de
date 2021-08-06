@@ -24,18 +24,30 @@ namespace PrefabDependencyViewer
     using TemplateId                     = AzToolsFramework::Prefab::TemplateId;
     using PrefabDom                      = AzToolsFramework::Prefab::PrefabDom;
     using PrefabSystemComponentInterface = AzToolsFramework::Prefab::PrefabSystemComponentInterface;
-    using Outcome                        = AZ::Outcome<PrefabDependencyTree, AZStd::string_view>;
+    
     using AssetList                      = AZStd::vector<AZ::Data::Asset<AZ::Data::AssetData>>;
+    using AssetDescriptionCountMap       = AZStd::unordered_map<AZStd::string, int>;
     using LoadInstanceFlags              = AzToolsFramework::Prefab::PrefabDomUtils::LoadInstanceFlags;
+
     using NodePtr                        = AZStd::shared_ptr<Utils::Node>;
+    using TreeOutcome                    = AZ::Outcome<PrefabDependencyTree, AZStd::string_view>;
+    using NodePtrOutcome                 = AZ::Outcome<NodePtr, AZStd::string_view>;
 
     class PrefabDependencyTree : public Utils::DirectedTree
     {
     public:
-        static Outcome GenerateTreeAndSetRoot(TemplateId tid,
-            PrefabSystemComponentInterface* s_prefabSystemComponentInterface);
+        static TreeOutcome GenerateTreeAndSetRoot(TemplateId tid, PrefabSystemComponentInterface* s_prefabSystemComponentInterface);
 
-        static void AddAssetNodeToPrefab(const PrefabDom& prefabDom, NodePtr node);
+    private:
+        static NodePtrOutcome GenerateTreeAndSetRootRecursive(
+            TemplateId templateId,
+            PrefabSystemComponentInterface* prefabSystemComponentInterface,
+            AssetDescriptionCountMap& count);
+
+        static AssetDescriptionCountMap GetAssetsDescriptionCountMap(AssetList allNestedAssets);
+        static void AddAssetNodeToPrefab(const PrefabDom& prefabDom, NodePtr node,
+                                AssetDescriptionCountMap& assetDescriptionCountMap);
+
         static AssetList GetAssets(const PrefabDom& prefabDom);
     };
 }
