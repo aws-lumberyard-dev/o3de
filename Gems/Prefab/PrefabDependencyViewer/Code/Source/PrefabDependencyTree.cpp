@@ -193,12 +193,14 @@ namespace PrefabDependencyViewer
 
                 // If all the children claimed the asset, then the asset description count should
                 // go to 0 which implies that the current asset is not a node dependency.
-                if (count.find(assetDescription) == count.end()) {
+                auto it = count.find(assetDescription);
+                if (it == count.end())
+                {
                     count[assetDescription] = 1;
                 }
                 else
                 {
-                    ++count[assetDescription];
+                    it->second += 1;
                 }
             }
         }
