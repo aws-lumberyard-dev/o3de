@@ -116,6 +116,11 @@ namespace PrefabDependencyViewer
                                                         AssetDescriptionCountMap& assetDescriptionCountMap)
     {
         AssetList assetList = GetAssets(prefabDom);
+        // No need to show multiple nodes for the same source asset
+        // with multiple product assets that spawn out of it.
+        // Instead keep track of their count and display that in the node.
+        AZStd::unordered_map<AZStd::string, int> sourceAssetCount;
+
         for (const auto& asset : assetList)
         {
             bool result;
@@ -141,13 +146,33 @@ namespace PrefabDependencyViewer
 
                 // If all the children claimed the asset, then the asset description count should
                 // go to 0 which implies that the current asset is not a node dependency.
-                auto it = assetDescriptionCountMap.find(assetDescription);
-                if (it != assetDescriptionCountMap.end() && it->second > 0)
+                auto assetDescriptionCountIterator = assetDescriptionCountMap.find(assetDescription);
+                if (assetDescriptionCountIterator != assetDescriptionCountMap.end() && assetDescriptionCountIterator->second > 0)
                 {
-                    node->AddChild(Utils::Node::CreateAssetNode(assetInfo.m_relativePath/* assetDescription */));
-                    it->second -= 1;
+                    // Only want to add an asset to the sourceAssetCount if
+                    // its assetDescriptionCount is non zero.
+                    auto sourceAssetCountIterator = sourceAssetCount.find(assetInfo.m_relativePath);
+                    if (sourceAssetCountIterator == sourceAssetCount.end())
+                    {
+                        sourceAssetCount[assetInfo.m_relativePath] = 1;
+                    }
+                    else
+                    {
+                        sourceAssetCountIterator->second += 1;
+                    }
+
+                    // Update the current asset's description count.
+                    assetDescriptionCountIterator->second -= 1;
                 }
+
+
             }
+        }
+
+        // Create nodes with the Source Asset Name and it's product dependency count.
+        for (const AZStd::pair<AZStd::string, int>& sourceCount : sourceAssetCount) {
+            AZStd::string assetDescription = sourceCount.first + " (" + AZStd::to_string(sourceCount.second) + ")";
+            node->AddChild(Utils::Node::CreateAssetNode(assetDescription));
         }
     }
 
