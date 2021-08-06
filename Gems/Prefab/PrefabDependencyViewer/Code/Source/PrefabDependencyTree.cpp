@@ -10,34 +10,47 @@
 
 namespace PrefabDependencyViewer
 {
-    /* static */ Outcome PrefabDependencyTree::GenerateTreeAndSetRoot(TemplateId tid,
-                    PrefabSystemComponentInterface* s_prefabSystemComponentInterface)
+    /* static */ TreeOutcome PrefabDependencyTree::GenerateTreeAndSetRoot(TemplateId tid,
+                    PrefabSystemComponentInterface* prefabSystemComponentInterface)
     {
-        PrefabDependencyTree graph;
-
-        const TemplateId InvalidTemplateId = AzToolsFramework::Prefab::InvalidTemplateId;
-
-        using pair = AZStd::pair<TemplateId, Utils::Node*>;
-        AZStd::stack<pair> stack;
-        stack.emplace(tid, nullptr);
-
-        while (!stack.empty())
+        if (AzToolsFramework::Prefab::InvalidTemplateId == tid)
         {
-            // Get the current TemplateId we are looking at and it's parent.
-            pair tidAndParent = stack.top();
-            stack.pop();
+            return AZ::Failure(AZStd::string_view("PrefabDependencyTreeGenerator - Invalid root TemplateId found."));
+        }
+        else
+        {
+            PrefabDom& rootPrefabDom = prefabSystemComponentInterface->FindTemplateDom(tid);
 
-            TemplateId templateId = tidAndParent.first;
+            AssetList allNestedAssets = GetAssets(rootPrefabDom);
+            AssetDescriptionCountMap count = GetAssetsDescriptionCount(allNestedAssets);
 
-            if (InvalidTemplateId == templateId)
+            NodePtrOutcome outcome = GenerateTreeAndSetRootRecursive(tid, prefabSystemComponentInterface, count);
+            if (outcome.IsSuccess())
             {
-                return AZ::Failure(AZStd::string_view("PrefabDependencyTreeGenerator - Invalid TemplateId found"));
+                PrefabDependencyTree graph;
+                graph.SetRoot(outcome.GetValue());
+
+                return graph;
             }
+            else
+            {
+                return AZ::Failure(outcome.GetError());
+            }
+        }
+    }
 
-            Utils::Node* parent = tidAndParent.second;
-
+    /* static */ NodePtrOutcome PrefabDependencyTree::GenerateTreeAndSetRootRecursive(TemplateId templateId,
+                                        PrefabSystemComponentInterface* prefabSystemComponentInterface,
+                                        AssetDescriptionCountMap& count)
+    {
+        if (AzToolsFramework::Prefab::InvalidTemplateId == templateId)
+        {
+            return AZ::Failure(AZStd::string_view("PrefabDependencyTreeGenerator - Invalid TemplateId found."));
+        }
+        else
+        {
             // Get the JSON for the current Template we are looking at.
-            PrefabDom& prefabDom = s_prefabSystemComponentInterface->FindTemplateDom(templateId);
+            PrefabDom& prefabDom = prefabSystemComponentInterface->FindTemplateDom(templateId); 
 
             // Get the source file of the current Template
             auto sourceIterator = prefabDom.FindMember(AzToolsFramework::Prefab::PrefabDomUtils::SourceName);
@@ -49,26 +62,13 @@ namespace PrefabDependencyViewer
             auto&& source = sourceIterator->value;
             const char* sourceFileName = source.GetString();
 
-            // Create a new node for the current Template and
-            // Connect it to it's parent.
-            NodePtr node = Utils::Node::CreatePrefabNode(templateId, sourceFileName);
-            if (parent)
-            {
-                parent->AddChild(node);
-            }
-            else
-            {
-                // Only during the first iteration is the parent going to be nullptr
-                // and only at this point graph should have a root. If we reach
-                // this block and root is already set and then SetRoot would assert.
-                graph.SetRoot(node);
-            }
-            AssetList assetList = GetAssets(prefabDom);
-            AddAssetNodeToPrefab(prefabDom, node);
+            // Create a new node for the current Template.
+            NodePtr parent = Utils::Node::CreatePrefabNode(templateId, sourceFileName);
 
-            // Go through current Template's nested instances
-            // and put their TemplateId and current Template node
-            // as their parent on the stack.
+            // Go through current Template's nested instances.
+            // Recurse on their Template Id's. If successful,
+            // then add the child Node pointer to the parent.
+            // Otherwise, return the error output immediately.
             auto instancesIterator = prefabDom.FindMember(AzToolsFramework::Prefab::PrefabDomUtils::InstancesName);
 
             if (instancesIterator != prefabDom.MemberEnd())
@@ -79,7 +79,7 @@ namespace PrefabDependencyViewer
                 {
                     for (auto&& instance : instances.GetObject())
                     {
-                        // Get the source file of the current Template
+                        // Get the source file of the nested instance.
                         sourceIterator = instance.value.FindMember(AzToolsFramework::Prefab::PrefabDomUtils::SourceName);
                         sourceFileName = "";
                         if (sourceIterator != instance.value.MemberEnd())
@@ -88,15 +88,65 @@ namespace PrefabDependencyViewer
                             sourceFileName = source.IsString() ? source.GetString() : "";
                         }
 
-                        // Checks for InvalidTemplateId when we pop the element off of the stack above.
-                        TemplateId childtid = s_prefabSystemComponentInterface->GetTemplateIdFromFilePath(sourceFileName);
-                        stack.emplace(childtid, node.get());
+                        // Get the TemplateId for the nested Instance.
+                        TemplateId childtid = prefabSystemComponentInterface->GetTemplateIdFromFilePath(sourceFileName);
+
+                        // Recurse on the nested instance.
+                        NodePtrOutcome outcome = GenerateTreeAndSetRootRecursive(childtid, prefabSystemComponentInterface, count);
+                        if (outcome.IsSuccess())
+                        {
+                            parent->AddChild(outcome.GetValue());
+                        }
+                        else
+                        {
+                            return AZ::Failure(outcome.GetError());
+                        }
                     }
                 }
             }
-        }
 
-        return AZ::Success(graph);
+            // Add assets to the PrefabNode
+            AssetList assetList = GetAssets(prefabDom);
+            AddAssetNodeToPrefab(prefabDom, parent, count);
+            return AZ::Success(parent);
+        }
+    }
+
+    /* static */ void PrefabDependencyTree::AddAssetNodeToPrefab(const PrefabDom& prefabDom, NodePtr node, AssetDescriptionCountMap& count)
+    {
+        AssetList assetList = GetAssets(prefabDom);
+        for (const auto& asset : assetList)
+        {
+            bool result;
+            AZ::Data::AssetInfo assetInfo;
+            AZStd::string watchFolder;
+
+            AzToolsFramework::AssetSystemRequestBus::BroadcastResult(
+                result, &AzToolsFramework::AssetSystemRequestBus::Events::GetSourceInfoBySourceUUID, asset.GetId().m_guid, assetInfo,
+                watchFolder);
+
+            // Unassigned default assets would have an empty source and
+            // therefore are an invalid asset.
+            if (assetInfo.m_relativePath != "")
+            {
+                AZ::Data::AssetInfo productAssetInfo;
+                AZ::Data::AssetCatalogRequestBus::BroadcastResult(productAssetInfo,
+                    &AZ::Data::AssetCatalogRequestBus::Events::GetAssetInfoById, asset.GetId());
+
+                AZStd::string productAssetDesciption =
+                    productAssetInfo.m_relativePath == "" ? "" : ": " + productAssetInfo.m_relativePath;
+
+                AZStd::string assetDescription = assetInfo.m_relativePath + productAssetDesciption;
+
+                // If all the children claimed the asset, then the asset description count should
+                // go to 0 which implies that the current asset is not a node dependency.
+                if (count[assetDescription] > 0)
+                {
+                    node->AddChild(Utils::Node::CreateAssetNode(assetInfo.m_relativePath/* assetDescription */));
+                    --count[assetDescription];
+                }
+            }
+        }
     }
 
     /* static */ AssetList PrefabDependencyTree::GetAssets(const PrefabDom& prefabDom)
@@ -114,10 +164,11 @@ namespace PrefabDependencyViewer
         return referencedAssets;
     }
 
-    /* static */ void PrefabDependencyTree::AddAssetNodeToPrefab(const PrefabDom& prefabDom, NodePtr node)
+    /* static */ AssetDescriptionCountMap PrefabDependencyTree::GetAssetsDescriptionCount(AssetList allNestedAssets)
     {
-        AssetList assetList = GetAssets(prefabDom);
-        for (const auto& asset : assetList)
+        AssetDescriptionCountMap count;
+
+        for (const auto& asset : allNestedAssets)
         {
             bool result;
             AZ::Data::AssetInfo assetInfo;
@@ -127,7 +178,30 @@ namespace PrefabDependencyViewer
                 result, &AzToolsFramework::AssetSystemRequestBus::Events::GetSourceInfoBySourceUUID, asset.GetId().m_guid, assetInfo,
                 watchFolder);
 
-            node->AddChild(Utils::Node::CreateAssetNode(assetInfo.m_relativePath));
+            // Unassigned default assets would have an empty source and
+            // therefore are an invalid asset.
+            if (assetInfo.m_relativePath != "")
+            {
+                AZ::Data::AssetInfo productAssetInfo;
+                AZ::Data::AssetCatalogRequestBus::BroadcastResult(
+                    productAssetInfo, &AZ::Data::AssetCatalogRequestBus::Events::GetAssetInfoById, asset.GetId());
+
+                AZStd::string productAssetDesciption = productAssetInfo.m_relativePath == "" ? "" : ": " + productAssetInfo.m_relativePath;
+
+                AZStd::string assetDescription = assetInfo.m_relativePath + productAssetDesciption;
+
+                // If all the children claimed the asset, then the asset description count should
+                // go to 0 which implies that the current asset is not a node dependency.
+                if (count.find(assetDescription) == count.end()) {
+                    count[assetDescription] = 1;
+                }
+                else
+                {
+                    ++count[assetDescription];
+                }
+            }
         }
+
+        return AZStd::move(count);
     }
 } // namespace PrefabDependencyViewer
