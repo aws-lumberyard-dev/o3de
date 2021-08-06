@@ -36,6 +36,7 @@
 #include <AzCore/RTTI/ReflectContext.h>
 #include <AzCore/Math/Vector3.h>
 #include <AzCore/Math/Vector4.h>
+#include <AzCore/Math/Color.h>
 #include <AzCore/std/string/string.h>
 
 // Atom
@@ -102,14 +103,17 @@ namespace AMD
         float   m_FiberRatio = 0.06f;
 
         // For lighting/shading
-        AZ::Vector4 m_HairMatBaseColor{ 1.f, 1.f, 1.f, 0.63f };
-        AZ::Vector4 m_HairMatTipColor{1.f, 1.f, 1.f, 0.63f};
+        AZ::Color m_HairMatBaseColor{ 1.f, 1.f, 1.f, 0.63f };
+        AZ::Color m_HairMatTipColor{1.f, 1.f, 1.f, 0.63f};
         float   m_HairKDiffuse = 0.22f;
         float   m_HairKSpec1 = 0.0012f;
         float   m_HairSpecExp1 = 14.40f;
 
         float   m_HairKSpec2 = 0.136f;
         float   m_HairSpecExp2 = 11.80f;
+
+        float   m_HairRoughness = 0.65f;
+        float   m_HairCuticleTilt = 0.08;   // Tilt angle in radians roughly 5-6 degrees tilt
 
         // For deep approximated shadow lookup
         float   m_HairShadowAlpha = 0.35f;

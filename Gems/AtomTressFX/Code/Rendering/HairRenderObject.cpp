@@ -41,6 +41,16 @@ namespace AZ
                 return f4;
             }
 
+            AMD::float4 ToAMDFloat4(const AZ::Color& color)
+            {
+                AMD::float4 f4;
+                f4.x = color.GetR();
+                f4.y = color.GetG();
+                f4.z = color.GetB();
+                f4.w = color.GetA();
+                return f4;
+            }
+
             //!=====================================================================================
             //!
             //!                                 DynamicHairData 
@@ -869,6 +879,9 @@ namespace AZ
 
                 m_renderCB->HairKs2 = parameters->m_HairKSpec2;
                 m_renderCB->HairEx2 = parameters->m_HairSpecExp2;
+
+                m_renderCB->CuticleTilt = parameters->m_HairCuticleTilt;
+                m_renderCB->Roughness = parameters->m_HairRoughness;
 
                 m_renderCB->MatKValue = { 0.f, parameters->m_HairKDiffuse, parameters->m_HairKSpec1, parameters->m_HairSpecExp1 }; // no ambient
 

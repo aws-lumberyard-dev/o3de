@@ -9,6 +9,7 @@
 #include <Atom/RPI.Public/Pass/PassUtils.h>
 #include <Atom/RPI.Public/RenderPipeline.h>
 #include <Atom/RHI/RHISystemInterface.h>
+#include <Atom/RPI.Public/Shader/ShaderSystem.h>
 #include <Atom/RPI.Public/RPIUtils.h>
 #include <Atom/RPI.Public/Scene.h>
 
@@ -17,6 +18,7 @@
 
 #include <Passes/HairPPLLResolvePass.h>
 #include <Rendering/HairFeatureProcessor.h>
+#include <Rendering/HairLightingModels.h>
 
 #pragma optimize("", off)
 namespace AZ
@@ -29,6 +31,28 @@ namespace AZ
             HairPPLLResolvePass::HairPPLLResolvePass(const RPI::PassDescriptor& descriptor)
                 : RPI::FullscreenTrianglePass(descriptor)
             {
+            }
+
+            void HairPPLLResolvePass::UpdateGlobalShaderOptions()
+            {
+                RPI::ShaderOptionGroup shaderOption = m_shader->CreateShaderOptionGroup();
+
+                // Shader Options
+                HairGlobalSettings hairGlobalSettings = m_featureProcessor->GetHairGlobalSettings();
+                shaderOption.SetValue(AZ::Name("o_enableShadows"), AZ::RPI::ShaderOptionValue{ hairGlobalSettings.m_enableShadows });
+                shaderOption.SetValue(AZ::Name("o_enableDirectionalLights"), AZ::RPI::ShaderOptionValue{ hairGlobalSettings.m_enableDirectionalLights });
+                shaderOption.SetValue(AZ::Name("o_enablePunctualLights"), AZ::RPI::ShaderOptionValue{ hairGlobalSettings.m_enablePunctualLights });
+                shaderOption.SetValue(AZ::Name("o_enableAreaLights"), AZ::RPI::ShaderOptionValue{ hairGlobalSettings.m_enableAreaLights });
+                shaderOption.SetValue(AZ::Name("o_enableIBL"), AZ::RPI::ShaderOptionValue{ hairGlobalSettings.m_enableIBL });
+                shaderOption.SetValue(AZ::Name("o_hairLightingModel"), AZ::Name{ "HairLightingModel::" + AZStd::string(HairLightingModelNamespace::ToString(hairGlobalSettings.m_hairLightingModel)) });
+                shaderOption.SetValue(AZ::Name("o_enableMarschner_R"), AZ::RPI::ShaderOptionValue{ hairGlobalSettings.m_enableMarschner_R });
+                shaderOption.SetValue(AZ::Name("o_enableMarschner_TRT"), AZ::RPI::ShaderOptionValue{ hairGlobalSettings.m_enableMarschner_TRT });
+                shaderOption.SetValue(AZ::Name("o_enableMarschner_TT"), AZ::RPI::ShaderOptionValue{ hairGlobalSettings.m_enableMarschner_TT });
+                shaderOption.SetValue(AZ::Name("o_enableDiffuseLobe"), AZ::RPI::ShaderOptionValue{ hairGlobalSettings.m_enableDiffuseLobe });
+                shaderOption.SetValue(AZ::Name("o_enableSpecularLobe"), AZ::RPI::ShaderOptionValue{ hairGlobalSettings.m_enableSpecularLobe });
+                shaderOption.SetValue(AZ::Name("o_enableTransmittanceLobe"), AZ::RPI::ShaderOptionValue{ hairGlobalSettings.m_enableTransmittanceLobe });
+
+                m_shaderOptions = shaderOption.GetShaderVariantKeyFallbackValue();
             }
 
             RPI::Ptr<HairPPLLResolvePass> HairPPLLResolvePass::Create(const RPI::PassDescriptor& descriptor)
@@ -88,6 +112,8 @@ namespace AZ
                     AZ_Error("Hair Gem", false, "HairPPLLResolvePass: PPLL list data was not bound - missing Srg or Feature Processor");
                     return;
                 }
+
+                UpdateGlobalShaderOptions();
                 
                 {
                     SrgBufferDescriptor descriptor = SrgBufferDescriptor(
@@ -115,6 +141,12 @@ namespace AZ
                     sizeof(AMD::TressFXShadeParams), 1,
                     Name{ "HairMaterialsArray" }, Name{ "m_hairParams" }, 0, 0
                 );
+
+                if (m_shaderResourceGroup->HasShaderVariantKeyFallbackEntry())
+                {
+                    m_shaderResourceGroup->SetShaderVariantKeyFallbackValue(m_shaderOptions);
+                }
+
                 m_featureProcessor->GetMaterialsArray().UpdateGPUData(m_shaderResourceGroup, descriptor);
 
                 // All remaining srgs should compile here

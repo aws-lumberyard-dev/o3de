@@ -28,6 +28,7 @@
 #include <Rendering/HairRenderObject.h>
 #include <Rendering/SharedBuffer.h>
 #include <Rendering/HairCommon.h>
+#include <Rendering/HairGlobalSettingsBus.h>
 
 namespace AZ
 {
@@ -42,7 +43,7 @@ namespace AZ
         {
             static const size_t PPLL_NODE_SIZE = 16;
             // Adi: replace the following with the actual screen dimensions.
-            static const size_t AVE_FRAGS_PER_PIXEL = 30;
+            static const size_t AVE_FRAGS_PER_PIXEL = 24;
             static const size_t SCREEN_WIDTH = 1920;
             static const size_t SCREEN_HEIGHT = 1080;
             static const size_t RESERVED_PIXELS_FOR_OIT = SCREEN_WIDTH * SCREEN_HEIGHT * AVE_FRAGS_PER_PIXEL;
@@ -52,6 +53,7 @@ namespace AZ
 
             class HairFeatureProcessor final
                 : public RPI::FeatureProcessor
+                , public HairGlobalSettingsRequestBus::Handler
                 , private AZ::TickBus::Handler
             {
                 Name TestSkinningPass;
@@ -117,6 +119,9 @@ namespace AZ
 
                 bool CreatePerPassResources();
 
+                const HairGlobalSettings& GetHairGlobalSettings() const override;
+                void SetHairGlobalSettings(const HairGlobalSettings& hairGlobalSettings) override;
+
             private:
                 AZ_DISABLE_COPY_MOVE(HairFeatureProcessor);
 
@@ -170,6 +175,8 @@ namespace AZ
                 bool m_initialized = false;
                 bool m_isEnabled = true;
                 static uint32_t s_instanceCount;
+
+                HairGlobalSettings m_hairGlobalSettings;
             };
         } // namespace Hair
     } // namespace Render

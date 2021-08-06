@@ -10,6 +10,7 @@
 #include <AzCore/Serialization/EditContext.h>
 
 #include <Components/HairComponentConfig.h>
+#include <Rendering/HairGlobalSettingsBus.h>
 
 namespace AZ
 {
@@ -26,12 +27,20 @@ namespace AZ
                 if (auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
                 {
                     serializeContext->Class<HairComponentConfig, ComponentConfig>()
-                        ->Version(3)
+                        ->Version(4)
+                        ->Field("HairAsset", &HairComponentConfig::m_hairAsset)
                         ->Field("SimulationSettings", &HairComponentConfig::m_simulationSettings)
                         ->Field("RenderingSettings", &HairComponentConfig::m_renderingSettings)
+                        ->Field("HairGlobalSettings", &HairComponentConfig::m_hairGlobalSettings)
                         ;
                 }
             }
+
+            void HairComponentConfig::OnHairGlobalSettingsChanged()
+            {
+                HairGlobalSettingsRequestBus::Broadcast(&HairGlobalSettingsRequests::SetHairGlobalSettings, m_hairGlobalSettings);
+            }
+
         } // namespace Hair
     } // namespace Render
 } // namespace AZ
