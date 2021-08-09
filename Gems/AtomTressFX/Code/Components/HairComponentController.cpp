@@ -90,9 +90,14 @@ namespace AZ
                 m_entityId = entityId;
 
                 m_featureProcessor = RPI::Scene::GetFeatureProcessorForEntity<Hair::HairFeatureProcessor>(m_entityId);
-                if (m_featureProcessor && !m_renderObject)
-                {   // Call this function if object doesn't exist to trigger the load of the existing asset
-                    OnHairAssetChanged();
+                if (m_featureProcessor)
+                {
+                    m_featureProcessor->SetHairGlobalSettings(m_configuration.m_hairGlobalSettings);
+                    if (!m_renderObject)
+                    {
+                        // Call this function if object doesn't exist to trigger the load of the existing asset
+                        OnHairAssetChanged();
+                    }
                 }
 
                 EMotionFX::Integration::ActorComponentNotificationBus::Handler::BusConnect(m_entityId);

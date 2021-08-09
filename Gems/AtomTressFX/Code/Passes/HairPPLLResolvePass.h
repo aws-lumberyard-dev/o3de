@@ -19,6 +19,7 @@
 
 #include <TressFX/TressFXConstantBuffers.h>
 #include <Rendering/HairCommon.h>
+#include <Rendering/HairGlobalSettings.h>
 
 namespace AZ
 {
@@ -66,6 +67,7 @@ namespace AZ
             private:
                 void UpdateGlobalShaderOptions();
 
+                HairGlobalSettings m_hairGlobalSettings;
                 HairFeatureProcessor* m_featureProcessor = nullptr;
                 AZ::RPI::ShaderVariantKey m_shaderOptions;
             };

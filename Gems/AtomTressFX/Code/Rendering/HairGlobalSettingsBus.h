@@ -37,7 +37,7 @@ namespace AZ
                 static const AZ::EBusHandlerPolicy HandlerPolicy = AZ::EBusHandlerPolicy::Multiple;
                 static const AZ::EBusAddressPolicy AddressPolicy = AZ::EBusAddressPolicy::Single;
 
-                virtual const HairGlobalSettings& GetHairGlobalSettings() const = 0;
+                virtual void GetHairGlobalSettings(HairGlobalSettings& hairGlobalSettings) = 0;
                 virtual void SetHairGlobalSettings(const HairGlobalSettings& hairGlobalSettings) = 0;
             };
 

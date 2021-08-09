@@ -414,14 +414,18 @@ namespace AZ
                 return true;
             }
 
-            const AZ::Render::Hair::HairGlobalSettings& HairFeatureProcessor::GetHairGlobalSettings() const
+            void HairFeatureProcessor::GetHairGlobalSettings(HairGlobalSettings& hairGlobalSettings)
             {
-                return m_hairGlobalSettings;
+                AZStd::lock_guard<AZStd::mutex> lock(m_hairGlobalSettingsMutex);
+                hairGlobalSettings = m_hairGlobalSettings;
             }
 
             void HairFeatureProcessor::SetHairGlobalSettings(const HairGlobalSettings& hairGlobalSettings)
             {
-                m_hairGlobalSettings = hairGlobalSettings;
+                {
+                    AZStd::lock_guard<AZStd::mutex> lock(m_hairGlobalSettingsMutex);
+                    m_hairGlobalSettings = hairGlobalSettings;
+                }
                 HairGlobalSettingsNotificationBus::Broadcast(&HairGlobalSettingsNotifications::OnHairGlobalSettingsChanged, m_hairGlobalSettings);
             }
 
