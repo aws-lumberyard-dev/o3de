@@ -207,6 +207,10 @@
                 },
 
                 {
+                    // NOTE: HairParentPass does not write into Depth MSAA from Opaque Pass. If new passes downstream
+                    // of HairParentPass will need to use Depth MSAA, HairParentPass will need to be updated to use Depth MSAA
+                    // instead of regular Depth as DepthStencil. Specifically, HairResolvePPLL.pass and the associated 
+                    // .azsl file will need to be updated.
                     "Name": "HairParentPass",
                     "TemplateName": "HairParentPassTemplate",
                     "Enabled": true,
