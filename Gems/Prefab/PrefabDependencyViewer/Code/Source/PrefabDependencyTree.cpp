@@ -56,8 +56,8 @@ namespace PrefabDependencyViewer
         auto&& source = sourceIterator->value;
         const char* sourceFileName = source.GetString();
 
-        // Create a new node for the current Template. (Use 0 as a placeholder for TemplateId for now)
-        NodePtr parent = Utils::Node::CreatePrefabNode(0, sourceFileName);
+        // Create a new node for the current Template.
+        NodePtr parent = Utils::Node::CreatePrefabNode(sourceFileName);
 
         // Go through current Template's nested instances.
         // Get and recurse on their PrefabDoms. If successful,

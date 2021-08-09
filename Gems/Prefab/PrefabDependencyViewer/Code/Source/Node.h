@@ -56,7 +56,7 @@ namespace PrefabDependencyViewer::Utils
 
         const ChildrenList& GetChildren() const;
 
-        static NodePtr CreatePrefabNode(TemplateId tid, AZStd::string source, Node* parent = nullptr);
+        static NodePtr CreatePrefabNode(AZStd::string source, Node* parent = nullptr);
         static NodePtr CreateAssetNode(AZStd::string source);
     private:
         AZStd::unique_ptr<MetaData> m_metaData;
