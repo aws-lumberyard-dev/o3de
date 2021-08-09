@@ -20,7 +20,7 @@ namespace PrefabDependencyViewer
         else
         {
             // Create a deep copy of the root Prefab Dom so the Template
-            // can be modified in the GenerateTreAndSetRootRecursive method.
+            // can be modified in the GenerateTreeAndSetRootRecursive method.
             PrefabDom rootPrefabDom;
             rootPrefabDom.CopyFrom(prefabSystemComponentInterface->FindTemplateDom(tid),
                                     rootPrefabDom.GetAllocator());
