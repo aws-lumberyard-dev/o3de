@@ -19,12 +19,16 @@ namespace PrefabDependencyViewer
         }
         else
         {
-            PrefabDom& rootPrefabDom = prefabSystemComponentInterface->FindTemplateDom(tid);
+            // Create a deep copy of the root Prefab Dom so the Template
+            // can be modified in the GenerateTreAndSetRootRecursive method.
+            PrefabDom rootPrefabDom;
+            rootPrefabDom.CopyFrom(prefabSystemComponentInterface->FindTemplateDom(tid),
+                                    rootPrefabDom.GetAllocator());
 
             AssetList allNestedAssets = GetAssets(rootPrefabDom);
             AssetDescriptionCountMap count = GetAssetsDescriptionCountMap(allNestedAssets);
 
-            NodePtrOutcome outcome = GenerateTreeAndSetRootRecursive(tid, prefabSystemComponentInterface, count);
+            NodePtrOutcome outcome = GenerateTreeAndSetRootRecursive(rootPrefabDom, count);
             if (outcome.IsSuccess())
             {
                 PrefabDependencyTree graph;
@@ -39,77 +43,57 @@ namespace PrefabDependencyViewer
         }
     }
 
-    /* static */ NodePtrOutcome PrefabDependencyTree::GenerateTreeAndSetRootRecursive(TemplateId templateId,
-                                        PrefabSystemComponentInterface* prefabSystemComponentInterface,
-                                        AssetDescriptionCountMap& count)
+    /* static */ NodePtrOutcome PrefabDependencyTree::GenerateTreeAndSetRootRecursive(
+                                    PrefabDom& prefabDom, AssetDescriptionCountMap& count)
     {
-        if (AzToolsFramework::Prefab::InvalidTemplateId == templateId)
+        // Get the source file of the current Template
+        auto sourceIterator = prefabDom.FindMember(AzToolsFramework::Prefab::PrefabDomUtils::SourceName);
+        if (sourceIterator == prefabDom.MemberEnd() || !sourceIterator->value.IsString())
         {
-            return AZ::Failure(AZStd::string_view("PrefabDependencyTreeGenerator - Invalid TemplateId found."));
+            return AZ::Failure(AZStd::string_view("PrefabDependencyTree - Source Attribute missing or it's not a String"));
         }
-        else
+
+        auto&& source = sourceIterator->value;
+        const char* sourceFileName = source.GetString();
+
+        // Create a new node for the current Template. (Use 0 as a placeholder for TemplateId for now)
+        NodePtr parent = Utils::Node::CreatePrefabNode(0, sourceFileName);
+
+        // Go through current Template's nested instances.
+        // Get and recurse on their PrefabDoms. If successful,
+        // then add the child Node pointer to the parent.
+        // Otherwise, return the error output immediately.
+        auto instancesIterator = prefabDom.FindMember(AzToolsFramework::Prefab::PrefabDomUtils::InstancesName);
+
+        if (instancesIterator != prefabDom.MemberEnd())
         {
-            // Get the JSON for the current Template we are looking at.
-            PrefabDom& prefabDom = prefabSystemComponentInterface->FindTemplateDom(templateId); 
+            auto&& instances = instancesIterator->value;
 
-            // Get the source file of the current Template
-            auto sourceIterator = prefabDom.FindMember(AzToolsFramework::Prefab::PrefabDomUtils::SourceName);
-            if (sourceIterator == prefabDom.MemberEnd() || !sourceIterator->value.IsString())
+            if (instances.IsObject())
             {
-                return AZ::Failure(AZStd::string_view("PrefabDependencyTree - Source Attribute missing or it's not a String"));
-            }
-
-            auto&& source = sourceIterator->value;
-            const char* sourceFileName = source.GetString();
-
-            // Create a new node for the current Template.
-            NodePtr parent = Utils::Node::CreatePrefabNode(templateId, sourceFileName);
-
-            // Go through current Template's nested instances.
-            // Recurse on their Template Id's. If successful,
-            // then add the child Node pointer to the parent.
-            // Otherwise, return the error output immediately.
-            auto instancesIterator = prefabDom.FindMember(AzToolsFramework::Prefab::PrefabDomUtils::InstancesName);
-
-            if (instancesIterator != prefabDom.MemberEnd())
-            {
-                auto&& instances = instancesIterator->value;
-
-                if (instances.IsObject())
+                for (auto&& instance : instances.GetObject())
                 {
-                    for (auto&& instance : instances.GetObject())
+                    PrefabDom childDom;
+                    childDom.Swap(instance.value);
+
+                    // Recurse on the nested instance.
+                    NodePtrOutcome outcome = GenerateTreeAndSetRootRecursive(childDom, count);
+                    if (outcome.IsSuccess())
                     {
-                        // Get the source file of the nested instance.
-                        sourceIterator = instance.value.FindMember(AzToolsFramework::Prefab::PrefabDomUtils::SourceName);
-                        sourceFileName = "";
-                        if (sourceIterator != instance.value.MemberEnd())
-                        {
-                            source = sourceIterator->value;
-                            sourceFileName = source.IsString() ? source.GetString() : "";
-                        }
-
-                        // Get the TemplateId for the nested Instance.
-                        TemplateId childTemplateId = prefabSystemComponentInterface->GetTemplateIdFromFilePath(sourceFileName);
-
-                        // Recurse on the nested instance.
-                        NodePtrOutcome outcome = GenerateTreeAndSetRootRecursive(childTemplateId, prefabSystemComponentInterface, count);
-                        if (outcome.IsSuccess())
-                        {
-                            parent->AddChild(outcome.GetValue());
-                        }
-                        else
-                        {
-                            return AZ::Failure(outcome.GetError());
-                        }
+                        parent->AddChild(outcome.GetValue());
+                    }
+                    else
+                    {
+                        return AZ::Failure(outcome.GetError());
                     }
                 }
             }
-
-            // Add assets to the PrefabNode
-            AssetList assetList = GetAssets(prefabDom);
-            AddAssetNodeToPrefab(prefabDom, parent, count);
-            return AZ::Success(parent);
         }
+
+        // Add assets to the PrefabNode
+        AssetList assetList = GetAssets(prefabDom);
+        AddAssetNodeToPrefab(prefabDom, parent, count);
+        return AZ::Success(parent);
     }
 
     /* static */ void PrefabDependencyTree::AddAssetNodeToPrefab(const PrefabDom& prefabDom, NodePtr node,

@@ -36,17 +36,17 @@ namespace PrefabDependencyViewer
     class PrefabDependencyTree : public Utils::DirectedTree
     {
     public:
-        static TreeOutcome GenerateTreeAndSetRoot(TemplateId tid, PrefabSystemComponentInterface* s_prefabSystemComponentInterface);
+        static TreeOutcome GenerateTreeAndSetRoot(TemplateId tid,
+                               PrefabSystemComponentInterface* s_prefabSystemComponentInterface);
 
     private:
-        static NodePtrOutcome GenerateTreeAndSetRootRecursive(
-            TemplateId templateId,
-            PrefabSystemComponentInterface* prefabSystemComponentInterface,
-            AssetDescriptionCountMap& count);
+        static NodePtrOutcome GenerateTreeAndSetRootRecursive(PrefabDom& prefabDom,
+                                                               AssetDescriptionCountMap& count);
 
         static AssetDescriptionCountMap GetAssetsDescriptionCountMap(AssetList allNestedAssets);
+
         static void AddAssetNodeToPrefab(const PrefabDom& prefabDom, NodePtr node,
-                                AssetDescriptionCountMap& assetDescriptionCountMap);
+                                            AssetDescriptionCountMap& assetDescriptionCountMap);
 
         static AssetList GetAssets(const PrefabDom& prefabDom);
     };
