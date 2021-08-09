@@ -42,9 +42,9 @@ namespace PrefabDependencyViewer::Utils
         return m_children;
     }
 
-    /* static */ NodePtr Node::CreatePrefabNode(TemplateId tid, AZStd::string source, Node* parent)
+    /* static */ NodePtr Node::CreatePrefabNode(AZStd::string source, Node* parent)
     {
-        return AZStd::make_shared<Node>(aznew PrefabMetaData(tid, AZStd::move(source)), parent);
+        return AZStd::make_shared<Node>(aznew PrefabMetaData(AZStd::move(source)), parent);
     }
 
     /* static */ NodePtr Node::CreateAssetNode(AZStd::string source)

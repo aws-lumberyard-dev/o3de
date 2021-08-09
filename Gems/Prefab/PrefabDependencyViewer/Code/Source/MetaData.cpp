@@ -10,16 +10,10 @@
 
 namespace PrefabDependencyViewer::Utils
 {
-    PrefabMetaData::PrefabMetaData(TemplateId tid, AZStd::string source)
+    PrefabMetaData::PrefabMetaData(AZStd::string source)
         : MetaData()
-        , m_tid(tid)
         , m_source(AZStd::move(source))
     {
-    }
-
-    TemplateId PrefabMetaData::GetTemplateId() const
-    {
-        return m_tid;
     }
 
     AZStd::string_view PrefabMetaData::GetSource() const

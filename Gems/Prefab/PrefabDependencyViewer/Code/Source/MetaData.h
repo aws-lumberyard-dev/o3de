@@ -35,14 +35,12 @@ namespace PrefabDependencyViewer::Utils
     {
     public:
         AZ_CLASS_ALLOCATOR(PrefabMetaData, AZ::SystemAllocator, 0);
-        PrefabMetaData(TemplateId tid, AZStd::string source);
+        PrefabMetaData(AZStd::string source);
 
-        TemplateId GetTemplateId() const;
         AZStd::string_view GetSource() const;
         AZStd::string_view GetDisplayName() const override;
 
     private:
-        TemplateId m_tid;
         AZStd::string m_source;
     };
 
