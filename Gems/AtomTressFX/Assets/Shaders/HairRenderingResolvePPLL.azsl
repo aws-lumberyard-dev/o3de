@@ -486,8 +486,7 @@ float4 GetClosestFragment(float2 vfScreenAddress, float2 screenUV, inout float3 
 
 struct PSColorDepthOutput
 {
-    float4 m_color : SV_Target0;
-    float m_linearDepth : SV_Target1;
+    float4 m_color : SV_Target;
     float m_depth : SV_Depth;
 }; 
 
@@ -504,7 +503,6 @@ PSColorDepthOutput PPLLResolvePS(VSOutput input)
 //    pixOut.m_color = GatherLinkedList(input.m_position.xy, pixOut.m_depth);
 
     pixOut.m_color = GatherLinkedList(input.m_position.xy, input.m_texCoord, pixOut.m_depth);
-    pixOut.m_linearDepth = abs(((ViewSrg::GetFarZTimesNearZ()) / (ViewSrg::GetFarZMinusNearZ() * pixOut.m_depth - ViewSrg::GetFarZ())));
 
     return pixOut;
 }

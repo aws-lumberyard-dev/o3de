@@ -17,11 +17,6 @@
                         "StoreAction": "Store"
                     }
                 },
-                {
-                    "Name": "LinearDepthRenderTargetInputOutput",
-                    "SlotType": "InputOutput",
-                    "ScopeAttachmentUsage": "RenderTarget"
-                },
                 { // Will be used to get the background color for the hair blending
                     "Name": "RenderTargetCopy",
                     "SlotType": "Input",

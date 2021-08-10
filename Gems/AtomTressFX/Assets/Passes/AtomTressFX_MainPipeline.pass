@@ -218,7 +218,7 @@
                         // Critical to keep DepthLinear as input - used to set the size of the Head PPLL image buffer.
                         // If DepthLinear is not availbale - connect to another viewport (non MSAA) image.
                         {
-                            "LocalSlot": "DepthLinear",
+                            "LocalSlot": "DepthLinearInput",
                             "AttachmentRef": {
                                 "Pass": "DepthPrePass",
                                 "Attachment": "DepthLinear"

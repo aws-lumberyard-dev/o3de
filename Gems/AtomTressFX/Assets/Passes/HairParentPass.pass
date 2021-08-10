@@ -28,8 +28,12 @@
                 // Keep DepthLinear as input - used to set the size of the Head PPLL image buffer.
                 // If DepthLinear is not availbale - connect to another viewport (non MSAA) image.
                 {
+                    "Name": "DepthLinearInput",
+                    "SlotType": "Input"
+                },
+                {
                     "Name": "DepthLinear",
-                    "SlotType": "InputOutput"
+                    "SlotType": "Output"
                 },
 
                 // Lights & Shadows resources
@@ -58,7 +62,15 @@
                     "SlotType": "Input"
                 }
             ],
-
+            "Connections": [
+                {
+                    "LocalSlot": "DepthLinear",
+                    "AttachmentRef": {
+                        "Pass": "DepthToDepthLinearPass",
+                        "Attachment": "Output"
+                    }
+                }
+            ],
             "PassRequests": [
                 {
                     "Name": "HairSkinningComputePass",
@@ -168,7 +180,7 @@
                             "LocalSlot": "DepthLinear",
                             "AttachmentRef": {
                                 "Pass": "Parent",
-                                "Attachment": "DepthLinear"
+                                "Attachment": "DepthLinearInput"
                             }
                         },
                         {
@@ -224,42 +236,6 @@
                         }
                     ]
                 },
-                {
-                    "Name": "LinearDepthCopyPass",
-                    "TemplateName": "FullscreenCopyTemplate",
-                    "Connections": [
-                        {
-                            "LocalSlot": "Input",
-                            "AttachmentRef": {
-                                "Pass": "Parent",
-                                "Attachment": "DepthLinear"
-                            }
-                        },
-                        {
-                            "LocalSlot": "Output",
-                            "AttachmentRef": {
-                                "Pass": "This",
-                                "Attachment": "Output"
-                            }
-                        }
-                    ],
-                    "ImageAttachments": [
-                        {
-                            "Name": "Output",
-                            "SizeSource": {
-                                "Source": {
-                                    "Pass": "This",
-                                    "Attachment": "Input"
-                                }
-                            },
-                            "FormatSource": {
-                                "Pass": "This",
-                                "Attachment": "Input"
-                            },
-                            "GenerateFullMipChain": false
-                        }
-                    ]
-                },
 
                 {
                     "Name": "HairPPLLResolvePass",
@@ -272,13 +248,6 @@
                             "AttachmentRef": {
                                 "Pass": "Parent",
                                 "Attachment": "RenderTargetInputOutput"
-                            }
-                        },
-                        {
-                            "LocalSlot": "LinearDepthRenderTargetInputOutput",
-                            "AttachmentRef": {
-                                "Pass": "Parent",
-                                "Attachment": "DepthLinear"
                             }
                         },
                         {
@@ -298,11 +267,10 @@
                         {
                             "LocalSlot": "DepthLinear",
                             "AttachmentRef": {
-                                "Pass": "LinearDepthCopyPass",
-                                "Attachment": "Output"
+                                "Pass": "Parent",
+                                "Attachment": "DepthLinearInput"
                             }
                         },
-
 
                         // Shadows resources
                         {
@@ -366,7 +334,22 @@
                                 "Attachment": "PerPixelLinkedList"
                             }
                         }
-
+                    ]
+                },
+                {
+                    // This can be optimized even further by writing into the stencil buffer pixels
+                    // that were touched by HairPPLLResolvePass.
+                    "Name": "DepthToDepthLinearPass",
+                    "TemplateName": "DepthToLinearTemplate",
+                    "Enabled": true,
+                    "Connections": [
+                        {
+                            "LocalSlot": "Input",
+                            "AttachmentRef": {
+                                "Pass": "HairPPLLResolvePass",
+                                "Attachment": "Depth"
+                            }
+                        }
                     ]
                 }
             ]
