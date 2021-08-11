@@ -33,6 +33,9 @@
 
 #pragma once
 
+#define USE_MESH_BASED_HAIR_TRANSFORM 0
+
+
 // If you change the value below, you must change it in TressFXAsset.h as well.
 #ifndef THREAD_GROUP_SIZE
     #define THREAD_GROUP_SIZE 64
@@ -363,40 +366,6 @@ bool CapsuleCollision(float4 curPosition, float4 oldPosition, inout float3 newPo
     }
 
     return false;
-}
-
-// Resolve hair vs capsule collisions. To use this, set TRESSFX_COLLISION_CAPSULES in shader and code. 
-bool ResolveCapsuleCollisions(inout float4 curPosition, float4 oldPos, float friction = 0.4f)
-{
-    bool bAnyColDetected = false;
-
-#if TRESSFX_COLLISION_CAPSULES
-    if (g_numCollisionCapsules.x > 0)
-    {        
-        float3 newPos;
-
-        for (int i = 0; i < g_numCollisionCapsules.x; i++)
-        {
-            float3 center0 = g_centerAndRadius0[i].xyz;
-            float3 center1 = g_centerAndRadius1[i].xyz;
-
-            CollisionCapsule cc;
-            cc.p0.xyz = center0;
-            cc.p0.w = g_centerAndRadius0[i].w;
-            cc.p1.xyz = center1;
-            cc.p1.w = g_centerAndRadius1[i].w;
-
-            bool bColDetected = CapsuleCollision(curPosition, oldPos, newPos, cc, friction);
-
-            if (bColDetected)
-                curPosition.xyz = newPos;
-
-            bAnyColDetected = bColDetected ? true : bAnyColDetected;
-        }
-    }
-#endif
-
-    return bAnyColDetected;
 }
 
 float3 ApplyVertexBoneSkinning(float3 vertexPos, BoneSkinningData skinningData, inout float4 bone_quat)

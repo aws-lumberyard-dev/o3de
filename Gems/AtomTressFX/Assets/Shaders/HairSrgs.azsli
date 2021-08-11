@@ -1,3 +1,4 @@
+
 //-----------------------------------------------------------------------------------------------------------
 //
 // Copyright (c) 2019 Advanced Micro Devices, Inc. All rights reserved.
@@ -36,6 +37,11 @@
 //! notice - the following constants need to match what appears in AMD_TressFX.h
 #define AMD_TRESSFX_MAX_HAIR_GROUP_RENDER 16
 #define AMD_TRESSFX_MAX_NUM_BONES 512
+
+#define CM_TO_METERS  1.0
+#define METERS_TO_CM  1.0
+//#define CM_TO_METERS  0.01
+//#define METERS_TO_CM  100.0
 
 //!------------------------------ SRG Structure --------------------------------
 //! Per pass SRG the holds the dynamic read-write buffer shared across all 
@@ -104,11 +110,12 @@ float3 GetSharedVector3(int offset)
         asfloat(PassSrg::m_skinnedHairSharedBuffer[offset]),
         asfloat(PassSrg::m_skinnedHairSharedBuffer[offset + 1]),
         asfloat(PassSrg::m_skinnedHairSharedBuffer[offset + 2])
-    );
+    );// *CM_TO_METERS;   // convert to meters when using
 }
 
 void SetSharedVector3(int offset, float3 pos)
 {
+//    pos.xyz *= METERS_TO_CM;    // convert to cm when storing
     PassSrg::m_skinnedHairSharedBuffer[offset] = asint(pos.x);    
     PassSrg::m_skinnedHairSharedBuffer[offset+1] = asint(pos.y);    
     PassSrg::m_skinnedHairSharedBuffer[offset+2] = asint(pos.z); 
@@ -121,13 +128,14 @@ float4 GetSharedVector4(int offset)
             asfloat(PassSrg::m_skinnedHairSharedBuffer[offset]),
             asfloat(PassSrg::m_skinnedHairSharedBuffer[offset + 1]),
             asfloat(PassSrg::m_skinnedHairSharedBuffer[offset + 2])
-        ),
+        ),// * CM_TO_METERS,   // convert to meters when using
         asfloat(PassSrg::m_skinnedHairSharedBuffer[offset + 3])
     );
 }
 
 void SetSharedVector4(int offset, float4 pos)
 {
+//    pos.xyz *= METERS_TO_CM;    // convert to cm when storing
     PassSrg::m_skinnedHairSharedBuffer[offset] = asint(pos.x);    
     PassSrg::m_skinnedHairSharedBuffer[offset+1] = asint(pos.y);    
     PassSrg::m_skinnedHairSharedBuffer[offset+2] = asint(pos.z); 

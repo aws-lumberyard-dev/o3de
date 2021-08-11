@@ -47,7 +47,7 @@ void IntegrationAndGlobalShapeConstraints(
     CalcIndicesInVertexLevelMaster(GIndex, GId.x, globalStrandIndex, localStrandIndex, globalVertexIndex, localVertexIndex, numVerticesInTheStrand, indexForSharedMem, strandType);
 
     // Copy data into shared memory
-    float4 initialPos = g_InitialHairPositions[globalVertexIndex]; // rest position
+    float4 initialPos = float4(CM_TO_METERS,CM_TO_METERS,CM_TO_METERS,1.0) * g_InitialHairPositions[globalVertexIndex]; // rest position
 
     // Apply bone skinning to initial position
     BoneSkinningData skinningData = g_BoneSkinningData[globalStrandIndex];
@@ -62,7 +62,7 @@ void IntegrationAndGlobalShapeConstraints(
 
     // Integrate
     float dampingCoeff = GetDamping(strandType);
-//    float4 oldPos = g_HairVertexPositionsPrev[globalVertexIndex];
+//    float4 oldPos = float4(CM_TO_METERS,CM_TO_METERS,CM_TO_METERS,1.0) * g_HairVertexPositionsPrev[globalVertexIndex];
     float4 oldPos = g_HairVertexPositionsPrev[globalVertexIndex];
 
     // reset if we got teleported
@@ -79,8 +79,10 @@ void IntegrationAndGlobalShapeConstraints(
         oldPos = initialPos;
     }
 
-    // skipping all the physics simulation for attached base points
-    if (IsMovable(currentPos))
+//     [To Do] Adi: remove this once following passes are enabled - this will detach hair
+//     This is removed to test only first (skinning) and last (follow hair) passes 
+    // skipping all the physics simulation in between
+    if ( IsMovable(currentPos) )
         sharedPos[indexForSharedMem].xyz = Integrate(currentPos.xyz, oldPos.xyz, initialPos.xyz, dampingCoeff);
     else 
         sharedPos[indexForSharedMem] = initialPos;
@@ -158,13 +160,12 @@ void CalculateStrandLevelData(
     g_StrandLevelData[globalStrandIndex].vspQuat = rot;
     g_StrandLevelData[globalStrandIndex].vspTranslation = float4(trans, vspCoeff);
 
-    //------------------------------------------------------------------------
     // skinning
-    //------------------------------------------------------------------------
-    // Copy data into shared memory
-    float4 initialPos = g_InitialHairPositions[globalRootVertexIndex];  // rest position
 
-    // Apply bone skinning to initial position
+    // Copy data into shared memory
+    float4 initialPos = float4(CM_TO_METERS,CM_TO_METERS,CM_TO_METERS,1.0) * g_InitialHairPositions[globalRootVertexIndex]; // rest position
+
+                                                                                                                            // Apply bone skinning to initial position
     BoneSkinningData skinningData = g_BoneSkinningData[globalStrandIndex];
     float4 bone_quat;
     initialPos.xyz = ApplyVertexBoneSkinning(initialPos.xyz, skinningData, bone_quat);
@@ -230,8 +231,8 @@ void LocalShapeConstraints(
     // stiffness for local shape constraints
     float stiffnessForLocalShapeMatching = GetLocalStiffness(strandType);
 
-    // high value stifness close to 1.0 can bring the convergence to become unstable.
-    stiffnessForLocalShapeMatching = 0.5f * min(stiffnessForLocalShapeMatching, 0.95f);
+    //1.0 for stiffness makes things unstable sometimes.
+    stiffnessForLocalShapeMatching = 0.5f*min(stiffnessForLocalShapeMatching, 0.95f);
 
     //--------------------------------------------
     // Local shape constraint for bending/twisting
@@ -248,9 +249,9 @@ void LocalShapeConstraints(
             float4 pos_plus_one = g_HairVertexPositions[globalVertexIndex + 1];
             float4 pos_minus_one = g_HairVertexPositions[globalVertexIndex - 1];
 
-            float3 bindPos = MultQuaternionAndVector(boneQuat, g_InitialHairPositions[globalVertexIndex].xyz);
-            float3 bindPos_plus_one = MultQuaternionAndVector(boneQuat, g_InitialHairPositions[globalVertexIndex + 1].xyz);
-            float3 bindPos_minus_one = MultQuaternionAndVector(boneQuat, g_InitialHairPositions[globalVertexIndex - 1].xyz);
+            float3 bindPos = MultQuaternionAndVector(boneQuat, g_InitialHairPositions[globalVertexIndex].xyz * CM_TO_METERS);
+            float3 bindPos_plus_one = MultQuaternionAndVector(boneQuat, g_InitialHairPositions[globalVertexIndex + 1].xyz * CM_TO_METERS);
+            float3 bindPos_minus_one = MultQuaternionAndVector(boneQuat, g_InitialHairPositions[globalVertexIndex - 1].xyz * CM_TO_METERS);
 
             float3 lastVec = pos.xyz - pos_minus_one.xyz;
 
@@ -299,13 +300,13 @@ void LengthConstriantsWindAndCollision(uint GIndex : SV_GroupIndex,
     // Copy data into shared memory
     //------------------------------
     sharedPos[indexForSharedMem] = g_HairVertexPositions[globalVertexIndex];
-    sharedLength[indexForSharedMem] = g_HairRestLengthSRV[globalVertexIndex];
+    sharedLength[indexForSharedMem] = g_HairRestLengthSRV[globalVertexIndex] * CM_TO_METERS;
 
     GroupMemoryBarrierWithGroupSync();
 
 /*
     //------------
-    // Wind - to be applied after connection and testing
+    // Wind
     //------------
     if ( g_Wind.x != 0 || g_Wind.y != 0 || g_Wind.z != 0 )
     {
@@ -318,6 +319,7 @@ void LengthConstriantsWindAndCollision(uint GIndex : SV_GroupIndex,
             // combining four winds.
             float a = ((float)(globalStrandIndex % 20))/20.0f;
             float3  w =  a* g_Wind.xyz + (1.0f - a) * g_Wind1.xyz + a * g_Wind2.xyz + (1.0f - a) * g_Wind3.xyz;
+//            float3  w = float3(5.2, 0, 0);
 
             uint sharedIndex = localVertexIndex * numOfStrandsPerThreadGroup + localStrandIndex;
 
@@ -351,14 +353,13 @@ void LengthConstriantsWindAndCollision(uint GIndex : SV_GroupIndex,
 
         GroupMemoryBarrierWithGroupSync();
     }
-    
+
     //------------------------------------------
-    // Collision handling with capsule objects - internally disabled
-    // Future possiblity - enable this to work on simple collision primitives.
-    // Use the SDF method for complex self collision with the skeleton.
+    // Collision handling with capsule objects
     //------------------------------------------
-    float4 oldPos = g_HairVertexPositionsPrev[globalVertexIndex];      
-    bool bAnyColDetected = false; // ResolveCapsuleCollisions(sharedPos[indexForSharedMem], oldPos);
+    float4 oldPos = g_HairVertexPositionsPrev[globalVertexIndex];
+    bool bAnyColDetected = false;       // Adi
+//    bool bAnyColDetected = ResolveCapsuleCollisions(sharedPos[indexForSharedMem], oldPos);
     GroupMemoryBarrierWithGroupSync();
 
     //-------------------
@@ -394,7 +395,7 @@ void LengthConstriantsWindAndCollision(uint GIndex : SV_GroupIndex,
 // 
 // UpdateFollowHairVertices
 // 
-// Last stage - simplke update of the follow hair to follow the simulated guide hair
+// Last stage update of the follow hair to follow their guide hair
 // 
 // One thread computes one vertex.
 // 
@@ -417,7 +418,7 @@ void UpdateFollowHairVertices(
         int globalFollowVertexIndex = globalVertexIndex + numVerticesInTheStrand * (i + 1);
         int globalFollowStrandIndex = globalStrandIndex + i + 1;
         float factor = g_TipSeparationFactor*((float)localVertexIndex / (float)numVerticesInTheStrand) + 1.0f;
-        float3 followPos = sharedPos[indexForSharedMem].xyz + factor * g_FollowHairRootOffset[globalFollowStrandIndex].xyz;
+        float3 followPos = sharedPos[indexForSharedMem].xyz + factor * CM_TO_METERS * g_FollowHairRootOffset[globalFollowStrandIndex].xyz;
 
         SetSharedPosition3(globalFollowVertexIndex, followPos); 
         //  g_HairVertexPositions[globalFollowVertexIndex].xyz = followPos;
