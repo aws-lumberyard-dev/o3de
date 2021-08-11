@@ -12,3 +12,5 @@ When contributing, your pull requests will require that you have agreed to our D
 
 You can do this by using the -s option in git. 
 Example: ```git commit -s -m 'my commit message'```
+
+O3DE uses the [DCO](https://github.com/apps/dco) to enforce signing of requests.
