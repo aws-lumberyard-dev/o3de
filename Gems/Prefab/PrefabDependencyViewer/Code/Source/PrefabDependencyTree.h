@@ -8,11 +8,16 @@
 
 #pragma once
 
+#include <AzCore/Asset/AssetManager.h>
+#include <AzCore/Asset/AssetJsonSerializer.h>
+
 #include <AzCore/Outcome/Outcome.h>
 #include <AzCore/std/containers/stack.h>
 #include <AzCore/std/utils.h>
 
 #include <AzToolsFramework/API/EditorAssetSystemAPI.h>
+#include <AzToolsFramework/Prefab/Instance/Instance.h>
+#include <AzToolsFramework/Prefab/Instance/InstanceEntityIdMapper.h>
 #include <AzToolsFramework/Prefab/PrefabDomUtils.h>
 
 #include <DirectedGraph.h>
@@ -33,6 +38,9 @@ namespace PrefabDependencyViewer
     using TreeOutcome                    = AZ::Outcome<PrefabDependencyTree, AZStd::string_view>;
     using NodePtrOutcome                 = AZ::Outcome<NodePtr, AZStd::string_view>;
 
+    using Instance                       = AzToolsFramework::Prefab::Instance;
+    using InstanceEntityIdMapper         = AzToolsFramework::Prefab::InstanceEntityIdMapper;
+
     class PrefabDependencyTree : public Utils::DirectedTree
     {
     public:
@@ -40,14 +48,22 @@ namespace PrefabDependencyViewer
                                PrefabSystemComponentInterface* s_prefabSystemComponentInterface);
 
     private:
-        static NodePtrOutcome GenerateTreeAndSetRootRecursive(PrefabDom& prefabDom,
-                                                               AssetDescriptionCountMap& count);
+        static NodePtrOutcome GenerateTreeAndSetRootRecursive(const rapidjson::Value& prefabDom,
+                                                           AssetDescriptionCountMap& parentCount);
 
         static AssetDescriptionCountMap GetAssetsDescriptionCountMap(AssetList allNestedAssets);
 
-        static void AddAssetNodeToPrefab(const PrefabDom& prefabDom, NodePtr node,
+        static void AddAssetNodeToPrefab(const AssetList& assetList, NodePtr node,
                                             AssetDescriptionCountMap& assetDescriptionCountMap);
 
-        static AssetList GetAssets(const PrefabDom& prefabDom);
+        static AssetList GetAssets(const rapidjson::Value& prefabDom);
+
+        static void DecreaseParentAssetCount(AssetDescriptionCountMap& parentCount,
+                                        const AssetDescriptionCountMap& childCount);
+
+        static bool LoadInstanceFromPrefabDom(
+            Instance& instance, const rapidjson::Value& prefabDom,
+            AZStd::vector<AZ::Data::Asset<AZ::Data::AssetData>>& referencedAssets,
+            LoadInstanceFlags flags);
     };
 }
