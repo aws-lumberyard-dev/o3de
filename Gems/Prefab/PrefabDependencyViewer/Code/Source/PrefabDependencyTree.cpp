@@ -19,14 +19,11 @@ namespace PrefabDependencyViewer
         }
         else
         {
-            // Create a deep copy of the root Prefab Dom so the Template
-            // can be modified in the GenerateTreeAndSetRootRecursive method.
-            rapidjson::Value& rootPrefabDom = static_cast<rapidjson::Value&>(
-                                                prefabSystemComponentInterface->FindTemplateDom(tid));
+            PrefabDom& rootPrefabDom = prefabSystemComponentInterface->FindTemplateDom(tid);
 
-            AssetDescriptionCountMap rootParentAssetCount;
+            AssetDescriptionCountMap rootParentAssetCountMap;
 
-            NodePtrOutcome outcome = GenerateTreeAndSetRootRecursive(rootPrefabDom, rootParentAssetCount);
+            NodePtrOutcome outcome = GenerateTreeAndSetRootRecursive(rootPrefabDom, rootParentAssetCountMap);
             if (outcome.IsSuccess())
             {
                 PrefabDependencyTree graph;
@@ -42,14 +39,15 @@ namespace PrefabDependencyViewer
     }
 
     /* static */ NodePtrOutcome PrefabDependencyTree::GenerateTreeAndSetRootRecursive(
-                                    const rapidjson::Value& prefabDom, AssetDescriptionCountMap& parentCount)
+                                    const rapidjson::Value& prefabDom,
+                                    AssetDescriptionCountMap& parentAssetCountMap)
     {
         // Get all the nested assets and their count
         AssetList currentAssets = GetAssets(prefabDom);
-        AssetDescriptionCountMap currentCount = GetAssetsDescriptionCountMap(currentAssets);
+        AssetDescriptionCountMap currentAssetCountMap = GetAssetsDescriptionCountMap(currentAssets);
 
         // Remove the children asset count from the parent count
-        DecreaseParentAssetCount(parentCount, currentCount);
+        DecreaseParentAssetCount(parentAssetCountMap, currentAssetCountMap);
 
 
         // Get the source file of the current Template
@@ -80,7 +78,7 @@ namespace PrefabDependencyViewer
                 for (auto&& instance : instances.GetObject())
                 {
                     // Recurse on the nested instance.
-                    NodePtrOutcome outcome = GenerateTreeAndSetRootRecursive(instance.value, currentCount);
+                    NodePtrOutcome outcome = GenerateTreeAndSetRootRecursive(instance.value, currentAssetCountMap);
                     if (outcome.IsSuccess())
                     {
                         currentNode->AddChild(outcome.GetValue());
@@ -94,7 +92,7 @@ namespace PrefabDependencyViewer
         }
 
         // Add assets to the PrefabNode
-        AddAssetNodeToPrefab(currentAssets, currentNode, currentCount);
+        AddAssetNodeToPrefab(currentAssets, currentNode, currentAssetCountMap);
         return AZ::Success(currentNode);
     }
 
@@ -104,7 +102,7 @@ namespace PrefabDependencyViewer
         // No need to show multiple nodes for the same source asset
         // with multiple product assets that spawn out of it.
         // Instead keep track of their count and display that in the node.
-        AZStd::unordered_map<AZStd::string, int> sourceAssetCount;
+        AZStd::unordered_map<AZStd::string, int> sourceAssetCountMap;
 
         for (const auto& asset : assetList)
         {
@@ -136,10 +134,10 @@ namespace PrefabDependencyViewer
                 {
                     // Only want to add an asset to the sourceAssetCount if
                     // its assetDescriptionCount is non zero.
-                    auto sourceAssetCountIterator = sourceAssetCount.find(assetInfo.m_relativePath);
-                    if (sourceAssetCountIterator == sourceAssetCount.end())
+                    auto sourceAssetCountIterator = sourceAssetCountMap.find(assetInfo.m_relativePath);
+                    if (sourceAssetCountIterator == sourceAssetCountMap.end())
                     {
-                        sourceAssetCount[assetInfo.m_relativePath] = 1;
+                        sourceAssetCountMap[assetInfo.m_relativePath] = 1;
                     }
                     else
                     {
@@ -153,7 +151,7 @@ namespace PrefabDependencyViewer
         }
 
         // Create nodes with the Source Asset Name and it's product dependency count.
-        for (const AZStd::pair<AZStd::string, int>& sourceCount : sourceAssetCount) {
+        for (const AZStd::pair<AZStd::string, int>& sourceCount : sourceAssetCountMap) {
             AZStd::string assetDescription = sourceCount.first + " (" + AZStd::to_string(sourceCount.second) + ")";
             node->AddChild(Utils::Node::CreateAssetNode(assetDescription));
         }
@@ -176,7 +174,7 @@ namespace PrefabDependencyViewer
 
     /* static */ AssetDescriptionCountMap PrefabDependencyTree::GetAssetsDescriptionCountMap(AssetList allNestedAssets)
     {
-        AssetDescriptionCountMap count;
+        AssetDescriptionCountMap assetCountMap;
 
         for (const auto& asset : allNestedAssets)
         {
@@ -202,10 +200,10 @@ namespace PrefabDependencyViewer
 
                 // If all the children claimed the asset, then the asset description count should
                 // go to 0 which implies that the current asset is not a node dependency.
-                auto it = count.find(assetDescription);
-                if (it == count.end())
+                auto it = assetCountMap.find(assetDescription);
+                if (it == assetCountMap.end())
                 {
-                    count[assetDescription] = 1;
+                    assetCountMap[assetDescription] = 1;
                 }
                 else
                 {
@@ -214,22 +212,22 @@ namespace PrefabDependencyViewer
             }
         }
 
-        return count;
+        return assetCountMap;
     }
 
     /* static */ void PrefabDependencyTree::DecreaseParentAssetCount(
-                               AssetDescriptionCountMap& parentCount,
-                               const AssetDescriptionCountMap& childCount)
+                               AssetDescriptionCountMap& parentAssetCountMap,
+                               const AssetDescriptionCountMap& childAssetCountMap)
     {
-        if (parentCount.size() == 0)
+        if (parentAssetCountMap.size() == 0)
         {
             return;
         }
 
-        for (const auto& [assetDescription, count] : childCount)
+        for (const auto& [assetDescription, count] : childAssetCountMap)
         {
-            auto it = parentCount.find(assetDescription);
-            if (it != parentCount.end())
+            auto it = parentAssetCountMap.find(assetDescription);
+            if (it != parentAssetCountMap.end())
             {
                 it->second -= count;
             }

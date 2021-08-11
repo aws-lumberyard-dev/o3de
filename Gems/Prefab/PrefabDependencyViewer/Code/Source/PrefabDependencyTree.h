@@ -49,7 +49,7 @@ namespace PrefabDependencyViewer
 
     private:
         static NodePtrOutcome GenerateTreeAndSetRootRecursive(const rapidjson::Value& prefabDom,
-                                                           AssetDescriptionCountMap& parentCount);
+                                                  AssetDescriptionCountMap& parentAssetCountMap);
 
         static AssetDescriptionCountMap GetAssetsDescriptionCountMap(AssetList allNestedAssets);
 
@@ -58,8 +58,8 @@ namespace PrefabDependencyViewer
 
         static AssetList GetAssets(const rapidjson::Value& prefabDom);
 
-        static void DecreaseParentAssetCount(AssetDescriptionCountMap& parentCount,
-                                        const AssetDescriptionCountMap& childCount);
+        static void DecreaseParentAssetCount(AssetDescriptionCountMap& parentAssetCountMap,
+                                        const AssetDescriptionCountMap& childAssetCountMap);
 
         static bool LoadInstanceFromPrefabDom(
             Instance& instance, const rapidjson::Value& prefabDom,
