@@ -133,13 +133,13 @@ namespace PrefabDependencyViewer
             delete m_prefabSystemComponent;
         }
 
-        NodeList FindNodes(Utils::NodeSet& nodeSet, TemplateId tid, const char* source)
+        Utils::ChildrenList FindNodes(Utils::ChildrenList& nodeList, const char* source)
         {
-            NodeList nodes;
+            Utils::ChildrenList nodes;
 
-            for (Utils::Node* node : nodeSet)
+            for (Utils::NodePtr node : nodeList)
             {
-                if (node->GetMetaData().GetTemplateId() == tid && node->GetMetaData().GetSource() == source)
+                if (node->GetMetaData()->GetDisplayName() == source)
                 {
                     nodes.push_back(node);
                 }
