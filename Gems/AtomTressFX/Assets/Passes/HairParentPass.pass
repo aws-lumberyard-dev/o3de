@@ -28,8 +28,12 @@
                 // Keep DepthLinear as input - used to set the size of the Head PPLL image buffer.
                 // If DepthLinear is not availbale - connect to another viewport (non MSAA) image.
                 {
-                    "Name": "DepthLinear",
+                    "Name": "DepthLinearInput",
                     "SlotType": "Input"
+                },
+                {
+                    "Name": "DepthLinear",
+                    "SlotType": "Output"
                 },
 
                 // Lights & Shadows resources
@@ -58,7 +62,15 @@
                     "SlotType": "Input"
                 }
             ],
-
+            "Connections": [
+                {
+                    "LocalSlot": "DepthLinear",
+                    "AttachmentRef": {
+                        "Pass": "DepthToDepthLinearPass",
+                        "Attachment": "Output"
+                    }
+                }
+            ],
             "PassRequests": [
                 {
                     "Name": "HairSkinningComputePass",
@@ -168,7 +180,7 @@
                             "LocalSlot": "DepthLinear",
                             "AttachmentRef": {
                                 "Pass": "Parent",
-                                "Attachment": "DepthLinear"
+                                "Attachment": "DepthLinearInput"
                             }
                         },
                         {
@@ -256,10 +268,9 @@
                             "LocalSlot": "DepthLinear",
                             "AttachmentRef": {
                                 "Pass": "Parent",
-                                "Attachment": "DepthLinear"
+                                "Attachment": "DepthLinearInput"
                             }
                         },
-
 
                         // Shadows resources
                         {
@@ -323,7 +334,23 @@
                                 "Attachment": "PerPixelLinkedList"
                             }
                         }
-
+                    ]
+                },
+                {
+                    // This pass copies the updated depth buffer (now contains hair depth) to linear depth texture
+                    // for downstream passes to use. This can be optimized even further by writing into the stencil 
+                    // buffer pixels that were touched by HairPPLLResolvePass.
+                    "Name": "DepthToDepthLinearPass",
+                    "TemplateName": "DepthToLinearTemplate",
+                    "Enabled": true,
+                    "Connections": [
+                        {
+                            "LocalSlot": "Input",
+                            "AttachmentRef": {
+                                "Pass": "HairPPLLResolvePass",
+                                "Attachment": "Depth"
+                            }
+                        }
                     ]
                 }
             ]

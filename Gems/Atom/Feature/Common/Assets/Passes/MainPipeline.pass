@@ -207,6 +207,10 @@
                 },
 
                 {
+                    // NOTE: HairParentPass does not write into Depth MSAA from Opaque Pass. If new passes downstream
+                    // of HairParentPass will need to use Depth MSAA, HairParentPass will need to be updated to use Depth MSAA
+                    // instead of regular Depth as DepthStencil. Specifically, HairResolvePPLL.pass and the associated 
+                    // .azsl file will need to be updated.
                     "Name": "HairParentPass",
                     "TemplateName": "HairParentPassTemplate",
                     "Enabled": true,
@@ -214,7 +218,7 @@
                         // Critical to keep DepthLinear as input - used to set the size of the Head PPLL image buffer.
                         // If DepthLinear is not availbale - connect to another viewport (non MSAA) image.
                         {
-                            "LocalSlot": "DepthLinear",
+                            "LocalSlot": "DepthLinearInput",
                             "AttachmentRef": {
                                 "Pass": "DepthPrePass",
                                 "Attachment": "DepthLinear"
@@ -339,7 +343,7 @@
                         {
                             "LocalSlot": "InputLinearDepth",
                             "AttachmentRef": {
-                                "Pass": "DepthPrePass",
+                                "Pass": "HairParentPass",
                                 "Attachment": "DepthLinear"
                             }
                         },
@@ -367,7 +371,7 @@
                         {
                             "LocalSlot": "InputLinearDepth",
                             "AttachmentRef": {
-                                "Pass": "DepthPrePass",
+                                "Pass": "HairParentPass",
                                 "Attachment": "DepthLinear"
                             }
                         },
@@ -516,7 +520,7 @@
                         {
                             "LocalSlot": "DepthInputOutput",
                             "AttachmentRef": {
-                                "Pass": "DepthPrePass",
+                                "Pass": "HairParentPass",
                                 "Attachment": "Depth"
                             }
                         }
