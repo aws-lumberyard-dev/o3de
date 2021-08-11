@@ -42,6 +42,11 @@ namespace AZ
         {
             class HairFeatureProcessor;
 
+            //! This is the controller class for both EditorComponent and in game Component.
+            //! It is responsible for the creation and activation of the hair object itself
+            //! and the update and synchronization of any changed configuration.
+            //! It also responsible to the connection with the entity's Actor to whom the hair
+            //! is associated and gets the skinning matrices and visibility. 
             class HairComponentController final
                 : public HairRequestsBus::Handler
                 , public HairGlobalSettingsNotificationBus::Handler
@@ -90,6 +95,8 @@ namespace AZ
                 void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
                 int GetTickOrder() override;
 
+                bool GenerateLocalToGlobalBoneIndex( EMotionFX::ActorInstance* actorInstance, AMD::TressFXAsset* hairAsset);
+
                 bool CreateHairObject();
                 void RemoveHairObject();
 
@@ -97,10 +104,6 @@ namespace AZ
                 bool UpdateActorMatrices();
 
                 HairFeatureProcessor* m_featureProcessor = nullptr;
-                // Possibly connect here to the object's settings or specifically create object
-
-                //! Hair render object for connecting to the skeleton and connecting to the feature processor.
-//                Data::Instance<HairRenderObject> m_renderObject = nullptr;  // consider moving to the component
 
                 bool m_configChanged = false; // Flag used to defer the configuration change to onTick.
                 HairComponentConfig m_configuration;     // Settings per hair component

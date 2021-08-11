@@ -76,7 +76,6 @@ set(FILES
     Code/Rendering/HairBuffersSemantics.h
     Code/Rendering/SharedBufferInterface.h
     Code/Rendering/HairRenderObjectInterface.h
-    Code/Rendering/HairFeatureProcessorBus.h
     Code/Components/HairBus.h
     
     Code/Assets/HairAsset.h
@@ -96,7 +95,6 @@ set(FILES
     Assets/Shaders/HairSurface.azsli
 
     # Simulation Compute shaders
-    Assets/Shaders/HairSimulation.azsl          # Skinning only for testing without physics 
     Assets/Shaders/HairSimulationCompute.azsl   
     
     # Collision shaders - to be included soon
@@ -108,7 +106,6 @@ set(FILES
     Assets/Shaders/HairRenderingResolvePPLL.azsl  
 
     # Simulation .shader files
-    Assets/Shaders/HairSkinningCompute.shader   # Skinning only for testing without physics 
     Assets/Shaders/HairGlobalShapeConstraintsCompute.shader  
     Assets/Shaders/HairCalculateStrandLevelDataCompute.shader
     Assets/Shaders/HairVelocityShockPropagationCompute.shader
@@ -129,7 +126,6 @@ set(FILES
 #
 #set(atom_hair_passes
     Assets/Passes/HairParentPass.pass
-    Assets/Passes/HairSkinningCompute.pass
     Assets/Passes/HairGlobalShapeConstraintsCompute.pass
     Assets/Passes/HairCalculateStrandLevelDataCompute.pass
     Assets/Passes/HairVelocityShockPropagationCompute.pass

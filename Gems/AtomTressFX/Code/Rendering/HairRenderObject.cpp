@@ -26,7 +26,6 @@
 #include <Rendering/HairRenderObject.h>
 #include <Rendering/HairFeatureProcessor.h>
 
-#pragma optimize("", off)
 namespace AZ
 {
     namespace Render
@@ -92,7 +91,8 @@ namespace AZ
                     RHI::Format::R32G32B32A32_FLOAT, sizeof(AZ::Vector4), vertexCount,
                     Name{"HairVertexTangents"}, Name{"m_hairVertexTangents"}, 3, 0
                 );
-                // Notice the following format - set to Format::Unknown that indicates StructuredBuffer
+
+                // Notice the following Format::Unknown that indicates StructuredBuffer
                 // For more info review BufferViewDescriptor.h
                 descriptorArray[uint8_t(HairDynamicBuffersSemantics::StrandLevelData)] =
                     SrgBufferDescriptor(
@@ -101,7 +101,6 @@ namespace AZ
                     Name{"StrandLevelData"}, Name{"m_strandLevelData"}, 4, 0
                 );
             }
-
 
             bool DynamicHairData::BindPerObjectSrgForRaster()
             {
@@ -164,10 +163,18 @@ namespace AZ
             bool DynamicHairData::BindPerObjectSrgForCompute()
             {
                 //! Get the SRG indices for each input stream and set it in the Srg.
-                //! Currently the dynamic streams are not used (not clear if RWBuffer is supported properly
-                //!  using this way), but the offsets within the global shared buffer is used instead.
+                //! There are two methods to use the shared buffer:
+                //! 1. Use a the same buffer with pass sync point and use offset to the data
+                //!     structures inside. The problem there is offset overhead + complex conversions
+                //! 2. Use buffer views into the original shared buffer and treat them as buffers
+                //!     with the desired data type. It seems that Atom still requires single shared buffer
+                //!     usage within the shader in order to support the sync point. 
                 
-                //  Skip this for now - currently it doesn't seem to be a valid choice with Atom
+                // In Atom the usage of BufferView is what permits the usage of different 'buffers'
+                //  allocated from within the originally bound single buffer.
+                // This allows us to have a single sync point (barrier) between passes only for this
+                //  buffer, while indirectly it is used as multiple buffers used by multiple objects in
+                //  this pass. 
                 for (uint8_t buffer = 0; buffer < uint8_t(HairDynamicBuffersSemantics::NumBufferStreams); ++buffer)
                 {
                     SrgBufferDescriptor& streamDesc = m_dynamicBuffersDescriptors[buffer];
@@ -238,8 +245,10 @@ namespace AZ
                     m_dynamicViewAllocators[stream] = SharedBufferInterface::Get()->Allocate(requiredSize);
                     if (!m_dynamicViewAllocators[stream])
                     {
-                        // [To Do] - remove the already allocated memory!  It will be released on shut down but
-                        // in the meantime it takes space on the shared buffer.
+                        // Allocated memory will be cleared using the underlying allocator system and
+                        //  indirectly the garbage collection.
+                        // Since the garbage collection is ran with delay of 3 frames due to CPU-GPU
+                        //  latency, this might result in over allocation at reset / back from game mode.
                         AZ_Error("Hair Gem", false, "Dynamic Buffer out of memory");
                         return false;
                     }
@@ -267,7 +276,6 @@ namespace AZ
             }
 
             //! Data upload - copy the hair mesh asset data (positions and tangents) into the buffers.
-            //! In the following line I assume that positions and tangents are of the same size.
             //! This is equivalent to: TressFXDynamicHairData::UploadGPUData
             bool DynamicHairData::UploadGPUData(
                 [[maybe_unused]] const char* name, [[maybe_unused]] void* positions, [[maybe_unused]] void* tangents)
@@ -301,7 +309,6 @@ namespace AZ
             //!                  HairRenderObject - Equivalent to TressFXHairObject
             //!
             //!=====================================================================================
-
             HairRenderObject::~HairRenderObject()
             {
                 Release();
@@ -612,8 +619,8 @@ namespace AZ
                     m_strandAlbedo = RPI::StreamingImage::FindOrCreate(pRenderSettings->m_strandAlbedoAsset);
                 }
 
-                // Fallback, using the texture name stored in the render settings. 
-                // [To Do] Adi: make sure this method is only called when there is an update in the parameters
+                // Fallback using the texture name stored in the render settings. 
+                // This method should only called when there is an update in the parameters
                 // and / or reload textures only when it is specifically required!
                 if (!m_baseAlbedo)
                 {
@@ -669,15 +676,12 @@ namespace AZ
             bool HairRenderObject::UploadRenderingGPUResources(AMD::TressFXAsset& asset)
             {
                 bool updateSuccess;
-//                AZ_Assert(asset.m_numTotalStrands == m_NumTotalStrands);
-//               AZ_Assert(asset.m_numTotalVertices == m_NumTotalVertices);
-//                AZ_Assert(m_TotalIndices == asset.GetNumHairTriangleIndices());
 
                 // If the CBs data was changed, it is not being uploaded to the GPU.
                 updateSuccess = m_renderCB.UpdateGPUData();
                 updateSuccess &= m_strandCB.UpdateGPUData();
 
-                // Adi: this should be done only once and separate method should apply the CBs update.
+                // This should be called once on creation and separate method should apply the CBs update.
                 // Vertex streams data update
                 if (asset.m_strandUV.data())
                 {
@@ -688,7 +692,7 @@ namespace AZ
                 const SrgBufferDescriptor* desc = &m_hairRenerDescriptors[uint8_t(HairRenderBuffersSemantics::HairVertexRenderParams)];
                 updateSuccess &= m_hairVertexRenderParams->UpdateData((void*)asset.m_thicknessCoeffs.data(), desc->m_elementCount * desc->m_elementSize, 0);
 
-                // [To Do] Adi: no need to update index buffer data unless we go to dynamic reduction
+                // No need to update index buffer data unless we go to dynamic reduction
                 return updateSuccess;
             }
 
@@ -697,20 +701,22 @@ namespace AZ
             //!                                    Update Methods
             //!
             //!-------------------------------------------------------------------------------------
-            // TODO Move wind settings to Simulation Parameters or alike.
+            
+            // [TODO] Possibly move wind settings to Simulation Parameters or alike.
 
             // Wind is in a pyramid around the main wind direction.
             // To add a random appearance, the shader will sample some direction
             // within this cone based on the strand index.
             // This function computes the vector for each edge of the pyramid.
+            // [To Do] Requires more testing
             static void SetWindCorner(
                 Quaternion rotFromXAxisToWindDir, Vector3 rotAxis,
                 float angleToWideWindCone, float wM, AMD::float4& outVec)
             {
                 static const Vector3 XAxis(1.0f, 0, 0);
                 Quaternion rot(rotAxis, angleToWideWindCone);
-// org               Vector3 newWindDir = rotFromXAxisToWindDir * rot * XAxis;
-                Vector3 newWindDir = (rotFromXAxisToWindDir * rot).TransformVector(XAxis);  // [To Do] Adi: test this
+                // original code: Vector3 newWindDir = rotFromXAxisToWindDir * rot * XAxis;
+                Vector3 newWindDir = (rotFromXAxisToWindDir * rot).TransformVector(XAxis);  // test
                 outVec.x = newWindDir.GetX() * wM;
                 outVec.y = newWindDir.GetY() * wM;
                 outVec.z = newWindDir.GetZ() * wM;
@@ -735,13 +741,11 @@ namespace AZ
 
                 if (angle > 0.001)
                 {
-// org                    rotFromXAxisToWindDir.SetRotation(xCrossW.Normalize(), angle);
+                    // original code: rotFromXAxisToWindDir.SetRotation(xCrossW.Normalize(), angle);
                     rotFromXAxisToWindDir.CreateFromVector3AndValue(xCrossW.GetNormalized(), angle);
                 }
 
                 const float angleToWideWindCone = AZ::DegToRad(40.f);
-
-
 
                 SetWindCorner(rotFromXAxisToWindDir, Vector3(0, 1.0, 0),  angleToWideWindCone, wM, m_simCB->m_Wind);
                 SetWindCorner(rotFromXAxisToWindDir, Vector3(0, -1.0, 0), angleToWideWindCone, wM, m_simCB->m_Wind1);
@@ -762,8 +766,6 @@ namespace AZ
                 }
             }
 
-            // [To do] Adi: move all CB update methods to be constant buffer structure internal methods
-            // and only expose via HairObject.
             //! Updating the bone matrices in the simulation constant buffer.
             void HairRenderObject::UpdateBoneMatrices(const AMD::float4x4* pBoneMatricesInWS, int numBoneMatrices)
             {
@@ -810,10 +812,10 @@ namespace AZ
                 }
             }
 
-            // [To Do] Adi: Change only parameters that require per frame update such as time.
+            // [To Do] Change only parameters that require per frame update such as time.
             // The rest should be changed only when changed (per editor or script)
             //! Update of simulation constant buffer.
-            //! Notice that the bone matrices are set elsewhere and should be updated before GPU submit.
+            //! The bone matrices are set elsewhere and should be updated before GPU submit.
             void HairRenderObject::UpdateSimulationParameters(const AMD::TressFXSimulationSettings* settings, float timeStep)
             {
                 // Protect Update and Render if on async threads
@@ -869,7 +871,7 @@ namespace AZ
                     ResetPositions();
             }
 
-            // [To Do] Adi: Change only parameters that require per frame update such as distance.
+            // [To Do] - Change only parameters that require per frame update such as distance.
             // The rest should be changed only when changed (per editor or script)
             void HairRenderObject::UpdateRenderingParameters(
                 const AMD::TressFXRenderingSettings* parameters, const int nodePoolSize,
@@ -1074,7 +1076,6 @@ namespace AZ
             bool HairRenderObject::Update()
             {
                 bool updatedCB;
-                // [To Do] Adi: can the CB update be skipped if no change was done?
                 {
                     // Protect Update and Render if on async threads
                     AZStd::lock_guard<AZStd::mutex> lock(m_mutex);
@@ -1105,7 +1106,6 @@ namespace AZ
                 return updatedCB;
             }
 
-            // Move this to be built by the raster fill pass per object in the list during the Simulate?
             bool HairRenderObject::BuildPPLLDrawPacket(RHI::DrawPacketBuilder::DrawRequest& drawRequest)
             {
                 RHI::DrawPacketBuilder drawPacketBuilder;
@@ -1188,7 +1188,7 @@ namespace AZ
 
                 uint32_t elementsAmount =
                     (dispatchLevel == DispatchLevel::DISPATCHLEVEL_VERTEX) ?
-                    m_numGuideVertices : //, m_NumTotalVertices
+                    m_numGuideVertices : 
                     m_NumTotalStrands;
 
                 m_dispatchItems[computeShader] = aznew HairDispatchItem;
@@ -1201,4 +1201,4 @@ namespace AZ
         } // namespace Hair
     } // namespace Render
 } // namespace AZ
-#pragma optimize("", on)
+

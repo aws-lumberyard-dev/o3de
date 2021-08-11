@@ -10,7 +10,7 @@
                 {
                     "Name": "SkinnedHairSharedBuffer",
                     "ShaderInputName": "m_skinnedHairSharedBuffer",
-                    "SlotType": "InputOutput",
+                    "SlotType": "Output",
                     "ScopeAttachmentUsage": "Shader",
                     "LoadStoreAction": {
                         "LoadAction": "Load",

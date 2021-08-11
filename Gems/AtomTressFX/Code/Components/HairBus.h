@@ -31,7 +31,7 @@ namespace AZ
                 static const EBusHandlerPolicy HandlerPolicy = EBusHandlerPolicy::Single;
                 virtual ~HairRequests() {}
 
-                // [To Do] Adi: add here auto-gen virtual getter and setter functions - matching the interface methods    
+                // Add required getter and setter functions - matching the interface methods    
             };
 
             typedef AZ::EBus<HairRequests> HairRequestsBus;

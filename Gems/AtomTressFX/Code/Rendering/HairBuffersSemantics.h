@@ -12,7 +12,6 @@
 
 #pragma once
 
-
 namespace AZ
 {
     namespace RPI

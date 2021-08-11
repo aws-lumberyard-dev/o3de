@@ -35,14 +35,11 @@ namespace AZ
             class HairRenderObject;
             enum class DispatchLevel;
 
-            // This pass is a temporary test pass that using a compute shader generates the bone
-            // skinning per vertex required for the hair to work without needing to have the complete
-            // physics multi-pass.
-            //! The Skinning Compute pass is using the following Srgs indirectly via the dispatchItem:
+            // This pass class serves for all skinning and simulation hair compute passes.
+            //! The Skinning Compute passes are all using the following Srgs via the dispatchItem:
             //!  - PerPassSrg: shared by all hair passes for the shared dynamic buffer and the PPLL buffers
             //!  - HairGenerationSrg: dictates how to construct the hair vertices and skinning
             //!  - HairSimSrg: defines vertices and tangent data shared between all passes 
-            // Reference Passes: EyeAdaptationPass and SkinnedMeshComputePass
             class HairSkinningComputePass final
                 : public RPI::ComputePass
             {
@@ -65,8 +62,8 @@ namespace AZ
                 void CompileResources(const RHI::FrameGraphCompileContext& context) override;
 
                 virtual bool IsEnabled() const override;
-                //! returns the shader held by the ComputePass
-                //! [To Do] : expose this in the ComputePass
+
+                //! Returns the shader held by the ComputePass
                 Data::Instance<RPI::Shader> GetShader();
 
                 void SetFeatureProcessor(HairFeatureProcessor* featureProcessor)

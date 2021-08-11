@@ -61,23 +61,9 @@
 
             "PassRequests": [
                 {
-                    "Name": "HairSkinningComputePass",
-                    "TemplateName": "HairSkinningComputePassTemplate",
-                    "Enabled": true
-                },
-                {
                     "Name": "HairGlobalShapeConstraintsComputePass",
                     "TemplateName": "HairGlobalShapeConstraintsComputePassTemplate",
-                    "Enabled": true,
-                    "Connections": [
-                        {
-                            "LocalSlot": "SkinnedHairSharedBuffer",
-                            "AttachmentRef": {
-                                "Pass": "HairSkinningComputePass",
-                                "Attachment": "SkinnedHairSharedBuffer"
-                            }
-                        }
-                    ]
+                    "Enabled": true
                 },
                 {
                     "Name": "HairCalculateStrandLevelDataComputePass",

@@ -24,7 +24,6 @@
 #include <Rendering/HairFeatureProcessor.h>
 #include <Rendering/HairLightingModels.h>
 
-#pragma optimize("", off)
 namespace AZ
 {
     namespace Render
@@ -161,4 +160,3 @@ namespace AZ
      }   // namespace Render
 }   // namespace AZ
 
-#pragma optimize("", on)

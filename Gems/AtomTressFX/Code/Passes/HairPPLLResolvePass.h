@@ -13,9 +13,6 @@
 
 #include <AzCore/Memory/SystemAllocator.h>
 
-//#include <Atom/RHI/CommandList.h>
-//#include <Atom/RHI.Reflect/ShaderResourceGroupLayoutDescriptor.h>
-
 #include <Atom/RPI.Public/Pass/FullscreenTrianglePass.h>
 #include <Atom/RPI.Public/Shader/Shader.h>
 #include <Atom/RPI.Public/Shader/ShaderResourceGroup.h>
@@ -33,9 +30,11 @@ namespace AZ
             static const char* const HairPPLLResolvePassTemplateName = "HairPPLLResolvePassTemplate";
             class HairFeatureProcessor;
 
-            // This is the hair PPLL resolve pass that is a full screen pass that runs over all
-            // saved pixel samples rendered by the hair and resolve their depth order, transparency
-            // and lighting values and output to display.
+            //! The hair PPLL resolve pass is a full screen pass that runs over the hair fragments list
+            //!  that were computed in the raster fill pass and resolves their depth order, transparency
+            //! and lighting values to be output to display.
+            //! Each pixel on the screen will processed only once and will iterate through the fragments
+            //!  list associated with the pixel's location.
             //! The full screen resolve pass is using the following Srgs:
             //!  - PerPassSrg: hair vertex data data, PPLL buffers and material array
             //!     shared by all passes.
@@ -73,7 +72,6 @@ namespace AZ
                 HairFeatureProcessor* m_featureProcessor = nullptr;
                 AZ::RPI::ShaderVariantKey m_shaderOptions;
             };
-
 
         } // namespace Hair
     }   // namespace Render

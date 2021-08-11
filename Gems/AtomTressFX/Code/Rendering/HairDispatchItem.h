@@ -45,19 +45,18 @@ namespace AZ
                 DISPATCHLEVEL_STRAND
             };
 
-            //! Holds and manages an RHI DispatchItem for a specific skinned mesh, and the resources that are needed to build and maintain it.
-            //! Ref taken from SkinnedMeshDispatchItem
+            //! Holds and manages an RHI DispatchItem for a specific skinned mesh, and the resources that are
+            //!  needed to build and maintain it.
             class HairDispatchItem
                 : public Data::InstanceData
-// [To Do] For now keep it simple, but in the future connect to shader notification to re-initialize
-//                : private RPI::ShaderReloadNotificationBus::Handler
             {
             public:
                 AZ_CLASS_ALLOCATOR(HairDispatchItem, AZ::SystemAllocator, 0);
 
                 HairDispatchItem() = default;
-                //! Create one or more dispatch items per hair component of actor instance
-                //! Amount of dispatches depends on the amount of vertices required to be created
+
+                //! One dispatch item per hair object per computer pass.
+                //! The amount of dispatches depends on the amount of vertices required to be created
 
                 ~HairDispatchItem();
 
@@ -69,9 +68,6 @@ namespace AZ
                 );
 
                 RHI::DispatchItem* GetDispatchItem() { return &m_dispatchItem;  }
-
-
-//                void OnShaderReinitialized() override;
 
                 RHI::DispatchItem m_dispatchItem;
 

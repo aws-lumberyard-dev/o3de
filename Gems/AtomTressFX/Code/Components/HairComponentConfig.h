@@ -13,12 +13,11 @@
 #pragma once
 
 #include <AzCore/Component/Component.h>
-#include <Assets/HairAsset.h>
-#include <TressFX/TressFXSettings.h>
-#include <Rendering/HairGlobalSettings.h>
 
-// #include <Atom/Feature/ParamMacros/ParamMacrosHowTo.inl>    // for education purposes
-//#include <Components/HairSettingsInterface.h>
+#include <TressFX/TressFXSettings.h>
+
+#include <Assets/HairAsset.h>
+#include <Rendering/HairGlobalSettings.h>
 
 namespace AZ
 {
@@ -29,7 +28,7 @@ namespace AZ
 
             class EditorHairComponent;
 
-            // The component config file containing the editor settings / configuration data of the current hair.
+            //! Reflects the TressFX settings and configuration data of the current hair object.
             class HairComponentConfig final :
                 public ComponentConfig
             {

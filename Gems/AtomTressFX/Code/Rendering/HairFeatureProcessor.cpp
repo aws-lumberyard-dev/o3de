@@ -42,8 +42,6 @@
 
 #include <Passes/HairSkinningComputePass.h>
 
-#pragma optimize("", off)
-
 namespace AZ
 {
     namespace Render
@@ -55,7 +53,6 @@ namespace AZ
 
             HairFeatureProcessor::HairFeatureProcessor()
             {
-                TestSkinningPass = Name{ "HairSkinningComputePassTemplate" }; // [To Do] Adi: Debug pass - remove at polish
                 GlobalShapeConstraintsPass = Name{ "HairGlobalShapeConstraintsComputePassTemplate" };
                 CalculateStrandDataPass = Name{ "HairCalculateStrandLevelDataComputePassTemplate" };
                 VelocityShockPropagationPass = Name{ "HairVelocityShockPropagationComputePassTemplate" };
@@ -135,9 +132,9 @@ namespace AZ
 
             void HairFeatureProcessor::EnablePasses(bool enable)
             {
-                // [To Do] Adi: this currently doesn't work as it should (resolve pass gets disabled)
-                // and so disabled.
-                // For removing overhead, update and include this method
+                // [To Do] - this currently doesn't work as it should (resolve pass gets disabled)
+                // and so it is disabled for now.
+                // Allows for removing overhead.
                 return;
 
                 for (auto mapIter = m_computePasses.begin() ; mapIter != m_computePasses.end(); ++mapIter)
@@ -184,7 +181,6 @@ namespace AZ
             //!  without need to recalculate as in the original code.
             //! Make sure there are no more than (currently) 16 hair objects or update dynamic handling.
             //! This DOES NOT do the srg binding since it can be shared but by pass itself when compiling resources.
-            //! Originally called 'UpdateShadeParameters' in TressFX
             void HairFeatureProcessor::FillHairMaterialsArray(std::vector<const AMD::TressFXRenderParams*>& renderSettings)
             {
                 // Update Render Parameters
@@ -249,8 +245,6 @@ namespace AZ
                     hairObjectsRenderMaterials.push_back(renderObject->GetHairRenderParams());
                 }
                 FillHairMaterialsArray(hairObjectsRenderMaterials);
-
-//            HairFeatureProcessorNotificationBus::Broadcast(&HairFeatureProcessorNotificationBus::Events::OnUpdateSkinningMatrices);
             }
 
 
@@ -264,9 +258,10 @@ namespace AZ
                     return;
                 }
 
-                // Adi: should this be moved to 'OnBeginPrepareRender' / 'SImulate'?
-                // [To Do] Adi: missing culling scheme - setup the hair culling work group
-                // (to be re-used for each view). See SkinnedMeshFeatureProcessor::Render for more details
+
+                // [To Do] - no culling scheme applied yet.
+                // Possibly setup the hair culling work group to be re-used for each view.
+                // See SkinnedMeshFeatureProcessor::Render for more details
                 for (auto objIter = m_hairRenderObjects.begin(); objIter != m_hairRenderObjects.end(); ++objIter)
                 {
                     HairRenderObject* renderObject = objIter->get();
@@ -296,17 +291,16 @@ namespace AZ
                 m_hairPPLLRasterPass = nullptr;
                 m_hairPPLLResolvePass = nullptr;
 
-                // [To Do] Adi: This is not enough!
-                // here we need to signal all pases to evacuate their render data and recreate it.
+                // Mark for all passes to evacuate their render data and recreate it.
                 m_forceRebuildRenderData = true;
-                m_forceClearRenderData = true;  // [To Do] Adi: implement the use case
+                m_forceClearRenderData = true; 
             }
 
             void HairFeatureProcessor::OnRenderPipelineAdded([[maybe_unused]] RPI::RenderPipelinePtr pipeline)
             {
                 Init();
-                // [To Do] Adi: This is not enough!
-                // here we need to signal all pases to evacuate their render data and recreate it.
+
+                // Mark for all passes to evacuate their render data and recreate it.
                 m_forceRebuildRenderData = true;
             }
 
@@ -318,8 +312,8 @@ namespace AZ
             void HairFeatureProcessor::OnRenderPipelinePassesChanged([[maybe_unused]] RPI::RenderPipeline* renderPipeline)
             {
                 Init();
-                // [To Do] Adi: This is not enough!
-                // here we need to signal all pases to evacuate their render data and recreate it.
+
+                // Mark for all passes to evacuate their render data and recreate it.
                 m_forceRebuildRenderData = true;
             }
             
@@ -338,8 +332,7 @@ namespace AZ
                 ClearPasses();
 
                 // Compute Passes - populate the passes map
-                bool resultSuccess = InitComputePass(TestSkinningPass);
-                resultSuccess &= InitComputePass(GlobalShapeConstraintsPass);
+                bool resultSuccess = InitComputePass(GlobalShapeConstraintsPass);
                 resultSuccess &= InitComputePass(CalculateStrandDataPass);
                 resultSuccess &= InitComputePass(VelocityShockPropagationPass);
                 resultSuccess &= InitComputePass(LocalShapeConstraintsPass, true);  // restore shape over several iterations
@@ -379,7 +372,7 @@ namespace AZ
                     DynamicHairData::PrepareSrgDescriptors(hairDynamicDescriptors, 1, 1);
                     Name sharedBufferName = Name{ "HairSharedDynamicBuffer" + instanceNumber };
                     if (!SharedBufferInterface::Get())
-                    {   // SInce there can be several pipelines, allocate the shared buffer only for the
+                    {   // Since there can be several pipelines, allocate the shared buffer only for the
                         // first one and from that moment on it will be used through its interface
                         m_sharedDynamicBuffer = AZStd::make_unique<SharedBuffer>(sharedBufferName.GetCStr(), hairDynamicDescriptors);
                     }
@@ -429,7 +422,6 @@ namespace AZ
                 HairGlobalSettingsNotificationBus::Broadcast(&HairGlobalSettingsNotifications::OnHairGlobalSettingsChanged, m_hairGlobalSettings);
             }
 
-            // Adi: is this required? if data driven via the MainPipeline.pass the answer is probably no?!
             bool HairFeatureProcessor::InitComputePass(const Name& passName, bool allowIterations)
             {
                 m_computePasses[passName] = nullptr;
@@ -462,7 +454,6 @@ namespace AZ
                 return true;
             }
 
-            // Adi: is this required? if data driven via the MainPipeline.pass the answer is probably no?!
             bool HairFeatureProcessor::InitPPLLFillPass()
             {
                 m_hairPPLLRasterPass = nullptr;   // reset it to null, just in case it fails to load the assets properly
@@ -491,8 +482,6 @@ namespace AZ
                 return true;
             }
 
-
-            // Adi: is this required? if data driven via the MainPipeline.pass the answer is probably no?!
             bool HairFeatureProcessor::InitPPLLResolvePass()
             {
                 m_hairPPLLResolvePass = nullptr;   // reset it to null, just in case it fails to load the assets properly
@@ -527,8 +516,6 @@ namespace AZ
                 HairRenderObject* renderObjectPtr = renderObject.get();
 
                 // Dispatches for Compute passes
-                m_computePasses[TestSkinningPass]->BuildDispatchItem(
-                    renderObjectPtr, DispatchLevel::DISPATCHLEVEL_VERTEX);
                 m_computePasses[GlobalShapeConstraintsPass]->BuildDispatchItem(
                     renderObjectPtr, DispatchLevel::DISPATCHLEVEL_VERTEX);
                 m_computePasses[CalculateStrandDataPass]->BuildDispatchItem(
@@ -549,11 +536,11 @@ namespace AZ
 
             Data::Instance<HairSkinningComputePass> HairFeatureProcessor::GetHairSkinningComputegPass()
             {
-                if (!m_computePasses[TestSkinningPass])
+                if (!m_computePasses[GlobalShapeConstraintsPass])
                 {   
                     Init();
                 }
-                return m_computePasses[TestSkinningPass];
+                return m_computePasses[GlobalShapeConstraintsPass];
             }
 
             Data::Instance<HairPPLLRasterPass> HairFeatureProcessor::GetHairPPLLRasterPass()
@@ -567,5 +554,3 @@ namespace AZ
         } // namespace Hair
     } // namespace Render
 } // namespace AZ
-
-#pragma optimize("", on)

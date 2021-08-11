@@ -81,7 +81,6 @@ namespace AZ
                     Data::Instance<RPI::ShaderResourceGroup> srg=nullptr
                 );
 
-                // [To Do] Adi: remove this and use RPI::LoadStreamingTexture instead?
                 static Data::Instance<RPI::StreamingImage> LoadStreamingImage(
                     const char* textureFilePath, [[maybe_unused]] const char* sampleName
                 );
@@ -197,8 +196,8 @@ namespace AZ
             private:
                 TYPE m_cpuBuffer;
 
-                //! If the srg is not defined, we assume that the buffer can be shared between
-                //! several srgs (for example when it is used per pass).
+                //! When this srg is set as nullptr, we assume that the buffer can be shared
+                //!  between several passes (as done for PerView and PerScene).
                 Data::Instance<RPI::ShaderResourceGroup> m_srg = nullptr;
 
                 Render::SrgBufferDescriptor  m_bufferDesc = Render::SrgBufferDescriptor(
@@ -206,10 +205,7 @@ namespace AZ
                     RHI::Format::Unknown, sizeof(TYPE), 1,
                     Name{"BufferNameUndefined"}, Name{"BufferNameUndefined"}, 0, 0
                 );
-
-//                bool m_FirstUpdate = true;
             };
-
 
         } // namespace Hair
     } // namespace Render

@@ -170,8 +170,6 @@ namespace AZ
                 return rhiImage;
             }
 
-            // [GXF TODO][ATOM-13418]
-            // Move this method to be a global utility function - also implement similar method using AssetId.
             Data::Instance<RPI::StreamingImage> UtilityClass::LoadStreamingImage(
                 const char* textureFilePath, [[maybe_unused]] const char* sampleName)
             {

@@ -10,24 +10,15 @@
  *
  */
 
-
-#include <Atom/RPI.Public/Pass/PassSystemInterface.h>
-//#include <Atom/RPI.Public/RPIUtils.h>
-
 #include <AzCore/Serialization/SerializeContext.h>
 
+#include <Atom/RPI.Public/Pass/PassSystemInterface.h>
 #include <Atom/RPI.Public/FeatureProcessorFactory.h>
-//#include <Atom/RPI.Public/Pass/PassSystemInterface.h>
 
 #include <Components/HairSystemComponent.h>
+#include <Components/HairComponentController.h>
 
 #include <Rendering/HairFeatureProcessor.h>
-#include <Components/HairComponentController.h>
-//#include <Rendering/HairDispatchItem.h>
-//#include <Rendering/SharedBuffer.h>
-//#include <Rendering/HairCommon.h>
-
-//#include <Passes/HairSkinningComputePass.h>
 
 namespace AZ
 {
@@ -48,25 +39,20 @@ namespace AZ
                 }
 
                 Hair::HairFeatureProcessor::Reflect(context);
-//                Hair::HairComponentController::Reflect(context);
             }
 
             void HairSystemComponent::GetProvidedServices(ComponentDescriptor::DependencyArrayType& provided)
             {
-//                provided.push_back(AZ_CRC("HairService", 0xf1c5a6c3));
                 provided.push_back(AZ_CRC_CE("HairService"));
             }
 
             void HairSystemComponent::GetIncompatibleServices(ComponentDescriptor::DependencyArrayType& incompatible)
             {
-//                incompatible.push_back(AZ_CRC("HairService", 0xf1c5a6c3));
                 incompatible.push_back(AZ_CRC_CE("HairService"));
-
             }
 
             void HairSystemComponent::GetRequiredServices([[maybe_unused]] ComponentDescriptor::DependencyArrayType& required)
             {
-//                required.push_back(AZ_CRC("TransformService", 0x8ee22c50));
                 required.push_back(AZ_CRC("ActorSystemService", 0x5e493d6c));
                 required.push_back(AZ_CRC("EMotionFXAnimationService", 0x3f8a6369));
             }
