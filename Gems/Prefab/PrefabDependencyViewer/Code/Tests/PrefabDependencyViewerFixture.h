@@ -31,19 +31,24 @@ namespace PrefabDependencyViewer
             UnitTest::ScopedAllocatorSetupFixture::SetUp();
 
             // Setup for an invalid empty prefab
-            m_prefabDomsCases["emptyJSON"] = PrefabDom();
-            m_prefabDomsCases["emptyJSON"].SetObject();
+            m_prefabDomsCases["emptyJSON"] = CreateEmptyPrefabDom();
 
+            
             // Setup for a root level Prefab with only Source Attribute
-            CreatePrefabAddSourceAndValue("emptyJSONWithSource", "Prefabs/emptySavedJSON.prefab");
+            m_prefabDomsCases["emptyJSONWithSource"] = CreatePrefabDom("Prefabs/emptyJSONWithSource.prefab");
 
+            
             // Setup for root level Prefab with nested instances but one of the nested instances is missing source
-            CreatePrefabAddSourceAndValue("NestedPrefabWithAtleastOneInvalidNestedInstance", "Prefabs/Root.prefab");
-            CreatePrefabAddSourceAndValue("GoodNestedPrefab", "Prefabs/goodPrefab.prefab");
-            CreatePrefabAddSourceAndValue("BadNestedPrefab", "");
-            AddInstance("NestedPrefabWithAtleastOneInvalidNestedInstance", "GoodNestedPrefab");
-            AddInstance("NestedPrefabWithAtleastOneInvalidNestedInstance", "BadNestedPrefab");
+            m_prefabDomsCases["NestedPrefabWithAtleastOneInvalidNestedInstance"] = CreatePrefabDom("Prefabs/Root.prefab");
+            
+            rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>& invalidCaseAllocator =
+                m_prefabDomsCases["NestedPrefabWithAtleastOneInvalidNestedInstance"].GetAllocator();
 
+            AddInstance(m_prefabDomsCases["NestedPrefabWithAtleastOneInvalidNestedInstance"], "Prefabs/goodPrefab.prefab", invalidCaseAllocator);
+
+            AddInstanceWithoutSource(m_prefabDomsCases["NestedPrefabWithAtleastOneInvalidNestedInstance"], invalidCaseAllocator);
+
+            /*
             // Setup for valid nested Prefab
             CreatePrefabAddSourceAndValue("ValidPrefab",   "Prefabs/ValidPrefab.prefab");
             CreatePrefabAddSourceAndValue("level11Prefab", "Prefabs/level11.prefab");
@@ -65,67 +70,103 @@ namespace PrefabDependencyViewer
 
             // Level 3 setup
             AddInstance("level23Prefab", "level31Prefab");
+            */
         }
 
-        void CreatePrefabAddSourceAndValue(const AZStd::string& prefabName, const char* prefabSource)
+        PrefabDom CreateEmptyPrefabDom()
         {
-            const char* sourceKey = AzToolsFramework::Prefab::PrefabDomUtils::SourceName;
-            m_prefabDomsCases[prefabName] = PrefabDom();
-            m_prefabDomsCases[prefabName].SetObject();
+            PrefabDom emptyDom = PrefabDom();
+            emptyDom.SetObject();
 
-            auto& allocator = m_prefabDomsCases[prefabName].GetAllocator();
-            rapidjson::Value key(sourceKey, allocator);
-
-            rapidjson::Value value(prefabSource, allocator);
-
-            m_prefabDomsCases[prefabName].AddMember(key, value, allocator);
+            return emptyDom;
         }
 
-        void AddInstance(AZStd::string root, AZStd::string child)
+        PrefabDom CreatePrefabDom(const char* prefabSource)
         {
-            const char* sourceKey = AzToolsFramework::Prefab::PrefabDomUtils::SourceName;
-            const char* instancesName = AzToolsFramework::Prefab::PrefabDomUtils::InstancesName;
+            PrefabDom rootPrefabDom = CreateEmptyPrefabDom();
 
-            auto& allocator = m_prefabDomsCases[root].GetAllocator();
+            auto& allocator = rootPrefabDom.GetAllocator();
 
-            if (m_prefabDomsCases[root].HasMember(instancesName))
-            {
-                AddInstance(m_prefabDomsCases[root][instancesName], m_prefabDomsCases[child][sourceKey].GetString(), allocator);
-            }
-            else
-            {
-                rapidjson::Value instancesKey(instancesName, allocator);
+            AddSourceEntitiesInstances(rootPrefabDom, prefabSource, allocator);
 
-                rapidjson::Value instancesValue;
-                instancesValue.SetObject();
-
-                AddInstance(instancesValue, m_prefabDomsCases[child][sourceKey].GetString(), allocator);
-                m_prefabDomsCases[root].AddMember(instancesKey, instancesValue, allocator);
-            }
-
+            return rootPrefabDom;
         }
 
-        void AddInstance(rapidjson::Value& instancesValue, const char* nestedInstanceSource, rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>& allocator)
+        void AddSourceEntitiesInstances(rapidjson::Value& prefabDom, const char* prefabSource,
+                            rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>& allocator)
         {
-            static int counter = 0;
-            const char* sourceKey = AzToolsFramework::Prefab::PrefabDomUtils::SourceName;
+            AddSource(prefabDom, prefabSource, allocator);
+            AddEntities(prefabDom, allocator);
+            AddInstances(prefabDom, allocator);
+        }
 
-            // Instance alias can be anything as long as they are unique.
-            // So using counter as a unique name for it.
-            rapidjson::Value nestedInstanceAliasKey(AZStd::to_string(counter).c_str(), allocator);
+        void AddSource(rapidjson::Value& prefabDom, const char* prefabSource,
+                rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>& allocator)
+        {
+            rapidjson::Value sourceKey(sourceName, allocator);
+            rapidjson::Value sourceValue(prefabSource, allocator);
 
+            prefabDom.AddMember(sourceKey, sourceValue, allocator);
+        }
+
+        void AddEntities(rapidjson::Value& prefabDom, rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>& allocator)
+        {
+            rapidjson::Value entitiesKey(entitiesName, allocator);
+            rapidjson::Value entitiesValue;
+            entitiesValue.SetObject();
+
+            prefabDom.AddMember(entitiesKey, entitiesValue, allocator);
+        }
+
+        void AddInstances(rapidjson::Value& prefabDom, rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>& allocator)
+        {
+            rapidjson::Value instancesKey(instancesName, allocator);
+            rapidjson::Value instancesValue;
+            instancesValue.SetObject();
+
+            prefabDom.AddMember(instancesKey, instancesValue, allocator);
+        }
+
+        void AddInstance(rapidjson::Value& root, const char* childSource,
+                        rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>& allocator)
+        {
+            AZStd::string instanceAlias = AddInstanceWithoutSource(root, allocator);
+
+            rapidjson::Value& instances = root.FindMember(instancesName)->value;
+
+            rapidjson::Value& nestedInstanceAliasValue = instances[instanceAlias.c_str()];
+
+            AddSourceEntitiesInstances(nestedInstanceAliasValue, childSource, allocator);
+        }
+
+        AZStd::string AddInstanceWithoutSource(rapidjson::Value& root, rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>& allocator)
+        {
+            // Create an Instance Alias Name
+            rapidjson::Value nestedInstanceAliasKey = CreateInstanceAlias(allocator);
+            AZStd::string instanceAlias = nestedInstanceAliasKey.GetString();
+
+            // Create the Instance alias value with source inside of it.
             rapidjson::Value nestedInstanceAliasValue;
             nestedInstanceAliasValue.SetObject();
 
-            {
-                rapidjson::Value nestedInstanceSourceKey(sourceKey, allocator);
-                rapidjson::Value nestedInstanceSourceValue(nestedInstanceSource, allocator);
+            root[instancesName].AddMember(nestedInstanceAliasKey, nestedInstanceAliasValue, allocator);
 
-                nestedInstanceAliasValue.AddMember(nestedInstanceSourceKey, nestedInstanceSourceValue, allocator);
-            }
+            return instanceAlias;
+        }
 
-            instancesValue.AddMember(nestedInstanceAliasKey, nestedInstanceAliasValue, allocator);
+        rapidjson::Value CreateInstanceAlias(rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>& allocator)
+        {
+            return CreateAlias(allocator, "Instance");
+        }
+
+        rapidjson::Value CreateAlias(rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>& allocator, AZStd::string type)
+        {
+            static int counter = 0;
+
+            rapidjson::Value alias((type + "_" + AZStd::to_string(counter)).c_str(), allocator);
+
             ++counter;
+            return alias;
         }
 
         void TearDown() override
@@ -149,6 +190,10 @@ namespace PrefabDependencyViewer
 
         PrefabDomMap m_prefabDomsCases;
         MockPrefabSystemComponent* m_prefabSystemComponent;
+
         const TemplateId InvalidTemplateId = AzToolsFramework::Prefab::InvalidTemplateId;
+        const char* sourceName = AzToolsFramework::Prefab::PrefabDomUtils::SourceName;
+        const char* instancesName = AzToolsFramework::Prefab::PrefabDomUtils::InstancesName;
+        const char* entitiesName = AzToolsFramework::Prefab::PrefabDomUtils::EntitiesName;
     };
 } // namespace PrefabDependencyViewer

@@ -33,7 +33,7 @@ namespace PrefabDependencyViewer
 
         EXPECT_EQ(false, outcome.IsSuccess());
     }
-
+    
     TEST_F(PrefabDependencyViewerFixture, EMPTY_PREFAB_NO_SOURCE_TEST)
     {
         TemplateId tid = 10;
@@ -44,7 +44,7 @@ namespace PrefabDependencyViewer
         Outcome outcome = PrefabDependencyTree::GenerateTreeAndSetRoot(10, m_prefabSystemComponent);
         EXPECT_EQ(false, outcome.IsSuccess());
     }
-
+    
     TEST_F(PrefabDependencyViewerFixture, EMPTY_PREFAB_WITH_SOURCE_TEST)
     {
         TemplateId tid = 2000;
@@ -56,12 +56,12 @@ namespace PrefabDependencyViewer
         EXPECT_EQ(true, outcome.IsSuccess());
 
         PrefabDependencyTree tree = outcome.GetValue();
-        EXPECT_STR_EQ("Prefabs/emptySavedJSON.prefab", tree.GetRoot()->GetMetaData()->GetDisplayName());
+        EXPECT_STR_EQ("Prefabs/emptyJSONWithSource.prefab", tree.GetRoot()->GetMetaData()->GetDisplayName());
 
         EXPECT_EQ(0, tree.GetRoot()->GetChildren().size());
     }
 
-    /*
+    
     TEST_F(PrefabDependencyViewerFixture, NESTED_PREFAB_WITH_ATLEAST_ONE_INVALID_SOURCE_FILE)
     {
         TemplateId tid = 52893;
@@ -72,7 +72,7 @@ namespace PrefabDependencyViewer
         Outcome outcome = PrefabDependencyTree::GenerateTreeAndSetRoot(tid, m_prefabSystemComponent);
         EXPECT_EQ(false, outcome.IsSuccess());
     }
-    */
+
     /*
     TEST_F(PrefabDependencyViewerFixture, VALID_NESTED_PREFAB)
     {
