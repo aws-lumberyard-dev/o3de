@@ -79,7 +79,6 @@ struct BoneSkinningData
 //! The data is used only for skinning / simulation and doesn't change between 
 //!  the object's passes.
 //! To match to the original TressFX naming follow the global defines bellow.
-// Adi [To Do] - change this to Buffer rather than StructuredBuffer
 ShaderResourceGroup HairGenerationSrg : SRG_PerDraw
 {
     // Buffers containing hair generation properties.
@@ -96,12 +95,10 @@ ShaderResourceGroup HairGenerationSrg : SRG_PerDraw
 //------------------------------------------------------------------------------
 // Allow for the code to run with minimal changes - compute passes usage
 
-// [To Do] Adi: Adibugbug - fixed 0.01 scale from cm - REMOVE WHEN VERIFIED
 #define g_InitialHairPositions    HairGenerationSrg::m_initialHairPositions
 #define g_HairRestLengthSRV       HairGenerationSrg::m_hairRestLengthSRV
 #define g_HairStrandType          HairGenerationSrg::m_hairStrandType
 
-// [To Do] Adi: Adibugbug - fixed 0.01 scale from cm - REMOVE WHEN VERIFIED
 #define g_FollowHairRootOffset    HairGenerationSrg::m_followHairRootOffset
 #define g_BoneSkinningData        HairGenerationSrg::m_boneSkinningData
 

@@ -179,7 +179,6 @@ void ApplySimplePointLight(ViewSrg::SimplePointLight light, Surface surface, ino
     float d2 = dot(posToLight, posToLight); // light distance squared
     float falloff = d2 * light.m_invAttenuationRadiusSquared;
 
-    // [To Do] Adi: this part can create a crash due to unbound iterator loop / list
     // Only calculate shading if light is in range
     if (falloff < 1.0f)
     {

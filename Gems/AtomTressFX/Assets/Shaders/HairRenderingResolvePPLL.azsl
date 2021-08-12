@@ -131,7 +131,7 @@ float4 GatherLinkedList(float2 vfScreenAddress, float2 screenUV, inout float out
     uint pointer = FragmentListHead[vScreenAddress];
 
 
-    if (pointer == FRAGMENT_LIST_NULL)  // [To Do] Adibugbug - skip very first hair counter: allows reset to 0
+    if (pointer == FRAGMENT_LIST_NULL)  // [To Do] Skips the very first hair if reset value is 0
     {
         discard;
     }
@@ -161,9 +161,10 @@ float4 GatherLinkedList(float2 vfScreenAddress, float2 screenUV, inout float out
 
 //    float4 fcolor = float4(1, 1, 1, 1);   // Blend alpha and inverse alpha 
 //    float4 fcolor = float4(1, 1, 1, 0);   // Blend one and inverse alpha
-    // The base color should be the existing render target pixel color. 
-    // Alpha should be 1 for Alpha blend alpha and 1 if alpha One.  
-    // [To Do] Adi: When using the render target as input, no need to use alpha blending! 
+    // The very first color taken is the background render target pixel color. 
+    // Alpha should be 1 for Alpha blend alpha and 0 for alpha One, depending on your 
+    // alpha blending method of choice
+    // When using the render target as the input, alpha blending mode should be disabled! 
     float4 fcolor = float4(PassSrg::m_frameBuffer.Sample(PassSrg::LinearSampler, screenUV).xyz, 0);    // Blend one and inverse alpha
 
     // Go through the remaining layers of hair

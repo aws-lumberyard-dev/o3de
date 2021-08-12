@@ -81,10 +81,8 @@ struct StrandLevelData
 //!  both passes and draw calls, instead, all buffers are allocated from a single 
 //!  shared buffer (through BufferViews) and that buffer is then shared between 
 //!  the passes via the PerPass Srg frequency. 
-// Adi [To Do] - change this to Buffer rather than StructuredBuffer
 ShaderResourceGroup HairDynamicDataSrg : SRG_PerObject // space 1 - per instance / object
 {
-    // [To Do] Adi: switch the first four to RWBuffer
     RWBuffer<float4>          m_hairVertexPositions;
     RWBuffer<float4>          m_hairVertexPositionsPrev;
     RWBuffer<float4>          m_hairVertexPositionsPrevPrev;

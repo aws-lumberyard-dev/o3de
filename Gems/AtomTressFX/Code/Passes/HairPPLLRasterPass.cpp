@@ -260,7 +260,7 @@ namespace AZ
                 m_newRenderObjects.clear();
 
                 // Reset the hair PPLL items current index.
-                // [To Do] Adi: move to be pass data driven - currently not possible!
+                // [To Do] Hair - using be pass data driven avoid th following code
                 if (auto ppllCounterBuffer = m_featureProcessor->GetPerPixelCounterBuffer())
                 {   
                     uint32_t sourceData = 0;
@@ -279,7 +279,6 @@ namespace AZ
                 RPI::RasterPass::FrameBeginInternal(params);
             }
 
-            // [To Do] Adi: since it no longer have special purpose, remove and test
             void HairPPLLRasterPass::CompileResources(const RHI::FrameGraphCompileContext& context)
             {
                 AZ_PROFILE_FUNCTION(Debug::ProfileCategory::Hair);

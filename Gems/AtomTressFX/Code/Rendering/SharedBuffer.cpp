@@ -15,17 +15,14 @@
 
 #include <Rendering/SharedBuffer.h>
 #include <Rendering/HairCommon.h>
-//#include <numeric>
 
-#pragma optimize("",off)
 namespace AZ
 {
     namespace Render
     {
-        /*
-        * Setting the constructor as private will create compile error to remind me to set the buffer Init
-        * In the FeatureProcessor and initialize properly
-        * */
+        //!Setting the constructor as private will create compile error to remind the developer to set
+        //!  the buffer Init in the FeatureProcessor and initialize properly
+
         SharedBuffer::SharedBuffer()
         {
             AZ_Warning("SharedBuffer", false, "Missing information to properly create SharedBuffer. Init is required");
@@ -101,9 +98,6 @@ namespace AZ
                 creator.SetBufferName(m_bufferName);
                 creator.SetPoolAsset(m_bufferPoolAsset);
 
-                // Adi: the following RHI::BufferBindFlags::InputAssembly might not be required if we don't
-                // read/write CPU and GPU every frame (possibly only one time set, after that it might
-                // be read/write in GPU only)
                 RHI::BufferDescriptor bufferDescriptor;
                 bufferDescriptor.m_bindFlags = RHI::BufferBindFlags::ShaderReadWrite | RHI::BufferBindFlags::Indirect;
                 bufferDescriptor.m_byteCount = m_sizeInBytes;
@@ -112,7 +106,8 @@ namespace AZ
                 
                 RHI::BufferViewDescriptor viewDescriptor;
                 viewDescriptor.m_elementFormat = RHI::Format::Unknown;
-                // [To Do] Adi: try set it as AZ::Vector4 - might solve alot on the shader side
+
+                // [To Do] - set this as AZ::Vector4 for offset approach shader code optimization 
                 viewDescriptor.m_elementSize = sizeof(float);
                 viewDescriptor.m_elementCount = aznumeric_cast<uint32_t>(m_sizeInBytes) / sizeof(float);
                 viewDescriptor.m_elementOffset = 0;
@@ -127,7 +122,7 @@ namespace AZ
             m_bufferName = bufferName;
             // m_sizeInBytes = 256u * (1024u * 1024u);
             //
-            // Adi: [ToDo] replace this with max size request for allocation that can be given by the calling function
+            // [To Do] replace this with max size request for allocation that can be given by the calling function
             // This has the following problems:
             //  1. The need to have this aggregated size in advance
             //  2. The size might grow dynamically between frames
@@ -202,37 +197,11 @@ namespace AZ
             }
             return m_buffer;
         }
-        /*
-
-        Data::Instance<RHI::Buffer> SharedBuffer::GetBuffer()
-        {
-            AZ_Error("Hair Gem", m_buffer, "Shared Buffer was not created!");
-            return m_buffer;
-        }
-
-
-        const RHI::BufferView* SharedBuffer::GetBufferView()
-        {
-            if (!m_buffer)
-            {
-                m_buffer = RPI::Buffer::FindOrCreate(m_bufferAsset);
-            }
-
-            if (m_buffer)
-            {
-                m_bufferView = m_buffer->GetBufferView();
-            }
-
-            AZ_Error("Hair Gem", m_bufferView, "Shared Buffer View and Buffer were not created!");
-            return m_bufferView;
-        }
-        */
 
         //! Update buffer's content with sourceData at an offset of bufferByteOffset
+        //! [To Do] - Remove this method and use exposed RHI method when / if implemented
         bool SharedBuffer::UpdateData(const void* sourceData, uint64_t sourceDataSizeInBytes, uint64_t bufferByteOffset) 
         {
-            // [To Do] Adibugbug - fix this now that it's RHI
-
             AZStd::lock_guard<AZStd::mutex> lock(m_allocatorMutex);
             if (m_buffer.get())
             {
@@ -289,4 +258,3 @@ namespace AZ
     }// namespace Render
 }// namespace AZ
 
-#pragma optimize("",on)

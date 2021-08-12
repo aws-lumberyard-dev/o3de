@@ -128,9 +128,10 @@ namespace AZ
 
             void HairFeatureProcessor::EnablePasses(bool enable)
             {
-                // [To Do] - this currently doesn't work as it should (resolve pass gets disabled)
-                // and so it is disabled for now.
+                // [To Do] - this currently doesn't work as it should so it is disabled for now.
                 // Allows for removing overhead.
+                // To do this properly, the entire parent pass will need to be removed, all passes
+                // to be reconnected and then loaded again.
                 return;
 
                 for (auto mapIter = m_computePasses.begin() ; mapIter != m_computePasses.end(); ++mapIter)
@@ -229,7 +230,7 @@ namespace AZ
                     }
                     renderObject->Update();
 
-                    // [To Do] Adi: the next section can be skipped for now - only distance related parameters
+                    // [To Do] Hair - update the following parameters for dynamic LOD control
                     // should change or when parameters are being changed on the editor side.
 //                         float Distance = sqrtf( m_activeScene.scene->GetCameraPos().x * m_activeScene.scene->GetCameraPos().x +
 //                                                  m_activeScene.scene->GetCameraPos().y * m_activeScene.scene->GetCameraPos().y +

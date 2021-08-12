@@ -131,7 +131,7 @@ TressFXVertex GetExpandedTressFXVert(uint vertexId, float3 eye, float2 winSize, 
     TressFXVertex Output = (TressFXVertex)0;
     float fDirIndex = (vertexId & 0x01) ? -1.0 : 1.0;
     Output.Position = ((vertexId & 0x01) ? hairEdgePositions[0] : hairEdgePositions[1]) 
-        // [To Do] Adi: remove the scale + why was x not applied / compensated for?
+        // [To Do] Hair: remove the scale
         + CM_TO_METERS_RENDER * fDirIndex * float4(proj_right * expandPixels / winSize.y, 0.0f, 0.0f) 
         * ((vertexId & 0x01) ? hairEdgePositions[0].w : hairEdgePositions[1].w);
     Output.Tangent = float4(t, strandUV.x);

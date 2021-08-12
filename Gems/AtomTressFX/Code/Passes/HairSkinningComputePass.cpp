@@ -185,15 +185,15 @@ namespace AZ
                     return;
                 }
 
-                // [To Do] Adi: this was tested and is working properly, however, it is highly
-                // dependent on having the group lock properly set and enough between dispatches.
-                // Fro dispatches that change the same base data this might be dangerous so
-                // monitoring it is crucial and moving towards iterating over passes in the future
-                // is highly recommended to verify that a proper barrier is put in place.
+
+                // For dispatches that change the same base data this lock method might not be enough.
+                // Since build might take more than several frames, iterating over passes in the future
+                // is recommended to verify that a proper barrier is put in place.
+                // Currently this approach of blocking set of passes is not taken anywhere in Atom and
+                // we leave it as low importance as it is only relevant rarely when hot reloading changed
+                // compute shaders that depends on a resource from previous pass that are also compiled.
                 // To that affect, iterating over the entire simulation pass chain rather than iterating
-                // over each one separately is much better for improving simulation stability
-                // with minimal amount of steps.
-                // This will also allow us to avoid doing it to the simple follow hair copy at the end.
+                // over each pass separately is safer for simulation integrity after shader changes.
                 uint32_t iterations = m_allowSimIterations ? AZ::GetMax(hairObject->GetCPULocalShapeIterations(), 1) : 1;
                 AZStd::lock_guard<AZStd::mutex> lock(m_mutex);
 

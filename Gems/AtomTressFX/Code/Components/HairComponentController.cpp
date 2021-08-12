@@ -200,8 +200,8 @@ namespace AZ
                     m_renderObject->UpdateSimulationParameters(
                         &m_configuration.m_simulationSettings, 0.035f /*default value in hairRenderObject*/);
 
-                    // [To Do] Adi: change the following settings before the final submit.
-                    const float distanceFromCamera = 1.0;
+                    // [To Do] Hair - Allow update of the following settings to control dynamic LOD
+                    const float distanceFromCamera = 1.0f;
                     const float updateShadows = false;
                     m_renderObject->UpdateRenderingParameters(
                         &m_configuration.m_renderingSettings, RESERVED_PIXELS_FOR_OIT, distanceFromCamera, updateShadows);

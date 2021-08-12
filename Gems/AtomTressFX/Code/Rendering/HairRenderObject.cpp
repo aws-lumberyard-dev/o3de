@@ -320,7 +320,6 @@ namespace AZ
                 m_hairGenerationDescriptors.resize(uint8_t(HairGenerationBuffersSemantics::NumBufferStreams));
                 AZStd::string objectNumber = AZStd::to_string(s_objectCounter);
                 // static StructuredBuffers for the various hair strands and bones static data.
-                // [To Do] Adi: verify that when setting RHI::Format we can use StructuredBuffer on the shader side.
                 m_hairGenerationDescriptors[uint8_t(HairGenerationBuffersSemantics::InitialHairPositions)] = {
                     RPI::CommonBufferPoolType::ReadOnly,
                     RHI::Format::R32G32B32A32_FLOAT, sizeof(AZ::Vector4), vertexCount,
@@ -400,7 +399,7 @@ namespace AZ
                     nullptr,    // updated by the HairUniformBuffer class
                 };
 
-                // [To Do] Adi: notice that the data update of the constant buffer is NOT done here
+                // The data update of the constant buffer is NOT done here but via the class update
                 for (uint8_t buffer = 0; buffer < uint8_t(HairGenerationBuffersSemantics::NumBufferStreams) ; ++buffer)
                 {
                     const SrgBufferDescriptor& streamDesc = m_hairGenerationDescriptors[buffer];
@@ -966,7 +965,7 @@ namespace AZ
                 // First time around, make sure all parameters are properly filled
                 UpdateSimulationParameters(simSettings, 0.035f); // large fast step for faster simulation, but..
 
-                // [To Do] Adi: change to be dynamically calculated before the final submit.
+                // [To Do] Hair - change to be dynamically calculated
                 const float distanceFromCamera = 1.0; 
                 const float updateShadows = false;
                 UpdateRenderingParameters(renderSettings, RESERVED_PIXELS_FOR_OIT, distanceFromCamera, updateShadows);
@@ -1145,7 +1144,6 @@ namespace AZ
                 drawPacketBuilder.AddShaderResourceGroup(simSrg->GetRHIShaderResourceGroup());
                 drawPacketBuilder.AddDrawItem(drawRequest);
 
-                // [To Do] Adi: avoid doing the following every frame. 
                 if (m_fillDrawPacket)
                 {
                     delete m_fillDrawPacket;

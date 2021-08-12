@@ -53,8 +53,10 @@
 #define AMD_TRESSFX_KERNEL_SIZE 5
 #define KBUFFER_SIZE 8
 #define MAX_FRAGMENTS 512
-#define FRAGMENT_LIST_NULL 0    // [To Do] Adi: adibugbug - skipping first hair to allow clear screen value (0) 0xffffffff
-
+// Using value 0 as indicator will skip the first hair fragment to allow 
+// for clear screen value (0). 
+// If Atom will allow other value (0xffffffff) this can be avoided.
+#define FRAGMENT_LIST_NULL 0    
 //!=============================================================================
 //!
 //!                             Render Pass only
