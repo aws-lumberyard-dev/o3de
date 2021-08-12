@@ -191,6 +191,7 @@ float ComputeLightShadow(int lightIndex, float3 vPositionWS, in HairShadeParams 
 */
 
 #define DEMO_NUMBER_OF_LIGHTS 3
+#define DEMO_NUMBER_OF_LIGHTS 3
 float3 SimplifiedHairLighting(float3 vTangent, float3 vPositionWS, float3 vViewDirWS, in HairShadeParams params, float3 vNDC)
 {
     // Initialize information needed for all lights

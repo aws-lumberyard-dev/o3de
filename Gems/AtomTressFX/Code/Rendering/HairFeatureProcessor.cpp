@@ -130,7 +130,7 @@ namespace AZ
             {
                 // [To Do] - this currently doesn't work as it should so it is disabled for now.
                 // Allows for removing overhead.
-                // TO do this properly, the entire parent pass will need to be removed, all passes
+                // To do this properly, the entire parent pass will need to be removed, all passes
                 // to be reconnected and then loaded again.
                 return;
 
