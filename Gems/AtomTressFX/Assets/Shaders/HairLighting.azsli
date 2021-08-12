@@ -81,7 +81,6 @@ struct HairShadeParams
 //
 // The angle of the cone is the last argument, in radians.  
 // It's typically in the range of 5 to 10 degrees
-// [To Do] Adi: research hair lighting model and bring up to date approach
 float3 ComputeDiffuseSpecFactors(
     float3 vEyeDir, float3 vLightDir, float3 vTangentDir, HairShadeParams params, 
     float coneAngleRadians = 10 * AMD_PI / 180)
@@ -89,8 +88,7 @@ float3 ComputeDiffuseSpecFactors(
     // in Kajiya's model: diffuse component: sin(t, l)
     float cosTL = (dot(vTangentDir, vLightDir));
     float sinTL = sqrt(1 - cosTL * cosTL);
-    // [To Do] Adi: if below horizon the sine will still be positive - need to correct this case 
-    float diffuse = sinTL; // here sinTL is apparently larger than 0
+    float diffuse = sinTL;
 
     float cosTRL = -cosTL;
     float sinTRL = sinTL;
@@ -191,71 +189,6 @@ float ComputeLightShadow(int lightIndex, float3 vPositionWS, in HairShadeParams 
     return shadow;
 }
 */
-float3 AccumulateHairLight(float3 vTangent, float3 vPositionWS, float3 vViewDirWS, in HairShadeParams params, float3 vNDC)
-{
-    // Initialize information needed for all lights
-    float3 V = normalize(vViewDirWS);
-    float3 T = normalize(vTangent);
-
-    float3 color = float3(0.0, 0.0, 0.0);
-
-    float3 lightPosWSVec[2] = {
-        float3(4, -1, 2),
-        g_vEye.xyz // + float3(0,0,0.2)    // camera light located a bit above the camera.
-    };
-
-    // Right now we fake two lights - one is fixed and the other one 
-    // is at to the camera and moving with it.
-    for (int l = 0; l < 2; l++)
-    {
-        float3 lightPosWS = lightPosWSVec[l];
-        float3 LightVector = normalize( vPositionWS - lightPosWS );
-        float3 lightColor = float3(1.0, 1.0, 1.0);
-        float lightIntensity = 0.5;
-
-        // [To Do] Adi: first render - simply output the hair color
-    //    return params.m_color;
-    /*
-        float LightIntensity;
-
-        // Start with non-shadowed lights
-        uint lightCount = min(NumLights, AMD_TRESSFX_MAX_LIGHTS);
-        for (uint i = 0; i < lightCount; i++)
-        {
-            GetLightParams(vPositionWS, i, LightVector, LightIntensity, params);
-
-            if (LightIntensity)
-            {
-                // Compute shadow term (if we've got one)
-                float fShadowTerm = ComputeLightShadow(i, vPositionWS, params);
-
-                if (fShadowTerm > 0.f)
-                {
-    */
-                    float3 L = LightVector;
-                    float3 LightColor = lightColor; 
-    // [To Do] Adi: put this back               float3 LightColor =  LightData[i].LightColor;
-
-                    float3 reflection = ComputeDiffuseSpecFactors(V, L, T, params);
-                    float3 ReflectedLight = reflection.x * LightColor * params.m_color;
-                    ReflectedLight += reflection.y * LightColor;
-                    ReflectedLight += reflection.z * LightColor * params.m_color;
-
-                    ReflectedLight *= lightIntensity;
-    // [To Do] Adi: put this back                ReflectedLight *= fShadowTerm * LightIntensity;
-
-                    color += max(float3(0, 0, 0), ReflectedLight);
-
-    //            }
-     //       }
-     //   }
-    }
-
-
-
- //               return params.m_color;  // OK
-                return color;
-}
 
 #define DEMO_NUMBER_OF_LIGHTS 3
 float3 SimplifiedHairLighting(float3 vTangent, float3 vPositionWS, float3 vViewDirWS, in HairShadeParams params, float3 vNDC)
@@ -278,24 +211,36 @@ float3 SimplifiedHairLighting(float3 vTangent, float3 vPositionWS, float3 vViewD
         float3(1,1,1)
     };
 
-    // Right now we fake two lights - one is fixed and the other one 
-    // is at to the camera and moving with it.
+    // Fake static lights not connected to Atom
+    // [To Do] - connect to Atom lighting ala HairLightTypes loop
     for (int l = 0; l < DEMO_NUMBER_OF_LIGHTS ; l++)
     {
         float3 lightPosWS = lightPosWSVec[l].xyz;
         float3 LightVector = normalize( vPositionWS - lightPosWS );
         float lightIntensity = lightPosWSVec[l].w;
         float3 LightColor = lightColorVec[l]; 
-
         float3 L = LightVector;
 
+//        float shadowTerm = ComputeLightShadow(l, vPositionWS, params);
+//        if (shadowTerm <= 0.f)
+//              continue;
+
         float3 lightSurfaceCoeffs = ComputeDiffuseSpecFactors(V, L, T, params);
+
+        // The diffuse coefficient here is a rough approximation as per the Kajiya model 
         float3 diffuseCompoenent = lightSurfaceCoeffs.x * params.m_color;
-        float3 specularAtPos = lightSurfaceCoeffs.y;
-        float3 specularAtBase = lightSurfaceCoeffs.z* params.m_color;  // [To Do] Adi: why is specualr taking the base color?
-        float3 curHairColor = (diffuseCompoenent + specularAtPos + specularAtBase) * lightIntensity * LightColor;
+
+        // This is the approximation to Marschner R but azimuthal only
+        float3 specularAtPos = lightSurfaceCoeffs.y;    
+
+        // This is the approximation to Marschner TRT but azimuthal only
+        // Notice the base color gather due to the trsmittance within the hair
+        float3 specularAtBase = lightSurfaceCoeffs.z * params.m_color;
+
+        // Final result
+        float3 lightContribution = (diffuseCompoenent + specularAtPos + specularAtBase) * lightIntensity * LightColor; // * shadowTerm;
  
-        accumulatedHairColor += saturate(curHairColor);
+        accumulatedHairColor += max(float3(0, 0, 0), lightContribution );
     }
     return accumulatedHairColor;
 }
@@ -385,7 +330,7 @@ float3 TressFXShading(float2 pixelCoord, float depth, float3 vTangentCoverage, f
     float3 vNDC;    // normalized device / screen coordinates: [-1..1, -1..1, 0..1]
     float3 vPositionWS = ScreenPosToWorldPos(PassSrg::m_linearDepth, pixelCoord, depth, vNDC);
 
-    // [To Do] Adi: the follwing two lines are a hack to make the tile lighting work for now
+    // [To Do] the follwing two lines are a hack to make the tile lighting work for now
     #define _BIG_HACK_FOR_TESTING_ 1//32
     float4 screenCoords = float4( _BIG_HACK_FOR_TESTING_ * pixelCoord, depth, depth);   // screen space position - XY in pixels - ZW are depth 0..1
 

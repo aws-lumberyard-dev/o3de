@@ -126,7 +126,7 @@ namespace AZ
                 void ForceRebuildRenderData() { m_forceRebuildRenderData = true; }
                 void SetAddDispatchEnable(bool enable) { m_addDispatchEnabled = enable; }
                 void SetEnable(bool enable)
-                {   // [To Do] Adi: test is this is all that might be required.
+                {  
                     m_isEnabled = enable;
                     EnablePasses(enable);
                 }

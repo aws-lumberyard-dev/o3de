@@ -49,7 +49,7 @@ ShaderResourceGroup PassSrg : SRG_PerPass_WithFallback
     //! Originally used space3 for raster pass linked lists and space0 for the resolve pass.
     RWTexture2D<uint>               m_fragmentListHead;
     RWStructuredBuffer<PPLL_STRUCT> m_linkedListNodes;
-    RWStructuredBuffer<uint>        m_linkedListCounter;    // [To Do] Adi: change to RWBuffer
+    RWStructuredBuffer<uint>        m_linkedListCounter;  // [To Do] - change to RWBuffer
 
     // Linera depth is used for getting the screen to world transform
     Texture2D<float>                m_linearDepth;
@@ -83,7 +83,6 @@ struct StrandLevelData
 //!  both passes and draw calls, instead, all buffers are allocated from a single 
 //!  shared buffer (through BufferViews) and that buffer is then shared between 
 //!  the passes via the PerPass Srg frequency. 
-// Adi [To Do] - change this to Buffer rather than StructuredBuffer
 ShaderResourceGroup HairDynamicDataSrg : SRG_PerObject // space 1 - per instance / object
 {
     Buffer<float4>      m_hairVertexPositions;
@@ -120,8 +119,8 @@ PS_INPUT_HAIR RenderHairVS(uint vertexId : SV_VertexID)
 //    PassSrg::m_linearDepth.GetDimensions(scrSize.x, scrSize.y);
 //    TressFXVertex tressfxVert = GetExpandedTressFXVert(vertexId, g_vEye.xyz, float2(scrSize), g_mVP);
 
-    // [To Do] Adi: the above code should replace the existing - verify that the input
-    // is valid - this might not be the case right now.  g_vViewport is really useless!
+    // [To Do] Hair: the above code should replace the existing - verify that the input
+    // is valid - this might not be the case right now.  g_vViewport is aspect ratio and NOT size.
     TressFXVertex tressfxVert = GetExpandedTressFXVert(vertexId, g_vEye.xyz, g_vViewport.zw, g_mVP);
 
 
@@ -203,7 +202,7 @@ void PPLLFillPS(PS_INPUT_HAIR input)
     }
 
     //////////////////////////////////////////////////////////////////////
-    // [To Do] Adi: requires debugging - seems too aggressive
+    // [To Do] Hair: anti aliasing via coverage here requires TNL
     float3 vNDC = ScreenPosToNDC(PassSrg::m_linearDepth, input.Position.xy, input.Position.z);
     uint2  dimensions;
     PassSrg::m_linearDepth.GetDimensions(dimensions.x, dimensions.y);

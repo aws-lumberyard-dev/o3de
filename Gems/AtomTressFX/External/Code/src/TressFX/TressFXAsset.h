@@ -68,8 +68,8 @@ namespace AMD
     };
 
     struct TressFXBoneSkinningData
-    {
-        float boneIndex[TRESSFX_MAX_INFLUENTIAL_BONE_COUNT];    // [To Do] Adi: check if can be changed to uint32_t (march GPU side)
+    {   // Possible improvement can be to use int 32 with high / low bits encoding
+        float boneIndex[TRESSFX_MAX_INFLUENTIAL_BONE_COUNT];    
         float weight[TRESSFX_MAX_INFLUENTIAL_BONE_COUNT];
     };
 
@@ -127,8 +127,8 @@ namespace AMD
         AMD::int32 m_numGuideVertices;
         AMD::int32 m_numFollowStrandsPerGuide;
 
-        // [TO DO] rhhong - handle multiple collision meshes.
-        // Collision mesh
+        // Currently we only deal with a single collision mesh assumed to be the skinned mesh.
+        // This might not always be the case and a new scheme might be required.
         std::unique_ptr<TressFXCollisionMesh> m_collisionMesh = nullptr;
 
         // Loads *.tfx hair data 

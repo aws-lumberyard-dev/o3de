@@ -20,9 +20,6 @@
 // Hair specific
 #include <Rendering/SharedBufferInterface.h>
 
-
-#pragma optimize("",off)
-
 namespace AZ
 {
     namespace RPI
@@ -134,10 +131,13 @@ namespace AZ
             RHI::FreeListAllocator m_freeListAllocator;
             AZStd::mutex m_allocatorMutex;
             uint64_t m_alignment = 16;     // This will be overridden by the size of the largest allocated element
-            // [To Do] Adi: Currently the shared buffer size is fixed - going for dynamic size can be a better
-            // solution but requires using re-allocations and proper synching between all existing buffers
-            // This amount of memory should be enough for 2-3 very details cinematic hair or for 4-6 high
-            // fidelity hair objects.
+            //! Currently the shared buffer size is fixed. Going towards dynamic size can be a better
+            //! solution but requires using re-allocations and proper synchronizing between all existing buffers.
+            //! This amount of memory should be enough for 2-3 very details cinematic hair or for 4-6 high
+            //! fidelity hair objects.
+            //! Additional attention should be to the fact that because the buffers in Atom are NOT triple
+            //! buffered but instead they are delayed via garbage collection mechanism, during reallocation
+            //! the amount of memory required might reach close to double of the run-time.
             size_t m_sizeInBytes = 256u * (1024u * 1024u);   
             bool m_memoryWasFreed = false;
             bool m_broadcastMemoryAvailableEvent = false;
@@ -145,5 +145,3 @@ namespace AZ
     } // namespace Render
 } // namespace AZ
 
-
-#pragma optimize("",on)

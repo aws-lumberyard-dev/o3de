@@ -257,7 +257,7 @@ namespace AMD
             }
         }
 
-        // [TO DO] rhhong: Check if follow bone is needed for the collision mesh.
+        // [To Do] - check if the follow bone is required for the collision mesh.
         // m_pScene = scene;
         // m_followBone = scene->GetBoneIdByName(skinNumber, followBone);
 
@@ -737,7 +737,6 @@ namespace AMD
 
 
     bool TressFXAsset::LoadBoneData(FILE* ioObject, std::vector<int32_t> skeletonBoneIndices)
-        //bool TressFXAsset::LoadBoneData(FILE* ioObject)// , int skinNumber)// [To Do] Adi: change this, EI_Scene * scene)
     {
         m_boneSkinningData.resize(0);
 
@@ -798,7 +797,7 @@ namespace AMD
             for (AMD::int32 j = 0; j < TRESSFX_MAX_INFLUENTIAL_BONE_COUNT; ++j)
             {
                 if (skinData.boneIndex[j] == -1.f)
-                {   // [To Do] Adi: verify this assumption - do we ever get index -1?
+                {
                     skinData.boneIndex[j] = 0;
                     skinData.weight[j] = 0;
                 }
@@ -819,7 +818,6 @@ namespace AMD
     }
 
     bool TressFXAsset::LoadBoneData(AZ::Data::AssetDataStream* stream)
-    // bool TressFXAsset::LoadBoneData(FILE* ioObject)// , int skinNumber)// [To Do] Adi: change this, EI_Scene * scene)
     {
         m_boneSkinningData.resize(0);
 
@@ -877,7 +875,7 @@ namespace AMD
             for (AMD::int32 j = 0; j < TRESSFX_MAX_INFLUENTIAL_BONE_COUNT; ++j)
             {
                 if (skinData.boneIndex[j] == -1.f)
-                { // [To Do] Adi: verify this assumption - do we ever get index -1?
+                { 
                     skinData.boneIndex[j] = 0;
                     skinData.weight[j] = 0;
                 }
@@ -997,4 +995,3 @@ namespace AMD
     }
 } // namespace AMD
 
-#pragma optimize("", on)
