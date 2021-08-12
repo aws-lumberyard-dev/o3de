@@ -48,22 +48,14 @@ namespace PrefabDependencyViewer
                                PrefabSystemComponentInterface* s_prefabSystemComponentInterface);
 
     private:
-        static NodePtrOutcome GenerateTreeAndSetRootRecursive(const rapidjson::Value& prefabDom,
-                                                  AssetDescriptionCountMap& parentAssetCountMap);
+        static NodePtrOutcome GenerateTreeAndSetRootRecursive(const rapidjson::Value& prefabDom);
 
-        static AssetDescriptionCountMap GetAssetsDescriptionCountMap(AssetList allNestedAssets);
-
-        static void AddAssetNodeToPrefab(const AssetList& assetList, NodePtr node,
-                                            AssetDescriptionCountMap& assetDescriptionCountMap);
+        static void AddAssetNodeToPrefab(const AssetList& assetList, NodePtr node);
 
         static AssetList GetAssets(const rapidjson::Value& prefabDom);
 
-        static void DecreaseParentAssetCount(AssetDescriptionCountMap& parentAssetCountMap,
-                                        const AssetDescriptionCountMap& childAssetCountMap);
+        static bool LoadAssetsFromEntities(const rapidjson::Value& prefabDom, AssetList& referencedAssets);
 
-        static bool LoadInstanceFromPrefabDom(
-            Instance& instance, const rapidjson::Value& prefabDom,
-            AZStd::vector<AZ::Data::Asset<AZ::Data::AssetData>>& referencedAssets,
-            LoadInstanceFlags flags);
+        static bool LoadAssetsFromEntity(AZ::Entity& entity, const rapidjson::Value& entityDom, AssetList& referencedAssets);
     };
 }

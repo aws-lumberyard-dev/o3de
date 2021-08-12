@@ -21,9 +21,7 @@ namespace PrefabDependencyViewer
         {
             PrefabDom& rootPrefabDom = prefabSystemComponentInterface->FindTemplateDom(tid);
 
-            AssetDescriptionCountMap rootParentAssetCountMap;
-
-            NodePtrOutcome outcome = GenerateTreeAndSetRootRecursive(rootPrefabDom, rootParentAssetCountMap);
+            NodePtrOutcome outcome = GenerateTreeAndSetRootRecursive(rootPrefabDom);
             if (outcome.IsSuccess())
             {
                 PrefabDependencyTree graph;
@@ -39,16 +37,10 @@ namespace PrefabDependencyViewer
     }
 
     /* static */ NodePtrOutcome PrefabDependencyTree::GenerateTreeAndSetRootRecursive(
-                                    const rapidjson::Value& prefabDom,
-                                    AssetDescriptionCountMap& parentAssetCountMap)
+                                                    const rapidjson::Value& prefabDom)
     {
         // Get all the nested assets and their count
         AssetList currentAssets = GetAssets(prefabDom);
-        AssetDescriptionCountMap currentAssetCountMap = GetAssetsDescriptionCountMap(currentAssets);
-
-        // Remove the children asset count from the parent count
-        DecreaseParentAssetCount(parentAssetCountMap, currentAssetCountMap);
-
 
         // Get the source file of the current Template
         auto sourceIterator = prefabDom.FindMember(AzToolsFramework::Prefab::PrefabDomUtils::SourceName);
@@ -78,7 +70,7 @@ namespace PrefabDependencyViewer
                 for (auto&& instance : instances.GetObject())
                 {
                     // Recurse on the nested instance.
-                    NodePtrOutcome outcome = GenerateTreeAndSetRootRecursive(instance.value, currentAssetCountMap);
+                    NodePtrOutcome outcome = GenerateTreeAndSetRootRecursive(instance.value);
                     if (outcome.IsSuccess())
                     {
                         currentNode->AddChild(outcome.GetValue());
@@ -92,12 +84,11 @@ namespace PrefabDependencyViewer
         }
 
         // Add assets to the PrefabNode
-        AddAssetNodeToPrefab(currentAssets, currentNode, currentAssetCountMap);
+        AddAssetNodeToPrefab(currentAssets, currentNode);
         return AZ::Success(currentNode);
     }
 
-    /* static */ void PrefabDependencyTree::AddAssetNodeToPrefab(const AssetList& assetList, NodePtr node,
-                                                        AssetDescriptionCountMap& assetDescriptionCountMap)
+    /* static */ void PrefabDependencyTree::AddAssetNodeToPrefab(const AssetList& assetList, NodePtr node)
     {
         // No need to show multiple nodes for the same source asset
         // with multiple product assets that spawn out of it.
@@ -127,25 +118,16 @@ namespace PrefabDependencyViewer
 
                 AZStd::string assetDescription = assetInfo.m_relativePath + productAssetDesciption;
 
-                // If all the children claimed the asset, then the asset description count should
-                // go to 0 which implies that the current asset is not a node dependency.
-                auto assetDescriptionCountIterator = assetDescriptionCountMap.find(assetDescription);
-                if (assetDescriptionCountIterator != assetDescriptionCountMap.end() && assetDescriptionCountIterator->second > 0)
+                // Only want to add an asset to the sourceAssetCount if
+                // its assetDescriptionCount is non zero.
+                auto sourceAssetCountIterator = sourceAssetCountMap.find(assetInfo.m_relativePath);
+                if (sourceAssetCountIterator == sourceAssetCountMap.end())
                 {
-                    // Only want to add an asset to the sourceAssetCount if
-                    // its assetDescriptionCount is non zero.
-                    auto sourceAssetCountIterator = sourceAssetCountMap.find(assetInfo.m_relativePath);
-                    if (sourceAssetCountIterator == sourceAssetCountMap.end())
-                    {
-                        sourceAssetCountMap[assetInfo.m_relativePath] = 1;
-                    }
-                    else
-                    {
-                        sourceAssetCountIterator->second += 1;
-                    }
-
-                    // Update the current asset's description count.
-                    assetDescriptionCountIterator->second -= 1;
+                    sourceAssetCountMap[assetInfo.m_relativePath] = 1;
+                }
+                else
+                {
+                    sourceAssetCountIterator->second += 1;
                 }
             }
         }
@@ -159,11 +141,8 @@ namespace PrefabDependencyViewer
 
     /* static */ AssetList PrefabDependencyTree::GetAssets(const rapidjson::Value& prefabDom)
     {
-        AzToolsFramework::Prefab::Instance instance;
         AssetList referencedAssets;
-        LoadInstanceFlags flags = LoadInstanceFlags::AssignRandomEntityId;
-
-        bool result = LoadInstanceFromPrefabDom(instance, prefabDom, referencedAssets, flags);
+        bool result = LoadAssetsFromEntities(prefabDom, referencedAssets);
 
         AZ_Error("Prefab Dependency Viewer", result,  "An error happened while loading the prefab data(Assets). "
                                                       "Check the log output for errors, and the prefab "
@@ -172,94 +151,41 @@ namespace PrefabDependencyViewer
         return referencedAssets;
     }
 
-    /* static */ AssetDescriptionCountMap PrefabDependencyTree::GetAssetsDescriptionCountMap(AssetList allNestedAssets)
+    /* static */ bool PrefabDependencyTree::LoadAssetsFromEntities(const rapidjson::Value& prefabDom, AssetList& referencedAssets)
     {
-        AssetDescriptionCountMap assetCountMap;
+        auto entitiesIterator = prefabDom.FindMember(AzToolsFramework::Prefab::PrefabDomUtils::EntitiesName);
 
-        for (const auto& asset : allNestedAssets)
+        if (entitiesIterator != prefabDom.MemberEnd())
         {
-            bool result;
-            AZ::Data::AssetInfo assetInfo;
-            AZStd::string watchFolder;
+            auto&& entities = entitiesIterator->value;
 
-            AzToolsFramework::AssetSystemRequestBus::BroadcastResult(
-                result, &AzToolsFramework::AssetSystemRequestBus::Events::GetSourceInfoBySourceUUID, asset.GetId().m_guid, assetInfo,
-                watchFolder);
-
-            // Unassigned default assets would have an empty source and
-            // therefore are an invalid asset.
-            if (!assetInfo.m_relativePath.empty())
+            if (entities.IsObject())
             {
-                AZ::Data::AssetInfo productAssetInfo;
-                AZ::Data::AssetCatalogRequestBus::BroadcastResult(
-                    productAssetInfo, &AZ::Data::AssetCatalogRequestBus::Events::GetAssetInfoById, asset.GetId());
-
-                AZStd::string productAssetDesciption = productAssetInfo.m_relativePath.empty() ? "" : ": " + productAssetInfo.m_relativePath;
-
-                AZStd::string assetDescription = assetInfo.m_relativePath + productAssetDesciption;
-
-                // If all the children claimed the asset, then the asset description count should
-                // go to 0 which implies that the current asset is not a node dependency.
-                auto it = assetCountMap.find(assetDescription);
-                if (it == assetCountMap.end())
+                for (auto&& entityDom : entities.GetObject())
                 {
-                    assetCountMap[assetDescription] = 1;
-                }
-                else
-                {
-                    it->second += 1;
+                    AZ::Entity entity("");
+                    bool result = LoadAssetsFromEntity(entity, entityDom.value, referencedAssets);
+                    if (!result)
+                    {
+                        return false;
+                    }
                 }
             }
         }
 
-        return assetCountMap;
+        return true;
     }
 
-    /* static */ void PrefabDependencyTree::DecreaseParentAssetCount(
-                               AssetDescriptionCountMap& parentAssetCountMap,
-                               const AssetDescriptionCountMap& childAssetCountMap)
+    /* static */ bool PrefabDependencyTree::LoadAssetsFromEntity(AZ::Entity& entity, const rapidjson::Value& entityDom,
+                                                                    AssetList& referencedAssets)
     {
-        if (parentAssetCountMap.size() == 0)
-        {
-            return;
-        }
-
-        for (const auto& [assetDescription, count] : childAssetCountMap)
-        {
-            auto it = parentAssetCountMap.find(assetDescription);
-            if (it != parentAssetCountMap.end())
-            {
-                it->second -= count;
-            }
-        }
-    }
-
-    /* static */ bool PrefabDependencyTree::LoadInstanceFromPrefabDom(
-                Instance& instance, const rapidjson::Value& prefabDom,
-                AZStd::vector<AZ::Data::Asset<AZ::Data::AssetData>>& referencedAssets,
-                LoadInstanceFlags flags)
-    {
-        // When entities are rebuilt they are first destroyed. As a result any assets they were exclusively holding on to will
-        // be released and reloaded once the entities are built up again. By suspending asset release temporarily the asset reload
-        // is avoided.
         AZ::Data::AssetManager::Instance().SuspendAssetRelease();
 
-        InstanceEntityIdMapper entityIdMapper;
-        entityIdMapper.SetLoadingInstance(instance);
-        if ((flags & LoadInstanceFlags::AssignRandomEntityId) == LoadInstanceFlags::AssignRandomEntityId)
-        {
-            entityIdMapper.SetEntityIdGenerationApproach(InstanceEntityIdMapper::EntityIdGenerationApproach::Random);
-        }
-
         AZ::JsonDeserializerSettings settings;
-        // The InstanceEntityIdMapper is registered twice because it's used in several places during deserialization where one is
-        // specific for the InstanceEntityIdMapper and once for the generic JsonEntityIdMapper. Because the Json Serializer's meta
-        // data has strict typing and doesn't look for inheritance both have to be explicitly added so they're found both locations.
-        settings.m_metadata.Add(static_cast<AZ::JsonEntityIdSerializer::JsonEntityIdMapper*>(&entityIdMapper));
-        settings.m_metadata.Add(&entityIdMapper);
+
         settings.m_metadata.Create<AZ::Data::SerializedAssetTracker>();
 
-        AZ::JsonSerializationResult::ResultCode result = AZ::JsonSerialization::Load(instance, prefabDom, settings);
+        AZ::JsonSerializationResult::ResultCode result = AZ::JsonSerialization::Load(entity, entityDom, settings);
 
         AZ::Data::AssetManager::Instance().ResumeAssetRelease();
 
@@ -272,9 +198,13 @@ namespace PrefabDependencyViewer
 
             return false;
         }
+
         AZ::Data::SerializedAssetTracker* assetTracker = settings.m_metadata.Find<AZ::Data::SerializedAssetTracker>();
 
-        referencedAssets = AZStd::move(assetTracker->GetTrackedAssets());
+        AssetList currentAssets = AZStd::move(assetTracker->GetTrackedAssets());
+        referencedAssets.insert(referencedAssets.end(), currentAssets.begin(),
+                                currentAssets.end());
+
         return true;
     }
 } // namespace PrefabDependencyViewer
