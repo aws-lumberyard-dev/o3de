@@ -1,14 +1,10 @@
 /*
-* All or portions of this file Copyright (c) Amazon.com, Inc. or its affiliates or
-* its licensors.
-*
-* For complete copyright and license terms please see the LICENSE at the root of this
-* distribution (the "License"). All use of this software is governed by the License,
-* or, if provided, by the license below or the license accompanying this file. Do not
-* remove or modify any license notices. This file is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-*
-*/
+ * Copyright (c) Contributors to the Open 3D Engine Project.
+ * For complete copyright and license terms please see the LICENSE at the root of this distribution.
+ *
+ * SPDX-License-Identifier: Apache-2.0 OR MIT
+ *
+ */
 
 #include <Atom/RPI.Public/Pass/PassUtils.h>
 #include <Atom/RPI.Public/RenderPipeline.h>
@@ -41,19 +37,19 @@ namespace AZ
                 RPI::ShaderOptionGroup shaderOption = m_shader->CreateShaderOptionGroup();
 
                 // Shader Options
-                HairGlobalSettings hairGlobalSettings = m_featureProcessor->GetHairGlobalSettings();
-                shaderOption.SetValue(AZ::Name("o_enableShadows"), AZ::RPI::ShaderOptionValue{ hairGlobalSettings.m_enableShadows });
-                shaderOption.SetValue(AZ::Name("o_enableDirectionalLights"), AZ::RPI::ShaderOptionValue{ hairGlobalSettings.m_enableDirectionalLights });
-                shaderOption.SetValue(AZ::Name("o_enablePunctualLights"), AZ::RPI::ShaderOptionValue{ hairGlobalSettings.m_enablePunctualLights });
-                shaderOption.SetValue(AZ::Name("o_enableAreaLights"), AZ::RPI::ShaderOptionValue{ hairGlobalSettings.m_enableAreaLights });
-                shaderOption.SetValue(AZ::Name("o_enableIBL"), AZ::RPI::ShaderOptionValue{ hairGlobalSettings.m_enableIBL });
-                shaderOption.SetValue(AZ::Name("o_hairLightingModel"), AZ::Name{ "HairLightingModel::" + AZStd::string(HairLightingModelNamespace::ToString(hairGlobalSettings.m_hairLightingModel)) });
-                shaderOption.SetValue(AZ::Name("o_enableMarschner_R"), AZ::RPI::ShaderOptionValue{ hairGlobalSettings.m_enableMarschner_R });
-                shaderOption.SetValue(AZ::Name("o_enableMarschner_TRT"), AZ::RPI::ShaderOptionValue{ hairGlobalSettings.m_enableMarschner_TRT });
-                shaderOption.SetValue(AZ::Name("o_enableMarschner_TT"), AZ::RPI::ShaderOptionValue{ hairGlobalSettings.m_enableMarschner_TT });
-                shaderOption.SetValue(AZ::Name("o_enableDiffuseLobe"), AZ::RPI::ShaderOptionValue{ hairGlobalSettings.m_enableDiffuseLobe });
-                shaderOption.SetValue(AZ::Name("o_enableSpecularLobe"), AZ::RPI::ShaderOptionValue{ hairGlobalSettings.m_enableSpecularLobe });
-                shaderOption.SetValue(AZ::Name("o_enableTransmittanceLobe"), AZ::RPI::ShaderOptionValue{ hairGlobalSettings.m_enableTransmittanceLobe });
+                m_featureProcessor->GetHairGlobalSettings(m_hairGlobalSettings);
+                shaderOption.SetValue(AZ::Name("o_enableShadows"), AZ::RPI::ShaderOptionValue{ m_hairGlobalSettings.m_enableShadows });
+                shaderOption.SetValue(AZ::Name("o_enableDirectionalLights"), AZ::RPI::ShaderOptionValue{ m_hairGlobalSettings.m_enableDirectionalLights });
+                shaderOption.SetValue(AZ::Name("o_enablePunctualLights"), AZ::RPI::ShaderOptionValue{ m_hairGlobalSettings.m_enablePunctualLights });
+                shaderOption.SetValue(AZ::Name("o_enableAreaLights"), AZ::RPI::ShaderOptionValue{ m_hairGlobalSettings.m_enableAreaLights });
+                shaderOption.SetValue(AZ::Name("o_enableIBL"), AZ::RPI::ShaderOptionValue{ m_hairGlobalSettings.m_enableIBL });
+                shaderOption.SetValue(AZ::Name("o_hairLightingModel"), AZ::Name{ "HairLightingModel::" + AZStd::string(HairLightingModelNamespace::ToString(m_hairGlobalSettings.m_hairLightingModel)) });
+                shaderOption.SetValue(AZ::Name("o_enableMarschner_R"), AZ::RPI::ShaderOptionValue{ m_hairGlobalSettings.m_enableMarschner_R });
+                shaderOption.SetValue(AZ::Name("o_enableMarschner_TRT"), AZ::RPI::ShaderOptionValue{ m_hairGlobalSettings.m_enableMarschner_TRT });
+                shaderOption.SetValue(AZ::Name("o_enableMarschner_TT"), AZ::RPI::ShaderOptionValue{ m_hairGlobalSettings.m_enableMarschner_TT });
+                shaderOption.SetValue(AZ::Name("o_enableDiffuseLobe"), AZ::RPI::ShaderOptionValue{ m_hairGlobalSettings.m_enableDiffuseLobe });
+                shaderOption.SetValue(AZ::Name("o_enableSpecularLobe"), AZ::RPI::ShaderOptionValue{ m_hairGlobalSettings.m_enableSpecularLobe });
+                shaderOption.SetValue(AZ::Name("o_enableTransmittanceLobe"), AZ::RPI::ShaderOptionValue{ m_hairGlobalSettings.m_enableTransmittanceLobe });
 
                 m_shaderOptions = shaderOption.GetShaderVariantKeyFallbackValue();
             }
