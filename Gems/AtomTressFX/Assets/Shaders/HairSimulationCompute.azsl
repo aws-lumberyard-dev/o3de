@@ -62,16 +62,15 @@ void IntegrationAndGlobalShapeConstraints(
 
     // Integrate
     float dampingCoeff = GetDamping(strandType);
-//    float4 oldPos = float4(CM_TO_METERS,CM_TO_METERS,CM_TO_METERS,1.0) * g_HairVertexPositionsPrev[globalVertexIndex];
     float4 oldPos = g_HairVertexPositionsPrev[globalVertexIndex];
 
     // reset if we got teleported
     if (g_ResetPositions != 0.0f)
-    {   // Originally part of the data here was NaN since the riginal code wrote amount of 
-        // vertices including the follow hair although the shader takes care of this, hence 
-        // memory was overwriten.  Since in our implementation the memory resides completely 
-        // within a single buffer (this is a memory stump bug) this actively destroyed 
-        // the rest of the buffer.
+    {   // Originally part of the data here was NaN as the original TressFX code wrote number 
+        // vertices including the follow hair although the shader accounts for that, hence 
+        // memory was overwriten.  In our implementation the memory resides all within
+        // a single buffer and this would actively overwrite the rest of the buffer hence
+        // destroying the original contexnt. 
         currentPos = initialPos;
         g_HairVertexPositions[globalVertexIndex] = initialPos;
         g_HairVertexPositionsPrev[globalVertexIndex] = initialPos;
@@ -79,8 +78,6 @@ void IntegrationAndGlobalShapeConstraints(
         oldPos = initialPos;
     }
 
-//     [To Do] Adi: remove this once following passes are enabled - this will detach hair
-//     This is removed to test only first (skinning) and last (follow hair) passes 
     // skipping all the physics simulation in between
     if ( IsMovable(currentPos) )
         sharedPos[indexForSharedMem].xyz = Integrate(currentPos.xyz, oldPos.xyz, initialPos.xyz, dampingCoeff);
@@ -127,9 +124,10 @@ void CalculateStrandLevelData(
     uint local_id, group_id, globalStrandIndex, numVerticesInTheStrand, globalRootVertexIndex, strandType;
     CalcIndicesInStrandLevelMaster(GIndex, GId.x, globalStrandIndex, numVerticesInTheStrand, globalRootVertexIndex, strandType);
 
-    float4 pos_old_old[2]; // previous previous positions for vertex 0 (root) and vertex 1.
-    float4 pos_old[2]; // previous positions for vertex 0 (root) and vertex 1.
-    float4 pos_new[2]; // current positions for vertex 0 (root) and vertex 1.
+    // Accounting for the right and left side of the strand.
+    float4 pos_old_old[2];  // previous previous positions for vertex 0 (root) and vertex 1.
+    float4 pos_old[2];      // previous positions for vertex 0 (root) and vertex 1.
+    float4 pos_new[2];      // current positions for vertex 0 (root) and vertex 1.
 
     pos_old_old[0] = g_HairVertexPositionsPrevPrev[globalRootVertexIndex];
     pos_old_old[1] = g_HairVertexPositionsPrevPrev[globalRootVertexIndex + 1];
@@ -155,7 +153,7 @@ void CalculateStrandLevelData(
     // Increate the VSP coefficient by checking pseudo-acceleration to handle over-stretching when the character moves very fast 
     float accel = length(pos_new[1] - 2.0 * pos_old[1] + pos_old_old[1]);
 
-    if (accel > vspAccelThreshold) // TODO: expose this value?
+    if (accel > vspAccelThreshold)
         vspCoeff = 1.0f;
     g_StrandLevelData[globalStrandIndex].vspQuat = rot;
     g_StrandLevelData[globalStrandIndex].vspTranslation = float4(trans, vspCoeff);
@@ -165,7 +163,7 @@ void CalculateStrandLevelData(
     // Copy data into shared memory
     float4 initialPos = float4(CM_TO_METERS,CM_TO_METERS,CM_TO_METERS,1.0) * g_InitialHairPositions[globalRootVertexIndex]; // rest position
 
-                                                                                                                            // Apply bone skinning to initial position
+    // Apply bone skinning to initial position
     BoneSkinningData skinningData = g_BoneSkinningData[globalStrandIndex];
     float4 bone_quat;
     initialPos.xyz = ApplyVertexBoneSkinning(initialPos.xyz, skinningData, bone_quat);
@@ -231,8 +229,9 @@ void LocalShapeConstraints(
     // stiffness for local shape constraints
     float stiffnessForLocalShapeMatching = GetLocalStiffness(strandType);
 
-    //1.0 for stiffness makes things unstable sometimes.
-    stiffnessForLocalShapeMatching = 0.5f*min(stiffnessForLocalShapeMatching, 0.95f);
+    // Going beyond the TH will create less stability in convergence
+    const float stabilityTH = 0.95f;
+    stiffnessForLocalShapeMatching = 0.5f * min(stiffnessForLocalShapeMatching, stabilityTH);
 
     //--------------------------------------------
     // Local shape constraint for bending/twisting

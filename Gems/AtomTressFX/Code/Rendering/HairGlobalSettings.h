@@ -16,6 +16,9 @@ namespace AZ
     {
         namespace Hair
         {
+            //! Used by all hair components to control the shader options flags used by the hair
+            //!  rendering for lighting and various display features such as the Marschner lighting
+            //!  model components.
             struct HairGlobalSettings
             {
                 AZ_TYPE_INFO(AZ::Render::Hair::HairGlobalSettings, "{B4175C42-9F4D-4824-9563-457A84C4983D}");

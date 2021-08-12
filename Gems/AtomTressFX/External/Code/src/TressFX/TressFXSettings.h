@@ -31,7 +31,6 @@
 /*
 #pragma once
 */
-//#include <TressFX/AMD_Types.h>
 #include <TressFX/TressFXCommon.h>
 #include <AzCore/RTTI/ReflectContext.h>
 #include <AzCore/Math/Vector3.h>
@@ -44,7 +43,6 @@
 
 #include <memory>
 
-// Probably want to unify or rename these.
 namespace AMD
 {
     class TressFXSimulationSettings
@@ -102,7 +100,7 @@ namespace AMD
         float   m_StrandUVTilingFactor = 1.f;
         float   m_FiberRatio = 0.06f;
 
-        // For lighting/shading
+        // Original TressFX Kajiya lighting model parameters
         AZ::Color m_HairMatBaseColor{ 1.f, 1.f, 1.f, 0.63f };
         AZ::Color m_HairMatTipColor{1.f, 1.f, 1.f, 0.63f};
         float   m_HairKDiffuse = 0.22f;
@@ -112,6 +110,7 @@ namespace AMD
         float   m_HairKSpec2 = 0.136f;
         float   m_HairSpecExp2 = 11.80f;
 
+        // Marschner lighting model parameters 
         float   m_HairRoughness = 0.65f;
         float   m_HairCuticleTilt = 0.08;   // Tilt angle in radians roughly 5-6 degrees tilt
 

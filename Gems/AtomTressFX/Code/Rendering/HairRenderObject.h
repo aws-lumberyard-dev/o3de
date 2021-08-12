@@ -60,8 +60,6 @@ namespace AZ
 
             //! TressFXStrandLevelData represents blended bone data per hair strand that once calculated
             //!  is passed between the skinning pass and the simulation shape constrains pass
-            //! This is strictly used fir capsule collisions and can be removed if this is not required.
-            //! The hair to mesh collision itself is done today with per object collision mesh and SDF.
             struct TressFXStrandLevelData
             {
                 AMD::float4 skinningQuat;
@@ -69,25 +67,21 @@ namespace AZ
                 AMD::float4 vspTranslation;
             };
 
-            //------------------------------------------------------------------------------------------
-            //
-            //                                  DynamicHairData
-            //
-            //------------------------------------------------------------------------------------------
-            //! Contains the dynamic data that is used by 3 modules: simulation, signed distance field, and rendering.
-            //! Rendering uses current position and tangent as SRVs in VS.
-            //! Equivalent to the original class TressFXDynamicHairData (or TressFXDynamicState as it was originally named).
-            //! Since this data is per object (hence per object dispatch) and requires sync point (barrier) between the
-            //!  the passes, we need to allocate a single buffer (per input stream) shared by all hair objects and
-            //!  have buffer view held by each object so that it points to its own portion of the data.
-            //! These buffers will need to be declared in the pass so that an execution dependency and a barrier
-            //!  will be created.
+            //!-----------------------------------------------------------------------------------------
             //!
-            //! Reference:
-            //!  - SkinnedMeshInputLod::CreateSkinningInputBuffer will create the views / sub buffers that will be bound
-            //!     into the PerInstance SRG buffer entries and used for each dispatch
-            //!  - SkinnedMeshComputePass::BuildAttachmentsInternal() will bind the single actual shared buffer that
-            //!     contains all the sub-buffer associated with the per instance SRG of a dispatch. 
+            //!                                   DynamicHairData
+            //!
+            //!-----------------------------------------------------------------------------------------
+            //! Contains the writable data that is passed and used by 3 modules:
+            //!  simulation, signed distance field (collisions), and rendering.
+            //! Rendering uses current position and tangent as SRVs in VS for computing creation and skinning. 
+            //! Since this data is per object (hence per object dispatch) and requires sync point (barrier) between the
+            //!  the passes, a single buffer is allocated and is shared by all hair objects and their 'streams'
+            //!  where each have buffer view so that it points to its own portion of the original buffer's data.
+            //! The shared buffer is therefore declared in the pass Srg to result in an execution dependency
+            //!  so that a barrier will be created.  It also represents less overhead since we are using a single
+            //!  coordinated / shared buffer sync point rather than many barriers (per object per buffer).
+            //!-----------------------------------------------------------------------------------------
             class DynamicHairData
             {
             public:           
@@ -142,13 +136,8 @@ namespace AZ
                 AZStd::vector<Data::Instance<RHI::BufferView>> m_readBuffersViews;      // Read only used for the Raster fill
 
                 //! The following vector is required in order to keep the allocators 'alive' or
-                //!  else they are cleared from the buffer and can be re-allocated.
+                //!  else they are cleared from the buffer via the reference mechanism.
                 AZStd::vector<Data::Instance<SharedBufferAllocation>> m_dynamicViewAllocators;
-
-
-                // QUESTION: why do we want different Srgs? why not use the same Srgs of the dynamic data
-                //  even if it means that we expose more data to some passes / shaders.
-                // The other Srgs and descriptors array are commented out for now for this reason.
 
                 //------------------------------------------------------------------
                 //! The following SRGs are the ones represented by this class' data.
@@ -156,10 +145,6 @@ namespace AZ
                 //!  skinning, simulation and rendering passes / shaders.
                 //! It is the TressFX equivalent of the set:
                 //!     - pSimPosTanLayout / m_pSimBindSets
-                //! In out approach we will utilize the same SRG for all passes and so this also
-                //!  applies to the TressFX sets:
-                //!     - pApplySDFLayout / m_pApplySDFBindSets
-                //!     - pRenderPosTanLayout / m_pRenderBindSets.    
                 //------------------------------------------------------------------
                 Data::Instance<RPI::ShaderResourceGroup> m_simSrgForCompute;    //! TressFX equivalent: pSimPosTanLayout / m_pSimBindSets
                 Data::Instance<RPI::ShaderResourceGroup> m_simSrgForRaster;     //! Targeting only the Fill pass / shader
@@ -168,16 +153,14 @@ namespace AZ
             };
 
 
-            //------------------------------------------------------------------------------------------
-            //
-            //                                  HairRenderObject
-            //
-            //------------------------------------------------------------------------------------------
-            //! DynamicHairData holds all data required to skin, simulate and render a single hair batch object,
-            //!  for example complete body fur or head hair coverage.
-            //! It contains the simulation and rendering data, and the dispatch items required by the passes.
-            //! 
+            //!-----------------------------------------------------------------------------------------
+            //!
+            //!                                    HairRenderObject
+            //!
+            //!-----------------------------------------------------------------------------------------
             //! This class is equivalent to TressFXHairObject and HairStrands (the later is mainly a wrapper).
+            //! This is the class that holds all the raw data used by all the hair passes and shaders.
+            //!-----------------------------------------------------------------------------------------
             class HairRenderObject final
                 : public Data::InstanceData
                 , public HairRenderObjectInterface
@@ -216,7 +199,7 @@ namespace AZ
                 bool CreateAndBindHairGenerationBuffers(uint32_t vertexCount, uint32_t strandsCount);
 
                 //! Updates the buffers data for the hair generation.
-                //! Notice: does not update the bone matrices that will be updated every frame.
+                //! Does NOT update the bone matrices - they will be updated every frame.
                 bool UploadGPUData(const char* name, AMD::TressFXAsset* asset);
 
                 Data::Instance<RPI::ShaderResourceGroup> GetHairGenerationSrg()
@@ -235,7 +218,7 @@ namespace AZ
                 }
 
                 //!-----------------------------------------------------------------
-                //! Methods imported from TressFXHairObject
+                //! Methods partially imported from TressFXHairObject
                 //!-----------------------------------------------------------------
                 int GetNumTotalHairVertices() const { return m_NumTotalVertices; }
                 int GetNumTotalHairStrands() const { return m_NumTotalStrands; }
@@ -312,19 +295,16 @@ namespace AZ
 
 
             private:
-//                AZ_DISABLE_COPY_MOVE(HairRenderObject);
-
                 static uint32_t s_objectCounter;
 
-                //! The feature processor is the centralize entity that gathers all render nodes and
-                //!   responsible for the various stages activation
+                //! The feature processor is the centralize class that gathers all render nodes and
+                //!   responsible for the various stages and passesn updates
                 HairFeatureProcessor* m_featureProcessor = nullptr;
 
                 //! The dispatch item used for the skinning
                 HairDispatchItem m_skinningDispatchItem;    
 
-                //! Array of pointers to the various dispatch items per the various passes
-                //! CURRENTLY NOT USED
+                //! Compute dispatch items map per the existing passes
                 AZStd::map<RPI::Shader*, Data::Instance<HairDispatchItem>> m_dispatchItems;
 
                 //! Skinning compute shader used for creation of the compute Srgs and dispatch item
@@ -349,9 +329,9 @@ namespace AZ
 
                 bool m_enabled = true;
 
-                // Adi - check required: frame counter for wind effect
+                //! Controls reset / copy base hair state
                 uint32_t m_SimulationFrame = 0;
-                // Adi: check if we need this: for parameter indexing of frame % 2
+                // [To Do] - verify if still required
                 uint32_t m_RenderIndex = 0;
 
                 //!-----------------------------------------------------------------
@@ -359,27 +339,27 @@ namespace AZ
                 //! The data of these buffers is read/write and will change between passes.
                 DynamicHairData m_dynamicHairData;
 
-                //------------------------------------------------------------------
-                //! Static buffers & Srg - initial position, bones transform skinning data, hair properties.. 
+                //!-----------------------------------------------------------------
+                //! Static buffers & Srg: Initial position, bones transform skinning
+                //!  data, physical hair properties..
+                //!-----------------------------------------------------------------
                 AZStd::vector<Data::Instance<RPI::Buffer>> m_hairGenerationBuffers;
                 AZStd::vector<SrgBufferDescriptor> m_hairGenerationDescriptors;
-                HairUniformBuffer<AMD::TressFXSimulationParams> m_simCB; // The simulation parameters constant buffer.
+                //! The simulation parameters constant buffer.
+                HairUniformBuffer<AMD::TressFXSimulationParams> m_simCB; 
                 Data::Instance<RPI::ShaderResourceGroup> m_hairGenerationSrg; 
-                //------------------------------------------------------------------
 
-
-                //------------------------------------------------------------------
+                //!-----------------------------------------------------------------
                 //!         TressFXRenderParams Srg buffers and declarations
-                //! The following section forms the rendering buffers and structures required
-                //! for the render draw calls and sent to the GPU using TressFXRenderParams Srg.
-                //! 
+                //! The rendering buffers and structures required for the render draw
+                //!  calls and are sent to the GPU using TressFXRenderParams Srg.
+                //!-----------------------------------------------------------------
                 //! Vertex and UV buffers.
                 //! Naming was not changed to preserve correlation to TressFXHairObject.h
                 Data::Instance<RPI::Buffer> m_hairVertexRenderParams;
                 Data::Instance<RPI::Buffer> m_hairTexCoords;
                 
-                //! The textures are the color of the hair roots and can be skipped for now if desired.
-                // Adi: what is the difference between Image and StreamingImage?
+                //! Base color of the hair root and per strand texture.
                 Data::Instance<RPI::Image> m_baseAlbedo;
                 Data::Instance<RPI::Image> m_strandAlbedo;
 
@@ -387,15 +367,16 @@ namespace AZ
                 HairUniformBuffer<AMD::TressFXStrandParams> m_strandCB;
 
                 AZStd::vector<SrgBufferDescriptor> m_hairRenerDescriptors;
-                Data::Instance<RPI::ShaderResourceGroup> m_hairRenderSrg;   // equivalent to m_pRenderLayoutBindSet
-                //-------------------------------------------------------------------
-
-                //! Index buffer used for the render pass via draw calls - naming was not changed.
+                // Equivalent to m_pRenderLayoutBindSet in TressFX.
+                Data::Instance<RPI::ShaderResourceGroup> m_hairRenderSrg;   
+ 
+                //! Index buffer for the render pass via draw calls - naming was kept
                 Data::Instance<RHI::Buffer> m_indexBuffer;
                 RHI::IndexBufferView m_indexBufferView;
-                //-------------------------------------------------------------------
 
+                //! DrawPacket for the multi object raster fill pass.
                 const RHI::DrawPacket* m_fillDrawPacket = nullptr;
+                //-------------------------------------------------------------------
 
                 AZStd::mutex m_mutex;
             };

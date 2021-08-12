@@ -18,8 +18,12 @@ namespace AZ
     {
         namespace Hair
         {
-            // HairAsset
-            // HairAsset is a simple AssetData wrapper of the tressFXAsset
+            //! HairAsset is a simple AssetData wrapper around the TressFXAsset used by the AP.
+            //! Is comprises of the hair vertices data file, the hair bone skinning information file
+            //! and the collision data file.
+            //! The plan is to separate the collision data as it can have the relation of 1:1, 1:N or N:1
+            //! meaning that the hair can have multiple collision handling (not only single mesh), and at
+            //! the other end multiple hairs can have the same collision (hairdo and fur for example).
             class HairAsset final
                 : public AZ::Data::AssetData
             {

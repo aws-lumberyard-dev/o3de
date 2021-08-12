@@ -41,8 +41,15 @@ namespace AZ
     {
         namespace Hair
         {
+            //! The following few lined dictates the overall memory consumption reserved for the
+            //!  PPLL fragments.  The memory consumption using this technique is quite large (can
+            //!  grow far above 1GB in GPU/CPU data and in extreme cases of zoom up with dense hair
+            //!  might still not be enough.  For this reason it is recommended to utilize the
+            //!  approximated lighting scheme originally suggested by Eidos Montreal and do OIT using
+            //!  several frame buffer layers for storing closest fragments data.
+            //! Using the approximated technique, the OIT buffers will consume roughly 256MB for 4K
+            //!  resolution render with 4 OIT layers.
             static const size_t PPLL_NODE_SIZE = 16;
-            // Adi: replace the following with the actual screen dimensions.
             static const size_t AVE_FRAGS_PER_PIXEL = 24;
             static const size_t SCREEN_WIDTH = 1920;
             static const size_t SCREEN_HEIGHT = 1080;
@@ -51,12 +58,19 @@ namespace AZ
             class HairSkinningPass;
             class HairRenderObject;
 
+            //! The HairFeatureProcessor (FP) is the glue between the various hair components / entities in
+            //!  the scene and their passes / shaders.
+            //! The FP will keep track of all active hair objects, will rung their skinning update iteration
+            //!  and will then populate them into each of the passes to be computed and rendered.
+            //! The overall process involves update, skinning, collision, and simulation compute, fragment
+            //!  raster fill, and final frame buffer OIT resolve.
+            //! The last part can be switched to support the smaller foot print pass version that instead
+            //!  of fragments list (PPLL) will use fill screen buffers to approximate OIT layer resolve.
             class HairFeatureProcessor final
                 : public RPI::FeatureProcessor
                 , public HairGlobalSettingsRequestBus::Handler
                 , private AZ::TickBus::Handler
             {
-                Name TestSkinningPass;
                 Name GlobalShapeConstraintsPass;
                 Name CalculateStrandDataPass;
                 Name VelocityShockPropagationPass;
@@ -167,10 +181,13 @@ namespace AZ
                 Data::Instance<RPI::Buffer> m_linkedListCounterBuffer = nullptr;
                 //--------------------------------------------------------------
 
-                float m_currentDeltaTime = 0.02f;    // per frame delta time for the physics simulation.
-                bool m_addDispatchEnabled = true; // flag to disable/enable feature processor adding dispatch calls to compute passes.
+                //! Per frame delta time for the physics simulation - updated every frame
+                float m_currentDeltaTime = 0.02f;
+                //! flag to disable/enable feature processor adding dispatch calls to compute passes.
+                bool m_addDispatchEnabled = true;
                 bool m_sharedResourcesCreated = false;
-                bool m_forceRebuildRenderData = false;      // reload / pipeline changes force build dispatches and render items
+                //! reload / pipeline changes force build dispatches and render items
+                bool m_forceRebuildRenderData = false;      
                 bool m_forceClearRenderData = false;
                 bool m_initialized = false;
                 bool m_isEnabled = true;

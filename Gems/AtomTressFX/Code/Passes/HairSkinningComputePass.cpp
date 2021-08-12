@@ -32,8 +32,6 @@
 
 #include <Passes/HairSkinningComputePass.h>
 
-#pragma optimize("", off)
-
 namespace AZ
 {
     namespace Render
@@ -277,6 +275,3 @@ namespace AZ
         } // namespace Hair
     }   // namespace Render
 }   // namespace AZ
-
-#pragma optimize("", on)
-

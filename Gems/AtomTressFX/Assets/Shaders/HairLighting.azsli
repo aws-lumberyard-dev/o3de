@@ -257,6 +257,7 @@ float3 AccumulateHairLight(float3 vTangent, float3 vPositionWS, float3 vViewDirW
                 return color;
 }
 
+#define DEMO_NUMBER_OF_LIGHTS 3
 float3 SimplifiedHairLighting(float3 vTangent, float3 vPositionWS, float3 vViewDirWS, in HairShadeParams params, float3 vNDC)
 {
     // Initialize information needed for all lights
@@ -265,19 +266,21 @@ float3 SimplifiedHairLighting(float3 vTangent, float3 vPositionWS, float3 vViewD
 
     float3 accumulatedHairColor = float3(0.0, 0.0, 0.0);
 
-    float4 lightPosWSVec[2] = {
-        float4(-.5, 0, 0.5, .75),
-        float4(.5, 0, 0.5, .75),
+    float4 lightPosWSVec[DEMO_NUMBER_OF_LIGHTS] = {
+        float4(3, 0, 3, 1.5f),  // Sun
+        float4(-.5, 0, 0.5, .5f),
+        float4(.5, 0, 0.5, .5f),
     };
 
-    float3 lightColorVec[2] = {
+    float3 lightColorVec[DEMO_NUMBER_OF_LIGHTS] = {
+        float3(1,1,.95f),        // Sun
         float3(1,1,1),
         float3(1,1,1)
     };
 
     // Right now we fake two lights - one is fixed and the other one 
     // is at to the camera and moving with it.
-    for (int l = 0; l < 2; l++)
+    for (int l = 0; l < DEMO_NUMBER_OF_LIGHTS ; l++)
     {
         float3 lightPosWS = lightPosWSVec[l].xyz;
         float3 LightVector = normalize( vPositionWS - lightPosWS );

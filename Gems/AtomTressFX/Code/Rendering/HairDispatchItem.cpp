@@ -27,53 +27,10 @@ namespace AZ
     {
         namespace Hair
         {
-            /*
-            HairDispatchItem::HairDispatchItem(
-            AZStd::intrusive_ptr<HairInputBuffers> inputBuffers,
-            const AZStd::vector<RPI::BufferAssetView>& outputBufferViews,
-            Data::Instance<RPI::Buffer> boneTransforms,
-            RPI::Ptr<HairSkinningPass> HairSkinningPass)
-            : m_inputBuffers(inputBuffers)
-            , m_outputBufferViews(outputBufferViews)
-            , m_boneTransforms(AZStd::move(boneTransforms))
-            {
-                m_skinningShader = HairSkinningPass->GetShader();
-                // To Do] Adi: CreateShaderOptionGroup will also connect to the HairShaderOptionNotificationBus
-                m_shaderOptionGroup = HairSkinningPass->CreateShaderOptionGroup(m_shaderOptions, *this);
-            }
-            */
 
             HairDispatchItem::~HairDispatchItem()
             {
             }
-
-            /*
-            void DispatchComputeShader(EI_CommandContext& ctx, EI_PSO* pso, DispatchLevel level, std::vector<TressFXHairObject*>& hairObjects, const bool iterate = false)
-            {
-                ctx.BindPSO(pso);
-                for (int i = 0; i < hairObjects.size(); ++i)
-                {
-                    int numGroups = (int)((float)hairObjects[i]->GetNumTotalHairVertices() / (float)TRESSFX_SIM_THREAD_GROUP_SIZE);
-                    if (level == DISPATCHLEVEL_STRAND)
-                    {
-                        numGroups = (int)(((float)(hairObjects[i]->GetNumTotalHairStrands()) / (float)TRESSFX_SIM_THREAD_GROUP_SIZE));
-                    }
-                    EI_BindSet* bindSets[] = { hairObjects[i]->GetSimBindSet(), &hairObjects[i]->GetDynamicHairData().GetSimBindSet() };
-                    ctx.BindSets(pso, 2, bindSets);
-
-                    int iterations = 1;
-                    if (iterate)
-                    {
-                        iterations = hairObjects[i]->GetCPULocalShapeIterations();
-                    }
-                    for (int j = 0; j < iterations; ++j)
-                    {
-                        ctx.Dispatch(numGroups);
-                    }
-                    hairObjects[i]->GetDynamicHairData().UAVBarrier(ctx);
-                }
-            }
-            */
 
             // Reference in the code above that tackles handling of the different dispatches possible
             // This one is targeting the per vertex dispatches fro now.
@@ -92,31 +49,12 @@ namespace AZ
                 RHI::PipelineStateDescriptorForDispatch pipelineDesc;
                 m_shader->GetVariant(RPI::ShaderAsset::RootShaderVariantStableId).ConfigurePipelineState(pipelineDesc);
                 m_dispatchItem.m_pipelineState = m_shader->AcquirePipelineState(pipelineDesc);
-                m_dispatchItem.m_shaderResourceGroupCount = 2;  // the per pass will be added by each pass.
+                m_dispatchItem.m_shaderResourceGroupCount = 2;      // the per pass will be added by each pass.
                 m_dispatchItem.m_shaderResourceGroups = {
                     hairGenerationSrg->GetRHIShaderResourceGroup(), // Static generation data
-                    hairSimSrg->GetRHIShaderResourceGroup()        // Dynamic data changed between passes
+                    hairSimSrg->GetRHIShaderResourceGroup()         // Dynamic data changed between passes
                 };
             }
-
-
-            /*
-            Data::Instance<RPI::Buffer> HairDispatchItem::GetBoneTransforms() const
-            {
-                return m_boneTransforms;
-            }
-
-
-            void HairDispatchItem::OnShaderReinitialized(const CachedHairShaderOptions* cachedShaderOptions)
-            {
-                m_shaderOptionGroup = cachedShaderOptions->CreateShaderOptionGroup(m_shaderOptions);
-
-                if (!Init())
-                {
-                    AZ_Error("HairDispatchItem", false, "Failed to re-initialize after the shader was re-loaded.");
-                }
-            }
-            */
 
         } // namespace Hair
     } // namespace Render

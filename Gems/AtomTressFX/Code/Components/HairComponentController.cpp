@@ -24,10 +24,6 @@
 #include <Rendering/HairFeatureProcessor.h>
 #include <Components/HairComponentController.h>
 
-
-
-#pragma optimize("", off)
-
 namespace AZ
 {
     namespace Render
@@ -75,7 +71,6 @@ namespace AZ
             void HairComponentController::GetRequiredServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& required)
             {
                 // Dependency in the Actor due to the need to get the bone / join matrices
-//                required.push_back(AZ_CRC("ActorSystemService", 0x5e493d6c));
                 required.push_back(AZ_CRC_CE("EMotionFXActorService"));
             }
 
@@ -278,13 +273,46 @@ namespace AZ
                 return true;
             }
 
-            // The hair object will only be created when 1) The hair asset is loaded AND 2) The actor instance is created.
+            bool HairComponentController::GenerateLocalToGlobalBoneIndex(
+                EMotionFX::ActorInstance* actorInstance, AMD::TressFXAsset* hairAsset)
+            {
+                // Generate local TressFX to global EMFX bone index lookup.
+                AMD::BoneNameToIndexMap globalNameToIndexMap;
+                const EMotionFX::Skeleton* skeleton = actorInstance->GetActor()->GetSkeleton();
+                if (!skeleton)
+                {
+                    AZ_Error("Hair Gem", false, "Actor could not retrieve his skeleton.");
+                    return false;
+                }
+
+                const u32 numBones = skeleton->GetNumNodes();
+                globalNameToIndexMap.reserve(numBones);
+                for (u32 i = 0; i < numBones; ++i)
+                {
+                    const char* boneName = skeleton->GetNode(i)->GetName();
+                    globalNameToIndexMap[boneName] = i;
+                }
+
+                if (!hairAsset->GenerateLocaltoGlobalHairBoneIndexLookup(globalNameToIndexMap, m_hairBoneIndexLookup) ||
+                    !hairAsset->GenerateLocaltoGlobalCollisionBoneIndexLookup(globalNameToIndexMap, m_collisionBoneIndexLookup))
+                {
+                    AZ_Error("Hair Gem", false, "Cannot convert local bone index to global bone index. The hair asset may not be compatible with the actor.");
+                    return false;
+                }
+
+                return true;
+            }
+
+            // The hair object will only be created if both conditions are met:
+            //  1. The hair asset is loaded 
+            //  2. The actor instance is created
             bool HairComponentController::CreateHairObject()
             {
                 // Do not create a hairRenderObject when actor instance hasn't been created.
                 EMotionFX::ActorInstance* actorInstance = nullptr;
                 EMotionFX::Integration::ActorComponentRequestBus::EventResult(
                     actorInstance, m_entityId, &EMotionFX::Integration::ActorComponentRequestBus::Events::GetActorInstance);
+
                 if (!actorInstance)
                 {
                     return false;
@@ -309,21 +337,8 @@ namespace AZ
                     return false;
                 }
 
-                // Generate local TressFX to global Emfx bone index lookup.
-                AMD::BoneNameToIndexMap globalNameToIndexMap; 
-                const EMotionFX::Skeleton* skeleton = actorInstance->GetActor()->GetSkeleton();
-                const u32 numBones = skeleton->GetNumNodes();
-                globalNameToIndexMap.reserve(numBones);
-                for (u32 i = 0; i < numBones; ++i)
+                if (!GenerateLocalToGlobalBoneIndex(actorInstance, hairAsset))
                 {
-                    const char* boneName = skeleton->GetNode(i)->GetName();
-                    globalNameToIndexMap[boneName] = i;
-                }
-
-                if (!hairAsset->GenerateLocaltoGlobalHairBoneIndexLookup(globalNameToIndexMap, m_hairBoneIndexLookup) ||
-                    !hairAsset->GenerateLocaltoGlobalCollisionBoneIndexLookup(globalNameToIndexMap, m_collisionBoneIndexLookup))
-                {
-                    AZ_Error("Hair Gem", false, "Cannot convert local bone index to global bone index. The hair asset may not be compatible with the actor.");
                     return false;
                 }
                 
@@ -357,5 +372,3 @@ namespace AZ
         } // namespace Hair
     } // namespace Render
 } // namespace AZ
-
-#pragma optimize("", on)

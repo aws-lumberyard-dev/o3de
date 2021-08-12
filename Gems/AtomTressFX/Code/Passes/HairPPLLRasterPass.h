@@ -32,16 +32,16 @@ namespace AZ
 
             static const char* const HairPPLLRasterPassTemplateName = "HairPPLLRasterPassTemplate";
 
-            //! A HairPPLLRasterPass is used for the hair render after the data was processed
-            //!  through the skinning and simulation passes.
-            //! The output of this pass is an unordered pixels data list that can now be
-            //!  traversed in order to resolve depth and compute lighting.
-            //! The Fill pass is using the following Srgs:
+            //! A HairPPLLRasterPass is used for the hair fragments fill render after the data
+            //!  went through the skinning and simulation passes.
+            //! The output of this pass is the general list of fragment data that can now be
+            //!  traversed for depth resolve and lighting.
+            //! The Fill pass uses the following Srgs:
             //!  - PerPassSrg shared by all hair passes for the shared dynamic buffer and the PPLL buffers
-            //!  - PerMaterialSrg - used solely by this pass for the visual hair properties.
+            //!  - PerMaterialSrg - used solely by this pass to alter the vertices and apply the visual
+            //!     hair properties to each fragment.
             //!  - HairDynamicDataSrg (PerObjectSrg) - shared buffers views for this hair object only.
-            //!  - PerViewSrg - for now this will be filled per pass, however in the near future it
-            //!     should be replaced by the Atom PerViewSrg and calculated only once per view.
+            //!  - PerViewSrg and PerSceneSrg - as per the data from Atom.
             class HairPPLLRasterPass
                 : public RPI::RasterPass
                 , private RPI::ShaderReloadNotificationBus::Handler
@@ -97,7 +97,6 @@ namespace AZ
                 // The  shader that will be used by the pass
                 Data::Instance<RPI::Shader> m_shader = nullptr;
 
-
                 // To help create the pipeline state 
                 RPI::PassDescriptor m_passDescriptor;
 
@@ -106,8 +105,9 @@ namespace AZ
 
                 AZStd::mutex m_mutex;
 
-                //! List of new render objects that their Per Object (dynamic) Srg should be bound
-                //!  to the resources.  Done once per pass per object only.
+                //! List of new render objects introduced this frame so that their
+                //!  Per Object (dynamic) Srg should be bound to the resources.
+                //! Done once per every new object introduced / requires update.
                 AZStd::unordered_set<HairRenderObject*> m_newRenderObjects;
 
                 bool m_initialized = false;

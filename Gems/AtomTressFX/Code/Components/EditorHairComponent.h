@@ -22,6 +22,12 @@ namespace AZ
     {
         namespace Hair
         {
+            //! Visual editor representation of the hair that can be created for an entity
+            //! that have an Actor component.
+            //! The config data itself is held by the 'HairCOmponentConfig' that reflects the 'TressFXSettings'
+            //! and by the 'HairGlobalSettings' that mainly controls the shader options.
+            //! The hair data is held by the 'HairRenderObject' and the connection between the component
+            //! and the handling of the data is done by the 'HairComponentController'.
             static constexpr const char* const EditorHairComponentTypeId =
                 "{822A8253-4662-41B1-8623-7B2D047A4D68}";
 
