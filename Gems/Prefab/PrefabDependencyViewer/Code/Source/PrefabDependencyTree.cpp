@@ -118,8 +118,6 @@ namespace PrefabDependencyViewer
 
                 AZStd::string assetDescription = assetInfo.m_relativePath + productAssetDesciption;
 
-                // Only want to add an asset to the sourceAssetCount if
-                // its assetDescriptionCount is non zero.
                 auto sourceAssetCountIterator = sourceAssetCountMap.find(assetInfo.m_relativePath);
                 if (sourceAssetCountIterator == sourceAssetCountMap.end())
                 {
