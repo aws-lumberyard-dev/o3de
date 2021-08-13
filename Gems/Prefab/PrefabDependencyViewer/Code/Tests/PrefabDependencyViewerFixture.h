@@ -48,29 +48,7 @@ namespace PrefabDependencyViewer
 
             AddInstanceWithoutSource(m_prefabDomsCases["NestedPrefabWithAtleastOneInvalidNestedInstance"], invalidCaseAllocator);
 
-            /*
-            // Setup for valid nested Prefab
-            CreatePrefabAddSourceAndValue("ValidPrefab",   "Prefabs/ValidPrefab.prefab");
-            CreatePrefabAddSourceAndValue("level11Prefab", "Prefabs/level11.prefab");
-            CreatePrefabAddSourceAndValue("level12Prefab", "Prefabs/level12.prefab");
-            CreatePrefabAddSourceAndValue("level13Prefab", "Prefabs/level13.prefab");
-            CreatePrefabAddSourceAndValue("level22Prefab", "Prefabs/level22.prefab");
-            CreatePrefabAddSourceAndValue("level23Prefab", "Prefabs/level23.prefab");
-            CreatePrefabAddSourceAndValue("level31Prefab", "Prefabs/level31.prefab");
-
-            // Level 1 setup
-            AddInstance("ValidPrefab", "level11Prefab");
-            AddInstance("ValidPrefab", "level12Prefab");
-            AddInstance("ValidPrefab", "level13Prefab");
-
-            // Level 2 setup
-            AddInstance("level11Prefab", "level12Prefab");
-            AddInstance("level13Prefab", "level22Prefab");
-            AddInstance("level13Prefab", "level23Prefab");
-
-            // Level 3 setup
-            AddInstance("level23Prefab", "level31Prefab");
-            */
+            m_prefabDomsCases["ValidPrefab"] = CreateValidNestedPrefabsWithoutAssets();
         }
 
         PrefabDom CreateEmptyPrefabDom()
@@ -90,6 +68,35 @@ namespace PrefabDependencyViewer
             AddSourceEntitiesInstances(rootPrefabDom, prefabSource, allocator);
 
             return rootPrefabDom;
+        }
+
+        PrefabDom CreateValidNestedPrefabsWithoutAssets()
+        {
+            // Level 0 setup
+            PrefabDom validNestedPrefabDom = CreatePrefabDom("Prefabs/ValidPrefab.prefab");
+            auto& allocator = validNestedPrefabDom.GetAllocator();
+
+            // Level 1 setup
+            AZStd::string alias11 = AddInstance(validNestedPrefabDom, "Prefabs/level11.prefab", allocator);
+            AZStd::string alias12 = AddInstance(validNestedPrefabDom, "Prefabs/level12.prefab", allocator);
+            AZStd::string alias13 = AddInstance(validNestedPrefabDom, "Prefabs/level13.prefab", allocator);
+
+            rapidjson::Value& level1instances = validNestedPrefabDom[instancesName];
+            rapidjson::Value& level11PrefabDom = level1instances[alias11.c_str()];
+            rapidjson::Value& level13PrefabDom = level1instances[alias13.c_str()];
+
+            // Level 2 setup
+            AZStd::string alias21 = AddInstance(level11PrefabDom, "Prefabs/level12.prefab", allocator);
+            AZStd::string alias22 = AddInstance(level13PrefabDom, "Prefabs/level22.prefab", allocator);
+            AZStd::string alias23 = AddInstance(level13PrefabDom, "Prefabs/level23.prefab", allocator);
+
+            rapidjson::Value& level2instances = level13PrefabDom[instancesName];
+            rapidjson::Value& level23PrefabDom = level2instances[alias23.c_str()];
+
+            // Level 3 setup
+            AddInstance(level23PrefabDom, "Prefabs/level31.prefab", allocator);
+
+            return validNestedPrefabDom;
         }
 
         void AddSourceEntitiesInstances(rapidjson::Value& prefabDom, const char* prefabSource,
@@ -127,7 +134,7 @@ namespace PrefabDependencyViewer
             prefabDom.AddMember(instancesKey, instancesValue, allocator);
         }
 
-        void AddInstance(rapidjson::Value& root, const char* childSource,
+       AZStd::string AddInstance(rapidjson::Value& root, const char* childSource,
                         rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>& allocator)
         {
             AZStd::string instanceAlias = AddInstanceWithoutSource(root, allocator);
@@ -137,6 +144,8 @@ namespace PrefabDependencyViewer
             rapidjson::Value& nestedInstanceAliasValue = instances[instanceAlias.c_str()];
 
             AddSourceEntitiesInstances(nestedInstanceAliasValue, childSource, allocator);
+
+            return instanceAlias;
         }
 
         AZStd::string AddInstanceWithoutSource(rapidjson::Value& root, rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>& allocator)

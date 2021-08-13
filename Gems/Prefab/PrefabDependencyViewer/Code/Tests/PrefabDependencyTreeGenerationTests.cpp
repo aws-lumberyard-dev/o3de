@@ -73,7 +73,6 @@ namespace PrefabDependencyViewer
         EXPECT_EQ(false, outcome.IsSuccess());
     }
 
-    /*
     TEST_F(PrefabDependencyViewerFixture, VALID_NESTED_PREFAB)
     {
         TemplateId tid = 2022412;
@@ -100,7 +99,7 @@ namespace PrefabDependencyViewer
         Utils::ChildrenList level13Nodes = FindNodes(level1Nodes, "Prefabs/level13.prefab");
         EXPECT_EQ(1, level13Nodes.size());
 
-        EXPECT_EQ(0, FindNodes(level1Nodes, "asa.prefab").size());
+        EXPECT_TRUE(FindNodes(level1Nodes, "asa.prefab").empty());
 
         Utils::NodePtr level11Node = level11Nodes[0];
         Utils::NodePtr level12Node = level12Nodes[0];
@@ -111,7 +110,7 @@ namespace PrefabDependencyViewer
         EXPECT_EQ(tree.GetRoot().get(), level13Node->GetParent());
 
         EXPECT_EQ(1, level11Node->GetChildren().size());
-        EXPECT_EQ(0, level12Node->GetChildren().size());
+        EXPECT_TRUE(level12Node->GetChildren().empty());
         EXPECT_EQ(2, level13Node->GetChildren().size());
 
         // Check Level 2 Nodes
@@ -133,8 +132,8 @@ namespace PrefabDependencyViewer
         EXPECT_EQ(level13Node.get(), level23Node->GetParent());
         EXPECT_STR_EQ("Prefabs/level23.prefab", level23Node->GetMetaData()->GetDisplayName());
 
-        EXPECT_EQ(0, level21Node->GetChildren().size());
-        EXPECT_EQ(0, level22Node->GetChildren().size());
+        EXPECT_TRUE(level21Node->GetChildren().empty());
+        EXPECT_TRUE(level22Node->GetChildren().empty());
         EXPECT_EQ(1, level23Node->GetChildren().size());
 
         Utils::NodePtr level31Node = *(level23Node->GetChildren().begin());
@@ -142,7 +141,6 @@ namespace PrefabDependencyViewer
 
         EXPECT_STR_EQ("Prefabs/level31.prefab", level31Node->GetMetaData()->GetDisplayName());
 
-        EXPECT_EQ(0, level31Node->GetChildren().size());
+        EXPECT_TRUE(level31Node->GetChildren().empty());
     }
-    */
 } // namespace PrefabDependencyViewer
