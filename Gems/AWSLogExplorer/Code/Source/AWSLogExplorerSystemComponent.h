@@ -10,7 +10,6 @@ namespace AWSLogExplorer
     class AWSLogExplorerSystemComponent
         : public AZ::Component
         , protected AWSLogExplorerRequestBus::Handler
-        , public AZ::TickBus::Handler
     {
     public:
         AZ_COMPONENT(AWSLogExplorerSystemComponent, "{9f63637c-6484-4f7e-b381-a1a5e4568f4d}");
@@ -38,10 +37,6 @@ namespace AWSLogExplorer
         void Deactivate() override;
         ////////////////////////////////////////////////////////////////////////
 
-        ////////////////////////////////////////////////////////////////////////
-        // AZTickBus interface implementation
-        void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
-        ////////////////////////////////////////////////////////////////////////
     };
 
 } // namespace AWSLogExplorer

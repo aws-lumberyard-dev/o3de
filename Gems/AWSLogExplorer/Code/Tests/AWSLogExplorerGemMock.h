@@ -11,8 +11,8 @@ namespace AWSLogExplorer
         {
             UnitTest::ScopedAllocatorSetupFixture::SetUp();
             // Set up the file IO and alias
-            m_localFileIO = aznew AZ::IO::LocalFileIO();
-            m_priorFileIO = AZ::IO::FileIOBase::GetInstance();
+            // m_localFileIO = aznew AZ::IO::LocalFileIO();
+            // m_priorFileIO = AZ::IO::FileIOBase::GetInstance();
             // we need to set it to nullptr first because otherwise the
             // underneath code assumes that we might be leaking the previous instance
             AZ::IO::FileIOBase::SetInstance(nullptr);

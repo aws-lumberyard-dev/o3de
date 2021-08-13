@@ -1,15 +1,15 @@
 {
     "gem_name": "AWSLogExplorer",
     "display_name": "AWSLogExplorer",
-    "license": "What license AWSLogExplorer uses goes here: i.e. https://opensource.org/licenses/MIT",
-    "origin": "The primary repo for AWSLogExplorer goes here: i.e. http://www.mydomain.com",
+    "license": "Apache-2.0 Or MIT",
+    "origin": "Amazon Web Services, Inc.",
     "type": "Code",
-    "summary": "A short description of AWSLogExplorer.",
+    "summary": "The AWSLogExplorer Gem provides a solution to real time log streaming and analytics.",
     "canonical_tags": [
         "Gem"
     ],
     "user_tags": [
-        "AWSLogExplorer"
+        "AWS", "Network", "CDK"
     ],
     "icon_path": "preview.png",
     "requirements": ""

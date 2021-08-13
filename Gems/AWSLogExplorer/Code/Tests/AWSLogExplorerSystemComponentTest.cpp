@@ -1,24 +1,28 @@
-#include <AWSLogExplorerGemMock.h>
 #include <AWSLogExplorerSystemComponent.h>
 #include <AzCore/Component/Entity.h>
+#include <AzCore/UnitTest/TestTypes.h>
 
 namespace AWSLogExplorer
 {
     class AWSLogExplorerSystemComponentMock : public AWSLogExplorerSystemComponent
     {
+
     public:
         void InitMock()
         {
             AWSLogExplorerSystemComponent::Init();
         }
+
         void ActivateMock()
         {
             AWSLogExplorerSystemComponent::Activate();
         }
+
         void DeactivateMock()
         {
             AWSLogExplorerSystemComponent::Deactivate();
         }
+
         AWSLogExplorerSystemComponentMock()
         {
             ON_CALL(*this, Init()).WillByDefault(testing::Invoke(this, &AWSLogExplorerSystemComponentMock::InitMock));
@@ -29,12 +33,13 @@ namespace AWSLogExplorer
         MOCK_METHOD0(Activate, void());
         MOCK_METHOD0(Deactivate, void());
     };
-    class AWSLogExplorerSystemComponentTest : public AWSLogExplorerGemAllocatorFixture
+
+    class AWSLogExplorerSystemComponentTest : public UnitTest::ScopedAllocatorSetupFixture
     {
     protected:
         void SetUp() override
         {
-            AWSLogExplorerGemAllocatorFixture::SetUp();
+            UnitTest::ScopedAllocatorSetupFixture::SetUp();
             m_componentDescriptor.reset(AWSLogExplorer::AWSLogExplorerSystemComponent::CreateDescriptor());
             m_entity = aznew AZ::Entity();
             m_AWSLogExplorerSystemsComponent = aznew testing::NiceMock<AWSLogExplorerSystemComponentMock>();
@@ -46,7 +51,7 @@ namespace AWSLogExplorer
             delete m_AWSLogExplorerSystemsComponent;
             delete m_entity;
             m_componentDescriptor.reset();
-            AWSLogExplorerGemAllocatorFixture::TearDown();
+            ScopedAllocatorSetupFixture::TearDown();
         }
         AZStd::unique_ptr<AZ::ComponentDescriptor> m_componentDescriptor;
 
@@ -54,6 +59,7 @@ namespace AWSLogExplorer
         testing::NiceMock<AWSLogExplorerSystemComponentMock>* m_AWSLogExplorerSystemsComponent = nullptr;
         AZ::Entity* m_entity = nullptr;
     };
+
     TEST_F(AWSLogExplorerSystemComponentTest, ActivateComponent_NewEntity_Success)
     {
         EXPECT_CALL(*m_AWSLogExplorerSystemsComponent, Activate()).Times(1);
