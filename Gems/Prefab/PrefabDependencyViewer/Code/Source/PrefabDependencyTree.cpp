@@ -116,8 +116,6 @@ namespace PrefabDependencyViewer
                 AZStd::string productAssetDesciption =
                     productAssetInfo.m_relativePath == "" ? "" : ": " + productAssetInfo.m_relativePath;
 
-                AZStd::string assetDescription = assetInfo.m_relativePath + productAssetDesciption;
-
                 auto sourceAssetCountIterator = sourceAssetCountMap.find(assetInfo.m_relativePath);
                 if (sourceAssetCountIterator == sourceAssetCountMap.end())
                 {
