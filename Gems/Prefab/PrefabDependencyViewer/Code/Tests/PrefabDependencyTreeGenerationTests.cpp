@@ -22,7 +22,7 @@ namespace PrefabDependencyViewer
 
     void EXPECT_STR_EQ(const char* expected, AZStd::string_view result)
     {
-        EXPECT_EQ(strlen(expected), result.size());
+        ASSERT_EQ(strlen(expected), result.size());
         EXPECT_STREQ(expected, result.data());
     }
 
@@ -31,7 +31,7 @@ namespace PrefabDependencyViewer
         TreeOutcome outcome = PrefabDependencyTree::GenerateTreeAndSetRoot(
                             InvalidTemplateId, m_prefabSystemComponent);
 
-        EXPECT_EQ(false, outcome.IsSuccess());
+        EXPECT_FALSE(outcome.IsSuccess());
     }
     
     TEST_F(PrefabDependencyViewerFixture, EMPTY_PREFAB_NO_SOURCE_TEST)
@@ -42,7 +42,7 @@ namespace PrefabDependencyViewer
             .WillRepeatedly(::testing::ReturnRef(m_prefabDomsCases["emptyJSON"]));
 
         Outcome outcome = PrefabDependencyTree::GenerateTreeAndSetRoot(10, m_prefabSystemComponent);
-        EXPECT_EQ(false, outcome.IsSuccess());
+        EXPECT_FALSE(outcome.IsSuccess());
     }
     
     TEST_F(PrefabDependencyViewerFixture, EMPTY_PREFAB_WITH_SOURCE_TEST)
@@ -53,12 +53,12 @@ namespace PrefabDependencyViewer
             .WillRepeatedly(::testing::ReturnRef(m_prefabDomsCases["emptyJSONWithSource"]));
 
         Outcome outcome = PrefabDependencyTree::GenerateTreeAndSetRoot(tid, m_prefabSystemComponent);
-        EXPECT_EQ(true, outcome.IsSuccess());
+        EXPECT_TRUE(outcome.IsSuccess());
 
         PrefabDependencyTree tree = outcome.GetValue();
         EXPECT_STR_EQ("Prefabs/emptyJSONWithSource.prefab", tree.GetRoot()->GetMetaData()->GetDisplayName());
 
-        EXPECT_EQ(0, tree.GetRoot()->GetChildren().size());
+        EXPECT_TRUE(tree.GetRoot()->GetChildren().empty());
     }
 
     
@@ -70,7 +70,7 @@ namespace PrefabDependencyViewer
             .WillRepeatedly(::testing::ReturnRef(m_prefabDomsCases["NestedPrefabWithAtleastOneInvalidNestedInstance"]));
 
         Outcome outcome = PrefabDependencyTree::GenerateTreeAndSetRoot(tid, m_prefabSystemComponent);
-        EXPECT_EQ(false, outcome.IsSuccess());
+        EXPECT_FALSE(outcome.IsSuccess());
     }
 
     TEST_F(PrefabDependencyViewerFixture, VALID_NESTED_PREFAB)
@@ -81,7 +81,7 @@ namespace PrefabDependencyViewer
             .WillRepeatedly(::testing::ReturnRef(m_prefabDomsCases["ValidPrefab"]));
 
         Outcome outcome = PrefabDependencyTree::GenerateTreeAndSetRoot(tid, m_prefabSystemComponent);
-        EXPECT_EQ(true, outcome.IsSuccess());
+        EXPECT_TRUE(outcome.IsSuccess());
 
         PrefabDependencyTree tree = outcome.GetValue();
 
