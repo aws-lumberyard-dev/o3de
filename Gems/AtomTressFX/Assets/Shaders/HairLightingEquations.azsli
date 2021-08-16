@@ -29,17 +29,20 @@
 // Strand-based Hair Rendering in Frostbite for reference
 // https://advances.realtimerendering.com/s2019/hair_presentation_final.pdf
 // 
-// 
+//
+// Path Notations
+// --------------
 // The Marschner model divides hair rendering into three light paths: R, TT and TRT 
 // R - the light bounces straight off the hair fiber (Reflection)
 // TT - the light penetrates the hair fiber and exits at the other side (Transmitance - Transmitance)
 // TRT - the light penetrates the hair fiber, bounces inside and exists (Transmitance - Reflection - Transmitance)
 // 
-// For each path, the calculations are devided into longitudinal and azimuthal approximations 
-// denoted M and N respectively and named: M_R, M_TT, M_TRT  and  N_R, N_TT, N_TRT.
-
-// --- Notations ---
-// 
+// The calculations for each path are devided into longitude (M) and azimuth (N) terms. 
+// Longtitude:  M_R, M_TT, M_TRT  
+// Azimuth:     N_R, N_TT, N_TRT
+//
+// Other notations
+// ---------------
 // Wi - incoming light vector 
 // Wr - reflected light vector
 // L - angles with respect to the Longitude
@@ -176,8 +179,8 @@ float3 HairMarschnerBSDF(Surface surface, LightingData lightingData, const float
     // Longitude angles
     float Li = acos(clamp(dot(Wi, NPi),-1.0f, 1.0f));
     float Lr = acos(clamp(dot(Wr, NPr),-1.0f, 1.0f));
-    float Lh = (Lr + Li) * 0.5;
-    float Ld = (Lr - Li) * 0.5;
+    float Lh = (Lr + Li) * 0.5f;
+    float Ld = (Lr - Li) * 0.5f;
 
     // The folowing is according to the original article - reference only
     //    float sinLiPlusSinLr = dot(Wi, NPi) * dot(Wr, NPr);// sin(Li) + sin(Lr);
@@ -189,7 +192,7 @@ float3 HairMarschnerBSDF(Surface surface, LightingData lightingData, const float
     float n2 = (1.19f / cos_Ld) + 0.36f * cos_Ld;
 
     // Fresnel F0
-    float f0 = Pow2( (1 - n) / (1 + n) );
+    float f0 = Pow2( (1.0f - n) / (1.0f + n) );
 
     //--------------- Lighting accumulation per lobe ------------------
     float3 lighting = float3(0.0f, 0.0f, 0.0f);
