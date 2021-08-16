@@ -67,17 +67,11 @@ namespace AWSLogExplorer
     void AWSLogExplorerSystemComponent::Activate()
     {
         AWSLogExplorerRequestBus::Handler::BusConnect();
-        AZ::TickBus::Handler::BusConnect();
     }
 
     void AWSLogExplorerSystemComponent::Deactivate()
     {
-        AZ::TickBus::Handler::BusDisconnect();
         AWSLogExplorerRequestBus::Handler::BusDisconnect();
-    }
-
-    void AWSLogExplorerSystemComponent::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
-    {
     }
 
 } // namespace AWSLogExplorer

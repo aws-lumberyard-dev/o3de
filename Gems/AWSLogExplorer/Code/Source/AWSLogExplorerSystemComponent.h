@@ -2,7 +2,6 @@
 #pragma once
 
 #include <AzCore/Component/Component.h>
-#include <AzCore/Component/TickBus.h>
 #include <AWSLogExplorer/AWSLogExplorerBus.h>
 
 namespace AWSLogExplorer
