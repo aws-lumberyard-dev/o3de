@@ -140,7 +140,7 @@ namespace PrefabDependencyViewer
         AssetList referencedAssets;
         bool result = LoadAssetsFromEntities(prefabDom, referencedAssets);
 
-        AZ_Error("Prefab Dependency Viewer", result,  "An error happened while loading the prefab data(Assets). "
+        AZ_Error("Prefab Dependency Viewer", result,  "An error happened while loading the Assets."
                                                       "Check the log output for errors, and the prefab "
                                                       "files for corruption.");
 
@@ -189,7 +189,7 @@ namespace PrefabDependencyViewer
         {
             AZ_Error(
                 "Prefab", false,
-                "Failed to de-serialize Prefab Instance from Prefab DOM. "
+                "Failed to de-serialize Entity from Entity DOM. "
                 "Unable to proceed.");
 
             return false;
