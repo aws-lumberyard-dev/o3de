@@ -32,7 +32,6 @@ namespace PrefabDependencyViewer
     
     using AssetList                      = AZStd::vector<AZ::Data::Asset<AZ::Data::AssetData>>;
     using AssetDescriptionCountMap       = AZStd::unordered_map<AZStd::string, int>;
-    using LoadInstanceFlags              = AzToolsFramework::Prefab::PrefabDomUtils::LoadInstanceFlags;
 
     using NodePtr                        = AZStd::shared_ptr<Utils::Node>;
     using TreeOutcome                    = AZ::Outcome<PrefabDependencyTree, AZStd::string_view>;

@@ -119,7 +119,7 @@ namespace PrefabDependencyViewer
                 auto sourceAssetCountIterator = sourceAssetCountMap.find(assetInfo.m_relativePath);
                 if (sourceAssetCountIterator == sourceAssetCountMap.end())
                 {
-                    sourceAssetCountMap[assetInfo.m_relativePath] = 1;
+                    sourceAssetCountMap.emplace(assetInfo.m_relativePath, 1);
                 }
                 else
                 {
@@ -197,9 +197,10 @@ namespace PrefabDependencyViewer
 
         AZ::Data::SerializedAssetTracker* assetTracker = settings.m_metadata.Find<AZ::Data::SerializedAssetTracker>();
 
-        AssetList currentAssets = AZStd::move(assetTracker->GetTrackedAssets());
-        referencedAssets.insert(referencedAssets.end(), currentAssets.begin(),
-                                currentAssets.end());
+        AssetList& currentAssets = assetTracker->GetTrackedAssets();
+        referencedAssets.insert(referencedAssets.end(),
+                                AZStd::make_move_iterator(currentAssets.begin()),
+                                AZStd::make_move_iterator(currentAssets.end()));
 
         return true;
     }
