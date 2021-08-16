@@ -170,8 +170,6 @@ namespace PrefabDependencyViewer
 
         rapidjson::Value CreateAlias(rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>& allocator, AZStd::string type)
         {
-            static int counter = 0;
-
             rapidjson::Value alias((type + "_" + AZStd::to_string(counter)).c_str(), allocator);
 
             ++counter;
@@ -204,5 +202,7 @@ namespace PrefabDependencyViewer
         const char* sourceName = AzToolsFramework::Prefab::PrefabDomUtils::SourceName;
         const char* instancesName = AzToolsFramework::Prefab::PrefabDomUtils::InstancesName;
         const char* entitiesName = AzToolsFramework::Prefab::PrefabDomUtils::EntitiesName;
+
+        int counter = 0;
     };
 } // namespace PrefabDependencyViewer
