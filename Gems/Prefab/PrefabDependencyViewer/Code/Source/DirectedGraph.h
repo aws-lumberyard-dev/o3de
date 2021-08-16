@@ -28,12 +28,9 @@ namespace PrefabDependencyViewer::Utils
     using TemplateId = AzToolsFramework::Prefab::TemplateId;
 
     /**
-     * DirectedGraph is a Graph data structure where edges are directed.
-     * It keeps track of node children as well as all the Nodes that
-     * have been created. This helps the Graph manage it's own memory.
-     * It also contains the root of the tree since it's being used to
-     * represent a directed tree with no cycles. It's being used as a
-     * generic graph structure to represent a Prefab Dependency Tree. 
+     * DirectedTree is a generic tree data structure with directed edges.
+     * It keeps track of the tree root to get to all of it's the descendants.
+     * It manages it's memory using shared_ptr's.
      */
     class DirectedTree
     {

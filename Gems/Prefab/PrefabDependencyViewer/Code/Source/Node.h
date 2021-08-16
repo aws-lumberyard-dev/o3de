@@ -24,7 +24,7 @@ namespace PrefabDependencyViewer::Utils
     using ChildrenList = AZStd::vector<NodePtr>;
 
     /**
-     * Node is a building block for the DirectedGraph. It stores
+     * Node is a building block for the DirectedTree. It stores
      * generic MetaData about Prefab or an Asset. It also keeps
      * track of it's parent which helps with adding connections
      * in the GraphCanvas UI.
