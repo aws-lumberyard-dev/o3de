@@ -10,6 +10,8 @@
 
 #include <AzToolsFramework/Prefab/PrefabLoaderInterface.h>
 
+#include <AzCore/Component/Component.h>
+
 #include <AzCore/IO/Path/Path.h>
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/std/containers/unordered_set.h>
@@ -41,7 +43,11 @@ namespace AzToolsFramework
 
             //////////////////////////////////////////////////////////////////////////
             // PrefabLoaderInterface interface implementation
-
+            /**
+            * Default Constructir.
+            * Initializes the m_scrubOnSaveComponentTypes vector with the editor components not going to be included in prefab template.
+            */
+            PrefabLoader();
             /**
              * Load Prefab Template from given file path to memory and return the id of loaded Template.
              * Converts .prefab into Prefab Template form by expanding source path and patch info
@@ -174,6 +180,7 @@ namespace AzToolsFramework
             PrefabSystemComponentInterface* m_prefabSystemComponentInterface = nullptr;
             AZ::IO::Path m_projectPathWithOsSeparator;
             AZ::IO::Path m_projectPathWithSlashSeparator;
+            AZ::ComponentTypeList m_scrubOnSaveComponentTypes;
         };
     } // namespace Prefab
 } // namespace AzToolsFramework
