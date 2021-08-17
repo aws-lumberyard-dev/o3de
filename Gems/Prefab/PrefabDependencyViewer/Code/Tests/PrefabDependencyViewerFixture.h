@@ -81,7 +81,7 @@ namespace PrefabDependencyViewer
             AZStd::string alias12 = AddInstance(validNestedPrefabDom, "Prefabs/level12.prefab", allocator);
             AZStd::string alias13 = AddInstance(validNestedPrefabDom, "Prefabs/level13.prefab", allocator);
 
-            rapidjson::Value& level1instances = validNestedPrefabDom[instancesName];
+            rapidjson::Value& level1instances = validNestedPrefabDom[m_instancesName];
             rapidjson::Value& level11PrefabDom = level1instances[alias11.c_str()];
             rapidjson::Value& level13PrefabDom = level1instances[alias13.c_str()];
 
@@ -90,7 +90,7 @@ namespace PrefabDependencyViewer
             AZStd::string alias22 = AddInstance(level13PrefabDom, "Prefabs/level22.prefab", allocator);
             AZStd::string alias23 = AddInstance(level13PrefabDom, "Prefabs/level23.prefab", allocator);
 
-            rapidjson::Value& level2instances = level13PrefabDom[instancesName];
+            rapidjson::Value& level2instances = level13PrefabDom[m_instancesName];
             rapidjson::Value& level23PrefabDom = level2instances[alias23.c_str()];
 
             // Level 3 setup
@@ -110,7 +110,7 @@ namespace PrefabDependencyViewer
         void AddSource(rapidjson::Value& prefabDom, const char* prefabSource,
                 rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>& allocator)
         {
-            rapidjson::Value sourceKey(sourceName, allocator);
+            rapidjson::Value sourceKey(m_sourceName, allocator);
             rapidjson::Value sourceValue(prefabSource, allocator);
 
             prefabDom.AddMember(sourceKey, sourceValue, allocator);
@@ -118,7 +118,7 @@ namespace PrefabDependencyViewer
 
         void AddEntities(rapidjson::Value& prefabDom, rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>& allocator)
         {
-            rapidjson::Value entitiesKey(entitiesName, allocator);
+            rapidjson::Value entitiesKey(m_entitiesName, allocator);
             rapidjson::Value entitiesValue;
             entitiesValue.SetObject();
 
@@ -127,7 +127,7 @@ namespace PrefabDependencyViewer
 
         void AddInstances(rapidjson::Value& prefabDom, rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>& allocator)
         {
-            rapidjson::Value instancesKey(instancesName, allocator);
+            rapidjson::Value instancesKey(m_instancesName, allocator);
             rapidjson::Value instancesValue;
             instancesValue.SetObject();
 
@@ -139,7 +139,7 @@ namespace PrefabDependencyViewer
         {
             AZStd::string instanceAlias = AddInstanceWithoutSource(root, allocator);
 
-            rapidjson::Value& instances = root.FindMember(instancesName)->value;
+            rapidjson::Value& instances = root.FindMember(m_instancesName)->value;
 
             rapidjson::Value& nestedInstanceAliasValue = instances[instanceAlias.c_str()];
 
@@ -158,7 +158,7 @@ namespace PrefabDependencyViewer
             rapidjson::Value nestedInstanceAliasValue;
             nestedInstanceAliasValue.SetObject();
 
-            root[instancesName].AddMember(nestedInstanceAliasKey, nestedInstanceAliasValue, allocator);
+            root[m_instancesName].AddMember(nestedInstanceAliasKey, nestedInstanceAliasValue, allocator);
 
             return instanceAlias;
         }
@@ -170,9 +170,9 @@ namespace PrefabDependencyViewer
 
         rapidjson::Value CreateAlias(rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>& allocator, AZStd::string type)
         {
-            rapidjson::Value alias((type + "_" + AZStd::to_string(counter)).c_str(), allocator);
+            rapidjson::Value alias((type + "_" + AZStd::to_string(m_counter)).c_str(), allocator);
 
-            ++counter;
+            ++m_counter;
             return alias;
         }
 
@@ -199,10 +199,10 @@ namespace PrefabDependencyViewer
         MockPrefabSystemComponent* m_prefabSystemComponent;
 
         const TemplateId InvalidTemplateId = AzToolsFramework::Prefab::InvalidTemplateId;
-        const char* sourceName = AzToolsFramework::Prefab::PrefabDomUtils::SourceName;
-        const char* instancesName = AzToolsFramework::Prefab::PrefabDomUtils::InstancesName;
-        const char* entitiesName = AzToolsFramework::Prefab::PrefabDomUtils::EntitiesName;
+        const char* m_sourceName = AzToolsFramework::Prefab::PrefabDomUtils::SourceName;
+        const char* m_instancesName = AzToolsFramework::Prefab::PrefabDomUtils::InstancesName;
+        const char* m_entitiesName = AzToolsFramework::Prefab::PrefabDomUtils::EntitiesName;
 
-        int counter = 0;
+        int m_counter = 0;
     };
 } // namespace PrefabDependencyViewer
