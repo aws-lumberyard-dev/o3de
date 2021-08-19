@@ -17,7 +17,7 @@ namespace AWSLogExplorer
 
             if (AZ::EditContext* ec = serialize->GetEditContext())
             {
-                ec->Class<AWSLogExplorerSystemComponent>("AWSLogExplorer", "[Description of functionality provided by this System Component]")
+                ec->Class<AWSLogExplorerSystemComponent>("AWSLogExplorer", "Provides and sumbits logs to the log analytics pipeline")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                         ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC("System"))
                         ->Attribute(AZ::Edit::Attributes::AutoExpand, true)

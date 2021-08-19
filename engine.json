@@ -18,6 +18,7 @@
         "Gems/AWSClientAuth",
         "Gems/AWSCore",
         "Gems/AWSGameLift",
+        "Gems/AWSLogExplorer",
         "Gems/AWSMetrics",
         "Gems/BarrierInput",
         "Gems/Blast",

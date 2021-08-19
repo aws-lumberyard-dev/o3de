@@ -43,25 +43,24 @@ endif()
 ################################################################################
 # See if globally, tests are supported
 if(PAL_TRAIT_BUILD_TESTS_SUPPORTED)
-        ly_add_target(
-            NAME AWSLogExplorer.Tests ${PAL_TRAIT_TEST_TARGET_TYPE}
-            NAMESPACE Gem
-            FILES_CMAKE
-                awslogexplorer_files.cmake
-                awslogexplorer_tests_files.cmake
-            INCLUDE_DIRECTORIES
-                PRIVATE
-                    Tests
-                    Source
-            BUILD_DEPENDENCIES
-                PRIVATE
-                    AZ::AzTest
-                    AZ::AzCore
-                    AZ::AzFramework
-                    Gem::AWSLogExplorer.Static
-        )
-        # Add AWSLogExplorer.Tests to googletest
-        ly_add_googletest(
-            NAME Gem::AWSLogExplorer.Tests
-        )
+    ly_add_target(
+        NAME AWSLogExplorer.Tests ${PAL_TRAIT_TEST_TARGET_TYPE}
+        NAMESPACE Gem
+        FILES_CMAKE
+            awslogexplorer_tests_files.cmake
+        INCLUDE_DIRECTORIES
+            PRIVATE
+                Tests
+                Source
+        BUILD_DEPENDENCIES
+            PRIVATE
+                AZ::AzTest
+                AZ::AzCore
+                AZ::AzFramework
+                Gem::AWSLogExplorer.Static
+    )
+    # Add AWSLogExplorer.Tests to googletest
+    ly_add_googletest(
+        NAME Gem::AWSLogExplorer.Tests
+    )
 endif()
