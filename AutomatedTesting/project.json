@@ -10,7 +10,5 @@
         "version_name": "1.0.0.0",
         "orientation": "landscape"
     },
-    "engine": "o3de",
-    "external_subdirectories": [
-    ]
+    "engine": "o3de"
 }
