@@ -16,6 +16,7 @@
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/std/containers/unordered_set.h>
 #include <AzCore/std/string/string.h>
+#include <AzCore/Component/Component.h>
 #include <AzToolsFramework/Prefab/PrefabDomTypes.h>
 
 namespace AZ

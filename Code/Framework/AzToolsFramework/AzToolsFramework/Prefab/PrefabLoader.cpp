@@ -25,8 +25,6 @@
 #include <AzToolsFramework/ToolsComponents/TransformComponent.h>
 #include <AzToolsFramework/ToolsComponents/EditorDisabledCompositionComponent.h>
 
-#include <AzToolsFramework/Entity/EditorEntityContextComponent.h>
-
 #include <AzFramework/Asset/AssetSystemBus.h>
 #include <AzFramework/FileFunc/FileFunc.h>
 #include <AzToolsFramework/API/EditorAssetSystemAPI.h>
@@ -41,16 +39,13 @@ namespace AzToolsFramework
     {
         PrefabLoader::PrefabLoader()
             : m_scrubOnSaveComponentTypes
-            //Setting the default editor components that will be used in removing unnecessary components from an entity
-            ({
-                azrtti_typeid<AzToolsFramework::Components::EditorVisibilityComponent>(),
-                azrtti_typeid<AzToolsFramework::Components::SelectionComponent>(),
-                azrtti_typeid<AzToolsFramework::Components::EditorInspectorComponent>(),
-                azrtti_typeid<AzToolsFramework::Components::EditorPendingCompositionComponent>()
-            })
+            // Setting the default editor components that will be used in removing unnecessary components from an entity
+            ({ azrtti_typeid<AzToolsFramework::Components::EditorVisibilityComponent>(),
+               azrtti_typeid<AzToolsFramework::Components::SelectionComponent>(),
+               azrtti_typeid<AzToolsFramework::Components::EditorInspectorComponent>(),
+               azrtti_typeid<AzToolsFramework::Components::EditorPendingCompositionComponent>() })
         {
         }
-
         void PrefabLoader::RegisterPrefabLoaderInterface()
         {
             m_prefabSystemComponentInterface = AZ::Interface<PrefabSystemComponentInterface>::Get();
@@ -351,21 +346,21 @@ namespace AzToolsFramework
             {
                 return false;
             }
-            savingPrefabInstance.GetAllEntitiesInHierarchy(
+             savingPrefabInstance.GetAllEntitiesInHierarchy(
                 [this](AZStd::unique_ptr<AZ::Entity>& entity)
                 {
-                    for (auto c_iter : m_scrubOnSaveComponentTypes)
-                    {
-                        AZ::Component* c_ptr = entity->FindComponent(c_iter);
-
-                        if (c_ptr)
+                for (auto c_iter : m_scrubOnSaveComponentTypes)
+                {
+                    AZ::Component* c_ptr = entity->FindComponent(c_iter);
+                        while (c_ptr)
                         {
                             entity->RemoveComponent(c_ptr);
+                            c_ptr = entity->FindComponent(c_iter);
                         }
                     }
                     return true;
                 });
-            
+
             PrefabDom storedPrefabDom(&savingTemplateDom->get().GetAllocator());
             if (!PrefabDomUtils::StoreInstanceInPrefabDom(savingPrefabInstance, storedPrefabDom,
                 PrefabDomUtils::StoreInstanceFlags::StripDefaultValues))
