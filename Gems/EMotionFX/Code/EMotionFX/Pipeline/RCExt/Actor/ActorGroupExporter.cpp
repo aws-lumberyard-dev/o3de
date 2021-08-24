@@ -8,7 +8,6 @@
 
 #include <AzCore/std/smart_ptr/shared_ptr.h>
 #include <EMotionFX/Source/Actor.h>
-#include <EMotionFX/Source/AutoRegisteredActor.h>
 #include <EMotionFX/Source/Importer/Importer.h>
 #include <EMotionFX/CommandSystem/Source/MetaData.h>
 #include <EMotionFX/Exporters/ExporterLib/Exporter/Exporter.h>
@@ -49,7 +48,7 @@ namespace EMotionFX
             if (serializeContext)
             {
                 // Increasing the version number of the actor group exporter will make sure all actor products will be force re-generated.
-                serializeContext->Class<ActorGroupExporter, AZ::SceneAPI::SceneCore::ExportingComponent>()->Version(3);
+                serializeContext->Class<ActorGroupExporter, AZ::SceneAPI::SceneCore::ExportingComponent>()->Version(4);
             }
         }
 
