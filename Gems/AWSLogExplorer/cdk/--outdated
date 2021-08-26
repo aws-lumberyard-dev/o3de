@@ -1,0 +1,29 @@
+2021-08-23T16:01:20,528 Using pip 21.1.3 from c:\python39\lib\site-packages\pip (python 3.9)
+2021-08-23T16:01:20,530 Non-user install because site-packages writeable
+2021-08-23T16:01:20,544 Created temporary directory: C:\Users\nehjagat\AppData\Local\Temp\pip-ephem-wheel-cache-a6n8wl6v
+2021-08-23T16:01:20,545 Created temporary directory: C:\Users\nehjagat\AppData\Local\Temp\pip-req-tracker-lzc7kf1d
+2021-08-23T16:01:20,545 Initialized build tracking at C:\Users\nehjagat\AppData\Local\Temp\pip-req-tracker-lzc7kf1d
+2021-08-23T16:01:20,545 Created build tracker: C:\Users\nehjagat\AppData\Local\Temp\pip-req-tracker-lzc7kf1d
+2021-08-23T16:01:20,545 Entered build tracker: C:\Users\nehjagat\AppData\Local\Temp\pip-req-tracker-lzc7kf1d
+2021-08-23T16:01:20,545 Created temporary directory: C:\Users\nehjagat\AppData\Local\Temp\pip-install-qqgxik4d
+2021-08-23T16:01:20,545 ERROR: You must give at least one requirement to install (see "pip help install")
+2021-08-23T16:01:20,546 Exception information:
+2021-08-23T16:01:20,546 Traceback (most recent call last):
+2021-08-23T16:01:20,546   File "c:\python39\lib\site-packages\pip\_internal\cli\base_command.py", line 180, in _main
+2021-08-23T16:01:20,546     status = self.run(options, args)
+2021-08-23T16:01:20,546   File "c:\python39\lib\site-packages\pip\_internal\cli\req_command.py", line 205, in wrapper
+2021-08-23T16:01:20,546     return func(self, options, args)
+2021-08-23T16:01:20,546   File "c:\python39\lib\site-packages\pip\_internal\commands\install.py", line 289, in run
+2021-08-23T16:01:20,546     reqs = self.get_requirements(args, options, finder, session)
+2021-08-23T16:01:20,546   File "c:\python39\lib\site-packages\pip\_internal\cli\req_command.py", line 416, in get_requirements
+2021-08-23T16:01:20,546     raise CommandError(
+2021-08-23T16:01:20,546 pip._internal.exceptions.CommandError: You must give at least one requirement to install (see "pip help install")
+2021-08-23T16:01:20,551 1 location(s) to search for versions of pip:
+2021-08-23T16:01:20,551 * https://pypi.org/simple/pip/
+2021-08-23T16:01:20,551 Fetching project page and analyzing links: https://pypi.org/simple/pip/
+2021-08-23T16:01:20,551 Getting page https://pypi.org/simple/pip/
+2021-08-23T16:01:20,551 Found index url https://pypi.org/simple
+2021-08-23T16:01:20,650 Could not fetch URL https://pypi.org/simple/pip/: connection error: HTTPSConnectionPool(host='pypi.org', port=443): Max retries exceeded with url: /simple/pip/ (Caused by NewConnectionError('<pip._vendor.urllib3.connection.HTTPSConnection object at 0x000002DB1B8B08B0>: Failed to establish a new connection: [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions')) - skipping
+2021-08-23T16:01:20,650 Skipping link: not a file: https://pypi.org/simple/pip/
+2021-08-23T16:01:20,650 Given no hashes to check 0 links for project 'pip': discarding no candidates
+2021-08-23T16:01:20,650 Removed build tracker: 'C:\\Users\\nehjagat\\AppData\\Local\\Temp\\pip-req-tracker-lzc7kf1d'
