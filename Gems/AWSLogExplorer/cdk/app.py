@@ -8,7 +8,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 """
 
 from aws_cdk import core
-from aws_metrics.aws_metrics_construct import AWSMetrics
 
 import os
 
