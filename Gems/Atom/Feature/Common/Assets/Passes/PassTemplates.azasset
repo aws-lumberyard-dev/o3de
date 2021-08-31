@@ -503,6 +503,10 @@
             {
                 "Name": "LowEndPipelineTemplate",
                 "Path": "Passes/LowEndPipeline.pass"
+            },
+            {
+                "Name": "ColorGradingTemplate",
+                "Path": "Passes/ColorGrading.pass"
             }
         ]
     }

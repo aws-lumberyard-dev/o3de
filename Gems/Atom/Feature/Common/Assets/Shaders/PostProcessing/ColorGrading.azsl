@@ -1,0 +1,331 @@
+/*
+ * Copyright (c) Contributors to the Open 3D Engine Project.
+ * For complete copyright and license terms please see the LICENSE at the root of this distribution.
+ *
+ * SPDX-License-Identifier: Apache-2.0 OR MIT
+ *
+ */
+
+#include <Atom/Features/SrgSemantics.azsli>
+
+#include <Atom/Features/PostProcessing/FullscreenPixelInfo.azsli>
+#include <Atom/Features/PostProcessing/FullscreenVertex.azsli>
+
+#include <Atom/Features/ColorManagement/TransformColor.azsli>
+#include <Atom/Features/PostProcessing/PSstyleColorBlends_Separable.azsli>
+#include <Atom/Features/PostProcessing/PSstyleColorBlends_NonSeparable.azsli>
+#include <Atom/Features/PostProcessing/KelvinToRGB.azsli>
+
+#define EPSILON 10e-5f
+#define FLOAT_EPSILON     1.192092896e-07 // 1.0 + FLOAT_EPSILON != 1.0, smallest positive float
+#define FLOAT_MIN         1.175494351e-38 // Min float number that is positive
+#define FLOAT_MAX         3.402823466e+38 // Max float number representable
+
+#define saturate(value) clamp(value, FLOAT_EPSILON, 1.0f)
+
+//float saturate(float v) { return clamp(v, 0.0,       1.0); }
+//float2  saturate(float2  v) { return clamp(v, float2(0.0), float2(1.0)); }
+//float3  saturate(float3  v) { return clamp(v, float3(0.0), float3(1.0)); }
+//float4  saturate(float4  v) { return clamp(v, float4(0.0), float4(1.0)); }
+
+// ACES constants
+static const float ACEScc_MAX = 1.4679964;
+static const float ACEScc_MIDGREY = 0.4135884;  // is correct
+static const float ACEScg_MIDGREY = 0.4135884;  // not sure what the value is!?
+
+option bool o_colorGradingUseACES = false;
+
+ShaderResourceGroup PassSrg : SRG_PerPass_WithFallback
+{
+    // get the framebuffer
+    Texture2D<float4> m_framebuffer;
+
+    // framebuffer sampler
+    Sampler LinearSampler
+    {
+        MinFilter = Linear;
+        MagFilter = Linear;
+        MipFilter = Linear;
+        AddressU = Clamp;
+        AddressV = Clamp;
+        AddressW = Clamp;
+    };
+
+    float m_colorGradingExposure;
+    float m_colorGradingContrast;
+    float m_colorGradingHueShift;
+    float m_colorGradingPreSaturation;
+    float m_colorFilterIntensity;
+    float m_colorFilterMultiply;
+    float m_kelvin;
+    float m_kelvinLumPreservation;
+    float m_kelvinColorMix;
+    float m_whiteBalance;
+    float m_whiteBalanceTint;
+    float m_splitToneBalance;
+    float m_splitToneMix;
+    float m_colorGradingPostSaturation;
+    float m_smhShadowsStart;
+    float m_smhShadowsEnd;
+    float m_smhHighlightsStart;
+    float m_smhHighlightsEnd;
+    float m_smhMix;
+
+    float3 m_channelMixingRed;
+    float3 m_channelMixingGreen;
+    float3 m_channelMixingBlue;
+
+    float4 m_colorFilterSwatch;
+    float4 m_splitToneShadowsColor;
+    float4 m_splitToneHighlightsColor;
+
+    float4 m_smhShadowsColor;
+    float4 m_smhMidtonesColor;
+    float4 m_smhHighlightsColor;
+
+    // my color grading output
+    float4 m_color;
+}
+
+struct ParamsLogColor
+{
+    float cut;
+    float a, b, c, d, e, f;
+};
+
+static const ParamsLogColor LogColor =
+{
+    0.011361, // cut
+    5.555556, // a
+    0.047996, // b
+    0.244161, // c
+    0.386036, // d
+    5.301883, // e
+    0.092819  // f
+};
+
+float LinearToLog(half x) {
+    float o;
+    if (x > LogColor.cut)
+        o = LogColor.c * log10(LogColor.a * x + LogColor.b) + LogColor.d;
+    else
+        o = LogColor.e * x + LogColor.f;
+    return o;
+}
+
+float3 LinearToLogColor(float3 color)
+{
+    return float3(
+        LinearToLog(color.r),
+        LinearToLog(color.g),
+        LinearToLog(color.b)
+    );
+}
+
+float LogToLinear(float x) {
+    float o;
+    if (x > LogColor.e * LogColor.cut + LogColor.f)
+        o = (pow(10.0, (x - LogColor.d) / LogColor.c) - LogColor.b) / LogColor.a;
+    else
+        o = (x - LogColor.f) / LogColor.e;
+    return o;
+}
+
+float3 LogColorToLinear(float3 color) {
+    return float3(
+        LogToLinear(color.r),
+        LogToLinear(color.g),
+        LogToLinear(color.b)
+    );
+}
+
+float3 RgbToHsv(float3 color) {
+    float4 K = float4(0.0f, -1.0f / 3.0f, 2.0f / 3.0f, -1.0f);
+    float4 p = lerp(float4(color.bg, K.wz), float4(color.gb, K.xy), step(color.b, color.g));
+    float4 q = lerp(float4(p.xyw, color.r), float4(color.r, p.yzx), step(p.x, color.r));
+    float d = q.x - min(q.w, q.y);
+    float e = EPSILON;
+    return float3(abs(q.z + (q.w - q.y) / (6.0f * d + e)), d / (q.x + e), q.x);
+}
+
+float3 HsvToRgb(float3 color) {
+  float4 K = float4(1.0f, 2.0f / 3.0f, 1.0f / 3.0f, 3.0f);
+  float3 p = abs(frac(color.xxx + K.xyz) * 6.0f - K.www);
+  return color.z * lerp(K.xxx, saturate(p - K.xxx, 0.0f, 1.0f), color.y);
+}
+
+float RotateHue(float value, float low, float hi) {
+    return (value < low)
+            ? value + hi
+            : (value > hi)
+                ? value - hi
+                : value;
+}
+
+// https://graphics-programming.org/resources/tonemapping/index.html
+float Luminance(float3 color) {
+    return dot(color, float3(0.2126729f, 0.7151522f, 0.0721750f));
+}
+
+float3 ChangeLuminance(float3 color, float new_lum) {
+    float color_lum = Luminance(color);
+    return color * (new_lum / color_lum);
+}
+
+float3 ColorGradePostExposure (float3 frame_color, float exposure) {
+    frame_color *= pow(2.0f, exposure);
+	return frame_color;
+}
+
+float3 ColorGradingContrast (float3 frame_color, float midgrey, float amount) {
+    float contrast_adjustment = amount * 0.01f + 1.0f;
+    frame_color = LinearToLogColor(frame_color.rgb);
+    frame_color = (frame_color - midgrey) * contrast_adjustment + midgrey;
+	return frame_color = LogColorToLinear(frame_color.rgb);
+}
+
+float3 ColorGradeColorFilter (float3 frame_color, float3 swatch_color, float alpha) {
+    swatch_color *= pow(2.0f, PassSrg::m_colorFilterIntensity);
+    float3 frame_adjust = frame_color * swatch_color;
+    return frame_color = lerp(frame_color, frame_adjust, alpha);
+}
+
+float3 CColorGradeHueShift (float3 frame_color, float amount) {
+	float3 frame_hsv = RgbToHsv(frame_color);
+	float hue = frame_hsv.x + amount;
+	frame_hsv.x = RotateHue(hue, 0.0, 1.0);
+	return HsvToRgb(frame_hsv);
+}
+
+float3 ColorGradeSaturation (float3 frame_color, float control) {
+	float v_luminance = Luminance(frame_color);
+	return (frame_color - v_luminance) * control + v_luminance;
+}
+
+float3 ColorGradeKelvinColorTemp(float3 frame_color, float kTemp, float mix, float lumPreservation)
+{
+    float3 kColor    = KelvinToRGB( kTemp );
+    float3 oLum      = RGBToHSL( frame_color.rgb );
+    float3 blended   = lerp( frame_color.rgb, frame_color.rgb * kColor.rgb, mix );
+    float3 resHSV    = RGBToHSL( blended.rgb );
+    float3 resRGB    = HSLToRGB( float3( resHSV.xy, oLum.z ));
+    return lerp( blended.rgb, resRGB.rgb, lumPreservation );
+}
+
+// pow(f, e) won't work if f is negative, or may cause inf/NAN.
+float3 NoNanPow(float3 base, float3 power)
+{
+    return pow(max(abs(base), float3(FLOAT_EPSILON, FLOAT_EPSILON, FLOAT_EPSILON)), power);
+}
+
+//https://www.ryanjuckett.com/photoshop-blend-modes-in-hlsl/
+// License: Public Domain
+float BlendMode_SoftLight(float base, float blend)
+{
+	if (blend <= 0.5)
+	{
+		return base - (1-2*blend)*base*(1-base);
+	}
+	else
+	{
+		float d = (base <= 0.25) ? ((16*base-12)*base+4)*base : sqrt(base);
+		return base + (2*blend-1)*(d-base);
+	}
+}
+
+//https://www.ryanjuckett.com/photoshop-blend-modes-in-hlsl/
+// License: Public Domain
+float3 BlendMode_SoftLight(float3 base, float3 blend)
+{
+	return float3(  BlendMode_SoftLight(base.r, blend.r), 
+					BlendMode_SoftLight(base.g, blend.g), 
+					BlendMode_SoftLight(base.b, blend.b) );
+}
+
+float3 ColorGradeSplitTone (float3 frame_color, float balance, float mix) {
+	float3 frame_splitTone = NoNanPow(frame_color, 1.0 / 2.2);
+	float t = saturate(Luminance(saturate(frame_splitTone)) + balance);
+	float3 shadows = lerp(0.5, PassSrg::m_splitToneShadowsColor.rgb, 1.0 - t);
+	float3 highlights = lerp(0.5, PassSrg::m_splitToneHighlightsColor.rgb, t);
+	frame_splitTone = BlendMode_SoftLight(frame_splitTone, shadows);
+	frame_splitTone = BlendMode_SoftLight(frame_splitTone, highlights);
+    frame_splitTone = NoNanPow(frame_splitTone, 2.2);
+	return lerp( frame_color.rgb, frame_splitTone.rgb, mix );
+}
+
+float3 ColorGradeChannelMixer (float3 frame_color) {
+	return mul( float3x3(   PassSrg::m_channelMixingRed.rgb,
+                            PassSrg::m_channelMixingGreen.rgb,
+                            PassSrg::m_channelMixingBlue.rgb),
+		        frame_color );
+}
+
+// transform primaries
+static const half3x3 sRGB_to_ACES_AP1_Mat = {
+    0.61319, 0.33951, 0.04737,
+    0.07021, 0.91634, 0.01345,
+    0.02062, 0.10957, 0.86961
+};
+
+// sRGB primaries to ACEScg (AP1 w/ linear encoding)
+float3 linearSrgb_to_ACEScg(float3 p)
+{
+    p = mul(sRGB_to_ACES_AP1_Mat, p);
+    return p;
+}
+
+float3 ColorGradeShadowsMidtonesHighlights (float3 frame_color, float shadowsStart, float shadowsEnd, 
+                                            float highlightsStart, float highlightsEnd, float mix,
+                                            float4 shadowsColor, float4 midtonesColor, float4 highlightsColor) {
+	float cLuminance = Luminance(frame_color);
+	float shadowsWeight = 1.0 - smoothstep(shadowsStart, shadowsEnd, cLuminance);
+	float highlightsWeight = smoothstep(highlightsStart, highlightsEnd, cLuminance);
+	float midtonesWeight = 1.0 - shadowsWeight - highlightsWeight;
+
+    float3 frame_smh = frame_color * shadowsColor.rgb * shadowsWeight +
+	                   frame_color * midtonesColor.rgb * midtonesWeight +
+	                   frame_color * highlightsColor.rgb * highlightsWeight;
+	return lerp( frame_color.rgb, frame_smh.rgb, mix );
+}
+
+//TransformColor(sampledAbledo, ColorSpaceId::LinearSRGB, ColorSpaceId::ACEScg);
+
+//    if (o_shadeAll)
+//    {
+//        litRatio = 0.0f;
+//    }
+
+
+float3 ColorGrade ( float3 frame_color ) {
+    frame_color = min( frame_color, 60.0 );
+	frame_color = ColorGradePostExposure( frame_color, PassSrg::m_colorGradingExposure );
+    frame_color = ColorGradeKelvinColorTemp( frame_color, PassSrg::m_kelvin,
+                                             PassSrg::m_kelvinColorMix, PassSrg::m_kelvinLumPreservation );
+    frame_color = ColorGradingContrast( frame_color, ACEScc_MIDGREY, PassSrg::m_colorGradingContrast );
+    frame_color = ColorGradeColorFilter( frame_color, PassSrg::m_colorFilterSwatch.rgb,
+                                         PassSrg::m_colorFilterMultiply );
+    frame_color = max( frame_color, 0.0 );
+    frame_color = ColorGradeSaturation( frame_color, PassSrg::m_colorGradingPreSaturation );
+	frame_color = ColorGradeSplitTone( frame_color, PassSrg::m_splitToneBalance, PassSrg::m_splitToneMix );
+    frame_color = ColorGradeChannelMixer( frame_color );
+    frame_color = max( frame_color, 0.0 );
+    frame_color = ColorGradeShadowsMidtonesHighlights( frame_color, PassSrg::m_smhShadowsStart, PassSrg::m_smhShadowsEnd,
+                                                    PassSrg::m_smhHighlightsStart, PassSrg::m_smhHighlightsEnd, PassSrg::m_smhMix,
+                                                    PassSrg::m_smhShadowsColor, PassSrg::m_smhMidtonesColor, PassSrg::m_smhHighlightsColor);
+    frame_color = CColorGradeHueShift( frame_color, PassSrg::m_colorGradingHueShift );
+    frame_color = ColorGradeSaturation( frame_color, PassSrg::m_colorGradingPostSaturation );
+	return frame_color.rgb;
+}
+
+PSOutput MainPS(VSOutput IN)
+{
+    PSOutput OUT;
+
+    // Fetch the pixel color from the input texture
+    float3 frame_color = PassSrg::m_framebuffer.Sample(PassSrg::LinearSampler, IN.m_texCoord).rgb;
+
+    OUT.m_color.rgb = ColorGrade(frame_color);
+    OUT.m_color.w = 1;
+
+    return OUT;
+}
