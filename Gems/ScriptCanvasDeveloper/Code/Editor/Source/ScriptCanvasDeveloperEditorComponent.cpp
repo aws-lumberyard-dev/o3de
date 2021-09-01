@@ -99,9 +99,11 @@ namespace ScriptCanvasDeveloperEditor
         developerMenu->addSeparator();
 
         NodeListDumpAction::CreateNodeListDumpAction(developerMenu);
-        TSGenerateAction::SetupTSFileAction(developerMenu);
+        //TSGenerateAction::SetupTSFileAction(developerMenu);
 
         developerMenu->addSeparator();
+
+        TranslationGenerator::TranslationDatabaseFileAction(developerMenu);
 
         QAction* action = developerMenu->addAction("Open Menu Test");
 

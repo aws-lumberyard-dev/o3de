@@ -7,14 +7,73 @@
  */
 
 #pragma once
+#include "Source/Translation/TranslationBus.h"
 
 class QAction;
-class QMenu;
+class QWidget;
 
 namespace ScriptCanvasDeveloperEditor
 {
-    namespace TSGenerateAction
+    namespace TranslationGenerator
     {
-        QAction* SetupTSFileAction(QMenu* mainWindow);
+        //! Utility structures for generating the JSON files used to
+        //! configure the names of elements in Script Canvas
+        struct EntryDetails
+        {
+            AZStd::string m_name;
+            AZStd::string m_tooltip;
+            AZStd::string m_category;
+        };
+        using EntryDetailsList = AZStd::vector<EntryDetails>;
+
+        //! Utility structure that represents a method's argument
+        struct Argument
+        {
+            AZStd::string m_typeId;
+            EntryDetails m_details;
+        };
+
+        //! Utility structure that represents a method
+        struct Method
+        {
+            AZStd::string m_key;
+            AZStd::string m_context;
+
+            EntryDetails m_details;
+
+            EntryDetails m_entry;
+            EntryDetails m_exit;
+
+            AZStd::vector<Argument> m_arguments;
+            AZStd::vector<Argument> m_results;
+        };
+
+        //! Utility structure that represents an reflected element
+        struct Entry
+        {
+            AZStd::string m_key;
+            AZStd::string m_context;
+            AZStd::string m_variant;
+
+            EntryDetails m_details;
+
+            AZStd::vector<Method> m_methods;
+        };
+
+        // The root level JSON object
+        struct TranslationFormat
+        {
+            AZStd::vector<Entry> m_entries;
+        };
+
+        using VerificationSet = AZStd::unordered_set<GraphCanvas::TranslationKey>;
+
+        //! Utility function that determines if a given BehaviorClass should not be considered for translation
+        bool ShouldSkipClass(const AZ::BehaviorClass* behaviorClass);
+
+        //! The Qt action that will start the database generation
+        QAction* TranslationDatabaseFileAction(QWidget* mainWindow);
+
+        
     };
 }
