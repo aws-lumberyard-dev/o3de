@@ -99,7 +99,6 @@ namespace ScriptCanvasDeveloperEditor
         developerMenu->addSeparator();
 
         NodeListDumpAction::CreateNodeListDumpAction(developerMenu);
-        //TSGenerateAction::SetupTSFileAction(developerMenu);
 
         developerMenu->addSeparator();
 

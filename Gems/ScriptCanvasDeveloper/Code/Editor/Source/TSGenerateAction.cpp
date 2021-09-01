@@ -1041,6 +1041,11 @@ namespace ScriptCanvasDeveloperEditor
             {
                 TranslateEBus(serializeContext, behaviorContext);
             }
+
+
+            char buffer[AZ_MAX_PATH_LEN];
+            AZ::IO::FileIOBase::GetInstance()->ResolvePath("@devroot@/TranslationAssets", buffer, sizeof(buffer));
+            AZ_TracePrintf("Script Canvas", AZStd::string::format("Translation Database Generation Complete, see: %s", buffer).c_str());
         }
     }
 }
