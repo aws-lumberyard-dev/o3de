@@ -164,6 +164,7 @@ macro(ly_find_o3de_packages)
     add_subdirectory(Gems/VirtualGamepad/Code)
     add_subdirectory(Gems/WhiteBox/Code)
 
+<<<<<<< HEAD
     find_package(LauncherGenerator)
 endmacro()
 
@@ -172,6 +173,30 @@ function(o3de_current_file_path path)
     set(${path} ${CMAKE_CURRENT_FUNCTION_LIST_DIR} PARENT_SCOPE)
 endfunction()
 
+=======
+# Make sure the cmake configure dependency added here is a normalized path to engine.json,
+# because later it's read again using a path like ${LY_ROOT_FOLDER}/engine.json, which
+# is also normalized.  They should match to avoid errors on some build systems.
+cmake_path(SET engine_json_path NORMALIZE ${current_path}/../engine.json)
+file(READ ${engine_json_path} engine_json)
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${engine_json_path})
+
+string(JSON this_engine_name ERROR_VARIABLE json_error GET ${engine_json} engine_name)
+if(json_error)
+    message(FATAL_ERROR "Unable to read key 'engine_name' from '${engine_json_path}', error: ${json_error}")
+endif()
+
+# Make sure we are matching LY_ENGINE_NAME_TO_USE with the current engine
+set(found_matching_engine FALSE)
+if(this_engine_name STREQUAL LY_ENGINE_NAME_TO_USE)
+    set(found_matching_engine TRUE)
+endif()
+
+find_package_handle_standard_args(o3de
+    "Could not find an engine with matching ${LY_ENGINE_NAME_TO_USE}"
+    found_matching_engine
+)
+>>>>>>> development
 
 # We are using the engine's CMakeLists.txt to handle initialization/importing targets
 # Since this is external to the project's source, we need to specify an output directory

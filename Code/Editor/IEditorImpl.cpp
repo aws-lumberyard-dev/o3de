@@ -67,7 +67,6 @@ AZ_POP_DISABLE_WARNING
 #include "EditorFileMonitor.h"
 #include "MainStatusBar.h"
 
-#include "ResourceSelectorHost.h"
 #include "Util/FileUtil_impl.h"
 #include "Util/ImageUtil_impl.h"
 #include "LogFileImpl.h"
@@ -85,12 +84,6 @@ AZ_POP_DISABLE_WARNING
 #include "IEditorPanelUtils.h"
 #include "EditorPanelUtils.h"
 
-
-// even in Release mode, the editor will return its heap, because there's no Profile build configuration for the editor
-#ifdef _RELEASE
-#undef _RELEASE
-#endif
-
 #include "Core/QtEditorApplication.h"                               // for Editor::EditorQtApplication
 
 static CCryEditDoc * theDocument;
@@ -104,8 +97,6 @@ static CCryEditDoc * theDocument;
 #ifndef VERIFY
 #define VERIFY(EXPRESSION) { auto e = EXPRESSION; assert(e); }
 #endif
-
-#undef GetCommandLine
 
 const char* CEditorImpl::m_crashLogFileName = "SessionStatus/editor_statuses.json";
 
@@ -187,7 +178,6 @@ CEditorImpl::CEditorImpl()
     m_pAnimationContext = new CAnimationContext;
 
     m_pImageUtil = new CImageUtil_impl();
-    m_pResourceSelectorHost.reset(CreateResourceSelectorHost());
     m_selectedRegion.min = Vec3(0, 0, 0);
     m_selectedRegion.max = Vec3(0, 0, 0);
     DetectVersion();
@@ -406,8 +396,6 @@ void CEditorImpl::Update()
 
     // Make sure this is not called recursively
     m_bUpdates = false;
-
-    FUNCTION_PROFILER(GetSystem(), PROFILE_EDITOR);
 
     //@FIXME: Restore this latter.
     //if (GetGameEngine() && GetGameEngine()->IsLevelLoaded())
