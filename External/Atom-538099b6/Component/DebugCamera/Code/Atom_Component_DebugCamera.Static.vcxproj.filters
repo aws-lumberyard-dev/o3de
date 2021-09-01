@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Component\DebugCamera\Code\Source\ArcBallControllerComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Component\DebugCamera\Code\Source\CameraComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Component\DebugCamera\Code\Source\CameraControllerComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Component\DebugCamera\Code\Source\DebugCameraUtils.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Component\DebugCamera\Code\Source\NoClipControllerComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Component\DebugCamera\Code\Include\Atom\Component\DebugCamera\ArcBallControllerBus.h">
+      <Filter>Include\Atom\Component\DebugCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Component\DebugCamera\Code\Include\Atom\Component\DebugCamera\ArcBallControllerComponent.h">
+      <Filter>Include\Atom\Component\DebugCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Component\DebugCamera\Code\Include\Atom\Component\DebugCamera\CameraComponent.h">
+      <Filter>Include\Atom\Component\DebugCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Component\DebugCamera\Code\Include\Atom\Component\DebugCamera\CameraControllerBus.h">
+      <Filter>Include\Atom\Component\DebugCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Component\DebugCamera\Code\Include\Atom\Component\DebugCamera\CameraControllerComponent.h">
+      <Filter>Include\Atom\Component\DebugCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Component\DebugCamera\Code\Include\Atom\Component\DebugCamera\NoClipControllerBus.h">
+      <Filter>Include\Atom\Component\DebugCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Component\DebugCamera\Code\Include\Atom\Component\DebugCamera\NoClipControllerComponent.h">
+      <Filter>Include\Atom\Component\DebugCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Component\DebugCamera\Code\Source\DebugCameraUtils.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Component\DebugCamera\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Component\DebugCamera\Code\atom_component_debugcamera_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom">
+      <UniqueIdentifier>{E66A19AE-451A-3F1F-B698-7608D533AFDF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Component">
+      <UniqueIdentifier>{1AC7F973-A5F0-36F1-9F2C-61F5322B58FD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Component\DebugCamera">
+      <UniqueIdentifier>{4102EFD7-9130-3AF2-9E1D-E4CF635218D7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

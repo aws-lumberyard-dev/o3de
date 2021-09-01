@@ -1,0 +1,854 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::vector<bool, allocator>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Array<Boolean>",
+                "category": "Array",
+                "tooltip": "A dynamically sized container of elements."
+            },
+            "methods": [
+                {
+                    "key": "Size",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Front",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::Front"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::Front is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::Front"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "HasKey",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::Has Key"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::Has Key is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::Has Key"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Resize",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::Resize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::Resize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::Resize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "at",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::at"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::at is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::at"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Back",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::Back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::Back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::Back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "pop_back",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::pop_back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::pop_back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::pop_back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "size",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "At",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::At"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::At is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::At"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "push_back",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::push_back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::push_back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::push_back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "PushBack_VM",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::PushBack_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::PushBack_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::PushBack_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AtUnchecked",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::AtUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::AtUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::AtUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "clear",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "NotEmpty",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::NotEmpty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::NotEmpty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::NotEmpty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase_VM",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::Erase_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::Erase_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::Erase_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Capacity",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::Capacity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::Capacity is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::Capacity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AssignAt",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::AssignAt"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::AssignAt is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::AssignAt"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "PushBack",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::PushBack"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::PushBack is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::PushBack"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Array<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<bool, allocator>::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<bool, allocator>::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<bool, allocator>::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{309BAC28-3844-53C7-A952-EC55DFC7C3BB}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<bool, allocator>>"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

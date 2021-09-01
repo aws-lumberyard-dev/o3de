@@ -1,0 +1,12 @@
+{
+    "entries": [
+        {
+            "key": "ExecutionStateInterpretedPerActivationOnGraphStart",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "ExecutionStateInterpretedPerActivationOnGraphStart"
+            }
+        }
+    ]
+}

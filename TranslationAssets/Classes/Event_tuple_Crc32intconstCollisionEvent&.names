@@ -1,0 +1,45 @@
+{
+    "entries": [
+        {
+            "key": "Event<tuple<Crc32 int > const CollisionEvent& >",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Event<tuple<Crc32 int > const CollisionEvent& >"
+            },
+            "methods": [
+                {
+                    "key": "HasHandlerConnected",
+                    "context": "Event<tuple<Crc32 int > const CollisionEvent& >",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Event<tuple<Crc32 int > const CollisionEvent& >::HasHandlerConnected"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Event<tuple<Crc32 int > const CollisionEvent& >::HasHandlerConnected is invoked"
+                    },
+                    "details": {
+                        "name": "Event<tuple<Crc32 int > const CollisionEvent& >::HasHandlerConnected"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{4C19E257-F929-524E-80E3-C910C5F3E2D9}",
+                            "details": {
+                                "name": "Event<tuple<Crc32 int > const CollisionEvent& >*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

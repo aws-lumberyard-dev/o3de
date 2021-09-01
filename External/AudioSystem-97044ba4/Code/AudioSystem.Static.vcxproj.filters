@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine\ATL.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine\ATLAudioObject.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine\ATLComponents.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine\ATLEntities.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine\ATLUtils.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine\AudioProxy.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine\AudioRequests.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine\AudioSystem.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine\FileCacheManager.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine\SoundCVars.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Platform\Common\Default\AudioSystemGemSystemComponent_default.cpp">
+      <Filter>Platform\Windows\..\Common\Default</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Engine\ATLEntityData.h">
+      <Filter>Include\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Engine\AudioAllocators.h">
+      <Filter>Include\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Engine\AudioFileUtils.h">
+      <Filter>Include\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Engine\AudioLogger.h">
+      <Filter>Include\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Engine\AudioRingBuffer.h">
+      <Filter>Include\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Engine\ATLCommon.h">
+      <Filter>Include\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Engine\IAudioSystemImplementation.h">
+      <Filter>Include\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine\ATL.h">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine\ATLAudioObject.h">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine\ATLComponents.h">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine\ATLEntities.h">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine\ATLUtils.h">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine\AudioInternalInterfaces.h">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine\AudioProxy.h">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine\AudioSystem.h">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine\FileCacheManager.h">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine\SoundCVars.h">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Platform\Windows\AudioSystem_Traits_Platform.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Platform\Windows\AudioSystem_Traits_Windows.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\audiosystem_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Platform\Windows\platform_windows_files.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Platform\Windows\platform_windows.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Engine">
+      <UniqueIdentifier>{1D4F75B8-A242-37BC-ACDC-27623EF426E8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{D4CCE8D3-A6C9-3C6A-9C86-8BF8F7D77D7F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{9B5BE819-E94D-379A-84DF-5559629D4548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..">
+      <UniqueIdentifier>{731ADA3D-17B6-381E-ABF5-417E8742D0A7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common">
+      <UniqueIdentifier>{DE695BA1-3376-3AAF-953B-BD43429F4343}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\Default">
+      <UniqueIdentifier>{53222E90-A844-3FA3-89B6-1016A6784F7D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine">
+      <UniqueIdentifier>{2C057702-1D33-37A8-A8D8-9C52B8787CB3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

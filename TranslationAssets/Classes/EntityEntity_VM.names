@@ -1,0 +1,224 @@
+{
+    "entries": [
+        {
+            "key": "EntityEntity_VM",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "EntityEntity_VM"
+            },
+            "methods": [
+                {
+                    "key": "ToString",
+                    "context": "EntityEntity_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke EntityEntity_VM::ToString"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after EntityEntity_VM::ToString is invoked"
+                    },
+                    "details": {
+                        "name": "EntityEntity_VM::ToString"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsValid",
+                    "context": "EntityEntity_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke EntityEntity_VM::IsValid"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after EntityEntity_VM::IsValid is invoked"
+                    },
+                    "details": {
+                        "name": "EntityEntity_VM::IsValid"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetEntityForward",
+                    "context": "EntityEntity_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke EntityEntity_VM::GetEntityForward"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after EntityEntity_VM::GetEntityForward is invoked"
+                    },
+                    "details": {
+                        "name": "EntityEntity_VM::GetEntityForward"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsActive",
+                    "context": "EntityEntity_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke EntityEntity_VM::IsActive"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after EntityEntity_VM::IsActive is invoked"
+                    },
+                    "details": {
+                        "name": "EntityEntity_VM::IsActive"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetEntityRight",
+                    "context": "EntityEntity_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke EntityEntity_VM::GetEntityRight"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after EntityEntity_VM::GetEntityRight is invoked"
+                    },
+                    "details": {
+                        "name": "EntityEntity_VM::GetEntityRight"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetEntityUp",
+                    "context": "EntityEntity_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke EntityEntity_VM::GetEntityUp"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after EntityEntity_VM::GetEntityUp is invoked"
+                    },
+                    "details": {
+                        "name": "EntityEntity_VM::GetEntityUp"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

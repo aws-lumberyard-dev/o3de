@@ -1,0 +1,12 @@
+{
+    "entries": [
+        {
+            "key": "AZ::Render::EditorEntityReferenceComponent",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AZ::Render::EditorEntityReferenceComponent"
+            }
+        }
+    ]
+}

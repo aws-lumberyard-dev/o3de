@@ -1,0 +1,9 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/GradientSignal/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/GradientSignal/Code/gradientsignal_editor_files.cmake
+J:/Atom/lyfork/o3de/Gems/GradientSignal/Code/gradientsignal_editor_shared_files.cmake
+J:/Atom/lyfork/o3de/Gems/GradientSignal/Code/gradientsignal_editor_tests_files.cmake
+J:/Atom/lyfork/o3de/Gems/GradientSignal/Code/gradientsignal_files.cmake
+J:/Atom/lyfork/o3de/Gems/GradientSignal/Code/gradientsignal_shared_files.cmake
+J:/Atom/lyfork/o3de/Gems/GradientSignal/Code/gradientsignal_tests_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

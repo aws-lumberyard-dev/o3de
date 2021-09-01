@@ -1,0 +1,681 @@
+{
+    "entries": [
+        {
+            "key": "UiScrollBoxBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiScrollBoxBus"
+            },
+            "methods": [
+                {
+                    "key": "FindClosestContentChildElement",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke FindClosestContentChildElement"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after FindClosestContentChildElement is invoked"
+                    },
+                    "details": {
+                        "name": "FindClosestContentChildElement"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetHorizontalScrollBarVisibility",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetHorizontalScrollBarVisibility"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetHorizontalScrollBarVisibility is invoked"
+                    },
+                    "details": {
+                        "name": "GetHorizontalScrollBarVisibility"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetVerticalScrollBarEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetVerticalScrollBarEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetVerticalScrollBarEntity is invoked"
+                    },
+                    "details": {
+                        "name": "GetVerticalScrollBarEntity"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetHorizontalScrollBarVisibility",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetHorizontalScrollBarVisibility"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetHorizontalScrollBarVisibility is invoked"
+                    },
+                    "details": {
+                        "name": "SetHorizontalScrollBarVisibility"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetScrollOffsetChangingActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetScrollOffsetChangingActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetScrollOffsetChangingActionName is invoked"
+                    },
+                    "details": {
+                        "name": "SetScrollOffsetChangingActionName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetScrollOffsetChangingActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetScrollOffsetChangingActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetScrollOffsetChangingActionName is invoked"
+                    },
+                    "details": {
+                        "name": "GetScrollOffsetChangingActionName"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetHorizontalScrollBarEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetHorizontalScrollBarEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetHorizontalScrollBarEntity is invoked"
+                    },
+                    "details": {
+                        "name": "GetHorizontalScrollBarEntity"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "HasHorizontalContentToScroll",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke HasHorizontalContentToScroll"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after HasHorizontalContentToScroll is invoked"
+                    },
+                    "details": {
+                        "name": "HasHorizontalContentToScroll"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetContentEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetContentEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetContentEntity is invoked"
+                    },
+                    "details": {
+                        "name": "SetContentEntity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsScrollingConstrained",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsScrollingConstrained"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsScrollingConstrained is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsScrollingConstrained"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "HasVerticalContentToScroll",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke HasVerticalContentToScroll"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after HasVerticalContentToScroll is invoked"
+                    },
+                    "details": {
+                        "name": "HasVerticalContentToScroll"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsVerticalScrollingEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsVerticalScrollingEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsVerticalScrollingEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsVerticalScrollingEnabled"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetVerticalScrollBarVisibility",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetVerticalScrollBarVisibility"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetVerticalScrollBarVisibility is invoked"
+                    },
+                    "details": {
+                        "name": "GetVerticalScrollBarVisibility"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsHorizontalScrollingEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsHorizontalScrollingEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsHorizontalScrollingEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsHorizontalScrollingEnabled"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetNormalizedScrollValue",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetNormalizedScrollValue"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetNormalizedScrollValue is invoked"
+                    },
+                    "details": {
+                        "name": "GetNormalizedScrollValue"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetScrollOffset",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetScrollOffset"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetScrollOffset is invoked"
+                    },
+                    "details": {
+                        "name": "SetScrollOffset"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetHorizontalScrollBarEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetHorizontalScrollBarEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetHorizontalScrollBarEntity is invoked"
+                    },
+                    "details": {
+                        "name": "SetHorizontalScrollBarEntity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetScrollOffset",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetScrollOffset"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetScrollOffset is invoked"
+                    },
+                    "details": {
+                        "name": "GetScrollOffset"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetScrollOffsetChangedActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetScrollOffsetChangedActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetScrollOffsetChangedActionName is invoked"
+                    },
+                    "details": {
+                        "name": "GetScrollOffsetChangedActionName"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetVerticalScrollBarVisibility",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetVerticalScrollBarVisibility"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetVerticalScrollBarVisibility is invoked"
+                    },
+                    "details": {
+                        "name": "SetVerticalScrollBarVisibility"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsHorizontalScrollingEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsHorizontalScrollingEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsHorizontalScrollingEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsHorizontalScrollingEnabled"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsScrollingConstrained",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsScrollingConstrained"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsScrollingConstrained is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsScrollingConstrained"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetSnapGrid",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetSnapGrid"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetSnapGrid is invoked"
+                    },
+                    "details": {
+                        "name": "SetSnapGrid"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsVerticalScrollingEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsVerticalScrollingEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsVerticalScrollingEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsVerticalScrollingEnabled"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSnapGrid",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetSnapGrid"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetSnapGrid is invoked"
+                    },
+                    "details": {
+                        "name": "GetSnapGrid"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSnapMode",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetSnapMode"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetSnapMode is invoked"
+                    },
+                    "details": {
+                        "name": "GetSnapMode"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetScrollOffsetChangedActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetScrollOffsetChangedActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetScrollOffsetChangedActionName is invoked"
+                    },
+                    "details": {
+                        "name": "SetScrollOffsetChangedActionName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetVerticalScrollBarEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetVerticalScrollBarEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetVerticalScrollBarEntity is invoked"
+                    },
+                    "details": {
+                        "name": "SetVerticalScrollBarEntity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetContentEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetContentEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetContentEntity is invoked"
+                    },
+                    "details": {
+                        "name": "GetContentEntity"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetSnapMode",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetSnapMode"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetSnapMode is invoked"
+                    },
+                    "details": {
+                        "name": "SetSnapMode"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

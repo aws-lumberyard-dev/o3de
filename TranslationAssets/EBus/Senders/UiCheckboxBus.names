@@ -1,0 +1,304 @@
+{
+    "entries": [
+        {
+            "key": "UiCheckboxBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiCheckboxBus"
+            },
+            "methods": [
+                {
+                    "key": "SetChangedActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetChangedActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetChangedActionName is invoked"
+                    },
+                    "details": {
+                        "name": "SetChangedActionName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetChangedActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetChangedActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetChangedActionName is invoked"
+                    },
+                    "details": {
+                        "name": "GetChangedActionName"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetCheckedEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetCheckedEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetCheckedEntity is invoked"
+                    },
+                    "details": {
+                        "name": "SetCheckedEntity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetUncheckedEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetUncheckedEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetUncheckedEntity is invoked"
+                    },
+                    "details": {
+                        "name": "SetUncheckedEntity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetTurnOnActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetTurnOnActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetTurnOnActionName is invoked"
+                    },
+                    "details": {
+                        "name": "SetTurnOnActionName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTurnOffActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetTurnOffActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetTurnOffActionName is invoked"
+                    },
+                    "details": {
+                        "name": "GetTurnOffActionName"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetState",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetState"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetState is invoked"
+                    },
+                    "details": {
+                        "name": "SetState"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ToggleState",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke ToggleState"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after ToggleState is invoked"
+                    },
+                    "details": {
+                        "name": "ToggleState"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetState",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetState"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetState is invoked"
+                    },
+                    "details": {
+                        "name": "GetState"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetCheckedEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetCheckedEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetCheckedEntity is invoked"
+                    },
+                    "details": {
+                        "name": "GetCheckedEntity"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetUncheckedEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetUncheckedEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetUncheckedEntity is invoked"
+                    },
+                    "details": {
+                        "name": "GetUncheckedEntity"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTurnOnActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetTurnOnActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetTurnOnActionName is invoked"
+                    },
+                    "details": {
+                        "name": "GetTurnOnActionName"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetTurnOffActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetTurnOffActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetTurnOffActionName is invoked"
+                    },
+                    "details": {
+                        "name": "SetTurnOffActionName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

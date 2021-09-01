@@ -1,0 +1,99 @@
+{
+    "entries": [
+        {
+            "key": "Iterator_VM<AZStd::vector<Vector3, allocator>>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Iterator_VM<AZStd::vector<Vector3, allocator>>"
+            },
+            "methods": [
+                {
+                    "key": "IsNotAtEnd",
+                    "context": "Iterator_VM<AZStd::vector<Vector3, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<Vector3, allocator>>::IsNotAtEnd"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<Vector3, allocator>>::IsNotAtEnd is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::vector<Vector3, allocator>>::IsNotAtEnd"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{65B7F9BE-6626-5683-A229-1548661F21D5}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<Vector3, allocator>>*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ModValueUnchecked",
+                    "context": "Iterator_VM<AZStd::vector<Vector3, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<Vector3, allocator>>::ModValueUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<Vector3, allocator>>::ModValueUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::vector<Vector3, allocator>>::ModValueUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{65B7F9BE-6626-5683-A229-1548661F21D5}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<Vector3, allocator>>*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Next",
+                    "context": "Iterator_VM<AZStd::vector<Vector3, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<Vector3, allocator>>::Next"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<Vector3, allocator>>::Next is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::vector<Vector3, allocator>>::Next"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{65B7F9BE-6626-5683-A229-1548661F21D5}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<Vector3, allocator>>*"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

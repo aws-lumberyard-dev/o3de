@@ -1,0 +1,458 @@
+{
+    "entries": [
+        {
+            "key": "Unit Testing",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Unit Testing"
+            },
+            "methods": [
+                {
+                    "key": "ExpectLessThanEqual",
+                    "context": "Unit Testing",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Unit Testing::Expect Less Than Equal"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Unit Testing::Expect Less Than Equal is invoked"
+                    },
+                    "details": {
+                        "name": "Unit Testing::Expect Less Than Equal"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ExpectGreaterThanEqual",
+                    "context": "Unit Testing",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Unit Testing::Expect Greater Than Equal"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Unit Testing::Expect Greater Than Equal is invoked"
+                    },
+                    "details": {
+                        "name": "Unit Testing::Expect Greater Than Equal"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "MarkComplete",
+                    "context": "Unit Testing",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Unit Testing::Mark Complete"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Unit Testing::Mark Complete is invoked"
+                    },
+                    "details": {
+                        "name": "Unit Testing::Mark Complete"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ExpectTrue",
+                    "context": "Unit Testing",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Unit Testing::Expect True"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Unit Testing::Expect True is invoked"
+                    },
+                    "details": {
+                        "name": "Unit Testing::Expect True"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Checkpoint",
+                    "context": "Unit Testing",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Unit Testing::Checkpoint"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Unit Testing::Checkpoint is invoked"
+                    },
+                    "details": {
+                        "name": "Unit Testing::Checkpoint"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ExpectFalse",
+                    "context": "Unit Testing",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Unit Testing::Expect False"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Unit Testing::Expect False is invoked"
+                    },
+                    "details": {
+                        "name": "Unit Testing::Expect False"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ExpectEqual",
+                    "context": "Unit Testing",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Unit Testing::Expect Equal"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Unit Testing::Expect Equal is invoked"
+                    },
+                    "details": {
+                        "name": "Unit Testing::Expect Equal"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        },
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        },
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ExpectLessThan",
+                    "context": "Unit Testing",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Unit Testing::Expect Less Than"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Unit Testing::Expect Less Than is invoked"
+                    },
+                    "details": {
+                        "name": "Unit Testing::Expect Less Than"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AddSuccess",
+                    "context": "Unit Testing",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Unit Testing::Add Success"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Unit Testing::Add Success is invoked"
+                    },
+                    "details": {
+                        "name": "Unit Testing::Add Success"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ExpectNotEqual",
+                    "context": "Unit Testing",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Unit Testing::Expect Not Equal"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Unit Testing::Expect Not Equal is invoked"
+                    },
+                    "details": {
+                        "name": "Unit Testing::Expect Not Equal"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        },
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        },
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ExpectGreaterThan",
+                    "context": "Unit Testing",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Unit Testing::Expect Greater Than"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Unit Testing::Expect Greater Than is invoked"
+                    },
+                    "details": {
+                        "name": "Unit Testing::Expect Greater Than"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AddFailure",
+                    "context": "Unit Testing",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Unit Testing::Add Failure"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Unit Testing::Add Failure is invoked"
+                    },
+                    "details": {
+                        "name": "Unit Testing::Add Failure"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

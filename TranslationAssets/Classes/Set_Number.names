@@ -1,0 +1,439 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Set<Number>",
+                "category": "Set",
+                "tooltip": "A dynamically sized container, where each element is unique."
+            },
+            "methods": [
+                {
+                    "key": "Size",
+                    "context": "Set<Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8A408689-0904-5A87-B6C4-FAB519089D8B}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetKeys",
+                    "context": "Set<Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::GetKeys"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::GetKeys is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::GetKeys"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8A408689-0904-5A87-B6C4-FAB519089D8B}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{F31F64EA-E384-5536-ACD6-8F01849730FC}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "contains",
+                    "context": "Set<Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::contains"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::contains is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::contains"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8A408689-0904-5A87-B6C4-FAB519089D8B}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Set<Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8A408689-0904-5A87-B6C4-FAB519089D8B}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8A408689-0904-5A87-B6C4-FAB519089D8B}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Set<Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8A408689-0904-5A87-B6C4-FAB519089D8B}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Set<Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8A408689-0904-5A87-B6C4-FAB519089D8B}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Set<Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8A408689-0904-5A87-B6C4-FAB519089D8B}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C8C77E71-5B11-559E-BAC5-06C297CD422B}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Set<Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8A408689-0904-5A87-B6C4-FAB519089D8B}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase",
+                    "context": "Set<Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Erase"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Erase is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Erase"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8A408689-0904-5A87-B6C4-FAB519089D8B}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8A408689-0904-5A87-B6C4-FAB519089D8B}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Set<Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8A408689-0904-5A87-B6C4-FAB519089D8B}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8A408689-0904-5A87-B6C4-FAB519089D8B}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "BucketCount",
+                    "context": "Set<Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::BucketCount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::BucketCount is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::BucketCount"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8A408689-0904-5A87-B6C4-FAB519089D8B}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Set<Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8A408689-0904-5A87-B6C4-FAB519089D8B}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Set<Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8A408689-0904-5A87-B6C4-FAB519089D8B}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        },
+                        {
+                            "typeid": "{8A408689-0904-5A87-B6C4-FAB519089D8B}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

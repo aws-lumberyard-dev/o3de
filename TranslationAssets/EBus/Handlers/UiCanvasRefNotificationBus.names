@@ -1,0 +1,36 @@
+{
+    "entries": [
+        {
+            "key": "UiCanvasRefNotificationBus",
+            "context": "EBusHandler",
+            "variant": "",
+            "details": {
+                "name": "UiCanvasRefNotificationBus"
+            },
+            "methods": [
+                {
+                    "key": "OnCanvasRefChanged",
+                    "details": {
+                        "name": "OnCanvasRefChanged"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        },
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

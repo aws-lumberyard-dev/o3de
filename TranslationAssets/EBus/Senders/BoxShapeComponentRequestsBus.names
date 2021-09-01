@@ -1,0 +1,81 @@
+{
+    "entries": [
+        {
+            "key": "BoxShapeComponentRequestsBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "BoxShapeComponentRequestsBus"
+            },
+            "methods": [
+                {
+                    "key": "GetBoxConfiguration",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetBoxConfiguration"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetBoxConfiguration is invoked"
+                    },
+                    "details": {
+                        "name": "GetBoxConfiguration"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{F034FBA2-AC2F-4E66-8152-14DFB90D6283}",
+                            "details": {
+                                "name": "Configuration",
+                                "tooltip": "Box shape configuration parameters"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetBoxDimensions",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetBoxDimensions"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetBoxDimensions is invoked"
+                    },
+                    "details": {
+                        "name": "GetBoxDimensions"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetBoxDimensions",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetBoxDimensions"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetBoxDimensions is invoked"
+                    },
+                    "details": {
+                        "name": "SetBoxDimensions"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

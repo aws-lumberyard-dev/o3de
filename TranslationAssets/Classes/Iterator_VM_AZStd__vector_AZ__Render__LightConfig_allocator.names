@@ -1,0 +1,99 @@
+{
+    "entries": [
+        {
+            "key": "Iterator_VM<AZStd::vector<AZ::Render::LightConfig, allocator>>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Iterator_VM<AZStd::vector<AZ::Render::LightConfig, allocator>>"
+            },
+            "methods": [
+                {
+                    "key": "IsNotAtEnd",
+                    "context": "Iterator_VM<AZStd::vector<AZ::Render::LightConfig, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<AZ::Render::LightConfig, allocator>>::IsNotAtEnd"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<AZ::Render::LightConfig, allocator>>::IsNotAtEnd is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::vector<AZ::Render::LightConfig, allocator>>::IsNotAtEnd"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{25A6BFD4-18AE-53F0-A8E5-0BC534A956DF}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<AZ::Render::LightConfig, allocator>>*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ModValueUnchecked",
+                    "context": "Iterator_VM<AZStd::vector<AZ::Render::LightConfig, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<AZ::Render::LightConfig, allocator>>::ModValueUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<AZ::Render::LightConfig, allocator>>::ModValueUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::vector<AZ::Render::LightConfig, allocator>>::ModValueUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{25A6BFD4-18AE-53F0-A8E5-0BC534A956DF}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<AZ::Render::LightConfig, allocator>>*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{02644F52-9483-47A8-9028-37671695C34E}",
+                            "details": {
+                                "name": "LightConfig"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Next",
+                    "context": "Iterator_VM<AZStd::vector<AZ::Render::LightConfig, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<AZ::Render::LightConfig, allocator>>::Next"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<AZ::Render::LightConfig, allocator>>::Next is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::vector<AZ::Render::LightConfig, allocator>>::Next"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{25A6BFD4-18AE-53F0-A8E5-0BC534A956DF}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<AZ::Render::LightConfig, allocator>>*"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

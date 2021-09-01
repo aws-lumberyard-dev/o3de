@@ -1,0 +1,99 @@
+{
+    "entries": [
+        {
+            "key": "Iterator_VM<AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Iterator_VM<AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>>"
+            },
+            "methods": [
+                {
+                    "key": "IsNotAtEnd",
+                    "context": "Iterator_VM<AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>>::IsNotAtEnd"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>>::IsNotAtEnd is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>>::IsNotAtEnd"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{F13815CB-DBCA-5DF2-B424-B99865E0B78D}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<AZ::Render::MaterialAssignmentId, all"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ModValueUnchecked",
+                    "context": "Iterator_VM<AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>>::ModValueUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>>::ModValueUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>>::ModValueUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{F13815CB-DBCA-5DF2-B424-B99865E0B78D}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<AZ::Render::MaterialAssignmentId, all"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EB603581-4654-4C17-B6DE-AE61E79EDA97}",
+                            "details": {
+                                "name": "AZ::Render::MaterialAssignmentId"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Next",
+                    "context": "Iterator_VM<AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>>::Next"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>>::Next is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>>::Next"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{F13815CB-DBCA-5DF2-B424-B99865E0B78D}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<AZ::Render::MaterialAssignmentId, all"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

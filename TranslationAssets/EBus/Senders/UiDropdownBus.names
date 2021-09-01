@@ -1,0 +1,536 @@
+{
+    "entries": [
+        {
+            "key": "UiDropdownBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiDropdownBus"
+            },
+            "methods": [
+                {
+                    "key": "GetOptionSelectedActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetOptionSelectedActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetOptionSelectedActionName is invoked"
+                    },
+                    "details": {
+                        "name": "GetOptionSelectedActionName"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetWaitTime",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetWaitTime"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetWaitTime is invoked"
+                    },
+                    "details": {
+                        "name": "GetWaitTime"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetCollapseOnOutsideClick",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetCollapseOnOutsideClick"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetCollapseOnOutsideClick is invoked"
+                    },
+                    "details": {
+                        "name": "SetCollapseOnOutsideClick"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetExpandOnHover",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetExpandOnHover"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetExpandOnHover is invoked"
+                    },
+                    "details": {
+                        "name": "SetExpandOnHover"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Expand",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Expand"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Expand is invoked"
+                    },
+                    "details": {
+                        "name": "Expand"
+                    }
+                },
+                {
+                    "key": "Collapse",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Collapse"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Collapse is invoked"
+                    },
+                    "details": {
+                        "name": "Collapse"
+                    }
+                },
+                {
+                    "key": "SetCollapsedActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetCollapsedActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetCollapsedActionName is invoked"
+                    },
+                    "details": {
+                        "name": "SetCollapsedActionName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetExpandOnHover",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetExpandOnHover"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetExpandOnHover is invoked"
+                    },
+                    "details": {
+                        "name": "GetExpandOnHover"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetWaitTime",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetWaitTime"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetWaitTime is invoked"
+                    },
+                    "details": {
+                        "name": "SetWaitTime"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetCollapseOnOutsideClick",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetCollapseOnOutsideClick"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetCollapseOnOutsideClick is invoked"
+                    },
+                    "details": {
+                        "name": "GetCollapseOnOutsideClick"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetExpandedParentId",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetExpandedParentId"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetExpandedParentId is invoked"
+                    },
+                    "details": {
+                        "name": "GetExpandedParentId"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTextElement",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetTextElement"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetTextElement is invoked"
+                    },
+                    "details": {
+                        "name": "GetTextElement"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIconElement",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIconElement"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIconElement is invoked"
+                    },
+                    "details": {
+                        "name": "GetIconElement"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIconElement",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIconElement"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIconElement is invoked"
+                    },
+                    "details": {
+                        "name": "SetIconElement"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetExpandedActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetExpandedActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetExpandedActionName is invoked"
+                    },
+                    "details": {
+                        "name": "SetExpandedActionName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetContent",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetContent"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetContent is invoked"
+                    },
+                    "details": {
+                        "name": "SetContent"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetTextElement",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetTextElement"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetTextElement is invoked"
+                    },
+                    "details": {
+                        "name": "SetTextElement"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetValue",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetValue"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetValue is invoked"
+                    },
+                    "details": {
+                        "name": "SetValue"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetContent",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetContent"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetContent is invoked"
+                    },
+                    "details": {
+                        "name": "GetContent"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetExpandedActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetExpandedActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetExpandedActionName is invoked"
+                    },
+                    "details": {
+                        "name": "GetExpandedActionName"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetCollapsedActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetCollapsedActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetCollapsedActionName is invoked"
+                    },
+                    "details": {
+                        "name": "GetCollapsedActionName"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetValue",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetValue"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetValue is invoked"
+                    },
+                    "details": {
+                        "name": "GetValue"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetExpandedParentId",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetExpandedParentId"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetExpandedParentId is invoked"
+                    },
+                    "details": {
+                        "name": "SetExpandedParentId"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetOptionSelectedActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetOptionSelectedActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetOptionSelectedActionName is invoked"
+                    },
+                    "details": {
+                        "name": "SetOptionSelectedActionName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

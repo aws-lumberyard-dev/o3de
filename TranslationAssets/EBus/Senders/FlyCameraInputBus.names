@@ -1,0 +1,58 @@
+{
+    "entries": [
+        {
+            "key": "FlyCameraInputBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "FlyCameraInputBus"
+            },
+            "methods": [
+                {
+                    "key": "SetIsEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsEnabled"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsEnabled"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\AssetBundler_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\models\AssetBundlerAbstractFileTableModel.cpp">
+      <Filter>source\models</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\models\AssetBundlerFileTableFilterModel.cpp">
+      <Filter>source\models</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\models\AssetListFileTableModel.cpp">
+      <Filter>source\models</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\models\AssetListTableModel.cpp">
+      <Filter>source\models</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\models\BundleFileListModel.cpp">
+      <Filter>source\models</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\models\RulesFileTableModel.cpp">
+      <Filter>source\models</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\models\SeedListFileTableModel.cpp">
+      <Filter>source\models</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\models\SeedListTableModel.cpp">
+      <Filter>source\models</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\AddSeedDialog.cpp">
+      <Filter>source\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\AssetBundlerTabWidget.cpp">
+      <Filter>source\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\AssetListTabWidget.cpp">
+      <Filter>source\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\BundleListTabWidget.cpp">
+      <Filter>source\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\ComparisonDataWidget.cpp">
+      <Filter>source\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\EditSeedDialog.cpp">
+      <Filter>source\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\GenerateBundlesModal.cpp">
+      <Filter>source\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\MainWindow.cpp">
+      <Filter>source\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\NewFileDialog.cpp">
+      <Filter>source\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\PlatformSelectionWidget.cpp">
+      <Filter>source\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\RulesTabWidget.cpp">
+      <Filter>source\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\SeedTabWidget.cpp">
+      <Filter>source\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\utils\GUIApplicationManager.cpp">
+      <Filter>source\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\main.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\Platform\Windows\source\utils\GUIApplicationManager_Win.cpp">
+      <Filter>Platform\Windows\source\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\AssetBundler_autogen\6XBB44IFRS\qrc_AssetBundler.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\AssetBundler_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\AssetBundler_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\models\AssetBundlerAbstractFileTableModel.h">
+      <Filter>source\models</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\models\AssetBundlerFileTableFilterModel.h">
+      <Filter>source\models</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\models\AssetListFileTableModel.h">
+      <Filter>source\models</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\models\AssetListTableModel.h">
+      <Filter>source\models</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\models\BundleFileListModel.h">
+      <Filter>source\models</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\models\RulesFileTableModel.h">
+      <Filter>source\models</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\models\SeedListFileTableModel.h">
+      <Filter>source\models</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\models\SeedListTableModel.h">
+      <Filter>source\models</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\AddSeedDialog.h">
+      <Filter>source\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\AssetBundlerTabWidget.h">
+      <Filter>source\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\AssetListTabWidget.h">
+      <Filter>source\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\BundleListTabWidget.h">
+      <Filter>source\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\ComparisonDataWidget.h">
+      <Filter>source\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\EditSeedDialog.h">
+      <Filter>source\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\GenerateBundlesModal.h">
+      <Filter>source\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\MainWindow.h">
+      <Filter>source\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\NewFileDialog.h">
+      <Filter>source\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\PlatformSelectionWidget.h">
+      <Filter>source\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\RulesTabWidget.h">
+      <Filter>source\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\SeedTabWidget.h">
+      <Filter>source\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\utils\GUIApplicationManager.h">
+      <Filter>source\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\AssetBundler_autogen\include\source\ui\ui_AddSeedDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\AssetBundler_autogen\include\source\ui\ui_AssetListTabWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\AssetBundler_autogen\include\source\ui\ui_BundleListTabWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\AssetBundler_autogen\include\source\ui\ui_ComparisonDataWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\AssetBundler_autogen\include\source\ui\ui_EditSeedDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\AssetBundler_autogen\include\source\ui\ui_GenerateBundlesModal.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\AssetBundler_autogen\include\source\ui\ui_MainWindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\AssetBundler_autogen\include\source\ui\ui_NewFileDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\AssetBundler_autogen\include\source\ui\ui_PlatformSelectionWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\AssetBundler_autogen\include\source\ui\ui_RulesTabWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\AssetBundler_autogen\include\source\ui\ui_SeedTabWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\AddSeedDialog.ui">
+      <Filter>source\ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\AssetListTabWidget.ui">
+      <Filter>source\ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\BundleListTabWidget.ui">
+      <Filter>source\ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\ComparisonDataWidget.ui">
+      <Filter>source\ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\EditSeedDialog.ui">
+      <Filter>source\ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\GenerateBundlesModal.ui">
+      <Filter>source\ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\MainWindow.ui">
+      <Filter>source\ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\NewFileDialog.ui">
+      <Filter>source\ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\PlatformSelectionWidget.ui">
+      <Filter>source\ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\RulesTabWidget.ui">
+      <Filter>source\ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\SeedTabWidget.ui">
+      <Filter>source\ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\7a5c60a813038dd965bbffbcec4f3ce6\qrc_AssetBundler.cpp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\style\AssetBundler.qrc">
+      <Filter>source\ui\style</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\style\AssetBundler.qss">
+      <Filter>source\ui\style</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\style\AssetBundlerConfig.ini">
+      <Filter>source\ui\style</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\style\AssetBundler-Icon-256x256@x2.ico">
+      <Filter>source\ui\style</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\assetbundlergui_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\assetbundler_exe_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\Platform\Windows\assetbundlergui_windows_files.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\AssetBundler.rc">
+      <Filter>source</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{D4CCE8D3-A6C9-3C6A-9C86-8BF8F7D77D7F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{9B5BE819-E94D-379A-84DF-5559629D4548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\source">
+      <UniqueIdentifier>{832DD225-DE96-3F84-8C54-ECF78E547572}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\source\utils">
+      <UniqueIdentifier>{0918AF60-8196-3427-8E78-1B21C2C24DD6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{62DE35CE-A268-3B03-84B5-66B7F1FA43B4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\models">
+      <UniqueIdentifier>{608D5062-D231-3047-B562-4C58715CFB0A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\ui">
+      <UniqueIdentifier>{2AAB2AFB-46DE-3450-853E-EDBB1C49E9D9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\ui\style">
+      <UniqueIdentifier>{45160066-0CB9-37DD-8882-784B67A18247}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\utils">
+      <UniqueIdentifier>{BD052193-2245-317F-8837-875D662E5AB3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

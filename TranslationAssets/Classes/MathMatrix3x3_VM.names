@@ -1,0 +1,1125 @@
+{
+    "entries": [
+        {
+            "key": "MathMatrix3x3_VM",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "MathMatrix3x3_VM"
+            },
+            "methods": [
+                {
+                    "key": "Transpose",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::Transpose"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::Transpose is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::Transpose"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Zero",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::Zero"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::Zero is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::Zero"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Subtract",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::Subtract"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::Subtract is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::Subtract"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        },
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetElement",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::GetElement"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::GetElement is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::GetElement"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Invert",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::Invert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::Invert is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::Invert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetDiagonal",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::GetDiagonal"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::GetDiagonal is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::GetDiagonal"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetColumn",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::GetColumn"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::GetColumn is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::GetColumn"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "MultiplyByVector",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::MultiplyByVector"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::MultiplyByVector is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::MultiplyByVector"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Add",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::Add"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::Add is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::Add"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        },
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsFinite",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::IsFinite"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::IsFinite is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::IsFinite"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "DivideByNumber",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::DivideByNumber"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::DivideByNumber is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::DivideByNumber"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ToAdjugate",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::ToAdjugate"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::ToAdjugate is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::ToAdjugate"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsClose",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::IsClose"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::IsClose is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::IsClose"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        },
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "MultiplyByMatrix",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::MultiplyByMatrix"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::MultiplyByMatrix is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::MultiplyByMatrix"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        },
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsOrthogonal",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::IsOrthogonal"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::IsOrthogonal is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::IsOrthogonal"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Orthogonalize",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::Orthogonalize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::Orthogonalize is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::Orthogonalize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetRows",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::GetRows"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::GetRows is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::GetRows"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{93942742-473F-5EE3-8420-D8F22C612221}",
+                            "details": {
+                                "name": "tuple<Vector3 Vector3 Vector3 >"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromCrossProduct",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::FromCrossProduct"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::FromCrossProduct is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::FromCrossProduct"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetColumns",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::GetColumns"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::GetColumns is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::GetColumns"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{93942742-473F-5EE3-8420-D8F22C612221}",
+                            "details": {
+                                "name": "tuple<Vector3 Vector3 Vector3 >"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromTransform",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::FromTransform"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::FromTransform is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::FromTransform"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromScale",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::FromScale"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::FromScale is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::FromScale"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ToScale",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::ToScale"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::ToScale is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::ToScale"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromQuaternion",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::FromQuaternion"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::FromQuaternion is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::FromQuaternion"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{73103120-3DD3-4873-BAB3-9713FA2804FB}",
+                            "details": {
+                                "name": "Quaternion"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "MultiplyByNumber",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::MultiplyByNumber"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::MultiplyByNumber is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::MultiplyByNumber"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetRow",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::GetRow"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::GetRow is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::GetRow"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromRotationYDegrees",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::FromRotationYDegrees"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::FromRotationYDegrees is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::FromRotationYDegrees"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromRows",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::FromRows"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::FromRows is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::FromRows"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromDiagonal",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::FromDiagonal"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::FromDiagonal is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::FromDiagonal"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromRotationZDegrees",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::FromRotationZDegrees"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::FromRotationZDegrees is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::FromRotationZDegrees"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromMatrix4x4",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::FromMatrix4x4"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::FromMatrix4x4 is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::FromMatrix4x4"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{157193C7-B673-4A2B-8B43-5681DCC3DEC3}",
+                            "details": {
+                                "name": "Matrix4x4"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromColumns",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::FromColumns"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::FromColumns is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::FromColumns"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromRotationXDegrees",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::FromRotationXDegrees"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::FromRotationXDegrees is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::FromRotationXDegrees"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ToDeterminant",
+                    "context": "MathMatrix3x3_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathMatrix3x3_VM::ToDeterminant"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathMatrix3x3_VM::ToDeterminant is invoked"
+                    },
+                    "details": {
+                        "name": "MathMatrix3x3_VM::ToDeterminant"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

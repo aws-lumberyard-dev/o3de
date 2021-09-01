@@ -1,0 +1,13 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/AWSCore/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/AWSCore/Code/Include/Private/Editor/Platform/Windows/platform_windows_files.cmake
+J:/Atom/lyfork/o3de/Gems/AWSCore/Code/Source/Framework/Platform/Windows/platform_windows_files.cmake
+J:/Atom/lyfork/o3de/Gems/AWSCore/Code/Tests/Editor/Platform/Windows/awscore_editor_tests_windows_files.cmake
+J:/Atom/lyfork/o3de/Gems/AWSCore/Code/awscore_editor_files.cmake
+J:/Atom/lyfork/o3de/Gems/AWSCore/Code/awscore_editor_shared_files.cmake
+J:/Atom/lyfork/o3de/Gems/AWSCore/Code/awscore_editor_tests_files.cmake
+J:/Atom/lyfork/o3de/Gems/AWSCore/Code/awscore_files.cmake
+J:/Atom/lyfork/o3de/Gems/AWSCore/Code/awscore_resourcemappingtool_files.cmake
+J:/Atom/lyfork/o3de/Gems/AWSCore/Code/awscore_shared_files.cmake
+J:/Atom/lyfork/o3de/Gems/AWSCore/Code/awscore_tests_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

@@ -1,0 +1,482 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Map<String, Vector2>",
+                "category": "Map",
+                "tooltip": "A collection of Key/Value pairs, where each Key value must be unique."
+            },
+            "methods": [
+                {
+                    "key": "contains",
+                    "context": "Map<String, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::contains"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::contains is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::contains"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{2F556390-49B3-5F20-8206-21D323D977E6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Map<String, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{2F556390-49B3-5F20-8206-21D323D977E6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        },
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{2F556390-49B3-5F20-8206-21D323D977E6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Map<String, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{2F556390-49B3-5F20-8206-21D323D977E6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Map<String, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{2F556390-49B3-5F20-8206-21D323D977E6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Map<String, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{2F556390-49B3-5F20-8206-21D323D977E6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{4D2F842F-38F6-5488-8DA1-6E57C9BF9611}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::ba"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetKeys",
+                    "context": "Map<String, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::GetKeys"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::GetKeys is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::GetKeys"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{2F556390-49B3-5F20-8206-21D323D977E6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{99DAD0BC-740E-5E82-826B-8FC7968CC02C}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Size",
+                    "context": "Map<String, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{2F556390-49B3-5F20-8206-21D323D977E6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase",
+                    "context": "Map<String, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Erase"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Erase is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Erase"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{2F556390-49B3-5F20-8206-21D323D977E6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{2F556390-49B3-5F20-8206-21D323D977E6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Map<String, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{2F556390-49B3-5F20-8206-21D323D977E6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Map<String, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{2F556390-49B3-5F20-8206-21D323D977E6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{2F556390-49B3-5F20-8206-21D323D977E6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "At",
+                    "context": "Map<String, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::At"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::At is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::At"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{2F556390-49B3-5F20-8206-21D323D977E6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "BucketCount",
+                    "context": "Map<String, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::BucketCount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::BucketCount is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::BucketCount"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{2F556390-49B3-5F20-8206-21D323D977E6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Map<String, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{2F556390-49B3-5F20-8206-21D323D977E6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Map<String, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Vector2, AZStd::hash<AZStd::basic_string<c::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{2F556390-49B3-5F20-8206-21D323D977E6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{2F556390-49B3-5F20-8206-21D323D977E6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

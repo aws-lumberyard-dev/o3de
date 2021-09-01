@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Source\ExpressionEvaluationSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Source\ExpressionEngine\ExpressionPrimitive.cpp">
+      <Filter>Source\ExpressionEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Source\ExpressionEngine\ExpressionVariable.cpp">
+      <Filter>Source\ExpressionEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Source\ExpressionEngine\MathOperators\MathExpressionOperators.cpp">
+      <Filter>Source\ExpressionEngine\MathOperators</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Include\ExpressionEvaluation\ExpressionEvaluationBus.h">
+      <Filter>Include\ExpressionEvaluation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Include\ExpressionEvaluation\ExpressionEngine.h">
+      <Filter>Include\ExpressionEvaluation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Include\ExpressionEvaluation\ExpressionEngine\ExpressionTree.h">
+      <Filter>Include\ExpressionEvaluation\ExpressionEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Include\ExpressionEvaluation\ExpressionEngine\ExpressionTypes.h">
+      <Filter>Include\ExpressionEvaluation\ExpressionEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Source\ExpressionEvaluationSystemComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Source\ExpressionEngine\ExpressionElementParser.h">
+      <Filter>Source\ExpressionEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Source\ExpressionEngine\ExpressionPrimitive.h">
+      <Filter>Source\ExpressionEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Source\ExpressionEngine\ExpressionVariable.h">
+      <Filter>Source\ExpressionEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Source\ExpressionEngine\InternalTypes.h">
+      <Filter>Source\ExpressionEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Source\ExpressionEngine\Utils.h">
+      <Filter>Source\ExpressionEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Source\ExpressionEngine\MathOperators\MathExpressionOperators.h">
+      <Filter>Source\ExpressionEngine\MathOperators</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\expressionevaluation_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ExpressionEvaluation">
+      <UniqueIdentifier>{7EEB6C09-8B4B-33CF-AA8C-2935F4C807AD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ExpressionEvaluation\ExpressionEngine">
+      <UniqueIdentifier>{AD5D70E1-FCE1-3552-86C5-18D93809EFAD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ExpressionEngine">
+      <UniqueIdentifier>{73387830-96AC-3FCD-9858-1C298FBF5BDD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ExpressionEngine\MathOperators">
+      <UniqueIdentifier>{19D6905F-A7D3-3792-8A33-1EC05638AE52}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

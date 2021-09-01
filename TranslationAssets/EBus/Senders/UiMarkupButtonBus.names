@@ -1,0 +1,102 @@
+{
+    "entries": [
+        {
+            "key": "UiMarkupButtonBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiMarkupButtonBus"
+            },
+            "methods": [
+                {
+                    "key": "GetLinkColor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetLinkColor"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetLinkColor is invoked"
+                    },
+                    "details": {
+                        "name": "GetLinkColor"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
+                            "details": {
+                                "name": "Color"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetLinkColor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetLinkColor"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetLinkColor is invoked"
+                    },
+                    "details": {
+                        "name": "SetLinkColor"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
+                            "details": {
+                                "name": "Color"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetLinkHoverColor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetLinkHoverColor"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetLinkHoverColor is invoked"
+                    },
+                    "details": {
+                        "name": "GetLinkHoverColor"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
+                            "details": {
+                                "name": "Color"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetLinkHoverColor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetLinkHoverColor"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetLinkHoverColor is invoked"
+                    },
+                    "details": {
+                        "name": "SetLinkHoverColor"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
+                            "details": {
+                                "name": "Color"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

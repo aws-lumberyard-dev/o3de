@@ -1,0 +1,99 @@
+{
+    "entries": [
+        {
+            "key": "Iterator_VM<AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Iterator_VM<AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>>"
+            },
+            "methods": [
+                {
+                    "key": "IsNotAtEnd",
+                    "context": "Iterator_VM<AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>>::IsNotAtEnd"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>>::IsNotAtEnd is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>>::IsNotAtEnd"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C6C60A04-2C5B-5576-A0D0-0DB6206D0C9F}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<AZ::RPI::ShaderVariantListSourceData:"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ModValueUnchecked",
+                    "context": "Iterator_VM<AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>>::ModValueUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>>::ModValueUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>>::ModValueUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C6C60A04-2C5B-5576-A0D0-0DB6206D0C9F}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<AZ::RPI::ShaderVariantListSourceData:"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C0E1DF8C-D1BE-4AF4-8100-5D71788399BA}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderVariantListSourceData::VariantInfo"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Next",
+                    "context": "Iterator_VM<AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>>::Next"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>>::Next is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>>::Next"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C6C60A04-2C5B-5576-A0D0-0DB6206D0C9F}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<AZ::RPI::ShaderVariantListSourceData:"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

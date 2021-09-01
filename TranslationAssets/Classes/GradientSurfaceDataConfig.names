@@ -1,0 +1,140 @@
+{
+    "entries": [
+        {
+            "key": "GradientSurfaceDataConfig",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "GradientSurfaceDataConfig"
+            },
+            "methods": [
+                {
+                    "key": "GetNumTags",
+                    "context": "GradientSurfaceDataConfig",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GradientSurfaceDataConfig::GetNumTags"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GradientSurfaceDataConfig::GetNumTags is invoked"
+                    },
+                    "details": {
+                        "name": "GradientSurfaceDataConfig::GetNumTags"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{34516BA4-2B13-4A84-A46B-01E1980CA778}",
+                            "details": {
+                                "name": "Gradient Surface Tag Emitter"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTag",
+                    "context": "GradientSurfaceDataConfig",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GradientSurfaceDataConfig::GetTag"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GradientSurfaceDataConfig::GetTag is invoked"
+                    },
+                    "details": {
+                        "name": "GradientSurfaceDataConfig::GetTag"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{34516BA4-2B13-4A84-A46B-01E1980CA778}",
+                            "details": {
+                                "name": "Gradient Surface Tag Emitter"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
+                            "details": {
+                                "name": "Crc32"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RemoveTag",
+                    "context": "GradientSurfaceDataConfig",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GradientSurfaceDataConfig::RemoveTag"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GradientSurfaceDataConfig::RemoveTag is invoked"
+                    },
+                    "details": {
+                        "name": "GradientSurfaceDataConfig::RemoveTag"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{34516BA4-2B13-4A84-A46B-01E1980CA778}",
+                            "details": {
+                                "name": "Gradient Surface Tag Emitter"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AddTag",
+                    "context": "GradientSurfaceDataConfig",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GradientSurfaceDataConfig::AddTag"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GradientSurfaceDataConfig::AddTag is invoked"
+                    },
+                    "details": {
+                        "name": "GradientSurfaceDataConfig::AddTag"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{34516BA4-2B13-4A84-A46B-01E1980CA778}",
+                            "details": {
+                                "name": "Gradient Surface Tag Emitter"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

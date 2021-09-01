@@ -1,0 +1,482 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Map<AssetId, Quaternion>",
+                "category": "Map",
+                "tooltip": "A collection of Key/Value pairs, where each Key value must be unique."
+            },
+            "methods": [
+                {
+                    "key": "contains",
+                    "context": "Map<AssetId, Quaternion>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::contains"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::contains is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::contains"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A2ED5341-A86D-5564-99AF-8BCDED62C751}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
+                            "details": {
+                                "name": "AssetId"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Map<AssetId, Quaternion>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A2ED5341-A86D-5564-99AF-8BCDED62C751}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
+                            "details": {
+                                "name": "AssetId"
+                            }
+                        },
+                        {
+                            "typeid": "{73103120-3DD3-4873-BAB3-9713FA2804FB}",
+                            "details": {
+                                "name": "Quaternion"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A2ED5341-A86D-5564-99AF-8BCDED62C751}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Map<AssetId, Quaternion>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A2ED5341-A86D-5564-99AF-8BCDED62C751}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Map<AssetId, Quaternion>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A2ED5341-A86D-5564-99AF-8BCDED62C751}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Map<AssetId, Quaternion>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A2ED5341-A86D-5564-99AF-8BCDED62C751}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{AE6BDE8F-93C9-51F8-9219-CF8C135AD729}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetKeys",
+                    "context": "Map<AssetId, Quaternion>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::GetKeys"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::GetKeys is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::GetKeys"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A2ED5341-A86D-5564-99AF-8BCDED62C751}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{877C4A33-39B5-51D7-948D-F97DB81372A1}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Size",
+                    "context": "Map<AssetId, Quaternion>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A2ED5341-A86D-5564-99AF-8BCDED62C751}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase",
+                    "context": "Map<AssetId, Quaternion>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Erase"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Erase is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Erase"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A2ED5341-A86D-5564-99AF-8BCDED62C751}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
+                            "details": {
+                                "name": "AssetId"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A2ED5341-A86D-5564-99AF-8BCDED62C751}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Map<AssetId, Quaternion>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A2ED5341-A86D-5564-99AF-8BCDED62C751}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
+                            "details": {
+                                "name": "AssetId"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Map<AssetId, Quaternion>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A2ED5341-A86D-5564-99AF-8BCDED62C751}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A2ED5341-A86D-5564-99AF-8BCDED62C751}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "At",
+                    "context": "Map<AssetId, Quaternion>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::At"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::At is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::At"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A2ED5341-A86D-5564-99AF-8BCDED62C751}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
+                            "details": {
+                                "name": "AssetId"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{73103120-3DD3-4873-BAB3-9713FA2804FB}",
+                            "details": {
+                                "name": "Quaternion"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "BucketCount",
+                    "context": "Map<AssetId, Quaternion>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::BucketCount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::BucketCount is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::BucketCount"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A2ED5341-A86D-5564-99AF-8BCDED62C751}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Map<AssetId, Quaternion>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A2ED5341-A86D-5564-99AF-8BCDED62C751}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Map<AssetId, Quaternion>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, Quaternion, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A2ED5341-A86D-5564-99AF-8BCDED62C751}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{A2ED5341-A86D-5564-99AF-8BCDED62C751}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

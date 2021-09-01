@@ -1,0 +1,12 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/WhiteBox/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/WhiteBox/Code/Source/Platform/Windows/PAL_windows.cmake
+J:/Atom/lyfork/o3de/Gems/WhiteBox/Code/Source/Platform/Windows/platform_windows_tools.cmake
+J:/Atom/lyfork/o3de/Gems/WhiteBox/Code/whitebox_editor_physics_tests_supported_files.cmake
+J:/Atom/lyfork/o3de/Gems/WhiteBox/Code/whitebox_editor_shared_files.cmake
+J:/Atom/lyfork/o3de/Gems/WhiteBox/Code/whitebox_editor_supported_files.cmake
+J:/Atom/lyfork/o3de/Gems/WhiteBox/Code/whitebox_editor_tests_supported_files.cmake
+J:/Atom/lyfork/o3de/Gems/WhiteBox/Code/whitebox_shared_files.cmake
+J:/Atom/lyfork/o3de/Gems/WhiteBox/Code/whitebox_supported_files.cmake
+J:/Atom/lyfork/o3de/Gems/WhiteBox/Code/whitebox_tests_supported_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

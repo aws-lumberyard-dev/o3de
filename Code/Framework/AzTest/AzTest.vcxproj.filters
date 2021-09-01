@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\AzTest.cpp">
+      <Filter>AzTest</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\ColorizedOutput.cpp">
+      <Filter>AzTest</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\Utils.cpp">
+      <Filter>AzTest</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\GemTestEnvironment.cpp">
+      <Filter>AzTest</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\Platform\Common\WinAPI\AzTest\ColorizedOutput_WinAPI.cpp">
+      <Filter>AzTest\Platform\Windows\..\Common\WinAPI\AzTest</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\Platform\Windows\Platform_Windows.cpp">
+      <Filter>AzTest\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\Platform\Windows\ScopedAutoTempDirectory_Windows.cpp">
+      <Filter>AzTest\Platform\Windows</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\AzTest.h">
+      <Filter>AzTest</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\Platform.h">
+      <Filter>AzTest</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\Utils.h">
+      <Filter>AzTest</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\GemTestEnvironment.h">
+      <Filter>AzTest</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\Platform\Windows\AzTest_Traits_Platform.h">
+      <Filter>AzTest\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\Platform\Windows\AzTest_Traits_Windows.h">
+      <Filter>AzTest\Platform\Windows</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzTest\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\aztest_files.cmake">
+      <Filter>AzTest</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\Platform\Windows\platform_windows_files.cmake">
+      <Filter>AzTest\Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\Platform\Windows\platform_windows.cmake">
+      <Filter>AzTest\Platform\Windows</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="AzTest">
+      <UniqueIdentifier>{3C0CE8D1-B142-3642-B41D-02EB8BC32E71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzTest\Platform">
+      <UniqueIdentifier>{7A6BC92E-9E46-3875-BA4D-CF96D48C633A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzTest\Platform\Windows">
+      <UniqueIdentifier>{011B01AE-D8DA-3694-85D8-D757E0A0CC4E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzTest\Platform\Windows\..">
+      <UniqueIdentifier>{4D809F53-29BF-3EF6-ACC9-5AF58DC0D61B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzTest\Platform\Windows\..\Common">
+      <UniqueIdentifier>{0531D6A0-CF6F-33CE-8900-F431DAAF3A42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzTest\Platform\Windows\..\Common\WinAPI">
+      <UniqueIdentifier>{0B6FD072-67A7-3BAE-9C43-C85C0C38BA1E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzTest\Platform\Windows\..\Common\WinAPI\AzTest">
+      <UniqueIdentifier>{CE5F8DB4-8BEA-3452-AD76-9E41C061556E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

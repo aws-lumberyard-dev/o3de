@@ -1,0 +1,177 @@
+{
+    "entries": [
+        {
+            "key": "UiPadding",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiPadding"
+            },
+            "methods": [
+                {
+                    "key": "SetPadding",
+                    "context": "UiPadding",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UiPadding::SetPadding"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UiPadding::SetPadding is invoked"
+                    },
+                    "details": {
+                        "name": "UiPadding::SetPadding"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DE5C18B0-4214-4A37-B590-8D45CC450A96}",
+                            "details": {
+                                "name": "Padding"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetBottom",
+                    "context": "UiPadding",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UiPadding::SetBottom"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UiPadding::SetBottom is invoked"
+                    },
+                    "details": {
+                        "name": "UiPadding::SetBottom"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DE5C18B0-4214-4A37-B590-8D45CC450A96}",
+                            "details": {
+                                "name": "Padding"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetRight",
+                    "context": "UiPadding",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UiPadding::SetRight"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UiPadding::SetRight is invoked"
+                    },
+                    "details": {
+                        "name": "UiPadding::SetRight"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DE5C18B0-4214-4A37-B590-8D45CC450A96}",
+                            "details": {
+                                "name": "Padding"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetTop",
+                    "context": "UiPadding",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UiPadding::SetTop"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UiPadding::SetTop is invoked"
+                    },
+                    "details": {
+                        "name": "UiPadding::SetTop"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DE5C18B0-4214-4A37-B590-8D45CC450A96}",
+                            "details": {
+                                "name": "Padding"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetLeft",
+                    "context": "UiPadding",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UiPadding::SetLeft"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UiPadding::SetLeft is invoked"
+                    },
+                    "details": {
+                        "name": "UiPadding::SetLeft"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DE5C18B0-4214-4A37-B590-8D45CC450A96}",
+                            "details": {
+                                "name": "Padding"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

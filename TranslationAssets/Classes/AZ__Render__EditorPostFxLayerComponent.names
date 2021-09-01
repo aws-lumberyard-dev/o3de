@@ -1,0 +1,12 @@
+{
+    "entries": [
+        {
+            "key": "AZ::Render::EditorPostFxLayerComponent",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AZ::Render::EditorPostFxLayerComponent"
+            }
+        }
+    ]
+}

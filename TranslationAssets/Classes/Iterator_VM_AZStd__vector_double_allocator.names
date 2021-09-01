@@ -1,0 +1,99 @@
+{
+    "entries": [
+        {
+            "key": "Iterator_VM<AZStd::vector<double, allocator>>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Iterator_VM<AZStd::vector<double, allocator>>"
+            },
+            "methods": [
+                {
+                    "key": "IsNotAtEnd",
+                    "context": "Iterator_VM<AZStd::vector<double, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<double, allocator>>::IsNotAtEnd"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<double, allocator>>::IsNotAtEnd is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::vector<double, allocator>>::IsNotAtEnd"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{30E6B65F-7B30-5B32-903C-BBE8E5DED781}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<double, allocator>>*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ModValueUnchecked",
+                    "context": "Iterator_VM<AZStd::vector<double, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<double, allocator>>::ModValueUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<double, allocator>>::ModValueUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::vector<double, allocator>>::ModValueUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{30E6B65F-7B30-5B32-903C-BBE8E5DED781}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<double, allocator>>*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Next",
+                    "context": "Iterator_VM<AZStd::vector<double, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<double, allocator>>::Next"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<double, allocator>>::Next is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::vector<double, allocator>>::Next"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{30E6B65F-7B30-5B32-903C-BBE8E5DED781}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<double, allocator>>*"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

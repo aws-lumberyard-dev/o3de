@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Source\Framework\ScriptCanvasTestFixture.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Source\Framework\ScriptCanvasTestNodes.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Source\Framework\ScriptCanvasTestUtilities.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Tests\ScriptCanvasTestingTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Tests\ScriptCanvas_BehaviorContext.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Tests\ScriptCanvas_ContainerSupport.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Tests\ScriptCanvas_Core.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Tests\ScriptCanvas_EventHandlers.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Tests\ScriptCanvas_Math.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Tests\ScriptCanvas_MethodOverload.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Tests\ScriptCanvas_NodeGenerics.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Tests\ScriptCanvas_Regressions.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Tests\ScriptCanvas_RuntimeInterpreted.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Tests\ScriptCanvas_Slots.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Tests\ScriptCanvas_StringNodes.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Tests\ScriptCanvas_UnitTesting.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Tests\ScriptCanvas_Variables.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Tests\ScriptCanvas_VM.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Source\Framework\ScriptCanvasTestFixture.h">
+      <Filter>Source\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Source\Framework\ScriptCanvasTestNodes.h">
+      <Filter>Source\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Source\Framework\ScriptCanvasTestUtilities.h">
+      <Filter>Source\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Source\Framework\ScriptCanvasTestApplication.h">
+      <Filter>Source\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Source\Framework\EntityRefTests.h">
+      <Filter>Source\Framework</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\scriptcanvastestingeditor_tests_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Platform\Common\MSVC\scriptcanvastesting_editor_tests_msvc.cmake">
+      <Filter>Platform\Common\MSVC</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{D4CCE8D3-A6C9-3C6A-9C86-8BF8F7D77D7F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Common">
+      <UniqueIdentifier>{C3B9BA79-B7DE-3656-9F2E-A2DB09E250B2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Common\MSVC">
+      <UniqueIdentifier>{B169EB5F-F635-3041-87FE-B6117DDAC99B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Framework">
+      <UniqueIdentifier>{310F290A-7B52-3514-9A67-A36D0BD9BAC7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{A12C7827-546E-3D77-AE99-877104F2DFF1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

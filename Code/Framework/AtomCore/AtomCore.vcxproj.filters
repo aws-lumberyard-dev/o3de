@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore\Instance\InstanceId.cpp">
+      <Filter>AtomCore\Instance</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore\Instance\InstanceData.cpp">
+      <Filter>AtomCore\Instance</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore\Serialization\Json\JsonUtils.cpp">
+      <Filter>AtomCore\Serialization\Json</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore\Instance\Instance.h">
+      <Filter>AtomCore\Instance</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore\Instance\InstanceId.h">
+      <Filter>AtomCore\Instance</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore\Instance\InstanceData.h">
+      <Filter>AtomCore\Instance</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore\Instance\InstanceDatabase.h">
+      <Filter>AtomCore\Instance</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore\Serialization\Json\JsonUtils.h">
+      <Filter>AtomCore\Serialization\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore\std\containers\array_view.h">
+      <Filter>AtomCore\std\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore\std\containers\fixed_vector_set.h">
+      <Filter>AtomCore\std\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore\std\containers\lru_cache.h">
+      <Filter>AtomCore\std\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore\std\containers\vector_set.h">
+      <Filter>AtomCore\std\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore\std\containers\vector_set_base.h">
+      <Filter>AtomCore\std\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore\std\parallel\concurrency_checker.h">
+      <Filter>AtomCore\std\parallel</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore\atomcore_files.cmake">
+      <Filter>AtomCore</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="AtomCore">
+      <UniqueIdentifier>{3F3BBD96-3016-368B-A10B-5466887213D5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AtomCore\Instance">
+      <UniqueIdentifier>{94E5A3ED-AA28-3760-8793-8005C1E75BD8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AtomCore\Serialization">
+      <UniqueIdentifier>{E6C24010-667D-3B20-8EA7-BFFD389B9BC9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AtomCore\Serialization\Json">
+      <UniqueIdentifier>{4C82ED3E-7E77-3586-B09F-CDAC7D6E66CF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AtomCore\std">
+      <UniqueIdentifier>{0315D284-B99D-32A8-A44C-E6F7D8508B9D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AtomCore\std\containers">
+      <UniqueIdentifier>{15C06961-F09F-3E47-AA8C-5A8E0E7C1100}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AtomCore\std\parallel">
+      <UniqueIdentifier>{5DFC792E-3DCE-3AF5-8264-1EFC722F425E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

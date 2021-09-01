@@ -1,0 +1,224 @@
+{
+    "entries": [
+        {
+            "key": "UiTransform2dBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiTransform2dBus"
+            },
+            "methods": [
+                {
+                    "key": "GetLocalHeight",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetLocalHeight"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetLocalHeight is invoked"
+                    },
+                    "details": {
+                        "name": "GetLocalHeight"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetLocalHeight",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetLocalHeight"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetLocalHeight is invoked"
+                    },
+                    "details": {
+                        "name": "SetLocalHeight"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetLocalWidth",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetLocalWidth"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetLocalWidth is invoked"
+                    },
+                    "details": {
+                        "name": "GetLocalWidth"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetPivotAndAdjustOffsets",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetPivotAndAdjustOffsets"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetPivotAndAdjustOffsets is invoked"
+                    },
+                    "details": {
+                        "name": "SetPivotAndAdjustOffsets"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetLocalWidth",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetLocalWidth"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetLocalWidth is invoked"
+                    },
+                    "details": {
+                        "name": "SetLocalWidth"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetOffsets",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetOffsets"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetOffsets is invoked"
+                    },
+                    "details": {
+                        "name": "GetOffsets"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{F681BA9D-245C-4630-B20E-05DD752FAD57}",
+                            "details": {
+                                "name": "Offsets"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetAnchors",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetAnchors"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetAnchors is invoked"
+                    },
+                    "details": {
+                        "name": "SetAnchors"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{65D4346C-FB16-4CB0-9BDC-1185B122C4A9}",
+                            "details": {
+                                "name": "Anchors"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetAnchors",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetAnchors"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetAnchors is invoked"
+                    },
+                    "details": {
+                        "name": "GetAnchors"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{65D4346C-FB16-4CB0-9BDC-1185B122C4A9}",
+                            "details": {
+                                "name": "Anchors"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetOffsets",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetOffsets"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetOffsets is invoked"
+                    },
+                    "details": {
+                        "name": "SetOffsets"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{F681BA9D-245C-4630-B20E-05DD752FAD57}",
+                            "details": {
+                                "name": "Offsets"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

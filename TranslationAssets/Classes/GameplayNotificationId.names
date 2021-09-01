@@ -1,0 +1,113 @@
+{
+    "entries": [
+        {
+            "key": "GameplayNotificationId",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "GameplayNotificationId"
+            },
+            "methods": [
+                {
+                    "key": "ToString",
+                    "context": "GameplayNotificationId",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GameplayNotificationId::ToString"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GameplayNotificationId::ToString is invoked"
+                    },
+                    "details": {
+                        "name": "GameplayNotificationId::ToString"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C5225D36-7068-412D-A46E-DDF79CA1D7FF}",
+                            "details": {
+                                "name": "GameplayNotificationId"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Equal",
+                    "context": "GameplayNotificationId",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GameplayNotificationId::Equal"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GameplayNotificationId::Equal is invoked"
+                    },
+                    "details": {
+                        "name": "GameplayNotificationId::Equal"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C5225D36-7068-412D-A46E-DDF79CA1D7FF}",
+                            "details": {
+                                "name": "GameplayNotificationId"
+                            }
+                        },
+                        {
+                            "typeid": "{C5225D36-7068-412D-A46E-DDF79CA1D7FF}",
+                            "details": {
+                                "name": "GameplayNotificationId"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clone",
+                    "context": "GameplayNotificationId",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GameplayNotificationId::Clone"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GameplayNotificationId::Clone is invoked"
+                    },
+                    "details": {
+                        "name": "GameplayNotificationId::Clone"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C5225D36-7068-412D-A46E-DDF79CA1D7FF}",
+                            "details": {
+                                "name": "GameplayNotificationId"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C5225D36-7068-412D-A46E-DDF79CA1D7FF}",
+                            "details": {
+                                "name": "GameplayNotificationId"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

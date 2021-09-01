@@ -1,0 +1,190 @@
+{
+    "entries": [
+        {
+            "key": "RenderMeshComponentRequestBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "RenderMeshComponentRequestBus"
+            },
+            "methods": [
+                {
+                    "key": "GetLodOverride",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetLodOverride"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetLodOverride is invoked"
+                    },
+                    "details": {
+                        "name": "GetLodOverride"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72B9409A-7D1A-4831-9CFE-FCB3FADD3426}",
+                            "details": {
+                                "name": "unsigned char"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSortKey",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetSortKey"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetSortKey is invoked"
+                    },
+                    "details": {
+                        "name": "GetSortKey"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{70D8A282-A1EA-462D-9D04-51EDE81FAC2F}",
+                            "details": {
+                                "name": "AZ::s64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetSortKey",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetSortKey"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetSortKey is invoked"
+                    },
+                    "details": {
+                        "name": "SetSortKey"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{70D8A282-A1EA-462D-9D04-51EDE81FAC2F}",
+                            "details": {
+                                "name": "AZ::s64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetModelAssetPath",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetModelAssetPath"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetModelAssetPath is invoked"
+                    },
+                    "details": {
+                        "name": "GetModelAssetPath"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetLodOverride",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetLodOverride"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetLodOverride is invoked"
+                    },
+                    "details": {
+                        "name": "SetLodOverride"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72B9409A-7D1A-4831-9CFE-FCB3FADD3426}",
+                            "details": {
+                                "name": "unsigned char"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetModelAssetId",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetModelAssetId"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetModelAssetId is invoked"
+                    },
+                    "details": {
+                        "name": "SetModelAssetId"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
+                            "details": {
+                                "name": "AssetId"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetModelAssetId",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetModelAssetId"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetModelAssetId is invoked"
+                    },
+                    "details": {
+                        "name": "GetModelAssetId"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
+                            "details": {
+                                "name": "AssetId"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetModelAssetPath",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetModelAssetPath"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetModelAssetPath is invoked"
+                    },
+                    "details": {
+                        "name": "SetModelAssetPath"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,37 @@
+{
+    "entries": [
+        {
+            "key": "EventHandler<tuple<Crc32 int > const TriggerEvent& >",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "EventHandler<tuple<Crc32 int > const TriggerEvent& >"
+            },
+            "methods": [
+                {
+                    "key": "Disconnect",
+                    "context": "EventHandler<tuple<Crc32 int > const TriggerEvent& >",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke EventHandler<tuple<Crc32 int > const TriggerEvent& >::Disconnect"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after EventHandler<tuple<Crc32 int > const TriggerEvent& >::Disconnect is invoked"
+                    },
+                    "details": {
+                        "name": "EventHandler<tuple<Crc32 int > const TriggerEvent& >::Disconnect"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{17C3FF8A-BB6E-5E16-9239-1E5AA686D4F2}",
+                            "details": {
+                                "name": "EventHandler<tuple<Crc32 int > const TriggerEvent& >*"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

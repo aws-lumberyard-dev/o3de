@@ -1,0 +1,590 @@
+{
+    "entries": [
+        {
+            "key": "UiTextInputBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiTextInputBus"
+            },
+            "methods": [
+                {
+                    "key": "SetChangeAction",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetChangeAction"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetChangeAction is invoked"
+                    },
+                    "details": {
+                        "name": "SetChangeAction"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetEndEditAction",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetEndEditAction"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetEndEditAction is invoked"
+                    },
+                    "details": {
+                        "name": "GetEndEditAction"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetEndEditAction",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetEndEditAction"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetEndEditAction is invoked"
+                    },
+                    "details": {
+                        "name": "SetEndEditAction"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetPlaceHolderTextEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetPlaceHolderTextEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetPlaceHolderTextEntity is invoked"
+                    },
+                    "details": {
+                        "name": "GetPlaceHolderTextEntity"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsPasswordField",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsPasswordField"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsPasswordField is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsPasswordField"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetChangeAction",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetChangeAction"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetChangeAction is invoked"
+                    },
+                    "details": {
+                        "name": "GetChangeAction"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetEnterAction",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetEnterAction"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetEnterAction is invoked"
+                    },
+                    "details": {
+                        "name": "SetEnterAction"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetText",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetText"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetText is invoked"
+                    },
+                    "details": {
+                        "name": "SetText"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsClipboardEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsClipboardEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsClipboardEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsClipboardEnabled"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetMaxStringLength",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetMaxStringLength"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetMaxStringLength is invoked"
+                    },
+                    "details": {
+                        "name": "SetMaxStringLength"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetEnterAction",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetEnterAction"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetEnterAction is invoked"
+                    },
+                    "details": {
+                        "name": "GetEnterAction"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetText",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetText"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetText is invoked"
+                    },
+                    "details": {
+                        "name": "GetText"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetCursorBlinkInterval",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetCursorBlinkInterval"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetCursorBlinkInterval is invoked"
+                    },
+                    "details": {
+                        "name": "GetCursorBlinkInterval"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetMaxStringLength",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetMaxStringLength"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetMaxStringLength is invoked"
+                    },
+                    "details": {
+                        "name": "GetMaxStringLength"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsPasswordField",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsPasswordField"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsPasswordField is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsPasswordField"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTextCursorColor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetTextCursorColor"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetTextCursorColor is invoked"
+                    },
+                    "details": {
+                        "name": "GetTextCursorColor"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
+                            "details": {
+                                "name": "Color"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetTextEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetTextEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetTextEntity is invoked"
+                    },
+                    "details": {
+                        "name": "SetTextEntity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetTextSelectionColor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetTextSelectionColor"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetTextSelectionColor is invoked"
+                    },
+                    "details": {
+                        "name": "SetTextSelectionColor"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
+                            "details": {
+                                "name": "Color"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetTextCursorColor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetTextCursorColor"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetTextCursorColor is invoked"
+                    },
+                    "details": {
+                        "name": "SetTextCursorColor"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
+                            "details": {
+                                "name": "Color"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetCursorBlinkInterval",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetCursorBlinkInterval"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetCursorBlinkInterval is invoked"
+                    },
+                    "details": {
+                        "name": "SetCursorBlinkInterval"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTextEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetTextEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetTextEntity is invoked"
+                    },
+                    "details": {
+                        "name": "GetTextEntity"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetPlaceHolderTextEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetPlaceHolderTextEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetPlaceHolderTextEntity is invoked"
+                    },
+                    "details": {
+                        "name": "SetPlaceHolderTextEntity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetReplacementCharacter",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetReplacementCharacter"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetReplacementCharacter is invoked"
+                    },
+                    "details": {
+                        "name": "GetReplacementCharacter"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsClipboardEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsClipboardEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsClipboardEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsClipboardEnabled"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTextSelectionColor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetTextSelectionColor"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetTextSelectionColor is invoked"
+                    },
+                    "details": {
+                        "name": "GetTextSelectionColor"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
+                            "details": {
+                                "name": "Color"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetReplacementCharacter",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetReplacementCharacter"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetReplacementCharacter is invoked"
+                    },
+                    "details": {
+                        "name": "SetReplacementCharacter"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

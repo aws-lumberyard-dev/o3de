@@ -1,0 +1,11 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/LmbrCentral/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/LmbrCentral/Code/Platform/Windows/lrelease_windows.cmake
+J:/Atom/lyfork/o3de/Gems/LmbrCentral/Code/Platform/Windows/platform_windows_files.cmake
+J:/Atom/lyfork/o3de/Gems/LmbrCentral/Code/lmbrcentral_editor_files.cmake
+J:/Atom/lyfork/o3de/Gems/LmbrCentral/Code/lmbrcentral_editor_shared_files.cmake
+J:/Atom/lyfork/o3de/Gems/LmbrCentral/Code/lmbrcentral_editor_tests_files.cmake
+J:/Atom/lyfork/o3de/Gems/LmbrCentral/Code/lmbrcentral_files.cmake
+J:/Atom/lyfork/o3de/Gems/LmbrCentral/Code/lmbrcentral_shared_files.cmake
+J:/Atom/lyfork/o3de/Gems/LmbrCentral/Code/lmbrcentral_tests_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

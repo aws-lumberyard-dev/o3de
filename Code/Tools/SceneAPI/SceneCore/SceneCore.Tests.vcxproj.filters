@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Tests\TestsMain.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Tests\Containers\SceneTests.cpp">
+      <Filter>Tests\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Tests\Containers\SceneBehaviorTests.cpp">
+      <Filter>Tests\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Tests\Containers\SceneGraphTests.cpp">
+      <Filter>Tests\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Tests\Containers\SceneManifestTests.cpp">
+      <Filter>Tests\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Tests\Events\AssetImporterRequestTests.cpp">
+      <Filter>Tests\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Tests\Containers\Views\IteratorConformityTests.cpp">
+      <Filter>Tests\Containers\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Tests\Containers\Views\ConvertIteratorTests.cpp">
+      <Filter>Tests\Containers\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Tests\Containers\Views\FilterIteratorTests.cpp">
+      <Filter>Tests\Containers\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Tests\Containers\Views\PairIteratorTests.cpp">
+      <Filter>Tests\Containers\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Tests\Containers\Views\SceneGraphUpwardsIteratorTests.cpp">
+      <Filter>Tests\Containers\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Tests\Containers\Views\SceneGraphChildIteratorTests.cpp">
+      <Filter>Tests\Containers\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Tests\Containers\Views\SceneGraphDownwardsIteratorTests.cpp">
+      <Filter>Tests\Containers\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Tests\Containers\Utilities\FiltersTests.cpp">
+      <Filter>Tests\Containers\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Tests\Utilities\SceneGraphSelectorTests.cpp">
+      <Filter>Tests\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Tests\Utilities\PatternMatcherTests.cpp">
+      <Filter>Tests\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Tests\Export\MaterialIOTests.cpp">
+      <Filter>Tests\Export</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Mocks\Containers\MockScene.h">
+      <Filter>Mocks\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Mocks\DataTypes\GraphData\MockIMeshData.h">
+      <Filter>Mocks\DataTypes\GraphData</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Mocks\DataTypes\MockIGraphObject.h">
+      <Filter>Mocks\DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Mocks\DataTypes\Groups\MockIGroup.h">
+      <Filter>Mocks\DataTypes\Groups</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Mocks\DataTypes\Groups\MockIMeshGroup.h">
+      <Filter>Mocks\DataTypes\Groups</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Mocks\DataTypes\ManifestBase\MockISceneNodeSelectionList.h">
+      <Filter>Mocks\DataTypes\ManifestBase</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Mocks\Events\MockAssetImportRequest.h">
+      <Filter>Mocks\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\Tests\Containers\Views\IteratorTestsBase.h">
+      <Filter>Tests\Containers\Views</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\scenecore_testing_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mocks">
+      <UniqueIdentifier>{D43DAD66-F22E-30C0-9C05-DA18FA2E7338}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mocks\Containers">
+      <UniqueIdentifier>{AD798835-18C3-3F34-BB26-8C682D96D5A4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mocks\DataTypes">
+      <UniqueIdentifier>{5FC7479B-0725-3FB8-8C11-D98ED796ADF3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mocks\DataTypes\GraphData">
+      <UniqueIdentifier>{995A108A-DC9F-30AC-BD17-36AB734C3FD9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mocks\DataTypes\Groups">
+      <UniqueIdentifier>{A4A6C310-D0F2-36B9-AA90-4926BBCFDE5A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mocks\DataTypes\ManifestBase">
+      <UniqueIdentifier>{3B2E202A-BBB2-3404-8DD0-A6DF50BB5BB7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mocks\Events">
+      <UniqueIdentifier>{EBDCA50C-8FAE-3169-981F-23F3BB224629}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{A12C7827-546E-3D77-AE99-877104F2DFF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Containers">
+      <UniqueIdentifier>{3FB10027-2F18-3C9C-8C7C-3FD121293EF9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Containers\Utilities">
+      <UniqueIdentifier>{600C3D59-A3C9-395D-B319-41E30DA30A81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Containers\Views">
+      <UniqueIdentifier>{C50B701A-7EEF-3CAB-9BF3-E40AAFF73004}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Events">
+      <UniqueIdentifier>{AA918DE0-3CE7-36B2-A9EE-ED5638A09319}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Export">
+      <UniqueIdentifier>{094A4BF8-F2B5-38E5-8A81-910B7B83E181}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Utilities">
+      <UniqueIdentifier>{88EC1603-907A-39AF-BED0-92AAEA927310}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\AWSCoreTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\AWSCoreSystemComponentTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\Configuration\AWSCoreConfigurationTest.cpp">
+      <Filter>Tests\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\Credential\AWSCredentialBusTest.cpp">
+      <Filter>Tests\Credential</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\Credential\AWSCVarCredentialHandlerTest.cpp">
+      <Filter>Tests\Credential</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\Credential\AWSDefaultCredentialHandlerTest.cpp">
+      <Filter>Tests\Credential</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\Framework\AWSApiClientJobConfigTest.cpp">
+      <Filter>Tests\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\Framework\AWSApiJobConfigTest.cpp">
+      <Filter>Tests\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\Framework\HttpRequestJobTest.cpp">
+      <Filter>Tests\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\Framework\JsonObjectHandlerTest.cpp">
+      <Filter>Tests\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\Framework\JsonWriterTest.cpp">
+      <Filter>Tests\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\Framework\RequestBuilderTest.cpp">
+      <Filter>Tests\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\Framework\ServiceClientJobConfigTest.cpp">
+      <Filter>Tests\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\Framework\ServiceJobUtilTest.cpp">
+      <Filter>Tests\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\Framework\ServiceRequestJobTest.cpp">
+      <Filter>Tests\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\Framework\UtilTest.cpp">
+      <Filter>Tests\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\ResourceMapping\AWSResourceMappingManagerTest.cpp">
+      <Filter>Tests\ResourceMapping</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\ResourceMapping\AWSResourceMappingUtilsTest.cpp">
+      <Filter>Tests\ResourceMapping</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\ScriptCanvas\AWSScriptBehaviorDynamoDBTest.cpp">
+      <Filter>Tests\ScriptCanvas</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\ScriptCanvas\AWSScriptBehaviorLambdaTest.cpp">
+      <Filter>Tests\ScriptCanvas</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\ScriptCanvas\AWSScriptBehaviorS3Test.cpp">
+      <Filter>Tests\ScriptCanvas</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\ScriptCanvas\AWSScriptBehaviorsComponentTest.cpp">
+      <Filter>Tests\ScriptCanvas</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Tests\TestFramework\AWSCoreFixture.h">
+      <Filter>Tests\TestFramework</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\awscore_tests_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{A12C7827-546E-3D77-AE99-877104F2DFF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Configuration">
+      <UniqueIdentifier>{DF529E7D-2E18-337A-8990-733FE572DAEA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Credential">
+      <UniqueIdentifier>{7C308D2E-7C35-3E6E-A44E-25DEF17E873E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Framework">
+      <UniqueIdentifier>{26418E25-79CB-3941-B00F-A0EDC8C7FD78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\ResourceMapping">
+      <UniqueIdentifier>{D32775B4-DC52-3714-93E8-00C9501E7615}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\ScriptCanvas">
+      <UniqueIdentifier>{640B2976-06AB-325D-8A17-7EF4E6352B86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\TestFramework">
+      <UniqueIdentifier>{D69FAB04-617D-31B8-8A7B-6CFD23D3866E}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

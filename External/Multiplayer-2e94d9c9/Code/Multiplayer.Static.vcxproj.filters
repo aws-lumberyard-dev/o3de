@@ -1,0 +1,494 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\MultiplayerSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\MultiplayerStats.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Components\LocalPredictionPlayerInputComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Components\MultiplayerComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Components\MultiplayerController.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Components\MultiplayerComponentRegistry.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Components\NetBindComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Components\NetworkTransformComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\ConnectionData\ClientToServerConnectionData.cpp">
+      <Filter>Source\ConnectionData</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\ConnectionData\ServerToClientConnectionData.cpp">
+      <Filter>Source\ConnectionData</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Editor\MultiplayerEditorConnection.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\EntityDomains\FullOwnershipEntityDomain.cpp">
+      <Filter>Source\EntityDomains</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\EntityReplication\EntityReplicationManager.cpp">
+      <Filter>Source\NetworkEntity\EntityReplication</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\EntityReplication\EntityReplicator.cpp">
+      <Filter>Source\NetworkEntity\EntityReplication</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\EntityReplication\PropertyPublisher.cpp">
+      <Filter>Source\NetworkEntity\EntityReplication</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\EntityReplication\PropertySubscriber.cpp">
+      <Filter>Source\NetworkEntity\EntityReplication</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\EntityReplication\ReplicationRecord.cpp">
+      <Filter>Source\NetworkEntity\EntityReplication</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkEntityAuthorityTracker.cpp">
+      <Filter>Source\NetworkEntity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkEntityHandle.cpp">
+      <Filter>Source\NetworkEntity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkEntityManager.cpp">
+      <Filter>Source\NetworkEntity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkSpawnableLibrary.cpp">
+      <Filter>Source\NetworkEntity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkEntityRpcMessage.cpp">
+      <Filter>Source\NetworkEntity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkEntityTracker.cpp">
+      <Filter>Source\NetworkEntity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkEntityUpdateMessage.cpp">
+      <Filter>Source\NetworkEntity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkInput\NetworkInput.cpp">
+      <Filter>Source\NetworkInput</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkInput\NetworkInputArray.cpp">
+      <Filter>Source\NetworkInput</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkInput\NetworkInputChild.cpp">
+      <Filter>Source\NetworkInput</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkInput\NetworkInputHistory.cpp">
+      <Filter>Source\NetworkInput</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkInput\NetworkInputMigrationVector.cpp">
+      <Filter>Source\NetworkInput</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkTime\NetworkTime.cpp">
+      <Filter>Source\NetworkTime</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Pipeline\NetBindMarkerComponent.cpp">
+      <Filter>Source\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Pipeline\NetworkSpawnableHolderComponent.cpp">
+      <Filter>Source\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Physics\PhysicsUtils.cpp">
+      <Filter>Source\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\ReplicationWindows\NullReplicationWindow.cpp">
+      <Filter>Source\ReplicationWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\ReplicationWindows\ServerToClientReplicationWindow.cpp">
+      <Filter>Source\ReplicationWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPackets.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPackets.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\LocalPredictionPlayerInputComponent.AutoComponent.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\NetworkTransformComponent.AutoComponent.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\AutoComponentTypes.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\IMultiplayer.h">
+      <Filter>Include\Multiplayer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\IMultiplayerDebug.h">
+      <Filter>Include\Multiplayer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\IMultiplayerTools.h">
+      <Filter>Include\Multiplayer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\MultiplayerConstants.h">
+      <Filter>Include\Multiplayer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\MultiplayerStats.h">
+      <Filter>Include\Multiplayer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\MultiplayerTypes.h">
+      <Filter>Include\Multiplayer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\Components\LocalPredictionPlayerInputComponent.h">
+      <Filter>Include\Multiplayer\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\Components\MultiplayerComponent.h">
+      <Filter>Include\Multiplayer\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\Components\MultiplayerController.h">
+      <Filter>Include\Multiplayer\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\Components\MultiplayerComponentRegistry.h">
+      <Filter>Include\Multiplayer\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\Components\NetBindComponent.h">
+      <Filter>Include\Multiplayer\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\Components\NetworkTransformComponent.h">
+      <Filter>Include\Multiplayer\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\ConnectionData\IConnectionData.h">
+      <Filter>Include\Multiplayer\ConnectionData</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\EntityDomains\IEntityDomain.h">
+      <Filter>Include\Multiplayer\EntityDomains</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkEntity\INetworkEntityManager.h">
+      <Filter>Include\Multiplayer\NetworkEntity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\INetworkSpawnableLibrary.h">
+      <Filter>Include\Multiplayer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkEntity\IFilterEntityManager.h">
+      <Filter>Include\Multiplayer\NetworkEntity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkEntity\NetworkEntityRpcMessage.h">
+      <Filter>Include\Multiplayer\NetworkEntity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkEntity\NetworkEntityUpdateMessage.h">
+      <Filter>Include\Multiplayer\NetworkEntity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkEntity\NetworkEntityHandle.h">
+      <Filter>Include\Multiplayer\NetworkEntity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkEntity\NetworkEntityHandle.inl">
+      <Filter>Include\Multiplayer\NetworkEntity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkEntity\EntityReplication\ReplicationRecord.h">
+      <Filter>Include\Multiplayer\NetworkEntity\EntityReplication</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkInput\IMultiplayerComponentInput.h">
+      <Filter>Include\Multiplayer\NetworkInput</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkInput\NetworkInput.h">
+      <Filter>Include\Multiplayer\NetworkInput</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkTime\INetworkTime.h">
+      <Filter>Include\Multiplayer\NetworkTime</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkTime\RewindableArray.h">
+      <Filter>Include\Multiplayer\NetworkTime</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkTime\RewindableArray.inl">
+      <Filter>Include\Multiplayer\NetworkTime</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkTime\RewindableFixedVector.h">
+      <Filter>Include\Multiplayer\NetworkTime</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkTime\RewindableFixedVector.inl">
+      <Filter>Include\Multiplayer\NetworkTime</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkTime\RewindableObject.h">
+      <Filter>Include\Multiplayer\NetworkTime</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkTime\RewindableObject.inl">
+      <Filter>Include\Multiplayer\NetworkTime</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\Physics\PhysicsUtils.h">
+      <Filter>Include\Multiplayer\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\ReplicationWindows\IReplicationWindow.h">
+      <Filter>Include\Multiplayer\ReplicationWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\MultiplayerSystemComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\ConnectionData\ClientToServerConnectionData.h">
+      <Filter>Source\ConnectionData</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\ConnectionData\ClientToServerConnectionData.inl">
+      <Filter>Source\ConnectionData</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\ConnectionData\ServerToClientConnectionData.h">
+      <Filter>Source\ConnectionData</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\ConnectionData\ServerToClientConnectionData.inl">
+      <Filter>Source\ConnectionData</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Editor\MultiplayerEditorConnection.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\EntityDomains\FullOwnershipEntityDomain.h">
+      <Filter>Source\EntityDomains</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\EntityReplication\EntityReplicationManager.h">
+      <Filter>Source\NetworkEntity\EntityReplication</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\EntityReplication\EntityReplicator.h">
+      <Filter>Source\NetworkEntity\EntityReplication</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\EntityReplication\EntityReplicator.inl">
+      <Filter>Source\NetworkEntity\EntityReplication</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\EntityReplication\PropertyPublisher.h">
+      <Filter>Source\NetworkEntity\EntityReplication</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\EntityReplication\PropertySubscriber.h">
+      <Filter>Source\NetworkEntity\EntityReplication</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkEntityAuthorityTracker.h">
+      <Filter>Source\NetworkEntity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkEntityManager.h">
+      <Filter>Source\NetworkEntity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkSpawnableLibrary.h">
+      <Filter>Source\NetworkEntity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkEntityTracker.h">
+      <Filter>Source\NetworkEntity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkEntityTracker.inl">
+      <Filter>Source\NetworkEntity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkInput\NetworkInputArray.h">
+      <Filter>Source\NetworkInput</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkInput\NetworkInputChild.h">
+      <Filter>Source\NetworkInput</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkInput\NetworkInputHistory.h">
+      <Filter>Source\NetworkInput</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkInput\NetworkInputMigrationVector.h">
+      <Filter>Source\NetworkInput</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkTime\NetworkTime.h">
+      <Filter>Source\NetworkTime</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Pipeline\NetBindMarkerComponent.h">
+      <Filter>Source\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Pipeline\NetworkSpawnableHolderComponent.h">
+      <Filter>Source\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\ReplicationWindows\NullReplicationWindow.h">
+      <Filter>Source\ReplicationWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\ReplicationWindows\ServerToClientReplicationWindow.h">
+      <Filter>Source\ReplicationWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPackets.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPackets.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPackets.inl">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPackets.inl">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPacketDispatcher.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPacketDispatcher.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPacketDispatcher.inl">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPacketDispatcher.inl">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\LocalPredictionPlayerInputComponent.AutoComponent.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\NetworkTransformComponent.AutoComponent.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\AutoComponentTypes.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\3a391e7e21e4db5a056bef25060f506b\Multiplayer.AutoPackets.h.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponent_Header.jinja">
+      <Filter>Source\AutoGen</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponent_Source.jinja">
+      <Filter>Source\AutoGen</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponent_Common.jinja">
+      <Filter>Source\AutoGen</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponentTypes_Header.jinja">
+      <Filter>Source\AutoGen</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponentTypes_Source.jinja">
+      <Filter>Source\AutoGen</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPackets_Header.jinja">
+      <Filter>..\..\..\Code\Framework\AzNetworking\AzNetworking\AutoGen</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPackets_Inline.jinja">
+      <Filter>..\..\..\Code\Framework\AzNetworking\AzNetworking\AutoGen</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPackets_Source.jinja">
+      <Filter>..\..\..\Code\Framework\AzNetworking\AzNetworking\AutoGen</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPacketDispatcher_Header.jinja">
+      <Filter>..\..\..\Code\Framework\AzNetworking\AzNetworking\AutoGen</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPacketDispatcher_Inline.jinja">
+      <Filter>..\..\..\Code\Framework\AzNetworking\AzNetworking\AutoGen</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_autogen_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\LocalPredictionPlayerInputComponent.AutoComponent.xml">
+      <Filter>Source\AutoGen</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\Multiplayer.AutoPackets.xml">
+      <Filter>Source\AutoGen</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\MultiplayerEditor.AutoPackets.xml">
+      <Filter>Source\AutoGen</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\NetworkTransformComponent.AutoComponent.xml">
+      <Filter>Source\AutoGen</Filter>
+    </XML>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="..">
+      <UniqueIdentifier>{A776B0EA-8717-39A4-85DE-E1E429B7ED9B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\..">
+      <UniqueIdentifier>{AF33C1B2-2AE2-324C-9744-82BB537DAAF4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\..\..">
+      <UniqueIdentifier>{756E2B2A-342C-3D55-A43B-0985957D47ED}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\..\..\Code">
+      <UniqueIdentifier>{B5F7E509-AB11-3D2C-AC1B-631DC4502D3C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\..\..\Code\Framework">
+      <UniqueIdentifier>{C29C9355-16B5-31E8-9B59-B579E724C5CD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\..\..\Code\Framework\AzNetworking">
+      <UniqueIdentifier>{EAE85C8A-BD58-37F7-B242-48F2B7D00E92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\..\..\Code\Framework\AzNetworking\AzNetworking">
+      <UniqueIdentifier>{73C18EA7-4B65-3DFF-A407-1A2E89835996}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\..\..\Code\Framework\AzNetworking\AzNetworking\AutoGen">
+      <UniqueIdentifier>{8315D990-EDED-37FA-ADC0-3BC6CA2CF6EF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Multiplayer">
+      <UniqueIdentifier>{09B450EF-F19B-3615-A20A-92D640DE190D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Multiplayer\Components">
+      <UniqueIdentifier>{1CA818BA-F5D2-3271-A4EF-5205E615D565}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Multiplayer\ConnectionData">
+      <UniqueIdentifier>{4F0D1542-756E-3BB5-9A72-2C200C85AB0A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Multiplayer\EntityDomains">
+      <UniqueIdentifier>{439B77B0-82E2-3049-86FE-596A5C8E62ED}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Multiplayer\NetworkEntity">
+      <UniqueIdentifier>{B4D41BFA-F17A-3AF0-BDE2-B30DBA1DFAA5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Multiplayer\NetworkEntity\EntityReplication">
+      <UniqueIdentifier>{317D5938-CF9A-36E9-ABC5-AD865CC33EEF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Multiplayer\NetworkInput">
+      <UniqueIdentifier>{EB91128A-B547-3F3A-BF32-51270C085FE1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Multiplayer\NetworkTime">
+      <UniqueIdentifier>{10188DC8-F490-35E8-9402-0FDD6FADFFE2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Multiplayer\Physics">
+      <UniqueIdentifier>{4B179075-A10F-3AF9-B042-BFEEE6461815}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Multiplayer\ReplicationWindows">
+      <UniqueIdentifier>{0FC879EF-A9FE-34C7-9AAD-4686D0F05E58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\AutoGen">
+      <UniqueIdentifier>{800875CA-970B-3AD2-978D-2BCD6F46CF97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components">
+      <UniqueIdentifier>{0B09D740-8293-3A36-BE26-EE344C537516}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ConnectionData">
+      <UniqueIdentifier>{4FB70608-5DF6-3EBA-BB33-286A1A936EB0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor">
+      <UniqueIdentifier>{A8C69C03-0E27-35F8-AFF2-047D842E6663}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\EntityDomains">
+      <UniqueIdentifier>{2F1CB80C-41E9-3630-8A21-C6E4043212E1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\NetworkEntity">
+      <UniqueIdentifier>{7224E9A5-B2E3-3B74-9A7E-F32826E6E2C6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\NetworkEntity\EntityReplication">
+      <UniqueIdentifier>{661D4BD5-B717-33F4-A865-597875D80113}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\NetworkInput">
+      <UniqueIdentifier>{01D4EA75-4DE2-3A61-A076-5D0888259659}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\NetworkTime">
+      <UniqueIdentifier>{27441B4D-638F-3D1C-8E11-456914A09CDF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Physics">
+      <UniqueIdentifier>{E4A6464E-06BD-3E68-A9DC-5FF963A715CE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Pipeline">
+      <UniqueIdentifier>{7A9075A8-E8F6-3DDA-934D-9D9E45D1ABBD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ReplicationWindows">
+      <UniqueIdentifier>{AAA47280-C2BA-3D91-AC20-727522815B05}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

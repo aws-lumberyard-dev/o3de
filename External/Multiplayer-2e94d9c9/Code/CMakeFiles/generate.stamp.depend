@@ -1,0 +1,11 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/Multiplayer/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/Multiplayer/Code/multiplayer_autogen_files.cmake
+J:/Atom/lyfork/o3de/Gems/Multiplayer/Code/multiplayer_debug_files.cmake
+J:/Atom/lyfork/o3de/Gems/Multiplayer/Code/multiplayer_editor_shared_files.cmake
+J:/Atom/lyfork/o3de/Gems/Multiplayer/Code/multiplayer_files.cmake
+J:/Atom/lyfork/o3de/Gems/Multiplayer/Code/multiplayer_shared_files.cmake
+J:/Atom/lyfork/o3de/Gems/Multiplayer/Code/multiplayer_tests_files.cmake
+J:/Atom/lyfork/o3de/Gems/Multiplayer/Code/multiplayer_tools_files.cmake
+J:/Atom/lyfork/o3de/Gems/Multiplayer/Code/multiplayer_tools_tests_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

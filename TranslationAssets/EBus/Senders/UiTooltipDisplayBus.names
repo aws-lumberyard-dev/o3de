@@ -1,0 +1,368 @@
+{
+    "entries": [
+        {
+            "key": "UiTooltipDisplayBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiTooltipDisplayBus"
+            },
+            "methods": [
+                {
+                    "key": "GetAutoSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetAutoSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetAutoSize is invoked"
+                    },
+                    "details": {
+                        "name": "GetAutoSize"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTextEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetTextEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetTextEntity is invoked"
+                    },
+                    "details": {
+                        "name": "GetTextEntity"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetDelayTime",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetDelayTime"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetDelayTime is invoked"
+                    },
+                    "details": {
+                        "name": "GetDelayTime"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetDelayTime",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetDelayTime"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetDelayTime is invoked"
+                    },
+                    "details": {
+                        "name": "SetDelayTime"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetDisplayTime",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetDisplayTime"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetDisplayTime is invoked"
+                    },
+                    "details": {
+                        "name": "SetDisplayTime"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetOffset",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetOffset"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetOffset is invoked"
+                    },
+                    "details": {
+                        "name": "SetOffset"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetOffset",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetOffset"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetOffset is invoked"
+                    },
+                    "details": {
+                        "name": "GetOffset"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetAutoPositionMode",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetAutoPositionMode"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetAutoPositionMode is invoked"
+                    },
+                    "details": {
+                        "name": "GetAutoPositionMode"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetAutoPosition",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetAutoPosition"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetAutoPosition is invoked"
+                    },
+                    "details": {
+                        "name": "SetAutoPosition"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetAutoSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetAutoSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetAutoSize is invoked"
+                    },
+                    "details": {
+                        "name": "SetAutoSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetAutoPosition",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetAutoPosition"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetAutoPosition is invoked"
+                    },
+                    "details": {
+                        "name": "GetAutoPosition"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetTextEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetTextEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetTextEntity is invoked"
+                    },
+                    "details": {
+                        "name": "SetTextEntity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetDisplayTime",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetDisplayTime"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetDisplayTime is invoked"
+                    },
+                    "details": {
+                        "name": "GetDisplayTime"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTriggerMode",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetTriggerMode"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetTriggerMode is invoked"
+                    },
+                    "details": {
+                        "name": "GetTriggerMode"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetTriggerMode",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetTriggerMode"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetTriggerMode is invoked"
+                    },
+                    "details": {
+                        "name": "SetTriggerMode"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetAutoPositionMode",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetAutoPositionMode"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetAutoPositionMode is invoked"
+                    },
+                    "details": {
+                        "name": "SetAutoPositionMode"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

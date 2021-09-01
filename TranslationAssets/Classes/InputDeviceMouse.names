@@ -1,0 +1,12 @@
+{
+    "entries": [
+        {
+            "key": "InputDeviceMouse",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "InputDeviceMouse"
+            }
+        }
+    ]
+}

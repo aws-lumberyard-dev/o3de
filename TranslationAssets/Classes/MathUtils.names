@@ -1,0 +1,305 @@
+{
+    "entries": [
+        {
+            "key": "MathUtils",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "MathUtils"
+            },
+            "methods": [
+                {
+                    "key": "ConvertEulerDegreesToQuaternion",
+                    "context": "MathUtils",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathUtils::ConvertEulerDegreesToQuaternion"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathUtils::ConvertEulerDegreesToQuaternion is invoked"
+                    },
+                    "details": {
+                        "name": "MathUtils::ConvertEulerDegreesToQuaternion"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{73103120-3DD3-4873-BAB3-9713FA2804FB}",
+                            "details": {
+                                "name": "Quaternion"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ConvertEulerDegreesToTransformPrecise",
+                    "context": "MathUtils",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathUtils::ConvertEulerDegreesToTransformPrecise"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathUtils::ConvertEulerDegreesToTransformPrecise is invoked"
+                    },
+                    "details": {
+                        "name": "MathUtils::ConvertEulerDegreesToTransformPrecise"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ConvertEulerDegreesToTransform",
+                    "context": "MathUtils",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathUtils::ConvertEulerDegreesToTransform"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathUtils::ConvertEulerDegreesToTransform is invoked"
+                    },
+                    "details": {
+                        "name": "MathUtils::ConvertEulerDegreesToTransform"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ConvertQuaternionToEulerRadians",
+                    "context": "MathUtils",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathUtils::ConvertQuaternionToEulerRadians"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathUtils::ConvertQuaternionToEulerRadians is invoked"
+                    },
+                    "details": {
+                        "name": "MathUtils::ConvertQuaternionToEulerRadians"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{73103120-3DD3-4873-BAB3-9713FA2804FB}",
+                            "details": {
+                                "name": "Quaternion"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "CreateLookAt",
+                    "context": "MathUtils",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathUtils::CreateLookAt"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathUtils::CreateLookAt is invoked"
+                    },
+                    "details": {
+                        "name": "MathUtils::CreateLookAt"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{72B9409A-7D1A-4831-9CFE-FCB3FADD3426}",
+                            "details": {
+                                "name": "unsigned char"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ConvertTransformToEulerRadians",
+                    "context": "MathUtils",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathUtils::ConvertTransformToEulerRadians"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathUtils::ConvertTransformToEulerRadians is invoked"
+                    },
+                    "details": {
+                        "name": "MathUtils::ConvertTransformToEulerRadians"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ConvertQuaternionToEulerDegrees",
+                    "context": "MathUtils",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathUtils::ConvertQuaternionToEulerDegrees"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathUtils::ConvertQuaternionToEulerDegrees is invoked"
+                    },
+                    "details": {
+                        "name": "MathUtils::ConvertQuaternionToEulerDegrees"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{73103120-3DD3-4873-BAB3-9713FA2804FB}",
+                            "details": {
+                                "name": "Quaternion"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ConvertTransformToEulerDegrees",
+                    "context": "MathUtils",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathUtils::ConvertTransformToEulerDegrees"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathUtils::ConvertTransformToEulerDegrees is invoked"
+                    },
+                    "details": {
+                        "name": "MathUtils::ConvertTransformToEulerDegrees"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ConvertEulerRadiansToQuaternion",
+                    "context": "MathUtils",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathUtils::ConvertEulerRadiansToQuaternion"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathUtils::ConvertEulerRadiansToQuaternion is invoked"
+                    },
+                    "details": {
+                        "name": "MathUtils::ConvertEulerRadiansToQuaternion"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{73103120-3DD3-4873-BAB3-9713FA2804FB}",
+                            "details": {
+                                "name": "Quaternion"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

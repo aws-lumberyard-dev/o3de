@@ -1,0 +1,58 @@
+{
+    "entries": [
+        {
+            "key": "UiImageSequenceBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiImageSequenceBus"
+            },
+            "methods": [
+                {
+                    "key": "GetImageType",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetImageType"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetImageType is invoked"
+                    },
+                    "details": {
+                        "name": "GetImageType"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetImageType",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetImageType"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetImageType is invoked"
+                    },
+                    "details": {
+                        "name": "SetImageType"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

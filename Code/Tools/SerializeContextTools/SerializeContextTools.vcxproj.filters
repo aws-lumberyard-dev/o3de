@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SerializeContextTools\Application.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SerializeContextTools\Converter.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SerializeContextTools\Dumper.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SerializeContextTools\main.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SerializeContextTools\SliceConverter.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SerializeContextTools\Utilities.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SerializeContextTools\Application.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SerializeContextTools\Converter.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SerializeContextTools\Dumper.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SerializeContextTools\SliceConverterEditorEntityContextComponent.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SerializeContextTools\SliceConverter.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SerializeContextTools\Utilities.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\SerializeContextTools\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\SerializeContextTools\serializecontexttools_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

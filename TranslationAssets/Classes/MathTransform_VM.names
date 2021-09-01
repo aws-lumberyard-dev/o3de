@@ -1,0 +1,768 @@
+{
+    "entries": [
+        {
+            "key": "MathTransform_VM",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "MathTransform_VM"
+            },
+            "methods": [
+                {
+                    "key": "RotationZDegrees",
+                    "context": "MathTransform_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathTransform_VM::RotationZDegrees"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathTransform_VM::RotationZDegrees is invoked"
+                    },
+                    "details": {
+                        "name": "MathTransform_VM::RotationZDegrees"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetUp",
+                    "context": "MathTransform_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathTransform_VM::GetUp"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathTransform_VM::GetUp is invoked"
+                    },
+                    "details": {
+                        "name": "MathTransform_VM::GetUp"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetForward",
+                    "context": "MathTransform_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathTransform_VM::GetForward"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathTransform_VM::GetForward is invoked"
+                    },
+                    "details": {
+                        "name": "MathTransform_VM::GetForward"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsClose",
+                    "context": "MathTransform_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathTransform_VM::IsClose"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathTransform_VM::IsClose is invoked"
+                    },
+                    "details": {
+                        "name": "MathTransform_VM::IsClose"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        },
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RotationXDegrees",
+                    "context": "MathTransform_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathTransform_VM::RotationXDegrees"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathTransform_VM::RotationXDegrees is invoked"
+                    },
+                    "details": {
+                        "name": "MathTransform_VM::RotationXDegrees"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromTranslation",
+                    "context": "MathTransform_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathTransform_VM::FromTranslation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathTransform_VM::FromTranslation is invoked"
+                    },
+                    "details": {
+                        "name": "MathTransform_VM::FromTranslation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsFinite",
+                    "context": "MathTransform_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathTransform_VM::IsFinite"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathTransform_VM::IsFinite is invoked"
+                    },
+                    "details": {
+                        "name": "MathTransform_VM::IsFinite"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "MultiplyByUniformScale",
+                    "context": "MathTransform_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathTransform_VM::MultiplyByUniformScale"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathTransform_VM::MultiplyByUniformScale is invoked"
+                    },
+                    "details": {
+                        "name": "MathTransform_VM::MultiplyByUniformScale"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "MultiplyByTransform",
+                    "context": "MathTransform_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathTransform_VM::MultiplyByTransform"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathTransform_VM::MultiplyByTransform is invoked"
+                    },
+                    "details": {
+                        "name": "MathTransform_VM::MultiplyByTransform"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        },
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromRotation",
+                    "context": "MathTransform_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathTransform_VM::FromRotation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathTransform_VM::FromRotation is invoked"
+                    },
+                    "details": {
+                        "name": "MathTransform_VM::FromRotation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{73103120-3DD3-4873-BAB3-9713FA2804FB}",
+                            "details": {
+                                "name": "Quaternion"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RotationYDegrees",
+                    "context": "MathTransform_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathTransform_VM::RotationYDegrees"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathTransform_VM::RotationYDegrees is invoked"
+                    },
+                    "details": {
+                        "name": "MathTransform_VM::RotationYDegrees"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromRotationAndTranslation",
+                    "context": "MathTransform_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathTransform_VM::FromRotationAndTranslation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathTransform_VM::FromRotationAndTranslation is invoked"
+                    },
+                    "details": {
+                        "name": "MathTransform_VM::FromRotationAndTranslation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{73103120-3DD3-4873-BAB3-9713FA2804FB}",
+                            "details": {
+                                "name": "Quaternion"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "MultiplyByVector3",
+                    "context": "MathTransform_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathTransform_VM::MultiplyByVector3"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathTransform_VM::MultiplyByVector3 is invoked"
+                    },
+                    "details": {
+                        "name": "MathTransform_VM::MultiplyByVector3"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "MultiplyByVector4",
+                    "context": "MathTransform_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathTransform_VM::MultiplyByVector4"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathTransform_VM::MultiplyByVector4 is invoked"
+                    },
+                    "details": {
+                        "name": "MathTransform_VM::MultiplyByVector4"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        },
+                        {
+                            "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
+                            "details": {
+                                "name": "Vector4"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
+                            "details": {
+                                "name": "Vector4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ToScale",
+                    "context": "MathTransform_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathTransform_VM::ToScale"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathTransform_VM::ToScale is invoked"
+                    },
+                    "details": {
+                        "name": "MathTransform_VM::ToScale"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromMatrix3x3",
+                    "context": "MathTransform_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathTransform_VM::FromMatrix3x3"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathTransform_VM::FromMatrix3x3 is invoked"
+                    },
+                    "details": {
+                        "name": "MathTransform_VM::FromMatrix3x3"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetRight",
+                    "context": "MathTransform_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathTransform_VM::GetRight"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathTransform_VM::GetRight is invoked"
+                    },
+                    "details": {
+                        "name": "MathTransform_VM::GetRight"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsOrthogonal",
+                    "context": "MathTransform_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathTransform_VM::IsOrthogonal"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathTransform_VM::IsOrthogonal is invoked"
+                    },
+                    "details": {
+                        "name": "MathTransform_VM::IsOrthogonal"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Orthogonalize",
+                    "context": "MathTransform_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathTransform_VM::Orthogonalize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathTransform_VM::Orthogonalize is invoked"
+                    },
+                    "details": {
+                        "name": "MathTransform_VM::Orthogonalize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromMatrix3x3AndTranslation",
+                    "context": "MathTransform_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathTransform_VM::FromMatrix3x3AndTranslation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathTransform_VM::FromMatrix3x3AndTranslation is invoked"
+                    },
+                    "details": {
+                        "name": "MathTransform_VM::FromMatrix3x3AndTranslation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromScale",
+                    "context": "MathTransform_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathTransform_VM::FromScale"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathTransform_VM::FromScale is invoked"
+                    },
+                    "details": {
+                        "name": "MathTransform_VM::FromScale"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTranslation",
+                    "context": "MathTransform_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathTransform_VM::GetTranslation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathTransform_VM::GetTranslation is invoked"
+                    },
+                    "details": {
+                        "name": "MathTransform_VM::GetTranslation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,1054 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\ScriptCanvasEditorGem.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Settings.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\ReflectComponent.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\SystemComponent.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasAssetTracker.cpp">
+      <Filter>Editor\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasAssetHelpers.cpp">
+      <Filter>Editor\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasAsset.cpp">
+      <Filter>Editor\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasAssetHandler.cpp">
+      <Filter>Editor\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasAssetHolder.cpp">
+      <Filter>Editor\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasMemoryAsset.cpp">
+      <Filter>Editor\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasUndoHelper.cpp">
+      <Filter>Editor\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Components\EditorGraph.cpp">
+      <Filter>Editor\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Components\EditorUtils.cpp">
+      <Filter>Editor\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Components\GraphUpgrade.cpp">
+      <Filter>Editor\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Components\EditorGraphVariableManagerComponent.cpp">
+      <Filter>Editor\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Components\EditorScriptCanvasComponent.cpp">
+      <Filter>Editor\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Components\IconComponent.cpp">
+      <Filter>Editor\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\DynamicOrderingDynamicSlotComponent.cpp">
+      <Filter>Editor\GraphCanvas\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\DynamicSlotComponent.cpp">
+      <Filter>Editor\GraphCanvas\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\MappingComponent.cpp">
+      <Filter>Editor\GraphCanvas\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\ClassMethodNodeDescriptorComponent.cpp">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\AzEventHandlerNodeDescriptorComponent.cpp">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\EBusHandlerEventNodeDescriptorComponent.cpp">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\EBusHandlerNodeDescriptorComponent.cpp">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\EBusSenderNodeDescriptorComponent.cpp">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\FunctionNodeDescriptorComponent.cpp">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\FunctionDefinitionNodeDescriptorComponent.cpp">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\GetVariableNodeDescriptorComponent.cpp">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\NodeDescriptorComponent.cpp">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\NodelingDescriptorComponent.cpp">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\SetVariableNodeDescriptorComponent.cpp">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\UserDefinedNodeDescriptorComponent.cpp">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\VariableNodeDescriptorComponent.cpp">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\ScriptEventReceiverEventNodeDescriptorComponent.cpp">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\ScriptEventReceiverNodeDescriptorComponent.cpp">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\ScriptEventSenderNodeDescriptorComponent.cpp">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Model\EntityMimeDataHandler.cpp">
+      <Filter>Editor\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Model\LibraryDataModel.cpp">
+      <Filter>Editor\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Model\UnitTestBrowserFilterModel.cpp">
+      <Filter>Editor\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Nodes\NodeCreateUtils.cpp">
+      <Filter>Editor\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Nodes\NodeDisplayUtils.cpp">
+      <Filter>Editor\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Nodes\NodeUtils.cpp">
+      <Filter>Editor\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Undo\ScriptCanvasGraphCommand.cpp">
+      <Filter>Editor\Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Undo\ScriptCanvasUndoManager.cpp">
+      <Filter>Editor\Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Utilities\Command.cpp">
+      <Filter>Editor\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Utilities\CommonSettingsConfigurations.cpp">
+      <Filter>Editor\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Utilities\RecentFiles.cpp">
+      <Filter>Editor\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Utilities\RecentAssetPath.cpp">
+      <Filter>Editor\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\NewGraphDialog.cpp">
+      <Filter>Editor\View\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\SettingsDialog.cpp">
+      <Filter>Editor\View\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\UnsavedChangesDialog.cpp">
+      <Filter>Editor\View\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\ContainerWizard\ContainerTypeLineEdit.cpp">
+      <Filter>Editor\View\Dialogs\ContainerWizard</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\ContainerWizard\ContainerWizard.cpp">
+      <Filter>Editor\View\Dialogs\ContainerWizard</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\CanvasWidget.cpp">
+      <Filter>Editor\View\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\GraphTabBar.cpp">
+      <Filter>Editor\View\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\PropertyGrid.cpp">
+      <Filter>Editor\View\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\PropertyGridContextMenu.cpp">
+      <Filter>Editor\View\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\CommandLine.cpp">
+      <Filter>Editor\View\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LogPanel.cpp">
+      <Filter>Editor\View\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\MainWindowStatusWidget.cpp">
+      <Filter>Editor\View\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\ScriptCanvasNodePaletteDockWidget.cpp">
+      <Filter>Editor\View\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\DataTypePalette\DataTypePaletteModel.cpp">
+      <Filter>Editor\View\Widgets\DataTypePalette</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\CreateNodeMimeEvent.cpp">
+      <Filter>Editor\View\Widgets\NodePalette</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\FunctionNodePaletteTreeItemTypes.cpp">
+      <Filter>Editor\View\Widgets\NodePalette</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\ScriptEventsNodePaletteTreeItemTypes.cpp">
+      <Filter>Editor\View\Widgets\NodePalette</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\EBusNodePaletteTreeItemTypes.cpp">
+      <Filter>Editor\View\Widgets\NodePalette</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\GeneralNodePaletteTreeItemTypes.cpp">
+      <Filter>Editor\View\Widgets\NodePalette</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\NodePaletteModel.cpp">
+      <Filter>Editor\View\Widgets\NodePalette</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\SpecializedNodePaletteTreeItemTypes.cpp">
+      <Filter>Editor\View\Widgets\NodePalette</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\VariableNodePaletteTreeItemTypes.cpp">
+      <Filter>Editor\View\Widgets\NodePalette</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingDataAggregator.cpp">
+      <Filter>Editor\View\Widgets\LoggingPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingTypes.cpp">
+      <Filter>Editor\View\Widgets\LoggingPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingWindow.cpp">
+      <Filter>Editor\View\Widgets\LoggingPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingWindowSession.cpp">
+      <Filter>Editor\View\Widgets\LoggingPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingWindowTreeItems.cpp">
+      <Filter>Editor\View\Widgets\LoggingPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LiveWindowSession\LiveLoggingDataAggregator.cpp">
+      <Filter>Editor\View\Widgets\LoggingPanel\LiveWindowSession</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LiveWindowSession\LiveLoggingWindowSession.cpp">
+      <Filter>Editor\View\Widgets\LoggingPanel\LiveWindowSession</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\AssetWindowSession\LoggingAssetDataAggregator.cpp">
+      <Filter>Editor\View\Widgets\LoggingPanel\AssetWindowSession</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\AssetWindowSession\LoggingAssetWindowSession.cpp">
+      <Filter>Editor\View\Widgets\LoggingPanel\AssetWindowSession</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\PivotTree\PivotTreeWidget.cpp">
+      <Filter>Editor\View\Widgets\LoggingPanel\PivotTree</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\PivotTree\EntityPivotTree\EntityPivotTree.cpp">
+      <Filter>Editor\View\Widgets\LoggingPanel\PivotTree\EntityPivotTree</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\PivotTree\GraphPivotTree\GraphPivotTree.cpp">
+      <Filter>Editor\View\Widgets\LoggingPanel\PivotTree\GraphPivotTree</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\ValidationPanel\GraphValidationDockWidget.cpp">
+      <Filter>Editor\View\Widgets\ValidationPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\StatisticsDialog\ScriptCanvasStatisticsDialog.cpp">
+      <Filter>Editor\View\Widgets\StatisticsDialog</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\StatisticsDialog\NodeUsageTreeItem.cpp">
+      <Filter>Editor\View\Widgets\StatisticsDialog</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\VariablePanel\GraphVariablesTableView.cpp">
+      <Filter>Editor\View\Widgets\VariablePanel</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\VariablePanel\VariableDockWidget.cpp">
+      <Filter>Editor\View\Widgets\VariablePanel</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\VariablePanel\VariablePaletteTableView.cpp">
+      <Filter>Editor\View\Widgets\VariablePanel</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\VariablePanel\SlotTypeSelectorWidget.cpp">
+      <Filter>Editor\View\Widgets\VariablePanel</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\UnitTestPanel\UnitTestDockWidget.cpp">
+      <Filter>Editor\View\Widgets\UnitTestPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\UnitTestPanel\UnitTestTreeView.cpp">
+      <Filter>Editor\View\Widgets\UnitTestPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\EBusHandlerActionMenu.cpp">
+      <Filter>Editor\View\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\MainWindow.cpp">
+      <Filter>Editor\View\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\ScriptCanvasContextMenus.cpp">
+      <Filter>Editor\View\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Tools\UpgradeTool\UpgradeHelper.cpp">
+      <Filter>Editor\View\Windows\Tools\UpgradeTool</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Tools\UpgradeTool\UpgradeTool.cpp">
+      <Filter>Editor\View\Windows\Tools\UpgradeTool</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Tools\UpgradeTool\VersionExplorer.cpp">
+      <Filter>Editor\View\Windows\Tools\UpgradeTool</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Asset\EditorAssetSystemComponent.cpp">
+      <Filter>Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Builder\ScriptCanvasBuilder.cpp">
+      <Filter>Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Builder\ScriptCanvasBuilderComponent.cpp">
+      <Filter>Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Builder\ScriptCanvasBuilderWorker.cpp">
+      <Filter>Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Builder\ScriptCanvasBuilderWorkerUtility.cpp">
+      <Filter>Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\GKWACCD7I5\qrc_ScriptCanvasEditorResources.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Settings.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\ReflectComponent.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\SystemComponent.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\QtMetaTypes.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasAssetTracker.h">
+      <Filter>Editor\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasAssetTrackerBus.h">
+      <Filter>Editor\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasAssetHelpers.h">
+      <Filter>Editor\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasAssetTrackerDefinitions.h">
+      <Filter>Editor\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Assets\ScriptCanvasAsset.h">
+      <Filter>Editor\Include\ScriptCanvas\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Assets\ScriptCanvasAssetBus.h">
+      <Filter>Editor\Include\ScriptCanvas\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Assets\ScriptCanvasAssetTypes.h">
+      <Filter>Editor\Include\ScriptCanvas\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Assets\ScriptCanvasAssetHandler.h">
+      <Filter>Editor\Include\ScriptCanvas\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasAssetHolder.h">
+      <Filter>Editor\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasMemoryAsset.h">
+      <Filter>Editor\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasUndoHelper.h">
+      <Filter>Editor\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Bus\RequestBus.h">
+      <Filter>Editor\Include\ScriptCanvas\Bus</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Bus\NodeIdPair.h">
+      <Filter>Editor\Include\ScriptCanvas\Bus</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Bus\EditorScriptCanvasBus.h">
+      <Filter>Editor\Include\ScriptCanvas\Bus</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Bus\ScriptCanvasBus.h">
+      <Filter>Editor\Include\ScriptCanvas\Bus</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Bus\IconBus.h">
+      <Filter>Editor\Include\ScriptCanvas\Bus</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Bus\GraphBus.h">
+      <Filter>Editor\Include\ScriptCanvas\Bus</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Bus\UndoBus.h">
+      <Filter>Editor\Include\ScriptCanvas\Bus</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Bus\EditorSceneVariableManagerBus.h">
+      <Filter>Editor\Include\ScriptCanvas\Bus</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Bus\ScriptCanvasExecutionBus.h">
+      <Filter>Editor\Include\ScriptCanvas\Bus</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Bus\UnitTestVerificationBus.h">
+      <Filter>Editor\Include\ScriptCanvas\Bus</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Components\GraphUpgrade.h">
+      <Filter>Editor\Include\ScriptCanvas\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Components\EditorGraph.h">
+      <Filter>Editor\Include\ScriptCanvas\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Components\EditorUtils.h">
+      <Filter>Editor\Include\ScriptCanvas\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Components\EditorGraphVariableManagerComponent.h">
+      <Filter>Editor\Include\ScriptCanvas\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Components\EditorScriptCanvasComponent.h">
+      <Filter>Editor\Include\ScriptCanvas\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Components\IconComponent.h">
+      <Filter>Editor\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\GraphCanvas\DynamicSlotBus.h">
+      <Filter>Editor\Include\ScriptCanvas\GraphCanvas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\GraphCanvas\NodeDescriptorBus.h">
+      <Filter>Editor\Include\ScriptCanvas\GraphCanvas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\GraphCanvas\MappingBus.h">
+      <Filter>Editor\Include\ScriptCanvas\GraphCanvas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\AutomationIds.h">
+      <Filter>Editor\GraphCanvas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\GraphCanvasEditorNotificationBusId.h">
+      <Filter>Editor\GraphCanvas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\PropertySlotIds.h">
+      <Filter>Editor\GraphCanvas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\DynamicOrderingDynamicSlotComponent.h">
+      <Filter>Editor\GraphCanvas\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\DynamicSlotComponent.h">
+      <Filter>Editor\GraphCanvas\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\MappingComponent.h">
+      <Filter>Editor\GraphCanvas\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\ClassMethodNodeDescriptorComponent.h">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\AzEventHandlerNodeDescriptorComponent.h">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\EBusHandlerEventNodeDescriptorComponent.h">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\EBusHandlerNodeDescriptorComponent.h">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\EBusSenderNodeDescriptorComponent.h">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\FunctionNodeDescriptorComponent.h">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\FunctionDefinitionNodeDescriptorComponent.h">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\GetVariableNodeDescriptorComponent.h">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\NodeDescriptorComponent.h">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\NodelingDescriptorComponent.h">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\SetVariableNodeDescriptorComponent.h">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\UserDefinedNodeDescriptorComponent.h">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\VariableNodeDescriptorComponent.h">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\ScriptEventReceiverEventNodeDescriptorComponent.h">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\ScriptEventReceiverNodeDescriptorComponent.h">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\ScriptEventSenderNodeDescriptorComponent.h">
+      <Filter>Editor\GraphCanvas\Components\NodeDescriptors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasAssetIdDataInterface.h">
+      <Filter>Editor\GraphCanvas\DataInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasBoolDataInterface.h">
+      <Filter>Editor\GraphCanvas\DataInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasEntityIdDataInterface.h">
+      <Filter>Editor\GraphCanvas\DataInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasEnumDataInterface.h">
+      <Filter>Editor\GraphCanvas\DataInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasDataInterface.h">
+      <Filter>Editor\GraphCanvas\DataInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasColorDataInterface.h">
+      <Filter>Editor\GraphCanvas\DataInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasCRCDataInterface.h">
+      <Filter>Editor\GraphCanvas\DataInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasNumericDataInterface.h">
+      <Filter>Editor\GraphCanvas\DataInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasReadOnlyDataInterface.h">
+      <Filter>Editor\GraphCanvas\DataInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasStringDataInterface.h">
+      <Filter>Editor\GraphCanvas\DataInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasVectorDataInterface.h">
+      <Filter>Editor\GraphCanvas\DataInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasVariableDataInterface.h">
+      <Filter>Editor\GraphCanvas\DataInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasQuaternionDataInterface.h">
+      <Filter>Editor\GraphCanvas\DataInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\PropertyInterfaces\ScriptCanvasPropertyDataInterface.h">
+      <Filter>Editor\GraphCanvas\PropertyInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\PropertyInterfaces\ScriptCanvasStringPropertyDataInterface.h">
+      <Filter>Editor\GraphCanvas\PropertyInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Model\EntityMimeDataHandler.h">
+      <Filter>Editor\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Model\LibraryDataModel.h">
+      <Filter>Editor\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Model\UnitTestBrowserFilterModel.h">
+      <Filter>Editor\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Nodes\NodeCreateUtils.h">
+      <Filter>Editor\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Nodes\NodeDisplayUtils.h">
+      <Filter>Editor\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Nodes\NodeUtils.h">
+      <Filter>Editor\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Translation\TranslationHelper.h">
+      <Filter>Editor\Translation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Undo\ScriptCanvasGraphCommand.h">
+      <Filter>Editor\Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Undo\ScriptCanvasUndoManager.h">
+      <Filter>Editor\Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Utilities\Command.h">
+      <Filter>Editor\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Utilities\CommonSettingsConfigurations.h">
+      <Filter>Editor\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Utilities\RecentFiles.h">
+      <Filter>Editor\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Utilities\RecentAssetPath.h">
+      <Filter>Editor\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\NewGraphDialog.h">
+      <Filter>Editor\View\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\SettingsDialog.h">
+      <Filter>Editor\View\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\UnsavedChangesDialog.h">
+      <Filter>Editor\View\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\ContainerWizard\ContainerTypeLineEdit.h">
+      <Filter>Editor\View\Dialogs\ContainerWizard</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\ContainerWizard\ContainerWizard.h">
+      <Filter>Editor\View\Dialogs\ContainerWizard</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\CanvasWidget.h">
+      <Filter>Editor\View\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\GraphTabBar.h">
+      <Filter>Editor\View\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\PropertyGrid.h">
+      <Filter>Editor\View\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\PropertyGridBus.h">
+      <Filter>Editor\View\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\PropertyGridContextMenu.h">
+      <Filter>Editor\View\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\CommandLine.h">
+      <Filter>Editor\View\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LogPanel.h">
+      <Filter>Editor\View\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\MainWindowStatusWidget.h">
+      <Filter>Editor\View\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\ScriptCanvasNodePaletteDockWidget.h">
+      <Filter>Editor\View\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\WidgetBus.h">
+      <Filter>Editor\View\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\DataTypePalette\DataTypePaletteModel.h">
+      <Filter>Editor\View\Widgets\DataTypePalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\CreateNodeMimeEvent.h">
+      <Filter>Editor\View\Widgets\NodePalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\FunctionNodePaletteTreeItemTypes.h">
+      <Filter>Editor\View\Widgets\NodePalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\ScriptEventsNodePaletteTreeItemTypes.h">
+      <Filter>Editor\View\Widgets\NodePalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\EBusNodePaletteTreeItemTypes.h">
+      <Filter>Editor\View\Widgets\NodePalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\GeneralNodePaletteTreeItemTypes.h">
+      <Filter>Editor\View\Widgets\NodePalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\NodePaletteModelBus.h">
+      <Filter>Editor\View\Widgets\NodePalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\NodePaletteModel.h">
+      <Filter>Editor\View\Widgets\NodePalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\SpecializedNodePaletteTreeItemTypes.h">
+      <Filter>Editor\View\Widgets\NodePalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\VariableNodePaletteTreeItemTypes.h">
+      <Filter>Editor\View\Widgets\NodePalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingDataAggregator.h">
+      <Filter>Editor\View\Widgets\LoggingPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingTypes.h">
+      <Filter>Editor\View\Widgets\LoggingPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingWindow.h">
+      <Filter>Editor\View\Widgets\LoggingPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingWindowSession.h">
+      <Filter>Editor\View\Widgets\LoggingPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingWindowTreeItems.h">
+      <Filter>Editor\View\Widgets\LoggingPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LiveWindowSession\LiveLoggingDataAggregator.h">
+      <Filter>Editor\View\Widgets\LoggingPanel\LiveWindowSession</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LiveWindowSession\LiveLoggingWindowSession.h">
+      <Filter>Editor\View\Widgets\LoggingPanel\LiveWindowSession</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\AssetWindowSession\LoggingAssetDataAggregator.h">
+      <Filter>Editor\View\Widgets\LoggingPanel\AssetWindowSession</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\AssetWindowSession\LoggingAssetWindowSession.h">
+      <Filter>Editor\View\Widgets\LoggingPanel\AssetWindowSession</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\PivotTree\PivotTreeWidget.h">
+      <Filter>Editor\View\Widgets\LoggingPanel\PivotTree</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\PivotTree\EntityPivotTree\EntityPivotTree.h">
+      <Filter>Editor\View\Widgets\LoggingPanel\PivotTree\EntityPivotTree</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\PivotTree\GraphPivotTree\GraphPivotTree.h">
+      <Filter>Editor\View\Widgets\LoggingPanel\PivotTree\GraphPivotTree</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\ValidationPanel\GraphValidationDockWidget.h">
+      <Filter>Editor\View\Widgets\ValidationPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\ValidationPanel\GraphValidationDockWidgetBus.h">
+      <Filter>Editor\View\Widgets\ValidationPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\StatisticsDialog\ScriptCanvasStatisticsDialog.h">
+      <Filter>Editor\View\Widgets\StatisticsDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\StatisticsDialog\NodeUsageTreeItem.h">
+      <Filter>Editor\View\Widgets\StatisticsDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\VariablePanel\GraphVariablesTableView.h">
+      <Filter>Editor\View\Widgets\VariablePanel</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\VariablePanel\VariableDockWidget.h">
+      <Filter>Editor\View\Widgets\VariablePanel</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\VariablePanel\VariablePaletteTableView.h">
+      <Filter>Editor\View\Widgets\VariablePanel</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\VariablePanel\SlotTypeSelectorWidget.h">
+      <Filter>Editor\View\Widgets\VariablePanel</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\UnitTestPanel\UnitTestDockWidget.h">
+      <Filter>Editor\View\Widgets\UnitTestPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\UnitTestPanel\UnitTestTreeView.h">
+      <Filter>Editor\View\Widgets\UnitTestPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\EBusHandlerActionMenu.h">
+      <Filter>Editor\View\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\MainWindow.h">
+      <Filter>Editor\View\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\MainWindowBus.h">
+      <Filter>Editor\View\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\ScriptCanvasContextMenus.h">
+      <Filter>Editor\View\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Tools\UpgradeTool\UpgradeHelper.h">
+      <Filter>Editor\View\Windows\Tools\UpgradeTool</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Tools\UpgradeTool\UpgradeTool.h">
+      <Filter>Editor\View\Windows\Tools\UpgradeTool</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Tools\UpgradeTool\VersionExplorer.h">
+      <Filter>Editor\View\Windows\Tools\UpgradeTool</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Framework\ScriptCanvasGraphUtilities.inl">
+      <Filter>Editor\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Framework\ScriptCanvasGraphUtilities.h">
+      <Filter>Editor\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Framework\ScriptCanvasTraceUtilities.h">
+      <Filter>Editor\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Framework\ScriptCanvasReporter.inl">
+      <Filter>Editor\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Framework\ScriptCanvasReporter.h">
+      <Filter>Editor\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Asset\EditorAssetSystemComponent.h">
+      <Filter>Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Asset\EditorAssetConversionBus.h">
+      <Filter>Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Builder\BuilderSystemComponent.h">
+      <Filter>Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Builder\ScriptCanvasBuilder.h">
+      <Filter>Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Builder\ScriptCanvasBuilderComponent.h">
+      <Filter>Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Builder\ScriptCanvasBuilderWorker.h">
+      <Filter>Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ui_NewGraphDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ui_SettingsDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ui_UnsavedChangesDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ContainerWizard\ui_ContainerTypeLineEdit.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ContainerWizard\ui_ContainerWizard.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_CanvasWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_CommandLine.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_LogPanel.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_MainWindowStatusWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_ScriptCanvasNodePaletteToolbar.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\LoggingPanel\ui_LoggingWindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\LoggingPanel\ui_LoggingWindowSession.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\LoggingPanel\PivotTree\ui_PivotTreeWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ValidationPanel\ui_GraphValidationPanel.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\StatisticsDialog\ui_ScriptCanvasStatisticsDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\VariablePanel\ui_VariableDockWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\VariablePanel\ui_SlotTypeSelectorWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\UnitTestPanel\ui_UnitTestDockWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\ui_ebushandleractionlistwidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\ui_mainwindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\Tools\UpgradeTool\ui_UpgradeHelper.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\Tools\UpgradeTool\ui_UpgradeTool.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\Tools\UpgradeTool\ui_VersionExplorer.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\NewGraphDialog.ui">
+      <Filter>Editor\View\Dialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\SettingsDialog.ui">
+      <Filter>Editor\View\Dialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\UnsavedChangesDialog.ui">
+      <Filter>Editor\View\Dialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\ContainerWizard\ContainerTypeLineEdit.ui">
+      <Filter>Editor\View\Dialogs\ContainerWizard</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\ContainerWizard\ContainerWizard.ui">
+      <Filter>Editor\View\Dialogs\ContainerWizard</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\CanvasWidget.ui">
+      <Filter>Editor\View\Widgets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\CommandLine.ui">
+      <Filter>Editor\View\Widgets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LogPanel.ui">
+      <Filter>Editor\View\Widgets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\MainWindowStatusWidget.ui">
+      <Filter>Editor\View\Widgets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\ScriptCanvasNodePaletteToolbar.ui">
+      <Filter>Editor\View\Widgets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingWindow.ui">
+      <Filter>Editor\View\Widgets\LoggingPanel</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingWindowSession.ui">
+      <Filter>Editor\View\Widgets\LoggingPanel</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\PivotTree\PivotTreeWidget.ui">
+      <Filter>Editor\View\Widgets\LoggingPanel\PivotTree</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\ValidationPanel\GraphValidationPanel.ui">
+      <Filter>Editor\View\Widgets\ValidationPanel</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\StatisticsDialog\ScriptCanvasStatisticsDialog.ui">
+      <Filter>Editor\View\Widgets\StatisticsDialog</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\VariablePanel\VariableDockWidget.ui">
+      <Filter>Editor\View\Widgets\VariablePanel</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\VariablePanel\SlotTypeSelectorWidget.ui">
+      <Filter>Editor\View\Widgets\VariablePanel</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\UnitTestPanel\UnitTestDockWidget.ui">
+      <Filter>Editor\View\Widgets\UnitTestPanel</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\ebushandleractionlistwidget.ui">
+      <Filter>Editor\View\Windows</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\mainwindow.ui">
+      <Filter>Editor\View\Windows</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Tools\UpgradeTool\UpgradeHelper.ui">
+      <Filter>Editor\View\Windows\Tools\UpgradeTool</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Tools\UpgradeTool\UpgradeTool.ui">
+      <Filter>Editor\View\Windows\Tools\UpgradeTool</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Tools\UpgradeTool\VersionExplorer.ui">
+      <Filter>Editor\View\Windows\Tools\UpgradeTool</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\31951d727bc6e364b1668d881891e998\qrc_ScriptCanvasEditorResources.cpp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\ScriptCanvasEditorResources.qrc">
+      <Filter>Editor\View\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_asset_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_builder_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Asset">
+      <UniqueIdentifier>{2BDBEBA5-00A9-3D3D-8DAB-9774D95C6F1D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Builder">
+      <UniqueIdentifier>{C20B4AE6-F020-3B8A-8F40-3AD37A01BF53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{E975680F-F697-3506-8586-852AB59CD56D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Assets">
+      <UniqueIdentifier>{CE537AB8-6284-3F64-A732-FE06D7407E8B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Components">
+      <UniqueIdentifier>{0C2E26B1-5767-3DBC-9681-9A8366494108}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Framework">
+      <UniqueIdentifier>{714687E2-58D4-3A60-8276-B5FA73A4DBEB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\GraphCanvas">
+      <UniqueIdentifier>{40A2801E-4AA3-32E3-B164-37EC9D5E7775}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\GraphCanvas\Components">
+      <UniqueIdentifier>{32F55475-B0B6-3EA0-A4BC-6B74482B93D7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\GraphCanvas\Components\NodeDescriptors">
+      <UniqueIdentifier>{763B8452-AB5C-3F0A-8D4C-D5862DE074F2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\GraphCanvas\DataInterfaces">
+      <UniqueIdentifier>{F6A2E1A0-F9CC-3BBB-8CC1-A97026CE3145}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\GraphCanvas\PropertyInterfaces">
+      <UniqueIdentifier>{E4D2B9DC-CA26-35BF-8DD9-17AF9D916BC3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Include">
+      <UniqueIdentifier>{FC8F3500-C793-3342-A9A4-74FA606EAD8C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Include\ScriptCanvas">
+      <UniqueIdentifier>{73C27B82-AAA2-3BD5-816A-963053A325C6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Include\ScriptCanvas\Assets">
+      <UniqueIdentifier>{09BDAF65-8EDB-3677-A9DF-BEC2F89053A4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Include\ScriptCanvas\Bus">
+      <UniqueIdentifier>{A7637899-2C0C-3B4F-9DE9-92A8CB85BFC6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Include\ScriptCanvas\Components">
+      <UniqueIdentifier>{2D9D3E7C-9B38-3643-B89C-83DF550382A2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Include\ScriptCanvas\GraphCanvas">
+      <UniqueIdentifier>{4450EA48-BE8D-3428-8187-A37ECAA8120E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Model">
+      <UniqueIdentifier>{5727515F-8171-3A26-BE1C-37749E971EE6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Nodes">
+      <UniqueIdentifier>{71E4021E-B148-3EB4-B328-60088A1300B4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Translation">
+      <UniqueIdentifier>{B0978355-596B-33F0-A238-1C4AE082E9ED}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Undo">
+      <UniqueIdentifier>{E66D33BF-187B-3AA0-9760-29C2C7A3AB21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Utilities">
+      <UniqueIdentifier>{44D7C2D7-EC7A-3E3B-B9BB-D468A716A681}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\View">
+      <UniqueIdentifier>{94624D6A-5578-334C-8E3B-08821E4420FB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\View\Dialogs">
+      <UniqueIdentifier>{294FF183-EE45-32F1-AC09-4EC33A077577}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\View\Dialogs\ContainerWizard">
+      <UniqueIdentifier>{EF6D0532-62BC-3D0D-9F0F-ADBEA7165021}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\View\Widgets">
+      <UniqueIdentifier>{2701075C-2177-34B9-9B48-DDF39C2CC802}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\View\Widgets\DataTypePalette">
+      <UniqueIdentifier>{62E8A2E7-1237-3B90-A52D-8647CA4AE3B0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\View\Widgets\LoggingPanel">
+      <UniqueIdentifier>{3EA43856-4A90-3020-B24E-836AB128760D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\View\Widgets\LoggingPanel\AssetWindowSession">
+      <UniqueIdentifier>{01BD66A3-299D-3D9C-9299-A18F1CBC81B0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\View\Widgets\LoggingPanel\LiveWindowSession">
+      <UniqueIdentifier>{694D8E08-803F-38CD-BD54-05D4DD963DE1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\View\Widgets\LoggingPanel\PivotTree">
+      <UniqueIdentifier>{858B9400-DC57-3D20-8E16-760AF7240BCE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\View\Widgets\LoggingPanel\PivotTree\EntityPivotTree">
+      <UniqueIdentifier>{D2998237-B797-3A0B-9938-41339A02BC71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\View\Widgets\LoggingPanel\PivotTree\GraphPivotTree">
+      <UniqueIdentifier>{36E639B0-895B-3196-AFB6-8A7680C43792}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\View\Widgets\NodePalette">
+      <UniqueIdentifier>{D9024389-F0E5-39E3-B6B9-84DFD41AEBDF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\View\Widgets\StatisticsDialog">
+      <UniqueIdentifier>{194C6764-8682-3914-895C-F1FAA42B25B0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\View\Widgets\UnitTestPanel">
+      <UniqueIdentifier>{E0C95E1F-2CF8-3A8D-BFC5-EB52FA075B86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\View\Widgets\ValidationPanel">
+      <UniqueIdentifier>{3AFF72B6-B87C-373E-83D1-7AA2D38071F0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\View\Widgets\VariablePanel">
+      <UniqueIdentifier>{1C257F9E-8613-3537-A6DE-8B61DF555A97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\View\Windows">
+      <UniqueIdentifier>{1F17A001-8394-3887-88CF-036DD09F4625}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\View\Windows\Tools">
+      <UniqueIdentifier>{6EBB32AE-4000-3DAF-A874-A980F215941A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\View\Windows\Tools\UpgradeTool">
+      <UniqueIdentifier>{6B84C122-5143-3088-B3D2-73516424B116}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

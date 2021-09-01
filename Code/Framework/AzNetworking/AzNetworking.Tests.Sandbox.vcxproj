@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|x64">
+      <Configuration>debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="profile|x64">
+      <Configuration>profile</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|x64">
+      <Configuration>release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{15DBFED6-4C04-36C3-9EE8-62B1B4D4E2C7}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>AzNetworking.Tests.Sandbox</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="J:\Atom\lyfork\o3de\cmake\Platform\Common\TestProject.props" Condition="exists('J:\Atom\lyfork\o3de\cmake\Platform\Common\TestProject.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <LocalDebuggerCommand Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:/Atom/lyfork/o3de/bin/debug/AzTestRunner.exe</LocalDebuggerCommand>
+    <LocalDebuggerCommandArguments Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:/Atom/lyfork/o3de/bin/debug/AzNetworking.Tests.dll AzRunUnitTests --gtest_output=xml:J:/Atom/lyfork/o3de/Testing/Gtest/AZ_AzNetworking.Tests.Sandbox.xml</LocalDebuggerCommandArguments>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <LocalDebuggerCommand Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:/Atom/lyfork/o3de/bin/profile/AzTestRunner.exe</LocalDebuggerCommand>
+    <LocalDebuggerCommandArguments Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:/Atom/lyfork/o3de/bin/profile/AzNetworking.Tests.dll AzRunUnitTests --gtest_output=xml:J:/Atom/lyfork/o3de/Testing/Gtest/AZ_AzNetworking.Tests.Sandbox.xml</LocalDebuggerCommandArguments>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <LocalDebuggerCommand Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:/Atom/lyfork/o3de/bin/release/AzTestRunner.exe</LocalDebuggerCommand>
+    <LocalDebuggerCommandArguments Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:/Atom/lyfork/o3de/bin/release/AzNetworking.Tests.dll AzRunUnitTests --gtest_output=xml:J:/Atom/lyfork/o3de/Testing/Gtest/AZ_AzNetworking.Tests.Sandbox.xml</LocalDebuggerCommandArguments>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\35a632ee37280f84ea9f6072dd73d1a3\AzNetworking.Tests.Sandbox.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E true
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\CMakeFiles\AzNetworking.Tests.Sandbox</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</VerifyInputsAndOutputsExist>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E true
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\CMakeFiles\AzNetworking.Tests.Sandbox</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</VerifyInputsAndOutputsExist>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E true
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\CMakeFiles\AzNetworking.Tests.Sandbox</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</VerifyInputsAndOutputsExist>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Framework/AzNetworking/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/Code/Framework/AzNetworking/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\FindOpenSSL.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\PackageInfo.json;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\aznetworking_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\aznetworkingtests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Framework/AzNetworking/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/Code/Framework/AzNetworking/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\FindOpenSSL.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\PackageInfo.json;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\aznetworking_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\aznetworkingtests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Framework/AzNetworking/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/Code/Framework/AzNetworking/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\FindOpenSSL.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\PackageInfo.json;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\aznetworking_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\aznetworkingtests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\CMakeFiles\AzNetworking.Tests.Sandbox">
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\ZERO_CHECK.vcxproj">
+      <Project>{9D084072-A56A-3A6D-8C63-F5385A20608A}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking.Tests.vcxproj">
+      <Project>{BEF5FB0B-813F-30F6-87F7-FEC9DAF6B99B}</Project>
+      <Name>AzNetworking.Tests</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Tools\AzTestRunner\AzTestRunner.vcxproj">
+      <Project>{D30D7C28-6249-38F6-8F8B-B2853B11CC03}</Project>
+      <Name>AzTestRunner</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

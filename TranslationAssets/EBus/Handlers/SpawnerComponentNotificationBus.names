@@ -1,0 +1,97 @@
+{
+    "entries": [
+        {
+            "key": "SpawnerComponentNotificationBus",
+            "context": "EBusHandler",
+            "variant": "",
+            "details": {
+                "name": "SpawnerComponentNotificationBus"
+            },
+            "methods": [
+                {
+                    "key": "OnSpawnBegin",
+                    "details": {
+                        "name": "OnSpawnBegin"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
+                            "details": {
+                                "name": "SliceInstantiationTicket"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "OnSpawnEnd",
+                    "details": {
+                        "name": "OnSpawnEnd"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
+                            "details": {
+                                "name": "SliceInstantiationTicket"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "OnEntitySpawned",
+                    "details": {
+                        "name": "OnEntitySpawned"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
+                            "details": {
+                                "name": "SliceInstantiationTicket"
+                            }
+                        },
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "OnSpawnedSliceDestroyed",
+                    "details": {
+                        "name": "OnSpawnedSliceDestroyed"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
+                            "details": {
+                                "name": "SliceInstantiationTicket"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "OnEntitiesSpawned",
+                    "details": {
+                        "name": "OnEntitiesSpawned"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
+                            "details": {
+                                "name": "SliceInstantiationTicket"
+                            }
+                        },
+                        {
+                            "typeid": "{4841CFF0-7A5C-519C-BD16-D3625E99605E}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\DebugDrawModule.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\DebugDrawLineComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\DebugDrawRayComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\DebugDrawSphereComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\DebugDrawObbComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\DebugDrawTextComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\DebugDrawSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\EditorDebugDrawComponentCommon.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\EditorDebugDrawLineComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\EditorDebugDrawRayComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\EditorDebugDrawSphereComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\EditorDebugDrawObbComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\EditorDebugDrawTextComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Include\DebugDraw\DebugDrawBus.h">
+      <Filter>Include\DebugDraw</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\DebugDrawLineComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\DebugDrawRayComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\DebugDrawSphereComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\DebugDrawObbComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\DebugDrawTextComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\DebugDrawSystemComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\EditorDebugDrawComponentCommon.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\EditorDebugDrawLineComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\EditorDebugDrawRayComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\EditorDebugDrawSphereComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\EditorDebugDrawObbComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\Source\EditorDebugDrawTextComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\DebugDraw\Code\debugdraw_editor_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\DebugDraw">
+      <UniqueIdentifier>{BC73B884-E410-32C1-924D-9B81E075A1F0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

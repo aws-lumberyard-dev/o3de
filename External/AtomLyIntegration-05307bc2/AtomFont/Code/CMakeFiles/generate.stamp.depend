@@ -1,0 +1,10 @@
+# CMake generation dependency list for this directory.
+C:/Users/luissemp/.o3de/3rdParty/packages/freetype-2.10.4.14-windows/Findfreetype.cmake
+C:/Users/luissemp/.o3de/3rdParty/packages/freetype-2.10.4.14-windows/PackageInfo.json
+C:/Users/luissemp/.o3de/3rdParty/packages/freetype-2.10.4.14-windows/freetype-config-version.cmake
+C:/Users/luissemp/.o3de/3rdParty/packages/freetype-2.10.4.14-windows/freetype-config.cmake
+J:/Atom/lyfork/o3de/Gems/AtomLyIntegration/AtomFont/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/AtomLyIntegration/AtomFont/Code/Platform/Windows/platform_windows_files.cmake
+J:/Atom/lyfork/o3de/Gems/AtomLyIntegration/AtomFont/Code/atomfont_files.cmake
+J:/Atom/lyfork/o3de/Gems/AtomLyIntegration/AtomFont/Code/atomfont_test_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Main.cpp">
+      <Filter>Tests\..\..\AzCore\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\Spawnable\SpawnableEntitiesManagerTests.cpp">
+      <Filter>Tests\Spawnable</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\ArchiveCompressionTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\ArchiveTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\BehaviorEntityTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\BinToTextEncode.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\CameraInputTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\ClickDetectorTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\CursorStateTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\EntityContext.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\FileIO.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\FileTagTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\GenAppDescriptors.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\OctreePerformanceTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\OctreeTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\AssetCatalog.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\AssetProcessorConnection.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\NativeWindow.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\ProcessLaunchParseTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\Application.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\PlatformHelper.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\Scene.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\CameraState.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\InputTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\frameworktests_files.cmake">
+      <Filter>Tests</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{A12C7827-546E-3D77-AE99-877104F2DFF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\..">
+      <UniqueIdentifier>{7629DA94-FD61-3C7E-893F-88D9C1FAF5B3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\..\..">
+      <UniqueIdentifier>{1D5B606F-020B-3C21-B46B-1BB33FA9F47C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\..\..\AzCore">
+      <UniqueIdentifier>{7EA6356D-DD01-3006-9D5E-3B3E7C115745}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\..\..\AzCore\Tests">
+      <UniqueIdentifier>{623DA0CD-2260-3EC1-8409-E15B4F873539}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Spawnable">
+      <UniqueIdentifier>{16F0E770-981C-3D37-B13F-35DD11411CD0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

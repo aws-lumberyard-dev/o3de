@@ -1,0 +1,37 @@
+{
+    "entries": [
+        {
+            "key": "EventHandler<tuple<Crc32 int > const CollisionEvent& >",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "EventHandler<tuple<Crc32 int > const CollisionEvent& >"
+            },
+            "methods": [
+                {
+                    "key": "Disconnect",
+                    "context": "EventHandler<tuple<Crc32 int > const CollisionEvent& >",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke EventHandler<tuple<Crc32 int > const CollisionEvent& >::Disconnect"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after EventHandler<tuple<Crc32 int > const CollisionEvent& >::Disconnect is invoked"
+                    },
+                    "details": {
+                        "name": "EventHandler<tuple<Crc32 int > const CollisionEvent& >::Disconnect"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E7E7D6E5-33C6-5880-AAB7-1D1DBB017947}",
+                            "details": {
+                                "name": "EventHandler<tuple<Crc32 int > const CollisionEvent& >*"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

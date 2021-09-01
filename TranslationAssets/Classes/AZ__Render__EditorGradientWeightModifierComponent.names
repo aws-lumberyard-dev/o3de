@@ -1,0 +1,12 @@
+{
+    "entries": [
+        {
+            "key": "AZ::Render::EditorGradientWeightModifierComponent",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AZ::Render::EditorGradientWeightModifierComponent"
+            }
+        }
+    ]
+}

@@ -1,0 +1,45 @@
+{
+    "entries": [
+        {
+            "key": "AZ::RHI::Handle<AZ::u64, DefaultNamespaceType>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AZ::RHI::Handle<AZ::u64, DefaultNamespaceType>"
+            },
+            "methods": [
+                {
+                    "key": "IsValid",
+                    "context": "AZ::RHI::Handle<AZ::u64, DefaultNamespaceType>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZ::RHI::Handle<AZ::u64, DefaultNamespaceType>::IsValid"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZ::RHI::Handle<AZ::u64, DefaultNamespaceType>::IsValid is invoked"
+                    },
+                    "details": {
+                        "name": "AZ::RHI::Handle<AZ::u64, DefaultNamespaceType>::IsValid"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{0B5D866D-C7F5-5B12-81A5-74521A8230D5}",
+                            "details": {
+                                "name": "AZ::RHI::Handle<AZ::u64, DefaultNamespaceType>"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

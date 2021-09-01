@@ -1,0 +1,29 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.20/Modules/CMakeParseArguments.cmake
+C:/Users/luissemp/.o3de/3rdParty/packages/AWSNativeSDK-1.7.167-rev3-windows/FindAWSNativeSDK.cmake
+C:/Users/luissemp/.o3de/3rdParty/packages/AWSNativeSDK-1.7.167-rev3-windows/PackageInfo.json
+C:/Users/luissemp/.o3de/3rdParty/packages/squish-ccr-20150601-rev3-multiplatform/Findsquish-ccr.cmake
+C:/Users/luissemp/.o3de/3rdParty/packages/squish-ccr-20150601-rev3-multiplatform/PackageInfo.json
+J:/Atom/lyfork/o3de/Code/Editor/CMakeLists.txt
+J:/Atom/lyfork/o3de/Code/Editor/Controls/ConsoleSCB.qrc
+J:/Atom/lyfork/o3de/Code/Editor/LayoutConfigDialog.qrc
+J:/Atom/lyfork/o3de/Code/Editor/LevelFileDialog.qrc
+J:/Atom/lyfork/o3de/Code/Editor/MainWindow.qrc
+J:/Atom/lyfork/o3de/Code/Editor/Platform/Common/MSVC/editor_lib_msvc.cmake
+J:/Atom/lyfork/o3de/Code/Editor/Platform/Windows/editor_core_files_windows.cmake
+J:/Atom/lyfork/o3de/Code/Editor/Platform/Windows/editor_lib_windows.cmake
+J:/Atom/lyfork/o3de/Code/Editor/Platform/Windows/editor_windows.cmake
+J:/Atom/lyfork/o3de/Code/Editor/Platform/Windows/platform_windows_files.cmake
+J:/Atom/lyfork/o3de/Code/Editor/StartupLogoDialog.qrc
+J:/Atom/lyfork/o3de/Code/Editor/Style/resources.qrc
+J:/Atom/lyfork/o3de/Code/Editor/TrackView/TrackViewDialog.qrc
+J:/Atom/lyfork/o3de/Code/Editor/WelcomeScreen/WelcomeScreenDialog.qrc
+J:/Atom/lyfork/o3de/Code/Editor/WipFeaturesDlg.qrc
+J:/Atom/lyfork/o3de/Code/Editor/editor_core_files.cmake
+J:/Atom/lyfork/o3de/Code/Editor/editor_core_test_files.cmake
+J:/Atom/lyfork/o3de/Code/Editor/editor_files.cmake
+J:/Atom/lyfork/o3de/Code/Editor/editor_headers_files.cmake
+J:/Atom/lyfork/o3de/Code/Editor/editor_lib_files.cmake
+J:/Atom/lyfork/o3de/Code/Editor/editor_lib_test_files.cmake
+J:/Atom/lyfork/o3de/Code/Editor/i18n_Translations.qrc
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

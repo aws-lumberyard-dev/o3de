@@ -1,0 +1,58 @@
+{
+    "entries": [
+        {
+            "key": "TickRequestBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "TickRequestBus"
+            },
+            "methods": [
+                {
+                    "key": "GetTickDeltaTime",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetTickDeltaTime"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetTickDeltaTime is invoked"
+                    },
+                    "details": {
+                        "name": "GetTickDeltaTime"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTimeAtCurrentTick",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetTimeAtCurrentTick"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetTimeAtCurrentTick is invoked"
+                    },
+                    "details": {
+                        "name": "GetTimeAtCurrentTick"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{4C0F6AD4-0D4F-4354-AD4A-0C01E948245C}",
+                            "details": {
+                                "name": "ScriptTimePoint"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

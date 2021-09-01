@@ -1,0 +1,105 @@
+{
+    "entries": [
+        {
+            "key": "AudioListenerComponentRequestBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AudioListenerComponentRequestBus"
+            },
+            "methods": [
+                {
+                    "key": "SetRotationEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetRotationEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetRotationEntity is invoked"
+                    },
+                    "details": {
+                        "name": "SetRotationEntity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetPositionEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetPositionEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetPositionEntity is invoked"
+                    },
+                    "details": {
+                        "name": "SetPositionEntity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetFullTransformEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetFullTransformEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetFullTransformEntity is invoked"
+                    },
+                    "details": {
+                        "name": "SetFullTransformEntity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetListenerEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetListenerEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetListenerEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "SetListenerEnabled"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

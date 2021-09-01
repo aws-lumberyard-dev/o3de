@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\FastNoise\Code\Source\FastNoiseSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\FastNoise\Code\Source\FastNoiseGradientComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\FastNoise\Code\External\FastNoise\FastNoise.cpp">
+      <Filter>External\FastNoise</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\FastNoise\Code\Include\FastNoise\Ebuses\FastNoiseBus.h">
+      <Filter>Include\FastNoise\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\FastNoise\Code\Include\FastNoise\Ebuses\FastNoiseGradientRequestBus.h">
+      <Filter>Include\FastNoise\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\FastNoise\Code\Source\FastNoiseSystemComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\FastNoise\Code\Source\FastNoiseGradientComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\FastNoise\Code\External\FastNoise\FastNoise.h">
+      <Filter>External\FastNoise</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\FastNoise\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\FastNoise\Code\fastnoise_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="External">
+      <UniqueIdentifier>{1DB87CDB-1770-348B-BCC2-35069AA1FC02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\FastNoise">
+      <UniqueIdentifier>{2BE7F05B-5A6B-34B1-AE57-0933A8845405}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\FastNoise">
+      <UniqueIdentifier>{0C1FA5F4-509D-39B2-9B56-EBF31D6164C4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\FastNoise\Ebuses">
+      <UniqueIdentifier>{8B19B0F5-101B-36AE-9F8E-9742C373131F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,459 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|x64">
+      <Configuration>debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="profile|x64">
+      <Configuration>profile</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|x64">
+      <Configuration>release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C614E144-A767-3DFD-ADB1-F82E78CB5179}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>SceneData</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\bin\debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">SceneData.dir\debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='debug|x64'">SceneData</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='debug|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\bin\profile\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">SceneData.dir\profile\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='profile|x64'">SceneData</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='profile|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='profile|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\bin\release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">SceneData.dir\release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='release|x64'">SceneData</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='release|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='release|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\..\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /RTCsu /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>SCENE_DATA_EXPORTS;_HAS_EXCEPTIONS=0;_DEBUG;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="debug";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR="debug";SceneData_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;SCENE_DATA_EXPORTS;_HAS_EXCEPTIONS=0;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"debug\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR=\"debug\";SceneData_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\..\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\..\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/debug/SceneData.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\..\..\..\lib\debug\AzCore.lib;..\..\..\..\lib\debug\AzFramework.lib;..\..\..\..\lib\debug\AzToolsFramework.lib;..\..\..\..\lib\debug\SceneCore.lib;..\..\..\..\lib\debug\AzFramework.lib;..\..\..\..\lib\debug\GridMate.lib;ws2_32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\debug\lib\libssl.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\debug\lib\libcrypto.lib;crypt32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\md5-2.0-multiplatform\md5\build\win_x64\vc140\debug\md5.lib;C:\Users\luissemp\.o3de\3rdParty\packages\lz4-r128-multiplatform\lz4\build\win_x64\vc140\debug\lz4.lib;C:\Users\luissemp\.o3de\3rdParty\packages\SQLite-3.32.2-rev3-multiplatform\SQLite\build\win_x64\vc140\debug\sqlite.lib;..\..\..\..\lib\debug\AzQtComponents.lib;..\..\..\..\lib\debug\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\debug\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\zlib\lib\zlibstaticd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\debug\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\debug\cityhash.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Svgd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Widgetsd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Guid.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Xmld.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Cored.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>J:/Atom/lyfork/o3de/lib/debug/SceneData.lib</ImportLibrary>
+      <ProgramDataBaseFile>J:/Atom/lyfork/o3de/bin/debug/SceneData.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\..\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StringPooling>true</StringPooling>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>SCENE_DATA_EXPORTS;_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="profile";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR="profile";SceneData_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>SCENE_DATA_EXPORTS;_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"profile\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR=\"profile\";SceneData_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\..\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\..\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/profile/SceneData.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\..\..\..\lib\profile\AzCore.lib;..\..\..\..\lib\profile\AzFramework.lib;..\..\..\..\lib\profile\AzToolsFramework.lib;..\..\..\..\lib\profile\SceneCore.lib;..\..\..\..\lib\profile\AzFramework.lib;..\..\..\..\lib\profile\GridMate.lib;ws2_32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libssl.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libcrypto.lib;crypt32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\md5-2.0-multiplatform\md5\build\win_x64\vc140\release\md5.lib;C:\Users\luissemp\.o3de\3rdParty\packages\lz4-r128-multiplatform\lz4\build\win_x64\vc140\release\lz4.lib;C:\Users\luissemp\.o3de\3rdParty\packages\SQLite-3.32.2-rev3-multiplatform\SQLite\build\win_x64\vc140\release\sqlite.lib;..\..\..\..\lib\profile\AzQtComponents.lib;..\..\..\..\lib\profile\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\release\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\zlib\lib\zlibstatic.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\release\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\release\cityhash.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Svg.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Widgets.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Gui.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Xml.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Core.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>J:/Atom/lyfork/o3de/lib/profile/SceneData.lib</ImportLibrary>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ProgramDataBaseFile>J:/Atom/lyfork/o3de/bin/profile/SceneData.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\..\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OmitFramePointers>true</OmitFramePointers>
+      <Optimization>Full</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>SCENE_DATA_EXPORTS;_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE="release";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR="release";SceneData_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>SCENE_DATA_EXPORTS;_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE=\"release\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR=\"release\";SceneData_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\..\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\..\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/release/SceneData.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\..\..\..\lib\release\AzCore.lib;..\..\..\..\lib\release\AzFramework.lib;..\..\..\..\lib\release\AzToolsFramework.lib;..\..\..\..\lib\release\SceneCore.lib;..\..\..\..\lib\release\AzFramework.lib;..\..\..\..\lib\release\GridMate.lib;ws2_32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libssl.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libcrypto.lib;crypt32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\md5-2.0-multiplatform\md5\build\win_x64\vc140\release\md5.lib;C:\Users\luissemp\.o3de\3rdParty\packages\lz4-r128-multiplatform\lz4\build\win_x64\vc140\release\lz4.lib;C:\Users\luissemp\.o3de\3rdParty\packages\SQLite-3.32.2-rev3-multiplatform\SQLite\build\win_x64\vc140\release\sqlite.lib;..\..\..\..\lib\release\AzQtComponents.lib;..\..\..\..\lib\release\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\release\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\zlib\lib\zlibstatic.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\release\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\release\cityhash.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Svg.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Widgets.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Gui.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Xml.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Core.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>J:/Atom/lyfork/o3de/lib/release/SceneData.lib</ImportLibrary>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ProgramDataBaseFile>J:/Atom/lyfork/o3de/bin/release/SceneData.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Tools/SceneAPI/SceneData/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/Code/Tools/SceneAPI/SceneData/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\SceneData_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\SceneData_testing_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Tools/SceneAPI/SceneData/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/Code/Tools/SceneAPI/SceneData/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\SceneData_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\SceneData_testing_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Tools/SceneAPI/SceneData/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/Code/Tools/SceneAPI/SceneData/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\SceneData_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\SceneData_testing_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\SceneDataConfiguration.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\DllMain.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\ManifestMetaInfoHandler.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\ManifestMetaInfoHandler.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\SceneDataStandaloneAllocator.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\SceneDataStandaloneAllocator.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\ReflectionRegistrar.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\ReflectionRegistrar.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Behaviors\BehaviorsMeshGroup.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Behaviors\BehaviorsSkeletonGroup.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Behaviors\BehaviorsSkinGroup.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Behaviors\Registry.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Behaviors\Registry.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Behaviors\MeshGroup.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Behaviors\SkeletonGroup.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Behaviors\SkinGroup.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Behaviors\AnimationGroup.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Behaviors\BehaviorsAnimationGroup.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Behaviors\MeshAdvancedRule.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Behaviors\MeshAdvancedRule.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Behaviors\MaterialRuleBehavior.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Behaviors\MaterialRuleBehavior.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Behaviors\LodRuleBehavior.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Behaviors\LodRuleBehavior.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Behaviors\BlendShapeRuleBehavior.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Behaviors\BlendShapeRuleBehavior.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Behaviors\SkinRuleBehavior.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Behaviors\SkinRuleBehavior.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Behaviors\ScriptProcessorRuleBehavior.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Behaviors\ScriptProcessorRuleBehavior.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Groups\MeshGroup.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Groups\MeshGroup.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Groups\SkeletonGroup.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Groups\SkeletonGroup.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Groups\SkinGroup.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Groups\SkinGroup.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Groups\AnimationGroup.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Groups\AnimationGroup.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\ManifestBase\SceneNodeSelectionList.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\ManifestBase\SceneNodeSelectionList.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Rules\BlendShapeRule.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Rules\BlendShapeRule.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Rules\CommentRule.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Rules\CommentRule.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Rules\LodRule.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Rules\LodRule.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Rules\CoordinateSystemRule.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Rules\CoordinateSystemRule.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Rules\StaticMeshAdvancedRule.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Rules\StaticMeshAdvancedRule.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Rules\MaterialRule.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Rules\MaterialRule.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Rules\ScriptProcessorRule.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Rules\ScriptProcessorRule.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Rules\SkeletonProxyRule.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Rules\SkeletonProxyRule.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Rules\SkinMeshAdvancedRule.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Rules\SkinMeshAdvancedRule.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Rules\SkinRule.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Rules\SkinRule.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Rules\TangentsRule.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Rules\TangentsRule.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\MeshData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\MeshData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\MeshVertexColorData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\MeshVertexColorData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\MeshVertexUVData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\MeshVertexUVData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\MeshVertexTangentData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\MeshVertexTangentData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\MeshVertexBitangentData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\MeshVertexBitangentData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\MaterialData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\MaterialData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\TransformData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\TransformData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\MeshDataPrimitiveUtils.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\MeshDataPrimitiveUtils.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\BoneData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\BoneData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\RootBoneData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\RootBoneData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\SkinMeshData.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\SkinWeightData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\SkinWeightData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\AnimationData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\AnimationData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\BlendShapeData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\GraphData\BlendShapeData.cpp" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\SceneData_files.cmake">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Platform\Windows\platform_windows_files.cmake">
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\ZERO_CHECK.vcxproj">
+      <Project>{9D084072-A56A-3A6D-8C63-F5385A20608A}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore.vcxproj">
+      <Project>{78F97634-33F1-3E9D-BB2E-D24CB7BD9D1E}</Project>
+      <Name>AzCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework.vcxproj">
+      <Project>{32B5BA28-0012-3762-8899-2D392DE6A10B}</Project>
+      <Name>AzFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents.vcxproj">
+      <Project>{A96AE86E-7259-341D-879A-5F0B4ECAAFB8}</Project>
+      <Name>AzQtComponents</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework.vcxproj">
+      <Project>{FBDC5AB0-96E2-3EF6-A16A-7C345C99949B}</Project>
+      <Name>AzToolsFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate.vcxproj">
+      <Project>{1A59660B-1BCB-3611-B3D0-673DEB6F8A46}</Project>
+      <Name>GridMate</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneCore\SceneCore.vcxproj">
+      <Project>{DFBBF812-B8F3-33D1-91CA-B9D13F1DF531}</Project>
+      <Name>SceneCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

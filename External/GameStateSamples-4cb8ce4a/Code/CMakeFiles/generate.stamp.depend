@@ -1,0 +1,5 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/GameStateSamples/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/GameStateSamples/Code/Include/Platform/Windows/platform_windows_files.cmake
+J:/Atom/lyfork/o3de/Gems/GameStateSamples/Code/gamestatesamples_headers_files.cmake
+J:/Atom/lyfork/o3de/Gems/GameStateSamples/Code/gamestatesamples_shared_files.cmake

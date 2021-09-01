@@ -1,0 +1,190 @@
+{
+    "entries": [
+        {
+            "key": "UiScrollerBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiScrollerBus"
+            },
+            "methods": [
+                {
+                    "key": "GetValueChangedActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetValueChangedActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetValueChangedActionName is invoked"
+                    },
+                    "details": {
+                        "name": "GetValueChangedActionName"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetOrientation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetOrientation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetOrientation is invoked"
+                    },
+                    "details": {
+                        "name": "SetOrientation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetOrientation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetOrientation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetOrientation is invoked"
+                    },
+                    "details": {
+                        "name": "GetOrientation"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetValueChangingActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetValueChangingActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetValueChangingActionName is invoked"
+                    },
+                    "details": {
+                        "name": "GetValueChangingActionName"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetValueChangingActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetValueChangingActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetValueChangingActionName is invoked"
+                    },
+                    "details": {
+                        "name": "SetValueChangingActionName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetValue",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetValue"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetValue is invoked"
+                    },
+                    "details": {
+                        "name": "SetValue"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetValue",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetValue"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetValue is invoked"
+                    },
+                    "details": {
+                        "name": "GetValue"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetValueChangedActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetValueChangedActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetValueChangedActionName is invoked"
+                    },
+                    "details": {
+                        "name": "SetValueChangedActionName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

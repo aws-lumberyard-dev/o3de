@@ -1,0 +1,148 @@
+{
+    "entries": [
+        {
+            "key": "CollisionFilteringBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "CollisionFilteringBus"
+            },
+            "methods": [
+                {
+                    "key": "ToggleCollisionLayer",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke ToggleCollisionLayer"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after ToggleCollisionLayer is invoked"
+                    },
+                    "details": {
+                        "name": "ToggleCollisionLayer"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        },
+                        {
+                            "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
+                            "details": {
+                                "name": "Crc32"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetCollisionGroup",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetCollisionGroup"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetCollisionGroup is invoked"
+                    },
+                    "details": {
+                        "name": "SetCollisionGroup"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        },
+                        {
+                            "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
+                            "details": {
+                                "name": "Crc32"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetCollisionGroupName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetCollisionGroupName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetCollisionGroupName is invoked"
+                    },
+                    "details": {
+                        "name": "GetCollisionGroupName"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetCollisionLayerName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetCollisionLayerName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetCollisionLayerName is invoked"
+                    },
+                    "details": {
+                        "name": "GetCollisionLayerName"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetCollisionLayer",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetCollisionLayer"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetCollisionLayer is invoked"
+                    },
+                    "details": {
+                        "name": "SetCollisionLayer"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        },
+                        {
+                            "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
+                            "details": {
+                                "name": "Crc32"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

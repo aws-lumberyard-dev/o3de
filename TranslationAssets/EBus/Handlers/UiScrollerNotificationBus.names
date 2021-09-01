@@ -1,0 +1,42 @@
+{
+    "entries": [
+        {
+            "key": "UiScrollerNotificationBus",
+            "context": "EBusHandler",
+            "variant": "",
+            "details": {
+                "name": "UiScrollerNotificationBus"
+            },
+            "methods": [
+                {
+                    "key": "OnScrollerValueChanging",
+                    "details": {
+                        "name": "OnScrollerValueChanging"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "OnScrollerValueChanged",
+                    "details": {
+                        "name": "OnScrollerValueChanged"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

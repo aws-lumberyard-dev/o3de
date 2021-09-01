@@ -1,0 +1,99 @@
+{
+    "entries": [
+        {
+            "key": "Iterator_VM<AZStd::vector<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, allocator>>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Iterator_VM<AZStd::vector<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, allocator>>"
+            },
+            "methods": [
+                {
+                    "key": "IsNotAtEnd",
+                    "context": "Iterator_VM<AZStd::vector<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, allocator>>::IsNotAtEnd"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, allocator>>::IsNotAtEnd is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::vector<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, allocator>>::IsNotAtEnd"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{16FED0F7-1100-589D-BBDF-AC414DA04E52}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<AZStd::basic_string<char, AZStd::char"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ModValueUnchecked",
+                    "context": "Iterator_VM<AZStd::vector<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, allocator>>::ModValueUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, allocator>>::ModValueUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::vector<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, allocator>>::ModValueUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{16FED0F7-1100-589D-BBDF-AC414DA04E52}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<AZStd::basic_string<char, AZStd::char"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Next",
+                    "context": "Iterator_VM<AZStd::vector<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, allocator>>::Next"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, allocator>>::Next is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::vector<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, allocator>>::Next"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{16FED0F7-1100-589D-BBDF-AC414DA04E52}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<AZStd::basic_string<char, AZStd::char"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

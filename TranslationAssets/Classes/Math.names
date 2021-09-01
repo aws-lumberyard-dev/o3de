@@ -1,0 +1,939 @@
+{
+    "entries": [
+        {
+            "key": "Math",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Math"
+            },
+            "methods": [
+                {
+                    "key": "DivideByNumber",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::Divide By Number"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::Divide By Number is invoked"
+                    },
+                    "details": {
+                        "name": "Math::Divide By Number"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Round",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::Round"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::Round is invoked"
+                    },
+                    "details": {
+                        "name": "Math::Round"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Sqrt",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::Sqrt"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::Sqrt is invoked"
+                    },
+                    "details": {
+                        "name": "Math::Sqrt"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Mod",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::Mod"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::Mod is invoked"
+                    },
+                    "details": {
+                        "name": "Math::Mod"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Ceil",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::Ceil"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::Ceil is invoked"
+                    },
+                    "details": {
+                        "name": "Math::Ceil"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsEven",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::IsEven"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::IsEven is invoked"
+                    },
+                    "details": {
+                        "name": "Math::IsEven"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsClose",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::IsClose"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::IsClose is invoked"
+                    },
+                    "details": {
+                        "name": "Math::IsClose"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ArcSin",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::ArcSin"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::ArcSin is invoked"
+                    },
+                    "details": {
+                        "name": "Math::ArcSin"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ArcTan",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::ArcTan"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::ArcTan is invoked"
+                    },
+                    "details": {
+                        "name": "Math::ArcTan"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Max",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::Max"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::Max is invoked"
+                    },
+                    "details": {
+                        "name": "Math::Max"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Tan",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::Tan"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::Tan is invoked"
+                    },
+                    "details": {
+                        "name": "Math::Tan"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ArcTan2",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::ArcTan2"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::ArcTan2 is invoked"
+                    },
+                    "details": {
+                        "name": "Math::ArcTan2"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Floor",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::Floor"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::Floor is invoked"
+                    },
+                    "details": {
+                        "name": "Math::Floor"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Min",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::Min"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::Min is invoked"
+                    },
+                    "details": {
+                        "name": "Math::Min"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Lerp",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::Lerp"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::Lerp is invoked"
+                    },
+                    "details": {
+                        "name": "Math::Lerp"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "LerpInverse",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::LerpInverse"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::LerpInverse is invoked"
+                    },
+                    "details": {
+                        "name": "Math::LerpInverse"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsOdd",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::IsOdd"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::IsOdd is invoked"
+                    },
+                    "details": {
+                        "name": "Math::IsOdd"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Abs",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::Abs"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::Abs is invoked"
+                    },
+                    "details": {
+                        "name": "Math::Abs"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RadToDeg",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::RadToDeg"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::RadToDeg is invoked"
+                    },
+                    "details": {
+                        "name": "Math::RadToDeg"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Sin",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::Sin"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::Sin is invoked"
+                    },
+                    "details": {
+                        "name": "Math::Sin"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Cos",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::Cos"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::Cos is invoked"
+                    },
+                    "details": {
+                        "name": "Math::Cos"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ArcCos",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::ArcCos"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::ArcCos is invoked"
+                    },
+                    "details": {
+                        "name": "Math::ArcCos"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Sign",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::Sign"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::Sign is invoked"
+                    },
+                    "details": {
+                        "name": "Math::Sign"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clamp",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::Clamp"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::Clamp is invoked"
+                    },
+                    "details": {
+                        "name": "Math::Clamp"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSinCos",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::GetSinCos"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::GetSinCos is invoked"
+                    },
+                    "details": {
+                        "name": "Math::GetSinCos"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "DegToRad",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::DegToRad"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::DegToRad is invoked"
+                    },
+                    "details": {
+                        "name": "Math::DegToRad"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Pow",
+                    "context": "Math",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Math::Pow"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Math::Pow is invoked"
+                    },
+                    "details": {
+                        "name": "Math::Pow"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,2258 @@
+{
+    "entries": [
+        {
+            "key": "UiParticleEmitterBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiParticleEmitterBus"
+            },
+            "methods": [
+                {
+                    "key": "SetParticleColorTintVariation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleColorTintVariation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleColorTintVariation is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleColorTintVariation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSpriteSheetFrameDelay",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetSpriteSheetFrameDelay"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetSpriteSheetFrameDelay is invoked"
+                    },
+                    "details": {
+                        "name": "GetSpriteSheetFrameDelay"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticleAlpha",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleAlpha"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleAlpha is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleAlpha"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsEmitting",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsEmitting"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsEmitting is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsEmitting"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticleHeight",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleHeight"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleHeight is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleHeight"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSpriteSheetCellIndex",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetSpriteSheetCellIndex"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetSpriteSheetCellIndex is invoked"
+                    },
+                    "details": {
+                        "name": "GetSpriteSheetCellIndex"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsParticleInitialRotationFromInitialVelocity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsParticleInitialRotationFromInitialVelocity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsParticleInitialRotationFromInitialVelocity is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsParticleInitialRotationFromInitialVelocity"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleLifetime",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleLifetime"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleLifetime is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleLifetime"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsRandomSeedFixed",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsRandomSeedFixed"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsRandomSeedFixed is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsRandomSeedFixed"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSpritePathname",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetSpritePathname"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetSpritePathname is invoked"
+                    },
+                    "details": {
+                        "name": "GetSpritePathname"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleLifetimeVariation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleLifetimeVariation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleLifetimeVariation is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleLifetimeVariation"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleColor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleColor"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleColor is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleColor"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
+                            "details": {
+                                "name": "Color"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleInitialRotationVariation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleInitialRotationVariation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleInitialRotationVariation is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleInitialRotationVariation"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticleLifetimeVariation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleLifetimeVariation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleLifetimeVariation is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleLifetimeVariation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsEmitOnEdge",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsEmitOnEdge"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsEmitOnEdge is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsEmitOnEdge"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleRotationSpeedVariation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleRotationSpeedVariation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleRotationSpeedVariation is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleRotationSpeedVariation"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsEmitOnActivate",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsEmitOnActivate"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsEmitOnActivate is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsEmitOnActivate"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleRotationSpeed",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleRotationSpeed"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleRotationSpeed is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleRotationSpeed"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticleRotationSpeed",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleRotationSpeed"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleRotationSpeed is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleRotationSpeed"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsParticlePositionRelativeToEmitter",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsParticlePositionRelativeToEmitter"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsParticlePositionRelativeToEmitter is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsParticlePositionRelativeToEmitter"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsParticleAspectRatioLocked",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsParticleAspectRatioLocked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsParticleAspectRatioLocked is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsParticleAspectRatioLocked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetEmitAngleVariation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetEmitAngleVariation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetEmitAngleVariation is invoked"
+                    },
+                    "details": {
+                        "name": "SetEmitAngleVariation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticleLifetime",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleLifetime"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleLifetime is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleLifetime"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetSpriteSheetFrameDelay",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetSpriteSheetFrameDelay"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetSpriteSheetFrameDelay is invoked"
+                    },
+                    "details": {
+                        "name": "SetSpriteSheetFrameDelay"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsParticleInitialRotationFromInitialVelocity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsParticleInitialRotationFromInitialVelocity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsParticleInitialRotationFromInitialVelocity is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsParticleInitialRotationFromInitialVelocity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticleAccelerationMovementSpace",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleAccelerationMovementSpace"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleAccelerationMovementSpace is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleAccelerationMovementSpace"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsSpriteSheetAnimated",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsSpriteSheetAnimated"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsSpriteSheetAnimated is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsSpriteSheetAnimated"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsParticleCountLimited",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsParticleCountLimited"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsParticleCountLimited is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsParticleCountLimited"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleSize is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleSize"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleAccelerationMovementSpace",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleAccelerationMovementSpace"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleAccelerationMovementSpace is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleAccelerationMovementSpace"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetEmitAngle",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetEmitAngle"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetEmitAngle is invoked"
+                    },
+                    "details": {
+                        "name": "SetEmitAngle"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticleEmitRate",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleEmitRate"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleEmitRate is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleEmitRate"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetMaxParticles",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetMaxParticles"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetMaxParticles is invoked"
+                    },
+                    "details": {
+                        "name": "GetMaxParticles"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleColorBrightnessVariation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleColorBrightnessVariation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleColorBrightnessVariation is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleColorBrightnessVariation"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetMaxParticles",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetMaxParticles"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetMaxParticles is invoked"
+                    },
+                    "details": {
+                        "name": "SetMaxParticles"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetInsideEmitDistance",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetInsideEmitDistance"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetInsideEmitDistance is invoked"
+                    },
+                    "details": {
+                        "name": "GetInsideEmitDistance"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticlePivot",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticlePivot"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticlePivot is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticlePivot"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleInitialDirectionType",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleInitialDirectionType"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleInitialDirectionType is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleInitialDirectionType"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetEmitterLifetime",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetEmitterLifetime"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetEmitterLifetime is invoked"
+                    },
+                    "details": {
+                        "name": "SetEmitterLifetime"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSpriteSheetCellEndIndex",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetSpriteSheetCellEndIndex"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetSpriteSheetCellEndIndex is invoked"
+                    },
+                    "details": {
+                        "name": "GetSpriteSheetCellEndIndex"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsEmitOnEdge",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsEmitOnEdge"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsEmitOnEdge is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsEmitOnEdge"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleColorTintVariation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleColorTintVariation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleColorTintVariation is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleColorTintVariation"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticleInitialVelocity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleInitialVelocity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleInitialVelocity is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleInitialVelocity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsParticleCountLimited",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsParticleCountLimited"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsParticleCountLimited is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsParticleCountLimited"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticleWidthVariation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleWidthVariation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleWidthVariation is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleWidthVariation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetOutsideEmitDistance",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetOutsideEmitDistance"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetOutsideEmitDistance is invoked"
+                    },
+                    "details": {
+                        "name": "GetOutsideEmitDistance"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsParticleLifetimeInfinite",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsParticleLifetimeInfinite"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsParticleLifetimeInfinite is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsParticleLifetimeInfinite"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsParticleRotationFromVelocity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsParticleRotationFromVelocity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsParticleRotationFromVelocity is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsParticleRotationFromVelocity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsSpriteSheetAnimated",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsSpriteSheetAnimated"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsSpriteSheetAnimated is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsSpriteSheetAnimated"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetInsideEmitDistance",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetInsideEmitDistance"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetInsideEmitDistance is invoked"
+                    },
+                    "details": {
+                        "name": "SetInsideEmitDistance"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetSpritePathname",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetSpritePathname"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetSpritePathname is invoked"
+                    },
+                    "details": {
+                        "name": "SetSpritePathname"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetEmitterShape",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetEmitterShape"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetEmitterShape is invoked"
+                    },
+                    "details": {
+                        "name": "GetEmitterShape"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetOutsideEmitDistance",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetOutsideEmitDistance"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetOutsideEmitDistance is invoked"
+                    },
+                    "details": {
+                        "name": "SetOutsideEmitDistance"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetRandomSeed",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetRandomSeed"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetRandomSeed is invoked"
+                    },
+                    "details": {
+                        "name": "SetRandomSeed"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsParticleRotationFromVelocity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsParticleRotationFromVelocity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsParticleRotationFromVelocity is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsParticleRotationFromVelocity"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetRandomSeed",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetRandomSeed"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetRandomSeed is invoked"
+                    },
+                    "details": {
+                        "name": "GetRandomSeed"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleEmitRate",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleEmitRate"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleEmitRate is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleEmitRate"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsSpriteSheetIndexRandom",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsSpriteSheetIndexRandom"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsSpriteSheetIndexRandom is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsSpriteSheetIndexRandom"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsEmitting",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsEmitting"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsEmitting is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsEmitting"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleWidth",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleWidth"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleWidth is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleWidth"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleInitialRotation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleInitialRotation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleInitialRotation is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleInitialRotation"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsSpriteSheetAnimationLooped",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsSpriteSheetAnimationLooped"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsSpriteSheetAnimationLooped is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsSpriteSheetAnimationLooped"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticleInitialRotationVariation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleInitialRotationVariation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleInitialRotationVariation is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleInitialRotationVariation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsRandomSeedFixed",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsRandomSeedFixed"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsRandomSeedFixed is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsRandomSeedFixed"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsEmitterLifetimeInfinite",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsEmitterLifetimeInfinite"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsEmitterLifetimeInfinite is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsEmitterLifetimeInfinite"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetEmitAngle",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetEmitAngle"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetEmitAngle is invoked"
+                    },
+                    "details": {
+                        "name": "GetEmitAngle"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsEmitterLifetimeInfinite",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsEmitterLifetimeInfinite"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsEmitterLifetimeInfinite is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsEmitterLifetimeInfinite"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsHitParticleCountOnActivate",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsHitParticleCountOnActivate"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsHitParticleCountOnActivate is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsHitParticleCountOnActivate"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticleMovementCoordinateType",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleMovementCoordinateType"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleMovementCoordinateType is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleMovementCoordinateType"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetSpriteSheetCellEndIndex",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetSpriteSheetCellEndIndex"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetSpriteSheetCellEndIndex is invoked"
+                    },
+                    "details": {
+                        "name": "SetSpriteSheetCellEndIndex"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticleColor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleColor"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleColor is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleColor"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
+                            "details": {
+                                "name": "Color"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetSpriteSheetCellIndex",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetSpriteSheetCellIndex"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetSpriteSheetCellIndex is invoked"
+                    },
+                    "details": {
+                        "name": "SetSpriteSheetCellIndex"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsParticleLifetimeInfinite",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsParticleLifetimeInfinite"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsParticleLifetimeInfinite is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsParticleLifetimeInfinite"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticleSpeed",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleSpeed"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleSpeed is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleSpeed"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsHitParticleCountOnActivate",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsHitParticleCountOnActivate"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsHitParticleCountOnActivate is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsHitParticleCountOnActivate"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleAlpha",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleAlpha"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleAlpha is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleAlpha"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetEmitAngleVariation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetEmitAngleVariation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetEmitAngleVariation is invoked"
+                    },
+                    "details": {
+                        "name": "GetEmitAngleVariation"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetEmitterShape",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetEmitterShape"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetEmitterShape is invoked"
+                    },
+                    "details": {
+                        "name": "SetEmitterShape"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleSpeedVariation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleSpeedVariation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleSpeedVariation is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleSpeedVariation"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticleAcceleration",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleAcceleration"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleAcceleration is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleAcceleration"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticleSpeedVariation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleSpeedVariation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleSpeedVariation is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleSpeedVariation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsParticleAspectRatioLocked",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsParticleAspectRatioLocked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsParticleAspectRatioLocked is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsParticleAspectRatioLocked"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsSpriteSheetAnimationLooped",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsSpriteSheetAnimationLooped"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsSpriteSheetAnimationLooped is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsSpriteSheetAnimationLooped"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleAcceleration",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleAcceleration"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleAcceleration is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleAcceleration"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsSpriteSheetIndexRandom",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsSpriteSheetIndexRandom"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsSpriteSheetIndexRandom is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsSpriteSheetIndexRandom"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleMovementCoordinateType",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleMovementCoordinateType"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleMovementCoordinateType is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleMovementCoordinateType"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleInitialVelocity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleInitialVelocity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleInitialVelocity is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleInitialVelocity"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticleWidth",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleWidth"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleWidth is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleWidth"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticleSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleSize is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetEmitterLifetime",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetEmitterLifetime"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetEmitterLifetime is invoked"
+                    },
+                    "details": {
+                        "name": "GetEmitterLifetime"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleSpeed",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleSpeed"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleSpeed is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleSpeed"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticleRotationSpeedVariation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleRotationSpeedVariation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleRotationSpeedVariation is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleRotationSpeedVariation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleHeight",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleHeight"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleHeight is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleHeight"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticleHeightVariation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleHeightVariation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleHeightVariation is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleHeightVariation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticleInitialRotation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleInitialRotation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleInitialRotation is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleInitialRotation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticlePivot",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticlePivot"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticlePivot is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticlePivot"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleWidthVariation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleWidthVariation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleWidthVariation is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleWidthVariation"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsEmitOnActivate",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsEmitOnActivate"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsEmitOnActivate is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsEmitOnActivate"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsParticlePositionRelativeToEmitter",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsParticlePositionRelativeToEmitter"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsParticlePositionRelativeToEmitter is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsParticlePositionRelativeToEmitter"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticleInitialDirectionType",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleInitialDirectionType"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleInitialDirectionType is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleInitialDirectionType"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParticleHeightVariation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParticleHeightVariation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParticleHeightVariation is invoked"
+                    },
+                    "details": {
+                        "name": "GetParticleHeightVariation"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetParticleColorBrightnessVariation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetParticleColorBrightnessVariation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetParticleColorBrightnessVariation is invoked"
+                    },
+                    "details": {
+                        "name": "SetParticleColorBrightnessVariation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

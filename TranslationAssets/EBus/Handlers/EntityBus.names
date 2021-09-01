@@ -1,0 +1,44 @@
+{
+    "entries": [
+        {
+            "key": "EntityBus",
+            "context": "EBusHandler",
+            "variant": "",
+            "details": {
+                "name": "EntityBus"
+            },
+            "methods": [
+                {
+                    "key": "OnEntityActivated",
+                    "details": {
+                        "name": "OnEntityActivated"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "OnEntityDeactivated",
+                    "details": {
+                        "name": "OnEntityDeactivated"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

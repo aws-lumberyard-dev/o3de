@@ -1,0 +1,177 @@
+{
+    "entries": [
+        {
+            "key": "UiAnchors",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiAnchors"
+            },
+            "methods": [
+                {
+                    "key": "SetBottom",
+                    "context": "UiAnchors",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UiAnchors::SetBottom"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UiAnchors::SetBottom is invoked"
+                    },
+                    "details": {
+                        "name": "UiAnchors::SetBottom"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{65D4346C-FB16-4CB0-9BDC-1185B122C4A9}",
+                            "details": {
+                                "name": "Anchors"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetRight",
+                    "context": "UiAnchors",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UiAnchors::SetRight"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UiAnchors::SetRight is invoked"
+                    },
+                    "details": {
+                        "name": "UiAnchors::SetRight"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{65D4346C-FB16-4CB0-9BDC-1185B122C4A9}",
+                            "details": {
+                                "name": "Anchors"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetTop",
+                    "context": "UiAnchors",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UiAnchors::SetTop"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UiAnchors::SetTop is invoked"
+                    },
+                    "details": {
+                        "name": "UiAnchors::SetTop"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{65D4346C-FB16-4CB0-9BDC-1185B122C4A9}",
+                            "details": {
+                                "name": "Anchors"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetLeft",
+                    "context": "UiAnchors",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UiAnchors::SetLeft"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UiAnchors::SetLeft is invoked"
+                    },
+                    "details": {
+                        "name": "UiAnchors::SetLeft"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{65D4346C-FB16-4CB0-9BDC-1185B122C4A9}",
+                            "details": {
+                                "name": "Anchors"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetAnchors",
+                    "context": "UiAnchors",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UiAnchors::SetAnchors"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UiAnchors::SetAnchors is invoked"
+                    },
+                    "details": {
+                        "name": "UiAnchors::SetAnchors"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{65D4346C-FB16-4CB0-9BDC-1185B122C4A9}",
+                            "details": {
+                                "name": "Anchors"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

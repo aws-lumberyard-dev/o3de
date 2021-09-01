@@ -1,0 +1,130 @@
+{
+    "entries": [
+        {
+            "key": "Iterator_VM<AZStd::unordered_map<double, Plane, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Iterator_VM<AZStd::unordered_map<double, Plane, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>"
+            },
+            "methods": [
+                {
+                    "key": "GetKeyUnchecked",
+                    "context": "Iterator_VM<AZStd::unordered_map<double, Plane, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<double, Plane, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::GetKeyUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<double, Plane, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::GetKeyUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<double, Plane, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::GetKeyUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C0AF6CF6-19D7-5896-9BE6-FF48D31FFAB0}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<double, Plane, AZStd::hash<dou"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ModValueUnchecked",
+                    "context": "Iterator_VM<AZStd::unordered_map<double, Plane, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<double, Plane, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::ModValueUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<double, Plane, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::ModValueUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<double, Plane, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::ModValueUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C0AF6CF6-19D7-5896-9BE6-FF48D31FFAB0}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<double, Plane, AZStd::hash<dou"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
+                            "details": {
+                                "name": "Plane"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsNotAtEnd",
+                    "context": "Iterator_VM<AZStd::unordered_map<double, Plane, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<double, Plane, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::IsNotAtEnd"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<double, Plane, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::IsNotAtEnd is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<double, Plane, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::IsNotAtEnd"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C0AF6CF6-19D7-5896-9BE6-FF48D31FFAB0}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<double, Plane, AZStd::hash<dou"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Next",
+                    "context": "Iterator_VM<AZStd::unordered_map<double, Plane, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<double, Plane, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::Next"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<double, Plane, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::Next is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<double, Plane, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::Next"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C0AF6CF6-19D7-5896-9BE6-FF48D31FFAB0}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<double, Plane, AZStd::hash<dou"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

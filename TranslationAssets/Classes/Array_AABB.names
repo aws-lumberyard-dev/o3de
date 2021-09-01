@@ -1,0 +1,854 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::vector<Aabb, allocator>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Array<AABB>",
+                "category": "Array",
+                "tooltip": "A dynamically sized container of elements."
+            },
+            "methods": [
+                {
+                    "key": "Size",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Front",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::Front"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::Front is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::Front"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "HasKey",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::Has Key"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::Has Key is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::Has Key"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Resize",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::Resize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::Resize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::Resize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "at",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::at"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::at is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::at"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Back",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::Back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::Back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::Back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "pop_back",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::pop_back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::pop_back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::pop_back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "size",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "At",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::At"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::At is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::At"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "push_back",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::push_back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::push_back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::push_back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "PushBack_VM",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::PushBack_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::PushBack_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::PushBack_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AtUnchecked",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::AtUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::AtUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::AtUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "clear",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "NotEmpty",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::NotEmpty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::NotEmpty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::NotEmpty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase_VM",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::Erase_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::Erase_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::Erase_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Capacity",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::Capacity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::Capacity is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::Capacity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AssignAt",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::AssignAt"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::AssignAt is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::AssignAt"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        },
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        },
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "PushBack",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::PushBack"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::PushBack is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::PushBack"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Array<AABB>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Aabb, allocator>::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Aabb, allocator>::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Aabb, allocator>::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A16BD88A-8457-5717-B84E-977B1D176AE2}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{64C7527E-8367-5463-BD24-E790BEF88A78}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<Aabb, allocator>>"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

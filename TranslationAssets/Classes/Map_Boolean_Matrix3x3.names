@@ -1,0 +1,482 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Map<Boolean, Matrix3x3>",
+                "category": "Map",
+                "tooltip": "A collection of Key/Value pairs, where each Key value must be unique."
+            },
+            "methods": [
+                {
+                    "key": "contains",
+                    "context": "Map<Boolean, Matrix3x3>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::contains"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::contains is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::contains"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8EA123A3-72BE-5B00-A22E-BEF0AFB0B68B}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Map<Boolean, Matrix3x3>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8EA123A3-72BE-5B00-A22E-BEF0AFB0B68B}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        },
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8EA123A3-72BE-5B00-A22E-BEF0AFB0B68B}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Map<Boolean, Matrix3x3>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8EA123A3-72BE-5B00-A22E-BEF0AFB0B68B}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Map<Boolean, Matrix3x3>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8EA123A3-72BE-5B00-A22E-BEF0AFB0B68B}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Map<Boolean, Matrix3x3>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8EA123A3-72BE-5B00-A22E-BEF0AFB0B68B}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{CF39F312-074C-5E55-8E3A-07998971A8D2}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetKeys",
+                    "context": "Map<Boolean, Matrix3x3>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::GetKeys"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::GetKeys is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::GetKeys"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8EA123A3-72BE-5B00-A22E-BEF0AFB0B68B}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Size",
+                    "context": "Map<Boolean, Matrix3x3>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8EA123A3-72BE-5B00-A22E-BEF0AFB0B68B}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase",
+                    "context": "Map<Boolean, Matrix3x3>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Erase"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Erase is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Erase"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8EA123A3-72BE-5B00-A22E-BEF0AFB0B68B}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8EA123A3-72BE-5B00-A22E-BEF0AFB0B68B}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Map<Boolean, Matrix3x3>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8EA123A3-72BE-5B00-A22E-BEF0AFB0B68B}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Map<Boolean, Matrix3x3>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8EA123A3-72BE-5B00-A22E-BEF0AFB0B68B}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8EA123A3-72BE-5B00-A22E-BEF0AFB0B68B}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "At",
+                    "context": "Map<Boolean, Matrix3x3>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::At"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::At is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::At"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8EA123A3-72BE-5B00-A22E-BEF0AFB0B68B}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "BucketCount",
+                    "context": "Map<Boolean, Matrix3x3>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::BucketCount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::BucketCount is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::BucketCount"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8EA123A3-72BE-5B00-A22E-BEF0AFB0B68B}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Map<Boolean, Matrix3x3>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8EA123A3-72BE-5B00-A22E-BEF0AFB0B68B}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Map<Boolean, Matrix3x3>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, Matrix3x3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8EA123A3-72BE-5B00-A22E-BEF0AFB0B68B}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{8EA123A3-72BE-5B00-A22E-BEF0AFB0B68B}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

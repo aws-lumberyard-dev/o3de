@@ -1,0 +1,661 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|x64">
+      <Configuration>debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="profile|x64">
+      <Configuration>profile</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|x64">
+      <Configuration>release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{88E91A5D-117D-3A1C-A2CC-3989E9B44A26}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>Atom_RPI.Public</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\lib\debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Atom_RPI.Public.dir\debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Atom_RPI.Public</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\lib\profile\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Atom_RPI.Public.dir\profile\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Atom_RPI.Public</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='profile|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\lib\release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">Atom_RPI.Public.dir\release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='release|x64'">Atom_RPI.Public</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='release|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /RTCsu /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_DEBUG;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="debug";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR="debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;_HAS_EXCEPTIONS=0;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"debug\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR=\"debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StringPooling>true</StringPooling>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="profile";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR="profile";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"profile\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR=\"profile\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OmitFramePointers>true</OmitFramePointers>
+      <Optimization>Full</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE="release";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR="release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE=\"release\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR=\"release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/Atom/RPI/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/Atom-538099b6/RPI/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Gems\Atom\RPI\Assets\atom_rpi_asset_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Common\MSVC\atom_rpi_public_msvc.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Windows\PAL_windows.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_builders_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_builders_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_builders_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_edit_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_masked_occlusion_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_private_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_public_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_reflect_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\Atom-538099b6\RPI\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/Atom/RPI/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/Atom-538099b6/RPI/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Gems\Atom\RPI\Assets\atom_rpi_asset_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Common\MSVC\atom_rpi_public_msvc.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Windows\PAL_windows.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_builders_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_builders_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_builders_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_edit_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_masked_occlusion_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_private_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_public_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_reflect_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\Atom-538099b6\RPI\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/Atom/RPI/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/Atom-538099b6/RPI/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Gems\Atom\RPI\Assets\atom_rpi_asset_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Common\MSVC\atom_rpi_public_msvc.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Windows\PAL_windows.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_builders_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_builders_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_builders_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_edit_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_masked_occlusion_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_private_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_public_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_reflect_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\Atom-538099b6\RPI\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\AssetCreator.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Base.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\FeatureProcessorDescriptor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\GpuQuerySystemDescriptor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Limits.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\RPISystemDescriptor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\ResourcePoolAsset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\ResourcePoolAssetCreator.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Buffer\BufferAsset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Buffer\BufferAssetCreator.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Buffer\BufferAssetView.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Model\ModelAsset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Model\ModelKdTree.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Model\ModelLodAsset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Model\ModelLodIndex.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Model\ModelMaterialSlot.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Model\ModelAssetCreator.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Model\ModelLodAssetCreator.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Model\MorphTargetDelta.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Model\MorphTargetMetaAsset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Model\MorphTargetMetaAssetCreator.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Model\SkinMetaAsset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Model\SkinMetaAssetCreator.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Asset\AssetHandler.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Asset\AssetUtils.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Asset\AssetUtils.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Asset\AssetReference.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Asset\BuiltInAssetHandler.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Image\AttachmentImageAsset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Image\AttachmentImageAssetCreator.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Image\DefaultStreamingImageControllerAsset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Image\Image.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Image\ImageAsset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Image\ImageMipChainAsset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Image\ImageMipChainAssetCreator.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Image\ImageSystemDescriptor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Image\StreamingImageAsset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Image\StreamingImageAssetCreator.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Image\StreamingImageAssetHandler.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Image\StreamingImageControllerAsset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Image\StreamingImagePoolAsset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Image\StreamingImagePoolAssetCreator.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Material\LuaMaterialFunctor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Material\MaterialAsset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Material\MaterialAssetCreatorCommon.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Material\MaterialAssetCreator.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Material\MaterialDynamicMetadata.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Material\MaterialPropertyDescriptor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Material\MaterialPropertiesLayout.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Material\MaterialPropertyValue.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Material\MaterialTypeAsset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Material\MaterialTypeAssetCreator.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Material\ShaderCollection.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Material\MaterialFunctor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Pass\ComputePassData.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Pass\CopyPassData.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Pass\DownsampleMipChainPassData.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Pass\FullscreenTrianglePassData.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Pass\PassAsset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Pass\PassAttachmentReflect.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Pass\PassData.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Pass\PassDescriptor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Pass\PassName.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Pass\PassRequest.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Pass\PassTemplate.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Pass\RasterPassData.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Pass\RenderPassData.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Shader\ShaderCommonTypes.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Shader\ShaderAsset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Shader\ShaderAssetCreator.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Shader\ShaderInputContract.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Shader\ShaderOptionGroup.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Shader\ShaderOptionGroupLayout.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Shader\ShaderOutputContract.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Shader\ShaderOptionTypes.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Shader\ShaderVariantKey.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Shader\ShaderVariantTreeAsset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Shader\ShaderVariantAsset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Shader\IShaderVariantFinder.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\Shader\PrecompiledShaderAssetSourceData.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\System\AnyAsset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\System\AssetAliases.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\System\PipelineRenderSettings.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\System\RenderPipelineDescriptor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Reflect\System\SceneDescriptor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Base.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\FeatureProcessorDescriptor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\GpuQuerySystemDescriptor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\RPISystemDescriptor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Asset\AssetReference.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Asset\AssetUtils.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Asset\BuiltInAssetHandler.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Buffer\BufferAsset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Buffer\BufferAssetCreator.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Buffer\BufferAssetView.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Model\ModelAsset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Model\ModelKdTree.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Model\ModelLodAsset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Model\ModelAssetCreator.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Model\ModelLodAssetCreator.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Model\ModelMaterialSlot.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Model\MorphTargetDelta.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Model\MorphTargetMetaAsset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Model\MorphTargetMetaAssetCreator.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Model\SkinMetaAsset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Model\SkinMetaAssetCreator.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\ResourcePoolAsset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\ResourcePoolAssetCreator.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Image\AttachmentImageAsset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Image\AttachmentImageAssetCreator.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Image\DefaultStreamingImageControllerAsset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Image\Image.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Image\ImageAsset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Image\ImageMipChainAsset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Image\ImageMipChainAssetCreator.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Image\ImageSystemDescriptor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Image\StreamingImageAsset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Image\StreamingImageAssetCreator.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Image\StreamingImageAssetHandler.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Image\StreamingImageControllerAsset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Image\StreamingImagePoolAsset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Image\StreamingImagePoolAssetCreator.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Material\MaterialPropertyValue.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Material\MaterialAsset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Material\MaterialAssetCreatorCommon.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Material\MaterialAssetCreator.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Material\LuaMaterialFunctor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Material\MaterialDynamicMetadata.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Material\MaterialPropertyDescriptor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Material\MaterialPropertiesLayout.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Material\MaterialTypeAsset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Material\MaterialTypeAssetCreator.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Material\ShaderCollection.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Material\MaterialFunctor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Pass\PassAsset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Pass\PassAttachmentReflect.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Pass\PassRequest.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Pass\PassTemplate.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Shader\ShaderStageType.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Shader\ShaderAsset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Shader\ShaderAssetCreator.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Shader\ShaderInputContract.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Shader\ShaderOptionGroup.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Shader\ShaderOptionGroupLayout.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Shader\ShaderOutputContract.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Shader\ShaderVariantKey.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Shader\ShaderVariantTreeAsset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Shader\ShaderVariantAsset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\Shader\PrecompiledShaderAssetSourceData.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\System\AnyAsset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\System\AssetAliases.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\System\RenderPipelineDescriptor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Reflect\System\SceneDescriptor.cpp" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_reflect_files.cmake">
+    </None>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\AssetInitBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Base.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Culling.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\FeatureProcessor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\FeatureProcessorFactory.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\MeshDrawPacket.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\PipelineState.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\RenderPipeline.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\RPISystem.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\RPISystemInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\RPIUtils.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Scene.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\SceneBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\View.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\ViewportContext.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\ViewportContextBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\ViewportContextManager.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\ViewProviderBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\WindowContext.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\WindowContextBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\AuxGeom\AuxGeomDraw.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\AuxGeom\AuxGeomFeatureProcessorInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Buffer\Buffer.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Buffer\BufferPool.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Buffer\BufferSystem.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Buffer\BufferSystemInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\ColorManagement\TransformColor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\DynamicDraw\DynamicBuffer.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\DynamicDraw\DynamicBufferAllocator.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\DynamicDraw\DynamicDrawContext.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\DynamicDraw\DynamicDrawSystem.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\DynamicDraw\DynamicDrawInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Image\AttachmentImage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Image\AttachmentImagePool.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Image\DefaultStreamingImageController.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Image\ImageSystem.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Image\ImageSystemInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Image\StreamingImage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Image\StreamingImageContext.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Image\StreamingImageController.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Image\StreamingImagePool.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Material\Material.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Material\MaterialReloadNotificationBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Material\MaterialSystem.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Model\Model.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Model\ModelLod.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Model\ModelLodUtils.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Model\ModelSystem.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Model\UvStreamTangentBitmask.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\AttachmentReadback.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\ComputePass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\CopyPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\FullscreenTrianglePass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\ParentPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\Pass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\PassAttachment.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\PassDefines.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\PassFactory.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\PassFilter.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\PassLibrary.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\PassSystem.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\PassSystemInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\PassUtils.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\RasterPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\RenderPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\MSAAResolvePass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\Specific\DownsampleMipChainPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\Specific\ImageAttachmentPreviewPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\Specific\EnvironmentCubeMapPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\Specific\MSAAResolveFullScreenPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\Specific\RenderToTexturePass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\Specific\SelectorPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Pass\Specific\SwapChainPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Shader\Shader.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Shader\ShaderReloadNotificationBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Shader\ShaderVariant.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Shader\ShaderReloadDebugTracker.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Shader\ShaderResourceGroup.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Shader\ShaderResourceGroupPool.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Shader\ShaderSystem.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Shader\ShaderSystemInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Shader\Metrics\ShaderMetrics.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Shader\Metrics\ShaderMetricsSystem.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Shader\Metrics\ShaderMetricsSystemInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\Shader\ShaderVariantAsyncLoader.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\GpuQuery\GpuQuerySystem.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\GpuQuery\GpuQuerySystemInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\GpuQuery\GpuQueryTypes.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\GpuQuery\Query.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\GpuQuery\QueryPool.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Public\GpuQuery\TimestampQueryPool.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Culling.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\FeatureProcessor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\FeatureProcessorFactory.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\MeshDrawPacket.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\PipelineState.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\RenderPipeline.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\RPISystem.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\RPIUtils.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Scene.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\View.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\ViewportContext.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\ViewportContextManager.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\WindowContext.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\AuxGeomFeatureProcessorInterface.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Buffer\Buffer.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Buffer\BufferPool.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Buffer\BufferSystem.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\DynamicDraw\DynamicBuffer.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\DynamicDraw\DynamicBufferAllocator.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\DynamicDraw\DynamicDrawContext.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\DynamicDraw\DynamicDrawSystem.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Image\AttachmentImage.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Image\AttachmentImagePool.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Image\DefaultStreamingImageController.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Image\ImageSystem.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Image\StreamingImage.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Image\StreamingImageContext.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Image\StreamingImageController.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Image\StreamingImagePool.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Material\Material.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Material\MaterialSystem.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Model\Model.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Model\ModelLod.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Model\ModelLodUtils.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Model\ModelSystem.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Model\UvStreamTangentBitmask.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Pass\AttachmentReadback.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Pass\ComputePass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Pass\CopyPass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Pass\FullscreenTrianglePass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Pass\ParentPass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Pass\Pass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Pass\PassAttachment.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Pass\PassFactory.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Pass\PassFilter.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Pass\PassLibrary.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Pass\PassSystem.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Pass\PassUtils.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Pass\RasterPass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Pass\RenderPass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Pass\MSAAResolvePass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Pass\Specific\DownsampleMipChainPass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Pass\Specific\ImageAttachmentPreviewPass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Pass\Specific\EnvironmentCubeMapPass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Pass\Specific\MSAAResolveFullScreenPass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Pass\Specific\RenderToTexturePass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Pass\Specific\SelectorPass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Pass\Specific\SwapChainPass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Shader\Shader.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Shader\ShaderVariant.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Shader\ShaderReloadDebugTracker.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Shader\ShaderResourceGroup.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Shader\ShaderResourceGroupPool.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Shader\ShaderSystem.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Shader\Metrics\ShaderMetrics.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Shader\Metrics\ShaderMetricsSystem.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\Shader\ShaderVariantAsyncLoader.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\ColorManagement\GeneratedTransforms\ColorConversionConstants.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\ColorManagement\GeneratedTransforms\LinearSrgb_To_AcesCg.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\ColorManagement\GeneratedTransforms\AcesCg_To_LinearSrgb.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\ColorManagement\GeneratedTransforms\XYZ_To_AcesCg.inl" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\ColorManagement\TransformColor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\GpuQuery\GpuQuerySystem.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\GpuQuery\GpuQueryTypes.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\GpuQuery\Query.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\GpuQuery\QueryPool.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Public\GpuQuery\TimestampQueryPool.cpp" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_public_files.cmake">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Assets\Shader\DecomposeMsImage.azsl">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Assets\Shader\DecomposeMsImage.shader">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Assets\Shader\ImagePreview.azsl">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Assets\Shader\ImagePreview.shader">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Assets\ShaderLib\Atom\RPI\Math.azsli">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Assets\ShaderLib\Atom\RPI\TangentSpace.azsli">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Assets\ShaderLib\Atom\RPI\ShaderResourceGroups\DefaultDrawSrg.azsli">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Assets\ShaderLib\Atom\RPI\ShaderResourceGroups\DefaultObjectSrg.azsli">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Assets\atom_rpi_asset_files.cmake">
+    </None>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Windows\Atom_RPI_Traits_Platform.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Windows\Atom_RPI_Traits_Windows.h" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Windows\platform_windows_files.cmake">
+    </None>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External\MaskedOcclusionCulling\MaskedOcclusionCulling.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External\MaskedOcclusionCulling\MaskedOcclusionCullingCommon.inl" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External\MaskedOcclusionCulling\MaskedOcclusionCulling.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='release|x64'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External\MaskedOcclusionCulling\MaskedOcclusionCullingAVX2.cpp">
+      <EnableEnhancedInstructionSet Condition="'$(Configuration)|$(Platform)'=='debug|x64'">AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Level3</WarningLevel>
+      <EnableEnhancedInstructionSet Condition="'$(Configuration)|$(Platform)'=='profile|x64'">AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Level3</WarningLevel>
+      <EnableEnhancedInstructionSet Condition="'$(Configuration)|$(Platform)'=='release|x64'">AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='release|x64'">Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External\MaskedOcclusionCulling\MaskedOcclusionCullingAVX512.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Level3</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='release|x64'">Level3</WarningLevel>
+    </ClCompile>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_masked_occlusion_files.cmake">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Common\MSVC\atom_rpi_public_msvc.cmake">
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\ZERO_CHECK.vcxproj">
+      <Project>{9D084072-A56A-3A6D-8C63-F5385A20608A}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore.vcxproj">
+      <Project>{9F85147B-AD44-3A0F-AA74-60212AED63A4}</Project>
+      <Name>AtomCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\RHI\Code\Atom_RHI.Public.vcxproj">
+      <Project>{0A0834F3-ACAD-337F-8EE6-B6B3D4822C3E}</Project>
+      <Name>Atom_RHI.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\RHI\Code\Atom_RHI.Reflect.vcxproj">
+      <Project>{85639FA0-2DAB-3EDD-AED2-0AFCEF18D511}</Project>
+      <Name>Atom_RHI.Reflect</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore.vcxproj">
+      <Project>{78F97634-33F1-3E9D-BB2E-D24CB7BD9D1E}</Project>
+      <Name>AzCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework.vcxproj">
+      <Project>{32B5BA28-0012-3762-8899-2D392DE6A10B}</Project>
+      <Name>AzFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate.vcxproj">
+      <Project>{1A59660B-1BCB-3611-B3D0-673DEB6F8A46}</Project>
+      <Name>GridMate</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

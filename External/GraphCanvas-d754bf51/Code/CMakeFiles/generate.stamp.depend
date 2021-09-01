@@ -1,0 +1,6 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/GraphCanvas_game_files.cmake
+J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/Resources/GraphCanvasEditorResources.qrc
+J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/graphcanvas_files.cmake
+J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/graphcanvas_staticlib_files.cmake

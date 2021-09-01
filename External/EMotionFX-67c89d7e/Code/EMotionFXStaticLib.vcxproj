@@ -1,0 +1,925 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|x64">
+      <Configuration>debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="profile|x64">
+      <Configuration>profile</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|x64">
+      <Configuration>release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{609CC065-00CE-393B-AABC-0B6361A7F0A1}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>EMotionFXStaticLib</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\lib\debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">EMotionFXStaticLib.dir\debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='debug|x64'">EMotionFXStaticLib</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\lib\profile\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">EMotionFXStaticLib.dir\profile\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='profile|x64'">EMotionFXStaticLib</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='profile|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\lib\release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">EMotionFXStaticLib.dir\release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='release|x64'">EMotionFXStaticLib</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='release|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\.;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /RTCsu /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>EMFX_DEVELOPMENT_BUILD;_HAS_EXCEPTIONS=0;_DEBUG;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="debug";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR="debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;EMFX_DEVELOPMENT_BUILD;_HAS_EXCEPTIONS=0;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"debug\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR=\"debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\.;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\.;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\.;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StringPooling>true</StringPooling>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>EMFX_DEVELOPMENT_BUILD;_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="profile";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR="profile";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>EMFX_DEVELOPMENT_BUILD;_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"profile\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR=\"profile\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\.;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\.;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\.;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OmitFramePointers>true</OmitFramePointers>
+      <Optimization>Full</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>EMFX_DEVELOPMENT_BUILD;_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE="release";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR="release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>EMFX_DEVELOPMENT_BUILD;_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE=\"release\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR=\"release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\.;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\.;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/EMotionFX/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/EMotionFX-67c89d7e/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">C:\Program Files\CMake\share\cmake-3.20\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\FindPackageMessage.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Assets\Editor\Images\Icons\Resources.qrc;J:\Atom\lyfork\o3de\Gems\EMotionFX\Assets\Editor\Layouts\Layouts.qrc;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\commandsystem_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Exporters\ExporterLib\exporterlib_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\EMotionFXBuilder\emotionfxbuilder_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\rc_ext_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\sceneapi_ext_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\rendering_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\emstudiosdk_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\RenderPlugins\renderplugins_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\standardplugins_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\emotionfx_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Editor\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Editor\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\mcore_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MysticQt\mysticqt_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\System\emotionfx_module_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_editor_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_shared_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\3rdParty\FindOpenGLInterface.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\EMotionFX-67c89d7e\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/EMotionFX/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/EMotionFX-67c89d7e/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">C:\Program Files\CMake\share\cmake-3.20\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\FindPackageMessage.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Assets\Editor\Images\Icons\Resources.qrc;J:\Atom\lyfork\o3de\Gems\EMotionFX\Assets\Editor\Layouts\Layouts.qrc;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\commandsystem_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Exporters\ExporterLib\exporterlib_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\EMotionFXBuilder\emotionfxbuilder_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\rc_ext_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\sceneapi_ext_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\rendering_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\emstudiosdk_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\RenderPlugins\renderplugins_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\standardplugins_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\emotionfx_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Editor\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Editor\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\mcore_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MysticQt\mysticqt_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\System\emotionfx_module_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_editor_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_shared_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\3rdParty\FindOpenGLInterface.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\EMotionFX-67c89d7e\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/EMotionFX/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/EMotionFX-67c89d7e/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">C:\Program Files\CMake\share\cmake-3.20\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\FindPackageMessage.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Assets\Editor\Images\Icons\Resources.qrc;J:\Atom\lyfork\o3de\Gems\EMotionFX\Assets\Editor\Layouts\Layouts.qrc;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\commandsystem_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Exporters\ExporterLib\exporterlib_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\EMotionFXBuilder\emotionfxbuilder_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\rc_ext_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\sceneapi_ext_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\rendering_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\emstudiosdk_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\RenderPlugins\renderplugins_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\standardplugins_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\emotionfx_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Editor\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Editor\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\mcore_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MysticQt\mysticqt_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\System\emotionfx_module_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_editor_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_shared_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\3rdParty\FindOpenGLInterface.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\EMotionFX-67c89d7e\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include\Integration\AnimationBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include\Integration\ActorComponentBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include\Integration\AnimGraphComponentBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include\Integration\AnimAudioComponentBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include\Integration\EditorSimpleMotionComponentBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include\Integration\SimpleMotionComponentBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include\Integration\AnimGraphNetworkingBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\System\SystemCommon.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Assets\AssetCommon.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Assets\ActorAsset.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Assets\ActorAsset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Assets\MotionAsset.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Assets\MotionAsset.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Assets\MotionSetAsset.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Assets\MotionSetAsset.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Assets\AnimGraphAsset.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Assets\AnimGraphAsset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Components\ActorComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Components\ActorComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Components\AnimAudioComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Components\AnimAudioComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Components\AnimGraphComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Components\AnimGraphComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Components\SimpleMotionComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Components\SimpleMotionComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Components\SimpleLODComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Components\SimpleLODComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Rendering\RenderBackend.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Rendering\RenderBackend.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Rendering\RenderActor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Rendering\RenderActor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Rendering\RenderActorInstance.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Rendering\RenderActorInstance.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Rendering\RenderBackendManager.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Rendering\RenderBackendManager.cpp" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_shared_files.cmake">
+    </None>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\AABB.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Algorithms.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Algorithms.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Algorithms.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Array2D.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Array2D.inl" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Attribute.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Attribute.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\AttributeAllocator.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\AttributeAllocator.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\AttributeBool.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\AttributeBool.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\AttributeColor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\AttributeCreateFunctions.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\AttributeFactory.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\AttributeFactory.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\AttributeFloat.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\AttributeFloat.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\AttributeInt32.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\AttributeInt32.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\AttributePointer.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\AttributeQuaternion.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\AttributeString.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\AttributeVector2.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\AttributeVector3.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\AttributeVector4.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\AzCoreConversions.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\BoundingSphere.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\BoundingSphere.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Color.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Color.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Command.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Command.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\CommandGroup.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\CommandGroup.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\CommandLine.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\CommandLine.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\MCoreCommandManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\MCoreCommandManager.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\CommandManagerCallback.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\CommandSyntax.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\CommandSyntax.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Compare.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Compare.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\CompressedFloat.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\CompressedFloat.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\CompressedQuaternion.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\CompressedQuaternion.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\CompressedVector.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\CompressedVector.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Config.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\DelaunayTriangulator.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\DelaunayTriangulator.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\DiskFile.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\DiskFile.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Distance.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Distance.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\DualQuaternion.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\DualQuaternion.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\DualQuaternion.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Endian.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Endian.inl" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\FastMath.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\FastMath.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\FastMath.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\File.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\FileSystem.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\FileSystem.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\IDGenerator.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\IDGenerator.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\LogManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\LogManager.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Macros.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Matrix4.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Matrix4.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Matrix4.inl" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\MCoreSystem.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\MCoreSystem.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\MemoryCategoriesCore.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\MemoryFile.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\MemoryFile.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\MemoryManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\MemoryManager.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\MemoryObject.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\MemoryObject.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\MemoryTracker.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\MemoryTracker.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\MultiThreadManager.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\PlaneEq.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\PlaneEq.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\PlaneEq.inl" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Random.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Random.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Ray.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Ray.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\StaticAllocator.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\StaticAllocator.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\StaticString.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\StandardHeaders.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Stream.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\StringConversions.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\StringConversions.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\StringIdPool.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\StringIdPool.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\ReflectionSerializer.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\ReflectionSerializer.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\TriangleListOptimizer.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\Source\Vector.h" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\mcore_files.cmake">
+    </None>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Actor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Actor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\ActorBus.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\ActorInstance.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\ActorInstance.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\ActorInstanceBus.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\ActorManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\ActorManager.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\ActorUpdateScheduler.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Algorithms.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Allocators.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Allocators.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Attachment.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Attachment.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AttachmentNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AttachmentNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AttachmentSkin.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AttachmentSkin.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AutoRegisteredActor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BaseObject.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BaseObject.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\CompressedKeyFrames.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Constraint.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\ConstraintTransform.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\ConstraintTransformRotationAngles.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\ConstraintTransformRotationAngles.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\DebugDraw.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\DebugDraw.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\DualQuatSkinDeformer.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\DualQuatSkinDeformer.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\EMotionFX.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\EMotionFXConfig.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\EMotionFXManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\EMotionFXManager.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\EMotionFXAllocatorInitializer.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\EMotionFXAllocatorInitializer.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\KeyFrame.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\KeyFrame.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\KeyFrameFinder.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\KeyFrameFinder.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\KeyTrackLinearDynamic.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\KeyTrackLinearDynamic.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\LayerPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Material.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Material.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MemoryCategories.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Mesh.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Mesh.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Mesh.inl" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MeshDeformer.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MeshDeformer.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MeshDeformerStack.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MeshDeformerStack.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MorphMeshDeformer.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MorphMeshDeformer.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MorphSetup.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MorphSetup.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MorphSetupInstance.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MorphSetupInstance.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MorphTarget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MorphTarget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MorphTargetStandard.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MorphTargetStandard.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Motion.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Motion.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionInstance.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionInstance.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionInstancePool.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionInstancePool.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionLayerSystem.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionLayerSystem.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionManager.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionQueue.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionQueue.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionSet.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionSet.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionSystem.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionSystem.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MultiThreadScheduler.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MultiThreadScheduler.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Node.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Node.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\NodeAttribute.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\NodeGroup.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\NodeGroup.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\NodeMap.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\NodeMap.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\ObjectId.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\ObjectId.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\PlayBackInfo.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\PhysicsSetup.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\PhysicsSetup.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Pose.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Pose.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\PoseData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\PoseData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\PoseDataFactory.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\PoseDataFactory.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\PoseDataRagdoll.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\PoseDataRagdoll.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\RagdollInstance.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\RagdollInstance.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\RagdollVelocityEvaluators.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\RagdollVelocityEvaluators.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Recorder.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Recorder.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\RecorderBus.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\RepositioningLayerPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\RepositioningLayerPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\SimulatedObjectBus.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\SimulatedObjectSetup.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\SimulatedObjectSetup.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\SingleThreadScheduler.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\SingleThreadScheduler.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Skeleton.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Skeleton.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\SkinningInfoVertexAttributeLayer.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\SkinningInfoVertexAttributeLayer.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\SoftSkinDeformer.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\SoftSkinDeformer.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\SoftSkinManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\SoftSkinManager.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\SpringSolver.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\SpringSolver.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\StandardMaterial.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\StandardMaterial.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\SubMesh.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\SubMesh.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\ThreadData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\ThreadData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Transform.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Transform.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\TransformData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\TransformData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\TriggerActionSetup.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\TriggerActionSetup.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\VertexAttributeLayer.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\VertexAttributeLayer.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\VertexAttributeLayerAbstractData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\VertexAttributeLayerAbstractData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraph.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraph.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphBus.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphAttributeTypes.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphAttributeTypes.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphBindPoseNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphBindPoseNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphEntryNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphEntryNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphEventBuffer.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphEventBuffer.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphExitNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphExitNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphGameControllerSettings.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphGameControllerSettings.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphHubNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphHubNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphInstance.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphInstance.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphManager.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphMotionNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphMotionNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphNetworkSerializer.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphNetworkSerializer.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphNodeData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphNodeData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphNodeGroup.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphNodeGroup.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphObject.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphObject.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphObjectData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphObjectData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphObjectFactory.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphObjectFactory.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphObjectIds.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphPose.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphPose.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphPosePool.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphPosePool.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphRefCountedData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphRefCountedDataPool.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphRefCountedDataPool.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphReferenceNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphReferenceNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphStateMachine.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphStateMachine.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphStateTransition.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphStateTransition.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphSnapshot.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphSnapshot.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphSyncTrack.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphSyncTrack.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTree.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTree.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeAccumTransformNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeAccumTransformNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeBlend2Node.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeBlend2Node.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeBlend2NodeBase.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeBlend2NodeBase.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeBlend2AdditiveNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeBlend2AdditiveNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeBlend2LegacyNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeBlend2LegacyNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeBlendNNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeBlendNNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeBoolLogicNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeBoolLogicNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeConnection.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeConnection.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeDirectionToWeightNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeDirectionToWeightNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeFinalNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeFinalNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeFloatConditionNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeFloatConditionNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeFloatConstantNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeFloatConstantNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeFloatMath1Node.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeFloatMath1Node.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeFloatMath2Node.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeFloatMath2Node.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeFloatSwitchNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeFloatSwitchNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeFootIKNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeFootIKNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeGetTransformNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeGetTransformNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeLookAtNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeLookAtNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeMaskNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeMaskNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeMaskLegacyNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeMaskLegacyNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeMirrorPoseNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeMirrorPoseNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeMorphTargetNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeMorphTargetNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeMotionFrameNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeMotionFrameNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeParameterNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeParameterNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreePoseSubtractNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreePoseSubtractNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreePoseSwitchNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreePoseSwitchNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeRagdollNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeRagdollNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeRagdollStrengthModifierNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeRagdollStrengthModifierNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeRangeRemapperNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeRangeRemapperNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeSimulatedObjectNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeSimulatedObjectNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeSmoothingNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeSmoothingNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeTransformNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeTransformNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeTwoLinkIKNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeTwoLinkIKNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeSetTransformNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeSetTransformNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeVector2ComposeNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeVector2ComposeNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeVector2DecomposeNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeVector2DecomposeNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeVector3ComposeNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeVector3ComposeNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeVector3DecomposeNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeVector3DecomposeNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeVector3Math1Node.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeVector3Math1Node.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeVector3Math2Node.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeVector3Math2Node.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeVector4ComposeNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeVector4ComposeNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeVector4DecomposeNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeVector4DecomposeNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeRaycastNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeRaycastNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeRotationMath2Node.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeRotationMath2Node.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeRotationLimitNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendTreeRotationLimitNode.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendSpaceParamEvaluator.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendSpaceParamEvaluator.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendSpaceManager.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendSpaceManager.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendSpaceNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendSpaceNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendSpace1DNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendSpace1DNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendSpace2DNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\BlendSpace2DNode.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\ObjectAffectedByParameterChanges.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\ObjectAffectedByParameterChanges.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\TransformSpace.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\TransformSpace.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphMotionCondition.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphMotionCondition.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphParameterCondition.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphParameterCondition.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphPlayTimeCondition.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphPlayTimeCondition.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphStateCondition.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphStateCondition.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphTagCondition.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphTagCondition.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphTimeCondition.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphTimeCondition.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphTransitionCondition.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphTransitionCondition.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphTriggerAction.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphTriggerAction.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphParameterAction.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphParameterAction.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphVector2Condition.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphVector2Condition.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphFollowerParameterAction.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphFollowerParameterAction.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphSymbolicFollowerParameterAction.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\AnimGraphSymbolicFollowerParameterAction.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Event.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Event.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\EventData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\EventData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\EventDataFootIK.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\EventDataFootIK.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\EventDataSyncable.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\EventDataSyncable.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\EventHandler.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\EventHandler.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\EventInfo.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\EventManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\EventManager.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionData\MotionData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionData\MotionData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionData\MotionDataFactory.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionData\MotionDataFactory.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionData\NonUniformMotionData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionData\NonUniformMotionData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionData\UniformMotionData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionData\UniformMotionData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionEvent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionEvent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionEventTable.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionEventTable.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionEventTrack.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\MotionEventTrack.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\TwoStringEventData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\TwoStringEventData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Importer\ChunkProcessors.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Importer\ChunkProcessors.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Importer\Importer.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Importer\Importer.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Importer\NodeMapFileFormat.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Importer\SharedFileFormatStructs.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Importer\ActorFileFormat.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Importer\MotionFileFormat.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\BoolParameter.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\BoolParameter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\ColorParameter.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\ColorParameter.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\DefaultValueParameter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\FloatParameter.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\FloatParameter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\FloatSliderParameter.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\FloatSliderParameter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\FloatSpinnerParameter.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\FloatSpinnerParameter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\GroupParameter.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\GroupParameter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\IntParameter.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\IntParameter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\IntSliderParameter.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\IntSliderParameter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\IntSpinnerParameter.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\IntSpinnerParameter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\Parameter.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\Parameter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\ParameterFactory.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\ParameterFactory.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\RangedValueParameter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\RotationParameter.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\RotationParameter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\StringParameter.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\StringParameter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\TagParameter.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\TagParameter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\ValueParameter.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\ValueParameter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\Vector2Parameter.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\Vector2Parameter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\Vector3GizmoParameter.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\Vector3GizmoParameter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\Vector3Parameter.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\Vector3Parameter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\Vector4Parameter.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Source\Parameter\Vector4Parameter.h" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\emotionfx_files.cmake">
+    </None>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\ActorCommands.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\ActorCommands.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\ActorInstanceCommands.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\ActorInstanceCommands.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\AttachmentCommands.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\AttachmentCommands.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\AnimGraphCommands.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\AnimGraphCommands.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\AnimGraphConditionCommands.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\AnimGraphConditionCommands.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\AnimGraphConnectionCommands.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\AnimGraphConnectionCommands.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\AnimGraphCopyPasteData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\AnimGraphCopyPasteData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\AnimGraphNodeCommands.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\AnimGraphNodeCommands.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\AnimGraphNodeGroupCommands.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\AnimGraphNodeGroupCommands.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\AnimGraphParameterCommands.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\AnimGraphParameterCommands.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\AnimGraphGroupParameterCommands.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\AnimGraphGroupParameterCommands.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\AnimGraphTriggerActionCommands.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\AnimGraphTriggerActionCommands.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\CommandManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\CommandManager.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\ColliderCommands.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\ColliderCommands.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\CommandSystemConfig.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\ImporterCommands.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\ImporterCommands.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\MetaData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\MetaData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\MiscCommands.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\MiscCommands.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\MorphTargetCommands.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\MorphTargetCommands.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\MotionCommands.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\MotionCommands.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\MotionEventCommands.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\MotionEventCommands.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\MotionSetCommands.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\MotionSetCommands.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\NodeGroupCommands.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\NodeGroupCommands.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\ParameterMixins.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\ParameterMixins.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\RagdollCommands.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\RagdollCommands.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\SelectionCommands.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\SelectionCommands.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\SelectionList.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\SelectionList.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\SimulatedObjectCommands.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\Source\SimulatedObjectCommands.h" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\commandsystem_files.cmake">
+    </None>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Exporters\ExporterLib\Exporter\EndianConversion.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Exporters\ExporterLib\Exporter\Exporter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Exporters\ExporterLib\Exporter\ExporterActor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Exporters\ExporterLib\Exporter\ExporterFileProcessor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Exporters\ExporterLib\Exporter\ExporterFileProcessor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Exporters\ExporterLib\Exporter\FileHeaderExport.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Exporters\ExporterLib\Exporter\MorphTargetExport.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Exporters\ExporterLib\Exporter\MotionEventExport.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Exporters\ExporterLib\Exporter\NodeExport.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Exporters\ExporterLib\Exporter\SkeletalMotionExport.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Exporters\ExporterLib\Exporter\StringExport.cpp" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Exporters\ExporterLib\exporterlib_files.cmake">
+    </None>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Common\WinAPI\MCore\Source\DiskFile_WinAPI.cpp" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows\platform_windows_files.cmake">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows\platform_windows.cmake">
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\ZERO_CHECK.vcxproj">
+      <Project>{9D084072-A56A-3A6D-8C63-F5385A20608A}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore.vcxproj">
+      <Project>{9F85147B-AD44-3A0F-AA74-60212AED63A4}</Project>
+      <Name>AtomCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\RHI\Code\Atom_RHI.Public.vcxproj">
+      <Project>{0A0834F3-ACAD-337F-8EE6-B6B3D4822C3E}</Project>
+      <Name>Atom_RHI.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\RHI\Code\Atom_RHI.Reflect.vcxproj">
+      <Project>{85639FA0-2DAB-3EDD-AED2-0AFCEF18D511}</Project>
+      <Name>Atom_RHI.Reflect</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\RPI\Code\Atom_RPI.Public.vcxproj">
+      <Project>{88E91A5D-117D-3A1C-A2CC-3989E9B44A26}</Project>
+      <Name>Atom_RPI.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore.vcxproj">
+      <Project>{78F97634-33F1-3E9D-BB2E-D24CB7BD9D1E}</Project>
+      <Name>AzCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework.vcxproj">
+      <Project>{32B5BA28-0012-3762-8899-2D392DE6A10B}</Project>
+      <Name>AzFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryCommon.vcxproj">
+      <Project>{5131F2AB-DC9C-3FE9-A0DF-A1E42FAD10E6}</Project>
+      <Name>CryCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate.vcxproj">
+      <Project>{1A59660B-1BCB-3611-B3D0-673DEB6F8A46}</Project>
+      <Name>GridMate</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

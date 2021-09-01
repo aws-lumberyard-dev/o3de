@@ -1,0 +1,45 @@
+{
+    "entries": [
+        {
+            "key": "AZ::RHI::Handle<unsigned int, ShaderVariantId>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AZ::RHI::Handle<unsigned int, ShaderVariantId>"
+            },
+            "methods": [
+                {
+                    "key": "IsValid",
+                    "context": "AZ::RHI::Handle<unsigned int, ShaderVariantId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZ::RHI::Handle<unsigned int, ShaderVariantId>::IsValid"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZ::RHI::Handle<unsigned int, ShaderVariantId>::IsValid is invoked"
+                    },
+                    "details": {
+                        "name": "AZ::RHI::Handle<unsigned int, ShaderVariantId>::IsValid"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DA5C6354-AA81-504B-88BF-8EF5811ABA61}",
+                            "details": {
+                                "name": "AZ::RHI::Handle<unsigned int, ShaderVariantId>"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

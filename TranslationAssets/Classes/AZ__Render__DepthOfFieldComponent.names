@@ -1,0 +1,12 @@
+{
+    "entries": [
+        {
+            "key": "AZ::Render::DepthOfFieldComponent",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AZ::Render::DepthOfFieldComponent"
+            }
+        }
+    ]
+}

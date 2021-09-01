@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Buffer\BufferTests.cpp">
+      <Filter>Tests\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Common\AssetManagerTestFixture.cpp">
+      <Filter>Tests\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Common\AssetSystemStub.cpp">
+      <Filter>Tests\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Common\ErrorMessageFinder.cpp">
+      <Filter>Tests\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Common\ErrorMessageFinderTests.cpp">
+      <Filter>Tests\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Common\JsonTestUtils.cpp">
+      <Filter>Tests\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Common\RPITestFixture.cpp">
+      <Filter>Tests\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Common\RHI\Factory.cpp">
+      <Filter>Tests\Common\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Common\RHI\Stubs.cpp">
+      <Filter>Tests\Common\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Common\ShaderAssetTestUtils.cpp">
+      <Filter>Tests\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Image\StreamingImageTests.cpp">
+      <Filter>Tests\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Material\LuaMaterialFunctorTests.cpp">
+      <Filter>Tests\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Material\MaterialTypeAssetTests.cpp">
+      <Filter>Tests\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Material\MaterialTypeSourceDataTests.cpp">
+      <Filter>Tests\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Material\MaterialAssetTestUtils.cpp">
+      <Filter>Tests\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Material\MaterialPropertySerializerTests.cpp">
+      <Filter>Tests\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Material\MaterialAssetTests.cpp">
+      <Filter>Tests\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Material\MaterialSourceDataTests.cpp">
+      <Filter>Tests\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Material\MaterialFunctorTests.cpp">
+      <Filter>Tests\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Material\MaterialFunctorSourceDataSerializerTests.cpp">
+      <Filter>Tests\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Material\MaterialPropertyValueSourceDataTests.cpp">
+      <Filter>Tests\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Material\MaterialTests.cpp">
+      <Filter>Tests\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Model\ModelTests.cpp">
+      <Filter>Tests\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Pass\PassTests.cpp">
+      <Filter>Tests\Pass</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Shader\ShaderTests.cpp">
+      <Filter>Tests\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\ShaderResourceGroup\ShaderResourceGroupBufferTests.cpp">
+      <Filter>Tests\ShaderResourceGroup</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\ShaderResourceGroup\ShaderResourceGroupConstantBufferTests.cpp">
+      <Filter>Tests\ShaderResourceGroup</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\ShaderResourceGroup\ShaderResourceGroupImageTests.cpp">
+      <Filter>Tests\ShaderResourceGroup</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\ShaderResourceGroup\ShaderResourceGroupGeneralTests.cpp">
+      <Filter>Tests\ShaderResourceGroup</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\System\FeatureProcessorFactoryTests.cpp">
+      <Filter>Tests\System</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\System\GpuQueryTests.cpp">
+      <Filter>Tests\System</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\System\RenderPipelineTests.cpp">
+      <Filter>Tests\System</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\System\SceneTests.cpp">
+      <Filter>Tests\System</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\System\ViewTests.cpp">
+      <Filter>Tests\System</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Common\AssetManagerTestFixture.h">
+      <Filter>Tests\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Common\AssetSystemStub.h">
+      <Filter>Tests\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Common\ErrorMessageFinder.h">
+      <Filter>Tests\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Common\JsonTestUtils.h">
+      <Filter>Tests\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Common\RPITestFixture.h">
+      <Filter>Tests\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Common\SerializeTester.h">
+      <Filter>Tests\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Common\TestUtils.h">
+      <Filter>Tests\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Common\TestFeatureProcessors.h">
+      <Filter>Tests\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Common\RHI\Factory.h">
+      <Filter>Tests\Common\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Common\RHI\Stubs.h">
+      <Filter>Tests\Common\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Common\ShaderAssetTestUtils.h">
+      <Filter>Tests\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Tests\Material\MaterialAssetTestUtils.h">
+      <Filter>Tests\Material</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_tests_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{A12C7827-546E-3D77-AE99-877104F2DFF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Buffer">
+      <UniqueIdentifier>{74879C49-1C2F-3D3B-BD9F-A88AB6378113}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Common">
+      <UniqueIdentifier>{D3AD3EA0-4613-34CA-A78D-C78044285468}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Common\RHI">
+      <UniqueIdentifier>{427EBFB1-7CC5-315D-81CD-B6F3FFA88272}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Image">
+      <UniqueIdentifier>{49474173-E954-396B-A85E-48176A3A7DF7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Material">
+      <UniqueIdentifier>{89DCCAB6-3F1D-3C9F-9B48-B0489302D4DF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Model">
+      <UniqueIdentifier>{0C712703-E390-3A42-B7F6-6F7000D1BA6E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Pass">
+      <UniqueIdentifier>{71CDEA4E-FAF0-3710-B436-E807DC1585F9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Shader">
+      <UniqueIdentifier>{08083267-FC1B-3B6D-B811-A37D8319E08D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\ShaderResourceGroup">
+      <UniqueIdentifier>{6A39EEA5-405B-3D8C-A016-967AD0AE16C4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\System">
+      <UniqueIdentifier>{5DB6EE7A-C418-35CB-9B4F-730E76D959D8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

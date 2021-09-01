@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|x64">
+      <Configuration>debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="profile|x64">
+      <Configuration>profile</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|x64">
+      <Configuration>release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B6416D5C-AC47-3D4F-9C9C-A1895F4338EE}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>AzToolsFramework.Benchmarks</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="J:\Atom\lyfork\o3de\cmake\Platform\Common\TestProject.props" Condition="exists('J:\Atom\lyfork\o3de\cmake\Platform\Common\TestProject.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <LocalDebuggerCommand Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:/Atom/lyfork/o3de/bin/debug/AzTestRunner.exe</LocalDebuggerCommand>
+    <LocalDebuggerCommandArguments Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:/Atom/lyfork/o3de/bin/debug/AzToolsFramework.Tests.dll AzRunBenchmarks --benchmark_out_format=json --benchmark_out=J:/Atom/lyfork/o3de/BenchmarkResults/AzToolsFramework.Benchmarks.json</LocalDebuggerCommandArguments>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <LocalDebuggerCommand Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:/Atom/lyfork/o3de/bin/profile/AzTestRunner.exe</LocalDebuggerCommand>
+    <LocalDebuggerCommandArguments Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:/Atom/lyfork/o3de/bin/profile/AzToolsFramework.Tests.dll AzRunBenchmarks --benchmark_out_format=json --benchmark_out=J:/Atom/lyfork/o3de/BenchmarkResults/AzToolsFramework.Benchmarks.json</LocalDebuggerCommandArguments>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <LocalDebuggerCommand Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:/Atom/lyfork/o3de/bin/release/AzTestRunner.exe</LocalDebuggerCommand>
+    <LocalDebuggerCommandArguments Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:/Atom/lyfork/o3de/bin/release/AzToolsFramework.Tests.dll AzRunBenchmarks --benchmark_out_format=json --benchmark_out=J:/Atom/lyfork/o3de/BenchmarkResults/AzToolsFramework.Benchmarks.json</LocalDebuggerCommandArguments>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\07a6fe1b94b1af86f803687aafa3e190\AzToolsFramework.Benchmarks.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E true
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\CMakeFiles\AzToolsFramework.Benchmarks</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</VerifyInputsAndOutputsExist>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E true
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\CMakeFiles\AzToolsFramework.Benchmarks</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</VerifyInputsAndOutputsExist>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E true
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\CMakeFiles\AzToolsFramework.Benchmarks</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</VerifyInputsAndOutputsExist>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">C:\Users\luissemp\.o3de\3rdParty\packages\SQLite-3.32.2-rev3-multiplatform\FindSQLite.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\SQLite-3.32.2-rev3-multiplatform\PackageInfo.json;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\AssetBrowser\Search\search.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\AssetBrowser\Views\AssetBrowserFolderWidget.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\AssetEditor\Resources\AssetEditorResources.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\UI\LegacyFramework\Resources\sharedResources.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\UI\Outliner\resources.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\UI\PropertyEditor\Resources\Icons.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\aztoolsframework_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\aztoolsframework_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\aztoolsframeworktestcommon_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Common\MSVC\aztoolsframework_msvc.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\aztoolsframeworktests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">C:\Users\luissemp\.o3de\3rdParty\packages\SQLite-3.32.2-rev3-multiplatform\FindSQLite.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\SQLite-3.32.2-rev3-multiplatform\PackageInfo.json;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\AssetBrowser\Search\search.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\AssetBrowser\Views\AssetBrowserFolderWidget.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\AssetEditor\Resources\AssetEditorResources.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\UI\LegacyFramework\Resources\sharedResources.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\UI\Outliner\resources.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\UI\PropertyEditor\Resources\Icons.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\aztoolsframework_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\aztoolsframework_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\aztoolsframeworktestcommon_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Common\MSVC\aztoolsframework_msvc.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\aztoolsframeworktests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">C:\Users\luissemp\.o3de\3rdParty\packages\SQLite-3.32.2-rev3-multiplatform\FindSQLite.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\SQLite-3.32.2-rev3-multiplatform\PackageInfo.json;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\AssetBrowser\Search\search.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\AssetBrowser\Views\AssetBrowserFolderWidget.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\AssetEditor\Resources\AssetEditorResources.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\UI\LegacyFramework\Resources\sharedResources.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\UI\Outliner\resources.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\UI\PropertyEditor\Resources\Icons.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\aztoolsframework_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\aztoolsframework_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\aztoolsframeworktestcommon_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Common\MSVC\aztoolsframework_msvc.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\aztoolsframeworktests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\CMakeFiles\AzToolsFramework.Benchmarks">
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\ZERO_CHECK.vcxproj">
+      <Project>{9D084072-A56A-3A6D-8C63-F5385A20608A}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Tools\AzTestRunner\AzTestRunner.vcxproj">
+      <Project>{D30D7C28-6249-38F6-8F8B-B2853B11CC03}</Project>
+      <Name>AzTestRunner</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework.Tests.vcxproj">
+      <Project>{81F92CA5-4FC7-30C9-96E9-3579CAA0EDAB}</Project>
+      <Name>AzToolsFramework.Tests</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

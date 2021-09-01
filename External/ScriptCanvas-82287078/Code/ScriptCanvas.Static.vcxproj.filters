@@ -1,0 +1,2255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Source\SystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Source\ScriptCanvasCommonGem.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Source\PerformanceStatistician.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Source\PerformanceTracker.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Asset\AssetRegistry.cpp">
+      <Filter>Include\ScriptCanvas\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Asset\ExecutionLogAsset.cpp">
+      <Filter>Include\ScriptCanvas\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Asset\RuntimeAsset.cpp">
+      <Filter>Include\ScriptCanvas\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Asset\RuntimeAssetHandler.cpp">
+      <Filter>Include\ScriptCanvas\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Asset\SubgraphInterfaceAssetHandler.cpp">
+      <Filter>Include\ScriptCanvas\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\ExecutionNotificationsBus.cpp">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Connection.cpp">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contract.cpp">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\MethodOverloadContract.cpp">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\RestrictedNodeContract.cpp">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Core.cpp">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Datum.cpp">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\EBusHandler.cpp">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Endpoint.cpp">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Graph.cpp">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\GraphData.cpp">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\MethodConfiguration.cpp">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\ModifiableDatumView.cpp">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Node.cpp">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Nodeable.cpp">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\NodeableNode.cpp">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\NodeableNodeOverloaded.cpp">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Slot.cpp">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\SlotConfigurations.cpp">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\SlotExecutionMap.cpp">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\SlotMetadata.cpp">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\SubgraphInterface.cpp">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\SubgraphInterfaceUtility.cpp">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Translation\GraphToCPlusPlus.cpp">
+      <Filter>Include\ScriptCanvas\Translation</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Translation\GraphToLua.cpp">
+      <Filter>Include\ScriptCanvas\Translation</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Translation\GraphToLuaUtility.cpp">
+      <Filter>Include\ScriptCanvas\Translation</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Translation\GraphToX.cpp">
+      <Filter>Include\ScriptCanvas\Translation</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Translation\Translation.cpp">
+      <Filter>Include\ScriptCanvas\Translation</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Translation\TranslationContext.cpp">
+      <Filter>Include\ScriptCanvas\Translation</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Translation\TranslationResult.cpp">
+      <Filter>Include\ScriptCanvas\Translation</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Translation\TranslationUtilities.cpp">
+      <Filter>Include\ScriptCanvas\Translation</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\ConnectionLimitContract.cpp">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\ContractRTTI.cpp">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\DisallowReentrantExecutionContract.cpp">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\DisplayGroupConnectedSlotLimitContract.cpp">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\DynamicTypeContract.cpp">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\IsReferenceTypeContract.cpp">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\MathOperatorContract.cpp">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\SlotTypeContract.cpp">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\SupportsMethodContract.cpp">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\TypeContract.cpp">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Data\BehaviorContextObject.cpp">
+      <Filter>Include\ScriptCanvas\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Data\BehaviorContextObjectPtr.cpp">
+      <Filter>Include\ScriptCanvas\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Data\Data.cpp">
+      <Filter>Include\ScriptCanvas\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Data\DataRegistry.cpp">
+      <Filter>Include\ScriptCanvas\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Deprecated\VariableDatumBase.cpp">
+      <Filter>Include\ScriptCanvas\Deprecated</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Deprecated\VariableDatum.cpp">
+      <Filter>Include\ScriptCanvas\Deprecated</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Deprecated\VariableHelpers.cpp">
+      <Filter>Include\ScriptCanvas\Deprecated</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\ExecutionContext.cpp">
+      <Filter>Include\ScriptCanvas\Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\ExecutionObjectCloning.cpp">
+      <Filter>Include\ScriptCanvas\Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\ExecutionPerformanceTimer.cpp">
+      <Filter>Include\ScriptCanvas\Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\ExecutionState.cpp">
+      <Filter>Include\ScriptCanvas\Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\NativeHostDeclarations.cpp">
+      <Filter>Include\ScriptCanvas\Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\NativeHostDefinitions.cpp">
+      <Filter>Include\ScriptCanvas\Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\RuntimeComponent.cpp">
+      <Filter>Include\ScriptCanvas\Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\Interpreted\ExecutionInterpretedAPI.cpp">
+      <Filter>Include\ScriptCanvas\Execution\Interpreted</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\Interpreted\ExecutionInterpretedCloningAPI.cpp">
+      <Filter>Include\ScriptCanvas\Execution\Interpreted</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\Interpreted\ExecutionInterpretedDebugAPI.cpp">
+      <Filter>Include\ScriptCanvas\Execution\Interpreted</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\Interpreted\ExecutionInterpretedEBusAPI.cpp">
+      <Filter>Include\ScriptCanvas\Execution\Interpreted</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\Interpreted\ExecutionInterpretedOut.cpp">
+      <Filter>Include\ScriptCanvas\Execution\Interpreted</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\Interpreted\ExecutionStateInterpreted.cpp">
+      <Filter>Include\ScriptCanvas\Execution\Interpreted</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\Interpreted\ExecutionStateInterpretedPerActivation.cpp">
+      <Filter>Include\ScriptCanvas\Execution\Interpreted</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\Interpreted\ExecutionStateInterpretedPure.cpp">
+      <Filter>Include\ScriptCanvas\Execution\Interpreted</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\Interpreted\ExecutionStateInterpretedSingleton.cpp">
+      <Filter>Include\ScriptCanvas\Execution\Interpreted</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\Interpreted\ExecutionStateInterpretedUtility.cpp">
+      <Filter>Include\ScriptCanvas\Execution\Interpreted</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Grammar\AbstractCodeModel.cpp">
+      <Filter>Include\ScriptCanvas\Grammar</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Grammar\DebugMap.cpp">
+      <Filter>Include\ScriptCanvas\Grammar</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Grammar\ExecutionTraversalListeners.cpp">
+      <Filter>Include\ScriptCanvas\Grammar</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Grammar\ParsingMetaData.cpp">
+      <Filter>Include\ScriptCanvas\Grammar</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Grammar\ParsingUtilities.cpp">
+      <Filter>Include\ScriptCanvas\Grammar</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Grammar\Primitives.cpp">
+      <Filter>Include\ScriptCanvas\Grammar</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Grammar\PrimitivesDeclarations.cpp">
+      <Filter>Include\ScriptCanvas\Grammar</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Grammar\PrimitivesExecution.cpp">
+      <Filter>Include\ScriptCanvas\Grammar</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Internal\Nodeables\BaseTimer.cpp">
+      <Filter>Include\ScriptCanvas\Internal\Nodeables</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Internal\Nodes\BaseTimerNode.cpp">
+      <Filter>Include\ScriptCanvas\Internal\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Internal\Nodes\ExpressionNodeBase.cpp">
+      <Filter>Include\ScriptCanvas\Internal\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Internal\Nodes\StringFormatted.cpp">
+      <Filter>Include\ScriptCanvas\Internal\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Libraries.cpp">
+      <Filter>Include\ScriptCanvas\Libraries</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\AzEventHandler.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\BinaryOperator.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\CoreNodes.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\EBusEventHandler.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\ExtractProperty.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\EventHandlerTranslationUtility.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\ForEach.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\FunctionCallNode.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\FunctionCallNodeIsOutOfDate.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\FunctionDefinitionNode.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\GetVariable.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\Method.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\MethodOverloaded.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\MethodUtility.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\Nodeling.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\ReceiveScriptEvent.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\Repeater.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\RepeaterNodeable.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\ScriptEventBase.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\SendScriptEvent.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\SetVariable.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\UnaryOperator.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Entity\Entity.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Entity\RotateMethod.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Any.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Break.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Cycle.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Gate.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\IsNull.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Logic.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Once.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\OrderedSequencer.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Sequencer.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\TargetedSequencer.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\WeightedRandomSequencer.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\While.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\Math.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\MathExpression.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\MathNodeUtilities.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Comparison\Comparison.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Comparison</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\Time.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\Countdown.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\DelayNodeable.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\Duration.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\HeartBeat.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\Timer.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\TimeDelayNodeable.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\DurationNodeable.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\HeartBeatNodeable.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\TimerNodeable.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Spawning\Spawning.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Spawning</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Spawning\SpawnNodeable.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Spawning</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\String\Contains.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\String</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\String\Format.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\String</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\String\Replace.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\String</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\String\String.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\String</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\String\StringMethods.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\String</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\String\Utilities.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\String</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\AddFailure.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectEqual.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectFalse.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectGreaterThan.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectGreaterThanEqual.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectLessThan.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectLessThanEqual.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectNotEqual.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectTrue.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\UnitTesting.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\UnitTestingLibrary.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\Auxiliary\Auxiliary.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting\Auxiliary</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\UnitTestBusSender.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Operators.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Operators</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Operator.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Operators</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorAt.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorBack.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorClear.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorEmpty.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorErase.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorFront.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorInsert.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorPushBack.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorSize.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorAdd.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorArithmetic.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorDiv.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorDivideByNumber.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorLength.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorLerp.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorMul.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorSub.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorLerpNodeable.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorLerpNodeableNode.cpp">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Profiler\Aggregator.cpp">
+      <Filter>Include\ScriptCanvas\Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Profiler\DrillerEvents.cpp">
+      <Filter>Include\ScriptCanvas\Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Serialization\DatumSerializer.cpp">
+      <Filter>Include\ScriptCanvas\Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Serialization\RuntimeVariableSerializer.cpp">
+      <Filter>Include\ScriptCanvas\Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Data\DataTrait.cpp">
+      <Filter>Include\ScriptCanvas\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Data\PropertyTraits.cpp">
+      <Filter>Include\ScriptCanvas\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Variable\GraphVariable.cpp">
+      <Filter>Include\ScriptCanvas\Variable</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Variable\GraphVariableManagerComponent.cpp">
+      <Filter>Include\ScriptCanvas\Variable</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Variable\VariableCore.cpp">
+      <Filter>Include\ScriptCanvas\Variable</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Variable\VariableData.cpp">
+      <Filter>Include\ScriptCanvas\Variable</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Utils\DataUtils.cpp">
+      <Filter>Include\ScriptCanvas\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Utils\NodeUtils.cpp">
+      <Filter>Include\ScriptCanvas\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Utils\VersionConverters.cpp">
+      <Filter>Include\ScriptCanvas\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Utils\VersioningUtils.cpp">
+      <Filter>Include\ScriptCanvas\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Utils\BehaviorContextUtils.cpp">
+      <Filter>Include\ScriptCanvas\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Asset\RuntimeAssetSystemComponent.cpp">
+      <Filter>Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Internal\Nodes\BaseTimerNode.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Internal\Nodes\ExpressionNodeBase.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Internal\Nodes\StringFormatted.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\AzEventHandler.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\EBusEventHandler.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\ExtractProperty.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\ForEach.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\FunctionCallNode.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\FunctionDefinitionNode.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\GetVariable.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\Nodeling.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\ReceiveScriptEvent.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\Repeater.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\ScriptEventBase.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\SendScriptEvent.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\SetVariable.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\Start.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\Any.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\Break.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\Cycle.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\Gate.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\Indexer.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\IsNull.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\Multiplexer.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\Once.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\OrderedSequencer.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\Sequencer.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\TargetedSequencer.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\WeightedRandomSequencer.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\While.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Math\MathExpression.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Time\Countdown.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Time\Duration.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Time\HeartBeat.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Time\Timer.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\String\Contains.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\String\Format.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\String\Print.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\String\Replace.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\String\Utilities.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\AddFailure.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\AddSuccess.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\Checkpoint.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\ExpectEqual.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\ExpectFalse.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\ExpectGreaterThan.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\ExpectGreaterThanEqual.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\ExpectLessThan.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\ExpectLessThanEqual.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\ExpectNotEqual.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\ExpectTrue.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\MarkComplete.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Operator.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorAt.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorBack.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorClear.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorEmpty.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorErase.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorFront.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorInsert.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorPushBack.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorSize.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Math\OperatorAdd.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Math\OperatorArithmetic.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Math\OperatorDiv.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Math\OperatorDivideByNumber.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Math\OperatorLength.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Math\OperatorLerp.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Math\OperatorMul.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Math\OperatorSub.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Internal\Nodeables\BaseTimer.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\RepeaterNodeable.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Time\DelayNodeable.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Time\TimeDelayNodeable.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Time\DurationNodeable.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Time\HeartBeatNodeable.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Time\TimerNodeable.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Spawning\SpawnNodeable.generated.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\SystemComponent.h">
+      <Filter>Include\ScriptCanvas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\ScriptCanvasGem.h">
+      <Filter>Include\ScriptCanvas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Asset\AssetDescription.h">
+      <Filter>Include\ScriptCanvas\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Asset\AssetRegistry.h">
+      <Filter>Include\ScriptCanvas\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Asset\AssetRegistryBus.h">
+      <Filter>Include\ScriptCanvas\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Asset\ExecutionLogAsset.h">
+      <Filter>Include\ScriptCanvas\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Asset\ExecutionLogAssetBus.h">
+      <Filter>Include\ScriptCanvas\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Asset\RuntimeAsset.h">
+      <Filter>Include\ScriptCanvas\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Asset\RuntimeAssetHandler.h">
+      <Filter>Include\ScriptCanvas\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Asset\ScriptCanvasAssetBase.h">
+      <Filter>Include\ScriptCanvas\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Asset\ScriptCanvasAssetData.h">
+      <Filter>Include\ScriptCanvas\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Asset\SubgraphInterfaceAssetHandler.h">
+      <Filter>Include\ScriptCanvas\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\ScriptCanvasBus.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\ExecutionNotificationsBus.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\GraphBus.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\NodeBus.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\EBusNodeBus.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\NodelingBus.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\ContractBus.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Attributes.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Connection.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\ConnectionBus.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contract.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\MethodOverloadContract.h">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\RestrictedNodeContract.h">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Core.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Datum.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\DatumBus.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\EBusHandler.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Endpoint.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Graph.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\GraphData.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\GraphScopedTypes.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\MethodConfiguration.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\ModifiableDatumView.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Node.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Nodeable.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\NodeableNode.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\NodeableNodeOverloaded.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\NodeFunctionGeneric.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Slot.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\SlotConfigurationDefaults.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\SlotConfigurations.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\SlotExecutionMap.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\SlotMetadata.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\SlotNames.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\SubgraphInterface.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\SubgraphInterfaceUtility.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Translation\AbstractModelTranslator.h">
+      <Filter>Include\ScriptCanvas\Translation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Translation\Configuration.h">
+      <Filter>Include\ScriptCanvas\Translation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Translation\GraphToCPlusPlus.h">
+      <Filter>Include\ScriptCanvas\Translation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Translation\GraphToLua.h">
+      <Filter>Include\ScriptCanvas\Translation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Translation\GraphToLuaUtility.h">
+      <Filter>Include\ScriptCanvas\Translation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Translation\GraphToX.h">
+      <Filter>Include\ScriptCanvas\Translation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Translation\Translation.h">
+      <Filter>Include\ScriptCanvas\Translation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Translation\TranslationContext.h">
+      <Filter>Include\ScriptCanvas\Translation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Translation\TranslationResult.h">
+      <Filter>Include\ScriptCanvas\Translation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Translation\TranslationUtilities.h">
+      <Filter>Include\ScriptCanvas\Translation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\PerformanceStatistician.h">
+      <Filter>Include\ScriptCanvas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\PerformanceStatisticsBus.h">
+      <Filter>Include\ScriptCanvas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\PerformanceTracker.h">
+      <Filter>Include\ScriptCanvas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\CodeGen\NodeableCodegen.h">
+      <Filter>Include\ScriptCanvas\CodeGen</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\ConnectionLimitContract.h">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\ContractRTTI.h">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\DisallowReentrantExecutionContract.h">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\DisplayGroupConnectedSlotLimitContract.h">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\DynamicTypeContract.h">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\IsReferenceTypeContract.h">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\MathOperatorContract.h">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\SlotTypeContract.h">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\SupportsMethodContract.h">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Contracts\TypeContract.h">
+      <Filter>Include\ScriptCanvas\Core\Contracts</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Data\BehaviorContextObject.h">
+      <Filter>Include\ScriptCanvas\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Data\BehaviorContextObjectPtr.h">
+      <Filter>Include\ScriptCanvas\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Data\Data.h">
+      <Filter>Include\ScriptCanvas\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Data\DataMacros.h">
+      <Filter>Include\ScriptCanvas\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Data\DataRegistry.h">
+      <Filter>Include\ScriptCanvas\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Data\NumericData.h">
+      <Filter>Include\ScriptCanvas\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Deprecated\VariableDatumBase.h">
+      <Filter>Include\ScriptCanvas\Deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Deprecated\VariableDatum.h">
+      <Filter>Include\ScriptCanvas\Deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Deprecated\VariableHelpers.h">
+      <Filter>Include\ScriptCanvas\Deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\ErrorBus.h">
+      <Filter>Include\ScriptCanvas\Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\ExecutionBus.h">
+      <Filter>Include\ScriptCanvas\Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\ExecutionContext.h">
+      <Filter>Include\ScriptCanvas\Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\ExecutionObjectCloning.h">
+      <Filter>Include\ScriptCanvas\Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\ExecutionPerformanceTimer.h">
+      <Filter>Include\ScriptCanvas\Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\ExecutionState.h">
+      <Filter>Include\ScriptCanvas\Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\ExecutionStateDeclarations.h">
+      <Filter>Include\ScriptCanvas\Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\NativeHostDeclarations.h">
+      <Filter>Include\ScriptCanvas\Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\NativeHostDefinitions.h">
+      <Filter>Include\ScriptCanvas\Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\RuntimeComponent.h">
+      <Filter>Include\ScriptCanvas\Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\Interpreted\ExecutionInterpretedAPI.h">
+      <Filter>Include\ScriptCanvas\Execution\Interpreted</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\Interpreted\ExecutionInterpretedCloningAPI.h">
+      <Filter>Include\ScriptCanvas\Execution\Interpreted</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\Interpreted\ExecutionInterpretedDebugAPI.h">
+      <Filter>Include\ScriptCanvas\Execution\Interpreted</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\Interpreted\ExecutionInterpretedEBusAPI.h">
+      <Filter>Include\ScriptCanvas\Execution\Interpreted</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\Interpreted\ExecutionInterpretedOut.h">
+      <Filter>Include\ScriptCanvas\Execution\Interpreted</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\Interpreted\ExecutionStateInterpreted.h">
+      <Filter>Include\ScriptCanvas\Execution\Interpreted</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\Interpreted\ExecutionStateInterpretedPerActivation.h">
+      <Filter>Include\ScriptCanvas\Execution\Interpreted</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\Interpreted\ExecutionStateInterpretedPure.h">
+      <Filter>Include\ScriptCanvas\Execution\Interpreted</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\Interpreted\ExecutionStateInterpretedSingleton.h">
+      <Filter>Include\ScriptCanvas\Execution\Interpreted</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\Interpreted\ExecutionStateInterpretedUtility.h">
+      <Filter>Include\ScriptCanvas\Execution\Interpreted</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Execution\NodeableOut\NodeableOutNative.h">
+      <Filter>Include\ScriptCanvas\Execution\NodeableOut</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Grammar\AbstractCodeModel.h">
+      <Filter>Include\ScriptCanvas\Grammar</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Grammar\DebugMap.h">
+      <Filter>Include\ScriptCanvas\Grammar</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Grammar\ExecutionTraversalListeners.h">
+      <Filter>Include\ScriptCanvas\Grammar</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Grammar\ParsingMetaData.h">
+      <Filter>Include\ScriptCanvas\Grammar</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Grammar\ParsingUtilities.h">
+      <Filter>Include\ScriptCanvas\Grammar</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Grammar\Primitives.h">
+      <Filter>Include\ScriptCanvas\Grammar</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Grammar\PrimitivesDeclarations.h">
+      <Filter>Include\ScriptCanvas\Grammar</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Grammar\PrimitivesExecution.h">
+      <Filter>Include\ScriptCanvas\Grammar</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Grammar\SymbolNames.h">
+      <Filter>Include\ScriptCanvas\Grammar</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Internal\Nodeables\BaseTimer.h">
+      <Filter>Include\ScriptCanvas\Internal\Nodeables</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Internal\Nodes\BaseTimerNode.h">
+      <Filter>Include\ScriptCanvas\Internal\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Internal\Nodes\ExpressionNodeBase.h">
+      <Filter>Include\ScriptCanvas\Internal\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Internal\Nodes\StringFormatted.h">
+      <Filter>Include\ScriptCanvas\Internal\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Libraries.h">
+      <Filter>Include\ScriptCanvas\Libraries</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\AzEventHandler.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\BinaryOperator.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\CoreNodes.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\ContainerTypeReflection.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\EBusEventHandler.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\ExtractProperty.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\EventHandlerTranslationUtility.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\ForEach.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\FunctionBus.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\FunctionCallNode.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\FunctionCallNodeIsOutOfDate.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\FunctionDefinitionNode.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\GetVariable.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\Method.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\MethodOverloaded.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\MethodUtility.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\Nodeling.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\ReceiveScriptEvent.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\Repeater.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\RepeaterNodeable.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\ScriptEventBase.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\SendScriptEvent.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\SetVariable.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\Start.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\UnaryOperator.h">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Entity\Entity.h">
+      <Filter>Include\ScriptCanvas\Libraries\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Entity\EntityNodes.h">
+      <Filter>Include\ScriptCanvas\Libraries\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Entity\RotateMethod.h">
+      <Filter>Include\ScriptCanvas\Libraries\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\And.h">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Any.h">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Break.h">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Cycle.h">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Gate.h">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Indexer.h">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\IsNull.h">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Logic.h">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Multiplexer.h">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Not.h">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Once.h">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Or.h">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\OrderedSequencer.h">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Sequencer.h">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\TargetedSequencer.h">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\WeightedRandomSequencer.h">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\While.h">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\AABBNodes.h">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\ColorNodes.h">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\CRCNodes.h">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\Divide.h">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\Math.h">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\MathExpression.h">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\MathNodeUtilities.h">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\MathGenerics.h">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\MathRandom.h">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\Matrix3x3Nodes.h">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\Matrix4x4Nodes.h">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\Multiply.h">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\OBBNodes.h">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\PlaneNodes.h">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\RotationNodes.h">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\Subtract.h">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\Sum.h">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\TransformNodes.h">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\Vector2Nodes.h">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\Vector3Nodes.h">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\Vector4Nodes.h">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Comparison\Comparison.h">
+      <Filter>Include\ScriptCanvas\Libraries\Comparison</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Comparison\ComparisonFunctions.h">
+      <Filter>Include\ScriptCanvas\Libraries\Comparison</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Comparison\EqualTo.h">
+      <Filter>Include\ScriptCanvas\Libraries\Comparison</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Comparison\NotEqualTo.h">
+      <Filter>Include\ScriptCanvas\Libraries\Comparison</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Comparison\Less.h">
+      <Filter>Include\ScriptCanvas\Libraries\Comparison</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Comparison\Greater.h">
+      <Filter>Include\ScriptCanvas\Libraries\Comparison</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Comparison\LessEqual.h">
+      <Filter>Include\ScriptCanvas\Libraries\Comparison</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Comparison\GreaterEqual.h">
+      <Filter>Include\ScriptCanvas\Libraries\Comparison</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\Time.h">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\Countdown.h">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\DelayNodeable.h">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\Duration.h">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\HeartBeat.h">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\Timer.h">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\TimeDelayNodeable.h">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\DurationNodeable.h">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\HeartBeatNodeable.h">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\TimerNodeable.h">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Spawning\Spawning.h">
+      <Filter>Include\ScriptCanvas\Libraries\Spawning</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Spawning\SpawnNodeable.h">
+      <Filter>Include\ScriptCanvas\Libraries\Spawning</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\String\Contains.h">
+      <Filter>Include\ScriptCanvas\Libraries\String</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\String\Format.h">
+      <Filter>Include\ScriptCanvas\Libraries\String</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\String\Print.h">
+      <Filter>Include\ScriptCanvas\Libraries\String</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\String\Replace.h">
+      <Filter>Include\ScriptCanvas\Libraries\String</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\String\String.h">
+      <Filter>Include\ScriptCanvas\Libraries\String</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\String\StringMethods.h">
+      <Filter>Include\ScriptCanvas\Libraries\String</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\String\StringGenerics.h">
+      <Filter>Include\ScriptCanvas\Libraries\String</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\String\Utilities.h">
+      <Filter>Include\ScriptCanvas\Libraries\String</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\AddFailure.h">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\AddSuccess.h">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\Checkpoint.h">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectEqual.h">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectFalse.h">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectGreaterThan.h">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectGreaterThanEqual.h">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectLessThan.h">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectLessThanEqual.h">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectNotEqual.h">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectTrue.h">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\MarkComplete.h">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\UnitTestBus.h">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\UnitTestBusMacros.h">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\UnitTesting.h">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\UnitTestingLibrary.h">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\Auxiliary\Auxiliary.h">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting\Auxiliary</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\Auxiliary\AuxiliaryGenerics.h">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting\Auxiliary</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\UnitTestBusSender.h">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\UnitTestBusSenderMacros.h">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Operators.h">
+      <Filter>Include\ScriptCanvas\Libraries\Operators</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Operator.h">
+      <Filter>Include\ScriptCanvas\Libraries\Operators</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorAt.h">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorBack.h">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorClear.h">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorEmpty.h">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorErase.h">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorFront.h">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorInsert.h">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorPushBack.h">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorSize.h">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorAdd.h">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorArithmetic.h">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorDiv.h">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorDivideByNumber.h">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorLength.h">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorLerp.h">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorMul.h">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorSub.h">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorLerpNodeable.h">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorLerpNodeableNode.h">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Profiler\Driller.h">
+      <Filter>Include\ScriptCanvas\Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Profiler\Aggregator.h">
+      <Filter>Include\ScriptCanvas\Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Profiler\DrillerEvents.h">
+      <Filter>Include\ScriptCanvas\Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Serialization\DatumSerializer.h">
+      <Filter>Include\ScriptCanvas\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Serialization\RuntimeVariableSerializer.h">
+      <Filter>Include\ScriptCanvas\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Data\DataTrait.h">
+      <Filter>Include\ScriptCanvas\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Data\PropertyTraits.h">
+      <Filter>Include\ScriptCanvas\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Data\Traits.h">
+      <Filter>Include\ScriptCanvas\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Variable\VariableBus.h">
+      <Filter>Include\ScriptCanvas\Variable</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Variable\GraphVariable.h">
+      <Filter>Include\ScriptCanvas\Variable</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Variable\GraphVariableManagerComponent.h">
+      <Filter>Include\ScriptCanvas\Variable</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Variable\VariableCore.h">
+      <Filter>Include\ScriptCanvas\Variable</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Variable\VariableData.h">
+      <Filter>Include\ScriptCanvas\Variable</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Utils\DataUtils.h">
+      <Filter>Include\ScriptCanvas\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Utils\NodeUtils.h">
+      <Filter>Include\ScriptCanvas\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Utils\SerializationUtils.h">
+      <Filter>Include\ScriptCanvas\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Utils\VersionConverters.h">
+      <Filter>Include\ScriptCanvas\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Utils\BehaviorContextUtils.h">
+      <Filter>Include\ScriptCanvas\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Asset\RuntimeAssetSystemComponent.h">
+      <Filter>Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Internal\Nodes\BaseTimerNode.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Internal\Nodes\ExpressionNodeBase.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Internal\Nodes\StringFormatted.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\AzEventHandler.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\EBusEventHandler.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\ExtractProperty.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\ForEach.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\FunctionCallNode.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\FunctionDefinitionNode.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\GetVariable.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\Nodeling.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\ReceiveScriptEvent.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\Repeater.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\ScriptEventBase.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\SendScriptEvent.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\SetVariable.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\Start.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\Any.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\Break.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\Cycle.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\Gate.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\Indexer.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\IsNull.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\Multiplexer.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\Once.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\OrderedSequencer.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\Sequencer.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\TargetedSequencer.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\WeightedRandomSequencer.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Logic\While.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Math\MathExpression.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Time\Countdown.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Time\Duration.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Time\HeartBeat.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Time\Timer.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\String\Contains.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\String\Format.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\String\Print.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\String\Replace.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\String\Utilities.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\AddFailure.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\AddSuccess.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\Checkpoint.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\ExpectEqual.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\ExpectFalse.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\ExpectGreaterThan.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\ExpectGreaterThanEqual.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\ExpectLessThan.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\ExpectLessThanEqual.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\ExpectNotEqual.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\ExpectTrue.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\UnitTesting\MarkComplete.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Operator.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorAt.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorBack.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorClear.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorEmpty.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorErase.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorFront.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorInsert.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorPushBack.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorSize.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Math\OperatorAdd.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Math\OperatorArithmetic.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Math\OperatorDiv.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Math\OperatorDivideByNumber.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Math\OperatorLength.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Math\OperatorLerp.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Math\OperatorMul.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Operators\Math\OperatorSub.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Internal\Nodeables\BaseTimer.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Core\RepeaterNodeable.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Time\DelayNodeable.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Time\TimeDelayNodeable.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Time\DurationNodeable.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Time\HeartBeatNodeable.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Time\TimerNodeable.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated\Include\ScriptCanvas\Libraries\Spawning\SpawnNodeable.generated.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\340ab5172500bf384428aaa313b23236\BaseTimerNode.generated.h.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\AutoGen\ScriptCanvas_Macros.jinja">
+      <Filter>Include\ScriptCanvas\AutoGen</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\AutoGen\ScriptCanvas_Nodeable_Macros.jinja">
+      <Filter>Include\ScriptCanvas\AutoGen</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\AutoGen\ScriptCanvasGrammar_Header.jinja">
+      <Filter>Include\ScriptCanvas\AutoGen</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\AutoGen\ScriptCanvasGrammar_Source.jinja">
+      <Filter>Include\ScriptCanvas\AutoGen</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\AutoGen\ScriptCanvasNodeable_Header.jinja">
+      <Filter>Include\ScriptCanvas\AutoGen</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\AutoGen\ScriptCanvasNodeable_Source.jinja">
+      <Filter>Include\ScriptCanvas\AutoGen</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_common_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_runtime_asset_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Internal\Nodeables\BaseTimer.ScriptCanvasNodeable.xml">
+      <Filter>Include\ScriptCanvas\Internal\Nodeables</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Internal\Nodes\BaseTimerNode.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Internal\Nodes</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Internal\Nodes\ExpressionNodeBase.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Internal\Nodes</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Internal\Nodes\StringFormatted.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Internal\Nodes</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\AzEventHandler.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\EBusEventHandler.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\ExtractProperty.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\ForEach.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\FunctionCallNode.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\FunctionDefinitionNode.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\GetVariable.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\Nodeling.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\ReceiveScriptEvent.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\Repeater.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\RepeaterNodeable.ScriptCanvasNodeable.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\ScriptEventBase.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\SendScriptEvent.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\SetVariable.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Core\Start.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Core</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Any.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Break.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Cycle.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Gate.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Indexer.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\IsNull.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Multiplexer.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Once.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\OrderedSequencer.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\Sequencer.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\TargetedSequencer.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\WeightedRandomSequencer.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Logic\While.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Logic</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Math\MathExpression.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Math</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\Countdown.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\DelayNodeable.ScriptCanvasNodeable.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\Duration.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\HeartBeat.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\Timer.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\TimeDelayNodeable.ScriptCanvasNodeable.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\DurationNodeable.ScriptCanvasNodeable.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\HeartBeatNodeable.ScriptCanvasNodeable.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Time\TimerNodeable.ScriptCanvasNodeable.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Time</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Spawning\SpawnNodeable.ScriptCanvasNodeable.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Spawning</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\String\Contains.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\String</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\String\Format.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\String</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\String\Print.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\String</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\String\Replace.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\String</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\String\Utilities.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\String</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\AddFailure.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\AddSuccess.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\Checkpoint.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectEqual.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectFalse.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectGreaterThan.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectGreaterThanEqual.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectLessThan.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectLessThanEqual.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectNotEqual.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\ExpectTrue.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\UnitTesting\MarkComplete.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\UnitTesting</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Operator.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Operators</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorAt.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorBack.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorClear.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorEmpty.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorErase.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorFront.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorInsert.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorPushBack.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Containers\OperatorSize.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Containers</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorAdd.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorArithmetic.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorDiv.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorDivideByNumber.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorLength.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorLerp.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorMul.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Libraries\Operators\Math\OperatorSub.ScriptCanvasGrammar.xml">
+      <Filter>Include\ScriptCanvas\Libraries\Operators\Math</Filter>
+    </XML>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Asset">
+      <UniqueIdentifier>{2BDBEBA5-00A9-3D3D-8DAB-9774D95C6F1D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas">
+      <UniqueIdentifier>{EE2A7069-1F5E-335F-8850-086810F2CA1F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Asset">
+      <UniqueIdentifier>{D532E736-BC36-306C-A88E-60D46CF0965D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\AutoGen">
+      <UniqueIdentifier>{BD64E222-1D0C-3CCC-A7AD-93979174274D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\CodeGen">
+      <UniqueIdentifier>{A42C68C4-09C6-3D23-A6BE-421DE11B0BCE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Core">
+      <UniqueIdentifier>{F15D1965-EEF0-34B9-BF55-11AD0979BDA1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Core\Contracts">
+      <UniqueIdentifier>{7F123F19-20DA-3D36-BEC9-737CF623294F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Data">
+      <UniqueIdentifier>{8A602388-E09C-3DBA-B160-4DECDB65A122}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Deprecated">
+      <UniqueIdentifier>{CB5566F0-1333-38B2-B00E-3E10BE582045}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Execution">
+      <UniqueIdentifier>{1659E7DC-773C-3D77-B839-B420B69022B6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Execution\Interpreted">
+      <UniqueIdentifier>{08BAC4B4-70EE-3CC2-90BA-FD0EB7EF60FA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Execution\NodeableOut">
+      <UniqueIdentifier>{D3590C98-556C-332E-95B6-93A463FA5281}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Grammar">
+      <UniqueIdentifier>{196A2B36-120B-3344-9720-7654BBF1D3BA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Internal">
+      <UniqueIdentifier>{E68A0E5D-B9FF-3DEE-859F-4619E7FCDCFB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Internal\Nodeables">
+      <UniqueIdentifier>{0E2DBA9B-405C-3DA6-B8D7-3E8B888E002B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Internal\Nodes">
+      <UniqueIdentifier>{F417653A-ED3D-3603-BEE5-EA7EC981E2AC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Libraries">
+      <UniqueIdentifier>{1B733CCD-6A7E-3E26-89E7-445371FA28EB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Libraries\Comparison">
+      <UniqueIdentifier>{0BFEC314-D3A8-3F03-B299-56696BEE2F4B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Libraries\Core">
+      <UniqueIdentifier>{9DDEE0AF-0CD0-3204-9D18-875010792B6D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Libraries\Entity">
+      <UniqueIdentifier>{12E58F23-8F0A-3F18-90EE-1C9C86C05CD4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Libraries\Logic">
+      <UniqueIdentifier>{17016C8D-3993-3101-9A89-8A88F143C050}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Libraries\Math">
+      <UniqueIdentifier>{B27883DA-FC49-3F20-8D22-9D9282C976ED}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Libraries\Operators">
+      <UniqueIdentifier>{7F53053D-1461-372C-A3F2-88A91CF9D83F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Libraries\Operators\Containers">
+      <UniqueIdentifier>{2BCA1526-447F-3082-8EBA-1D23384420D7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Libraries\Operators\Math">
+      <UniqueIdentifier>{8E0BC41F-DBEB-358B-9161-EBB8576E08C4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Libraries\Spawning">
+      <UniqueIdentifier>{739E9097-B3FC-344A-A701-510D22F05657}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Libraries\String">
+      <UniqueIdentifier>{D09ACD87-ABAB-3863-83E2-E77ECA25D196}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Libraries\Time">
+      <UniqueIdentifier>{2F648A25-8E43-302F-A01B-F9810204335C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Libraries\UnitTesting">
+      <UniqueIdentifier>{06E25C47-781B-39BC-BC04-B2E707E2507F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Libraries\UnitTesting\Auxiliary">
+      <UniqueIdentifier>{9D63042D-7322-3C6E-B022-73FE3DCAE1D8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Profiler">
+      <UniqueIdentifier>{68AAAB20-B63C-3C8E-BF7B-83D11C04E0D9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Serialization">
+      <UniqueIdentifier>{5611A26C-72B6-301F-B4DD-BC75F5DD07B4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Translation">
+      <UniqueIdentifier>{8A08AD51-95E7-392B-9F33-BF846D65C5A5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Utils">
+      <UniqueIdentifier>{36A979AC-DB08-38C7-AD82-3A323CD6A997}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Variable">
+      <UniqueIdentifier>{F283894B-4EE7-3506-8C20-C05D8ECA480C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,190 @@
+{
+    "entries": [
+        {
+            "key": "UiInteractableActionsBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiInteractableActionsBus"
+            },
+            "methods": [
+                {
+                    "key": "SetPressedActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetPressedActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetPressedActionName is invoked"
+                    },
+                    "details": {
+                        "name": "SetPressedActionName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetPressedActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetPressedActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetPressedActionName is invoked"
+                    },
+                    "details": {
+                        "name": "GetPressedActionName"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetHoverEndActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetHoverEndActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetHoverEndActionName is invoked"
+                    },
+                    "details": {
+                        "name": "GetHoverEndActionName"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetHoverStartActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetHoverStartActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetHoverStartActionName is invoked"
+                    },
+                    "details": {
+                        "name": "SetHoverStartActionName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetHoverStartActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetHoverStartActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetHoverStartActionName is invoked"
+                    },
+                    "details": {
+                        "name": "GetHoverStartActionName"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetHoverEndActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetHoverEndActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetHoverEndActionName is invoked"
+                    },
+                    "details": {
+                        "name": "SetHoverEndActionName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetReleasedActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetReleasedActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetReleasedActionName is invoked"
+                    },
+                    "details": {
+                        "name": "GetReleasedActionName"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetReleasedActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetReleasedActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetReleasedActionName is invoked"
+                    },
+                    "details": {
+                        "name": "SetReleasedActionName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

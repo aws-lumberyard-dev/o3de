@@ -1,0 +1,242 @@
+{
+    "entries": [
+        {
+            "key": "UiNavigationBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiNavigationBus"
+            },
+            "methods": [
+                {
+                    "key": "GetOnRightEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetOnRightEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetOnRightEntity is invoked"
+                    },
+                    "details": {
+                        "name": "GetOnRightEntity"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetOnLeftEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetOnLeftEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetOnLeftEntity is invoked"
+                    },
+                    "details": {
+                        "name": "SetOnLeftEntity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetOnLeftEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetOnLeftEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetOnLeftEntity is invoked"
+                    },
+                    "details": {
+                        "name": "GetOnLeftEntity"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetOnDownEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetOnDownEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetOnDownEntity is invoked"
+                    },
+                    "details": {
+                        "name": "SetOnDownEntity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetOnUpEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetOnUpEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetOnUpEntity is invoked"
+                    },
+                    "details": {
+                        "name": "GetOnUpEntity"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetOnUpEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetOnUpEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetOnUpEntity is invoked"
+                    },
+                    "details": {
+                        "name": "SetOnUpEntity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetOnRightEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetOnRightEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetOnRightEntity is invoked"
+                    },
+                    "details": {
+                        "name": "SetOnRightEntity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetNavigationMode",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetNavigationMode"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetNavigationMode is invoked"
+                    },
+                    "details": {
+                        "name": "SetNavigationMode"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetOnDownEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetOnDownEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetOnDownEntity is invoked"
+                    },
+                    "details": {
+                        "name": "GetOnDownEntity"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetNavigationMode",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetNavigationMode"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetNavigationMode is invoked"
+                    },
+                    "details": {
+                        "name": "GetNavigationMode"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

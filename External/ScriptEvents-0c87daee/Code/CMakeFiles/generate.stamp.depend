@@ -1,0 +1,8 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/ScriptEvents/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/ScriptEvents/Code/scriptevents_common_files.cmake
+J:/Atom/lyfork/o3de/Gems/ScriptEvents/Code/scriptevents_editor_builder_files.cmake
+J:/Atom/lyfork/o3de/Gems/ScriptEvents/Code/scriptevents_editor_files.cmake
+J:/Atom/lyfork/o3de/Gems/ScriptEvents/Code/scriptevents_files.cmake
+J:/Atom/lyfork/o3de/Gems/ScriptEvents/Code/scriptevents_tests_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

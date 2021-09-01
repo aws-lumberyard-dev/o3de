@@ -1,0 +1,146 @@
+{
+    "entries": [
+        {
+            "key": "UiLayoutRowBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiLayoutRowBus"
+            },
+            "methods": [
+                {
+                    "key": "SetSpacing",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetSpacing"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetSpacing is invoked"
+                    },
+                    "details": {
+                        "name": "SetSpacing"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetOrder",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetOrder"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetOrder is invoked"
+                    },
+                    "details": {
+                        "name": "GetOrder"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetOrder",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetOrder"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetOrder is invoked"
+                    },
+                    "details": {
+                        "name": "SetOrder"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSpacing",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetSpacing"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetSpacing is invoked"
+                    },
+                    "details": {
+                        "name": "GetSpacing"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetPadding",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetPadding"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetPadding is invoked"
+                    },
+                    "details": {
+                        "name": "GetPadding"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{DE5C18B0-4214-4A37-B590-8D45CC450A96}",
+                            "details": {
+                                "name": "Padding"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetPadding",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetPadding"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetPadding is invoked"
+                    },
+                    "details": {
+                        "name": "SetPadding"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DE5C18B0-4214-4A37-B590-8D45CC450A96}",
+                            "details": {
+                                "name": "Padding"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

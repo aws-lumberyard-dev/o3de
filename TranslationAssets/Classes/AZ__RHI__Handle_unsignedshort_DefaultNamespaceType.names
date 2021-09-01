@@ -1,0 +1,45 @@
+{
+    "entries": [
+        {
+            "key": "AZ::RHI::Handle<unsigned short, DefaultNamespaceType>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AZ::RHI::Handle<unsigned short, DefaultNamespaceType>"
+            },
+            "methods": [
+                {
+                    "key": "IsValid",
+                    "context": "AZ::RHI::Handle<unsigned short, DefaultNamespaceType>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZ::RHI::Handle<unsigned short, DefaultNamespaceType>::IsValid"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZ::RHI::Handle<unsigned short, DefaultNamespaceType>::IsValid is invoked"
+                    },
+                    "details": {
+                        "name": "AZ::RHI::Handle<unsigned short, DefaultNamespaceType>::IsValid"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{5574DD27-89D8-5A40-B7C4-FA04C68B8A0D}",
+                            "details": {
+                                "name": "AZ::RHI::Handle<unsigned short, DefaultNamespaceType>"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,37 @@
+{
+    "entries": [
+        {
+            "key": "UiCanvasProxyRefBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiCanvasProxyRefBus"
+            },
+            "methods": [
+                {
+                    "key": "SetCanvasRefEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetCanvasRefEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetCanvasRefEntity is invoked"
+                    },
+                    "details": {
+                        "name": "SetCanvasRefEntity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

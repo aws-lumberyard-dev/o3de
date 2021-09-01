@@ -1,0 +1,465 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|x64">
+      <Configuration>debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="profile|x64">
+      <Configuration>profile</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|x64">
+      <Configuration>release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{AE894FBE-4B5D-3D7B-AFE1-3135C13FEEC1}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>AssetProcessor.Static</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\lib\debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">AssetProcessor.Static.dir\debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='debug|x64'">AssetProcessor.Static</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\lib\profile\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">AssetProcessor.Static.dir\profile\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='profile|x64'">AssetProcessor.Static</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='profile|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\lib\release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">AssetProcessor.Static.dir\release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='release|x64'">AssetProcessor.Static</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='release|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor.Static_autogen\include_debug;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\.;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetBuilderSDK\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /RTCsu /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtNetwork /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/SQLite-3.32.2-rev3-multiplatform/SQLite /external:IC:/Users/luissemp/.o3de/3rdParty/packages/xxhash-0.7.4-rev1-multiplatform/xxhash/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_DEBUG;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="debug";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;OPENSSL_ENABLED;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR="debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;_HAS_EXCEPTIONS=0;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"debug\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;OPENSSL_ENABLED;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR=\"debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor.Static_autogen\include_debug;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\.;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetBuilderSDK\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor.Static_autogen\include_debug;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\.;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetBuilderSDK\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message>Automatic MOC for target AssetProcessor.Static</Message>
+      <Command>setlocal
+cd J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autogen J:/Atom/lyfork/o3de/Code/Tools/AssetProcessor/CMakeFiles/AssetProcessor.Static_autogen.dir/AutogenInfo.json debug
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor.Static_autogen\include_profile;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\.;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetBuilderSDK\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtNetwork /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/SQLite-3.32.2-rev3-multiplatform/SQLite /external:IC:/Users/luissemp/.o3de/3rdParty/packages/xxhash-0.7.4-rev1-multiplatform/xxhash/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StringPooling>true</StringPooling>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="profile";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_NETWORK_LIB;OPENSSL_ENABLED;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR="profile";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"profile\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_NETWORK_LIB;OPENSSL_ENABLED;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR=\"profile\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor.Static_autogen\include_profile;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\.;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetBuilderSDK\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor.Static_autogen\include_profile;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\.;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetBuilderSDK\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message>Automatic MOC for target AssetProcessor.Static</Message>
+      <Command>setlocal
+cd J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autogen J:/Atom/lyfork/o3de/Code/Tools/AssetProcessor/CMakeFiles/AssetProcessor.Static_autogen.dir/AutogenInfo.json profile
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor.Static_autogen\include_release;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\.;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetBuilderSDK\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtNetwork /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/SQLite-3.32.2-rev3-multiplatform/SQLite /external:IC:/Users/luissemp/.o3de/3rdParty/packages/xxhash-0.7.4-rev1-multiplatform/xxhash/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OmitFramePointers>true</OmitFramePointers>
+      <Optimization>Full</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE="release";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_NETWORK_LIB;OPENSSL_ENABLED;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR="release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE=\"release\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_NETWORK_LIB;OPENSSL_ENABLED;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR=\"release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor.Static_autogen\include_release;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\.;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetBuilderSDK\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor.Static_autogen\include_release;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\.;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetBuilderSDK\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message>Automatic MOC for target AssetProcessor.Static</Message>
+      <Command>setlocal
+cd J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autogen J:/Atom/lyfork/o3de/Code/Tools/AssetProcessor/CMakeFiles/AssetProcessor.Static_autogen.dir/AutogenInfo.json release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Tools/AssetProcessor/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/Code/Tools/AssetProcessor/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">C:\Users\luissemp\.o3de\3rdParty\packages\xxhash-0.7.4-rev1-multiplatform\Findxxhash.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\xxhash-0.7.4-rev1-multiplatform\PackageInfo.json;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows\assetprocessor_gui_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows\assetprocessor_windows.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows\assetprocessor_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\assetprocessor_batch_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\assetprocessor_gui_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\assetprocessor_static_batch_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\assetprocessor_static_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\assetprocessor_test_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\style\AssetProcessor.qrc;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Tools/AssetProcessor/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/Code/Tools/AssetProcessor/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">C:\Users\luissemp\.o3de\3rdParty\packages\xxhash-0.7.4-rev1-multiplatform\Findxxhash.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\xxhash-0.7.4-rev1-multiplatform\PackageInfo.json;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows\assetprocessor_gui_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows\assetprocessor_windows.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows\assetprocessor_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\assetprocessor_batch_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\assetprocessor_gui_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\assetprocessor_static_batch_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\assetprocessor_static_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\assetprocessor_test_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\style\AssetProcessor.qrc;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Tools/AssetProcessor/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/Code/Tools/AssetProcessor/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">C:\Users\luissemp\.o3de\3rdParty\packages\xxhash-0.7.4-rev1-multiplatform\Findxxhash.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\xxhash-0.7.4-rev1-multiplatform\PackageInfo.json;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows\assetprocessor_gui_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows\assetprocessor_windows.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows\assetprocessor_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\assetprocessor_batch_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\assetprocessor_gui_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\assetprocessor_static_batch_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\assetprocessor_static_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\assetprocessor_test_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\style\AssetProcessor.qrc;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor.Static_autogen\mocs_compilation_debug.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='profile|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetDatabase\AssetDatabase.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetDatabase\AssetDatabase.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\AssetCatalog.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\AssetCatalog.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\assetProcessorManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\assetProcessorManager.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\AssetRequestHandler.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\AssetRequestHandler.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\assetScanFolderInfo.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\assetScanFolderInfo.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\assetScanner.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\assetScanner.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\assetScannerWorker.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\assetScannerWorker.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\FileStateCache.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\FileStateCache.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\PathDependencyManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\PathDependencyManager.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\SourceFileRelocator.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\SourceFileRelocator.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\ControlRequestHandler.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\ControlRequestHandler.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\assetprocessor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\connection\connection.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\connection\connection.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\connection\connectionManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\connection\connectionManager.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\connection\connectionMessages.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\connection\connectionworker.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\connection\connectionworker.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\FileProcessor\FileProcessor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\FileProcessor\FileProcessor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\FileWatcher\FileWatcher.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\FileWatcher\FileWatcher.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\FileWatcher\FileWatcherAPI.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\InternalBuilders\SettingsRegistryBuilder.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\InternalBuilders\SettingsRegistryBuilder.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\JobsModel.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\JobsModel.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\RCBuilder.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\RCBuilder.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\RCCommon.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\RCCommon.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\rccontroller.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\rccontroller.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\rcjob.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\rcjob.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\rcjoblistmodel.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\rcjoblistmodel.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\RCJobSortFilterProxyModel.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\RCJobSortFilterProxyModel.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\RCQueueSortModel.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\RCQueueSortModel.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\shadercompiler\shadercompilerjob.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\shadercompiler\shadercompilerjob.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\shadercompiler\shadercompilerManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\shadercompiler\shadercompilerManager.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\shadercompiler\shadercompilerMessages.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\shadercompiler\shadercompilerModel.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\shadercompiler\shadercompilerModel.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\ApplicationManagerAPI.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\ApplicationManager.cpp">
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='debug|x64'">LY_ASSET_BUILDERS="";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='profile|x64'">LY_ASSET_BUILDERS="";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='release|x64'">LY_ASSET_BUILDERS="";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\ApplicationManager.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\ApplicationManagerBase.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\ApplicationManagerBase.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\ApplicationServer.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\ApplicationServer.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\AssetBuilderInfo.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\AssetBuilderInfo.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\AssetServerHandler.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\AssetServerHandler.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\AssetUtilEBusHelper.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\assetUtils.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\assetUtils.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\BuilderConfigurationBus.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\BuilderConfigurationManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\BuilderConfigurationManager.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\BuilderManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\BuilderManager.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\BuilderManager.inl" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\ByteArrayStream.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\ByteArrayStream.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\CommunicatorTracePrinter.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\CommunicatorTracePrinter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\IniConfiguration.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\IniConfiguration.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\JobDiagnosticTracker.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\JobDiagnosticTracker.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\LineByLineDependencyScanner.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\LineByLineDependencyScanner.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\MissingDependencyScanner.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\MissingDependencyScanner.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\PlatformConfiguration.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\PlatformConfiguration.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\PotentialDependencies.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\SpecializedDependencyScanner.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\ThreadHelper.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\ThreadHelper.h" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\assetprocessor_static_files.cmake">
+    </None>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows\native\FileWatcher\FileWatcher_win.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows\native\resource.h" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows\assetprocessor_windows_files.cmake">
+    </None>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor.Static_autogen\mocs_compilation_profile.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor.Static_autogen\mocs_compilation_release.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='profile|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\ZERO_CHECK.vcxproj">
+      <Project>{9D084072-A56A-3A6D-8C63-F5385A20608A}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetBuilder\AssetBuilder.vcxproj">
+      <Project>{B7DCBDF1-195F-3700-9568-5EE37846CA67}</Project>
+      <Name>AssetBuilder</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetBuilderSDK\AssetBuilderSDK.vcxproj">
+      <Project>{72093293-9FAC-3AF9-8DE2-B98423F9AA4F}</Project>
+      <Name>AssetBuilderSDK</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore.vcxproj">
+      <Project>{78F97634-33F1-3E9D-BB2E-D24CB7BD9D1E}</Project>
+      <Name>AzCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework.vcxproj">
+      <Project>{32B5BA28-0012-3762-8899-2D392DE6A10B}</Project>
+      <Name>AzFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents.vcxproj">
+      <Project>{A96AE86E-7259-341D-879A-5F0B4ECAAFB8}</Project>
+      <Name>AzQtComponents</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework.vcxproj">
+      <Project>{FBDC5AB0-96E2-3EF6-A16A-7C345C99949B}</Project>
+      <Name>AzToolsFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate.vcxproj">
+      <Project>{1A59660B-1BCB-3611-B3D0-673DEB6F8A46}</Project>
+      <Name>GridMate</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

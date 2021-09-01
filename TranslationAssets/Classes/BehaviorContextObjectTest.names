@@ -1,0 +1,76 @@
+{
+    "entries": [
+        {
+            "key": "BehaviorContextObjectTest",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "BehaviorContextObjectTest"
+            },
+            "methods": [
+                {
+                    "key": "SetString",
+                    "context": "BehaviorContextObjectTest",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke BehaviorContextObjectTest::SetString"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after BehaviorContextObjectTest::SetString is invoked"
+                    },
+                    "details": {
+                        "name": "BehaviorContextObjectTest::SetString"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{FF687BD7-42AA-44C4-B3AB-79353E8C6CCF}",
+                            "details": {
+                                "name": "Behavior Context Object Test",
+                                "tooltip": "An Object that lives within Behavior Context exclusively for testing"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetString",
+                    "context": "BehaviorContextObjectTest",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke BehaviorContextObjectTest::GetString"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after BehaviorContextObjectTest::GetString is invoked"
+                    },
+                    "details": {
+                        "name": "BehaviorContextObjectTest::GetString"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{FF687BD7-42AA-44C4-B3AB-79353E8C6CCF}",
+                            "details": {
+                                "name": "Behavior Context Object Test",
+                                "tooltip": "An Object that lives within Behavior Context exclusively for testing"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

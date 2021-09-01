@@ -1,0 +1,358 @@
+{
+    "entries": [
+        {
+            "key": "CameraRequestBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "CameraRequestBus"
+            },
+            "methods": [
+                {
+                    "key": "GetOrthographicHalfWidth",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetOrthographicHalfWidth"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetOrthographicHalfWidth is invoked"
+                    },
+                    "details": {
+                        "name": "GetOrthographicHalfWidth"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetFov",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetFov"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetFov is invoked"
+                    },
+                    "details": {
+                        "name": "GetFov"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetFovRadians",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetFovRadians"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetFovRadians is invoked"
+                    },
+                    "details": {
+                        "name": "SetFovRadians"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetNearClipDistance",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetNearClipDistance"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetNearClipDistance is invoked"
+                    },
+                    "details": {
+                        "name": "SetNearClipDistance"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsOrthographic",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IsOrthographic"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IsOrthographic is invoked"
+                    },
+                    "details": {
+                        "name": "IsOrthographic"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetFovDegrees",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetFovDegrees"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetFovDegrees is invoked"
+                    },
+                    "details": {
+                        "name": "SetFovDegrees"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetFovRadians",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetFovRadians"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetFovRadians is invoked"
+                    },
+                    "details": {
+                        "name": "GetFovRadians"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetFov",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetFov"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetFov is invoked"
+                    },
+                    "details": {
+                        "name": "SetFov"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "MakeActiveView",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MakeActiveView"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MakeActiveView is invoked"
+                    },
+                    "details": {
+                        "name": "MakeActiveView"
+                    }
+                },
+                {
+                    "key": "GetFarClipDistance",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetFarClipDistance"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetFarClipDistance is invoked"
+                    },
+                    "details": {
+                        "name": "GetFarClipDistance"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetFovDegrees",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetFovDegrees"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetFovDegrees is invoked"
+                    },
+                    "details": {
+                        "name": "GetFovDegrees"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetOrthographic",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetOrthographic"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetOrthographic is invoked"
+                    },
+                    "details": {
+                        "name": "SetOrthographic"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetOrthographicHalfWidth",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetOrthographicHalfWidth"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetOrthographicHalfWidth is invoked"
+                    },
+                    "details": {
+                        "name": "SetOrthographicHalfWidth"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetNearClipDistance",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetNearClipDistance"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetNearClipDistance is invoked"
+                    },
+                    "details": {
+                        "name": "GetNearClipDistance"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetFarClipDistance",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetFarClipDistance"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetFarClipDistance is invoked"
+                    },
+                    "details": {
+                        "name": "SetFarClipDistance"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsActiveView",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IsActiveView"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IsActiveView is invoked"
+                    },
+                    "details": {
+                        "name": "IsActiveView"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

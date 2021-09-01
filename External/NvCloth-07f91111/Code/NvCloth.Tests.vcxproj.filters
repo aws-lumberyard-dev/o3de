@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Tests\NvClothTestEnvironment.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Tests\NvClothTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Tests\UnitTestHelper.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Tests\ActorHelper.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Tests\TriangleInputHelper.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Tests\System\ClothSystemTest.cpp">
+      <Filter>Tests\System</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Tests\System\ClothTest.cpp">
+      <Filter>Tests\System</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Tests\System\FabricCookerTest.cpp">
+      <Filter>Tests\System</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Tests\System\FactoryTest.cpp">
+      <Filter>Tests\System</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Tests\System\SolverTest.cpp">
+      <Filter>Tests\System</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Tests\System\NvTypesTest.cpp">
+      <Filter>Tests\System</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Tests\System\TangentSpaceHelperTest.cpp">
+      <Filter>Tests\System</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Tests\Components\ClothComponentTest.cpp">
+      <Filter>Tests\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Tests\Components\ClothComponentMesh\ClothComponentMeshTest.cpp">
+      <Filter>Tests\Components\ClothComponentMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Tests\Components\ClothComponentMesh\ActorClothCollidersTest.cpp">
+      <Filter>Tests\Components\ClothComponentMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Tests\Components\ClothComponentMesh\ActorClothSkinningTest.cpp">
+      <Filter>Tests\Components\ClothComponentMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Tests\Components\ClothComponentMesh\ClothConstraintsTest.cpp">
+      <Filter>Tests\Components\ClothComponentMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Tests\Utils\ActorAssetHelperTest.cpp">
+      <Filter>Tests\Utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Tests\UnitTestHelper.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Tests\ActorHelper.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Tests\TriangleInputHelper.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\nvcloth_tests_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{A12C7827-546E-3D77-AE99-877104F2DFF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Components">
+      <UniqueIdentifier>{B0E81E62-27FA-3D8D-92E7-84BA2430E704}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Components\ClothComponentMesh">
+      <UniqueIdentifier>{5D61DCC2-5496-3DC9-91A1-68DB67D58009}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\System">
+      <UniqueIdentifier>{5DB6EE7A-C418-35CB-9B4F-730E76D959D8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Utils">
+      <UniqueIdentifier>{237C34A1-6A0B-339F-A9B3-273A086069B4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

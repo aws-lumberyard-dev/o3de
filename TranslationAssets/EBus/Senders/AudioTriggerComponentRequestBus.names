@@ -1,0 +1,144 @@
+{
+    "entries": [
+        {
+            "key": "AudioTriggerComponentRequestBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AudioTriggerComponentRequestBus"
+            },
+            "methods": [
+                {
+                    "key": "SetObstructionType",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetObstructionType"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetObstructionType is invoked"
+                    },
+                    "details": {
+                        "name": "SetObstructionType"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "KillAllTriggers",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke KillAllTriggers"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after KillAllTriggers is invoked"
+                    },
+                    "details": {
+                        "name": "KillAllTriggers"
+                    }
+                },
+                {
+                    "key": "ExecuteTrigger",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke ExecuteTrigger"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after ExecuteTrigger is invoked"
+                    },
+                    "details": {
+                        "name": "ExecuteTrigger"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
+                            "details": {
+                                "name": "char"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetMovesWithEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetMovesWithEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetMovesWithEntity is invoked"
+                    },
+                    "details": {
+                        "name": "SetMovesWithEntity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Stop",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Stop"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Stop is invoked"
+                    },
+                    "details": {
+                        "name": "Stop"
+                    }
+                },
+                {
+                    "key": "Play",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Play"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Play is invoked"
+                    },
+                    "details": {
+                        "name": "Play"
+                    }
+                },
+                {
+                    "key": "KillTrigger",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke KillTrigger"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after KillTrigger is invoked"
+                    },
+                    "details": {
+                        "name": "KillTrigger"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
+                            "details": {
+                                "name": "char"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

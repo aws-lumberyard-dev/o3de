@@ -1,0 +1,12 @@
+{
+    "entries": [
+        {
+            "key": "AZ::Render::ExposureControlComponent",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AZ::Render::ExposureControlComponent"
+            }
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\CustomAssetExample\Code\Source\CustomAssetExample\Builder\CustomAssetExampleBuilderComponent.cpp">
+      <Filter>Source\CustomAssetExample\Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\CustomAssetExample\Code\Source\CustomAssetExample\Builder\CustomAssetExampleBuilderWorker.cpp">
+      <Filter>Source\CustomAssetExample\Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\CustomAssetExample\Code\Source\CustomAssetExample\CustomAssetExampleEditorModule.cpp">
+      <Filter>Source\CustomAssetExample</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\CustomAssetExample\Code\Source\CustomAssetExample\Builder\CustomAssetExampleBuilderComponent.h">
+      <Filter>Source\CustomAssetExample\Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\CustomAssetExample\Code\Source\CustomAssetExample\Builder\CustomAssetExampleBuilderWorker.h">
+      <Filter>Source\CustomAssetExample\Builder</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\CustomAssetExample\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\CustomAssetExample\Code\customassetexample_editor_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CustomAssetExample">
+      <UniqueIdentifier>{1974452E-6AC6-3DBE-B7F7-192AAA5DD5E2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CustomAssetExample\Builder">
+      <UniqueIdentifier>{A505BFAD-077F-32FB-9117-BAB58DD7C4FA}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,473 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|x64">
+      <Configuration>debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="profile|x64">
+      <Configuration>profile</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|x64">
+      <Configuration>release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F0E61B04-E571-3475-BC87-AFB8BE7B9D89}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>Multiplayer.Static</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\lib\debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Multiplayer.Static.dir\debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Multiplayer.Static</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\lib\profile\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Multiplayer.Static.dir\profile\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Multiplayer.Static</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='profile|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\lib\release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">Multiplayer.Static.dir\release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='release|x64'">Multiplayer.Static</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='release|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\AZ::AzNetworking;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\.;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\.;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Azcg\Generated;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /RTCsu /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_DEBUG;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="debug";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR="debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;_HAS_EXCEPTIONS=0;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"debug\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR=\"debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\AZ::AzNetworking;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\.;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\.;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Azcg\Generated;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\AZ::AzNetworking;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\.;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\.;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Azcg\Generated;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\AZ::AzNetworking;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\.;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\.;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Azcg\Generated;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StringPooling>true</StringPooling>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="profile";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR="profile";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"profile\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR=\"profile\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\AZ::AzNetworking;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\.;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\.;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Azcg\Generated;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\AZ::AzNetworking;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\.;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\.;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Azcg\Generated;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\AZ::AzNetworking;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\.;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\.;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Azcg\Generated;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OmitFramePointers>true</OmitFramePointers>
+      <Optimization>Full</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE="release";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR="release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE=\"release\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR=\"release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\AZ::AzNetworking;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\.;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\.;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Azcg\Generated;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\AZ::AzNetworking;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\.;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\.;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Azcg\Generated;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\3a391e7e21e4db5a056bef25060f506b\Multiplayer.AutoPackets.h.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Generating Azcg/Generated/Source/AutoGen/Multiplayer.AutoPackets.h, Azcg/Generated/Source/AutoGen/MultiplayerEditor.AutoPackets.h, Azcg/Generated/Source/AutoGen/Multiplayer.AutoPackets.inl, Azcg/Generated/Source/AutoGen/MultiplayerEditor.AutoPackets.inl, Azcg/Generated/Source/AutoGen/Multiplayer.AutoPackets.cpp, Azcg/Generated/Source/AutoGen/MultiplayerEditor.AutoPackets.cpp, Azcg/Generated/Source/AutoGen/Multiplayer.AutoPacketDispatcher.h, Azcg/Generated/Source/AutoGen/MultiplayerEditor.AutoPacketDispatcher.h, Azcg/Generated/Source/AutoGen/Multiplayer.AutoPacketDispatcher.inl, Azcg/Generated/Source/AutoGen/MultiplayerEditor.AutoPacketDispatcher.inl, Azcg/Generated/Source/AutoGen/LocalPredictionPlayerInputComponent.AutoComponent.h, Azcg/Generated/Source/AutoGen/NetworkTransformComponent.AutoComponent.h, Azcg/Generated/Source/AutoGen/LocalPredictionPlayerInputComponent.AutoComponent.cpp, Azcg/Generated/Source/AutoGen/NetworkTransformComponent.AutoComponent.cpp, Azcg/Generated/Source/AutoGen/AutoComponentTypes.h, Azcg/Generated/Source/AutoGen/AutoComponentTypes.cpp</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E echo "Running AutoGen for Multiplayer.Static"
+if %errorlevel% neq 0 goto :cmEnd
+call ..\..\..\python\python.cmd -s J:/Atom/lyfork/o3de/cmake/AzAutoGen.py J:/Atom/lyfork/o3de/Azcg/TemplateCache/ J:/Atom/lyfork/o3de/External/Multiplayer-2e94d9c9/Code/Azcg/Generated/ J:/Atom/lyfork/o3de/Gems/Multiplayer/Code Source/AutoGen/AutoComponent_Header.jinja";"Source/AutoGen/AutoComponent_Source.jinja";"Source/AutoGen/AutoComponent_Common.jinja";"Source/AutoGen/AutoComponentTypes_Header.jinja";"Source/AutoGen/AutoComponentTypes_Source.jinja";"Source/AutoGen/LocalPredictionPlayerInputComponent.AutoComponent.xml";"Source/AutoGen/Multiplayer.AutoPackets.xml";"Source/AutoGen/MultiplayerEditor.AutoPackets.xml";"Source/AutoGen/NetworkTransformComponent.AutoComponent.xml";"J:/Atom/lyfork/o3de/Code/Framework/AzNetworking/AzNetworking/AutoGen/AutoPackets_Header.jinja";"J:/Atom/lyfork/o3de/Code/Framework/AzNetworking/AzNetworking/AutoGen/AutoPackets_Inline.jinja";"J:/Atom/lyfork/o3de/Code/Framework/AzNetworking/AzNetworking/AutoGen/AutoPackets_Source.jinja";"J:/Atom/lyfork/o3de/Code/Framework/AzNetworking/AzNetworking/AutoGen/AutoPacketDispatcher_Header.jinja";"J:/Atom/lyfork/o3de/Code/Framework/AzNetworking/AzNetworking/AutoGen/AutoPacketDispatcher_Inline.jinja *.AutoPackets.xml,AutoPackets_Header.jinja,"$"path/"$"fileprefix.AutoPackets.h";"*.AutoPackets.xml,AutoPackets_Inline.jinja,"$"path/"$"fileprefix.AutoPackets.inl";"*.AutoPackets.xml,AutoPackets_Source.jinja,"$"path/"$"fileprefix.AutoPackets.cpp";"*.AutoPackets.xml,AutoPacketDispatcher_Header.jinja,"$"path/"$"fileprefix.AutoPacketDispatcher.h";"*.AutoPackets.xml,AutoPacketDispatcher_Inline.jinja,"$"path/"$"fileprefix.AutoPacketDispatcher.inl";"*.AutoComponent.xml,AutoComponent_Header.jinja,"$"path/"$"fileprefix.AutoComponent.h";"*.AutoComponent.xml,AutoComponent_Source.jinja,"$"path/"$"fileprefix.AutoComponent.cpp";"*.AutoComponent.xml,AutoComponentTypes_Header.jinja,"$"path/AutoComponentTypes.h";"*.AutoComponent.xml,AutoComponentTypes_Source.jinja,"$"path/AutoComponentTypes.cpp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponent_Header.jinja;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponent_Source.jinja;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponent_Common.jinja;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponentTypes_Header.jinja;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponentTypes_Source.jinja;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\LocalPredictionPlayerInputComponent.AutoComponent.xml;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\Multiplayer.AutoPackets.xml;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\MultiplayerEditor.AutoPackets.xml;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\NetworkTransformComponent.AutoComponent.xml;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPackets_Header.jinja;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPackets_Inline.jinja;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPackets_Source.jinja;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPacketDispatcher_Header.jinja;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPacketDispatcher_Inline.jinja;J:\Atom\lyfork\o3de\cmake\AzAutoGen.py;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPackets.h;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPackets.h;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPackets.inl;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPackets.inl;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPackets.cpp;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPackets.cpp;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPacketDispatcher.h;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPacketDispatcher.h;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPacketDispatcher.inl;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPacketDispatcher.inl;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\LocalPredictionPlayerInputComponent.AutoComponent.h;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\NetworkTransformComponent.AutoComponent.h;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\LocalPredictionPlayerInputComponent.AutoComponent.cpp;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\NetworkTransformComponent.AutoComponent.cpp;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\AutoComponentTypes.h;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\AutoComponentTypes.cpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Generating Azcg/Generated/Source/AutoGen/Multiplayer.AutoPackets.h, Azcg/Generated/Source/AutoGen/MultiplayerEditor.AutoPackets.h, Azcg/Generated/Source/AutoGen/Multiplayer.AutoPackets.inl, Azcg/Generated/Source/AutoGen/MultiplayerEditor.AutoPackets.inl, Azcg/Generated/Source/AutoGen/Multiplayer.AutoPackets.cpp, Azcg/Generated/Source/AutoGen/MultiplayerEditor.AutoPackets.cpp, Azcg/Generated/Source/AutoGen/Multiplayer.AutoPacketDispatcher.h, Azcg/Generated/Source/AutoGen/MultiplayerEditor.AutoPacketDispatcher.h, Azcg/Generated/Source/AutoGen/Multiplayer.AutoPacketDispatcher.inl, Azcg/Generated/Source/AutoGen/MultiplayerEditor.AutoPacketDispatcher.inl, Azcg/Generated/Source/AutoGen/LocalPredictionPlayerInputComponent.AutoComponent.h, Azcg/Generated/Source/AutoGen/NetworkTransformComponent.AutoComponent.h, Azcg/Generated/Source/AutoGen/LocalPredictionPlayerInputComponent.AutoComponent.cpp, Azcg/Generated/Source/AutoGen/NetworkTransformComponent.AutoComponent.cpp, Azcg/Generated/Source/AutoGen/AutoComponentTypes.h, Azcg/Generated/Source/AutoGen/AutoComponentTypes.cpp</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E echo "Running AutoGen for Multiplayer.Static"
+if %errorlevel% neq 0 goto :cmEnd
+call ..\..\..\python\python.cmd -s J:/Atom/lyfork/o3de/cmake/AzAutoGen.py J:/Atom/lyfork/o3de/Azcg/TemplateCache/ J:/Atom/lyfork/o3de/External/Multiplayer-2e94d9c9/Code/Azcg/Generated/ J:/Atom/lyfork/o3de/Gems/Multiplayer/Code Source/AutoGen/AutoComponent_Header.jinja";"Source/AutoGen/AutoComponent_Source.jinja";"Source/AutoGen/AutoComponent_Common.jinja";"Source/AutoGen/AutoComponentTypes_Header.jinja";"Source/AutoGen/AutoComponentTypes_Source.jinja";"Source/AutoGen/LocalPredictionPlayerInputComponent.AutoComponent.xml";"Source/AutoGen/Multiplayer.AutoPackets.xml";"Source/AutoGen/MultiplayerEditor.AutoPackets.xml";"Source/AutoGen/NetworkTransformComponent.AutoComponent.xml";"J:/Atom/lyfork/o3de/Code/Framework/AzNetworking/AzNetworking/AutoGen/AutoPackets_Header.jinja";"J:/Atom/lyfork/o3de/Code/Framework/AzNetworking/AzNetworking/AutoGen/AutoPackets_Inline.jinja";"J:/Atom/lyfork/o3de/Code/Framework/AzNetworking/AzNetworking/AutoGen/AutoPackets_Source.jinja";"J:/Atom/lyfork/o3de/Code/Framework/AzNetworking/AzNetworking/AutoGen/AutoPacketDispatcher_Header.jinja";"J:/Atom/lyfork/o3de/Code/Framework/AzNetworking/AzNetworking/AutoGen/AutoPacketDispatcher_Inline.jinja *.AutoPackets.xml,AutoPackets_Header.jinja,"$"path/"$"fileprefix.AutoPackets.h";"*.AutoPackets.xml,AutoPackets_Inline.jinja,"$"path/"$"fileprefix.AutoPackets.inl";"*.AutoPackets.xml,AutoPackets_Source.jinja,"$"path/"$"fileprefix.AutoPackets.cpp";"*.AutoPackets.xml,AutoPacketDispatcher_Header.jinja,"$"path/"$"fileprefix.AutoPacketDispatcher.h";"*.AutoPackets.xml,AutoPacketDispatcher_Inline.jinja,"$"path/"$"fileprefix.AutoPacketDispatcher.inl";"*.AutoComponent.xml,AutoComponent_Header.jinja,"$"path/"$"fileprefix.AutoComponent.h";"*.AutoComponent.xml,AutoComponent_Source.jinja,"$"path/"$"fileprefix.AutoComponent.cpp";"*.AutoComponent.xml,AutoComponentTypes_Header.jinja,"$"path/AutoComponentTypes.h";"*.AutoComponent.xml,AutoComponentTypes_Source.jinja,"$"path/AutoComponentTypes.cpp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponent_Header.jinja;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponent_Source.jinja;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponent_Common.jinja;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponentTypes_Header.jinja;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponentTypes_Source.jinja;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\LocalPredictionPlayerInputComponent.AutoComponent.xml;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\Multiplayer.AutoPackets.xml;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\MultiplayerEditor.AutoPackets.xml;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\NetworkTransformComponent.AutoComponent.xml;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPackets_Header.jinja;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPackets_Inline.jinja;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPackets_Source.jinja;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPacketDispatcher_Header.jinja;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPacketDispatcher_Inline.jinja;J:\Atom\lyfork\o3de\cmake\AzAutoGen.py;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPackets.h;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPackets.h;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPackets.inl;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPackets.inl;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPackets.cpp;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPackets.cpp;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPacketDispatcher.h;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPacketDispatcher.h;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPacketDispatcher.inl;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPacketDispatcher.inl;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\LocalPredictionPlayerInputComponent.AutoComponent.h;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\NetworkTransformComponent.AutoComponent.h;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\LocalPredictionPlayerInputComponent.AutoComponent.cpp;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\NetworkTransformComponent.AutoComponent.cpp;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\AutoComponentTypes.h;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\AutoComponentTypes.cpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Generating Azcg/Generated/Source/AutoGen/Multiplayer.AutoPackets.h, Azcg/Generated/Source/AutoGen/MultiplayerEditor.AutoPackets.h, Azcg/Generated/Source/AutoGen/Multiplayer.AutoPackets.inl, Azcg/Generated/Source/AutoGen/MultiplayerEditor.AutoPackets.inl, Azcg/Generated/Source/AutoGen/Multiplayer.AutoPackets.cpp, Azcg/Generated/Source/AutoGen/MultiplayerEditor.AutoPackets.cpp, Azcg/Generated/Source/AutoGen/Multiplayer.AutoPacketDispatcher.h, Azcg/Generated/Source/AutoGen/MultiplayerEditor.AutoPacketDispatcher.h, Azcg/Generated/Source/AutoGen/Multiplayer.AutoPacketDispatcher.inl, Azcg/Generated/Source/AutoGen/MultiplayerEditor.AutoPacketDispatcher.inl, Azcg/Generated/Source/AutoGen/LocalPredictionPlayerInputComponent.AutoComponent.h, Azcg/Generated/Source/AutoGen/NetworkTransformComponent.AutoComponent.h, Azcg/Generated/Source/AutoGen/LocalPredictionPlayerInputComponent.AutoComponent.cpp, Azcg/Generated/Source/AutoGen/NetworkTransformComponent.AutoComponent.cpp, Azcg/Generated/Source/AutoGen/AutoComponentTypes.h, Azcg/Generated/Source/AutoGen/AutoComponentTypes.cpp</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E echo "Running AutoGen for Multiplayer.Static"
+if %errorlevel% neq 0 goto :cmEnd
+call ..\..\..\python\python.cmd -s J:/Atom/lyfork/o3de/cmake/AzAutoGen.py J:/Atom/lyfork/o3de/Azcg/TemplateCache/ J:/Atom/lyfork/o3de/External/Multiplayer-2e94d9c9/Code/Azcg/Generated/ J:/Atom/lyfork/o3de/Gems/Multiplayer/Code Source/AutoGen/AutoComponent_Header.jinja";"Source/AutoGen/AutoComponent_Source.jinja";"Source/AutoGen/AutoComponent_Common.jinja";"Source/AutoGen/AutoComponentTypes_Header.jinja";"Source/AutoGen/AutoComponentTypes_Source.jinja";"Source/AutoGen/LocalPredictionPlayerInputComponent.AutoComponent.xml";"Source/AutoGen/Multiplayer.AutoPackets.xml";"Source/AutoGen/MultiplayerEditor.AutoPackets.xml";"Source/AutoGen/NetworkTransformComponent.AutoComponent.xml";"J:/Atom/lyfork/o3de/Code/Framework/AzNetworking/AzNetworking/AutoGen/AutoPackets_Header.jinja";"J:/Atom/lyfork/o3de/Code/Framework/AzNetworking/AzNetworking/AutoGen/AutoPackets_Inline.jinja";"J:/Atom/lyfork/o3de/Code/Framework/AzNetworking/AzNetworking/AutoGen/AutoPackets_Source.jinja";"J:/Atom/lyfork/o3de/Code/Framework/AzNetworking/AzNetworking/AutoGen/AutoPacketDispatcher_Header.jinja";"J:/Atom/lyfork/o3de/Code/Framework/AzNetworking/AzNetworking/AutoGen/AutoPacketDispatcher_Inline.jinja *.AutoPackets.xml,AutoPackets_Header.jinja,"$"path/"$"fileprefix.AutoPackets.h";"*.AutoPackets.xml,AutoPackets_Inline.jinja,"$"path/"$"fileprefix.AutoPackets.inl";"*.AutoPackets.xml,AutoPackets_Source.jinja,"$"path/"$"fileprefix.AutoPackets.cpp";"*.AutoPackets.xml,AutoPacketDispatcher_Header.jinja,"$"path/"$"fileprefix.AutoPacketDispatcher.h";"*.AutoPackets.xml,AutoPacketDispatcher_Inline.jinja,"$"path/"$"fileprefix.AutoPacketDispatcher.inl";"*.AutoComponent.xml,AutoComponent_Header.jinja,"$"path/"$"fileprefix.AutoComponent.h";"*.AutoComponent.xml,AutoComponent_Source.jinja,"$"path/"$"fileprefix.AutoComponent.cpp";"*.AutoComponent.xml,AutoComponentTypes_Header.jinja,"$"path/AutoComponentTypes.h";"*.AutoComponent.xml,AutoComponentTypes_Source.jinja,"$"path/AutoComponentTypes.cpp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponent_Header.jinja;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponent_Source.jinja;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponent_Common.jinja;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponentTypes_Header.jinja;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponentTypes_Source.jinja;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\LocalPredictionPlayerInputComponent.AutoComponent.xml;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\Multiplayer.AutoPackets.xml;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\MultiplayerEditor.AutoPackets.xml;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\NetworkTransformComponent.AutoComponent.xml;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPackets_Header.jinja;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPackets_Inline.jinja;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPackets_Source.jinja;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPacketDispatcher_Header.jinja;J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPacketDispatcher_Inline.jinja;J:\Atom\lyfork\o3de\cmake\AzAutoGen.py;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPackets.h;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPackets.h;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPackets.inl;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPackets.inl;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPackets.cpp;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPackets.cpp;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPacketDispatcher.h;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPacketDispatcher.h;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPacketDispatcher.inl;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPacketDispatcher.inl;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\LocalPredictionPlayerInputComponent.AutoComponent.h;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\NetworkTransformComponent.AutoComponent.h;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\LocalPredictionPlayerInputComponent.AutoComponent.cpp;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\NetworkTransformComponent.AutoComponent.cpp;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\AutoComponentTypes.h;J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\AutoComponentTypes.cpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/Multiplayer/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/Multiplayer-2e94d9c9/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_autogen_files.cmake;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_debug_files.cmake;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_editor_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_files.cmake;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_tools_files.cmake;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_tools_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/Multiplayer/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/Multiplayer-2e94d9c9/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_autogen_files.cmake;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_debug_files.cmake;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_editor_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_files.cmake;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_tools_files.cmake;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_tools_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/Multiplayer/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/Multiplayer-2e94d9c9/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_autogen_files.cmake;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_debug_files.cmake;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_editor_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_files.cmake;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_tools_files.cmake;J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_tools_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\IMultiplayer.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\IMultiplayerDebug.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\IMultiplayerTools.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\MultiplayerConstants.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\MultiplayerStats.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\MultiplayerTypes.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\Components\LocalPredictionPlayerInputComponent.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\Components\MultiplayerComponent.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\Components\MultiplayerController.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\Components\MultiplayerComponentRegistry.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\Components\NetBindComponent.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\Components\NetworkTransformComponent.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\ConnectionData\IConnectionData.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\EntityDomains\IEntityDomain.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkEntity\INetworkEntityManager.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\INetworkSpawnableLibrary.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkEntity\IFilterEntityManager.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkEntity\NetworkEntityRpcMessage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkEntity\NetworkEntityUpdateMessage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkEntity\NetworkEntityHandle.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkEntity\NetworkEntityHandle.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkEntity\EntityReplication\ReplicationRecord.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkInput\IMultiplayerComponentInput.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkInput\NetworkInput.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkTime\INetworkTime.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkTime\RewindableArray.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkTime\RewindableArray.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkTime\RewindableFixedVector.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkTime\RewindableFixedVector.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkTime\RewindableObject.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\NetworkTime\RewindableObject.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\Physics\PhysicsUtils.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Include\Multiplayer\ReplicationWindows\IReplicationWindow.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\MultiplayerSystemComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\MultiplayerSystemComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\MultiplayerStats.cpp" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponent_Header.jinja">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponent_Source.jinja">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponent_Common.jinja">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponentTypes_Header.jinja">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\AutoComponentTypes_Source.jinja">
+    </None>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\LocalPredictionPlayerInputComponent.AutoComponent.xml">
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\Multiplayer.AutoPackets.xml">
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\MultiplayerEditor.AutoPackets.xml">
+    </XML>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\AutoGen\NetworkTransformComponent.AutoComponent.xml">
+    </XML>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Components\LocalPredictionPlayerInputComponent.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Components\MultiplayerComponent.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Components\MultiplayerController.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Components\MultiplayerComponentRegistry.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Components\NetBindComponent.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Components\NetworkTransformComponent.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\ConnectionData\ClientToServerConnectionData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\ConnectionData\ClientToServerConnectionData.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\ConnectionData\ClientToServerConnectionData.inl" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\ConnectionData\ServerToClientConnectionData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\ConnectionData\ServerToClientConnectionData.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\ConnectionData\ServerToClientConnectionData.inl" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Editor\MultiplayerEditorConnection.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Editor\MultiplayerEditorConnection.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\EntityDomains\FullOwnershipEntityDomain.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\EntityDomains\FullOwnershipEntityDomain.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\EntityReplication\EntityReplicationManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\EntityReplication\EntityReplicationManager.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\EntityReplication\EntityReplicator.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\EntityReplication\EntityReplicator.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\EntityReplication\EntityReplicator.inl" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\EntityReplication\PropertyPublisher.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\EntityReplication\PropertyPublisher.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\EntityReplication\PropertySubscriber.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\EntityReplication\PropertySubscriber.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\EntityReplication\ReplicationRecord.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkEntityAuthorityTracker.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkEntityAuthorityTracker.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkEntityHandle.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkEntityManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkEntityManager.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkSpawnableLibrary.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkSpawnableLibrary.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkEntityRpcMessage.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkEntityTracker.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkEntityTracker.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkEntityTracker.inl" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkEntity\NetworkEntityUpdateMessage.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkInput\NetworkInput.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkInput\NetworkInputArray.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkInput\NetworkInputArray.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkInput\NetworkInputChild.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkInput\NetworkInputChild.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkInput\NetworkInputHistory.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkInput\NetworkInputHistory.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkInput\NetworkInputMigrationVector.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkInput\NetworkInputMigrationVector.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkTime\NetworkTime.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\NetworkTime\NetworkTime.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Pipeline\NetBindMarkerComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Pipeline\NetBindMarkerComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Pipeline\NetworkSpawnableHolderComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Pipeline\NetworkSpawnableHolderComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\Physics\PhysicsUtils.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\ReplicationWindows\NullReplicationWindow.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\ReplicationWindows\NullReplicationWindow.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\ReplicationWindows\ServerToClientReplicationWindow.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\Source\ReplicationWindows\ServerToClientReplicationWindow.h" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_files.cmake">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPackets_Header.jinja">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPackets_Inline.jinja">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPackets_Source.jinja">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPacketDispatcher_Header.jinja">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPacketDispatcher_Inline.jinja">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Multiplayer\Code\multiplayer_autogen_files.cmake">
+    </None>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPackets.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPackets.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPackets.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPackets.inl" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPackets.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPackets.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPacketDispatcher.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPacketDispatcher.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\Multiplayer.AutoPacketDispatcher.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\MultiplayerEditor.AutoPacketDispatcher.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\LocalPredictionPlayerInputComponent.AutoComponent.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\NetworkTransformComponent.AutoComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\LocalPredictionPlayerInputComponent.AutoComponent.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\NetworkTransformComponent.AutoComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\AutoComponentTypes.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Multiplayer-2e94d9c9\Code\Azcg\Generated\Source\AutoGen\AutoComponentTypes.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\ZERO_CHECK.vcxproj">
+      <Project>{9D084072-A56A-3A6D-8C63-F5385A20608A}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore.vcxproj">
+      <Project>{78F97634-33F1-3E9D-BB2E-D24CB7BD9D1E}</Project>
+      <Name>AzCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework.vcxproj">
+      <Project>{32B5BA28-0012-3762-8899-2D392DE6A10B}</Project>
+      <Name>AzFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking.vcxproj">
+      <Project>{0DF1D2C6-2CAE-3765-9E5D-AE66DC787087}</Project>
+      <Name>AzNetworking</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate.vcxproj">
+      <Project>{1A59660B-1BCB-3611-B3D0-673DEB6F8A46}</Project>
+      <Name>GridMate</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,491 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Factory\TestImpactBuildTargetDescriptorFactory.cpp">
+      <Filter>Source\Artifact\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Factory\TestImpactTestEnumerationSuiteFactory.cpp">
+      <Filter>Source\Artifact\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Factory\TestImpactTestRunSuiteFactory.cpp">
+      <Filter>Source\Artifact\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Factory\TestImpactTestTargetMetaMapFactory.cpp">
+      <Filter>Source\Artifact\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Factory\TestImpactModuleCoverageFactory.cpp">
+      <Filter>Source\Artifact\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Static\TestImpactBuildTargetDescriptor.cpp">
+      <Filter>Source\Artifact\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Static\TestImpactTargetDescriptorCompiler.cpp">
+      <Filter>Source\Artifact\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Static\TestImpactProductionTargetDescriptor.cpp">
+      <Filter>Source\Artifact\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Static\TestImpactTestTargetDescriptor.cpp">
+      <Filter>Source\Artifact\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Process\TestImpactProcess.cpp">
+      <Filter>Source\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Process\TestImpactProcessInfo.cpp">
+      <Filter>Source\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Process\JobRunner\TestImpactProcessJobMeta.cpp">
+      <Filter>Source\Process\JobRunner</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Process\Scheduler\TestImpactProcessScheduler.cpp">
+      <Filter>Source\Process\Scheduler</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Dependency\TestImpactDynamicDependencyMap.cpp">
+      <Filter>Source\Dependency</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Dependency\TestImpactChangeDependencyList.cpp">
+      <Filter>Source\Dependency</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Dependency\TestImpactSourceDependency.cpp">
+      <Filter>Source\Dependency</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Dependency\TestImpactTestSelectorAndPrioritizer.cpp">
+      <Filter>Source\Dependency</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Dependency\TestImpactSourceCoveringTestsList.cpp">
+      <Filter>Source\Dependency</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Dependency\TestImpactSourceCoveringTestsSerializer.cpp">
+      <Filter>Source\Dependency</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Target\TestImpactBuildTarget.cpp">
+      <Filter>Source\Target</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Target\TestImpactProductionTarget.cpp">
+      <Filter>Source\Target</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Target\TestImpactTestTarget.cpp">
+      <Filter>Source\Target</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\Enumeration\TestImpactTestEnumerationSerializer.cpp">
+      <Filter>Source\TestEngine\Enumeration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\Enumeration\TestImpactTestEnumerator.cpp">
+      <Filter>Source\TestEngine\Enumeration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\Run\TestImpactTestRunSerializer.cpp">
+      <Filter>Source\TestEngine\Run</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\Run\TestImpactTestRunner.cpp">
+      <Filter>Source\TestEngine\Run</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\Run\TestImpactInstrumentedTestRunner.cpp">
+      <Filter>Source\TestEngine\Run</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\Run\TestImpactTestRun.cpp">
+      <Filter>Source\TestEngine\Run</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\Run\TestImpactTestRunJobData.cpp">
+      <Filter>Source\TestEngine\Run</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\Run\TestImpactTestCoverage.cpp">
+      <Filter>Source\TestEngine\Run</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\JobRunner\TestImpactTestJobInfoGenerator.cpp">
+      <Filter>Source\TestEngine\JobRunner</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\TestImpactTestEngineJobFailure.cpp">
+      <Filter>Source\TestEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\TestImpactTestEngine.cpp">
+      <Filter>Source\TestEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\TestImpactTestEngineJob.cpp">
+      <Filter>Source\TestEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\TestImpactTestEngineEnumeration.cpp">
+      <Filter>Source\TestEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\TestImpactTestEngineRegularRun.cpp">
+      <Filter>Source\TestEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\TestImpactTestEngineInstrumentedRun.cpp">
+      <Filter>Source\TestEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestImpactException.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestImpactRuntime.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestImpactRuntimeUtils.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestImpactClientTestSelection.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestImpactClientTestRun.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestImpactClientSequenceReport.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestImpactChangeListSerializer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestImpactClientSequenceReportSerializer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestImpactRepoPath.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestImpactUtils.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Platform\Windows\Process\TestImpactWin32_ProcessLauncher.cpp">
+      <Filter>Source\Platform\Windows\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Platform\Windows\Process\TestImpactWin32_Process.cpp">
+      <Filter>Source\Platform\Windows\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Platform\Windows\Process\TestImpactWin32_Pipe.cpp">
+      <Filter>Source\Platform\Windows\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Platform\Windows\TestEngine\JobRunner\TestImpactWin32_TestTargetExtension.cpp">
+      <Filter>Source\Platform\Windows\TestEngine\JobRunner</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Platform\Windows\TestEngine\TestImpactWin32_TestEngineJobFailure.cpp">
+      <Filter>Source\Platform\Windows\TestEngine</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Include\TestImpactFramework\TestImpactException.h">
+      <Filter>Include\TestImpactFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Include\TestImpactFramework\TestImpactRepoPath.h">
+      <Filter>Include\TestImpactFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Include\TestImpactFramework\TestImpactRuntime.h">
+      <Filter>Include\TestImpactFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Include\TestImpactFramework\TestImpactRuntimeException.h">
+      <Filter>Include\TestImpactFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Include\TestImpactFramework\TestImpactConfiguration.h">
+      <Filter>Include\TestImpactFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Include\TestImpactFramework\TestImpactConfigurationException.h">
+      <Filter>Include\TestImpactFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Include\TestImpactFramework\TestImpactChangeList.h">
+      <Filter>Include\TestImpactFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Include\TestImpactFramework\TestImpactChangeListSerializer.h">
+      <Filter>Include\TestImpactFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Include\TestImpactFramework\TestImpactChangeListException.h">
+      <Filter>Include\TestImpactFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Include\TestImpactFramework\TestImpactPolicy.h">
+      <Filter>Include\TestImpactFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Include\TestImpactFramework\TestImpactTestSequence.h">
+      <Filter>Include\TestImpactFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Include\TestImpactFramework\TestImpactClientTestSelection.h">
+      <Filter>Include\TestImpactFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Include\TestImpactFramework\TestImpactClientTestRun.h">
+      <Filter>Include\TestImpactFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Include\TestImpactFramework\TestImpactClientSequenceReport.h">
+      <Filter>Include\TestImpactFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Include\TestImpactFramework\TestImpactUtils.h">
+      <Filter>Include\TestImpactFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Include\TestImpactFramework\TestImpactClientSequenceReportSerializer.h">
+      <Filter>Include\TestImpactFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Include\TestImpactFramework\TestImpactSequenceReportException.h">
+      <Filter>Include\TestImpactFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\TestImpactArtifactException.h">
+      <Filter>Source\Artifact</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Factory\TestImpactBuildTargetDescriptorFactory.h">
+      <Filter>Source\Artifact\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Factory\TestImpactTestEnumerationSuiteFactory.h">
+      <Filter>Source\Artifact\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Factory\TestImpactTestRunSuiteFactory.h">
+      <Filter>Source\Artifact\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Factory\TestImpactTestTargetMetaMapFactory.h">
+      <Filter>Source\Artifact\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Factory\TestImpactModuleCoverageFactory.h">
+      <Filter>Source\Artifact\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Static\TestImpactBuildTargetDescriptor.h">
+      <Filter>Source\Artifact\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Static\TestImpactTargetDescriptorCompiler.h">
+      <Filter>Source\Artifact\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Static\TestImpactProductionTargetDescriptor.h">
+      <Filter>Source\Artifact\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Static\TestImpactTestTargetMeta.h">
+      <Filter>Source\Artifact\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Static\TestImpactTestTargetDescriptor.h">
+      <Filter>Source\Artifact\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Static\TestImpactDependencyGraphData.h">
+      <Filter>Source\Artifact\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Dynamic\TestImpactTestEnumerationSuite.h">
+      <Filter>Source\Artifact\Dynamic</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Dynamic\TestImpactTestRunSuite.h">
+      <Filter>Source\Artifact\Dynamic</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Dynamic\TestImpactTestSuite.h">
+      <Filter>Source\Artifact\Dynamic</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Artifact\Dynamic\TestImpactCoverage.h">
+      <Filter>Source\Artifact\Dynamic</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Process\TestImpactProcess.h">
+      <Filter>Source\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Process\TestImpactProcessException.h">
+      <Filter>Source\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Process\TestImpactProcessInfo.h">
+      <Filter>Source\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Process\TestImpactProcessLauncher.h">
+      <Filter>Source\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Process\JobRunner\TestImpactProcessJob.h">
+      <Filter>Source\Process\JobRunner</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Process\JobRunner\TestImpactProcessJobInfo.h">
+      <Filter>Source\Process\JobRunner</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Process\JobRunner\TestImpactProcessJobMeta.h">
+      <Filter>Source\Process\JobRunner</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Process\JobRunner\TestImpactProcessJobRunner.h">
+      <Filter>Source\Process\JobRunner</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Process\Scheduler\TestImpactProcessScheduler.h">
+      <Filter>Source\Process\Scheduler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Dependency\TestImpactDynamicDependencyMap.h">
+      <Filter>Source\Dependency</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Dependency\TestImpactChangeDependencyList.h">
+      <Filter>Source\Dependency</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Dependency\TestImpactDependencyException.h">
+      <Filter>Source\Dependency</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Dependency\TestImpactSourceDependency.h">
+      <Filter>Source\Dependency</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Dependency\TestImpactTestSelectorAndPrioritizer.h">
+      <Filter>Source\Dependency</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Dependency\TestImpactSourceCoveringTestsList.h">
+      <Filter>Source\Dependency</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Dependency\TestImpactSourceCoveringTestsSerializer.h">
+      <Filter>Source\Dependency</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Target\TestImpactBuildTarget.h">
+      <Filter>Source\Target</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Target\TestImpactBuildTargetList.h">
+      <Filter>Source\Target</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Target\TestImpactProductionTarget.h">
+      <Filter>Source\Target</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Target\TestImpactProductionTargetList.h">
+      <Filter>Source\Target</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Target\TestImpactTargetException.h">
+      <Filter>Source\Target</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Target\TestImpactTestTarget.h">
+      <Filter>Source\Target</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Target\TestImpactTestTargetList.h">
+      <Filter>Source\Target</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\Enumeration\TestImpactTestEnumeration.h">
+      <Filter>Source\TestEngine\Enumeration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\Enumeration\TestImpactTestEnumerationSerializer.h">
+      <Filter>Source\TestEngine\Enumeration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\Enumeration\TestImpactTestEnumerator.h">
+      <Filter>Source\TestEngine\Enumeration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\Run\TestImpactTestRunSerializer.h">
+      <Filter>Source\TestEngine\Run</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\Run\TestImpactTestRunner.h">
+      <Filter>Source\TestEngine\Run</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\Run\TestImpactInstrumentedTestRunner.h">
+      <Filter>Source\TestEngine\Run</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\Run\TestImpactTestRun.h">
+      <Filter>Source\TestEngine\Run</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\Run\TestImpactTestRunJobData.h">
+      <Filter>Source\TestEngine\Run</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\Run\TestImpactTestCoverage.h">
+      <Filter>Source\TestEngine\Run</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\JobRunner\TestImpactTestJobRunner.h">
+      <Filter>Source\TestEngine\JobRunner</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\JobRunner\TestImpactTestJobInfoGenerator.h">
+      <Filter>Source\TestEngine\JobRunner</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\JobRunner\TestImpactTestTargetExtension.h">
+      <Filter>Source\TestEngine\JobRunner</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\TestImpactTestEngineJobFailure.h">
+      <Filter>Source\TestEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\TestImpactTestSuiteContainer.h">
+      <Filter>Source\TestEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\TestImpactTestEngine.h">
+      <Filter>Source\TestEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\TestImpactTestEngineJob.h">
+      <Filter>Source\TestEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\TestImpactTestEngineEnumeration.h">
+      <Filter>Source\TestEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\TestImpactTestEngineRegularRun.h">
+      <Filter>Source\TestEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\TestImpactTestEngineInstrumentedRun.h">
+      <Filter>Source\TestEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestEngine\TestImpactTestEngineException.h">
+      <Filter>Source\TestEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\TestImpactRuntimeUtils.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Platform\Windows\Process\TestImpactWin32_Process.h">
+      <Filter>Source\Platform\Windows\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Platform\Windows\Process\TestImpactWin32_Handle.h">
+      <Filter>Source\Platform\Windows\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Platform\Windows\Process\TestImpactWin32_Pipe.h">
+      <Filter>Source\Platform\Windows\Process</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\testimpactframework_runtime_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Platform\Windows\platform_windows_files.cmake">
+      <Filter>Source\Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\TestImpactFramework\Runtime\Code\Source\Platform\Common\MSVC\testimpactframework_msvc.cmake">
+      <Filter>Source\Platform\Common\MSVC</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\TestImpactFramework">
+      <UniqueIdentifier>{D0E52742-47F8-3EC3-B077-D607C1F3F6B5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Artifact">
+      <UniqueIdentifier>{8D3852EC-4CF2-32F0-A483-D2274D284451}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Artifact\Dynamic">
+      <UniqueIdentifier>{7C555615-C389-3DBF-BCF8-EA2E3B0F8390}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Artifact\Factory">
+      <UniqueIdentifier>{D848DE50-0591-3EEB-9D0D-969C7EE7FBDC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Artifact\Static">
+      <UniqueIdentifier>{BC63445E-6137-3E40-AEEF-8CACC698174A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Dependency">
+      <UniqueIdentifier>{148C9191-8053-3653-8569-EDB89BFA1D94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform">
+      <UniqueIdentifier>{619E1779-1529-36CF-BFB6-452991664BCE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Common">
+      <UniqueIdentifier>{499F7547-46FE-36EC-8585-141BF1798B33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Common\MSVC">
+      <UniqueIdentifier>{0CCD0424-3DB8-39C0-9A97-C3EA365F86B3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows">
+      <UniqueIdentifier>{6E009862-2333-3599-9B65-E8F840C182D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows\Process">
+      <UniqueIdentifier>{DE08F581-BDF4-3FE4-92FD-2D41077C06D6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows\TestEngine">
+      <UniqueIdentifier>{C009D523-DA9B-3570-9CDF-6825D0A706CB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows\TestEngine\JobRunner">
+      <UniqueIdentifier>{8ADBCCA7-5AAE-32EA-90D5-5156C7C38888}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Process">
+      <UniqueIdentifier>{825A649C-9243-3DE7-8EB9-508D37BCFC3E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Process\JobRunner">
+      <UniqueIdentifier>{326DEDEF-03C4-3B1A-9B9A-27BDDE1B5B1C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Process\Scheduler">
+      <UniqueIdentifier>{A266BCAB-0252-354C-A3EC-EE40A8807C2D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Target">
+      <UniqueIdentifier>{4DCB6A26-1421-3F51-B55D-19DC1CE1CF95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\TestEngine">
+      <UniqueIdentifier>{66D45841-EDA7-3605-9EE1-7400A48524F0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\TestEngine\Enumeration">
+      <UniqueIdentifier>{FA547A81-F70C-3E3F-BD1B-281FE8141714}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\TestEngine\JobRunner">
+      <UniqueIdentifier>{0516A6F1-458F-3E4F-8A53-6067D5C05503}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\TestEngine\Run">
+      <UniqueIdentifier>{4C5377D9-D3CB-3E3F-9BEA-373AA0A670C0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

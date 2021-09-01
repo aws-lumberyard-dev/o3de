@@ -1,0 +1,373 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|x64">
+      <Configuration>debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="profile|x64">
+      <Configuration>profile</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|x64">
+      <Configuration>release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{918177AC-C3E8-323C-8378-A4C1C11E3028}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>PhysX</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\bin\debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">PhysX.dir\debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='debug|x64'">PhysX.Gem</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='debug|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\bin\profile\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">PhysX.dir\profile\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='profile|x64'">PhysX.Gem</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='profile|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='profile|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\bin\release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">PhysX.dir\release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='release|x64'">PhysX.Gem</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='release|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='release|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\PhysX\Code\.;J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /RTCsu /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/PhysX-4.1.2.29882248-rev3-windows/PhysX/pxshared//include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/PhysX-4.1.2.29882248-rev3-windows/PhysX/pxshared//include/foundation /external:IC:/Users/luissemp/.o3de/3rdParty/packages/PhysX-4.1.2.29882248-rev3-windows/PhysX/pxshared//include/geometry /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>PHYSX_ENABLE_MULTI_THREADING;_HAS_EXCEPTIONS=0;_DEBUG;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="debug";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;AZ_PHYSICS_DEBUG_ENABLED;OPENSSL_ENABLED;CMAKE_INTDIR="debug";PhysX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;PHYSX_ENABLE_MULTI_THREADING;_HAS_EXCEPTIONS=0;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"debug\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;AZ_PHYSICS_DEBUG_ENABLED;OPENSSL_ENABLED;CMAKE_INTDIR=\"debug\";PhysX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\PhysX\Code\.;J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\PhysX\Code\.;J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/debug/PhysX.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\..\..\lib\debug\PhysX.Static.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\debug\lib\PhysXCharacterKinematic_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\debug\lib\PhysXVehicle_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\debug\lib\PhysXExtensions_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\debug\lib\PhysXPvdSDK_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\debug\lib\PhysX_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\debug\lib\PhysXCooking_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\debug\lib\PhysXFoundation_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\debug\lib\PhysXCommon_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\debug\lib\LowLevel_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\debug\lib\LowLevelAABB_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\debug\lib\LowLevelDynamics_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\debug\lib\PhysXTask_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\debug\lib\SceneQuery_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\debug\lib\SimulationController_static_64.lib;..\..\..\lib\debug\CryCommon.lib;..\..\..\lib\debug\AzFramework.lib;..\..\..\lib\debug\GridMate.lib;..\..\..\lib\debug\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\debug\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\zlib\lib\zlibstaticd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\debug\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\debug\cityhash.lib;ws2_32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\debug\lib\libssl.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\debug\lib\libcrypto.lib;crypt32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\md5-2.0-multiplatform\md5\build\win_x64\vc140\debug\md5.lib;C:\Users\luissemp\.o3de\3rdParty\packages\lz4-r128-multiplatform\lz4\build\win_x64\vc140\debug\lz4.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>J:/Atom/lyfork/o3de/lib/debug/PhysX.Gem.lib</ImportLibrary>
+      <ProgramDataBaseFile>J:/Atom/lyfork/o3de/bin/debug/PhysX.Gem.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\PhysX\Code\.;J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/PhysX-4.1.2.29882248-rev3-windows/PhysX/pxshared//include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/PhysX-4.1.2.29882248-rev3-windows/PhysX/pxshared//include/foundation /external:IC:/Users/luissemp/.o3de/3rdParty/packages/PhysX-4.1.2.29882248-rev3-windows/PhysX/pxshared//include/geometry /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StringPooling>true</StringPooling>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>PHYSX_ENABLE_MULTI_THREADING;_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="profile";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;AZ_PHYSICS_DEBUG_ENABLED;OPENSSL_ENABLED;CMAKE_INTDIR="profile";PhysX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>PHYSX_ENABLE_MULTI_THREADING;_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"profile\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;AZ_PHYSICS_DEBUG_ENABLED;OPENSSL_ENABLED;CMAKE_INTDIR=\"profile\";PhysX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\PhysX\Code\.;J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\PhysX\Code\.;J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/profile/PhysX.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\..\..\lib\profile\PhysX.Static.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\profile\lib\PhysXCharacterKinematic_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\profile\lib\PhysXVehicle_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\profile\lib\PhysXExtensions_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\profile\lib\PhysXPvdSDK_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\profile\lib\PhysX_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\profile\lib\PhysXCooking_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\profile\lib\PhysXFoundation_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\profile\lib\PhysXCommon_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\profile\lib\LowLevel_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\profile\lib\LowLevelAABB_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\profile\lib\LowLevelDynamics_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\profile\lib\PhysXTask_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\profile\lib\SceneQuery_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\profile\lib\SimulationController_static_64.lib;..\..\..\lib\profile\CryCommon.lib;..\..\..\lib\profile\AzFramework.lib;..\..\..\lib\profile\GridMate.lib;..\..\..\lib\profile\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\release\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\zlib\lib\zlibstatic.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\release\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\release\cityhash.lib;ws2_32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libssl.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libcrypto.lib;crypt32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\md5-2.0-multiplatform\md5\build\win_x64\vc140\release\md5.lib;C:\Users\luissemp\.o3de\3rdParty\packages\lz4-r128-multiplatform\lz4\build\win_x64\vc140\release\lz4.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>J:/Atom/lyfork/o3de/lib/profile/PhysX.Gem.lib</ImportLibrary>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ProgramDataBaseFile>J:/Atom/lyfork/o3de/bin/profile/PhysX.Gem.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\PhysX\Code\.;J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/PhysX-4.1.2.29882248-rev3-windows/PhysX/pxshared//include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/PhysX-4.1.2.29882248-rev3-windows/PhysX/pxshared//include/foundation /external:IC:/Users/luissemp/.o3de/3rdParty/packages/PhysX-4.1.2.29882248-rev3-windows/PhysX/pxshared//include/geometry /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OmitFramePointers>true</OmitFramePointers>
+      <Optimization>Full</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>PHYSX_ENABLE_MULTI_THREADING;_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE="release";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR="release";PhysX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>PHYSX_ENABLE_MULTI_THREADING;_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE=\"release\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR=\"release\";PhysX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\PhysX\Code\.;J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\PhysX\Code\.;J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/release/PhysX.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\..\..\lib\release\PhysX.Static.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\lib\PhysXCharacterKinematic_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\lib\PhysXVehicle_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\lib\PhysXExtensions_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\lib\PhysXPvdSDK_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\lib\PhysX_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\lib\PhysXCooking_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\lib\PhysXFoundation_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\lib\PhysXCommon_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\lib\LowLevel_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\lib\LowLevelAABB_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\lib\LowLevelDynamics_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\lib\PhysXTask_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\lib\SceneQuery_static_64.lib;C:\Users\luissemp\.o3de\3rdParty\packages\PhysX-4.1.2.29882248-rev3-windows\PhysX\pxshared\\lib\SimulationController_static_64.lib;..\..\..\lib\release\CryCommon.lib;..\..\..\lib\release\AzFramework.lib;..\..\..\lib\release\GridMate.lib;..\..\..\lib\release\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\release\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\zlib\lib\zlibstatic.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\release\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\release\cityhash.lib;ws2_32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libssl.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libcrypto.lib;crypt32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\md5-2.0-multiplatform\md5\build\win_x64\vc140\release\md5.lib;C:\Users\luissemp\.o3de\3rdParty\packages\lz4-r128-multiplatform\lz4\build\win_x64\vc140\release\lz4.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>J:/Atom/lyfork/o3de/lib/release/PhysX.Gem.lib</ImportLibrary>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ProgramDataBaseFile>J:/Atom/lyfork/o3de/bin/release/PhysX.Gem.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/PhysX/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/PhysX-7bbdaca3/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">C:\Users\luissemp\.o3de\3rdParty\packages\poly2tri-7f0487a-rev1-windows\Findpoly2tri.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\poly2tri-7f0487a-rev1-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\v-hacd-2.3-1a49edf-rev1-windows\Findv-hacd.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\v-hacd-2.3-1a49edf-rev1-windows\PackageInfo.json;J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Platform\Windows\PAL_windows.cmake;J:\Atom\lyfork\o3de\Gems\PhysX\Code\physx_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\PhysX\Code\physx_editor_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\PhysX\Code\physx_editor_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\PhysX\Code\physx_files.cmake;J:\Atom\lyfork\o3de\Gems\PhysX\Code\physx_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\PhysX\Code\physx_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\PhysX-7bbdaca3\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/PhysX/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/PhysX-7bbdaca3/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">C:\Users\luissemp\.o3de\3rdParty\packages\poly2tri-7f0487a-rev1-windows\Findpoly2tri.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\poly2tri-7f0487a-rev1-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\v-hacd-2.3-1a49edf-rev1-windows\Findv-hacd.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\v-hacd-2.3-1a49edf-rev1-windows\PackageInfo.json;J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Platform\Windows\PAL_windows.cmake;J:\Atom\lyfork\o3de\Gems\PhysX\Code\physx_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\PhysX\Code\physx_editor_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\PhysX\Code\physx_editor_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\PhysX\Code\physx_files.cmake;J:\Atom\lyfork\o3de\Gems\PhysX\Code\physx_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\PhysX\Code\physx_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\PhysX-7bbdaca3\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/PhysX/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/PhysX-7bbdaca3/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">C:\Users\luissemp\.o3de\3rdParty\packages\poly2tri-7f0487a-rev1-windows\Findpoly2tri.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\poly2tri-7f0487a-rev1-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\v-hacd-2.3-1a49edf-rev1-windows\Findv-hacd.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\v-hacd-2.3-1a49edf-rev1-windows\PackageInfo.json;J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Platform\Windows\PAL_windows.cmake;J:\Atom\lyfork\o3de\Gems\PhysX\Code\physx_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\PhysX\Code\physx_editor_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\PhysX\Code\physx_editor_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\PhysX\Code\physx_files.cmake;J:\Atom\lyfork\o3de\Gems\PhysX\Code\physx_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\PhysX\Code\physx_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\PhysX-7bbdaca3\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Module.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\ComponentDescriptors.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\ComponentDescriptors.h" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\physx_shared_files.cmake">
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\ZERO_CHECK.vcxproj">
+      <Project>{9D084072-A56A-3A6D-8C63-F5385A20608A}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore.vcxproj">
+      <Project>{78F97634-33F1-3E9D-BB2E-D24CB7BD9D1E}</Project>
+      <Name>AzCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework.vcxproj">
+      <Project>{32B5BA28-0012-3762-8899-2D392DE6A10B}</Project>
+      <Name>AzFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryCommon.vcxproj">
+      <Project>{5131F2AB-DC9C-3FE9-A0DF-A1E42FAD10E6}</Project>
+      <Name>CryCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate.vcxproj">
+      <Project>{1A59660B-1BCB-3611-B3D0-673DEB6F8A46}</Project>
+      <Name>GridMate</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\LmbrCentral-bb1c133d\Code\LmbrCentral.vcxproj">
+      <Project>{283D9450-8406-3150-AD1F-65A98729BF2B}</Project>
+      <Name>LmbrCentral</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\PhysX-7bbdaca3\Code\PhysX.Static.vcxproj">
+      <Project>{BEB2EE86-6603-3647-A539-C8E6C35E71B7}</Project>
+      <Name>PhysX.Static</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

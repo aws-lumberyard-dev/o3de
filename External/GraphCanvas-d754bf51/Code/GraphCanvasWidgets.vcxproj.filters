@@ -1,0 +1,893 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasMimeContainer.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasMimeEvent.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasTreeCategorizer.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasTreeItem.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasTreeModel.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\GraphicsItems\AnimatedPulse.cpp">
+      <Filter>StaticLib\GraphCanvas\GraphicsItems</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\GraphicsItems\GlowOutlineGraphicsItem.cpp">
+      <Filter>StaticLib\GraphCanvas\GraphicsItems</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\GraphicsItems\Occluder.cpp">
+      <Filter>StaticLib\GraphCanvas\GraphicsItems</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\GraphicsItems\ParticleGraphicsItem.cpp">
+      <Filter>StaticLib\GraphCanvas\GraphicsItems</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\ColorPaletteManager\ColorPaletteManagerComponent.cpp">
+      <Filter>StaticLib\GraphCanvas\Components\ColorPaletteManager</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\NodePropertyDisplay.cpp">
+      <Filter>StaticLib\GraphCanvas\Components\NodePropertyDisplay</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\definitions.cpp">
+      <Filter>StaticLib\GraphCanvas\Styling</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\PseudoElement.cpp">
+      <Filter>StaticLib\GraphCanvas\Styling</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\Selector.cpp">
+      <Filter>StaticLib\GraphCanvas\Styling</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\SelectorImplementations.cpp">
+      <Filter>StaticLib\GraphCanvas\Styling</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\Parser.cpp">
+      <Filter>StaticLib\GraphCanvas\Styling</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\Style.cpp">
+      <Filter>StaticLib\GraphCanvas\Styling</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\StyleManager.cpp">
+      <Filter>StaticLib\GraphCanvas\Styling</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\ConstructPresets.cpp">
+      <Filter>StaticLib\GraphCanvas\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\GraphCanvasGraphData.cpp">
+      <Filter>StaticLib\GraphCanvas\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\GraphCanvasGraphSerialization.cpp">
+      <Filter>StaticLib\GraphCanvas\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\AssetEditorToolbar\AssetEditorToolbar.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\AssetEditorToolbar</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Bookmarks\BookmarkDockWidget.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\Bookmarks</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Bookmarks\BookmarkTableModel.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\Bookmarks</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\ConstructPresetDialog\ConstructPresetDialog.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\ConstructPresetDialog</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\EditorContextMenu.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\BookmarkContextMenu.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\CollapsedNodeGroupContextMenu.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\CommentContextMenu.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\ConnectionContextMenu.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\NodeContextMenu.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\NodeGroupContextMenu.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\SceneContextMenu.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\SlotContextMenu.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ContextMenuAction.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\AlignmentMenuActions\AlignmentActionsMenuGroup.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\AlignmentMenuActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\AlignmentMenuActions\AlignmentContextMenuActions.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\AlignmentMenuActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions\BookmarkConstructMenuActions.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions\CommentConstructMenuActions.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions\ConstructPresetMenuActions.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions\GraphCanvasConstructActionsMenuGroup.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\DisableMenuActions\DisableActionsMenuGroup.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\DisableMenuActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\DisableMenuActions\DisableMenuActions.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\DisableMenuActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\CommentMenuActions\CommentActionsMenuGroup.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\CommentMenuActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\CommentMenuActions\CommentContextMenuActions.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\CommentMenuActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\EditMenuActions\EditActionsMenuGroup.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\EditMenuActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\EditMenuActions\EditContextMenuActions.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\EditMenuActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\GeneralMenuActions\GeneralMenuActions.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\GeneralMenuActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeGroupMenuActions\NodeGroupActionsMenuGroup.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeGroupMenuActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeGroupMenuActions\NodeGroupContextMenuActions.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeGroupMenuActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeMenuActions\NodeContextMenuActions.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeMenuActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SceneMenuActions\SceneActionsMenuGroup.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SceneMenuActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SceneMenuActions\SceneContextMenuActions.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SceneMenuActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SlotMenuActions\SlotContextMenuActions.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SlotMenuActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\GraphCanvasAssetEditorMainWindow.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\GraphCanvasEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\GraphCanvasEditorCentralWidget.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\GraphCanvasEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\GraphCanvasEditorDockWidget.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\GraphCanvasEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasGraphicsView\GraphCanvasGraphicsView.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\GraphCanvasGraphicsView</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\MimeEvents\CreateSplicingNodeMimeEvent.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\MimeEvents</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\MiniMapGraphicsView\MiniMapGraphicsView.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\MiniMapGraphicsView</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\NodePaletteDockWidget.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\NodePalette</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\NodePaletteTreeView.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\NodePalette</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\NodePaletteWidget.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\NodePalette</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\Model\NodePaletteSortFilterProxyModel.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\NodePalette\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\TreeItems\DraggableNodePaletteTreeItem.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\NodePalette\TreeItems</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\TreeItems\IconDecoratedNodePaletteTreeItem.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\NodePalette\TreeItems</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\TreeItems\NodePaletteTreeItem.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\NodePalette\TreeItems</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\StyledItemDelegates\GenericComboBoxDelegate.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\StyledItemDelegates</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\StyledItemDelegates\IconDecoratedNameDelegate.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\StyledItemDelegates</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\ToastNotification\ToastNotification.cpp">
+      <Filter>StaticLib\GraphCanvas\Widgets\ToastNotification</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\GraphUtils.cpp">
+      <Filter>StaticLib\GraphCanvas\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\NodeNudgingController.cpp">
+      <Filter>StaticLib\GraphCanvas\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\QtDrawingUtils.cpp">
+      <Filter>StaticLib\GraphCanvas\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\3XD3IIXUY6\qrc_GraphCanvasEditorResources.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\Resources.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasMimeContainer.h">
+      <Filter>StaticLib\GraphCanvas\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasMimeEvent.h">
+      <Filter>StaticLib\GraphCanvas\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasTreeCategorizer.h">
+      <Filter>StaticLib\GraphCanvas\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasTreeItem.h">
+      <Filter>StaticLib\GraphCanvas\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasTreeModel.h">
+      <Filter>StaticLib\GraphCanvas\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePropertyBus.h">
+      <Filter>StaticLib\GraphCanvas\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\GraphCanvasBus.h">
+      <Filter>StaticLib\GraphCanvas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\EntitySaveDataBus.h">
+      <Filter>StaticLib\GraphCanvas\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\GeometryBus.h">
+      <Filter>StaticLib\GraphCanvas\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\GraphCanvasPropertyBus.h">
+      <Filter>StaticLib\GraphCanvas\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\GridBus.h">
+      <Filter>StaticLib\GraphCanvas\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\LayerBus.h">
+      <Filter>StaticLib\GraphCanvas\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\MimeDataHandlerBus.h">
+      <Filter>StaticLib\GraphCanvas\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\PersistentIdBus.h">
+      <Filter>StaticLib\GraphCanvas\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\SceneBus.h">
+      <Filter>StaticLib\GraphCanvas\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\StyleBus.h">
+      <Filter>StaticLib\GraphCanvas\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\ToastBus.h">
+      <Filter>StaticLib\GraphCanvas\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\ViewBus.h">
+      <Filter>StaticLib\GraphCanvas\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\VisualBus.h">
+      <Filter>StaticLib\GraphCanvas\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\GraphicsItems\AnimatedPulse.h">
+      <Filter>StaticLib\GraphCanvas\GraphicsItems</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\GraphicsItems\GlowOutlineGraphicsItem.h">
+      <Filter>StaticLib\GraphCanvas\GraphicsItems</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\GraphicsItems\GraphicsEffect.h">
+      <Filter>StaticLib\GraphCanvas\GraphicsItems</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\GraphicsItems\Occluder.h">
+      <Filter>StaticLib\GraphCanvas\GraphicsItems</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\GraphicsItems\ParticleGraphicsItem.h">
+      <Filter>StaticLib\GraphCanvas\GraphicsItems</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\GraphicsItems\PulseBus.h">
+      <Filter>StaticLib\GraphCanvas\GraphicsItems</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Bookmarks\BookmarkBus.h">
+      <Filter>StaticLib\GraphCanvas\Components\Bookmarks</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\ColorPaletteManager\ColorPaletteManagerComponent.h">
+      <Filter>StaticLib\GraphCanvas\Components\ColorPaletteManager</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Connections\ConnectionBus.h">
+      <Filter>StaticLib\GraphCanvas\Components\Connections</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\AssetIdDataInterface.h">
+      <Filter>StaticLib\GraphCanvas\Components\NodePropertyDisplay</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\BooleanDataInterface.h">
+      <Filter>StaticLib\GraphCanvas\Components\NodePropertyDisplay</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\ComboBoxDataInterface.h">
+      <Filter>StaticLib\GraphCanvas\Components\NodePropertyDisplay</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\DataInterface.h">
+      <Filter>StaticLib\GraphCanvas\Components\NodePropertyDisplay</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\DoubleDataInterface.h">
+      <Filter>StaticLib\GraphCanvas\Components\NodePropertyDisplay</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\EntityIdDataInterface.h">
+      <Filter>StaticLib\GraphCanvas\Components\NodePropertyDisplay</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\NodePropertyDisplay.h">
+      <Filter>StaticLib\GraphCanvas\Components\NodePropertyDisplay</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\NumericDataInterface.h">
+      <Filter>StaticLib\GraphCanvas\Components\NodePropertyDisplay</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\ReadOnlyDataInterface.h">
+      <Filter>StaticLib\GraphCanvas\Components\NodePropertyDisplay</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\StringDataInterface.h">
+      <Filter>StaticLib\GraphCanvas\Components\NodePropertyDisplay</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\VectorDataInterface.h">
+      <Filter>StaticLib\GraphCanvas\Components\NodePropertyDisplay</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Nodes\NodeBus.h">
+      <Filter>StaticLib\GraphCanvas\Components\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Nodes\NodeUIBus.h">
+      <Filter>StaticLib\GraphCanvas\Components\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Nodes\NodeConfiguration.h">
+      <Filter>StaticLib\GraphCanvas\Components\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Nodes\NodeLayoutBus.h">
+      <Filter>StaticLib\GraphCanvas\Components\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Nodes\NodeTitleBus.h">
+      <Filter>StaticLib\GraphCanvas\Components\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Nodes\Comment\CommentBus.h">
+      <Filter>StaticLib\GraphCanvas\Components\Nodes\Comment</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Nodes\Group\NodeGroupBus.h">
+      <Filter>StaticLib\GraphCanvas\Components\Nodes\Group</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Nodes\Wrapper\WrapperNodeBus.h">
+      <Filter>StaticLib\GraphCanvas\Components\Nodes\Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Slots\SlotBus.h">
+      <Filter>StaticLib\GraphCanvas\Components\Slots</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Slots\Data\DataSlotBus.h">
+      <Filter>StaticLib\GraphCanvas\Components\Slots\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Slots\Property\PropertySlotBus.h">
+      <Filter>StaticLib\GraphCanvas\Components\Slots\Property</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Editor\AssetEditorBus.h">
+      <Filter>StaticLib\GraphCanvas\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Editor\Automation\AutomationIds.h">
+      <Filter>StaticLib\GraphCanvas\Editor\Automation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Editor\Automation\AutomationUtils.h">
+      <Filter>StaticLib\GraphCanvas\Editor\Automation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Editor\EditorDockWidgetBus.h">
+      <Filter>StaticLib\GraphCanvas\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Editor\EditorTypes.h">
+      <Filter>StaticLib\GraphCanvas\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Editor\GraphCanvasProfiler.h">
+      <Filter>StaticLib\GraphCanvas\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Editor\GraphModelBus.h">
+      <Filter>StaticLib\GraphCanvas\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\definitions.h">
+      <Filter>StaticLib\GraphCanvas\Styling</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\PseudoElement.h">
+      <Filter>StaticLib\GraphCanvas\Styling</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\SelectorImplementations.h">
+      <Filter>StaticLib\GraphCanvas\Styling</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\Parser.h">
+      <Filter>StaticLib\GraphCanvas\Styling</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\Selector.h">
+      <Filter>StaticLib\GraphCanvas\Styling</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\Style.h">
+      <Filter>StaticLib\GraphCanvas\Styling</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\StyleHelper.h">
+      <Filter>StaticLib\GraphCanvas\Styling</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\StyleManager.h">
+      <Filter>StaticLib\GraphCanvas\Styling</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\ComponentSaveDataInterface.h">
+      <Filter>StaticLib\GraphCanvas\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\ConstructPresets.h">
+      <Filter>StaticLib\GraphCanvas\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\EntitySaveData.h">
+      <Filter>StaticLib\GraphCanvas\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\Endpoint.h">
+      <Filter>StaticLib\GraphCanvas\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\GraphCanvasGraphData.h">
+      <Filter>StaticLib\GraphCanvas\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\GraphCanvasGraphSerialization.h">
+      <Filter>StaticLib\GraphCanvas\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\SceneMemberComponentSaveData.h">
+      <Filter>StaticLib\GraphCanvas\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\TranslationTypes.h">
+      <Filter>StaticLib\GraphCanvas\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\Types.h">
+      <Filter>StaticLib\GraphCanvas\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\QtMetaTypes.h">
+      <Filter>StaticLib\GraphCanvas\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\AssetEditorToolbar\AssetEditorToolbar.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\AssetEditorToolbar</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Bookmarks\BookmarkDockWidget.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\Bookmarks</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Bookmarks\BookmarkTableModel.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\Bookmarks</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\ComboBox\ComboBoxItemModels.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\ComboBox</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\ComboBox\ComboBoxItemModelInterface.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\ComboBox</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\ConstructPresetDialog\ConstructPresetDialog.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\ConstructPresetDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\EditorContextMenu.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\BookmarkContextMenu.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\CollapsedNodeGroupContextMenu.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\CommentContextMenu.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\ConnectionContextMenu.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\NodeContextMenu.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\NodeGroupContextMenu.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\SceneContextMenu.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\SlotContextMenu.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ContextMenuAction.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\AlignmentMenuActions\AlignmentActionsMenuGroup.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\AlignmentMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\AlignmentMenuActions\AlignmentContextMenuAction.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\AlignmentMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\AlignmentMenuActions\AlignmentContextMenuActions.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\AlignmentMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions\BookmarkConstructMenuActions.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions\CommentConstructMenuActions.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions\ConstructContextMenuAction.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions\ConstructPresetMenuActions.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions\GraphCanvasConstructActionsMenuGroup.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\DisableMenuActions\DisableActionsMenuGroup.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\DisableMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\DisableMenuActions\DisableMenuActions.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\DisableMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\DisableMenuActions\DisableMenuAction.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\DisableMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\CommentMenuActions\CommentActionsMenuGroup.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\CommentMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\CommentMenuActions\CommentContextMenuAction.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\CommentMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\CommentMenuActions\CommentContextMenuActions.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\CommentMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\EditMenuActions\EditActionsMenuGroup.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\EditMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\EditMenuActions\EditContextMenuAction.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\EditMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\EditMenuActions\EditContextMenuActions.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\EditMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\GeneralMenuActions\GeneralMenuActions.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\GeneralMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeGroupMenuActions\NodeGroupActionsMenuGroup.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeGroupMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeGroupMenuActions\NodeGroupContextMenuAction.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeGroupMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeGroupMenuActions\NodeGroupContextMenuActions.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeGroupMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeMenuActions\NodeContextMenuAction.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeMenuActions\NodeContextMenuActions.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SceneMenuActions\SceneActionsMenuGroup.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SceneMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SceneMenuActions\SceneContextMenuAction.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SceneMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SceneMenuActions\SceneContextMenuActions.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SceneMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SlotMenuActions\SlotContextMenuAction.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SlotMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SlotMenuActions\SlotContextMenuActions.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SlotMenuActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\GraphCanvasAssetEditorMainWindow.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\GraphCanvasEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\GraphCanvasEditorCentralWidget.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\GraphCanvasEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\GraphCanvasEditorDockWidget.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\GraphCanvasEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasGraphicsView\GraphCanvasGraphicsView.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\GraphCanvasGraphicsView</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\MimeEvents\CreateSplicingNodeMimeEvent.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\MimeEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\MiniMapGraphicsView\MiniMapGraphicsView.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\MiniMapGraphicsView</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\NodePaletteDockWidget.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\NodePalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\NodePaletteTreeView.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\NodePalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\NodePaletteWidget.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\NodePalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\Model\NodePaletteSortFilterProxyModel.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\NodePalette\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\TreeItems\DraggableNodePaletteTreeItem.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\NodePalette\TreeItems</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\TreeItems\IconDecoratedNodePaletteTreeItem.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\NodePalette\TreeItems</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\TreeItems\NodePaletteTreeItem.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\NodePalette\TreeItems</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\StyledItemDelegates\GenericComboBoxDelegate.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\StyledItemDelegates</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\StyledItemDelegates\IconDecoratedNameDelegate.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\StyledItemDelegates</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\ToastNotification\ToastNotification.h">
+      <Filter>StaticLib\GraphCanvas\Widgets\ToastNotification</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\ColorUtils.h">
+      <Filter>StaticLib\GraphCanvas\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\ConversionUtils.h">
+      <Filter>StaticLib\GraphCanvas\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\GraphUtils.h">
+      <Filter>StaticLib\GraphCanvas\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\NodeNudgingController.h">
+      <Filter>StaticLib\GraphCanvas\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\QtDrawingUtils.h">
+      <Filter>StaticLib\GraphCanvas\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\QtMimeUtils.h">
+      <Filter>StaticLib\GraphCanvas\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\QtVectorMath.h">
+      <Filter>StaticLib\GraphCanvas\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\StateControllers\StateController.h">
+      <Filter>StaticLib\GraphCanvas\Utils\StateControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\StateControllers\PrioritizedStateController.h">
+      <Filter>StaticLib\GraphCanvas\Utils\StateControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\StateControllers\StackStateController.h">
+      <Filter>StaticLib\GraphCanvas\Utils\StateControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\AssetEditorToolbar\ui_AssetEditorToolbar.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\Bookmarks\ui_BookmarkDockWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\ConstructPresetDialog\ui_ConstructPresetDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\ui_GraphCanvasEditorCentralWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\ui_GraphCanvasEditorDockWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\NodePalette\ui_NodePaletteDockWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\NodePalette\ui_NodePaletteWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\ToastNotification\ui_ToastNotification.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\AssetEditorToolbar\AssetEditorToolbar.ui">
+      <Filter>StaticLib\GraphCanvas\Widgets\AssetEditorToolbar</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Bookmarks\BookmarkDockWidget.ui">
+      <Filter>StaticLib\GraphCanvas\Widgets\Bookmarks</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\ConstructPresetDialog\ConstructPresetDialog.ui">
+      <Filter>StaticLib\GraphCanvas\Widgets\ConstructPresetDialog</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\GraphCanvasEditorCentralWidget.ui">
+      <Filter>StaticLib\GraphCanvas\Widgets\GraphCanvasEditor</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\GraphCanvasEditorDockWidget.ui">
+      <Filter>StaticLib\GraphCanvas\Widgets\GraphCanvasEditor</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\NodePaletteDockWidget.ui">
+      <Filter>StaticLib\GraphCanvas\Widgets\NodePalette</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\NodePaletteWidget.ui">
+      <Filter>StaticLib\GraphCanvas\Widgets\NodePalette</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\ToastNotification\ToastNotification.ui">
+      <Filter>StaticLib\GraphCanvas\Widgets\ToastNotification</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\376820d218f8075ace964b6e2eb9c815\qrc_GraphCanvasEditorResources.cpp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\GraphCanvasEditorResources.qrc">
+      <Filter>StaticLib\GraphCanvas\Widgets\Resources</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\default_style.json">
+      <Filter>StaticLib\GraphCanvas\Widgets\Resources</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\graphcanvas_staticlib_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib">
+      <UniqueIdentifier>{FD681464-F8FD-36C3-B333-BD0B23B31802}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas">
+      <UniqueIdentifier>{0D6297FD-B7D5-3AD2-A590-CD598B240C19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Components">
+      <UniqueIdentifier>{A6801116-C0C1-3E19-A72D-1E7357C4955D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Components\Bookmarks">
+      <UniqueIdentifier>{F9C7DE7A-26CD-3527-AA5B-A7EC2E47665F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Components\ColorPaletteManager">
+      <UniqueIdentifier>{CEFB996A-5941-3BCD-98CC-F8E33882BDF2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Components\Connections">
+      <UniqueIdentifier>{FD6FD4CF-AB09-3A0F-96C1-FAAB2FFC6253}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Components\NodePropertyDisplay">
+      <UniqueIdentifier>{7F9B022F-F0DF-39FB-9BAD-24DF5116D0FE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Components\Nodes">
+      <UniqueIdentifier>{15C66ABE-DC42-3911-8995-15935209531F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Components\Nodes\Comment">
+      <UniqueIdentifier>{CA1C110A-B7DC-398E-B05B-C0643AF89C41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Components\Nodes\Group">
+      <UniqueIdentifier>{016482BA-A5D3-3823-9C99-FD74B7315FCA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Components\Nodes\Wrapper">
+      <UniqueIdentifier>{559B2E0D-ED05-3917-B48A-A830D8A23CBA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Components\Slots">
+      <UniqueIdentifier>{6D9D6341-6172-36DF-9571-A327B572F592}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Components\Slots\Data">
+      <UniqueIdentifier>{C526586D-24A6-3914-ADF1-97BC5EA3CF4F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Components\Slots\Property">
+      <UniqueIdentifier>{6066F1A1-D563-39F3-947D-07E3DF8F436F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Editor">
+      <UniqueIdentifier>{06BF3679-1261-3ECF-8CF8-0866DB1C2D47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Editor\Automation">
+      <UniqueIdentifier>{9B9710A3-A0E1-3AEE-9D9C-651277CEF6C7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\GraphicsItems">
+      <UniqueIdentifier>{649434AE-F589-3013-9F5E-A318CD937F49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Styling">
+      <UniqueIdentifier>{66A0BF42-E247-36A1-BF7A-E50C0A2496BF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Types">
+      <UniqueIdentifier>{C53671C2-5D6F-3EDB-896C-CBFB432B25B0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Utils">
+      <UniqueIdentifier>{53366B4F-AEA4-3DE1-B93F-AE2A74C889DE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Utils\StateControllers">
+      <UniqueIdentifier>{7F9AA539-8F1F-3F2E-B1AC-8993356823A2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets">
+      <UniqueIdentifier>{409A5297-598F-35F7-94BA-7377CF0F93A7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\AssetEditorToolbar">
+      <UniqueIdentifier>{53553899-863B-3C8A-9671-10AE3868C8AB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\Bookmarks">
+      <UniqueIdentifier>{7D28D026-6BDE-3DEA-87C1-1FF1C132731C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\ComboBox">
+      <UniqueIdentifier>{0853CF8E-5FE0-3AA9-A594-C37354AD86AF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\ConstructPresetDialog">
+      <UniqueIdentifier>{BDFEFA34-60F5-3F1E-90A9-1C12D8722499}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\EditorContextMenu">
+      <UniqueIdentifier>{C7901398-A33E-36D1-9BDC-0B9F31961692}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions">
+      <UniqueIdentifier>{BAE3E195-A591-39C8-A6B8-BD0B907AF57E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\AlignmentMenuActions">
+      <UniqueIdentifier>{516F19CE-DFC9-316D-B44C-906516CBF8AD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\CommentMenuActions">
+      <UniqueIdentifier>{98794511-91F5-31FF-A3BE-9CF2AF34BCAE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions">
+      <UniqueIdentifier>{41BAA881-BF25-3916-8EE6-5658DBF4BB02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\DisableMenuActions">
+      <UniqueIdentifier>{3B0CF5BE-7618-3EE4-946F-F8CC085BCF20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\EditMenuActions">
+      <UniqueIdentifier>{FD782DC6-88F6-3DB0-AC9D-4C263DE74A1B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\GeneralMenuActions">
+      <UniqueIdentifier>{96782991-8928-3989-A69F-34E50612928F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeGroupMenuActions">
+      <UniqueIdentifier>{E8AE36AB-9B5C-3C5B-8E24-4ABB97FA8E4B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeMenuActions">
+      <UniqueIdentifier>{125F5670-BAC9-3DB3-BE78-6B1AA1C235F4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SceneMenuActions">
+      <UniqueIdentifier>{9F66C6FC-7DB4-3C96-9FBA-EC0908681AD6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SlotMenuActions">
+      <UniqueIdentifier>{797FF89C-117D-3030-973F-AC16B1BC2FDA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus">
+      <UniqueIdentifier>{3B536D3D-93DB-3C89-9D9A-86475B532C70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\GraphCanvasEditor">
+      <UniqueIdentifier>{47C8DB10-BEDA-3352-8B89-98507376941D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\GraphCanvasGraphicsView">
+      <UniqueIdentifier>{E0E58857-0444-3B16-83B0-8FB0E2AC5207}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\MimeEvents">
+      <UniqueIdentifier>{831BFA6A-1869-3406-85D8-C2EE9EC51760}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\MiniMapGraphicsView">
+      <UniqueIdentifier>{46E03074-FF60-3243-8557-FB50E87E18ED}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\NodePalette">
+      <UniqueIdentifier>{970183EC-D374-3B48-87A5-CD9C55EF8F4E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\NodePalette\Model">
+      <UniqueIdentifier>{8534154D-2188-301A-8637-C0B50CCB50A5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\NodePalette\TreeItems">
+      <UniqueIdentifier>{BCE1EB09-B4E8-3F87-94BE-CE5B75EBFC54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\Resources">
+      <UniqueIdentifier>{C3EE73E4-EE7E-3EE4-AF8F-69EA0E91B058}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\StyledItemDelegates">
+      <UniqueIdentifier>{041B03A6-5F9F-3C46-9276-AE02733EF690}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticLib\GraphCanvas\Widgets\ToastNotification">
+      <UniqueIdentifier>{920CC08D-F522-3FE2-9CED-80CB4628201F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

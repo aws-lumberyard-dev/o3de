@@ -1,0 +1,5 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Code/Framework/AzTest/AzTest/Platform/Windows/platform_windows.cmake
+J:/Atom/lyfork/o3de/Code/Framework/AzTest/AzTest/Platform/Windows/platform_windows_files.cmake
+J:/Atom/lyfork/o3de/Code/Framework/AzTest/AzTest/aztest_files.cmake
+J:/Atom/lyfork/o3de/Code/Framework/AzTest/CMakeLists.txt

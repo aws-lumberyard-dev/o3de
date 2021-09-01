@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Tests\TestsMain.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Tests\GraphData\MeshDataTests.cpp">
+      <Filter>Tests\GraphData</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Tests\GraphData\MeshDataPrimitiveUtilsTests.cpp">
+      <Filter>Tests\GraphData</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Tests\GraphData\GraphDataBehaviorTests.cpp">
+      <Filter>Tests\GraphData</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\Tests\SceneManifest\SceneManifestRuleTests.cpp">
+      <Filter>Tests\SceneManifest</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneData\SceneData_testing_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{A12C7827-546E-3D77-AE99-877104F2DFF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\GraphData">
+      <UniqueIdentifier>{2DFA4D22-13FE-31BE-94F8-DECBC3578B80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\SceneManifest">
+      <UniqueIdentifier>{13A210CC-F580-3A8D-BFDA-155CF426FACA}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

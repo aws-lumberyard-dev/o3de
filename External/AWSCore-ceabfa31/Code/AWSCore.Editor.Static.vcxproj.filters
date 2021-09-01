@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\AWSCoreEditorSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Editor\AWSCoreEditorManager.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Editor\Attribution\AWSCoreAttributionMetric.cpp">
+      <Filter>Source\Editor\Attribution</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Editor\Attribution\AWSCoreAttributionManager.cpp">
+      <Filter>Source\Editor\Attribution</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Editor\Attribution\AWSCoreAttributionSystemComponent.cpp">
+      <Filter>Source\Editor\Attribution</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Editor\Attribution\AWSAttributionServiceApi.cpp">
+      <Filter>Source\Editor\Attribution</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Editor\Attribution\AWSCoreAttributionConsentDialog.cpp">
+      <Filter>Source\Editor\Attribution</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Editor\UI\AWSCoreEditorMenu.cpp">
+      <Filter>Source\Editor\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Editor\UI\AWSCoreResourceMappingToolAction.cpp">
+      <Filter>Source\Editor\UI</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\AWSCoreEditorSystemComponent.h">
+      <Filter>Include\Private</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\Editor\Attribution\AWSCoreAttributionConstant.h">
+      <Filter>Include\Private\Editor\Attribution</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\Editor\Attribution\AWSCoreAttributionMetric.h">
+      <Filter>Include\Private\Editor\Attribution</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\Editor\Attribution\AWSCoreAttributionManager.h">
+      <Filter>Include\Private\Editor\Attribution</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\Editor\Attribution\AWSCoreAttributionSystemComponent.h">
+      <Filter>Include\Private\Editor\Attribution</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\Editor\Attribution\AWSAttributionServiceApi.h">
+      <Filter>Include\Private\Editor\Attribution</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\Editor\Attribution\AWSCoreAttributionConsentDialog.h">
+      <Filter>Include\Private\Editor\Attribution</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\Editor\AWSCoreEditorManager.h">
+      <Filter>Include\Private\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\Editor\Constants\AWSCoreEditorMenuLinks.h">
+      <Filter>Include\Private\Editor\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\Editor\Constants\AWSCoreEditorMenuNames.h">
+      <Filter>Include\Private\Editor\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\Editor\UI\AWSCoreEditorMenu.h">
+      <Filter>Include\Private\Editor\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\Editor\UI\AWSCoreResourceMappingToolAction.h">
+      <Filter>Include\Private\Editor\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\Editor\Platform\Windows\AWSCoreEditor_Traits_Platform.h">
+      <Filter>Include\Private\Editor\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\Editor\Platform\Windows\AWSCoreEditor_Traits_Windows.h">
+      <Filter>Include\Private\Editor\Platform\Windows</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\awscore_editor_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\Editor\Platform\Windows\platform_windows_files.cmake">
+      <Filter>Include\Private\Editor\Platform\Windows</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Private">
+      <UniqueIdentifier>{BF9280D1-E1B7-308D-B433-C4B96E16D0C2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Private\Editor">
+      <UniqueIdentifier>{69EF6FF0-B492-3744-A3AF-D40FB40C2C72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Private\Editor\Attribution">
+      <UniqueIdentifier>{EA9BF1ED-5E18-37F0-981C-E1927822DD75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Private\Editor\Constants">
+      <UniqueIdentifier>{B9345FB6-CB7D-3BCC-8E37-AD5A136F057B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Private\Editor\Platform">
+      <UniqueIdentifier>{5F473556-D5B3-36F3-9F96-E62137D1B69E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Private\Editor\Platform\Windows">
+      <UniqueIdentifier>{7B788816-727B-3B91-A0B8-DB63B8DE370D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Private\Editor\UI">
+      <UniqueIdentifier>{6E213FC7-EC7B-36DA-975D-5FE525B49045}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor">
+      <UniqueIdentifier>{A8C69C03-0E27-35F8-AFF2-047D842E6663}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\Attribution">
+      <UniqueIdentifier>{51C83F3D-B132-38AF-AB32-8953FEF7E060}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\UI">
+      <UniqueIdentifier>{86B5D1D0-7EC6-367E-8325-2AB850E26524}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

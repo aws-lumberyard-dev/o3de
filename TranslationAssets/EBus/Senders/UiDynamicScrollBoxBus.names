@@ -1,0 +1,710 @@
+{
+    "entries": [
+        {
+            "key": "UiDynamicScrollBoxBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiDynamicScrollBoxBus"
+            },
+            "methods": [
+                {
+                    "key": "SetSectionsEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetSectionsEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetSectionsEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "SetSectionsEnabled"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetEstimatedVariableElementSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetEstimatedVariableElementSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetEstimatedVariableElementSize is invoked"
+                    },
+                    "details": {
+                        "name": "GetEstimatedVariableElementSize"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetAutoCalculateVariableElementSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetAutoCalculateVariableElementSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetAutoCalculateVariableElementSize is invoked"
+                    },
+                    "details": {
+                        "name": "SetAutoCalculateVariableElementSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetEstimatedVariableHeaderSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetEstimatedVariableHeaderSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetEstimatedVariableHeaderSize is invoked"
+                    },
+                    "details": {
+                        "name": "GetEstimatedVariableHeaderSize"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetEstimatedVariableHeaderSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetEstimatedVariableHeaderSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetEstimatedVariableHeaderSize is invoked"
+                    },
+                    "details": {
+                        "name": "SetEstimatedVariableHeaderSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetPrototypeElement",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetPrototypeElement"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetPrototypeElement is invoked"
+                    },
+                    "details": {
+                        "name": "SetPrototypeElement"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetElementsVaryInSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetElementsVaryInSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetElementsVaryInSize is invoked"
+                    },
+                    "details": {
+                        "name": "SetElementsVaryInSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RemoveElementsFromFront",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke RemoveElementsFromFront"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after RemoveElementsFromFront is invoked"
+                    },
+                    "details": {
+                        "name": "RemoveElementsFromFront"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetElementIndexOfChild",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetElementIndexOfChild"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetElementIndexOfChild is invoked"
+                    },
+                    "details": {
+                        "name": "GetElementIndexOfChild"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetElementsVaryInSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetElementsVaryInSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetElementsVaryInSize is invoked"
+                    },
+                    "details": {
+                        "name": "GetElementsVaryInSize"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetHeadersSticky",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetHeadersSticky"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetHeadersSticky is invoked"
+                    },
+                    "details": {
+                        "name": "GetHeadersSticky"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetAutoRefreshOnPostActivate",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetAutoRefreshOnPostActivate"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetAutoRefreshOnPostActivate is invoked"
+                    },
+                    "details": {
+                        "name": "GetAutoRefreshOnPostActivate"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetEstimatedVariableElementSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetEstimatedVariableElementSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetEstimatedVariableElementSize is invoked"
+                    },
+                    "details": {
+                        "name": "SetEstimatedVariableElementSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetPrototypeHeader",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetPrototypeHeader"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetPrototypeHeader is invoked"
+                    },
+                    "details": {
+                        "name": "SetPrototypeHeader"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSectionsEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetSectionsEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetSectionsEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "GetSectionsEnabled"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ScrollToEnd",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke ScrollToEnd"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after ScrollToEnd is invoked"
+                    },
+                    "details": {
+                        "name": "ScrollToEnd"
+                    }
+                },
+                {
+                    "key": "GetPrototypeElement",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetPrototypeElement"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetPrototypeElement is invoked"
+                    },
+                    "details": {
+                        "name": "GetPrototypeElement"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetHeadersVaryInSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetHeadersVaryInSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetHeadersVaryInSize is invoked"
+                    },
+                    "details": {
+                        "name": "SetHeadersVaryInSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AddElementsToEnd",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AddElementsToEnd"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AddElementsToEnd is invoked"
+                    },
+                    "details": {
+                        "name": "AddElementsToEnd"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetChildAtElementIndex",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetChildAtElementIndex"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetChildAtElementIndex is invoked"
+                    },
+                    "details": {
+                        "name": "GetChildAtElementIndex"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetHeadersSticky",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetHeadersSticky"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetHeadersSticky is invoked"
+                    },
+                    "details": {
+                        "name": "SetHeadersSticky"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetChildAtSectionAndElementIndex",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetChildAtSectionAndElementIndex"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetChildAtSectionAndElementIndex is invoked"
+                    },
+                    "details": {
+                        "name": "GetChildAtSectionAndElementIndex"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetAutoRefreshOnPostActivate",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetAutoRefreshOnPostActivate"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetAutoRefreshOnPostActivate is invoked"
+                    },
+                    "details": {
+                        "name": "SetAutoRefreshOnPostActivate"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSectionIndexOfChild",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetSectionIndexOfChild"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetSectionIndexOfChild is invoked"
+                    },
+                    "details": {
+                        "name": "GetSectionIndexOfChild"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RefreshContent",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke RefreshContent"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after RefreshContent is invoked"
+                    },
+                    "details": {
+                        "name": "RefreshContent"
+                    }
+                },
+                {
+                    "key": "GetHeadersVaryInSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetHeadersVaryInSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetHeadersVaryInSize is invoked"
+                    },
+                    "details": {
+                        "name": "GetHeadersVaryInSize"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetPrototypeHeader",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetPrototypeHeader"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetPrototypeHeader is invoked"
+                    },
+                    "details": {
+                        "name": "GetPrototypeHeader"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetAutoCalculateVariableHeaderSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetAutoCalculateVariableHeaderSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetAutoCalculateVariableHeaderSize is invoked"
+                    },
+                    "details": {
+                        "name": "SetAutoCalculateVariableHeaderSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetAutoCalculateVariableElementSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetAutoCalculateVariableElementSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetAutoCalculateVariableElementSize is invoked"
+                    },
+                    "details": {
+                        "name": "GetAutoCalculateVariableElementSize"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetAutoCalculateVariableHeaderSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetAutoCalculateVariableHeaderSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetAutoCalculateVariableHeaderSize is invoked"
+                    },
+                    "details": {
+                        "name": "GetAutoCalculateVariableHeaderSize"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

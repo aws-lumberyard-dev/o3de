@@ -1,0 +1,443 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Set<EntityId>",
+                "category": "Set",
+                "tooltip": "A dynamically sized container, where each element is unique."
+            },
+            "methods": [
+                {
+                    "key": "Size",
+                    "context": "Set<EntityId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6C8F8E52-AB4A-5C1F-8E56-9AC390290B94}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetKeys",
+                    "context": "Set<EntityId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::GetKeys"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::GetKeys is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::GetKeys"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6C8F8E52-AB4A-5C1F-8E56-9AC390290B94}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{4841CFF0-7A5C-519C-BD16-D3625E99605E}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "contains",
+                    "context": "Set<EntityId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::contains"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::contains is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::contains"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6C8F8E52-AB4A-5C1F-8E56-9AC390290B94}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        },
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Set<EntityId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6C8F8E52-AB4A-5C1F-8E56-9AC390290B94}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        },
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6C8F8E52-AB4A-5C1F-8E56-9AC390290B94}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Set<EntityId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6C8F8E52-AB4A-5C1F-8E56-9AC390290B94}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Set<EntityId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6C8F8E52-AB4A-5C1F-8E56-9AC390290B94}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Set<EntityId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6C8F8E52-AB4A-5C1F-8E56-9AC390290B94}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{55D4A61B-688B-5C1C-A045-BCD835F1F604}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>>"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Set<EntityId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6C8F8E52-AB4A-5C1F-8E56-9AC390290B94}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        },
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase",
+                    "context": "Set<EntityId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Erase"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Erase is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Erase"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6C8F8E52-AB4A-5C1F-8E56-9AC390290B94}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        },
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6C8F8E52-AB4A-5C1F-8E56-9AC390290B94}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Set<EntityId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6C8F8E52-AB4A-5C1F-8E56-9AC390290B94}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6C8F8E52-AB4A-5C1F-8E56-9AC390290B94}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "BucketCount",
+                    "context": "Set<EntityId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::BucketCount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::BucketCount is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::BucketCount"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6C8F8E52-AB4A-5C1F-8E56-9AC390290B94}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Set<EntityId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6C8F8E52-AB4A-5C1F-8E56-9AC390290B94}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Set<EntityId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<EntityId, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6C8F8E52-AB4A-5C1F-8E56-9AC390290B94}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        },
+                        {
+                            "typeid": "{6C8F8E52-AB4A-5C1F-8E56-9AC390290B94}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

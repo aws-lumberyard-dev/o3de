@@ -1,0 +1,410 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\LandscapeCanvas-eaeb8213\Code\LandscapeCanvas.Editor.Static_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\LandscapeCanvasSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\MainWindow.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Core\DataTypes.cpp">
+      <Filter>Source\Editor\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Core\GraphContext.cpp">
+      <Filter>Source\Editor\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Menus\LayerExtenderContextMenu.cpp">
+      <Filter>Source\Editor\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Menus\NodeContextMenu.cpp">
+      <Filter>Source\Editor\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Menus\SceneContextMenuActions.cpp">
+      <Filter>Source\Editor\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\BaseNode.cpp">
+      <Filter>Source\Editor\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Areas\AreaBlenderNode.cpp">
+      <Filter>Source\Editor\Nodes\Areas</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Areas\BaseAreaNode.cpp">
+      <Filter>Source\Editor\Nodes\Areas</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Areas\BlockerAreaNode.cpp">
+      <Filter>Source\Editor\Nodes\Areas</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Areas\MeshBlockerAreaNode.cpp">
+      <Filter>Source\Editor\Nodes\Areas</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Areas\SpawnerAreaNode.cpp">
+      <Filter>Source\Editor\Nodes\Areas</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaFilters\AltitudeFilterNode.cpp">
+      <Filter>Source\Editor\Nodes\AreaFilters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaFilters\BaseAreaFilterNode.cpp">
+      <Filter>Source\Editor\Nodes\AreaFilters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaFilters\DistanceBetweenFilterNode.cpp">
+      <Filter>Source\Editor\Nodes\AreaFilters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaFilters\DistributionFilterNode.cpp">
+      <Filter>Source\Editor\Nodes\AreaFilters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaFilters\ShapeIntersectionFilterNode.cpp">
+      <Filter>Source\Editor\Nodes\AreaFilters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaFilters\SlopeFilterNode.cpp">
+      <Filter>Source\Editor\Nodes\AreaFilters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaFilters\SurfaceMaskDepthFilterNode.cpp">
+      <Filter>Source\Editor\Nodes\AreaFilters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaFilters\SurfaceMaskFilterNode.cpp">
+      <Filter>Source\Editor\Nodes\AreaFilters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaModifiers\BaseAreaModifierNode.cpp">
+      <Filter>Source\Editor\Nodes\AreaModifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaModifiers\PositionModifierNode.cpp">
+      <Filter>Source\Editor\Nodes\AreaModifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaModifiers\RotationModifierNode.cpp">
+      <Filter>Source\Editor\Nodes\AreaModifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaModifiers\ScaleModifierNode.cpp">
+      <Filter>Source\Editor\Nodes\AreaModifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaModifiers\SlopeAlignmentModifierNode.cpp">
+      <Filter>Source\Editor\Nodes\AreaModifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaSelectors\AssetWeightSelectorNode.cpp">
+      <Filter>Source\Editor\Nodes\AreaSelectors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Gradients\AltitudeGradientNode.cpp">
+      <Filter>Source\Editor\Nodes\Gradients</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Gradients\BaseGradientNode.cpp">
+      <Filter>Source\Editor\Nodes\Gradients</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Gradients\ConstantGradientNode.cpp">
+      <Filter>Source\Editor\Nodes\Gradients</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Gradients\FastNoiseGradientNode.cpp">
+      <Filter>Source\Editor\Nodes\Gradients</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Gradients\ImageGradientNode.cpp">
+      <Filter>Source\Editor\Nodes\Gradients</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Gradients\PerlinNoiseGradientNode.cpp">
+      <Filter>Source\Editor\Nodes\Gradients</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Gradients\RandomNoiseGradientNode.cpp">
+      <Filter>Source\Editor\Nodes\Gradients</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Gradients\ShapeAreaFalloffGradientNode.cpp">
+      <Filter>Source\Editor\Nodes\Gradients</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Gradients\SlopeGradientNode.cpp">
+      <Filter>Source\Editor\Nodes\Gradients</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Gradients\SurfaceMaskGradientNode.cpp">
+      <Filter>Source\Editor\Nodes\Gradients</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\GradientModifiers\BaseGradientModifierNode.cpp">
+      <Filter>Source\Editor\Nodes\GradientModifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\GradientModifiers\DitherGradientModifierNode.cpp">
+      <Filter>Source\Editor\Nodes\GradientModifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\GradientModifiers\GradientMixerNode.cpp">
+      <Filter>Source\Editor\Nodes\GradientModifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\GradientModifiers\InvertGradientModifierNode.cpp">
+      <Filter>Source\Editor\Nodes\GradientModifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\GradientModifiers\LevelsGradientModifierNode.cpp">
+      <Filter>Source\Editor\Nodes\GradientModifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\GradientModifiers\PosterizeGradientModifierNode.cpp">
+      <Filter>Source\Editor\Nodes\GradientModifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\GradientModifiers\SmoothStepGradientModifierNode.cpp">
+      <Filter>Source\Editor\Nodes\GradientModifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\GradientModifiers\ThresholdGradientModifierNode.cpp">
+      <Filter>Source\Editor\Nodes\GradientModifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Shapes\BaseShapeNode.cpp">
+      <Filter>Source\Editor\Nodes\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Shapes\BoxShapeNode.cpp">
+      <Filter>Source\Editor\Nodes\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Shapes\CapsuleShapeNode.cpp">
+      <Filter>Source\Editor\Nodes\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Shapes\CompoundShapeNode.cpp">
+      <Filter>Source\Editor\Nodes\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Shapes\CylinderShapeNode.cpp">
+      <Filter>Source\Editor\Nodes\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Shapes\DiskShapeNode.cpp">
+      <Filter>Source\Editor\Nodes\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Shapes\PolygonPrismShapeNode.cpp">
+      <Filter>Source\Editor\Nodes\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Shapes\SphereShapeNode.cpp">
+      <Filter>Source\Editor\Nodes\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Shapes\TubeShapeNode.cpp">
+      <Filter>Source\Editor\Nodes\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\UI\GradientPreviewThumbnailItem.cpp">
+      <Filter>Source\Editor\Nodes\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\LandscapeCanvas-eaeb8213\Code\LandscapeCanvas.Editor.Static_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\LandscapeCanvas-eaeb8213\Code\LandscapeCanvas.Editor.Static_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Include\LandscapeCanvas\LandscapeCanvasBus.h">
+      <Filter>Include\LandscapeCanvas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\LandscapeCanvasSystemComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\MainWindow.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Core\Core.h">
+      <Filter>Source\Editor\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Core\DataTypes.h">
+      <Filter>Source\Editor\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Core\GraphContext.h">
+      <Filter>Source\Editor\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Menus\LayerExtenderContextMenu.h">
+      <Filter>Source\Editor\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Menus\NodeContextMenu.h">
+      <Filter>Source\Editor\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Menus\SceneContextMenuActions.h">
+      <Filter>Source\Editor\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\BaseNode.h">
+      <Filter>Source\Editor\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Areas\AreaBlenderNode.h">
+      <Filter>Source\Editor\Nodes\Areas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Areas\BaseAreaNode.h">
+      <Filter>Source\Editor\Nodes\Areas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Areas\BlockerAreaNode.h">
+      <Filter>Source\Editor\Nodes\Areas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Areas\MeshBlockerAreaNode.h">
+      <Filter>Source\Editor\Nodes\Areas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Areas\SpawnerAreaNode.h">
+      <Filter>Source\Editor\Nodes\Areas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaFilters\AltitudeFilterNode.h">
+      <Filter>Source\Editor\Nodes\AreaFilters</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaFilters\BaseAreaFilterNode.h">
+      <Filter>Source\Editor\Nodes\AreaFilters</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaFilters\DistanceBetweenFilterNode.h">
+      <Filter>Source\Editor\Nodes\AreaFilters</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaFilters\DistributionFilterNode.h">
+      <Filter>Source\Editor\Nodes\AreaFilters</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaFilters\ShapeIntersectionFilterNode.h">
+      <Filter>Source\Editor\Nodes\AreaFilters</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaFilters\SlopeFilterNode.h">
+      <Filter>Source\Editor\Nodes\AreaFilters</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaFilters\SurfaceMaskDepthFilterNode.h">
+      <Filter>Source\Editor\Nodes\AreaFilters</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaFilters\SurfaceMaskFilterNode.h">
+      <Filter>Source\Editor\Nodes\AreaFilters</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaModifiers\BaseAreaModifierNode.h">
+      <Filter>Source\Editor\Nodes\AreaModifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaModifiers\PositionModifierNode.h">
+      <Filter>Source\Editor\Nodes\AreaModifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaModifiers\RotationModifierNode.h">
+      <Filter>Source\Editor\Nodes\AreaModifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaModifiers\ScaleModifierNode.h">
+      <Filter>Source\Editor\Nodes\AreaModifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaModifiers\SlopeAlignmentModifierNode.h">
+      <Filter>Source\Editor\Nodes\AreaModifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\AreaSelectors\AssetWeightSelectorNode.h">
+      <Filter>Source\Editor\Nodes\AreaSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Gradients\AltitudeGradientNode.h">
+      <Filter>Source\Editor\Nodes\Gradients</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Gradients\BaseGradientNode.h">
+      <Filter>Source\Editor\Nodes\Gradients</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Gradients\ConstantGradientNode.h">
+      <Filter>Source\Editor\Nodes\Gradients</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Gradients\FastNoiseGradientNode.h">
+      <Filter>Source\Editor\Nodes\Gradients</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Gradients\ImageGradientNode.h">
+      <Filter>Source\Editor\Nodes\Gradients</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Gradients\PerlinNoiseGradientNode.h">
+      <Filter>Source\Editor\Nodes\Gradients</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Gradients\RandomNoiseGradientNode.h">
+      <Filter>Source\Editor\Nodes\Gradients</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Gradients\ShapeAreaFalloffGradientNode.h">
+      <Filter>Source\Editor\Nodes\Gradients</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Gradients\SlopeGradientNode.h">
+      <Filter>Source\Editor\Nodes\Gradients</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Gradients\SurfaceMaskGradientNode.h">
+      <Filter>Source\Editor\Nodes\Gradients</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\GradientModifiers\BaseGradientModifierNode.h">
+      <Filter>Source\Editor\Nodes\GradientModifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\GradientModifiers\DitherGradientModifierNode.h">
+      <Filter>Source\Editor\Nodes\GradientModifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\GradientModifiers\GradientMixerNode.h">
+      <Filter>Source\Editor\Nodes\GradientModifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\GradientModifiers\InvertGradientModifierNode.h">
+      <Filter>Source\Editor\Nodes\GradientModifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\GradientModifiers\LevelsGradientModifierNode.h">
+      <Filter>Source\Editor\Nodes\GradientModifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\GradientModifiers\PosterizeGradientModifierNode.h">
+      <Filter>Source\Editor\Nodes\GradientModifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\GradientModifiers\SmoothStepGradientModifierNode.h">
+      <Filter>Source\Editor\Nodes\GradientModifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\GradientModifiers\ThresholdGradientModifierNode.h">
+      <Filter>Source\Editor\Nodes\GradientModifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Shapes\BaseShapeNode.h">
+      <Filter>Source\Editor\Nodes\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Shapes\BoxShapeNode.h">
+      <Filter>Source\Editor\Nodes\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Shapes\CapsuleShapeNode.h">
+      <Filter>Source\Editor\Nodes\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Shapes\CompoundShapeNode.h">
+      <Filter>Source\Editor\Nodes\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Shapes\CylinderShapeNode.h">
+      <Filter>Source\Editor\Nodes\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Shapes\DiskShapeNode.h">
+      <Filter>Source\Editor\Nodes\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Shapes\PolygonPrismShapeNode.h">
+      <Filter>Source\Editor\Nodes\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Shapes\SphereShapeNode.h">
+      <Filter>Source\Editor\Nodes\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\Shapes\TubeShapeNode.h">
+      <Filter>Source\Editor\Nodes\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\Source\Editor\Nodes\UI\GradientPreviewThumbnailItem.h">
+      <Filter>Source\Editor\Nodes\UI</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\LandscapeCanvas\Code\landscapecanvas_editor_static_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\LandscapeCanvas">
+      <UniqueIdentifier>{A86F1541-AB4B-3E4D-990A-21A8C44464EB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor">
+      <UniqueIdentifier>{A8C69C03-0E27-35F8-AFF2-047D842E6663}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\Core">
+      <UniqueIdentifier>{3BA4F268-F61A-3E16-BA6B-DCEDA9830CBE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\Menus">
+      <UniqueIdentifier>{6F728E8B-FE76-3B20-AA45-372400381C15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\Nodes">
+      <UniqueIdentifier>{295666C1-4CA2-3D4A-AFB5-91EC3EAB216C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\Nodes\AreaFilters">
+      <UniqueIdentifier>{88B46B48-1C3C-34B8-9977-74248A9E8AA6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\Nodes\AreaModifiers">
+      <UniqueIdentifier>{12F2E82F-27FA-3FD7-BEAE-228D40D53EB0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\Nodes\AreaSelectors">
+      <UniqueIdentifier>{FC385E9A-66BF-3341-A90D-2ABDEC2CC018}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\Nodes\Areas">
+      <UniqueIdentifier>{4010C24C-5191-3F43-86AB-9B2ED15A7B04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\Nodes\GradientModifiers">
+      <UniqueIdentifier>{587D81FD-FF69-31EE-8839-1322422B663A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\Nodes\Gradients">
+      <UniqueIdentifier>{9B043B51-9759-38BF-B4C5-1EF9352465AB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\Nodes\Shapes">
+      <UniqueIdentifier>{423A8EDF-845B-3F84-9587-6374A8BD18D5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\Nodes\UI">
+      <UniqueIdentifier>{09E2A031-8F24-39BD-A4AF-8CD99165405C}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

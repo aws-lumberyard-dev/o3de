@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Support\src\CrashSupport.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Support\platform\win\CrashSupport_win.cpp">
+      <Filter>Platform\Windows\..\..\Platform\win</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Support\include\CrashSupport.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Support\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Support\crash_handler_support_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Support\platform\Windows\crash_handler_support_windows_files.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{D4CCE8D3-A6C9-3C6A-9C86-8BF8F7D77D7F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{9B5BE819-E94D-379A-84DF-5559629D4548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..">
+      <UniqueIdentifier>{731ADA3D-17B6-381E-ABF5-417E8742D0A7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\..">
+      <UniqueIdentifier>{E1670BFB-41AD-36ED-8AA5-0D0AF4336AD6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\..\Platform">
+      <UniqueIdentifier>{B07C7BB5-4523-3F52-963C-512E0A6A2C88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\..\Platform\win">
+      <UniqueIdentifier>{BAE094F4-4592-37A0-BAAA-3C49091F7DB5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{4EEEE190-B91D-3E34-9133-03DF85796165}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{B0A32D79-E466-307E-ABBC-EBD19464FE4E}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

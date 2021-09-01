@@ -1,0 +1,7 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/HttpRequestor/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/HttpRequestor/Code/Source/Platform/Windows/httprequestor_windows.cmake
+J:/Atom/lyfork/o3de/Gems/HttpRequestor/Code/httprequestor_files.cmake
+J:/Atom/lyfork/o3de/Gems/HttpRequestor/Code/httprequestor_shared_files.cmake
+J:/Atom/lyfork/o3de/Gems/HttpRequestor/Code/httprequestor_tests_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

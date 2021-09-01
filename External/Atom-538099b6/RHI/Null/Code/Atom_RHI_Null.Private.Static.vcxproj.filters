@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\AliasedHeap.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\Buffer.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\BufferView.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\BufferPool.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\CommandList.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\CommandQueue.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\Device.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\FrameGraphCompiler.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\FrameGraphExecuter.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\Image.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\ImagePool.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\ImageView.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\PhysicalDevice.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\PipelineState.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\PipelineLibrary.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\Query.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\QueryPool.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\Scope.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\ShaderResourceGroup.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\ShaderResourceGroupPool.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\StreamingImagePool.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\SwapChain.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\SystemComponent.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\TransientAttachmentPool.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\RayTracingBlas.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\RayTracingTlas.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\RayTracingPipelineState.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\RayTracingShaderTable.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\AliasedHeap.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\Buffer.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\BufferView.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\BufferPool.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\CommandList.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\CommandQueue.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\Device.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\FrameGraphCompiler.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\FrameGraphExecuter.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\Image.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\ImagePool.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\ImageView.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\PhysicalDevice.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\PipelineState.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\PipelineLibrary.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\Query.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\QueryPool.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\Scope.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\ShaderResourceGroup.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\ShaderResourceGroupPool.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\StreamingImagePool.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\SwapChain.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\SystemComponent.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\TransientAttachmentPool.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\RayTracingBufferPools.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\RayTracingBlas.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\RayTracingTlas.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\RayTracingPipelineState.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\RayTracingShaderTable.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\atom_rhi_null_private_common_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\RHI">
+      <UniqueIdentifier>{0CC10546-631E-3087-8285-307531EB1EEA}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

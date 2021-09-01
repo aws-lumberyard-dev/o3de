@@ -1,0 +1,45 @@
+{
+    "entries": [
+        {
+            "key": "AZ::RHI::Handle<unsigned int, RPI::ShaderOptionIndexNamespace>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AZ::RHI::Handle<unsigned int, RPI::ShaderOptionIndexNamespace>"
+            },
+            "methods": [
+                {
+                    "key": "IsValid",
+                    "context": "AZ::RHI::Handle<unsigned int, RPI::ShaderOptionIndexNamespace>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZ::RHI::Handle<unsigned int, RPI::ShaderOptionIndexNamespace>::IsValid"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZ::RHI::Handle<unsigned int, RPI::ShaderOptionIndexNamespace>::IsValid is invoked"
+                    },
+                    "details": {
+                        "name": "AZ::RHI::Handle<unsigned int, RPI::ShaderOptionIndexNamespace>::IsValid"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{571E9CC8-AE35-5EBA-9A82-4012B60E7581}",
+                            "details": {
+                                "name": "AZ::RHI::Handle<unsigned int, RPI::ShaderOptionIndexNamespace>"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

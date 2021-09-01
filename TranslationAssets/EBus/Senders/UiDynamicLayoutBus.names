@@ -1,0 +1,36 @@
+{
+    "entries": [
+        {
+            "key": "UiDynamicLayoutBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiDynamicLayoutBus"
+            },
+            "methods": [
+                {
+                    "key": "SetNumChildElements",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetNumChildElements"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetNumChildElements is invoked"
+                    },
+                    "details": {
+                        "name": "SetNumChildElements"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\Include\GameStateSamples\GameOptionRequestBus.h">
+      <Filter>Include\GameStateSamples</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\Include\GameStateSamples\GameStateLevelLoading.h">
+      <Filter>Include\GameStateSamples</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\Include\GameStateSamples\GameStateLevelLoading.inl">
+      <Filter>Include\GameStateSamples</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\Include\GameStateSamples\GameStateLevelPaused.h">
+      <Filter>Include\GameStateSamples</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\Include\GameStateSamples\GameStateLevelPaused.inl">
+      <Filter>Include\GameStateSamples</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\Include\GameStateSamples\GameStateLevelRunning.h">
+      <Filter>Include\GameStateSamples</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\Include\GameStateSamples\GameStateLevelRunning.inl">
+      <Filter>Include\GameStateSamples</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\Include\GameStateSamples\GameStateLocalUserLobby.h">
+      <Filter>Include\GameStateSamples</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\Include\GameStateSamples\GameStateLocalUserLobby.inl">
+      <Filter>Include\GameStateSamples</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\Include\GameStateSamples\GameStateMainMenu.h">
+      <Filter>Include\GameStateSamples</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\Include\GameStateSamples\GameStateMainMenu.inl">
+      <Filter>Include\GameStateSamples</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\Include\GameStateSamples\GameStateOptionsMenu.h">
+      <Filter>Include\GameStateSamples</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\Include\GameStateSamples\GameStateOptionsMenu.inl">
+      <Filter>Include\GameStateSamples</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\Include\GameStateSamples\GameStatePrimaryControllerDisconnected.h">
+      <Filter>Include\GameStateSamples</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\Include\GameStateSamples\GameStatePrimaryControllerDisconnected.inl">
+      <Filter>Include\GameStateSamples</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\Include\GameStateSamples\GameStatePrimaryUserMonitor.h">
+      <Filter>Include\GameStateSamples</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\Include\GameStateSamples\GameStatePrimaryUserMonitor.inl">
+      <Filter>Include\GameStateSamples</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\Include\GameStateSamples\GameStatePrimaryUserSelection.h">
+      <Filter>Include\GameStateSamples</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\Include\GameStateSamples\GameStatePrimaryUserSelection.inl">
+      <Filter>Include\GameStateSamples</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\Include\GameStateSamples\GameStatePrimaryUserSignedOut.h">
+      <Filter>Include\GameStateSamples</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\Include\GameStateSamples\GameStatePrimaryUserSignedOut.inl">
+      <Filter>Include\GameStateSamples</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\gamestatesamples_headers_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\GameStateSamples">
+      <UniqueIdentifier>{C430629C-2F09-3809-A136-12C22A35E9AA}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,45 @@
+{
+    "entries": [
+        {
+            "key": "Event<AZStd::basic_string_view<char, AZStd::char_traits<char>> >",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Event<AZStd::basic_string_view<char, AZStd::char_traits<char>> >"
+            },
+            "methods": [
+                {
+                    "key": "HasHandlerConnected",
+                    "context": "Event<AZStd::basic_string_view<char, AZStd::char_traits<char>> >",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Event<AZStd::basic_string_view<char, AZStd::char_traits<char>> >::HasHandlerConnected"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Event<AZStd::basic_string_view<char, AZStd::char_traits<char>> >::HasHandlerConnected is invoked"
+                    },
+                    "details": {
+                        "name": "Event<AZStd::basic_string_view<char, AZStd::char_traits<char>> >::HasHandlerConnected"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{84290CFC-1335-5341-AD8B-0A3FE9FE46D0}",
+                            "details": {
+                                "name": "Event<AZStd::basic_string_view<char, AZStd::char_traits<char>> "
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

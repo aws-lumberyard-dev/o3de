@@ -1,0 +1,1158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|x64">
+      <Configuration>debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="profile|x64">
+      <Configuration>profile</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|x64">
+      <Configuration>release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{DB495A64-B928-3F7D-8E99-9F3A092C30C6}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>LyShine.Editor.Static</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\lib\debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">LyShine.Editor.Static.dir\debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='debug|x64'">LyShine.Editor.Static</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\lib\profile\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">LyShine.Editor.Static.dir\profile\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='profile|x64'">LyShine.Editor.Static</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='profile|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\lib\release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">LyShine.Editor.Static.dir\release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='release|x64'">LyShine.Editor.Static</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='release|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include_debug;J:\Atom\lyfork\o3de\Gems\LyShine\Code\.;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Source;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Include;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Source;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Include;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\TextureAtlas\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\.;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Include;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Source;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomBridge\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\Include;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /RTCsu /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtNetwork /external:IJ:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev1-windows/python/include</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_DEBUG;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="debug";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;OPENSSL_ENABLED;QT_SVG_LIB;QT_XML_LIB;EDITOR_COMMON_IMPORTS;EDITOR;QT_NETWORK_LIB;DEFAULT_LY_PYTHONHOME="J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev1-windows/python";CMAKE_INTDIR="debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;_HAS_EXCEPTIONS=0;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"debug\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;OPENSSL_ENABLED;QT_SVG_LIB;QT_XML_LIB;EDITOR_COMMON_IMPORTS;EDITOR;QT_NETWORK_LIB;DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev1-windows/python\";CMAKE_INTDIR=\"debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include_debug;J:\Atom\lyfork\o3de\Gems\LyShine\Code\.;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Source;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Include;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Source;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Include;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\TextureAtlas\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\.;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Include;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Source;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomBridge\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\Include;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include_debug;J:\Atom\lyfork\o3de\Gems\LyShine\Code\.;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Source;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Include;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Source;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Include;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\TextureAtlas\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\.;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Include;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Source;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomBridge\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\Include;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message>Automatic MOC for target LyShine.Editor.Static</Message>
+      <Command>setlocal
+cd J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autogen J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/LyShine.Editor.Static_autogen.dir/AutogenInfo.json debug
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include_profile;J:\Atom\lyfork\o3de\Gems\LyShine\Code\.;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Source;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Include;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Source;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Include;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\TextureAtlas\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\.;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Include;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Source;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomBridge\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\Include;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtNetwork /external:IJ:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev1-windows/python/include</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StringPooling>true</StringPooling>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="profile";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;OPENSSL_ENABLED;QT_SVG_LIB;QT_XML_LIB;EDITOR_COMMON_IMPORTS;EDITOR;QT_NETWORK_LIB;DEFAULT_LY_PYTHONHOME="J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev1-windows/python";CMAKE_INTDIR="profile";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"profile\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;OPENSSL_ENABLED;QT_SVG_LIB;QT_XML_LIB;EDITOR_COMMON_IMPORTS;EDITOR;QT_NETWORK_LIB;DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev1-windows/python\";CMAKE_INTDIR=\"profile\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include_profile;J:\Atom\lyfork\o3de\Gems\LyShine\Code\.;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Source;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Include;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Source;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Include;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\TextureAtlas\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\.;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Include;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Source;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomBridge\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\Include;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include_profile;J:\Atom\lyfork\o3de\Gems\LyShine\Code\.;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Source;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Include;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Source;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Include;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\TextureAtlas\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\.;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Include;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Source;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomBridge\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\Include;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message>Automatic MOC for target LyShine.Editor.Static</Message>
+      <Command>setlocal
+cd J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autogen J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/LyShine.Editor.Static_autogen.dir/AutogenInfo.json profile
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include_release;J:\Atom\lyfork\o3de\Gems\LyShine\Code\.;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Source;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Include;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Source;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Include;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\TextureAtlas\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\.;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Include;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Source;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomBridge\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\Include;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtNetwork /external:IJ:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev1-windows/python/include</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OmitFramePointers>true</OmitFramePointers>
+      <Optimization>Full</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE="release";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;OPENSSL_ENABLED;QT_SVG_LIB;QT_XML_LIB;EDITOR_COMMON_IMPORTS;EDITOR;QT_NETWORK_LIB;DEFAULT_LY_PYTHONHOME="J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev1-windows/python";CMAKE_INTDIR="release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE=\"release\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;OPENSSL_ENABLED;QT_SVG_LIB;QT_XML_LIB;EDITOR_COMMON_IMPORTS;EDITOR;QT_NETWORK_LIB;DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev1-windows/python\";CMAKE_INTDIR=\"release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include_release;J:\Atom\lyfork\o3de\Gems\LyShine\Code\.;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Source;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Include;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Source;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Include;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\TextureAtlas\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\.;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Include;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Source;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomBridge\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\Include;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include_release;J:\Atom\lyfork\o3de\Gems\LyShine\Code\.;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Source;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Include;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Source;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Include;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\TextureAtlas\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\.;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Include;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Source;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomBridge\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\Include;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message>Automatic MOC for target LyShine.Editor.Static</Message>
+      <Command>setlocal
+cd J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autogen J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/LyShine.Editor.Static_autogen.dir/AutogenInfo.json release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAVCustomizeTrackColorsDialog.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAVCustomizeTrackColorsDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAVCustomizeTrackColorsDialog.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAVCustomizeTrackColorsDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAVCustomizeTrackColorsDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAVCustomizeTrackColorsDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAVCustomizeTrackColorsDialog.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAVCustomizeTrackColorsDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAVCustomizeTrackColorsDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAVCustomizeTrackColorsDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAVCustomizeTrackColorsDialog.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAVCustomizeTrackColorsDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAVCustomizeTrackColorsDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewCurveEditor.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewCurveEditor.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAnimViewCurveEditor.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewCurveEditor.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAnimViewCurveEditor.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewCurveEditor.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAnimViewCurveEditor.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewCurveEditor.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAnimViewCurveEditor.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewCurveEditor.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAnimViewCurveEditor.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewCurveEditor.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAnimViewCurveEditor.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewFindDlg.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewFindDlg.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAnimViewFindDlg.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewFindDlg.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAnimViewFindDlg.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewFindDlg.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAnimViewFindDlg.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewFindDlg.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAnimViewFindDlg.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewFindDlg.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAnimViewFindDlg.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewFindDlg.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAnimViewFindDlg.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewNewSequenceDialog.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewNewSequenceDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAnimViewNewSequenceDialog.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewNewSequenceDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAnimViewNewSequenceDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewNewSequenceDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAnimViewNewSequenceDialog.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewNewSequenceDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAnimViewNewSequenceDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewNewSequenceDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAnimViewNewSequenceDialog.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewNewSequenceDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAnimViewNewSequenceDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewNodes.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewNodes.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAnimViewNodes.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewNodes.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAnimViewNodes.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewNodes.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAnimViewNodes.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewNodes.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAnimViewNodes.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewNodes.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAnimViewNodes.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewNodes.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAnimViewNodes.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewTrackPropsDlg.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewTrackPropsDlg.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAnimViewTrackPropsDlg.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewTrackPropsDlg.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAnimViewTrackPropsDlg.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewTrackPropsDlg.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAnimViewTrackPropsDlg.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewTrackPropsDlg.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAnimViewTrackPropsDlg.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewTrackPropsDlg.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAnimViewTrackPropsDlg.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewTrackPropsDlg.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAnimViewTrackPropsDlg.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAVEventsDialog.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAVEventsDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAVEventsDialog.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAVEventsDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAVEventsDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAVEventsDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAVEventsDialog.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAVEventsDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAVEventsDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAVEventsDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAVEventsDialog.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAVEventsDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAVEventsDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAVSequenceProps.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAVSequenceProps.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAVSequenceProps.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAVSequenceProps.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAVSequenceProps.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAVSequenceProps.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAVSequenceProps.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAVSequenceProps.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAVSequenceProps.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAVSequenceProps.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/LyShine.Editor.Static_autogen/include/Editor/Animation/ui_UiAVSequenceProps.h J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAVSequenceProps.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAVSequenceProps.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\1b85aad9c393c4760576cea5da376822\qrc_UiCanvasEditor.cpp.rule">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Automatic RCC for Editor/UiCanvasEditor.qrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+cd J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/LyShine.Editor.Static_autogen.dir/AutoRcc_UiCanvasEditor_VXJ2TIUOOO_Info.json debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/LyShine.Editor.Static_autogen.dir/AutoRcc_UiCanvasEditor_VXJ2TIUOOO_Info.json profile
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/LyShine.Editor.Static_autogen.dir/AutoRcc_UiCanvasEditor_VXJ2TIUOOO_Info.json release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\UiCanvasEditor.qrc;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\CMakeFiles\LyShine.Editor.Static_autogen.dir\AutoRcc_UiCanvasEditor_VXJ2TIUOOO_Info.json;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\AppData\size_presets.json;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon12Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon06Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon01Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\PivotIconDefault.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeAnchorDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon11Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon03Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHRightDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon15Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon00Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHCenterDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon06Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon11Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon10Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeMoveDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon03Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHCenterHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon14Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon07Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVTopDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon09Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\EntityPickerCursor.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon12Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon01Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHLeftHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon09Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\PivotIconSelected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeSelectionHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeRotateHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\PreviewStop.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon08Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon00Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeRotateDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon04Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHLeftDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon07Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon04Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\delete.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeResizeDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\PivotIconHover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon08Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeMoveDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon07Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVTopDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon12Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon06Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVCenterDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon13Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVCenterHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHCenterDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeSelectionDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon15Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVBottomDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon01Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon05Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVCenterDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon10Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeAnchorHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon02Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon15Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHLeftDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHRightDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon05Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeAnchorDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon04Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVBottomHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon10Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeResizeHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon09Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon14Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVBottomDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVTopHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon03Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeSelectionDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon14Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon05Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeResizeDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon13Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeMoveHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\PreviewStart.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon02Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon00Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon08Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon02Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeRotateDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHRightHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon11Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon13Selected.tif;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\rcc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\VXJ2TIUOOO\qrc_UiCanvasEditor.cpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Automatic RCC for Editor/UiCanvasEditor.qrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+cd J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/LyShine.Editor.Static_autogen.dir/AutoRcc_UiCanvasEditor_VXJ2TIUOOO_Info.json debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/LyShine.Editor.Static_autogen.dir/AutoRcc_UiCanvasEditor_VXJ2TIUOOO_Info.json profile
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/LyShine.Editor.Static_autogen.dir/AutoRcc_UiCanvasEditor_VXJ2TIUOOO_Info.json release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\UiCanvasEditor.qrc;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\CMakeFiles\LyShine.Editor.Static_autogen.dir\AutoRcc_UiCanvasEditor_VXJ2TIUOOO_Info.json;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\AppData\size_presets.json;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon12Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon06Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon01Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\PivotIconDefault.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeAnchorDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon11Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon03Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHRightDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon15Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon00Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHCenterDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon06Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon11Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon10Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeMoveDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon03Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHCenterHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon14Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon07Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVTopDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon09Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\EntityPickerCursor.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon12Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon01Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHLeftHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon09Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\PivotIconSelected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeSelectionHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeRotateHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\PreviewStop.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon08Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon00Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeRotateDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon04Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHLeftDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon07Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon04Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\delete.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeResizeDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\PivotIconHover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon08Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeMoveDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon07Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVTopDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon12Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon06Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVCenterDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon13Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVCenterHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHCenterDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeSelectionDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon15Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVBottomDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon01Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon05Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVCenterDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon10Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeAnchorHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon02Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon15Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHLeftDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHRightDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon05Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeAnchorDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon04Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVBottomHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon10Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeResizeHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon09Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon14Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVBottomDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVTopHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon03Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeSelectionDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon14Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon05Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeResizeDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon13Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeMoveHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\PreviewStart.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon02Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon00Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon08Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon02Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeRotateDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHRightHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon11Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon13Selected.tif;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\rcc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\VXJ2TIUOOO\qrc_UiCanvasEditor.cpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Automatic RCC for Editor/UiCanvasEditor.qrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+cd J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/LyShine.Editor.Static_autogen.dir/AutoRcc_UiCanvasEditor_VXJ2TIUOOO_Info.json debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/LyShine.Editor.Static_autogen.dir/AutoRcc_UiCanvasEditor_VXJ2TIUOOO_Info.json profile
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/LyShine.Editor.Static_autogen.dir/AutoRcc_UiCanvasEditor_VXJ2TIUOOO_Info.json release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\UiCanvasEditor.qrc;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\CMakeFiles\LyShine.Editor.Static_autogen.dir\AutoRcc_UiCanvasEditor_VXJ2TIUOOO_Info.json;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\AppData\size_presets.json;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon12Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon06Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon01Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\PivotIconDefault.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeAnchorDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon11Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon03Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHRightDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon15Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon00Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHCenterDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon06Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon11Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon10Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeMoveDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon03Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHCenterHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon14Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon07Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVTopDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon09Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\EntityPickerCursor.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon12Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon01Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHLeftHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon09Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\PivotIconSelected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeSelectionHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeRotateHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\PreviewStop.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon08Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon00Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeRotateDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon04Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHLeftDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon07Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon04Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\delete.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeResizeDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\PivotIconHover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon08Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeMoveDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon07Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVTopDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon12Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon06Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVCenterDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon13Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVCenterHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHCenterDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeSelectionDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon15Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVBottomDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon01Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon05Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVCenterDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon10Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeAnchorHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon02Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon15Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHLeftDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHRightDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon05Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeAnchorDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon04Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVBottomHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon10Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeResizeHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon09Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon14Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVBottomDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignVTopHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon03Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeSelectionDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon14Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon05Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeResizeDisabled.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon13Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeMoveHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\PreviewStart.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon02Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon00Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon08Selected.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon02Hover.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\ModeRotateDefault.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AlignHRightHover.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon11Default.tif;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Icons\AnchorIcon13Selected.tif;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\rcc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\VXJ2TIUOOO\qrc_UiCanvasEditor.cpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\09f9a09f866deefbf6cf84f086bcd259\qrc_UiAnimViewDialog.cpp.rule">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Automatic RCC for Editor/Animation/UiAnimViewDialog.qrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+cd J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/LyShine.Editor.Static_autogen.dir/AutoRcc_UiAnimViewDialog_2GHLWBTVZW_Info.json debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/LyShine.Editor.Static_autogen.dir/AutoRcc_UiAnimViewDialog_2GHLWBTVZW_Info.json profile
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/LyShine.Editor.Static_autogen.dir/AutoRcc_UiAnimViewDialog_2GHLWBTVZW_Info.json release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewDialog.qrc;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\CMakeFiles\LyShine.Editor.Static_autogen.dir\AutoRcc_UiAnimViewDialog_2GHLWBTVZW_Info.json;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-22.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-23.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-24.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-25.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-10.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-26.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-11.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-27.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-12.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-28.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-13.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-14.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-15.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-00.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-16.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-01.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-17.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-02.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-18.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-03.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-19.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-04.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-05.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-06.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-07.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-08.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-09.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-20.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-21.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\cur00003.cur;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\cur00005.cur;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\pointerHit.cur;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\leftright.cur;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\arr_addkey.cur;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\cur00004.cur;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-00.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-04.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-08.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-12.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-03.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-07.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-11.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-02.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-06.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-10.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-01.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-05.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-09.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvview-02.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvview-01.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvview-00.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-02.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-06.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-10.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-01.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-05.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-09.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-00.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-04.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-08.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-03.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-07.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-11.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-02.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-06.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-10.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-01.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-05.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-09.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-00.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-04.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-08.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-03.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-07.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_11.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_02.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_15.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_06.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_10.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_01.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_14.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_05.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_09.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_00.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_13.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_04.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_08.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_12.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_03.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_16.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_07.png;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\rcc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\2GHLWBTVZW\qrc_UiAnimViewDialog.cpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Automatic RCC for Editor/Animation/UiAnimViewDialog.qrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+cd J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/LyShine.Editor.Static_autogen.dir/AutoRcc_UiAnimViewDialog_2GHLWBTVZW_Info.json debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/LyShine.Editor.Static_autogen.dir/AutoRcc_UiAnimViewDialog_2GHLWBTVZW_Info.json profile
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/LyShine.Editor.Static_autogen.dir/AutoRcc_UiAnimViewDialog_2GHLWBTVZW_Info.json release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewDialog.qrc;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\CMakeFiles\LyShine.Editor.Static_autogen.dir\AutoRcc_UiAnimViewDialog_2GHLWBTVZW_Info.json;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-22.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-23.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-24.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-25.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-10.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-26.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-11.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-27.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-12.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-28.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-13.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-14.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-15.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-00.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-16.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-01.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-17.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-02.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-18.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-03.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-19.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-04.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-05.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-06.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-07.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-08.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-09.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-20.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-21.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\cur00003.cur;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\cur00005.cur;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\pointerHit.cur;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\leftright.cur;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\arr_addkey.cur;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\cur00004.cur;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-00.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-04.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-08.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-12.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-03.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-07.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-11.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-02.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-06.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-10.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-01.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-05.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-09.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvview-02.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvview-01.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvview-00.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-02.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-06.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-10.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-01.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-05.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-09.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-00.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-04.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-08.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-03.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-07.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-11.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-02.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-06.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-10.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-01.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-05.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-09.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-00.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-04.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-08.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-03.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-07.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_11.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_02.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_15.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_06.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_10.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_01.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_14.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_05.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_09.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_00.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_13.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_04.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_08.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_12.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_03.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_16.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_07.png;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\rcc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\2GHLWBTVZW\qrc_UiAnimViewDialog.cpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Automatic RCC for Editor/Animation/UiAnimViewDialog.qrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+cd J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/LyShine.Editor.Static_autogen.dir/AutoRcc_UiAnimViewDialog_2GHLWBTVZW_Info.json debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/LyShine.Editor.Static_autogen.dir/AutoRcc_UiAnimViewDialog_2GHLWBTVZW_Info.json profile
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/LyShine.Editor.Static_autogen.dir/AutoRcc_UiAnimViewDialog_2GHLWBTVZW_Info.json release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewDialog.qrc;J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\CMakeFiles\LyShine.Editor.Static_autogen.dir\AutoRcc_UiAnimViewDialog_2GHLWBTVZW_Info.json;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-22.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-23.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-24.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-25.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-10.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-26.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-11.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-27.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-12.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-28.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-13.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-14.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-15.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-00.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-16.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-01.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-17.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-02.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-18.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-03.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-19.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-04.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-05.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-06.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-07.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-08.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-09.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-20.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvnodes-21.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\cur00003.cur;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\cur00005.cur;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\pointerHit.cur;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\leftright.cur;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\arr_addkey.cur;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\cur00004.cur;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-00.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-04.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-08.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-12.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-03.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-07.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-11.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-02.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-06.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-10.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-01.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-05.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvkeys-09.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvview-02.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvview-01.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvview-00.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-02.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-06.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-10.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-01.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-05.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-09.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-00.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-04.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-08.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-03.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvplay-07.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-11.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-02.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-06.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-10.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-01.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-05.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-09.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-00.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-04.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-08.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-03.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\tvmain-07.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_11.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_02.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_15.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_06.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_10.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_01.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_14.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_05.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_09.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_00.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_13.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_04.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_08.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_12.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_03.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_16.png;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\spline_edit_bar_07.png;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\rcc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\2GHLWBTVZW\qrc_UiAnimViewDialog.cpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/LyShine/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewDialog.qrc;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\UiCanvasEditor.qrc;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Source\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\LyShine\Code\lyshine_common_module_files.cmake;J:\Atom\lyfork\o3de\Gems\LyShine\Code\lyshine_editor_builder_files.cmake;J:\Atom\lyfork\o3de\Gems\LyShine\Code\lyshine_editor_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\LyShine\Code\lyshine_static_files.cmake;J:\Atom\lyfork\o3de\Gems\LyShine\Code\lyshine_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\LyShine\Code\lyshine_uicanvaseditor_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/LyShine/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewDialog.qrc;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\UiCanvasEditor.qrc;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Source\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\LyShine\Code\lyshine_common_module_files.cmake;J:\Atom\lyfork\o3de\Gems\LyShine\Code\lyshine_editor_builder_files.cmake;J:\Atom\lyfork\o3de\Gems\LyShine\Code\lyshine_editor_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\LyShine\Code\lyshine_static_files.cmake;J:\Atom\lyfork\o3de\Gems\LyShine\Code\lyshine_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\LyShine\Code\lyshine_uicanvaseditor_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/LyShine/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/LyShine-fdd0a107/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewDialog.qrc;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\UiCanvasEditor.qrc;J:\Atom\lyfork\o3de\Gems\LyShine\Code\Source\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\LyShine\Code\lyshine_common_module_files.cmake;J:\Atom\lyfork\o3de\Gems\LyShine\Code\lyshine_editor_builder_files.cmake;J:\Atom\lyfork\o3de\Gems\LyShine\Code\lyshine_editor_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\LyShine\Code\lyshine_static_files.cmake;J:\Atom\lyfork\o3de\Gems\LyShine\Code\lyshine_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\LyShine\Code\lyshine_uicanvaseditor_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\mocs_compilation_debug.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='profile|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\LyShineEditorSystemComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\LyShineEditorSystemComponent.h" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\UiCanvasEditor.qrc">
+    </None>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewDialog.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewDialog.h" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewDialog.qrc">
+    </None>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAVCustomizeTrackColorsDlg.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAVCustomizeTrackColorsDlg.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\AlignToolbarSection.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\AlignToolbarSection.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\AnchorPresets.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\AnchorPresets.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\AnchorPresetsWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\AnchorPresetsWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\AssetDropHelpers.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\AssetDropHelpers.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\AssetTreeEntry.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\AssetTreeEntry.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CanvasHelpers.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CanvasHelpers.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CanvasSizeToolbarSection.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CanvasSizeToolbarSection.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandCanvasPropertiesChange.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandCanvasPropertiesChange.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandCanvasSize.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandCanvasSize.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandCanvasSizeToolbarIndex.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandCanvasSizeToolbarIndex.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandHierarchyItemCreate.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandHierarchyItemCreate.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandHierarchyItemCreateFromData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandHierarchyItemCreateFromData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandHierarchyItemDelete.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandHierarchyItemDelete.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandHierarchyItemRename.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandHierarchyItemRename.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandHierarchyItemReparent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandHierarchyItemReparent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandHierarchyItemToggleIsExpanded.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandHierarchyItemToggleIsExpanded.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandHierarchyItemToggleIsSelectable.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandHierarchyItemToggleIsSelectable.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandHierarchyItemToggleIsSelected.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandHierarchyItemToggleIsSelected.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandHierarchyItemToggleIsVisible.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandHierarchyItemToggleIsVisible.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandPropertiesChange.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandPropertiesChange.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandViewportInteractionMode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CommandViewportInteractionMode.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ComponentAssetHelpers.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ComponentButton.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ComponentButton.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ComponentHelpers.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ComponentHelpers.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CoordinateSystemToolbarSection.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\CoordinateSystemToolbarSection.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\EditorCommon.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\EditorCommon.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\EditorMenu.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\EditorWindow.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\EditorWindow.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\EnterPreviewToolbar.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\EnterPreviewToolbar.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\EntityHelpers.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\EntityHelpers.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\FeedbackDialog.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\FeedbackDialog.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\FileHelpers.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\FileHelpers.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\FindEntityItemModel.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\FindEntityItemModel.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\FindEntitySortFilterProxyModel.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\FindEntitySortFilterProxyModel.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\FindEntityWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\FindEntityWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\GuideHelpers.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\GuideHelpers.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\HierarchyClipboard.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\HierarchyClipboard.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\HierarchyHeader.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\HierarchyHeader.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\HierarchyHelpers.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\HierarchyHelpers.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\HierarchyItem.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\HierarchyItem.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\HierarchyMenu.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\HierarchyMenu.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\HierarchyWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\HierarchyWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\MainToolbar.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\MainToolbar.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ModeToolbar.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ModeToolbar.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\NewElementToolbarSection.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\NewElementToolbarSection.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PivotPresets.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PivotPresets.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PivotPresetsWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PivotPresetsWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PresetButton.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PresetButton.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PreviewActionLog.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PreviewActionLog.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PreviewAnimationList.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PreviewAnimationList.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PreviewToolbar.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PreviewToolbar.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertiesContainer.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertiesContainer.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertiesWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertiesWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertiesWrapper.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertiesWrapper.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlerAnchor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlerAnchor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlerChar.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlerChar.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlerDirectory.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlerDirectory.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlerEntityIdComboBox.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlerEntityIdComboBox.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlerLayoutPadding.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlerLayoutPadding.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlerOffset.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlerOffset.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlerUiParticleColorKeyframe.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlerUiParticleColorKeyframe.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlerUiParticleFloatKeyframe.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlerUiParticleFloatKeyframe.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlerPivot.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlerPivot.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlers.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlers.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlerSprite.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlerSprite.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlerVec.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\PropertyHandlerVec.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\QtHelpers.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\QtHelpers.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\RecentFiles.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\RecentFiles.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\RulerWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\RulerWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\SelectionHelpers.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\SelectionHelpers.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\SerializeHelpers.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\SerializeHelpers.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\SliceMenuHelpers.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\SliceMenuHelpers.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\SlicerEdit.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\SlicerEdit.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\SlicerManipulator.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\SlicerManipulator.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\SlicerView.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\SlicerView.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\SpriteBorderEditor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\SpriteBorderEditor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\SpriteBorderEditorCommon.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\SpriteBorderEditorCommon.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\UiEditorInternalBus.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\UiEditorEntityContext.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\UiEditorEntityContext.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\UiEditorEntityContextBus.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\UiSliceManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\UiSliceManager.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\UIVectorPropertyHandlerBase.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\UndoStack.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\UndoStack.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\UndoStackExecutionScope.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\UndoStackExecutionScope.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportAddGuideInteraction.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportAddGuideInteraction.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportAlign.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportAlign.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportAnchor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportAnchor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportCanvasBackground.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportCanvasBackground.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportDragInteraction.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportDragInteraction.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportElement.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportElement.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportHelpers.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportHelpers.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportHighlight.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportHighlight.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportIcon.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportIcon.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportInteraction.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportInteraction.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportMoveGuideInteraction.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportMoveGuideInteraction.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportMoveInteraction.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportMoveInteraction.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportNudge.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportNudge.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportPivot.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportPivot.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportSnap.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportSnap.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\ViewportWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\AnimationContext.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\AnimationContext.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimUndo.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimUndo.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimUndoManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimUndoManager.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimUndoObject.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewAnimNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewAnimNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewEventNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewEventNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewNode.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewNode.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewNodeFactories.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewNodeFactories.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewSequence.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewSequence.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewSequenceManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewSequenceManager.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewTrack.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewTrack.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewUndo.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewUndo.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\Controls\UiSplineCtrlEx.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\Controls\UiSplineCtrlEx.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\Controls\UiTimelineCtrl.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\Controls\UiTimelineCtrl.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\Util\UiEditorUtils.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewCurveEditor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewCurveEditor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewDopeSheetBase.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewDopeSheetBase.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewFindDlg.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewFindDlg.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewKeyPropertiesDlg.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewKeyPropertiesDlg.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewNewSequenceDialog.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewNewSequenceDialog.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewNodes.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewNodes.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewSplineCtrl.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAnimViewSplineCtrl.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAVEventsDialog.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAVEventsDialog.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAVSequenceProps.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAVSequenceProps.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAVTrackEventKeyUIControls.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\Editor\Animation\UiAVTrackEventKeyUIControls.h" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\lyshine_uicanvaseditor_files.cmake">
+    </None>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAVCustomizeTrackColorsDialog.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAnimViewCurveEditor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAnimViewFindDlg.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAnimViewNewSequenceDialog.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAnimViewNodes.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAnimViewTrackPropsDlg.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAVEventsDialog.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\include\Editor\Animation\ui_UiAVSequenceProps.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\VXJ2TIUOOO\qrc_UiCanvasEditor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\2GHLWBTVZW\qrc_UiAnimViewDialog.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\mocs_compilation_profile.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Editor.Static_autogen\mocs_compilation_release.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='profile|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\ZERO_CHECK.vcxproj">
+      <Project>{9D084072-A56A-3A6D-8C63-F5385A20608A}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore.vcxproj">
+      <Project>{9F85147B-AD44-3A0F-AA74-60212AED63A4}</Project>
+      <Name>AtomCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\AtomToolsFramework\Code\AtomToolsFramework.Static.vcxproj">
+      <Project>{04E52970-258B-3A55-BFFB-282E9417690D}</Project>
+      <Name>AtomToolsFramework.Static</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\AtomLyIntegration-05307bc2\AtomBridge\Code\Atom_AtomBridge.Static.vcxproj">
+      <Project>{AD5D0F31-C833-351D-8056-9280B156F795}</Project>
+      <Name>Atom_AtomBridge.Static</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Bootstrap\Code\Atom_Bootstrap.Headers.vcxproj">
+      <Project>{8805BDA8-B3F9-3A52-ABDC-EFD9694A4FF9}</Project>
+      <Name>Atom_Bootstrap.Headers</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\RHI\Code\Atom_RHI.Edit.vcxproj">
+      <Project>{8C1D1A73-FC5B-357E-9E0C-637FDC3F28B9}</Project>
+      <Name>Atom_RHI.Edit</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\RHI\Code\Atom_RHI.Public.vcxproj">
+      <Project>{0A0834F3-ACAD-337F-8EE6-B6B3D4822C3E}</Project>
+      <Name>Atom_RHI.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\RHI\Code\Atom_RHI.Reflect.vcxproj">
+      <Project>{85639FA0-2DAB-3EDD-AED2-0AFCEF18D511}</Project>
+      <Name>Atom_RHI.Reflect</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\RPI\Code\Atom_RPI.Edit.vcxproj">
+      <Project>{9A346F70-2F25-3CD6-9196-421BE73679DA}</Project>
+      <Name>Atom_RPI.Edit</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\RPI\Code\Atom_RPI.Public.vcxproj">
+      <Project>{88E91A5D-117D-3A1C-A2CC-3989E9B44A26}</Project>
+      <Name>Atom_RPI.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Utils\Code\Atom_Utils.Static.vcxproj">
+      <Project>{36EDED3E-8137-34D9-8697-939CD494EA22}</Project>
+      <Name>Atom_Utils.Static</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore.vcxproj">
+      <Project>{78F97634-33F1-3E9D-BB2E-D24CB7BD9D1E}</Project>
+      <Name>AzCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework.vcxproj">
+      <Project>{32B5BA28-0012-3762-8899-2D392DE6A10B}</Project>
+      <Name>AzFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents.vcxproj">
+      <Project>{A96AE86E-7259-341D-879A-5F0B4ECAAFB8}</Project>
+      <Name>AzQtComponents</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework.vcxproj">
+      <Project>{FBDC5AB0-96E2-3EF6-A16A-7C345C99949B}</Project>
+      <Name>AzToolsFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryCommon.vcxproj">
+      <Project>{5131F2AB-DC9C-3FE9-A0DF-A1E42FAD10E6}</Project>
+      <Name>CryCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\EditorCommon.vcxproj">
+      <Project>{28A7472C-BC24-34BE-9911-0E873193F853}</Project>
+      <Name>EditorCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Editor\EditorCore.vcxproj">
+      <Project>{82A981A9-7716-336E-AC6A-F13A1FEF87C3}</Project>
+      <Name>EditorCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate.vcxproj">
+      <Project>{1A59660B-1BCB-3611-B3D0-673DEB6F8A46}</Project>
+      <Name>GridMate</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\LyShine-fdd0a107\Code\LyShine.Static.vcxproj">
+      <Project>{4F6401C5-E1D5-33F9-8E79-4E3CFA868F5F}</Project>
+      <Name>LyShine.Static</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\TextureAtlas-ae2f826f\Code\TextureAtlas.Editor.vcxproj">
+      <Project>{C3377EAD-C8F4-3B3B-AD09-BA6A87F9B74E}</Project>
+      <Name>TextureAtlas.Editor</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

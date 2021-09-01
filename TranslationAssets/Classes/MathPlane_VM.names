@@ -1,0 +1,372 @@
+{
+    "entries": [
+        {
+            "key": "MathPlane_VM",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "MathPlane_VM"
+            },
+            "methods": [
+                {
+                    "key": "GetPlaneEquationCoefficients",
+                    "context": "MathPlane_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathPlane_VM::GetPlaneEquationCoefficients"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathPlane_VM::GetPlaneEquationCoefficients is invoked"
+                    },
+                    "details": {
+                        "name": "MathPlane_VM::GetPlaneEquationCoefficients"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
+                            "details": {
+                                "name": "Plane"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{7352CD6D-91DA-536F-BFCC-BC513FB48B2D}",
+                            "details": {
+                                "name": "tuple<double double double double >"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetDistance",
+                    "context": "MathPlane_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathPlane_VM::GetDistance"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathPlane_VM::GetDistance is invoked"
+                    },
+                    "details": {
+                        "name": "MathPlane_VM::GetDistance"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
+                            "details": {
+                                "name": "Plane"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Project",
+                    "context": "MathPlane_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathPlane_VM::Project"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathPlane_VM::Project is invoked"
+                    },
+                    "details": {
+                        "name": "MathPlane_VM::Project"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
+                            "details": {
+                                "name": "Plane"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromNormalAndPoint",
+                    "context": "MathPlane_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathPlane_VM::FromNormalAndPoint"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathPlane_VM::FromNormalAndPoint is invoked"
+                    },
+                    "details": {
+                        "name": "MathPlane_VM::FromNormalAndPoint"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
+                            "details": {
+                                "name": "Plane"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsFinite",
+                    "context": "MathPlane_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathPlane_VM::IsFinite"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathPlane_VM::IsFinite is invoked"
+                    },
+                    "details": {
+                        "name": "MathPlane_VM::IsFinite"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
+                            "details": {
+                                "name": "Plane"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Transform",
+                    "context": "MathPlane_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathPlane_VM::Transform"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathPlane_VM::Transform is invoked"
+                    },
+                    "details": {
+                        "name": "MathPlane_VM::Transform"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
+                            "details": {
+                                "name": "Plane"
+                            }
+                        },
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
+                            "details": {
+                                "name": "Plane"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "DistanceToPoint",
+                    "context": "MathPlane_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathPlane_VM::DistanceToPoint"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathPlane_VM::DistanceToPoint is invoked"
+                    },
+                    "details": {
+                        "name": "MathPlane_VM::DistanceToPoint"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
+                            "details": {
+                                "name": "Plane"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromCoefficients",
+                    "context": "MathPlane_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathPlane_VM::FromCoefficients"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathPlane_VM::FromCoefficients is invoked"
+                    },
+                    "details": {
+                        "name": "MathPlane_VM::FromCoefficients"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
+                            "details": {
+                                "name": "Plane"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromNormalAndDistance",
+                    "context": "MathPlane_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathPlane_VM::FromNormalAndDistance"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathPlane_VM::FromNormalAndDistance is invoked"
+                    },
+                    "details": {
+                        "name": "MathPlane_VM::FromNormalAndDistance"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
+                            "details": {
+                                "name": "Plane"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetNormal",
+                    "context": "MathPlane_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathPlane_VM::GetNormal"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathPlane_VM::GetNormal is invoked"
+                    },
+                    "details": {
+                        "name": "MathPlane_VM::GetNormal"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
+                            "details": {
+                                "name": "Plane"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

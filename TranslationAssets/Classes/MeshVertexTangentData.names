@@ -1,0 +1,144 @@
+{
+    "entries": [
+        {
+            "key": "MeshVertexTangentData",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "MeshVertexTangentData"
+            },
+            "methods": [
+                {
+                    "key": "GetCount",
+                    "context": "MeshVertexTangentData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MeshVertexTangentData::GetCount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MeshVertexTangentData::GetCount is invoked"
+                    },
+                    "details": {
+                        "name": "MeshVertexTangentData::GetCount"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C16F0F38-8F8F-45A2-A33B-F2758922A7C4}",
+                            "details": {
+                                "name": "MeshVertexTangentData"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTangent",
+                    "context": "MeshVertexTangentData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MeshVertexTangentData::GetTangent"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MeshVertexTangentData::GetTangent is invoked"
+                    },
+                    "details": {
+                        "name": "MeshVertexTangentData::GetTangent"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C16F0F38-8F8F-45A2-A33B-F2758922A7C4}",
+                            "details": {
+                                "name": "MeshVertexTangentData"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
+                            "details": {
+                                "name": "Vector4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTangentSetIndex",
+                    "context": "MeshVertexTangentData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MeshVertexTangentData::GetTangentSetIndex"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MeshVertexTangentData::GetTangentSetIndex is invoked"
+                    },
+                    "details": {
+                        "name": "MeshVertexTangentData::GetTangentSetIndex"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C16F0F38-8F8F-45A2-A33B-F2758922A7C4}",
+                            "details": {
+                                "name": "MeshVertexTangentData"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetGenerationMethod",
+                    "context": "MeshVertexTangentData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MeshVertexTangentData::GetGenerationMethod"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MeshVertexTangentData::GetGenerationMethod is invoked"
+                    },
+                    "details": {
+                        "name": "MeshVertexTangentData::GetGenerationMethod"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C16F0F38-8F8F-45A2-A33B-F2758922A7C4}",
+                            "details": {
+                                "name": "MeshVertexTangentData"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

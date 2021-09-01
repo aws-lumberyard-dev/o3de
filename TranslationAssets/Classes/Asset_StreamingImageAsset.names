@@ -1,0 +1,262 @@
+{
+    "entries": [
+        {
+            "key": "Asset<StreamingImageAsset>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Asset<StreamingImageAsset>"
+            },
+            "methods": [
+                {
+                    "key": "IsLoading",
+                    "context": "Asset<StreamingImageAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<StreamingImageAsset>::IsLoading"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<StreamingImageAsset>::IsLoading is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<StreamingImageAsset>::IsLoading"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{403A7CFE-B218-5D57-8540-BD58E734BCFE}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetType",
+                    "context": "Asset<StreamingImageAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<StreamingImageAsset>::GetType"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<StreamingImageAsset>::GetType is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<StreamingImageAsset>::GetType"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{403A7CFE-B218-5D57-8540-BD58E734BCFE}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{E152C105-A133-4D03-BBF8-3D4B2FBA3E2A}",
+                            "details": {
+                                "name": "AZ::Uuid"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsError",
+                    "context": "Asset<StreamingImageAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<StreamingImageAsset>::IsError"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<StreamingImageAsset>::IsError is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<StreamingImageAsset>::IsError"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{403A7CFE-B218-5D57-8540-BD58E734BCFE}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetHint",
+                    "context": "Asset<StreamingImageAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<StreamingImageAsset>::GetHint"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<StreamingImageAsset>::GetHint is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<StreamingImageAsset>::GetHint"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{403A7CFE-B218-5D57-8540-BD58E734BCFE}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetData",
+                    "context": "Asset<StreamingImageAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<StreamingImageAsset>::GetData"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<StreamingImageAsset>::GetData is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<StreamingImageAsset>::GetData"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{403A7CFE-B218-5D57-8540-BD58E734BCFE}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{AF3F7D32-1536-422A-89F3-A11E1F5B5A9C}",
+                            "details": {
+                                "name": "AssetData"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsReady",
+                    "context": "Asset<StreamingImageAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<StreamingImageAsset>::IsReady"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<StreamingImageAsset>::IsReady is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<StreamingImageAsset>::IsReady"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{403A7CFE-B218-5D57-8540-BD58E734BCFE}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetStatus",
+                    "context": "Asset<StreamingImageAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<StreamingImageAsset>::GetStatus"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<StreamingImageAsset>::GetStatus is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<StreamingImageAsset>::GetStatus"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{403A7CFE-B218-5D57-8540-BD58E734BCFE}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetId",
+                    "context": "Asset<StreamingImageAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<StreamingImageAsset>::GetId"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<StreamingImageAsset>::GetId is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<StreamingImageAsset>::GetId"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{403A7CFE-B218-5D57-8540-BD58E734BCFE}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
+                            "details": {
+                                "name": "AssetId"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

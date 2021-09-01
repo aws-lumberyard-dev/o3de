@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Source\ScriptEventsSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\ScriptEventsAsset.cpp">
+      <Filter>Include\ScriptEvents</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\ScriptEventRegistration.cpp">
+      <Filter>Include\ScriptEvents</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\ScriptEventDefinition.cpp">
+      <Filter>Include\ScriptEvents</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\ScriptEvent.cpp">
+      <Filter>Include\ScriptEvents</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\ScriptEventSystem.cpp">
+      <Filter>Include\ScriptEvents</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\ScriptEventTypes.cpp">
+      <Filter>Include\ScriptEvents</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\Internal\VersionedProperty.cpp">
+      <Filter>Include\ScriptEvents\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\Internal\BehaviorContextBinding\DefaultEventHandler.cpp">
+      <Filter>Include\ScriptEvents\Internal\BehaviorContextBinding</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\Internal\BehaviorContextBinding\ScriptEventMethod.cpp">
+      <Filter>Include\ScriptEvents\Internal\BehaviorContextBinding</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\Internal\BehaviorContextBinding\ScriptEventBroadcast.cpp">
+      <Filter>Include\ScriptEvents\Internal\BehaviorContextBinding</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\Internal\BehaviorContextBinding\ScriptEventBinding.cpp">
+      <Filter>Include\ScriptEvents\Internal\BehaviorContextBinding</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\Components\ScriptEventReferencesComponent.cpp">
+      <Filter>Include\ScriptEvents\Components</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Source\ScriptEventsSystemComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\ScriptEventsGem.h">
+      <Filter>Include\ScriptEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\ScriptEventsAsset.h">
+      <Filter>Include\ScriptEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\ScriptEventsAssetRef.h">
+      <Filter>Include\ScriptEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\ScriptEventsBus.h">
+      <Filter>Include\ScriptEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\ScriptEventRegistration.h">
+      <Filter>Include\ScriptEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\ScriptEventFundamentalTypes.h">
+      <Filter>Include\ScriptEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\ScriptEventDefinition.h">
+      <Filter>Include\ScriptEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\ScriptEvent.h">
+      <Filter>Include\ScriptEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\ScriptEventMethod.h">
+      <Filter>Include\ScriptEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\ScriptEventParameter.h">
+      <Filter>Include\ScriptEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\ScriptEventSystem.h">
+      <Filter>Include\ScriptEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\ScriptEventTypes.h">
+      <Filter>Include\ScriptEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\Internal\VersionedProperty.h">
+      <Filter>Include\ScriptEvents\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\Internal\BehaviorContextBinding\BehaviorContextFactoryMethods.h">
+      <Filter>Include\ScriptEvents\Internal\BehaviorContextBinding</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\Internal\BehaviorContextBinding\DefaultEventHandler.h">
+      <Filter>Include\ScriptEvents\Internal\BehaviorContextBinding</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\Internal\BehaviorContextBinding\ScriptEventMethod.h">
+      <Filter>Include\ScriptEvents\Internal\BehaviorContextBinding</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\Internal\BehaviorContextBinding\ScriptEventBroadcast.h">
+      <Filter>Include\ScriptEvents\Internal\BehaviorContextBinding</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\Internal\BehaviorContextBinding\ScriptEventsBindingBus.h">
+      <Filter>Include\ScriptEvents\Internal\BehaviorContextBinding</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\Internal\BehaviorContextBinding\ScriptEventBinding.h">
+      <Filter>Include\ScriptEvents\Internal\BehaviorContextBinding</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include\ScriptEvents\Components\ScriptEventReferencesComponent.h">
+      <Filter>Include\ScriptEvents\Components</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\scriptevents_common_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptEvents">
+      <UniqueIdentifier>{F7691C90-DEED-3BEA-B56C-C6A626479C0D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptEvents\Components">
+      <UniqueIdentifier>{7FD94217-26D3-3602-AEC5-93759DCA4D1E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptEvents\Internal">
+      <UniqueIdentifier>{47E769C3-C661-35AB-81CB-81F5CE5F3889}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptEvents\Internal\BehaviorContextBinding">
+      <UniqueIdentifier>{CCF0147E-E802-38F0-8386-3A85342F24C0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,45 @@
+{
+    "entries": [
+        {
+            "key": "AZ::RHI::Handle<short, DefaultNamespaceType>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AZ::RHI::Handle<short, DefaultNamespaceType>"
+            },
+            "methods": [
+                {
+                    "key": "IsValid",
+                    "context": "AZ::RHI::Handle<short, DefaultNamespaceType>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZ::RHI::Handle<short, DefaultNamespaceType>::IsValid"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZ::RHI::Handle<short, DefaultNamespaceType>::IsValid is invoked"
+                    },
+                    "details": {
+                        "name": "AZ::RHI::Handle<short, DefaultNamespaceType>::IsValid"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{4E74B13E-6B4E-59D1-90E1-5E5C7EEE40D6}",
+                            "details": {
+                                "name": "AZ::RHI::Handle<short, DefaultNamespaceType>"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

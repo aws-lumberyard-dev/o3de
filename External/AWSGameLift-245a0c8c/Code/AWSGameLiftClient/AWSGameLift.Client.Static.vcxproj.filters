@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Source\Activity\AWSGameLiftActivityUtils.cpp">
+      <Filter>Source\Activity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Source\Activity\AWSGameLiftCreateSessionActivity.cpp">
+      <Filter>Source\Activity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Source\Activity\AWSGameLiftCreateSessionOnQueueActivity.cpp">
+      <Filter>Source\Activity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Source\Activity\AWSGameLiftJoinSessionActivity.cpp">
+      <Filter>Source\Activity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Source\Activity\AWSGameLiftLeaveSessionActivity.cpp">
+      <Filter>Source\Activity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Source\Activity\AWSGameLiftSearchSessionsActivity.cpp">
+      <Filter>Source\Activity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Source\AWSGameLiftClientManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Source\AWSGameLiftClientSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Source\Request\AWSGameLiftCreateSessionOnQueueRequest.cpp">
+      <Filter>Source\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Source\Request\AWSGameLiftCreateSessionRequest.cpp">
+      <Filter>Source\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Source\Request\AWSGameLiftJoinSessionRequest.cpp">
+      <Filter>Source\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Source\Request\AWSGameLiftSearchSessionsRequest.cpp">
+      <Filter>Source\Request</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Include\Request\AWSGameLiftCreateSessionOnQueueRequest.h">
+      <Filter>Include\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Include\Request\AWSGameLiftCreateSessionRequest.h">
+      <Filter>Include\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Include\Request\AWSGameLiftJoinSessionRequest.h">
+      <Filter>Include\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Include\Request\AWSGameLiftSearchSessionsRequest.h">
+      <Filter>Include\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Include\Request\IAWSGameLiftRequests.h">
+      <Filter>Include\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Source\Activity\AWSGameLiftActivityUtils.h">
+      <Filter>Source\Activity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Source\Activity\AWSGameLiftCreateSessionActivity.h">
+      <Filter>Source\Activity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Source\Activity\AWSGameLiftCreateSessionOnQueueActivity.h">
+      <Filter>Source\Activity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Source\Activity\AWSGameLiftJoinSessionActivity.h">
+      <Filter>Source\Activity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Source\Activity\AWSGameLiftLeaveSessionActivity.h">
+      <Filter>Source\Activity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Source\Activity\AWSGameLiftSearchSessionsActivity.h">
+      <Filter>Source\Activity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Source\AWSGameLiftClientManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\Source\AWSGameLiftClientSystemComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftClient\awsgamelift_client_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Request">
+      <UniqueIdentifier>{F6430AC2-6E82-31E8-A4A2-853D096F289E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Activity">
+      <UniqueIdentifier>{619B07BB-BE85-362B-9ED9-23E865A7A6D5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Request">
+      <UniqueIdentifier>{DF5318FA-B62B-3A67-BD9F-F9556A645955}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

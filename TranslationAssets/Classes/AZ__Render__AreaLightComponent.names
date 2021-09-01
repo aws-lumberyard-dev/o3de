@@ -1,0 +1,12 @@
+{
+    "entries": [
+        {
+            "key": "AZ::Render::AreaLightComponent",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AZ::Render::AreaLightComponent"
+            }
+        }
+    ]
+}

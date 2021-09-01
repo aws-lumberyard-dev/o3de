@@ -1,0 +1,215 @@
+{
+    "entries": [
+        {
+            "key": "NativeHandlingOnlyEBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "NativeHandlingOnlyEBus"
+            },
+            "methods": [
+                {
+                    "key": "TwistTupleEntityId",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke TwistTupleEntityId"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after TwistTupleEntityId is invoked"
+                    },
+                    "details": {
+                        "name": "TwistTupleEntityId"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{BFA7A8BD-787E-56C2-96C1-115A572EB249}",
+                            "details": {
+                                "name": "t"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "TwistTupleVector3",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke TwistTupleVector3"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after TwistTupleVector3 is invoked"
+                    },
+                    "details": {
+                        "name": "TwistTupleVector3"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{33844DCE-75B0-5734-A1B7-7C44199D1D5E}",
+                            "details": {
+                                "name": "t"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "TwistTypeEntityId",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke TwistTypeEntityId"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after TwistTypeEntityId is invoked"
+                    },
+                    "details": {
+                        "name": "TwistTypeEntityId"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Not",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Not"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Not is invoked"
+                    },
+                    "details": {
+                        "name": "Not"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Increment",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Increment"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Increment is invoked"
+                    },
+                    "details": {
+                        "name": "Increment"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Void",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Void"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Void is invoked"
+                    },
+                    "details": {
+                        "name": "Void"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
+                            "details": {
+                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AppendSweet",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AppendSweet"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AppendSweet is invoked"
+                    },
+                    "details": {
+                        "name": "AppendSweet"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
+                            "details": {
+                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "TwistTypeVector3",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke TwistTypeVector3"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after TwistTypeVector3 is invoked"
+                    },
+                    "details": {
+                        "name": "TwistTypeVector3"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

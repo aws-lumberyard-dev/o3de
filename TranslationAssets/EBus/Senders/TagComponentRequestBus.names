@@ -1,0 +1,88 @@
+{
+    "entries": [
+        {
+            "key": "TagComponentRequestBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "TagComponentRequestBus"
+            },
+            "methods": [
+                {
+                    "key": "HasTag",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke HasTag"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after HasTag is invoked"
+                    },
+                    "details": {
+                        "name": "HasTag"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
+                            "details": {
+                                "name": "Crc32"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AddTag",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AddTag"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AddTag is invoked"
+                    },
+                    "details": {
+                        "name": "AddTag"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
+                            "details": {
+                                "name": "Crc32"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RemoveTag",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke RemoveTag"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after RemoveTag is invoked"
+                    },
+                    "details": {
+                        "name": "RemoveTag"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
+                            "details": {
+                                "name": "Crc32"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

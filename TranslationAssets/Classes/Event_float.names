@@ -1,0 +1,45 @@
+{
+    "entries": [
+        {
+            "key": "Event<float >",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Event<float >"
+            },
+            "methods": [
+                {
+                    "key": "HasHandlerConnected",
+                    "context": "Event<float >",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Event<float >::HasHandlerConnected"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Event<float >::HasHandlerConnected is invoked"
+                    },
+                    "details": {
+                        "name": "Event<float >::HasHandlerConnected"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{F0A3166F-115C-5C3E-8D65-28FBA4420028}",
+                            "details": {
+                                "name": "Event<float >*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

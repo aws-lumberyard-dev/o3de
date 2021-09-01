@@ -1,0 +1,2053 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|x64">
+      <Configuration>debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="profile|x64">
+      <Configuration>profile</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|x64">
+      <Configuration>release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6150C5CE-9671-326F-A38F-86771B612E3C}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>O3DEQtControlGallery</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\bin\debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">O3DEQtControlGallery.dir\debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='debug|x64'">O3DEQtControlGallery</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='debug|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\bin\profile\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">O3DEQtControlGallery.dir\profile\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='profile|x64'">O3DEQtControlGallery</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='profile|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='profile|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\bin\release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">O3DEQtControlGallery.dir\release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='release|x64'">O3DEQtControlGallery</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='release|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='release|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include_debug;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /RTCsu /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_DEBUG;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="debug";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_SVG_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_XML_LIB;OPENSSL_ENABLED;CMAKE_INTDIR="debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;_HAS_EXCEPTIONS=0;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"debug\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_SVG_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_XML_LIB;OPENSSL_ENABLED;CMAKE_INTDIR=\"debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include_debug;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include_debug;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message>Automatic MOC for target O3DEQtControlGallery</Message>
+      <Command>setlocal
+cd J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autogen J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/CMakeFiles/O3DEQtControlGallery_autogen.dir/AutogenInfo.json debug
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/debug/O3DEQtControlGallery.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\..\..\lib\debug\AzToolsFramework.lib;..\..\..\lib\debug\AzQtComponents.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Svgd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Widgetsd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Xmld.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Guid.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Cored.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\qtmaind.lib;C:\Users\luissemp\.o3de\3rdParty\packages\SQLite-3.32.2-rev3-multiplatform\SQLite\build\win_x64\vc140\debug\sqlite.lib;..\..\..\lib\debug\AzFramework.lib;..\..\..\lib\debug\GridMate.lib;..\..\..\lib\debug\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\debug\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\zlib\lib\zlibstaticd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\debug\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\debug\cityhash.lib;ws2_32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\debug\lib\libssl.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\debug\lib\libcrypto.lib;crypt32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\md5-2.0-multiplatform\md5\build\win_x64\vc140\debug\md5.lib;C:\Users\luissemp\.o3de\3rdParty\packages\lz4-r128-multiplatform\lz4\build\win_x64\vc140\debug\lz4.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>J:/Atom/lyfork/o3de/lib/debug/O3DEQtControlGallery.lib</ImportLibrary>
+      <ProgramDataBaseFile>J:/Atom/lyfork/o3de/bin/debug/O3DEQtControlGallery.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include_profile;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StringPooling>true</StringPooling>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="profile";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_SVG_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_NO_DEBUG;QT_XML_LIB;OPENSSL_ENABLED;CMAKE_INTDIR="profile";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"profile\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_SVG_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_NO_DEBUG;QT_XML_LIB;OPENSSL_ENABLED;CMAKE_INTDIR=\"profile\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include_profile;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include_profile;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message>Automatic MOC for target O3DEQtControlGallery</Message>
+      <Command>setlocal
+cd J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autogen J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/CMakeFiles/O3DEQtControlGallery_autogen.dir/AutogenInfo.json profile
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/profile/O3DEQtControlGallery.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\..\..\lib\profile\AzToolsFramework.lib;..\..\..\lib\profile\AzQtComponents.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Svg.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Widgets.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Xml.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Gui.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Core.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\qtmain.lib;C:\Users\luissemp\.o3de\3rdParty\packages\SQLite-3.32.2-rev3-multiplatform\SQLite\build\win_x64\vc140\release\sqlite.lib;..\..\..\lib\profile\AzFramework.lib;..\..\..\lib\profile\GridMate.lib;..\..\..\lib\profile\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\release\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\zlib\lib\zlibstatic.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\release\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\release\cityhash.lib;ws2_32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libssl.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libcrypto.lib;crypt32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\md5-2.0-multiplatform\md5\build\win_x64\vc140\release\md5.lib;C:\Users\luissemp\.o3de\3rdParty\packages\lz4-r128-multiplatform\lz4\build\win_x64\vc140\release\lz4.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>J:/Atom/lyfork/o3de/lib/profile/O3DEQtControlGallery.lib</ImportLibrary>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ProgramDataBaseFile>J:/Atom/lyfork/o3de/bin/profile/O3DEQtControlGallery.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include_release;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OmitFramePointers>true</OmitFramePointers>
+      <Optimization>Full</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE="release";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_SVG_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_NO_DEBUG;QT_XML_LIB;OPENSSL_ENABLED;CMAKE_INTDIR="release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE=\"release\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_SVG_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_NO_DEBUG;QT_XML_LIB;OPENSSL_ENABLED;CMAKE_INTDIR=\"release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include_release;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include_release;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message>Automatic MOC for target O3DEQtControlGallery</Message>
+      <Command>setlocal
+cd J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autogen J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/CMakeFiles/O3DEQtControlGallery_autogen.dir/AutogenInfo.json release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/release/O3DEQtControlGallery.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\..\..\lib\release\AzToolsFramework.lib;..\..\..\lib\release\AzQtComponents.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Svg.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Widgets.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Xml.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Gui.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Core.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\qtmain.lib;C:\Users\luissemp\.o3de\3rdParty\packages\SQLite-3.32.2-rev3-multiplatform\SQLite\build\win_x64\vc140\release\sqlite.lib;..\..\..\lib\release\AzFramework.lib;..\..\..\lib\release\GridMate.lib;..\..\..\lib\release\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\release\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\zlib\lib\zlibstatic.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\release\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\release\cityhash.lib;ws2_32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libssl.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libcrypto.lib;crypt32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\md5-2.0-multiplatform\md5\build\win_x64\vc140\release\md5.lib;C:\Users\luissemp\.o3de\3rdParty\packages\lz4-r128-multiplatform\lz4\build\win_x64\vc140\release\lz4.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>J:/Atom/lyfork/o3de/lib/release/O3DEQtControlGallery.lib</ImportLibrary>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ProgramDataBaseFile>J:/Atom/lyfork/o3de/bin/release/O3DEQtControlGallery.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\AssetBrowserFolderPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/AssetBrowserFolderPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_AssetBrowserFolderPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/AssetBrowserFolderPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_AssetBrowserFolderPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/AssetBrowserFolderPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_AssetBrowserFolderPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/AssetBrowserFolderPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_AssetBrowserFolderPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/AssetBrowserFolderPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_AssetBrowserFolderPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/AssetBrowserFolderPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_AssetBrowserFolderPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\BreadCrumbsPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/BreadCrumbsPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_BreadCrumbsPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/BreadCrumbsPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_BreadCrumbsPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/BreadCrumbsPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_BreadCrumbsPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/BreadCrumbsPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_BreadCrumbsPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/BreadCrumbsPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_BreadCrumbsPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/BreadCrumbsPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_BreadCrumbsPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\BrowseEditPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/BrowseEditPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_BrowseEditPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/BrowseEditPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_BrowseEditPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/BrowseEditPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_BrowseEditPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/BrowseEditPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_BrowseEditPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/BrowseEditPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_BrowseEditPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/BrowseEditPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_BrowseEditPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ButtonPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ButtonPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ButtonPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ButtonPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ButtonPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ButtonPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ButtonPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ButtonPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ButtonPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ButtonPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ButtonPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ButtonPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ButtonPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\CardPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/CardPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_CardPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/CardPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_CardPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/CardPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_CardPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/CardPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_CardPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/CardPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_CardPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/CardPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_CardPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\CheckBoxPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/CheckBoxPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_CheckBoxPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/CheckBoxPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_CheckBoxPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/CheckBoxPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_CheckBoxPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/CheckBoxPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_CheckBoxPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/CheckBoxPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_CheckBoxPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/CheckBoxPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_CheckBoxPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ColorLabelPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ColorLabelPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ColorLabelPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ColorLabelPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ColorLabelPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ColorLabelPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ColorLabelPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ColorLabelPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ColorLabelPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ColorLabelPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ColorLabelPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ColorLabelPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ColorLabelPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ColorPickerPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ColorPickerPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ColorPickerPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ColorPickerPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ColorPickerPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ColorPickerPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ColorPickerPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ColorPickerPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ColorPickerPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ColorPickerPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ColorPickerPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ColorPickerPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ColorPickerPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ComboBoxPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ComboBoxPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ComboBoxPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ComboBoxPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ComboBoxPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ComboBoxPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ComboBoxPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ComboBoxPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ComboBoxPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ComboBoxPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ComboBoxPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ComboBoxPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ComboBoxPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ComponentDemoWidget.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ComponentDemoWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ComponentDemoWidget.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ComponentDemoWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ComponentDemoWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ComponentDemoWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ComponentDemoWidget.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ComponentDemoWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ComponentDemoWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ComponentDemoWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ComponentDemoWidget.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ComponentDemoWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ComponentDemoWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\DragAndDropPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/DragAndDropPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_DragAndDropPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/DragAndDropPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_DragAndDropPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/DragAndDropPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_DragAndDropPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/DragAndDropPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_DragAndDropPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/DragAndDropPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_DragAndDropPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/DragAndDropPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_DragAndDropPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\FilteredSearchWidgetPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/FilteredSearchWidgetPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_FilteredSearchWidgetPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/FilteredSearchWidgetPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_FilteredSearchWidgetPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/FilteredSearchWidgetPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_FilteredSearchWidgetPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/FilteredSearchWidgetPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_FilteredSearchWidgetPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/FilteredSearchWidgetPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_FilteredSearchWidgetPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/FilteredSearchWidgetPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_FilteredSearchWidgetPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\GradientSliderPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/GradientSliderPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_GradientSliderPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/GradientSliderPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_GradientSliderPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/GradientSliderPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_GradientSliderPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/GradientSliderPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_GradientSliderPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/GradientSliderPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_GradientSliderPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/GradientSliderPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_GradientSliderPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\HyperlinkPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/HyperlinkPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_HyperlinkPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/HyperlinkPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_HyperlinkPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/HyperlinkPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_HyperlinkPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/HyperlinkPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_HyperlinkPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/HyperlinkPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_HyperlinkPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/HyperlinkPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_HyperlinkPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\LineEditPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/LineEditPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_LineEditPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/LineEditPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_LineEditPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/LineEditPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_LineEditPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/LineEditPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_LineEditPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/LineEditPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_LineEditPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/LineEditPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_LineEditPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\MenuPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/MenuPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_MenuPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/MenuPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_MenuPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/MenuPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_MenuPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/MenuPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_MenuPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/MenuPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_MenuPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/MenuPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_MenuPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ProgressIndicatorPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ProgressIndicatorPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ProgressIndicatorPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ProgressIndicatorPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ProgressIndicatorPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ProgressIndicatorPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ProgressIndicatorPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ProgressIndicatorPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ProgressIndicatorPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ProgressIndicatorPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ProgressIndicatorPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ProgressIndicatorPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ProgressIndicatorPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\RadioButtonPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/RadioButtonPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_RadioButtonPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/RadioButtonPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_RadioButtonPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/RadioButtonPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_RadioButtonPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/RadioButtonPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_RadioButtonPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/RadioButtonPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_RadioButtonPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/RadioButtonPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_RadioButtonPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ReflectedPropertyEditorPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ReflectedPropertyEditorPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ReflectedPropertyEditorPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ReflectedPropertyEditorPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ReflectedPropertyEditorPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ReflectedPropertyEditorPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ReflectedPropertyEditorPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ReflectedPropertyEditorPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ReflectedPropertyEditorPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ReflectedPropertyEditorPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ReflectedPropertyEditorPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ReflectedPropertyEditorPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ReflectedPropertyEditorPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ScrollBarPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ScrollBarPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ScrollBarPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ScrollBarPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ScrollBarPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ScrollBarPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ScrollBarPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ScrollBarPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ScrollBarPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ScrollBarPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ScrollBarPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ScrollBarPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ScrollBarPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\SegmentControlPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SegmentControlPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_SegmentControlPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SegmentControlPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SegmentControlPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SegmentControlPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_SegmentControlPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SegmentControlPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SegmentControlPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SegmentControlPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_SegmentControlPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SegmentControlPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SegmentControlPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\SliderPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SliderPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_SliderPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SliderPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SliderPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SliderPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_SliderPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SliderPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SliderPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SliderPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_SliderPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SliderPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SliderPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\SliderComboPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SliderComboPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_SliderComboPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SliderComboPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SliderComboPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SliderComboPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_SliderComboPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SliderComboPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SliderComboPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SliderComboPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_SliderComboPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SliderComboPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SliderComboPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\SpinBoxPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SpinBoxPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_SpinBoxPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SpinBoxPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SpinBoxPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SpinBoxPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_SpinBoxPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SpinBoxPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SpinBoxPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SpinBoxPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_SpinBoxPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SpinBoxPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SpinBoxPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\SplitterPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SplitterPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_SplitterPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SplitterPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SplitterPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SplitterPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_SplitterPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SplitterPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SplitterPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SplitterPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_SplitterPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SplitterPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SplitterPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\StyledDockWidgetPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/StyledDockWidgetPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_StyledDockWidgetPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/StyledDockWidgetPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_StyledDockWidgetPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/StyledDockWidgetPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_StyledDockWidgetPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/StyledDockWidgetPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_StyledDockWidgetPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/StyledDockWidgetPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_StyledDockWidgetPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/StyledDockWidgetPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_StyledDockWidgetPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\StyleSheetPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/StyleSheetPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_StyleSheetPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/StyleSheetPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_StyleSheetPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/StyleSheetPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_StyleSheetPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/StyleSheetPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_StyleSheetPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/StyleSheetPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_StyleSheetPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/StyleSheetPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_StyleSheetPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\SvgLabelPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SvgLabelPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_SvgLabelPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SvgLabelPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SvgLabelPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SvgLabelPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_SvgLabelPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SvgLabelPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SvgLabelPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SvgLabelPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_SvgLabelPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/SvgLabelPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SvgLabelPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\TableViewPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TableViewPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_TableViewPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TableViewPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_TableViewPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TableViewPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_TableViewPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TableViewPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_TableViewPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TableViewPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_TableViewPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TableViewPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_TableViewPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\TabWidgetPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TabWidgetPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_TabWidgetPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TabWidgetPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_TabWidgetPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TabWidgetPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_TabWidgetPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TabWidgetPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_TabWidgetPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TabWidgetPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_TabWidgetPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TabWidgetPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_TabWidgetPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\TitleBarPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TitleBarPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_TitleBarPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TitleBarPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_TitleBarPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TitleBarPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_TitleBarPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TitleBarPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_TitleBarPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TitleBarPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_TitleBarPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TitleBarPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_TitleBarPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ToggleSwitchPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ToggleSwitchPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ToggleSwitchPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ToggleSwitchPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ToggleSwitchPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ToggleSwitchPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ToggleSwitchPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ToggleSwitchPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ToggleSwitchPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ToggleSwitchPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ToggleSwitchPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ToggleSwitchPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ToggleSwitchPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ToolBarPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ToolBarPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ToolBarPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ToolBarPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ToolBarPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ToolBarPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ToolBarPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ToolBarPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ToolBarPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ToolBarPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_ToolBarPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/ToolBarPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ToolBarPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\TypographyPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TypographyPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_TypographyPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TypographyPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_TypographyPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TypographyPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_TypographyPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TypographyPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_TypographyPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TypographyPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_TypographyPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TypographyPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_TypographyPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\TreeViewPage.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TreeViewPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_TreeViewPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TreeViewPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_TreeViewPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TreeViewPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_TreeViewPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TreeViewPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_TreeViewPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TreeViewPage.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/O3DEQtControlGallery_autogen/include/AzQtComponents/Gallery/ui_TreeViewPage.h J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Gallery/TreeViewPage.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_TreeViewPage.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\resources.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Images\resources.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\azqtcomponents_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\azqtcomponents_gallery_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\azqtcomponents_rpestandalone_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\azqtcomponents_testing_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\resources.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Images\resources.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\azqtcomponents_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\azqtcomponents_gallery_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\azqtcomponents_rpestandalone_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\azqtcomponents_testing_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\resources.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Images\resources.qrc;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\azqtcomponents_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\azqtcomponents_gallery_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\azqtcomponents_rpestandalone_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\azqtcomponents_testing_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\mocs_compilation_debug.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='profile|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\AssetBrowserFolderPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\AssetBrowserFolderPage.h" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\AssetBrowserFolderPage.qrc">
+    </None>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\BreadCrumbsPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\BreadCrumbsPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\BrowseEditPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\BrowseEditPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ButtonPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ButtonPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\CardPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\CardPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\CheckBoxPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\CheckBoxPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ColorLabelPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ColorLabelPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ColorPickerPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ColorPickerPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ComboBoxPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ComboBoxPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ComponentDemoWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ComponentDemoWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\DragAndDropPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\DragAndDropPage.h" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ExampleWidget.qss">
+    </None>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\FilteredSearchWidgetPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\FilteredSearchWidgetPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\FixedStateButton.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\FixedStateButton.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\GradientSliderPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\GradientSliderPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\HyperlinkPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\HyperlinkPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\LineEditPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\LineEditPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\main.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\MenuPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\MenuPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ProgressIndicatorPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ProgressIndicatorPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\RadioButtonPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\RadioButtonPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ReflectedPropertyEditorPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ReflectedPropertyEditorPage.h" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\resources.qrc">
+    </None>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ScrollBarPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ScrollBarPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\SegmentControlPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\SegmentControlPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\SliderPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\SliderPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\SliderComboPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\SliderComboPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\SpinBoxPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\SpinBoxPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\SplitterPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\SplitterPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\StyledDockWidgetPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\StyledDockWidgetPage.h" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\StyleSheetLabel.qss">
+    </None>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\StyleSheetPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\StyleSheetPage.h" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\StyleSheetPage.qss">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\StyleSheetView.qss">
+    </None>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\SvgLabelPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\SvgLabelPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\TableViewPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\TableViewPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\TabWidgetPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\TabWidgetPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\TitleBarPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\TitleBarPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ToggleSwitchPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ToggleSwitchPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ToolBarPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\ToolBarPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\TypographyPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\TypographyPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\TreeViewPage.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\TreeViewPage.h" />
+    <ResourceCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\Gallery.rc" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\azqtcomponents_gallery_files.cmake">
+    </None>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_AssetBrowserFolderPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_BreadCrumbsPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_BrowseEditPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ButtonPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_CardPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_CheckBoxPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ColorLabelPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ColorPickerPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ComboBoxPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ComponentDemoWidget.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_DragAndDropPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_FilteredSearchWidgetPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_GradientSliderPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_HyperlinkPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_LineEditPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_MenuPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ProgressIndicatorPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_RadioButtonPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ReflectedPropertyEditorPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ScrollBarPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SegmentControlPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SliderPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SliderComboPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SpinBoxPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SplitterPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_StyledDockWidgetPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_StyleSheetPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_SvgLabelPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_TableViewPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_TabWidgetPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_TitleBarPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ToggleSwitchPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_ToolBarPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_TypographyPage.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\include\AzQtComponents\Gallery\ui_TreeViewPage.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\mocs_compilation_profile.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\O3DEQtControlGallery_autogen\mocs_compilation_release.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='profile|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\ZERO_CHECK.vcxproj">
+      <Project>{9D084072-A56A-3A6D-8C63-F5385A20608A}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore.vcxproj">
+      <Project>{78F97634-33F1-3E9D-BB2E-D24CB7BD9D1E}</Project>
+      <Name>AzCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework.vcxproj">
+      <Project>{32B5BA28-0012-3762-8899-2D392DE6A10B}</Project>
+      <Name>AzFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents.vcxproj">
+      <Project>{A96AE86E-7259-341D-879A-5F0B4ECAAFB8}</Project>
+      <Name>AzQtComponents</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework.vcxproj">
+      <Project>{FBDC5AB0-96E2-3EF6-A16A-7C345C99949B}</Project>
+      <Name>AzToolsFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate.vcxproj">
+      <Project>{1A59660B-1BCB-3611-B3D0-673DEB6F8A46}</Project>
+      <Name>GridMate</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

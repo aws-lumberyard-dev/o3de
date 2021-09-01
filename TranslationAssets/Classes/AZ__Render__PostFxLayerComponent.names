@@ -1,0 +1,12 @@
+{
+    "entries": [
+        {
+            "key": "AZ::Render::PostFxLayerComponent",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AZ::Render::PostFxLayerComponent"
+            }
+        }
+    ]
+}

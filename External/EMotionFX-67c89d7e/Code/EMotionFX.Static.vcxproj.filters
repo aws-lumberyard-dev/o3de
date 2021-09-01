@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\System\SystemComponent.cpp">
+      <Filter>Source\Integration\System</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\System\PipelineComponent.cpp">
+      <Filter>Source\Integration\System</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include\Integration\AnimationBus.h">
+      <Filter>Include\Integration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include\Integration\MotionExtractionBus.h">
+      <Filter>Include\Integration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\System\SystemComponent.h">
+      <Filter>Source\Integration\System</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\System\PipelineComponent.h">
+      <Filter>Source\Integration\System</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Integration">
+      <UniqueIdentifier>{2F0342E4-550F-3833-A586-0EA8A5A7A73C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Integration">
+      <UniqueIdentifier>{7CD13E51-A792-390B-9958-BFAF2AAD6788}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Integration\System">
+      <UniqueIdentifier>{34D626EF-3145-307B-9E87-BA32F75643BA}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,109 @@
+{
+    "entries": [
+        {
+            "key": "ExportProductList",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "ExportProductList"
+            },
+            "methods": [
+                {
+                    "key": "AddProduct",
+                    "context": "ExportProductList",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke ExportProductList::AddProduct"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after ExportProductList::AddProduct is invoked"
+                    },
+                    "details": {
+                        "name": "ExportProductList::AddProduct"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1C76A51F-431B-4987-B653-CFCC940D0D0F}",
+                            "details": {
+                                "name": "SceneAPI::Events::ExportProductList&"
+                            }
+                        },
+                        {
+                            "typeid": "{6054EDCB-4C04-4D96-BF26-704999FFB725}",
+                            "details": {
+                                "name": "SceneAPI::Events::ExportProduct&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetProducts",
+                    "context": "ExportProductList",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke ExportProductList::GetProducts"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after ExportProductList::GetProducts is invoked"
+                    },
+                    "details": {
+                        "name": "ExportProductList::GetProducts"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1C76A51F-431B-4987-B653-CFCC940D0D0F}",
+                            "details": {
+                                "name": "SceneAPI::Events::ExportProductList*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "const AZStd::vector<SceneAPI::Events::ExportProduct, allocator>"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AddDependencyToProduct",
+                    "context": "ExportProductList",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke ExportProductList::AddDependencyToProduct"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after ExportProductList::AddDependencyToProduct is invoked"
+                    },
+                    "details": {
+                        "name": "ExportProductList::AddDependencyToProduct"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1C76A51F-431B-4987-B653-CFCC940D0D0F}",
+                            "details": {
+                                "name": "SceneAPI::Events::ExportProductList*"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        },
+                        {
+                            "typeid": "{6054EDCB-4C04-4D96-BF26-704999FFB725}",
+                            "details": {
+                                "name": "SceneAPI::Events::ExportProduct&"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

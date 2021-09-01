@@ -1,0 +1,19 @@
+# CMake generation dependency list for this directory.
+C:/Users/luissemp/.o3de/3rdParty/packages/DirectXShaderCompilerDxc-1.6.2104-o3de-rev2-windows/FindDirectXShaderCompilerDxc.cmake
+C:/Users/luissemp/.o3de/3rdParty/packages/DirectXShaderCompilerDxc-1.6.2104-o3de-rev2-windows/PackageInfo.json
+C:/Users/luissemp/.o3de/3rdParty/packages/SPIRVCross-2021.04.29-rev1-windows/FindSPIRVCross.cmake
+C:/Users/luissemp/.o3de/3rdParty/packages/SPIRVCross-2021.04.29-rev1-windows/PackageInfo.json
+C:/Users/luissemp/.o3de/3rdParty/packages/azslc-1.7.23-rev1-multiplatform/Findazslc.cmake
+C:/Users/luissemp/.o3de/3rdParty/packages/azslc-1.7.23-rev1-multiplatform/PackageInfo.json
+C:/Users/luissemp/.o3de/3rdParty/packages/mcpp-2.7.2_az.1-rev1-windows/Findmcpp.cmake
+C:/Users/luissemp/.o3de/3rdParty/packages/mcpp-2.7.2_az.1-rev1-windows/PackageInfo.json
+J:/Atom/lyfork/o3de/Gems/Atom/Asset/Shader/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/Atom/Asset/Shader/Code/Source/Platform/Common/MSVC/atom_asset_shader_static_msvc.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/Asset/Shader/Code/Source/Platform/Windows/PAL_windows.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/Asset/Shader/Code/Source/Platform/Windows/platform_builders_windows.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/Asset/Shader/Code/Source/Platform/Windows/platform_windows.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/Asset/Shader/Code/Source/Platform/Windows/platform_windows_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/Asset/Shader/Code/atom_asset_shader_builders_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/Asset/Shader/Code/atom_asset_shader_builders_shared_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/Asset/Shader/Code/atom_asset_shader_builders_tests_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

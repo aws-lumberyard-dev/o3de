@@ -1,0 +1,519 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AzNetworkingModule.cpp">
+      <Filter>AzNetworking</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\ConnectionLayer\ConnectionMetrics.cpp">
+      <Filter>AzNetworking\ConnectionLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\DataStructures\TimeoutQueue.cpp">
+      <Filter>AzNetworking\DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Framework\NetworkingSystemComponent.cpp">
+      <Filter>AzNetworking\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Serialization\DeltaSerializer.cpp">
+      <Filter>AzNetworking\Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Serialization\HashSerializer.cpp">
+      <Filter>AzNetworking\Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Serialization\NetworkInputSerializer.cpp">
+      <Filter>AzNetworking\Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Serialization\NetworkOutputSerializer.cpp">
+      <Filter>AzNetworking\Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Serialization\StringifySerializer.cpp">
+      <Filter>AzNetworking\Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpConnection.cpp">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpConnectionSet.cpp">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpPacketHeader.cpp">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpRingBufferImpl.cpp">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpSocket.cpp">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpSocketManager_Epoll.cpp">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpSocketManager_None.cpp">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpSocketManager_Select.cpp">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TlsSocket.cpp">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpListenThread.cpp">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpNetworkInterface.cpp">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\DtlsEndpoint.cpp">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\DtlsSocket.cpp">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpConnection.cpp">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpConnectionSet.cpp">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpFragmentQueue.cpp">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpNetworkInterface.cpp">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpPacketHeader.cpp">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpPacketIdWindow.cpp">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpPacketTracker.cpp">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpReaderThread.cpp">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpReliableQueue.cpp">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpSocket.cpp">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Utilities\CidrAddress.cpp">
+      <Filter>AzNetworking\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Utilities\EncryptionCommon.cpp">
+      <Filter>AzNetworking\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Utilities\IpAddress.cpp">
+      <Filter>AzNetworking\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Utilities\NetworkCommon.cpp">
+      <Filter>AzNetworking\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Utilities\TimedThread.cpp">
+      <Filter>AzNetworking\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Common\Default\AzNetworking\Utilities\IpAddress_Default.cpp">
+      <Filter>Platform\Windows\..\Common\Default\AzNetworking\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Common\WinAPI\AzNetworking\Utilities\NetworkCommon_WinAPI.cpp">
+      <Filter>Platform\Windows\..\Common\WinAPI\AzNetworking\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Azcg\Generated\AzNetworking\AutoGen\CorePackets.AutoPackets.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AzNetworkingModule.h">
+      <Filter>AzNetworking</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\ConnectionLayer\ConnectionEnums.h">
+      <Filter>AzNetworking\ConnectionLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\ConnectionLayer\ConnectionMetrics.h">
+      <Filter>AzNetworking\ConnectionLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\ConnectionLayer\ConnectionMetrics.inl">
+      <Filter>AzNetworking\ConnectionLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\ConnectionLayer\IConnection.h">
+      <Filter>AzNetworking\ConnectionLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\ConnectionLayer\IConnection.inl">
+      <Filter>AzNetworking\ConnectionLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\ConnectionLayer\IConnectionListener.h">
+      <Filter>AzNetworking\ConnectionLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\ConnectionLayer\IConnectionSet.h">
+      <Filter>AzNetworking\ConnectionLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\ConnectionLayer\SequenceGenerator.h">
+      <Filter>AzNetworking\ConnectionLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\ConnectionLayer\SequenceGenerator.inl">
+      <Filter>AzNetworking\ConnectionLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\DataStructures\ByteBuffer.h">
+      <Filter>AzNetworking\DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\DataStructures\ByteBuffer.inl">
+      <Filter>AzNetworking\DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\DataStructures\FixedSizeBitset.h">
+      <Filter>AzNetworking\DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\DataStructures\FixedSizeBitset.inl">
+      <Filter>AzNetworking\DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\DataStructures\FixedSizeBitsetView.h">
+      <Filter>AzNetworking\DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\DataStructures\FixedSizeBitsetView.inl">
+      <Filter>AzNetworking\DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\DataStructures\FixedSizeVectorBitset.h">
+      <Filter>AzNetworking\DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\DataStructures\FixedSizeVectorBitset.inl">
+      <Filter>AzNetworking\DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\DataStructures\IBitset.h">
+      <Filter>AzNetworking\DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\DataStructures\RingBufferBitset.h">
+      <Filter>AzNetworking\DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\DataStructures\RingBufferBitset.inl">
+      <Filter>AzNetworking\DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\DataStructures\TimeoutQueue.h">
+      <Filter>AzNetworking\DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\DataStructures\TimeoutQueue.inl">
+      <Filter>AzNetworking\DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Framework\ICompressor.h">
+      <Filter>AzNetworking\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Framework\INetworking.h">
+      <Filter>AzNetworking\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Framework\INetworkInterface.h">
+      <Filter>AzNetworking\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Framework\NetworkingSystemComponent.h">
+      <Filter>AzNetworking\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Framework\NetworkInterfaceMetrics.h">
+      <Filter>AzNetworking\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\PacketLayer\IPacket.h">
+      <Filter>AzNetworking\PacketLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\PacketLayer\IPacketHeader.h">
+      <Filter>AzNetworking\PacketLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Serialization\AbstractValue.h">
+      <Filter>AzNetworking\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Serialization\AzContainerSerializers.h">
+      <Filter>AzNetworking\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Serialization\DeltaSerializer.h">
+      <Filter>AzNetworking\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Serialization\DeltaSerializer.inl">
+      <Filter>AzNetworking\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Serialization\HashSerializer.h">
+      <Filter>AzNetworking\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Serialization\ISerializer.h">
+      <Filter>AzNetworking\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Serialization\ISerializer.inl">
+      <Filter>AzNetworking\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Serialization\NetworkInputSerializer.h">
+      <Filter>AzNetworking\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Serialization\NetworkInputSerializer.inl">
+      <Filter>AzNetworking\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Serialization\NetworkOutputSerializer.h">
+      <Filter>AzNetworking\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Serialization\NetworkOutputSerializer.inl">
+      <Filter>AzNetworking\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Serialization\StringifySerializer.h">
+      <Filter>AzNetworking\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Serialization\TrackChangedSerializer.h">
+      <Filter>AzNetworking\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Serialization\TrackChangedSerializer.inl">
+      <Filter>AzNetworking\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpConnection.h">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpConnection.inl">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpConnectionSet.h">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpPacketHeader.h">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpPacketHeader.inl">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpRingBuffer.h">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpRingBuffer.inl">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpRingBufferImpl.h">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpRingBufferImpl.inl">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpSocket.h">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpSocket.inl">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpSocketManager.h">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TlsSocket.h">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpListenThread.h">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\TcpTransport\TcpNetworkInterface.h">
+      <Filter>AzNetworking\TcpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\DtlsEndpoint.h">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\DtlsSocket.h">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpConnection.h">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpConnection.inl">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpConnectionSet.h">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpFragmentQueue.h">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpNetworkInterface.h">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpPacketHeader.h">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpPacketHeader.inl">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpPacketIdWindow.h">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpPacketIdWindow.inl">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpPacketTracker.h">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpPacketTracker.inl">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpReaderThread.h">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpReliableQueue.h">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpSocket.h">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\UdpTransport\UdpSocket.inl">
+      <Filter>AzNetworking\UdpTransport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Utilities\CidrAddress.h">
+      <Filter>AzNetworking\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Utilities\EncryptionCommon.h">
+      <Filter>AzNetworking\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Utilities\Endian.h">
+      <Filter>AzNetworking\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Utilities\IpAddress.h">
+      <Filter>AzNetworking\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Utilities\IpAddress.inl">
+      <Filter>AzNetworking\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Utilities\NetworkCommon.h">
+      <Filter>AzNetworking\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Utilities\NetworkCommon.inl">
+      <Filter>AzNetworking\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Utilities\NetworkIncludes.h">
+      <Filter>AzNetworking\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Utilities\QuantizedValues.h">
+      <Filter>AzNetworking\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Utilities\QuantizedValues.inl">
+      <Filter>AzNetworking\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\Utilities\TimedThread.h">
+      <Filter>AzNetworking\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Common\WinAPI\AzNetworking\Utilities\Endian_WinAPI.h">
+      <Filter>Platform\Windows\..\Common\WinAPI\AzNetworking\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Common\WinAPI\AzNetworking\Utilities\NetworkIncludes_WinAPI.h">
+      <Filter>Platform\Windows\..\Common\WinAPI\AzNetworking\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Windows\AzNetworking\AzNetworking_Traits_Platform.h">
+      <Filter>Platform\Windows\AzNetworking</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Windows\AzNetworking\Utilities\Endian_Platform.h">
+      <Filter>Platform\Windows\AzNetworking\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Windows\AzNetworking\Utilities\NetworkIncludes_Platform.h">
+      <Filter>Platform\Windows\AzNetworking\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Azcg\Generated\AzNetworking\AutoGen\CorePackets.AutoPackets.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Azcg\Generated\AzNetworking\AutoGen\CorePackets.AutoPackets.inl">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\5c8798bf026159dc227db8afadafcfd6\CorePackets.AutoPackets.h.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPacketDispatcher_Header.jinja">
+      <Filter>AzNetworking\AutoGen</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPacketDispatcher_Inline.jinja">
+      <Filter>AzNetworking\AutoGen</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPackets_Header.jinja">
+      <Filter>AzNetworking\AutoGen</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPackets_Inline.jinja">
+      <Filter>AzNetworking\AutoGen</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\AutoPackets_Source.jinja">
+      <Filter>AzNetworking\AutoGen</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\aznetworking_files.cmake">
+      <Filter>AzNetworking</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Windows\platform_windows_files.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Platform\Windows\platform_windows.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <XML Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\AzNetworking\AutoGen\CorePackets.AutoPackets.xml">
+      <Filter>AzNetworking\AutoGen</Filter>
+    </XML>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="AzNetworking">
+      <UniqueIdentifier>{EF1B5F3B-5EC9-373F-B7FC-FF40F4568B92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzNetworking\AutoGen">
+      <UniqueIdentifier>{5C408584-34D4-31A2-804E-25A60DDF0FDB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzNetworking\ConnectionLayer">
+      <UniqueIdentifier>{9C07B382-3186-3DF9-A8DE-F2C1BF963C7C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzNetworking\DataStructures">
+      <UniqueIdentifier>{78CF6E4E-86A1-3396-93AB-E7A534517D27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzNetworking\Framework">
+      <UniqueIdentifier>{C389E6D1-B82C-3EDF-AB4D-B758FAA4ADFC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzNetworking\PacketLayer">
+      <UniqueIdentifier>{81CECA94-7A90-3E19-8C9C-CC1D75AFEDB0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzNetworking\Serialization">
+      <UniqueIdentifier>{2D62A557-9210-3A53-A6BF-0B7E0EE4AA38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzNetworking\TcpTransport">
+      <UniqueIdentifier>{C2CF89B1-70A9-3924-86AA-A17D06AC54B6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzNetworking\UdpTransport">
+      <UniqueIdentifier>{19FEFDD8-BEFA-35B5-B8C4-4C181748EDC5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzNetworking\Utilities">
+      <UniqueIdentifier>{69B5F87D-344E-3F02-B3C4-96B188A54E10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{D4CCE8D3-A6C9-3C6A-9C86-8BF8F7D77D7F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{9B5BE819-E94D-379A-84DF-5559629D4548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..">
+      <UniqueIdentifier>{731ADA3D-17B6-381E-ABF5-417E8742D0A7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common">
+      <UniqueIdentifier>{DE695BA1-3376-3AAF-953B-BD43429F4343}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\Default">
+      <UniqueIdentifier>{53222E90-A844-3FA3-89B6-1016A6784F7D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\Default\AzNetworking">
+      <UniqueIdentifier>{5AD0D1EE-8FD0-3106-80BB-F20E00065BA7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\Default\AzNetworking\Utilities">
+      <UniqueIdentifier>{AA10307C-8DDE-37F9-A034-0BFAC4239806}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\WinAPI">
+      <UniqueIdentifier>{85A1FA1A-D5F4-35A3-A95D-DF55BB4894C6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\WinAPI\AzNetworking">
+      <UniqueIdentifier>{D19A9AF4-7E3C-3930-A2CE-CE5DA749BED0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\WinAPI\AzNetworking\Utilities">
+      <UniqueIdentifier>{4708E1D4-A7F5-3273-A69F-5DD992590BB5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\AzNetworking">
+      <UniqueIdentifier>{2E201785-6FE2-3535-9A5D-11613D8165A0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\AzNetworking\Utilities">
+      <UniqueIdentifier>{9BB00E47-CC16-3267-AA0D-321E0C13AC38}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

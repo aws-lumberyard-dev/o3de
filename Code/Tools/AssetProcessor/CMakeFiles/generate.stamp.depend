@@ -1,0 +1,14 @@
+# CMake generation dependency list for this directory.
+C:/Users/luissemp/.o3de/3rdParty/packages/xxhash-0.7.4-rev1-multiplatform/Findxxhash.cmake
+C:/Users/luissemp/.o3de/3rdParty/packages/xxhash-0.7.4-rev1-multiplatform/PackageInfo.json
+J:/Atom/lyfork/o3de/Code/Tools/AssetProcessor/CMakeLists.txt
+J:/Atom/lyfork/o3de/Code/Tools/AssetProcessor/Platform/Windows/assetprocessor_gui_windows_files.cmake
+J:/Atom/lyfork/o3de/Code/Tools/AssetProcessor/Platform/Windows/assetprocessor_windows.cmake
+J:/Atom/lyfork/o3de/Code/Tools/AssetProcessor/Platform/Windows/assetprocessor_windows_files.cmake
+J:/Atom/lyfork/o3de/Code/Tools/AssetProcessor/assetprocessor_batch_files.cmake
+J:/Atom/lyfork/o3de/Code/Tools/AssetProcessor/assetprocessor_gui_files.cmake
+J:/Atom/lyfork/o3de/Code/Tools/AssetProcessor/assetprocessor_static_batch_files.cmake
+J:/Atom/lyfork/o3de/Code/Tools/AssetProcessor/assetprocessor_static_files.cmake
+J:/Atom/lyfork/o3de/Code/Tools/AssetProcessor/assetprocessor_test_files.cmake
+J:/Atom/lyfork/o3de/Code/Tools/AssetProcessor/native/ui/style/AssetProcessor.qrc
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

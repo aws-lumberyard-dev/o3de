@@ -1,0 +1,76 @@
+{
+    "entries": [
+        {
+            "key": "IMeshData",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "IMeshData"
+            },
+            "methods": [
+                {
+                    "key": "GetUnitSizeInMeters",
+                    "context": "IMeshData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IMeshData::GetUnitSizeInMeters"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IMeshData::GetUnitSizeInMeters is invoked"
+                    },
+                    "details": {
+                        "name": "IMeshData::GetUnitSizeInMeters"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B94A59C0-F3A5-40A0-B541-7E36B6576C4A}",
+                            "details": {
+                                "name": "IMeshData"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetOriginalUnitSizeInMeters",
+                    "context": "IMeshData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IMeshData::GetOriginalUnitSizeInMeters"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IMeshData::GetOriginalUnitSizeInMeters is invoked"
+                    },
+                    "details": {
+                        "name": "IMeshData::GetOriginalUnitSizeInMeters"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B94A59C0-F3A5-40A0-B541-7E36B6576C4A}",
+                            "details": {
+                                "name": "IMeshData"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

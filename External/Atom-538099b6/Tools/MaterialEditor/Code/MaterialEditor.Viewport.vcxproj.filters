@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\MaterialEditor\Code\MaterialEditor.Viewport_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\InputController\MaterialEditorViewportInputController.cpp">
+      <Filter>Source\Viewport\InputController</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\InputController\Behavior.cpp">
+      <Filter>Source\Viewport\InputController</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\InputController\DollyCameraBehavior.cpp">
+      <Filter>Source\Viewport\InputController</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\InputController\IdleBehavior.cpp">
+      <Filter>Source\Viewport\InputController</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\InputController\MoveCameraBehavior.cpp">
+      <Filter>Source\Viewport\InputController</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\InputController\PanCameraBehavior.cpp">
+      <Filter>Source\Viewport\InputController</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\InputController\OrbitCameraBehavior.cpp">
+      <Filter>Source\Viewport\InputController</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\InputController\RotateEnvironmentBehavior.cpp">
+      <Filter>Source\Viewport\InputController</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\InputController\RotateModelBehavior.cpp">
+      <Filter>Source\Viewport\InputController</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\MaterialViewportModule.cpp">
+      <Filter>Source\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\MaterialViewportSettings.cpp">
+      <Filter>Source\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\MaterialViewportComponent.cpp">
+      <Filter>Source\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\MaterialViewportWidget.cpp">
+      <Filter>Source\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\MaterialViewportRenderer.cpp">
+      <Filter>Source\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\PerformanceMonitorComponent.cpp">
+      <Filter>Source\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\MaterialEditor\Code\MaterialEditor.Viewport_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\MaterialEditor\Code\MaterialEditor.Viewport_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Include\Atom\Viewport\InputController\MaterialEditorViewportInputControllerBus.h">
+      <Filter>Include\Atom\Viewport\InputController</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Include\Atom\Viewport\MaterialViewportModule.h">
+      <Filter>Include\Atom\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Include\Atom\Viewport\MaterialViewportSettings.h">
+      <Filter>Include\Atom\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Include\Atom\Viewport\MaterialViewportRequestBus.h">
+      <Filter>Include\Atom\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Include\Atom\Viewport\MaterialViewportNotificationBus.h">
+      <Filter>Include\Atom\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Include\Atom\Viewport\PerformanceMetrics.h">
+      <Filter>Include\Atom\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Include\Atom\Viewport\PerformanceMonitorRequestBus.h">
+      <Filter>Include\Atom\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\InputController\MaterialEditorViewportInputController.h">
+      <Filter>Source\Viewport\InputController</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\InputController\Behavior.h">
+      <Filter>Source\Viewport\InputController</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\InputController\DollyCameraBehavior.h">
+      <Filter>Source\Viewport\InputController</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\InputController\IdleBehavior.h">
+      <Filter>Source\Viewport\InputController</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\InputController\MoveCameraBehavior.h">
+      <Filter>Source\Viewport\InputController</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\InputController\PanCameraBehavior.h">
+      <Filter>Source\Viewport\InputController</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\InputController\OrbitCameraBehavior.h">
+      <Filter>Source\Viewport\InputController</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\InputController\RotateEnvironmentBehavior.h">
+      <Filter>Source\Viewport\InputController</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\InputController\RotateModelBehavior.h">
+      <Filter>Source\Viewport\InputController</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\MaterialViewportComponent.h">
+      <Filter>Source\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\MaterialViewportWidget.h">
+      <Filter>Source\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\MaterialViewportRenderer.h">
+      <Filter>Source\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\PerformanceMonitorComponent.h">
+      <Filter>Source\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\MaterialEditor\Code\MaterialEditor.Viewport_autogen\include\Source\Viewport\ui_MaterialViewportWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Viewport\MaterialViewportWidget.ui">
+      <Filter>Source\Viewport</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\materialeditorviewport_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom">
+      <UniqueIdentifier>{E66A19AE-451A-3F1F-B698-7608D533AFDF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Viewport">
+      <UniqueIdentifier>{620FC17B-F2A0-3D60-B2AE-563660BA0051}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Viewport\InputController">
+      <UniqueIdentifier>{7D0923BE-B7F1-3A7A-A132-F11A9B2FC0C1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Viewport">
+      <UniqueIdentifier>{37BF877D-2A89-3F29-AD8F-841697961D51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Viewport\InputController">
+      <UniqueIdentifier>{0E64998A-03FE-3D1C-9011-64224363BC77}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

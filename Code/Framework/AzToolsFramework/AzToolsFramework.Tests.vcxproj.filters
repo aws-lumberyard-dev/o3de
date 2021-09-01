@@ -1,0 +1,391 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework.Tests_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Main.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\ArchiveTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\AssetFileInfoListComparison.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\AssetSeedManager.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\ComponentAdapterTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\ComponentAddRemove.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\ComponentModeTestDoubles.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\ComponentModeTestFixture.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\ComponentModeTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\EditorTransformComponentSelectionTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\EditorVertexSelectionTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Entity\EditorEntityContextComponentTests.cpp">
+      <Filter>Tests\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Entity\EditorEntityHelpersTests.cpp">
+      <Filter>Tests\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Entity\EditorEntitySearchComponentTests.cpp">
+      <Filter>Tests\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Entity\EditorEntitySelectionTests.cpp">
+      <Filter>Tests\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\EntityIdQLabelTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\EntityInspectorTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\EntityOwnershipService\EntityOwnershipServiceTestFixture.cpp">
+      <Filter>Tests\EntityOwnershipService</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\EntityOwnershipService\SliceEditorEntityOwnershipTests.cpp">
+      <Filter>Tests\EntityOwnershipService</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\EntityOwnershipService\SliceEntityOwnershipTests.cpp">
+      <Filter>Tests\EntityOwnershipService</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\FileFunc.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\FingerprintingTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\GenericComponentWrapperTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\InstanceDataHierarchy.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\LogLines.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\ManipulatorBoundsTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\ManipulatorCoreTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\ManipulatorViewTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\PerforceComponentTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\PlatformAddressedAssetCatalogTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\Benchmark\PrefabBenchmarkFixture.cpp">
+      <Filter>Tests\Prefab\Benchmark</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\Benchmark\PrefabCreateBenchmarks.cpp">
+      <Filter>Tests\Prefab\Benchmark</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\Benchmark\PrefabInstantiateBenchmarks.cpp">
+      <Filter>Tests\Prefab\Benchmark</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\Benchmark\PrefabLoadBenchmarks.cpp">
+      <Filter>Tests\Prefab\Benchmark</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\Benchmark\PrefabUpdateInstancesBenchmarks.cpp">
+      <Filter>Tests\Prefab\Benchmark</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\Benchmark\SpawnableCreateBenchmarks.cpp">
+      <Filter>Tests\Prefab\Benchmark</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\MockPrefabFileIOActionValidator.cpp">
+      <Filter>Tests\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabDuplicateTests.cpp">
+      <Filter>Tests\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabEntityAliasTests.cpp">
+      <Filter>Tests\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabInstanceToTemplatePropagatorTests.cpp">
+      <Filter>Tests\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabInstantiateTests.cpp">
+      <Filter>Tests\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabLoadTemplateTests.cpp">
+      <Filter>Tests\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabTestComponent.cpp">
+      <Filter>Tests\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabTestData.cpp">
+      <Filter>Tests\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabTestDataUtils.cpp">
+      <Filter>Tests\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabTestDomUtils.cpp">
+      <Filter>Tests\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabTestFixture.cpp">
+      <Filter>Tests\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabTestUndoFixture.cpp">
+      <Filter>Tests\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabUndoLinkTests.cpp">
+      <Filter>Tests\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabUndoTests.cpp">
+      <Filter>Tests\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabUpdateInstancesTests.cpp">
+      <Filter>Tests\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabUpdateTemplateTests.cpp">
+      <Filter>Tests\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabUpdateWithPatchesTests.cpp">
+      <Filter>Tests\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\Spawnable\SpawnableMetaDataTests.cpp">
+      <Filter>Tests\Prefab\Spawnable</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\SpawnableCreateTests.cpp">
+      <Filter>Tests\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\SpawnableRemoveEditorInfoTestFixture.cpp">
+      <Filter>Tests\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\SpawnableRemoveEditorInfoTests.cpp">
+      <Filter>Tests\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\SpawnableSortEntitiesTestFixture.cpp">
+      <Filter>Tests\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\SpawnableSortEntitiesTests.cpp">
+      <Filter>Tests\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\PropertyIntSliderCtrlTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\PropertyIntSpinCtrlTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\PropertyTreeEditorTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\PythonBindingTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\QtWidgetLimitsTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Script\ScriptComponentTests.cpp">
+      <Filter>Tests\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Script\ScriptEntityTests.cpp">
+      <Filter>Tests\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Slice.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Slices.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\SliceStabilityTests\SliceStabilityCreateTests.cpp">
+      <Filter>Tests\SliceStabilityTests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\SliceStabilityTests\SliceStabilityPushTests.cpp">
+      <Filter>Tests\SliceStabilityTests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\SliceStabilityTests\SliceStabilityReParentTests.cpp">
+      <Filter>Tests\SliceStabilityTests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\SliceStabilityTests\SliceStabilityTestFramework.cpp">
+      <Filter>Tests\SliceStabilityTests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\SliceUpgradeTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\SpinBoxTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\SQLiteConnectionTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\ThumbnailerTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\ToolsComponents\EditorLayerComponentTests.cpp">
+      <Filter>Tests\ToolsComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\ToolsComponents\EditorTransformComponentTests.cpp">
+      <Filter>Tests\ToolsComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\TransformComponent.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\UI\EntityPropertyEditorTests.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\UndoStack.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Viewport\ClusterTests.cpp">
+      <Filter>Tests\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Viewport\ViewportScreenTests.cpp">
+      <Filter>Tests\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Viewport\ViewportUiClusterTests.cpp">
+      <Filter>Tests\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Viewport\ViewportUiDisplayTests.cpp">
+      <Filter>Tests\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Viewport\ViewportUiManagerTests.cpp">
+      <Filter>Tests\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Viewport\ViewportUiWidgetManagerTests.cpp">
+      <Filter>Tests\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Visibility\EditorVisibilityTests.cpp">
+      <Filter>Tests\Visibility</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework.Tests_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework.Tests_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\AssetSystemMocks.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\ComponentModeTestDoubles.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\ComponentModeTestFixture.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\EntityOwnershipService\EntityOwnershipServiceTestFixture.h">
+      <Filter>Tests\EntityOwnershipService</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\EntityTestbed.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\IntegerPrimtitiveTestConfig.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\Benchmark\PrefabBenchmarkFixture.h">
+      <Filter>Tests\Prefab\Benchmark</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\MockPrefabFileIOActionValidator.h">
+      <Filter>Tests\Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabTestComponent.h">
+      <Filter>Tests\Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabTestData.h">
+      <Filter>Tests\Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabTestDataUtils.h">
+      <Filter>Tests\Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabTestDomUtils.h">
+      <Filter>Tests\Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabTestFixture.h">
+      <Filter>Tests\Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabTestUndoFixture.h">
+      <Filter>Tests\Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\PrefabTestUtils.h">
+      <Filter>Tests\Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\SpawnableRemoveEditorInfoTestFixture.h">
+      <Filter>Tests\Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\Prefab\SpawnableSortEntitiesTestFixture.h">
+      <Filter>Tests\Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\PropertyIntCtrlCommonTests.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\SliceStabilityTests\SliceStabilityTestFramework.h">
+      <Filter>Tests\SliceStabilityTests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\SliceUpgradeTestsData.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Tests\aztoolsframeworktests_files.cmake">
+      <Filter>Tests</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{A12C7827-546E-3D77-AE99-877104F2DFF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Entity">
+      <UniqueIdentifier>{AED187C6-7B53-3D1E-8572-0944FE731F25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\EntityOwnershipService">
+      <UniqueIdentifier>{12E49EDB-6A45-350B-8D88-E2F64C289A3A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Prefab">
+      <UniqueIdentifier>{112C996E-5107-358F-9842-3B039F141906}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Prefab\Benchmark">
+      <UniqueIdentifier>{8C8924DF-69DC-3633-88D7-420FA389C35B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Prefab\Spawnable">
+      <UniqueIdentifier>{CFC1846E-F2C6-3356-B14D-9A0321C63490}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Script">
+      <UniqueIdentifier>{CF371195-B052-3A57-AB02-774C08803788}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\SliceStabilityTests">
+      <UniqueIdentifier>{26C7ACC8-B868-3FA7-9FC4-FFF68DC718A2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\ToolsComponents">
+      <UniqueIdentifier>{73BD5D18-D224-3A43-8DF4-BEEBD2E83CBE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\UI">
+      <UniqueIdentifier>{B7F4D111-8216-3B65-BF35-8525EAFEF961}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Viewport">
+      <UniqueIdentifier>{0A9C6474-9077-3BFA-800F-8E1F4B81AB7E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Visibility">
+      <UniqueIdentifier>{1E95D0FE-9BB0-3105-99B1-FE24EF6EDD99}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

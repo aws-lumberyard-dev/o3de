@@ -1,0 +1,12 @@
+{
+    "entries": [
+        {
+            "key": "AZ::Render::EditorHDRiSkyboxComponent",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AZ::Render::EditorHDRiSkyboxComponent"
+            }
+        }
+    ]
+}

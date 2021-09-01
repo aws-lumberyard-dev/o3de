@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Material\LuaMaterialFunctorSourceData.cpp">
+      <Filter>Source\RPI.Edit\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Material\MaterialTypeSourceData.cpp">
+      <Filter>Source\RPI.Edit\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Material\MaterialPropertyId.cpp">
+      <Filter>Source\RPI.Edit\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Material\MaterialPropertySerializer.cpp">
+      <Filter>Source\RPI.Edit\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Material\MaterialPropertyValueSerializer.cpp">
+      <Filter>Source\RPI.Edit\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Material\MaterialPropertyValueSourceData.cpp">
+      <Filter>Source\RPI.Edit\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Material\MaterialPropertyValueSourceDataSerializer.cpp">
+      <Filter>Source\RPI.Edit\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Material\MaterialSourceData.cpp">
+      <Filter>Source\RPI.Edit\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Material\MaterialSourceDataSerializer.cpp">
+      <Filter>Source\RPI.Edit\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Material\MaterialFunctorSourceData.cpp">
+      <Filter>Source\RPI.Edit\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Material\MaterialFunctorSourceDataSerializer.cpp">
+      <Filter>Source\RPI.Edit\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Material\MaterialFunctorSourceDataRegistration.cpp">
+      <Filter>Source\RPI.Edit\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Material\MaterialUtils.cpp">
+      <Filter>Source\RPI.Edit\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Shader\ShaderSourceData.cpp">
+      <Filter>Source\RPI.Edit\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Shader\ShaderVariantListSourceData.cpp">
+      <Filter>Source\RPI.Edit\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Shader\ShaderVariantAssetCreator.cpp">
+      <Filter>Source\RPI.Edit\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Shader\ShaderVariantTreeAssetCreator.cpp">
+      <Filter>Source\RPI.Edit\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Common\AssetUtils.cpp">
+      <Filter>Source\RPI.Edit\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Common\AssetAliasesSourceData.cpp">
+      <Filter>Source\RPI.Edit\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Common\ColorUtils.cpp">
+      <Filter>Source\RPI.Edit\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Common\ConvertibleSource.cpp">
+      <Filter>Source\RPI.Edit\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Common\JsonFileLoadContext.cpp">
+      <Filter>Source\RPI.Edit\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Common\JsonReportingHelper.cpp">
+      <Filter>Source\RPI.Edit\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Edit\Common\JsonUtils.cpp">
+      <Filter>Source\RPI.Edit\Common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Common\AssetUtils.h">
+      <Filter>Include\Atom\RPI.Edit\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Common\AssetAliasesSourceData.h">
+      <Filter>Include\Atom\RPI.Edit\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Common\ColorUtils.h">
+      <Filter>Include\Atom\RPI.Edit\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Common\ConvertibleSource.h">
+      <Filter>Include\Atom\RPI.Edit\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Common\JsonFileLoadContext.h">
+      <Filter>Include\Atom\RPI.Edit\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Common\JsonReportingHelper.h">
+      <Filter>Include\Atom\RPI.Edit\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Common\JsonUtils.h">
+      <Filter>Include\Atom\RPI.Edit\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Material\LuaMaterialFunctorSourceData.h">
+      <Filter>Include\Atom\RPI.Edit\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Material\MaterialTypeSourceData.h">
+      <Filter>Include\Atom\RPI.Edit\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Material\MaterialConverterBus.h">
+      <Filter>Include\Atom\RPI.Edit\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Material\MaterialPropertyId.h">
+      <Filter>Include\Atom\RPI.Edit\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Material\MaterialPropertySerializer.h">
+      <Filter>Include\Atom\RPI.Edit\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Material\MaterialPropertyValueSerializer.h">
+      <Filter>Include\Atom\RPI.Edit\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Material\MaterialPropertyValueSourceData.h">
+      <Filter>Include\Atom\RPI.Edit\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Material\MaterialPropertyValueSourceDataSerializer.h">
+      <Filter>Include\Atom\RPI.Edit\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Material\MaterialSourceData.h">
+      <Filter>Include\Atom\RPI.Edit\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Material\MaterialSourceDataSerializer.h">
+      <Filter>Include\Atom\RPI.Edit\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Material\MaterialFunctorSourceData.h">
+      <Filter>Include\Atom\RPI.Edit\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Material\MaterialFunctorSourceDataSerializer.h">
+      <Filter>Include\Atom\RPI.Edit\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Material\MaterialFunctorSourceDataRegistration.h">
+      <Filter>Include\Atom\RPI.Edit\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Material\MaterialUtils.h">
+      <Filter>Include\Atom\RPI.Edit\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\ResourcePool\ResourcePoolSourceData.h">
+      <Filter>Include\Atom\RPI.Edit\ResourcePool</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Shader\ShaderSourceData.h">
+      <Filter>Include\Atom\RPI.Edit\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Shader\ShaderVariantListSourceData.h">
+      <Filter>Include\Atom\RPI.Edit\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Shader\ShaderVariantAssetCreator.h">
+      <Filter>Include\Atom\RPI.Edit\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include\Atom\RPI.Edit\Shader\ShaderVariantTreeAssetCreator.h">
+      <Filter>Include\Atom\RPI.Edit\Shader</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_edit_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom">
+      <UniqueIdentifier>{E66A19AE-451A-3F1F-B698-7608D533AFDF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\RPI.Edit">
+      <UniqueIdentifier>{3EAF7CEE-F6F3-3F0A-BECF-87AE74E682E6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\RPI.Edit\Common">
+      <UniqueIdentifier>{ADE3A7F9-4F00-307D-A214-0EC474582C6E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\RPI.Edit\Material">
+      <UniqueIdentifier>{F2E67809-240C-3468-94DA-2D342A26C38B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\RPI.Edit\ResourcePool">
+      <UniqueIdentifier>{86FA8382-B67D-32F0-AD3E-89F3AE8D5D44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\RPI.Edit\Shader">
+      <UniqueIdentifier>{52E83A59-DE0E-31DB-866D-26CE303052BA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\RPI.Edit">
+      <UniqueIdentifier>{38450843-1700-326E-B227-019400D5E84B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\RPI.Edit\Common">
+      <UniqueIdentifier>{7ED49902-3A8A-3372-AC97-A431447CE353}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\RPI.Edit\Material">
+      <UniqueIdentifier>{062AD7B4-5EE6-3738-940E-B449BA581A65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\RPI.Edit\Shader">
+      <UniqueIdentifier>{C09ECF0F-B78D-37F2-BAF3-87BC101597B6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

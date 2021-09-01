@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\ComponentEntityEditorPlugin_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\dllmain.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\ComponentEntityEditorPlugin.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\SandboxIntegration.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\QComponentEntityEditorMainWindow.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\QComponentLevelEntityEditorMainWindow.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\QComponentEntityEditorOutlinerWindow.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\AssetCatalogModel.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\ComponentPalette\CategoriesList.cpp">
+      <Filter>UI\ComponentPalette</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\ComponentPalette\ComponentDataModel.cpp">
+      <Filter>UI\ComponentPalette</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\ComponentPalette\ComponentPaletteWindow.cpp">
+      <Filter>UI\ComponentPalette</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\ComponentPalette\FavoriteComponentList.cpp">
+      <Filter>UI\ComponentPalette</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\ComponentPalette\FilteredComponentList.cpp">
+      <Filter>UI\ComponentPalette</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\ComponentPalette\InformationPanel.cpp">
+      <Filter>UI\ComponentPalette</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\Outliner\OutlinerDisplayOptionsMenu.cpp">
+      <Filter>UI\Outliner</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\Outliner\OutlinerTreeView.cpp">
+      <Filter>UI\Outliner</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\Outliner\OutlinerWidget.cpp">
+      <Filter>UI\Outliner</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\Outliner\OutlinerListModel.cpp">
+      <Filter>UI\Outliner</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\Outliner\OutlinerSearchWidget.cpp">
+      <Filter>UI\Outliner</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\Outliner\OutlinerSortFilterProxyModel.cpp">
+      <Filter>UI\Outliner</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\Objects\ComponentEntityObject.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\ComponentEntityEditorPlugin_autogen\CBLZLII4FO\qrc_resources.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\ComponentEntityEditorPlugin_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\ComponentEntityEditorPlugin_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\ComponentEntityEditorPlugin.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\SandboxIntegration.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\QComponentEntityEditorMainWindow.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\QComponentLevelEntityEditorMainWindow.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\QComponentEntityEditorOutlinerWindow.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\AssetCatalogModel.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\ComponentPalette\CategoriesList.h">
+      <Filter>UI\ComponentPalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\ComponentPalette\ComponentDataModel.h">
+      <Filter>UI\ComponentPalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\ComponentPalette\ComponentPaletteSettings.h">
+      <Filter>UI\ComponentPalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\ComponentPalette\ComponentPaletteWindow.h">
+      <Filter>UI\ComponentPalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\ComponentPalette\FavoriteComponentList.h">
+      <Filter>UI\ComponentPalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\ComponentPalette\FilteredComponentList.h">
+      <Filter>UI\ComponentPalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\ComponentPalette\InformationPanel.h">
+      <Filter>UI\ComponentPalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\Outliner\OutlinerDisplayOptionsMenu.h">
+      <Filter>UI\Outliner</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\Outliner\OutlinerTreeView.hxx">
+      <Filter>UI\Outliner</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\Outliner\OutlinerWidget.hxx">
+      <Filter>UI\Outliner</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\Outliner\OutlinerCacheBus.h">
+      <Filter>UI\Outliner</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\Outliner\OutlinerListModel.hxx">
+      <Filter>UI\Outliner</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\Outliner\OutlinerSearchWidget.h">
+      <Filter>UI\Outliner</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\Outliner\OutlinerSortFilterProxyModel.hxx">
+      <Filter>UI\Outliner</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\Objects\ComponentEntityObject.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\ComponentEntityEditorPlugin_autogen\include\UI\Outliner\ui_OutlinerWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\Outliner\OutlinerWidget.ui">
+      <Filter>UI\Outliner</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\a40c1dde84d169ab215ed73925a6d575\qrc_resources.cpp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\Outliner\resources.qrc">
+      <Filter>UI\Outliner</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\Outliner\EntityOutliner.qss">
+      <Filter>UI\Outliner</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\componententityeditorplugin_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{395D38A7-3429-3E27-B1FC-846E64CA39F1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{80852A59-F16D-3F75-964E-5A915BE53D19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\ComponentPalette">
+      <UniqueIdentifier>{DEEF2C40-2B7C-35BF-9B9A-CE22C7D11989}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Outliner">
+      <UniqueIdentifier>{CF0F960D-87DB-3413-B380-9AC25F6F13F9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

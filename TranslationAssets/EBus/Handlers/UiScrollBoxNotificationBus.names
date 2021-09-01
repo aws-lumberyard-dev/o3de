@@ -1,0 +1,42 @@
+{
+    "entries": [
+        {
+            "key": "UiScrollBoxNotificationBus",
+            "context": "EBusHandler",
+            "variant": "",
+            "details": {
+                "name": "UiScrollBoxNotificationBus"
+            },
+            "methods": [
+                {
+                    "key": "OnScrollOffsetChanging",
+                    "details": {
+                        "name": "OnScrollOffsetChanging"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "OnScrollOffsetChanged",
+                    "details": {
+                        "name": "OnScrollOffsetChanged"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

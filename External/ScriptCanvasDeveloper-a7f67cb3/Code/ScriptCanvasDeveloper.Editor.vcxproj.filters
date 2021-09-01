@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvasDeveloper-a7f67cb3\Code\ScriptCanvasDeveloper.Editor_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\Developer.cpp">
+      <Filter>Editor\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\DeveloperUtils.cpp">
+      <Filter>Editor\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomationTestDialog.cpp">
+      <Filter>Editor\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\ScriptCanvasDeveloperGem.cpp">
+      <Filter>Editor\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\ScriptCanvasDeveloperEditorComponent.cpp">
+      <Filter>Editor\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\Mock.cpp">
+      <Filter>Editor\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\NodeListDumpAction.cpp">
+      <Filter>Editor\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\TSGenerateAction.cpp">
+      <Filter>Editor\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\WrapperMock.cpp">
+      <Filter>Editor\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\XMLDoc.cpp">
+      <Filter>Editor\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\AutomationActions\DynamicSlotFullCreation.cpp">
+      <Filter>Editor\Source\AutomationActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\AutomationActions\NodePaletteFullCreation.cpp">
+      <Filter>Editor\Source\AutomationActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\AutomationActions\VariableListFullCreation.cpp">
+      <Filter>Editor\Source\AutomationActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomation\EditorAutomationTest.cpp">
+      <Filter>Editor\Source\EditorAutomation</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomation\EditorAutomationActions\ScriptCanvasActions\ConnectionActions.cpp">
+      <Filter>Editor\Source\EditorAutomation\EditorAutomationActions\ScriptCanvasActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomation\EditorAutomationActions\ScriptCanvasActions\CreateElementsActions.cpp">
+      <Filter>Editor\Source\EditorAutomation\EditorAutomationActions\ScriptCanvasActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomation\EditorAutomationActions\ScriptCanvasActions\EditorViewActions.cpp">
+      <Filter>Editor\Source\EditorAutomation\EditorAutomationActions\ScriptCanvasActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomation\EditorAutomationActions\ScriptCanvasActions\ElementInteractions.cpp">
+      <Filter>Editor\Source\EditorAutomation\EditorAutomationActions\ScriptCanvasActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomation\EditorAutomationActions\ScriptCanvasActions\GraphActions.cpp">
+      <Filter>Editor\Source\EditorAutomation\EditorAutomationActions\ScriptCanvasActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomation\EditorAutomationActions\ScriptCanvasActions\VariableActions.cpp">
+      <Filter>Editor\Source\EditorAutomation\EditorAutomationActions\ScriptCanvasActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomation\EditorAutomationActions\EditorKeyActions.cpp">
+      <Filter>Editor\Source\EditorAutomation\EditorAutomationActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomation\EditorAutomationActions\EditorMouseActions.cpp">
+      <Filter>Editor\Source\EditorAutomation\EditorAutomationActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomation\EditorAutomationActions\GenericActions.cpp">
+      <Filter>Editor\Source\EditorAutomation\EditorAutomationActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomation\EditorAutomationActions\WidgetActions.cpp">
+      <Filter>Editor\Source\EditorAutomation\EditorAutomationActions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomation\EditorAutomationStates\ConnectionStates.cpp">
+      <Filter>Editor\Source\EditorAutomation\EditorAutomationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomation\EditorAutomationStates\CreateElementsStates.cpp">
+      <Filter>Editor\Source\EditorAutomation\EditorAutomationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomation\EditorAutomationStates\EditorViewStates.cpp">
+      <Filter>Editor\Source\EditorAutomation\EditorAutomationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomation\EditorAutomationStates\ElementInteractionStates.cpp">
+      <Filter>Editor\Source\EditorAutomation\EditorAutomationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomation\EditorAutomationStates\GraphStates.cpp">
+      <Filter>Editor\Source\EditorAutomation\EditorAutomationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomation\EditorAutomationStates\UtilityStates.cpp">
+      <Filter>Editor\Source\EditorAutomation\EditorAutomationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomation\EditorAutomationStates\VariableStates.cpp">
+      <Filter>Editor\Source\EditorAutomation\EditorAutomationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomationTests\GraphCreationTests.cpp">
+      <Filter>Editor\Source\EditorAutomationTests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomationTests\GroupTests.cpp">
+      <Filter>Editor\Source\EditorAutomationTests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomationTests\InteractionTests.cpp">
+      <Filter>Editor\Source\EditorAutomationTests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomationTests\NodeCreationTests.cpp">
+      <Filter>Editor\Source\EditorAutomationTests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomationTests\VariableTests.cpp">
+      <Filter>Editor\Source\EditorAutomationTests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvasDeveloper-a7f67cb3\Code\ScriptCanvasDeveloper.Editor_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvasDeveloper-a7f67cb3\Code\ScriptCanvasDeveloper.Editor_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationAction.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationModelIds.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationTest.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationActions\ScriptCanvasActions\ConnectionActions.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationActions\ScriptCanvasActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationActions\ScriptCanvasActions\CreateElementsActions.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationActions\ScriptCanvasActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationActions\ScriptCanvasActions\EditorViewActions.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationActions\ScriptCanvasActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationActions\ScriptCanvasActions\ElementInteractions.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationActions\ScriptCanvasActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationActions\ScriptCanvasActions\GraphActions.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationActions\ScriptCanvasActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationActions\ScriptCanvasActions\VariableActions.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationActions\ScriptCanvasActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationActions\EditorKeyActions.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationActions\EditorMouseActions.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationActions\GenericActions.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationActions\WidgetActions.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationStates\ConnectionStates.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationStates\CreateElementsStates.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationStates\EditorViewStates.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationStates\ElementInteractionStates.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationStates\GraphStates.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationStates\UtilityStates.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationStates\VariableStates.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\Developer.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\DeveloperUtils.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\ScriptCanvasDeveloperEditorComponent.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\Mock.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\MockBus.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\NodeListDumpAction.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\TSGenerateAction.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\WrapperMock.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\AutomationActions\DynamicSlotFullCreation.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor\AutomationActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Include\ScriptCanvasDeveloperEditor\AutomationActions\VariableListFullCreation.h">
+      <Filter>Editor\Include\ScriptCanvasDeveloperEditor\AutomationActions</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomationTestDialog.h">
+      <Filter>Editor\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\XMLDoc.h">
+      <Filter>Editor\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomationTests\EditorAutomationTests.h">
+      <Filter>Editor\Source\EditorAutomationTests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomationTests\GraphCreationTests.h">
+      <Filter>Editor\Source\EditorAutomationTests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomationTests\GroupTests.h">
+      <Filter>Editor\Source\EditorAutomationTests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomationTests\InteractionTests.h">
+      <Filter>Editor\Source\EditorAutomationTests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomationTests\NodeCreationTests.h">
+      <Filter>Editor\Source\EditorAutomationTests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomationTests\VariableTests.h">
+      <Filter>Editor\Source\EditorAutomationTests</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\scriptcanvasdeveloper_gem_editor_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{E975680F-F697-3506-8586-852AB59CD56D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Include">
+      <UniqueIdentifier>{FC8F3500-C793-3342-A9A4-74FA606EAD8C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Include\ScriptCanvasDeveloperEditor">
+      <UniqueIdentifier>{142A9E58-52F3-3E4B-A231-C53DC1BA5916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Include\ScriptCanvasDeveloperEditor\AutomationActions">
+      <UniqueIdentifier>{501D3C71-2ACA-3718-ADBA-27DEAD85CDDE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation">
+      <UniqueIdentifier>{A99BE787-73FF-36E2-860A-A2F0A6EF6718}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationActions">
+      <UniqueIdentifier>{065C6532-652C-3F1B-9F75-C276136894F7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationActions\ScriptCanvasActions">
+      <UniqueIdentifier>{EE9ED04D-30BC-3BA7-82B4-939BA4E6CC5B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Include\ScriptCanvasDeveloperEditor\EditorAutomation\EditorAutomationStates">
+      <UniqueIdentifier>{AB420BC9-93A6-3FC3-8A67-B8D2D8147540}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Source">
+      <UniqueIdentifier>{94FB260A-94BD-389B-9350-43ACCD926FD9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Source\AutomationActions">
+      <UniqueIdentifier>{8D9C91E3-90F3-30B7-B16F-A0E3966EE50C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Source\EditorAutomation">
+      <UniqueIdentifier>{015BAD5B-C3B3-3ACC-A391-2107AF1965BD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Source\EditorAutomationTests">
+      <UniqueIdentifier>{E9DFB53C-D105-3F71-AD5F-CFAFAF49AF59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Source\EditorAutomation\EditorAutomationActions">
+      <UniqueIdentifier>{9BF1E1FB-B9BE-3E56-B71C-CD4665939846}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Source\EditorAutomation\EditorAutomationActions\ScriptCanvasActions">
+      <UniqueIdentifier>{195F2670-A0E8-38B6-8E9D-F4A39A51DE02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Source\EditorAutomation\EditorAutomationStates">
+      <UniqueIdentifier>{A5C90F54-1B15-3744-8F0F-420312253AB7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

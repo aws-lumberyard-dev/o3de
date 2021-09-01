@@ -1,0 +1,9 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/PythonAssetBuilder/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/PythonAssetBuilder/Code/Source/Platform/Common/MSVC/pythonassetbuilder_static_msvc.cmake
+J:/Atom/lyfork/o3de/Gems/PythonAssetBuilder/Code/Source/Platform/Common/MSVC/pythonassetbuilder_tests_msvc.cmake
+J:/Atom/lyfork/o3de/Gems/PythonAssetBuilder/Code/pythonassetbuilder_common_files.cmake
+J:/Atom/lyfork/o3de/Gems/PythonAssetBuilder/Code/pythonassetbuilder_editor_files.cmake
+J:/Atom/lyfork/o3de/Gems/PythonAssetBuilder/Code/pythonassetbuilder_shared_files.cmake
+J:/Atom/lyfork/o3de/Gems/PythonAssetBuilder/Code/pythonassetbuilder_tests_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

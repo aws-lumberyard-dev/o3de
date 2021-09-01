@@ -1,0 +1,12 @@
+{
+    "entries": [
+        {
+            "key": "AZ::Render::MeshComponent",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AZ::Render::MeshComponent"
+            }
+        }
+    ]
+}

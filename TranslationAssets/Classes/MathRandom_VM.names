@@ -1,0 +1,763 @@
+{
+    "entries": [
+        {
+            "key": "MathRandom_VM",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "MathRandom_VM"
+            },
+            "methods": [
+                {
+                    "key": "RandomPointOnSphere",
+                    "context": "MathRandom_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomPointOnSphere"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathRandom_VM::RandomPointOnSphere is invoked"
+                    },
+                    "details": {
+                        "name": "MathRandom_VM::RandomPointOnSphere"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RandomPointInCircle",
+                    "context": "MathRandom_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomPointInCircle"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathRandom_VM::RandomPointInCircle is invoked"
+                    },
+                    "details": {
+                        "name": "MathRandom_VM::RandomPointInCircle"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RandomPointInSquare",
+                    "context": "MathRandom_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomPointInSquare"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathRandom_VM::RandomPointInSquare is invoked"
+                    },
+                    "details": {
+                        "name": "MathRandom_VM::RandomPointInSquare"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RandomUnitVector2",
+                    "context": "MathRandom_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomUnitVector2"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathRandom_VM::RandomUnitVector2 is invoked"
+                    },
+                    "details": {
+                        "name": "MathRandom_VM::RandomUnitVector2"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RandomVector2",
+                    "context": "MathRandom_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomVector2"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathRandom_VM::RandomVector2 is invoked"
+                    },
+                    "details": {
+                        "name": "MathRandom_VM::RandomVector2"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        },
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RandomPointInCylinder",
+                    "context": "MathRandom_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomPointInCylinder"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathRandom_VM::RandomPointInCylinder is invoked"
+                    },
+                    "details": {
+                        "name": "MathRandom_VM::RandomPointInCylinder"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RandomQuaternion",
+                    "context": "MathRandom_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomQuaternion"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathRandom_VM::RandomQuaternion is invoked"
+                    },
+                    "details": {
+                        "name": "MathRandom_VM::RandomQuaternion"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{73103120-3DD3-4873-BAB3-9713FA2804FB}",
+                            "details": {
+                                "name": "Quaternion"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RandomVector4",
+                    "context": "MathRandom_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomVector4"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathRandom_VM::RandomVector4 is invoked"
+                    },
+                    "details": {
+                        "name": "MathRandom_VM::RandomVector4"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
+                            "details": {
+                                "name": "Vector4"
+                            }
+                        },
+                        {
+                            "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
+                            "details": {
+                                "name": "Vector4"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
+                            "details": {
+                                "name": "Vector4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RandomPointInBox",
+                    "context": "MathRandom_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomPointInBox"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathRandom_VM::RandomPointInBox is invoked"
+                    },
+                    "details": {
+                        "name": "MathRandom_VM::RandomPointInBox"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RandomPointOnCircle",
+                    "context": "MathRandom_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomPointOnCircle"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathRandom_VM::RandomPointOnCircle is invoked"
+                    },
+                    "details": {
+                        "name": "MathRandom_VM::RandomPointOnCircle"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RandomPointInEllipsoid",
+                    "context": "MathRandom_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomPointInEllipsoid"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathRandom_VM::RandomPointInEllipsoid is invoked"
+                    },
+                    "details": {
+                        "name": "MathRandom_VM::RandomPointInEllipsoid"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RandomInteger",
+                    "context": "MathRandom_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomInteger"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathRandom_VM::RandomInteger is invoked"
+                    },
+                    "details": {
+                        "name": "MathRandom_VM::RandomInteger"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RandomPointInWedge",
+                    "context": "MathRandom_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomPointInWedge"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathRandom_VM::RandomPointInWedge is invoked"
+                    },
+                    "details": {
+                        "name": "MathRandom_VM::RandomPointInWedge"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RandomGrayscale",
+                    "context": "MathRandom_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomGrayscale"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathRandom_VM::RandomGrayscale is invoked"
+                    },
+                    "details": {
+                        "name": "MathRandom_VM::RandomGrayscale"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
+                            "details": {
+                                "name": "Color"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RandomPointInCone",
+                    "context": "MathRandom_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomPointInCone"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathRandom_VM::RandomPointInCone is invoked"
+                    },
+                    "details": {
+                        "name": "MathRandom_VM::RandomPointInCone"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RandomColor",
+                    "context": "MathRandom_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomColor"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathRandom_VM::RandomColor is invoked"
+                    },
+                    "details": {
+                        "name": "MathRandom_VM::RandomColor"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
+                            "details": {
+                                "name": "Color"
+                            }
+                        },
+                        {
+                            "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
+                            "details": {
+                                "name": "Color"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
+                            "details": {
+                                "name": "Color"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RandomNumber",
+                    "context": "MathRandom_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomNumber"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathRandom_VM::RandomNumber is invoked"
+                    },
+                    "details": {
+                        "name": "MathRandom_VM::RandomNumber"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RandomPointInSphere",
+                    "context": "MathRandom_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomPointInSphere"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathRandom_VM::RandomPointInSphere is invoked"
+                    },
+                    "details": {
+                        "name": "MathRandom_VM::RandomPointInSphere"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RandomUnitVector3",
+                    "context": "MathRandom_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomUnitVector3"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathRandom_VM::RandomUnitVector3 is invoked"
+                    },
+                    "details": {
+                        "name": "MathRandom_VM::RandomUnitVector3"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RandomVector3",
+                    "context": "MathRandom_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomVector3"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathRandom_VM::RandomVector3 is invoked"
+                    },
+                    "details": {
+                        "name": "MathRandom_VM::RandomVector3"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RandomPointInArc",
+                    "context": "MathRandom_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomPointInArc"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathRandom_VM::RandomPointInArc is invoked"
+                    },
+                    "details": {
+                        "name": "MathRandom_VM::RandomPointInArc"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

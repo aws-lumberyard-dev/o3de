@@ -1,0 +1,64 @@
+{
+    "entries": [
+        {
+            "key": "SceneQueries",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "SceneQueries"
+            },
+            "methods": [
+                {
+                    "key": "CreateRayCastRequest",
+                    "context": "SceneQueries",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SceneQueries::CreateRayCastRequest"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SceneQueries::CreateRayCastRequest is invoked"
+                    },
+                    "details": {
+                        "name": "SceneQueries::CreateRayCastRequest"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{53EAD088-A391-48F1-8370-2A1DBA31512F}",
+                            "details": {
+                                "name": "RayCast Request",
+                                "tooltip": "Parameters for raycast"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

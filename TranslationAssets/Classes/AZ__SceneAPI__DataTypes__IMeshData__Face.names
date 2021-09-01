@@ -1,0 +1,51 @@
+{
+    "entries": [
+        {
+            "key": "AZ::SceneAPI::DataTypes::IMeshData::Face",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AZ::SceneAPI::DataTypes::IMeshData::Face"
+            },
+            "methods": [
+                {
+                    "key": "GetVertexIndex",
+                    "context": "AZ::SceneAPI::DataTypes::IMeshData::Face",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZ::SceneAPI::DataTypes::IMeshData::Face::GetVertexIndex"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZ::SceneAPI::DataTypes::IMeshData::Face::GetVertexIndex is invoked"
+                    },
+                    "details": {
+                        "name": "AZ::SceneAPI::DataTypes::IMeshData::Face::GetVertexIndex"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{F9F49C1A-014F-46F5-A46F-B56D8CB46C2B}",
+                            "details": {
+                                "name": "const AZ::SceneAPI::DataTypes::IMeshData::Face&"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

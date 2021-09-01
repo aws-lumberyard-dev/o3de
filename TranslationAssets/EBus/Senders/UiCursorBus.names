@@ -1,0 +1,108 @@
+{
+    "entries": [
+        {
+            "key": "UiCursorBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiCursorBus"
+            },
+            "methods": [
+                {
+                    "key": "GetUiCursorPosition",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetUiCursorPosition"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetUiCursorPosition is invoked"
+                    },
+                    "details": {
+                        "name": "GetUiCursorPosition"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsUiCursorVisible",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IsUiCursorVisible"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IsUiCursorVisible is invoked"
+                    },
+                    "details": {
+                        "name": "IsUiCursorVisible"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "DecrementVisibleCounter",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke DecrementVisibleCounter"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after DecrementVisibleCounter is invoked"
+                    },
+                    "details": {
+                        "name": "DecrementVisibleCounter"
+                    }
+                },
+                {
+                    "key": "IncrementVisibleCounter",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IncrementVisibleCounter"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IncrementVisibleCounter is invoked"
+                    },
+                    "details": {
+                        "name": "IncrementVisibleCounter"
+                    }
+                },
+                {
+                    "key": "SetUiCursor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetUiCursor"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetUiCursor is invoked"
+                    },
+                    "details": {
+                        "name": "SetUiCursor"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
+                            "details": {
+                                "name": "char"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

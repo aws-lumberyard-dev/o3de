@@ -1,0 +1,45 @@
+{
+    "entries": [
+        {
+            "key": "Event<tuple<Crc32 AZ::s8 > const Vector3& >",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Event<tuple<Crc32 AZ::s8 > const Vector3& >"
+            },
+            "methods": [
+                {
+                    "key": "HasHandlerConnected",
+                    "context": "Event<tuple<Crc32 AZ::s8 > const Vector3& >",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Event<tuple<Crc32 AZ::s8 > const Vector3& >::HasHandlerConnected"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Event<tuple<Crc32 AZ::s8 > const Vector3& >::HasHandlerConnected is invoked"
+                    },
+                    "details": {
+                        "name": "Event<tuple<Crc32 AZ::s8 > const Vector3& >::HasHandlerConnected"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{4985DFB0-7CD9-5B28-980B-BA2C701BE3D6}",
+                            "details": {
+                                "name": "Event<tuple<Crc32 AZ::s8 > const Vector3& >*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

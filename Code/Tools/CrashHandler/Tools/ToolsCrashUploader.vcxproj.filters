@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Tools\ToolsCrashUploader_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Tools\Uploader\ToolsCrashUploader.cpp">
+      <Filter>Uploader</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Tools\Uploader\SendReportDialog.cpp">
+      <Filter>Uploader</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Tools\Uploader\platforms\win\main.cpp">
+      <Filter>Platform\Windows\..\..\Uploader\platforms\win</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Tools\ToolsCrashUploader_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Tools\ToolsCrashUploader_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Tools\Uploader\ToolsCrashUploader.h">
+      <Filter>Uploader</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Tools\Uploader\SendReportDialog.h">
+      <Filter>Uploader</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Tools\ToolsCrashUploader_autogen\include\UI\ui_submit_report.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Tools\UI\submit_report.ui">
+      <Filter>UI</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Tools\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Tools\UI\lyeditor.ico">
+      <Filter>UI</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Tools\UI\ToolsCrashHandler.qrc">
+      <Filter>UI</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Tools\tools_crash_uploader_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Tools\Platform\Windows\tools_crash_uploader_windows_files.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{D4CCE8D3-A6C9-3C6A-9C86-8BF8F7D77D7F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{9B5BE819-E94D-379A-84DF-5559629D4548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..">
+      <UniqueIdentifier>{731ADA3D-17B6-381E-ABF5-417E8742D0A7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\..">
+      <UniqueIdentifier>{E1670BFB-41AD-36ED-8AA5-0D0AF4336AD6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\..\Uploader">
+      <UniqueIdentifier>{59CCE630-955E-3D2C-8261-5606F3A8039C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\..\Uploader\platforms">
+      <UniqueIdentifier>{645281D8-9391-35BD-A16F-D7E9D6C51B1D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\..\Uploader\platforms\win">
+      <UniqueIdentifier>{741CA3A8-0CE9-3709-B191-043B7728AE1A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{80852A59-F16D-3F75-964E-5A915BE53D19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Uploader">
+      <UniqueIdentifier>{CDFBD2D2-C9BD-37AA-97A1-945844D936F3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

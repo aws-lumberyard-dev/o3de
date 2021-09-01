@@ -1,0 +1,453 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|x64">
+      <Configuration>debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="profile|x64">
+      <Configuration>profile</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|x64">
+      <Configuration>release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6F1F8E6B-273E-327B-9DC8-1CB0C9AF932C}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>Vegetation</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\bin\debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Vegetation.dir\debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Vegetation</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='debug|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\bin\profile\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Vegetation.dir\profile\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Vegetation</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='profile|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='profile|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\bin\release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">Vegetation.dir\release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='release|x64'">Vegetation</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='release|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='release|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source;J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\3rdParty\ACES;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include;J:\Atom\lyfork\o3de\Gems\SurfaceData\Code\Include;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source;J:\Atom\lyfork\o3de\Gems\ImGui\Code\..\External\ImGui\v1.82;J:\Atom\lyfork\o3de\Gems\ImGui\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /RTCsu /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lux_core-2.2-rev5-multiplatform/LuxCore2.2/include</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_DEBUG;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="debug";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;VEG_PROFILE_ENABLED;OPENSSL_ENABLED;IMGUI_ENABLED;IMGUI_API_IMPORT;IMGUI_INCLUDE_IMGUI_USER_H;CMAKE_INTDIR="debug";Vegetation_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;_HAS_EXCEPTIONS=0;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"debug\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;VEG_PROFILE_ENABLED;OPENSSL_ENABLED;IMGUI_ENABLED;IMGUI_API_IMPORT;IMGUI_INCLUDE_IMGUI_USER_H;CMAKE_INTDIR=\"debug\";Vegetation_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source;J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\3rdParty\ACES;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include;J:\Atom\lyfork\o3de\Gems\SurfaceData\Code\Include;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source;J:\Atom\lyfork\o3de\Gems\ImGui\Code\..\External\ImGui\v1.82;J:\Atom\lyfork\o3de\Gems\ImGui\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source;J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\3rdParty\ACES;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include;J:\Atom\lyfork\o3de\Gems\SurfaceData\Code\Include;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source;J:\Atom\lyfork\o3de\Gems\ImGui\Code\..\External\ImGui\v1.82;J:\Atom\lyfork\o3de\Gems\ImGui\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/debug/Vegetation.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\..\..\lib\debug\Vegetation.Static.lib;..\..\..\lib\debug\AtomLyIntegration_CommonFeatures.Static.lib;..\..\..\lib\debug\LmbrCentral.Static.lib;..\..\..\lib\debug\GradientSignal.Static.lib;..\..\..\lib\debug\SurfaceData.Static.lib;..\..\..\lib\debug\CryCommon.lib;..\..\..\lib\debug\Atom_Feature_Common.Static.lib;..\..\..\lib\debug\Atom_Feature_Common.Public.lib;..\..\..\lib\debug\Atom_RPI.Public.lib;C:\Users\luissemp\.o3de\3rdParty\packages\openimageio-2.1.16.0-rev2-windows\OpenImageIO\2.1.16.0\win_x64\lib\OpenColorIO.lib;C:\Users\luissemp\.o3de\3rdParty\packages\openimageio-2.1.16.0-rev2-windows\OpenImageIO\2.1.16.0\win_x64\lib\OpenImageIO_Util.lib;C:\Users\luissemp\.o3de\3rdParty\packages\openimageio-2.1.16.0-rev2-windows\OpenImageIO\2.1.16.0\win_x64\lib\OpenImageIO.lib;C:\Users\luissemp\.o3de\3rdParty\packages\ilmbase-2.3.0-rev4-multiplatform\ilmbase\lib\Windows\Debug\IlmImfUtil-2_3_s_d.lib;C:\Users\luissemp\.o3de\3rdParty\packages\ilmbase-2.3.0-rev4-multiplatform\ilmbase\lib\Windows\Debug\IlmImf-2_3_s_d.lib;C:\Users\luissemp\.o3de\3rdParty\packages\ilmbase-2.3.0-rev4-multiplatform\ilmbase\lib\Windows\Debug\Half-2_3_s_d.lib;C:\Users\luissemp\.o3de\3rdParty\packages\ilmbase-2.3.0-rev4-multiplatform\ilmbase\lib\Windows\Debug\Iex-2_3_s_d.lib;C:\Users\luissemp\.o3de\3rdParty\packages\ilmbase-2.3.0-rev4-multiplatform\ilmbase\lib\Windows\Debug\IexMath-2_3_s_d.lib;C:\Users\luissemp\.o3de\3rdParty\packages\ilmbase-2.3.0-rev4-multiplatform\ilmbase\lib\Windows\Debug\IlmThread-2_3_s_d.lib;C:\Users\luissemp\.o3de\3rdParty\packages\ilmbase-2.3.0-rev4-multiplatform\ilmbase\lib\Windows\Debug\Imath-2_3_s_d.lib;..\..\..\lib\debug\Atom_Utils.Static.lib;..\..\..\lib\debug\Atom_RHI.Public.lib;..\..\..\lib\debug\Atom_RHI.Reflect.lib;..\..\..\lib\debug\AzFramework.lib;..\..\..\lib\debug\GridMate.lib;ws2_32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\debug\lib\libssl.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\debug\lib\libcrypto.lib;crypt32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\md5-2.0-multiplatform\md5\build\win_x64\vc140\debug\md5.lib;C:\Users\luissemp\.o3de\3rdParty\packages\lz4-r128-multiplatform\lz4\build\win_x64\vc140\debug\lz4.lib;..\..\..\lib\debug\AtomCore.lib;..\..\..\lib\debug\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\debug\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\zlib\lib\zlibstaticd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\debug\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\debug\cityhash.lib;..\..\..\lib\debug\ImGui.imguilib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\lux_core-2.2-rev5-multiplatform\LuxCore2.2\win64\lib\luxcore.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>J:/Atom/lyfork/o3de/lib/debug/Vegetation.lib</ImportLibrary>
+      <ProgramDataBaseFile>J:/Atom/lyfork/o3de/bin/debug/Vegetation.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source;J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\3rdParty\ACES;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include;J:\Atom\lyfork\o3de\Gems\SurfaceData\Code\Include;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source;J:\Atom\lyfork\o3de\Gems\ImGui\Code\..\External\ImGui\v1.82;J:\Atom\lyfork\o3de\Gems\ImGui\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lux_core-2.2-rev5-multiplatform/LuxCore2.2/include</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StringPooling>true</StringPooling>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="profile";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;VEG_PROFILE_ENABLED;OPENSSL_ENABLED;IMGUI_ENABLED;IMGUI_API_IMPORT;IMGUI_INCLUDE_IMGUI_USER_H;CMAKE_INTDIR="profile";Vegetation_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"profile\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;VEG_PROFILE_ENABLED;OPENSSL_ENABLED;IMGUI_ENABLED;IMGUI_API_IMPORT;IMGUI_INCLUDE_IMGUI_USER_H;CMAKE_INTDIR=\"profile\";Vegetation_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source;J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\3rdParty\ACES;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include;J:\Atom\lyfork\o3de\Gems\SurfaceData\Code\Include;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source;J:\Atom\lyfork\o3de\Gems\ImGui\Code\..\External\ImGui\v1.82;J:\Atom\lyfork\o3de\Gems\ImGui\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source;J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\3rdParty\ACES;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include;J:\Atom\lyfork\o3de\Gems\SurfaceData\Code\Include;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source;J:\Atom\lyfork\o3de\Gems\ImGui\Code\..\External\ImGui\v1.82;J:\Atom\lyfork\o3de\Gems\ImGui\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/profile/Vegetation.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\..\..\lib\profile\Vegetation.Static.lib;..\..\..\lib\profile\AtomLyIntegration_CommonFeatures.Static.lib;..\..\..\lib\profile\LmbrCentral.Static.lib;..\..\..\lib\profile\GradientSignal.Static.lib;..\..\..\lib\profile\SurfaceData.Static.lib;..\..\..\lib\profile\CryCommon.lib;..\..\..\lib\profile\Atom_Feature_Common.Static.lib;..\..\..\lib\profile\Atom_Feature_Common.Public.lib;..\..\..\lib\profile\Atom_RPI.Public.lib;C:\Users\luissemp\.o3de\3rdParty\packages\openimageio-2.1.16.0-rev2-windows\OpenImageIO\2.1.16.0\win_x64\lib\OpenColorIO.lib;C:\Users\luissemp\.o3de\3rdParty\packages\openimageio-2.1.16.0-rev2-windows\OpenImageIO\2.1.16.0\win_x64\lib\OpenImageIO_Util.lib;C:\Users\luissemp\.o3de\3rdParty\packages\openimageio-2.1.16.0-rev2-windows\OpenImageIO\2.1.16.0\win_x64\lib\OpenImageIO.lib;C:\Users\luissemp\.o3de\3rdParty\packages\ilmbase-2.3.0-rev4-multiplatform\ilmbase\lib\Windows\Release\IlmImfUtil-2_3_s.lib;C:\Users\luissemp\.o3de\3rdParty\packages\ilmbase-2.3.0-rev4-multiplatform\ilmbase\lib\Windows\Release\IlmImf-2_3_s.lib;C:\Users\luissemp\.o3de\3rdParty\packages\ilmbase-2.3.0-rev4-multiplatform\ilmbase\lib\Windows\Release\Half-2_3_s.lib;C:\Users\luissemp\.o3de\3rdParty\packages\ilmbase-2.3.0-rev4-multiplatform\ilmbase\lib\Windows\Release\Iex-2_3_s.lib;C:\Users\luissemp\.o3de\3rdParty\packages\ilmbase-2.3.0-rev4-multiplatform\ilmbase\lib\Windows\Release\IexMath-2_3_s.lib;C:\Users\luissemp\.o3de\3rdParty\packages\ilmbase-2.3.0-rev4-multiplatform\ilmbase\lib\Windows\Release\IlmThread-2_3_s.lib;C:\Users\luissemp\.o3de\3rdParty\packages\ilmbase-2.3.0-rev4-multiplatform\ilmbase\lib\Windows\Release\Imath-2_3_s.lib;..\..\..\lib\profile\Atom_Utils.Static.lib;..\..\..\lib\profile\Atom_RHI.Public.lib;..\..\..\lib\profile\Atom_RHI.Reflect.lib;..\..\..\lib\profile\AzFramework.lib;..\..\..\lib\profile\GridMate.lib;ws2_32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libssl.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libcrypto.lib;crypt32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\md5-2.0-multiplatform\md5\build\win_x64\vc140\release\md5.lib;C:\Users\luissemp\.o3de\3rdParty\packages\lz4-r128-multiplatform\lz4\build\win_x64\vc140\release\lz4.lib;..\..\..\lib\profile\AtomCore.lib;..\..\..\lib\profile\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\release\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\zlib\lib\zlibstatic.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\release\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\release\cityhash.lib;..\..\..\lib\profile\ImGui.imguilib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\lux_core-2.2-rev5-multiplatform\LuxCore2.2\win64\lib\luxcore.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>J:/Atom/lyfork/o3de/lib/profile/Vegetation.lib</ImportLibrary>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ProgramDataBaseFile>J:/Atom/lyfork/o3de/bin/profile/Vegetation.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source;J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\3rdParty\ACES;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include;J:\Atom\lyfork\o3de\Gems\SurfaceData\Code\Include;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source;J:\Atom\lyfork\o3de\Gems\ImGui\Code\..\External\ImGui\v1.82;J:\Atom\lyfork\o3de\Gems\ImGui\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lux_core-2.2-rev5-multiplatform/LuxCore2.2/include</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OmitFramePointers>true</OmitFramePointers>
+      <Optimization>Full</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE="release";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;IMGUI_DISABLED;IMGUI_API_IMPORT;IMGUI_INCLUDE_IMGUI_USER_H;CMAKE_INTDIR="release";Vegetation_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE=\"release\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;IMGUI_DISABLED;IMGUI_API_IMPORT;IMGUI_INCLUDE_IMGUI_USER_H;CMAKE_INTDIR=\"release\";Vegetation_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source;J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\3rdParty\ACES;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include;J:\Atom\lyfork\o3de\Gems\SurfaceData\Code\Include;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source;J:\Atom\lyfork\o3de\Gems\ImGui\Code\..\External\ImGui\v1.82;J:\Atom\lyfork\o3de\Gems\ImGui\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source;J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include;J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\3rdParty\ACES;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include;J:\Atom\lyfork\o3de\Gems\SurfaceData\Code\Include;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source;J:\Atom\lyfork\o3de\Gems\ImGui\Code\..\External\ImGui\v1.82;J:\Atom\lyfork\o3de\Gems\ImGui\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/release/Vegetation.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\..\..\lib\release\Vegetation.Static.lib;..\..\..\lib\release\AtomLyIntegration_CommonFeatures.Static.lib;..\..\..\lib\release\LmbrCentral.Static.lib;..\..\..\lib\release\GradientSignal.Static.lib;..\..\..\lib\release\SurfaceData.Static.lib;..\..\..\lib\release\CryCommon.lib;..\..\..\lib\release\Atom_Feature_Common.Static.lib;..\..\..\lib\release\Atom_Feature_Common.Public.lib;..\..\..\lib\release\Atom_RPI.Public.lib;C:\Users\luissemp\.o3de\3rdParty\packages\openimageio-2.1.16.0-rev2-windows\OpenImageIO\2.1.16.0\win_x64\lib\OpenColorIO.lib;C:\Users\luissemp\.o3de\3rdParty\packages\openimageio-2.1.16.0-rev2-windows\OpenImageIO\2.1.16.0\win_x64\lib\OpenImageIO_Util.lib;C:\Users\luissemp\.o3de\3rdParty\packages\openimageio-2.1.16.0-rev2-windows\OpenImageIO\2.1.16.0\win_x64\lib\OpenImageIO.lib;C:\Users\luissemp\.o3de\3rdParty\packages\ilmbase-2.3.0-rev4-multiplatform\ilmbase\lib\Windows\Release\IlmImfUtil-2_3_s.lib;C:\Users\luissemp\.o3de\3rdParty\packages\ilmbase-2.3.0-rev4-multiplatform\ilmbase\lib\Windows\Release\IlmImf-2_3_s.lib;C:\Users\luissemp\.o3de\3rdParty\packages\ilmbase-2.3.0-rev4-multiplatform\ilmbase\lib\Windows\Release\Half-2_3_s.lib;C:\Users\luissemp\.o3de\3rdParty\packages\ilmbase-2.3.0-rev4-multiplatform\ilmbase\lib\Windows\Release\Iex-2_3_s.lib;C:\Users\luissemp\.o3de\3rdParty\packages\ilmbase-2.3.0-rev4-multiplatform\ilmbase\lib\Windows\Release\IexMath-2_3_s.lib;C:\Users\luissemp\.o3de\3rdParty\packages\ilmbase-2.3.0-rev4-multiplatform\ilmbase\lib\Windows\Release\IlmThread-2_3_s.lib;C:\Users\luissemp\.o3de\3rdParty\packages\ilmbase-2.3.0-rev4-multiplatform\ilmbase\lib\Windows\Release\Imath-2_3_s.lib;..\..\..\lib\release\Atom_Utils.Static.lib;..\..\..\lib\release\Atom_RHI.Public.lib;..\..\..\lib\release\Atom_RHI.Reflect.lib;..\..\..\lib\release\AzFramework.lib;..\..\..\lib\release\GridMate.lib;ws2_32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libssl.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libcrypto.lib;crypt32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\md5-2.0-multiplatform\md5\build\win_x64\vc140\release\md5.lib;C:\Users\luissemp\.o3de\3rdParty\packages\lz4-r128-multiplatform\lz4\build\win_x64\vc140\release\lz4.lib;..\..\..\lib\release\AtomCore.lib;..\..\..\lib\release\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\release\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\zlib\lib\zlibstatic.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\release\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\release\cityhash.lib;..\..\..\lib\release\ImGui.imguilib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\lux_core-2.2-rev5-multiplatform\LuxCore2.2\win64\lib\luxcore.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>J:/Atom/lyfork/o3de/lib/release/Vegetation.lib</ImportLibrary>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ProgramDataBaseFile>J:/Atom/lyfork/o3de/bin/release/Vegetation.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/Vegetation/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/Vegetation-881e5be2/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Gems\Vegetation\Code\vegetation_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\Vegetation\Code\vegetation_files.cmake;J:\Atom\lyfork\o3de\Gems\Vegetation\Code\vegetation_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\Vegetation\Code\vegetation_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\Vegetation-881e5be2\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/Vegetation/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/Vegetation-881e5be2/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Gems\Vegetation\Code\vegetation_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\Vegetation\Code\vegetation_files.cmake;J:\Atom\lyfork\o3de\Gems\Vegetation\Code\vegetation_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\Vegetation\Code\vegetation_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\Vegetation-881e5be2\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/Vegetation/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/Vegetation-881e5be2/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Gems\Vegetation\Code\vegetation_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\Vegetation\Code\vegetation_files.cmake;J:\Atom\lyfork\o3de\Gems\Vegetation\Code\vegetation_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\Vegetation\Code\vegetation_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\Vegetation-881e5be2\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\AreaSystemComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\AreaSystemComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\VegetationModule.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\VegetationModule.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\VegetationProfiler.h" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\vegetation_shared_files.cmake">
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\ZERO_CHECK.vcxproj">
+      <Project>{9D084072-A56A-3A6D-8C63-F5385A20608A}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore.vcxproj">
+      <Project>{9F85147B-AD44-3A0F-AA74-60212AED63A4}</Project>
+      <Name>AtomCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\AtomLyIntegration-05307bc2\CommonFeatures\Code\AtomLyIntegration_CommonFeatures.Public.vcxproj">
+      <Project>{5D4D1298-B956-37CB-B24A-352A0D4FCF30}</Project>
+      <Name>AtomLyIntegration_CommonFeatures.Public</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\AtomLyIntegration-05307bc2\CommonFeatures\Code\AtomLyIntegration_CommonFeatures.Static.vcxproj">
+      <Project>{844E3466-287E-3DD9-B958-AD766628617D}</Project>
+      <Name>AtomLyIntegration_CommonFeatures.Static</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Bootstrap\Code\Atom_Bootstrap.Headers.vcxproj">
+      <Project>{8805BDA8-B3F9-3A52-ABDC-EFD9694A4FF9}</Project>
+      <Name>Atom_Bootstrap.Headers</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Feature\Common\Code\Atom_Feature_Common.Public.vcxproj">
+      <Project>{1721CE83-9A3C-30D8-B4FF-46CB826FBEDD}</Project>
+      <Name>Atom_Feature_Common.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Feature\Common\Code\Atom_Feature_Common.Static.vcxproj">
+      <Project>{4FAF40CE-F1E3-31A4-9AC2-DA02322E5650}</Project>
+      <Name>Atom_Feature_Common.Static</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\RHI\Code\Atom_RHI.Public.vcxproj">
+      <Project>{0A0834F3-ACAD-337F-8EE6-B6B3D4822C3E}</Project>
+      <Name>Atom_RHI.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\RHI\Code\Atom_RHI.Reflect.vcxproj">
+      <Project>{85639FA0-2DAB-3EDD-AED2-0AFCEF18D511}</Project>
+      <Name>Atom_RHI.Reflect</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\RPI\Code\Atom_RPI.Public.vcxproj">
+      <Project>{88E91A5D-117D-3A1C-A2CC-3989E9B44A26}</Project>
+      <Name>Atom_RPI.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Utils\Code\Atom_Utils.Static.vcxproj">
+      <Project>{36EDED3E-8137-34D9-8697-939CD494EA22}</Project>
+      <Name>Atom_Utils.Static</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore.vcxproj">
+      <Project>{78F97634-33F1-3E9D-BB2E-D24CB7BD9D1E}</Project>
+      <Name>AzCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework.vcxproj">
+      <Project>{32B5BA28-0012-3762-8899-2D392DE6A10B}</Project>
+      <Name>AzFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryCommon.vcxproj">
+      <Project>{5131F2AB-DC9C-3FE9-A0DF-A1E42FAD10E6}</Project>
+      <Name>CryCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\GradientSignal-d035995c\Code\GradientSignal.vcxproj">
+      <Project>{AA96481C-E208-31D8-90CD-93E731C8C96E}</Project>
+      <Name>GradientSignal</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\GradientSignal-d035995c\Code\GradientSignal.Static.vcxproj">
+      <Project>{8E4A88F1-00F4-3499-BD11-124EAA601306}</Project>
+      <Name>GradientSignal.Static</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate.vcxproj">
+      <Project>{1A59660B-1BCB-3611-B3D0-673DEB6F8A46}</Project>
+      <Name>GridMate</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\ImGui-285cebc3\Code\ImGui.imguilib.vcxproj">
+      <Project>{3659026F-4A75-3A19-9FAF-42824917856B}</Project>
+      <Name>ImGui.imguilib</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Asset\ImageProcessingAtom\Code\ImageProcessingAtom.Headers.vcxproj">
+      <Project>{D52C6045-848B-3B72-B099-51E9FA33CCEA}</Project>
+      <Name>ImageProcessingAtom.Headers</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\LmbrCentral-bb1c133d\Code\LmbrCentral.vcxproj">
+      <Project>{283D9450-8406-3150-AD1F-65A98729BF2B}</Project>
+      <Name>LmbrCentral</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\LmbrCentral-bb1c133d\Code\LmbrCentral.Static.vcxproj">
+      <Project>{B8A59AEC-4382-318D-AC83-EE1593BC1B09}</Project>
+      <Name>LmbrCentral.Static</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\SurfaceData-705181c7\Code\SurfaceData.vcxproj">
+      <Project>{ED986369-EC43-3655-B317-DD39DA9F6A8D}</Project>
+      <Name>SurfaceData</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\SurfaceData-705181c7\Code\SurfaceData.Static.vcxproj">
+      <Project>{6F7E32F3-FC23-390E-B9C4-53225F945817}</Project>
+      <Name>SurfaceData.Static</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Vegetation-881e5be2\Code\Vegetation.Static.vcxproj">
+      <Project>{B38951EF-2739-380D-A25A-1574B936B157}</Project>
+      <Name>Vegetation.Static</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

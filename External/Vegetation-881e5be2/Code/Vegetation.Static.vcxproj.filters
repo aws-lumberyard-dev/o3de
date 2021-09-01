@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\AreaBlenderComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\AreaComponentBase.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\BlockerComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\DescriptorListCombinerComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\DescriptorListComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\DescriptorWeightSelectorComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\DistanceBetweenFilterComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\DistributionFilterComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\LevelSettingsComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\MeshBlockerComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\PositionModifierComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\ReferenceShapeComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\RotationModifierComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\ScaleModifierComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\ShapeIntersectionFilterComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\SlopeAlignmentModifierComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\SpawnerComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\SurfaceAltitudeFilterComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\SurfaceMaskDepthFilterComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\SurfaceMaskFilterComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\SurfaceSlopeFilterComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Debugger\AreaDebugComponent.cpp">
+      <Filter>Source\Debugger</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Debugger\DebugComponent.cpp">
+      <Filter>Source\Debugger</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\DescriptorListAsset.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Descriptor.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\DynamicSliceInstanceSpawner.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\EmptyInstanceSpawner.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\PrefabInstanceSpawner.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\VegetationSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\InstanceData.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\InstanceSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\DebugSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\DescriptorListAsset.h">
+      <Filter>Include\Vegetation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Descriptor.h">
+      <Filter>Include\Vegetation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\InstanceData.h">
+      <Filter>Include\Vegetation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\InstanceSpawner.h">
+      <Filter>Include\Vegetation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\DynamicSliceInstanceSpawner.h">
+      <Filter>Include\Vegetation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\EmptyInstanceSpawner.h">
+      <Filter>Include\Vegetation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\PrefabInstanceSpawner.h">
+      <Filter>Include\Vegetation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\AreaComponentBase.h">
+      <Filter>Include\Vegetation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\AreaSystemRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\AreaNotificationBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\AreaConfigRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\AreaDebugBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\AreaInfoBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\AreaRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\DebugNotificationBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\DebugRequestsBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\DebugSystemDataBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\DependencyRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\DescriptorNotificationBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\DescriptorProviderRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\DescriptorSelectorRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\FilterRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\InstanceSystemRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\ModifierRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\SystemConfigurationBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\ScaleModifierRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\SlopeAlignmentModifierRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\RotationModifierRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\PositionModifierRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\SurfaceAltitudeFilterRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\DistanceBetweenFilterRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\DistributionFilterRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\ShapeIntersectionFilterRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\SurfaceSlopeFilterRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\SurfaceMaskDepthFilterRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\SurfaceMaskFilterRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\AreaBlenderRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\BlockerRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\DescriptorListCombinerRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\ReferenceShapeRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\MeshBlockerRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\SpawnerRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Ebuses\DescriptorListRequestBus.h">
+      <Filter>Include\Vegetation\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\AreaBlenderComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\BlockerComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\DescriptorListCombinerComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\DescriptorListComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\DescriptorWeightSelectorComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\DistanceBetweenFilterComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\DistributionFilterComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\LevelSettingsComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\MeshBlockerComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\PositionModifierComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\ReferenceShapeComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\RotationModifierComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\ScaleModifierComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\ShapeIntersectionFilterComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\SlopeAlignmentModifierComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\SpawnerComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\SurfaceAltitudeFilterComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\SurfaceMaskDepthFilterComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\SurfaceMaskFilterComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Components\SurfaceSlopeFilterComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Util\ConcurrentQueue.h">
+      <Filter>Source\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Util\ProducerConsumerQueue.h">
+      <Filter>Source\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Debugger\AreaDebugComponent.h">
+      <Filter>Source\Debugger</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Debugger\DebugComponent.h">
+      <Filter>Source\Debugger</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\VegetationSystemComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\InstanceSystemComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\DebugSystemComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\vegetation_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Vegetation">
+      <UniqueIdentifier>{E3F9E8EC-5E17-3E1E-8E71-DF219D90C49E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Vegetation\Ebuses">
+      <UniqueIdentifier>{E16F9FF8-0A2A-374D-8EA5-7E529D0FD529}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components">
+      <UniqueIdentifier>{0B09D740-8293-3A36-BE26-EE344C537516}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Debugger">
+      <UniqueIdentifier>{AFBD3075-41D3-362E-89D8-564A51C0A40A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Util">
+      <UniqueIdentifier>{215B44C0-466D-3196-8288-CA050507187A}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

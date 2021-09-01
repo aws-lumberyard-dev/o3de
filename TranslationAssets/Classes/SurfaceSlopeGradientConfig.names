@@ -1,0 +1,140 @@
+{
+    "entries": [
+        {
+            "key": "SurfaceSlopeGradientConfig",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "SurfaceSlopeGradientConfig"
+            },
+            "methods": [
+                {
+                    "key": "GetNumTags",
+                    "context": "SurfaceSlopeGradientConfig",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SurfaceSlopeGradientConfig::GetNumTags"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SurfaceSlopeGradientConfig::GetNumTags is invoked"
+                    },
+                    "details": {
+                        "name": "SurfaceSlopeGradientConfig::GetNumTags"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{691E0F23-37E9-434F-A1D1-E8DE5B4A3405}",
+                            "details": {
+                                "name": "Slope Gradient"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTag",
+                    "context": "SurfaceSlopeGradientConfig",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SurfaceSlopeGradientConfig::GetTag"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SurfaceSlopeGradientConfig::GetTag is invoked"
+                    },
+                    "details": {
+                        "name": "SurfaceSlopeGradientConfig::GetTag"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{691E0F23-37E9-434F-A1D1-E8DE5B4A3405}",
+                            "details": {
+                                "name": "Slope Gradient"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
+                            "details": {
+                                "name": "Crc32"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RemoveTag",
+                    "context": "SurfaceSlopeGradientConfig",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SurfaceSlopeGradientConfig::RemoveTag"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SurfaceSlopeGradientConfig::RemoveTag is invoked"
+                    },
+                    "details": {
+                        "name": "SurfaceSlopeGradientConfig::RemoveTag"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{691E0F23-37E9-434F-A1D1-E8DE5B4A3405}",
+                            "details": {
+                                "name": "Slope Gradient"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AddTag",
+                    "context": "SurfaceSlopeGradientConfig",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SurfaceSlopeGradientConfig::AddTag"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SurfaceSlopeGradientConfig::AddTag is invoked"
+                    },
+                    "details": {
+                        "name": "SurfaceSlopeGradientConfig::AddTag"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{691E0F23-37E9-434F-A1D1-E8DE5B4A3405}",
+                            "details": {
+                                "name": "Slope Gradient"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

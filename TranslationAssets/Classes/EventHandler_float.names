@@ -1,0 +1,37 @@
+{
+    "entries": [
+        {
+            "key": "EventHandler<float >",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "EventHandler<float >"
+            },
+            "methods": [
+                {
+                    "key": "Disconnect",
+                    "context": "EventHandler<float >",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke EventHandler<float >::Disconnect"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after EventHandler<float >::Disconnect is invoked"
+                    },
+                    "details": {
+                        "name": "EventHandler<float >::Disconnect"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{16CF8CE7-D297-5827-A62A-C96E2364D078}",
+                            "details": {
+                                "name": "EventHandler<float >*"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\PropertyEditorStandalone\main.cpp">
+      <Filter>AzQtComponents\PropertyEditorStandalone</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\azqtcomponents_rpestandalone_files.cmake">
+      <Filter>AzQtComponents</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="AzQtComponents">
+      <UniqueIdentifier>{151EC677-0369-3561-9141-0492C992CFC3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\PropertyEditorStandalone">
+      <UniqueIdentifier>{1A1876F3-7E96-3DD6-BD39-9D382698E1AD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

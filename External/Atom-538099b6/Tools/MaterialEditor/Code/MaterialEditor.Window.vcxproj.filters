@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\MaterialEditor\Code\MaterialEditor.Window_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\MaterialEditorBrowserInteractions.cpp">
+      <Filter>Source\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\MaterialEditorWindow.cpp">
+      <Filter>Source\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\MaterialEditorWindowModule.cpp">
+      <Filter>Source\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\MaterialEditorWindowSettings.cpp">
+      <Filter>Source\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\MaterialBrowserWidget.cpp">
+      <Filter>Source\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\MaterialEditorWindowComponent.cpp">
+      <Filter>Source\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\SettingsDialog\SettingsDialog.cpp">
+      <Filter>Source\Window\SettingsDialog</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\SettingsDialog\SettingsWidget.cpp">
+      <Filter>Source\Window\SettingsDialog</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\CreateMaterialDialog\CreateMaterialDialog.cpp">
+      <Filter>Source\Window\CreateMaterialDialog</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\PresetBrowserDialogs\PresetBrowserDialog.cpp">
+      <Filter>Source\Window\PresetBrowserDialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\PresetBrowserDialogs\LightingPresetBrowserDialog.cpp">
+      <Filter>Source\Window\PresetBrowserDialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\PresetBrowserDialogs\ModelPresetBrowserDialog.cpp">
+      <Filter>Source\Window\PresetBrowserDialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\PerformanceMonitor\PerformanceMonitorWidget.cpp">
+      <Filter>Source\Window\PerformanceMonitor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\ToolBar\MaterialEditorToolBar.cpp">
+      <Filter>Source\Window\ToolBar</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\ToolBar\ModelPresetComboBox.cpp">
+      <Filter>Source\Window\ToolBar</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\ToolBar\LightingPresetComboBox.cpp">
+      <Filter>Source\Window\ToolBar</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\MaterialInspector\MaterialInspector.cpp">
+      <Filter>Source\Window\MaterialInspector</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\ViewportSettingsInspector\ViewportSettingsInspector.cpp">
+      <Filter>Source\Window\ViewportSettingsInspector</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\HelpDialog\HelpDialog.cpp">
+      <Filter>Source\Window\HelpDialog</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\MaterialEditor\Code\MaterialEditor.Window_autogen\L6L7XOLXOZ\qrc_MaterialEditor.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\MaterialEditor\Code\MaterialEditor.Window_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\MaterialEditor\Code\MaterialEditor.Window_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Include\Atom\Window\MaterialEditorWindowModule.h">
+      <Filter>Include\Atom\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Include\Atom\Window\MaterialEditorWindowSettings.h">
+      <Filter>Include\Atom\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\MaterialEditorBrowserInteractions.h">
+      <Filter>Source\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\MaterialEditorWindow.h">
+      <Filter>Source\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\MaterialBrowserWidget.h">
+      <Filter>Source\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\MaterialEditorWindowComponent.h">
+      <Filter>Source\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\SettingsDialog\SettingsDialog.h">
+      <Filter>Source\Window\SettingsDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\SettingsDialog\SettingsWidget.h">
+      <Filter>Source\Window\SettingsDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\CreateMaterialDialog\CreateMaterialDialog.h">
+      <Filter>Source\Window\CreateMaterialDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\PresetBrowserDialogs\PresetBrowserDialog.h">
+      <Filter>Source\Window\PresetBrowserDialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\PresetBrowserDialogs\LightingPresetBrowserDialog.h">
+      <Filter>Source\Window\PresetBrowserDialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\PresetBrowserDialogs\ModelPresetBrowserDialog.h">
+      <Filter>Source\Window\PresetBrowserDialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\PerformanceMonitor\PerformanceMonitorWidget.h">
+      <Filter>Source\Window\PerformanceMonitor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\ToolBar\MaterialEditorToolBar.h">
+      <Filter>Source\Window\ToolBar</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\ToolBar\ModelPresetComboBox.h">
+      <Filter>Source\Window\ToolBar</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\ToolBar\LightingPresetComboBox.h">
+      <Filter>Source\Window\ToolBar</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\MaterialInspector\MaterialInspector.h">
+      <Filter>Source\Window\MaterialInspector</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\ViewportSettingsInspector\ViewportSettingsInspector.h">
+      <Filter>Source\Window\ViewportSettingsInspector</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\HelpDialog\HelpDialog.h">
+      <Filter>Source\Window\HelpDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\MaterialEditor\Code\MaterialEditor.Window_autogen\include\Source\Window\ui_MaterialBrowserWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\MaterialEditor\Code\MaterialEditor.Window_autogen\include\Source\Window\CreateMaterialDialog\ui_CreateMaterialDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\MaterialEditor\Code\MaterialEditor.Window_autogen\include\Source\Window\PresetBrowserDialogs\ui_PresetBrowserDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\MaterialEditor\Code\MaterialEditor.Window_autogen\include\Source\Window\PerformanceMonitor\ui_PerformanceMonitorWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\MaterialEditor\Code\MaterialEditor.Window_autogen\include\Source\Window\HelpDialog\ui_HelpDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\MaterialBrowserWidget.ui">
+      <Filter>Source\Window</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\CreateMaterialDialog\CreateMaterialDialog.ui">
+      <Filter>Source\Window\CreateMaterialDialog</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\PresetBrowserDialogs\PresetBrowserDialog.ui">
+      <Filter>Source\Window\PresetBrowserDialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\PerformanceMonitor\PerformanceMonitorWidget.ui">
+      <Filter>Source\Window\PerformanceMonitor</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\HelpDialog\HelpDialog.ui">
+      <Filter>Source\Window\HelpDialog</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\7146b2d1afc399745a530022fe693bda\qrc_MaterialEditor.cpp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\MaterialEditor.qrc">
+      <Filter>Source\Window</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Source\Window\MaterialEditor.qss">
+      <Filter>Source\Window</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\materialeditorwindow_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom">
+      <UniqueIdentifier>{E66A19AE-451A-3F1F-B698-7608D533AFDF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Window">
+      <UniqueIdentifier>{C85CE971-7353-3498-85A7-71783B3960FC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Window">
+      <UniqueIdentifier>{D4151AC3-1F61-373E-9536-DFD70DED8FAE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Window\CreateMaterialDialog">
+      <UniqueIdentifier>{250C2E93-383A-3CC0-BF79-6A48365919E2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Window\HelpDialog">
+      <UniqueIdentifier>{1F145BBF-0F28-3901-A481-700672E373E0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Window\MaterialInspector">
+      <UniqueIdentifier>{2972E776-BD32-378C-BE97-7AC208F99454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Window\PerformanceMonitor">
+      <UniqueIdentifier>{62025251-2766-3672-B6FD-E87C50F1FE63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Window\PresetBrowserDialogs">
+      <UniqueIdentifier>{24AE9D25-6B65-3FCF-A566-30F0C8E8462F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Window\SettingsDialog">
+      <UniqueIdentifier>{A03E44AD-C64C-3727-A52A-D1AC6DF2C4EE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Window\ToolBar">
+      <UniqueIdentifier>{3EB92223-87CD-3F89-8736-D20A66F9D842}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Window\ViewportSettingsInspector">
+      <UniqueIdentifier>{DE665CA9-3D51-3976-A28D-FA5E3CBC0B36}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,190 @@
+{
+    "entries": [
+        {
+            "key": "UiCustomImageBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiCustomImageBus"
+            },
+            "methods": [
+                {
+                    "key": "GetClamp",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetClamp"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetClamp is invoked"
+                    },
+                    "details": {
+                        "name": "GetClamp"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetUVs",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetUVs"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetUVs is invoked"
+                    },
+                    "details": {
+                        "name": "SetUVs"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E134EAE8-52A1-4E43-847B-09E546CC5B95}",
+                            "details": {
+                                "name": ""
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetClamp",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetClamp"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetClamp is invoked"
+                    },
+                    "details": {
+                        "name": "SetClamp"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetSpritePathname",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetSpritePathname"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetSpritePathname is invoked"
+                    },
+                    "details": {
+                        "name": "SetSpritePathname"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSpritePathname",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetSpritePathname"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetSpritePathname is invoked"
+                    },
+                    "details": {
+                        "name": "GetSpritePathname"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetUVs",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetUVs"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetUVs is invoked"
+                    },
+                    "details": {
+                        "name": "GetUVs"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{E134EAE8-52A1-4E43-847B-09E546CC5B95}",
+                            "details": {
+                                "name": ""
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetColor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetColor"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetColor is invoked"
+                    },
+                    "details": {
+                        "name": "SetColor"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
+                            "details": {
+                                "name": "Color"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetColor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetColor"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetColor is invoked"
+                    },
+                    "details": {
+                        "name": "GetColor"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
+                            "details": {
+                                "name": "Color"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

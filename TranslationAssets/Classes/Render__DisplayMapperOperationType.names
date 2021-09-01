@@ -1,0 +1,12 @@
+{
+    "entries": [
+        {
+            "key": "Render::DisplayMapperOperationType",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Render::DisplayMapperOperationType"
+            }
+        }
+    ]
+}

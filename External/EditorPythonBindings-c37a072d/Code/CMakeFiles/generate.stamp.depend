@@ -1,0 +1,10 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/EditorPythonBindings/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/EditorPythonBindings/Code/Source/Platform/Common/MSVC/editorpythonbindings_static_msvc.cmake
+J:/Atom/lyfork/o3de/Gems/EditorPythonBindings/Code/Source/Platform/Common/MSVC/editorpythonbindings_tests_msvc.cmake
+J:/Atom/lyfork/o3de/Gems/EditorPythonBindings/Code/Source/Platform/Windows/platform_windows.cmake
+J:/Atom/lyfork/o3de/Gems/EditorPythonBindings/Code/Source/Platform/Windows/platform_windows_files.cmake
+J:/Atom/lyfork/o3de/Gems/EditorPythonBindings/Code/editorpythonbindings_common_files.cmake
+J:/Atom/lyfork/o3de/Gems/EditorPythonBindings/Code/editorpythonbindings_editor_files.cmake
+J:/Atom/lyfork/o3de/Gems/EditorPythonBindings/Code/editorpythonbindings_tests_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

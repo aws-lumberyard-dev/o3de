@@ -1,0 +1,58 @@
+{
+    "entries": [
+        {
+            "key": "NonUniformScaleRequestBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "NonUniformScaleRequestBus"
+            },
+            "methods": [
+                {
+                    "key": "GetScale",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetScale"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetScale is invoked"
+                    },
+                    "details": {
+                        "name": "GetScale"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetScale",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetScale"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetScale is invoked"
+                    },
+                    "details": {
+                        "name": "SetScale"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

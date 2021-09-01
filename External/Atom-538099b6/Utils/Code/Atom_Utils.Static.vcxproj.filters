@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Source\DdsFile.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Source\ImageComparison.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Source\PpmFile.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Source\Utils.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Source\AssetCollectionAsyncLoader.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\DdsFile.h">
+      <Filter>Include\Atom\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\ImageComparison.h">
+      <Filter>Include\Atom\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\ImGuiCpuProfiler.h">
+      <Filter>Include\Atom\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\ImGuiCpuProfiler.inl">
+      <Filter>Include\Atom\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\ImGuiCullingDebug.h">
+      <Filter>Include\Atom\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\ImGuiCullingDebug.inl">
+      <Filter>Include\Atom\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\ImGuiGpuProfiler.h">
+      <Filter>Include\Atom\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\ImGuiGpuProfiler.inl">
+      <Filter>Include\Atom\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\ImGuiPassTree.h">
+      <Filter>Include\Atom\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\ImGuiPassTree.inl">
+      <Filter>Include\Atom\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\ImGuiFrameVisualizer.h">
+      <Filter>Include\Atom\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\ImGuiFrameVisualizer.inl">
+      <Filter>Include\Atom\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\ImGuiTransientAttachmentProfiler.h">
+      <Filter>Include\Atom\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\ImGuiTransientAttachmentProfiler.inl">
+      <Filter>Include\Atom\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\PpmFile.h">
+      <Filter>Include\Atom\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\StableDynamicArray.h">
+      <Filter>Include\Atom\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\StableDynamicArray.inl">
+      <Filter>Include\Atom\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\Utils.h">
+      <Filter>Include\Atom\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\Utils.inl">
+      <Filter>Include\Atom\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\AssetCollectionAsyncLoader.h">
+      <Filter>Include\Atom\Utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\atom_utils_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom">
+      <UniqueIdentifier>{E66A19AE-451A-3F1F-B698-7608D533AFDF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Utils">
+      <UniqueIdentifier>{9A5396AB-2CEF-3616-BDB9-AFFDD5E2586E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,96 @@
+{
+    "entries": [
+        {
+            "key": "UiSpawnerBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiSpawnerBus"
+            },
+            "methods": [
+                {
+                    "key": "Spawn",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Spawn"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Spawn is invoked"
+                    },
+                    "details": {
+                        "name": "Spawn"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
+                            "details": {
+                                "name": "SliceInstantiationTicket"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SpawnRelative",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SpawnRelative"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SpawnRelative is invoked"
+                    },
+                    "details": {
+                        "name": "SpawnRelative"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
+                            "details": {
+                                "name": "SliceInstantiationTicket"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SpawnAbsolute",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SpawnAbsolute"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SpawnAbsolute is invoked"
+                    },
+                    "details": {
+                        "name": "SpawnAbsolute"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
+                            "details": {
+                                "name": "SliceInstantiationTicket"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

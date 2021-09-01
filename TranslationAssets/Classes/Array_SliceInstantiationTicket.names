@@ -1,0 +1,854 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::vector<SliceInstantiationTicket, allocator>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Array<SliceInstantiationTicket>",
+                "category": "Array",
+                "tooltip": "A dynamically sized container of elements."
+            },
+            "methods": [
+                {
+                    "key": "Size",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Front",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::Front"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::Front is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::Front"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
+                            "details": {
+                                "name": "SliceInstantiationTicket"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "HasKey",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::Has Key"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::Has Key is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::Has Key"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Resize",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::Resize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::Resize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::Resize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "at",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::at"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::at is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::at"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
+                            "details": {
+                                "name": "SliceInstantiationTicket"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Back",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::Back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::Back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::Back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
+                            "details": {
+                                "name": "SliceInstantiationTicket"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "pop_back",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::pop_back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::pop_back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::pop_back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>*"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "size",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "At",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::At"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::At is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::At"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
+                            "details": {
+                                "name": "SliceInstantiationTicket"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "push_back",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::push_back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::push_back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::push_back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
+                            "details": {
+                                "name": "SliceInstantiationTicket"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "PushBack_VM",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::PushBack_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::PushBack_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::PushBack_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
+                            "details": {
+                                "name": "SliceInstantiationTicket"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AtUnchecked",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::AtUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::AtUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::AtUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
+                            "details": {
+                                "name": "SliceInstantiationTicket"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "clear",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>*"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "NotEmpty",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::NotEmpty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::NotEmpty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::NotEmpty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase_VM",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::Erase_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::Erase_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::Erase_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Capacity",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::Capacity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::Capacity is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::Capacity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AssignAt",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::AssignAt"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::AssignAt is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::AssignAt"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        },
+                        {
+                            "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
+                            "details": {
+                                "name": "SliceInstantiationTicket"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        },
+                        {
+                            "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
+                            "details": {
+                                "name": "SliceInstantiationTicket"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "PushBack",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::PushBack"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::PushBack is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::PushBack"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
+                            "details": {
+                                "name": "SliceInstantiationTicket"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Array<SliceInstantiationTicket>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SliceInstantiationTicket, allocator>::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SliceInstantiationTicket, allocator>::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SliceInstantiationTicket, allocator>::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
+                            "details": {
+                                "name": "AZStd::vector<SliceInstantiationTicket, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{26E7C4EA-AEE5-57E0-8F90-3E4E01D9CB95}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<SliceInstantiationTicket, allocator>>"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

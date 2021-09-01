@@ -1,0 +1,1731 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|x64">
+      <Configuration>debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="profile|x64">
+      <Configuration>profile</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|x64">
+      <Configuration>release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{344F5BDB-FEB0-388A-AC7F-2D02DE7344CF}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>ScriptCanvas.Editor.Static</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\lib\debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">ScriptCanvas.Editor.Static.dir\debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='debug|x64'">ScriptCanvas.Editor.Static</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\lib\profile\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">ScriptCanvas.Editor.Static.dir\profile\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='profile|x64'">ScriptCanvas.Editor.Static</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='profile|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\lib\release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">ScriptCanvas.Editor.Static.dir\release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='release|x64'">ScriptCanvas.Editor.Static</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='release|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include_debug;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\Include;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated;J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include;J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Include;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetBuilderSDK\.;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Static\Include;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /RTCsu /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>SCRIPTCANVAS_ERRORS_ENABLED;SCRIPTCANVAS_EDITOR;SCRIPTCANVAS;ENABLE_EXTENDED_MATH_SUPPORT=0;_HAS_EXCEPTIONS=0;_DEBUG;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="debug";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;EDITOR;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;OPENSSL_ENABLED;QT_SVG_LIB;QT_XML_LIB;GRAPH_CANVAS_ENABLE_DETAILED_PROFILING=0;CMAKE_INTDIR="debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;SCRIPTCANVAS_ERRORS_ENABLED;SCRIPTCANVAS_EDITOR;SCRIPTCANVAS;ENABLE_EXTENDED_MATH_SUPPORT=0;_HAS_EXCEPTIONS=0;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"debug\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;EDITOR;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;OPENSSL_ENABLED;QT_SVG_LIB;QT_XML_LIB;GRAPH_CANVAS_ENABLE_DETAILED_PROFILING=0;CMAKE_INTDIR=\"debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include_debug;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\Include;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated;J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include;J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Include;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetBuilderSDK\.;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Static\Include;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include_debug;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\Include;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated;J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include;J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Include;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetBuilderSDK\.;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Static\Include;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message>Automatic MOC for target ScriptCanvas.Editor.Static</Message>
+      <Command>setlocal
+cd J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autogen J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/CMakeFiles/ScriptCanvas.Editor.Static_autogen.dir/AutogenInfo.json debug
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include_profile;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\Include;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated;J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include;J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Include;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetBuilderSDK\.;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Static\Include;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StringPooling>true</StringPooling>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>SCRIPTCANVAS_ERRORS_ENABLED;SCRIPTCANVAS_EDITOR;SCRIPTCANVAS;ENABLE_EXTENDED_MATH_SUPPORT=0;_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="profile";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;EDITOR;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;OPENSSL_ENABLED;QT_SVG_LIB;QT_XML_LIB;GRAPH_CANVAS_ENABLE_DETAILED_PROFILING=0;CMAKE_INTDIR="profile";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>SCRIPTCANVAS_ERRORS_ENABLED;SCRIPTCANVAS_EDITOR;SCRIPTCANVAS;ENABLE_EXTENDED_MATH_SUPPORT=0;_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"profile\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;EDITOR;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;OPENSSL_ENABLED;QT_SVG_LIB;QT_XML_LIB;GRAPH_CANVAS_ENABLE_DETAILED_PROFILING=0;CMAKE_INTDIR=\"profile\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include_profile;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\Include;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated;J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include;J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Include;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetBuilderSDK\.;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Static\Include;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include_profile;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\Include;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated;J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include;J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Include;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetBuilderSDK\.;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Static\Include;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message>Automatic MOC for target ScriptCanvas.Editor.Static</Message>
+      <Command>setlocal
+cd J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autogen J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/CMakeFiles/ScriptCanvas.Editor.Static_autogen.dir/AutogenInfo.json profile
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include_release;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\Include;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated;J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include;J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Include;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetBuilderSDK\.;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Static\Include;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OmitFramePointers>true</OmitFramePointers>
+      <Optimization>Full</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>SCRIPTCANVAS_ERRORS_ENABLED;SCRIPTCANVAS_EDITOR;SCRIPTCANVAS;ENABLE_EXTENDED_MATH_SUPPORT=0;_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE="release";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;EDITOR;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;OPENSSL_ENABLED;QT_SVG_LIB;QT_XML_LIB;GRAPH_CANVAS_ENABLE_DETAILED_PROFILING=0;CMAKE_INTDIR="release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>SCRIPTCANVAS_ERRORS_ENABLED;SCRIPTCANVAS_EDITOR;SCRIPTCANVAS;ENABLE_EXTENDED_MATH_SUPPORT=0;_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE=\"release\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;EDITOR;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;OPENSSL_ENABLED;QT_SVG_LIB;QT_XML_LIB;GRAPH_CANVAS_ENABLE_DETAILED_PROFILING=0;CMAKE_INTDIR=\"release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include_release;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\Include;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated;J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include;J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Include;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetBuilderSDK\.;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Static\Include;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include_release;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\Include;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\Azcg\Generated;J:\Atom\lyfork\o3de\Gems\ScriptEvents\Code\Include;J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Include;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetBuilderSDK\.;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Static\Include;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message>Automatic MOC for target ScriptCanvas.Editor.Static</Message>
+      <Command>setlocal
+cd J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autogen J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/CMakeFiles/ScriptCanvas.Editor.Static_autogen.dir/AutogenInfo.json release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\NewGraphDialog.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/NewGraphDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Dialogs/ui_NewGraphDialog.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/NewGraphDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ui_NewGraphDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/NewGraphDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Dialogs/ui_NewGraphDialog.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/NewGraphDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ui_NewGraphDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/NewGraphDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Dialogs/ui_NewGraphDialog.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/NewGraphDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ui_NewGraphDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\SettingsDialog.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/SettingsDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Dialogs/ui_SettingsDialog.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/SettingsDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ui_SettingsDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/SettingsDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Dialogs/ui_SettingsDialog.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/SettingsDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ui_SettingsDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/SettingsDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Dialogs/ui_SettingsDialog.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/SettingsDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ui_SettingsDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\UnsavedChangesDialog.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/UnsavedChangesDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Dialogs/ui_UnsavedChangesDialog.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/UnsavedChangesDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ui_UnsavedChangesDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/UnsavedChangesDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Dialogs/ui_UnsavedChangesDialog.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/UnsavedChangesDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ui_UnsavedChangesDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/UnsavedChangesDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Dialogs/ui_UnsavedChangesDialog.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/UnsavedChangesDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ui_UnsavedChangesDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\ContainerWizard\ContainerTypeLineEdit.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/ContainerWizard/ContainerTypeLineEdit.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Dialogs/ContainerWizard/ui_ContainerTypeLineEdit.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/ContainerWizard/ContainerTypeLineEdit.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ContainerWizard\ui_ContainerTypeLineEdit.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/ContainerWizard/ContainerTypeLineEdit.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Dialogs/ContainerWizard/ui_ContainerTypeLineEdit.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/ContainerWizard/ContainerTypeLineEdit.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ContainerWizard\ui_ContainerTypeLineEdit.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/ContainerWizard/ContainerTypeLineEdit.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Dialogs/ContainerWizard/ui_ContainerTypeLineEdit.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/ContainerWizard/ContainerTypeLineEdit.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ContainerWizard\ui_ContainerTypeLineEdit.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\ContainerWizard\ContainerWizard.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/ContainerWizard/ContainerWizard.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Dialogs/ContainerWizard/ui_ContainerWizard.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/ContainerWizard/ContainerWizard.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ContainerWizard\ui_ContainerWizard.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/ContainerWizard/ContainerWizard.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Dialogs/ContainerWizard/ui_ContainerWizard.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/ContainerWizard/ContainerWizard.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ContainerWizard\ui_ContainerWizard.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/ContainerWizard/ContainerWizard.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Dialogs/ContainerWizard/ui_ContainerWizard.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Dialogs/ContainerWizard/ContainerWizard.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ContainerWizard\ui_ContainerWizard.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\CanvasWidget.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/CanvasWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/ui_CanvasWidget.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/CanvasWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_CanvasWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/CanvasWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/ui_CanvasWidget.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/CanvasWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_CanvasWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/CanvasWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/ui_CanvasWidget.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/CanvasWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_CanvasWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\CommandLine.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/CommandLine.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/ui_CommandLine.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/CommandLine.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_CommandLine.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/CommandLine.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/ui_CommandLine.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/CommandLine.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_CommandLine.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/CommandLine.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/ui_CommandLine.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/CommandLine.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_CommandLine.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LogPanel.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LogPanel.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/ui_LogPanel.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LogPanel.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_LogPanel.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LogPanel.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/ui_LogPanel.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LogPanel.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_LogPanel.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LogPanel.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/ui_LogPanel.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LogPanel.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_LogPanel.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\MainWindowStatusWidget.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/MainWindowStatusWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/ui_MainWindowStatusWidget.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/MainWindowStatusWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_MainWindowStatusWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/MainWindowStatusWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/ui_MainWindowStatusWidget.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/MainWindowStatusWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_MainWindowStatusWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/MainWindowStatusWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/ui_MainWindowStatusWidget.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/MainWindowStatusWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_MainWindowStatusWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\ScriptCanvasNodePaletteToolbar.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/ScriptCanvasNodePaletteToolbar.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/ui_ScriptCanvasNodePaletteToolbar.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/ScriptCanvasNodePaletteToolbar.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_ScriptCanvasNodePaletteToolbar.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/ScriptCanvasNodePaletteToolbar.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/ui_ScriptCanvasNodePaletteToolbar.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/ScriptCanvasNodePaletteToolbar.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_ScriptCanvasNodePaletteToolbar.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/ScriptCanvasNodePaletteToolbar.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/ui_ScriptCanvasNodePaletteToolbar.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/ScriptCanvasNodePaletteToolbar.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_ScriptCanvasNodePaletteToolbar.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingWindow.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LoggingPanel/LoggingWindow.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/LoggingPanel/ui_LoggingWindow.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LoggingPanel/LoggingWindow.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\LoggingPanel\ui_LoggingWindow.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LoggingPanel/LoggingWindow.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/LoggingPanel/ui_LoggingWindow.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LoggingPanel/LoggingWindow.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\LoggingPanel\ui_LoggingWindow.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LoggingPanel/LoggingWindow.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/LoggingPanel/ui_LoggingWindow.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LoggingPanel/LoggingWindow.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\LoggingPanel\ui_LoggingWindow.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingWindowSession.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LoggingPanel/LoggingWindowSession.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/LoggingPanel/ui_LoggingWindowSession.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LoggingPanel/LoggingWindowSession.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\LoggingPanel\ui_LoggingWindowSession.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LoggingPanel/LoggingWindowSession.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/LoggingPanel/ui_LoggingWindowSession.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LoggingPanel/LoggingWindowSession.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\LoggingPanel\ui_LoggingWindowSession.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LoggingPanel/LoggingWindowSession.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/LoggingPanel/ui_LoggingWindowSession.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LoggingPanel/LoggingWindowSession.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\LoggingPanel\ui_LoggingWindowSession.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\PivotTree\PivotTreeWidget.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LoggingPanel/PivotTree/PivotTreeWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/LoggingPanel/PivotTree/ui_PivotTreeWidget.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LoggingPanel/PivotTree/PivotTreeWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\LoggingPanel\PivotTree\ui_PivotTreeWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LoggingPanel/PivotTree/PivotTreeWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/LoggingPanel/PivotTree/ui_PivotTreeWidget.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LoggingPanel/PivotTree/PivotTreeWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\LoggingPanel\PivotTree\ui_PivotTreeWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LoggingPanel/PivotTree/PivotTreeWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/LoggingPanel/PivotTree/ui_PivotTreeWidget.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/LoggingPanel/PivotTree/PivotTreeWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\LoggingPanel\PivotTree\ui_PivotTreeWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\ValidationPanel\GraphValidationPanel.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/ValidationPanel/GraphValidationPanel.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/ValidationPanel/ui_GraphValidationPanel.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/ValidationPanel/GraphValidationPanel.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ValidationPanel\ui_GraphValidationPanel.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/ValidationPanel/GraphValidationPanel.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/ValidationPanel/ui_GraphValidationPanel.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/ValidationPanel/GraphValidationPanel.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ValidationPanel\ui_GraphValidationPanel.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/ValidationPanel/GraphValidationPanel.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/ValidationPanel/ui_GraphValidationPanel.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/ValidationPanel/GraphValidationPanel.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ValidationPanel\ui_GraphValidationPanel.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\StatisticsDialog\ScriptCanvasStatisticsDialog.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/StatisticsDialog/ScriptCanvasStatisticsDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/StatisticsDialog/ui_ScriptCanvasStatisticsDialog.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/StatisticsDialog/ScriptCanvasStatisticsDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\StatisticsDialog\ui_ScriptCanvasStatisticsDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/StatisticsDialog/ScriptCanvasStatisticsDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/StatisticsDialog/ui_ScriptCanvasStatisticsDialog.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/StatisticsDialog/ScriptCanvasStatisticsDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\StatisticsDialog\ui_ScriptCanvasStatisticsDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/StatisticsDialog/ScriptCanvasStatisticsDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/StatisticsDialog/ui_ScriptCanvasStatisticsDialog.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/StatisticsDialog/ScriptCanvasStatisticsDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\StatisticsDialog\ui_ScriptCanvasStatisticsDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\VariablePanel\VariableDockWidget.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/VariablePanel/VariableDockWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/VariablePanel/ui_VariableDockWidget.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/VariablePanel/VariableDockWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\VariablePanel\ui_VariableDockWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/VariablePanel/VariableDockWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/VariablePanel/ui_VariableDockWidget.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/VariablePanel/VariableDockWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\VariablePanel\ui_VariableDockWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/VariablePanel/VariableDockWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/VariablePanel/ui_VariableDockWidget.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/VariablePanel/VariableDockWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\VariablePanel\ui_VariableDockWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\VariablePanel\SlotTypeSelectorWidget.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/VariablePanel/SlotTypeSelectorWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/VariablePanel/ui_SlotTypeSelectorWidget.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/VariablePanel/SlotTypeSelectorWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\VariablePanel\ui_SlotTypeSelectorWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/VariablePanel/SlotTypeSelectorWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/VariablePanel/ui_SlotTypeSelectorWidget.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/VariablePanel/SlotTypeSelectorWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\VariablePanel\ui_SlotTypeSelectorWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/VariablePanel/SlotTypeSelectorWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/VariablePanel/ui_SlotTypeSelectorWidget.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/VariablePanel/SlotTypeSelectorWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\VariablePanel\ui_SlotTypeSelectorWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\UnitTestPanel\UnitTestDockWidget.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/UnitTestPanel/UnitTestDockWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/UnitTestPanel/ui_UnitTestDockWidget.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/UnitTestPanel/UnitTestDockWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\UnitTestPanel\ui_UnitTestDockWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/UnitTestPanel/UnitTestDockWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/UnitTestPanel/ui_UnitTestDockWidget.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/UnitTestPanel/UnitTestDockWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\UnitTestPanel\ui_UnitTestDockWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/UnitTestPanel/UnitTestDockWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Widgets/UnitTestPanel/ui_UnitTestDockWidget.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Widgets/UnitTestPanel/UnitTestDockWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\UnitTestPanel\ui_UnitTestDockWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\ebushandleractionlistwidget.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/ebushandleractionlistwidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Windows/ui_ebushandleractionlistwidget.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/ebushandleractionlistwidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\ui_ebushandleractionlistwidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/ebushandleractionlistwidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Windows/ui_ebushandleractionlistwidget.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/ebushandleractionlistwidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\ui_ebushandleractionlistwidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/ebushandleractionlistwidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Windows/ui_ebushandleractionlistwidget.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/ebushandleractionlistwidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\ui_ebushandleractionlistwidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\mainwindow.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/mainwindow.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Windows/ui_mainwindow.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/mainwindow.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\ui_mainwindow.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/mainwindow.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Windows/ui_mainwindow.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/mainwindow.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\ui_mainwindow.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/mainwindow.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Windows/ui_mainwindow.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/mainwindow.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\ui_mainwindow.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Tools\UpgradeTool\UpgradeHelper.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/Tools/UpgradeTool/UpgradeHelper.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Windows/Tools/UpgradeTool/ui_UpgradeHelper.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/Tools/UpgradeTool/UpgradeHelper.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\Tools\UpgradeTool\ui_UpgradeHelper.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/Tools/UpgradeTool/UpgradeHelper.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Windows/Tools/UpgradeTool/ui_UpgradeHelper.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/Tools/UpgradeTool/UpgradeHelper.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\Tools\UpgradeTool\ui_UpgradeHelper.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/Tools/UpgradeTool/UpgradeHelper.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Windows/Tools/UpgradeTool/ui_UpgradeHelper.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/Tools/UpgradeTool/UpgradeHelper.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\Tools\UpgradeTool\ui_UpgradeHelper.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Tools\UpgradeTool\UpgradeTool.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/Tools/UpgradeTool/UpgradeTool.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Windows/Tools/UpgradeTool/ui_UpgradeTool.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/Tools/UpgradeTool/UpgradeTool.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\Tools\UpgradeTool\ui_UpgradeTool.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/Tools/UpgradeTool/UpgradeTool.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Windows/Tools/UpgradeTool/ui_UpgradeTool.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/Tools/UpgradeTool/UpgradeTool.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\Tools\UpgradeTool\ui_UpgradeTool.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/Tools/UpgradeTool/UpgradeTool.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Windows/Tools/UpgradeTool/ui_UpgradeTool.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/Tools/UpgradeTool/UpgradeTool.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\Tools\UpgradeTool\ui_UpgradeTool.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Tools\UpgradeTool\VersionExplorer.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/Tools/UpgradeTool/VersionExplorer.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Windows/Tools/UpgradeTool/ui_VersionExplorer.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/Tools/UpgradeTool/VersionExplorer.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\Tools\UpgradeTool\ui_VersionExplorer.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/Tools/UpgradeTool/VersionExplorer.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Windows/Tools/UpgradeTool/ui_VersionExplorer.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/Tools/UpgradeTool/VersionExplorer.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\Tools\UpgradeTool\ui_VersionExplorer.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/Tools/UpgradeTool/VersionExplorer.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/ScriptCanvas.Editor.Static_autogen/include/Editor/View/Windows/Tools/UpgradeTool/ui_VersionExplorer.h J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/Tools/UpgradeTool/VersionExplorer.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\Tools\UpgradeTool\ui_VersionExplorer.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\31951d727bc6e364b1668d881891e998\qrc_ScriptCanvasEditorResources.cpp.rule">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Automatic RCC for Editor/View/Windows/ScriptCanvasEditorResources.qrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+cd J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/CMakeFiles/ScriptCanvas.Editor.Static_autogen.dir/AutoRcc_ScriptCanvasEditorResources_GKWACCD7I5_Info.json debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/CMakeFiles/ScriptCanvas.Editor.Static_autogen.dir/AutoRcc_ScriptCanvasEditorResources_GKWACCD7I5_Info.json profile
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/CMakeFiles/ScriptCanvas.Editor.Static_autogen.dir/AutoRcc_ScriptCanvasEditorResources_GKWACCD7I5_Info.json release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\ScriptCanvasEditorResources.qrc;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\CMakeFiles\ScriptCanvas.Editor.Static_autogen.dir\AutoRcc_ScriptCanvasEditorResources_GKWACCD7I5_Info.json;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\error_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\capture_live.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\CollapseAll_Icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\settings_dropdown_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\auto_record.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\arrow-curve-180.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\live_update.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\step_forward.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\create_function_output.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\add.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_properties.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\create_function_input.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\Play.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\error_icon_grey.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_variables.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\triangle.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\lineedit_clear.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_nodes.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\warning_symbol_grey.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_debugger_off.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\arrow-curve.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\step_into.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\wrench_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\edit_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\Pause.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\ExpandAll_Icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\pin.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\open.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_bookmark.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\valid_icon_grey.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\attach_to_entity.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_outliner.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\step_over.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\message_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_debugger.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\Stop.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\breakpoints.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_minimap.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\create_graph.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\valid_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\capture_offline.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\settings_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\step_out.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\breakpoints toggle.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\reset.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\arrow-curve-270.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\validate_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_commandline.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\warning_symbol.png;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\rcc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\GKWACCD7I5\qrc_ScriptCanvasEditorResources.cpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Automatic RCC for Editor/View/Windows/ScriptCanvasEditorResources.qrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+cd J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/CMakeFiles/ScriptCanvas.Editor.Static_autogen.dir/AutoRcc_ScriptCanvasEditorResources_GKWACCD7I5_Info.json debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/CMakeFiles/ScriptCanvas.Editor.Static_autogen.dir/AutoRcc_ScriptCanvasEditorResources_GKWACCD7I5_Info.json profile
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/CMakeFiles/ScriptCanvas.Editor.Static_autogen.dir/AutoRcc_ScriptCanvasEditorResources_GKWACCD7I5_Info.json release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\ScriptCanvasEditorResources.qrc;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\CMakeFiles\ScriptCanvas.Editor.Static_autogen.dir\AutoRcc_ScriptCanvasEditorResources_GKWACCD7I5_Info.json;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\error_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\capture_live.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\CollapseAll_Icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\settings_dropdown_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\auto_record.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\arrow-curve-180.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\live_update.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\step_forward.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\create_function_output.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\add.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_properties.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\create_function_input.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\Play.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\error_icon_grey.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_variables.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\triangle.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\lineedit_clear.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_nodes.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\warning_symbol_grey.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_debugger_off.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\arrow-curve.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\step_into.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\wrench_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\edit_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\Pause.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\ExpandAll_Icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\pin.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\open.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_bookmark.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\valid_icon_grey.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\attach_to_entity.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_outliner.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\step_over.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\message_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_debugger.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\Stop.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\breakpoints.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_minimap.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\create_graph.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\valid_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\capture_offline.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\settings_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\step_out.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\breakpoints toggle.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\reset.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\arrow-curve-270.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\validate_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_commandline.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\warning_symbol.png;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\rcc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\GKWACCD7I5\qrc_ScriptCanvasEditorResources.cpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Automatic RCC for Editor/View/Windows/ScriptCanvasEditorResources.qrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+cd J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/CMakeFiles/ScriptCanvas.Editor.Static_autogen.dir/AutoRcc_ScriptCanvasEditorResources_GKWACCD7I5_Info.json debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/CMakeFiles/ScriptCanvas.Editor.Static_autogen.dir/AutoRcc_ScriptCanvasEditorResources_GKWACCD7I5_Info.json profile
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/CMakeFiles/ScriptCanvas.Editor.Static_autogen.dir/AutoRcc_ScriptCanvasEditorResources_GKWACCD7I5_Info.json release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\ScriptCanvasEditorResources.qrc;J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\CMakeFiles\ScriptCanvas.Editor.Static_autogen.dir\AutoRcc_ScriptCanvasEditorResources_GKWACCD7I5_Info.json;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\error_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\capture_live.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\CollapseAll_Icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\settings_dropdown_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\auto_record.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\arrow-curve-180.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\live_update.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\step_forward.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\create_function_output.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\add.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_properties.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\create_function_input.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\Play.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\error_icon_grey.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_variables.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\triangle.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\lineedit_clear.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_nodes.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\warning_symbol_grey.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_debugger_off.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\arrow-curve.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\step_into.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\wrench_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\edit_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\Pause.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\ExpandAll_Icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\pin.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\open.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_bookmark.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\valid_icon_grey.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\attach_to_entity.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_outliner.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\step_over.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\message_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_debugger.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\Stop.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\breakpoints.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_minimap.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\create_graph.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\valid_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\capture_offline.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\settings_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\step_out.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\breakpoints toggle.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\reset.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\arrow-curve-270.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\validate_icon.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\scriptcanvas_commandline.png;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Resources\warning_symbol.png;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\rcc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\GKWACCD7I5\qrc_ScriptCanvasEditorResources.cpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\ScriptCanvasEditorResources.qrc;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_common_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_debugger_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_asset_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_builder_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_static_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_game_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_runtime_asset_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\ScriptCanvasEditorResources.qrc;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_common_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_debugger_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_asset_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_builder_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_static_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_game_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_runtime_asset_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/ScriptCanvas-82287078/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\ScriptCanvasEditorResources.qrc;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_common_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_debugger_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_asset_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_builder_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_static_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_game_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_runtime_asset_files.cmake;J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\mocs_compilation_debug.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='profile|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\ScriptCanvasEditorGem.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Settings.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Settings.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\ReflectComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\ReflectComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\SystemComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\SystemComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\QtMetaTypes.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasAssetTracker.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasAssetTracker.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasAssetTrackerBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasAssetHelpers.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasAssetHelpers.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasAssetTrackerDefinitions.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Assets\ScriptCanvasAsset.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasAsset.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Assets\ScriptCanvasAssetBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Assets\ScriptCanvasAssetTypes.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Assets\ScriptCanvasAssetHandler.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasAssetHandler.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasAssetHolder.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasAssetHolder.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasMemoryAsset.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasMemoryAsset.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasUndoHelper.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Assets\ScriptCanvasUndoHelper.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Bus\RequestBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Bus\NodeIdPair.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Bus\EditorScriptCanvasBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Bus\ScriptCanvasBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Bus\IconBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Bus\GraphBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Bus\UndoBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Bus\EditorSceneVariableManagerBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Bus\ScriptCanvasExecutionBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Bus\UnitTestVerificationBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Components\GraphUpgrade.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Components\EditorGraph.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Components\EditorUtils.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Components\EditorGraph.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Components\EditorUtils.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Components\GraphUpgrade.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Components\EditorGraphVariableManagerComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Components\EditorGraphVariableManagerComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\Components\EditorScriptCanvasComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Components\EditorScriptCanvasComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Components\IconComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Components\IconComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\GraphCanvas\DynamicSlotBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\GraphCanvas\NodeDescriptorBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Include\ScriptCanvas\GraphCanvas\MappingBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\AutomationIds.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\GraphCanvasEditorNotificationBusId.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\PropertySlotIds.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\DynamicOrderingDynamicSlotComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\DynamicOrderingDynamicSlotComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\DynamicSlotComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\DynamicSlotComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\MappingComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\MappingComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\ClassMethodNodeDescriptorComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\ClassMethodNodeDescriptorComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\AzEventHandlerNodeDescriptorComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\AzEventHandlerNodeDescriptorComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\EBusHandlerEventNodeDescriptorComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\EBusHandlerEventNodeDescriptorComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\EBusHandlerNodeDescriptorComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\EBusHandlerNodeDescriptorComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\EBusSenderNodeDescriptorComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\EBusSenderNodeDescriptorComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\FunctionNodeDescriptorComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\FunctionNodeDescriptorComponent.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\FunctionDefinitionNodeDescriptorComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\FunctionDefinitionNodeDescriptorComponent.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\GetVariableNodeDescriptorComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\GetVariableNodeDescriptorComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\NodeDescriptorComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\NodeDescriptorComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\NodelingDescriptorComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\NodelingDescriptorComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\SetVariableNodeDescriptorComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\SetVariableNodeDescriptorComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\UserDefinedNodeDescriptorComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\UserDefinedNodeDescriptorComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\VariableNodeDescriptorComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\VariableNodeDescriptorComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\ScriptEventReceiverEventNodeDescriptorComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\ScriptEventReceiverEventNodeDescriptorComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\ScriptEventReceiverNodeDescriptorComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\ScriptEventReceiverNodeDescriptorComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\ScriptEventSenderNodeDescriptorComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\Components\NodeDescriptors\ScriptEventSenderNodeDescriptorComponent.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasAssetIdDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasBoolDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasEntityIdDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasEnumDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasColorDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasCRCDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasNumericDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasReadOnlyDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasStringDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasVectorDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasVariableDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\DataInterfaces\ScriptCanvasQuaternionDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\PropertyInterfaces\ScriptCanvasPropertyDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\GraphCanvas\PropertyInterfaces\ScriptCanvasStringPropertyDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Model\EntityMimeDataHandler.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Model\EntityMimeDataHandler.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Model\LibraryDataModel.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Model\LibraryDataModel.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Model\UnitTestBrowserFilterModel.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Model\UnitTestBrowserFilterModel.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Nodes\NodeCreateUtils.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Nodes\NodeCreateUtils.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Nodes\NodeDisplayUtils.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Nodes\NodeDisplayUtils.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Nodes\NodeUtils.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Nodes\NodeUtils.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Translation\TranslationHelper.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Undo\ScriptCanvasGraphCommand.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Undo\ScriptCanvasGraphCommand.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Undo\ScriptCanvasUndoManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Undo\ScriptCanvasUndoManager.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Utilities\Command.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Utilities\Command.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Utilities\CommonSettingsConfigurations.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Utilities\CommonSettingsConfigurations.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Utilities\RecentFiles.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Utilities\RecentFiles.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Utilities\RecentAssetPath.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Utilities\RecentAssetPath.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\NewGraphDialog.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\NewGraphDialog.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\SettingsDialog.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\SettingsDialog.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\UnsavedChangesDialog.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\UnsavedChangesDialog.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\ContainerWizard\ContainerTypeLineEdit.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\ContainerWizard\ContainerTypeLineEdit.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\ContainerWizard\ContainerWizard.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Dialogs\ContainerWizard\ContainerWizard.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\CanvasWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\CanvasWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\GraphTabBar.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\GraphTabBar.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\PropertyGrid.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\PropertyGrid.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\PropertyGridBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\PropertyGridContextMenu.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\PropertyGridContextMenu.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\CommandLine.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\CommandLine.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LogPanel.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LogPanel.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\MainWindowStatusWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\MainWindowStatusWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\ScriptCanvasNodePaletteDockWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\ScriptCanvasNodePaletteDockWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\WidgetBus.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\DataTypePalette\DataTypePaletteModel.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\DataTypePalette\DataTypePaletteModel.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\CreateNodeMimeEvent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\CreateNodeMimeEvent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\FunctionNodePaletteTreeItemTypes.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\FunctionNodePaletteTreeItemTypes.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\ScriptEventsNodePaletteTreeItemTypes.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\ScriptEventsNodePaletteTreeItemTypes.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\EBusNodePaletteTreeItemTypes.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\EBusNodePaletteTreeItemTypes.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\GeneralNodePaletteTreeItemTypes.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\GeneralNodePaletteTreeItemTypes.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\NodePaletteModelBus.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\NodePaletteModel.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\NodePaletteModel.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\SpecializedNodePaletteTreeItemTypes.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\SpecializedNodePaletteTreeItemTypes.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\VariableNodePaletteTreeItemTypes.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\NodePalette\VariableNodePaletteTreeItemTypes.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingDataAggregator.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingDataAggregator.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingTypes.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingTypes.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingWindow.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingWindow.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingWindowSession.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingWindowSession.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingWindowTreeItems.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LoggingWindowTreeItems.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LiveWindowSession\LiveLoggingDataAggregator.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LiveWindowSession\LiveLoggingDataAggregator.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LiveWindowSession\LiveLoggingWindowSession.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\LiveWindowSession\LiveLoggingWindowSession.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\AssetWindowSession\LoggingAssetDataAggregator.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\AssetWindowSession\LoggingAssetDataAggregator.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\AssetWindowSession\LoggingAssetWindowSession.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\AssetWindowSession\LoggingAssetWindowSession.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\PivotTree\PivotTreeWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\PivotTree\PivotTreeWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\PivotTree\EntityPivotTree\EntityPivotTree.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\PivotTree\EntityPivotTree\EntityPivotTree.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\PivotTree\GraphPivotTree\GraphPivotTree.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\LoggingPanel\PivotTree\GraphPivotTree\GraphPivotTree.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\ValidationPanel\GraphValidationDockWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\ValidationPanel\GraphValidationDockWidget.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\ValidationPanel\GraphValidationDockWidgetBus.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\StatisticsDialog\ScriptCanvasStatisticsDialog.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\StatisticsDialog\ScriptCanvasStatisticsDialog.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\StatisticsDialog\NodeUsageTreeItem.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\StatisticsDialog\NodeUsageTreeItem.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\VariablePanel\GraphVariablesTableView.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\VariablePanel\GraphVariablesTableView.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\VariablePanel\VariableDockWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\VariablePanel\VariableDockWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\VariablePanel\VariablePaletteTableView.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\VariablePanel\VariablePaletteTableView.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\VariablePanel\SlotTypeSelectorWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\VariablePanel\SlotTypeSelectorWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\UnitTestPanel\UnitTestDockWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\UnitTestPanel\UnitTestDockWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\UnitTestPanel\UnitTestTreeView.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Widgets\UnitTestPanel\UnitTestTreeView.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\EBusHandlerActionMenu.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\EBusHandlerActionMenu.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\MainWindow.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\MainWindow.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\MainWindowBus.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\ScriptCanvasContextMenus.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\ScriptCanvasContextMenus.h" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\ScriptCanvasEditorResources.qrc">
+    </None>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Tools\UpgradeTool\UpgradeHelper.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Tools\UpgradeTool\UpgradeHelper.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Tools\UpgradeTool\UpgradeTool.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Tools\UpgradeTool\UpgradeTool.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Tools\UpgradeTool\VersionExplorer.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\View\Windows\Tools\UpgradeTool\VersionExplorer.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Framework\ScriptCanvasGraphUtilities.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Framework\ScriptCanvasGraphUtilities.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Framework\ScriptCanvasTraceUtilities.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Framework\ScriptCanvasReporter.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Editor\Framework\ScriptCanvasReporter.h" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_files.cmake">
+    </None>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Asset\EditorAssetSystemComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Asset\EditorAssetSystemComponent.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Asset\EditorAssetConversionBus.h" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_asset_files.cmake">
+    </None>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Builder\BuilderSystemComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Builder\ScriptCanvasBuilder.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Builder\ScriptCanvasBuilder.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Builder\ScriptCanvasBuilderComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Builder\ScriptCanvasBuilderComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Builder\ScriptCanvasBuilderWorker.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Builder\ScriptCanvasBuilderWorker.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Builder\ScriptCanvasBuilderWorkerUtility.cpp" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_editor_builder_files.cmake">
+    </None>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ui_NewGraphDialog.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ui_SettingsDialog.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ui_UnsavedChangesDialog.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ContainerWizard\ui_ContainerTypeLineEdit.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Dialogs\ContainerWizard\ui_ContainerWizard.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_CanvasWidget.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_CommandLine.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_LogPanel.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_MainWindowStatusWidget.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ui_ScriptCanvasNodePaletteToolbar.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\LoggingPanel\ui_LoggingWindow.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\LoggingPanel\ui_LoggingWindowSession.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\LoggingPanel\PivotTree\ui_PivotTreeWidget.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\ValidationPanel\ui_GraphValidationPanel.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\StatisticsDialog\ui_ScriptCanvasStatisticsDialog.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\VariablePanel\ui_VariableDockWidget.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\VariablePanel\ui_SlotTypeSelectorWidget.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Widgets\UnitTestPanel\ui_UnitTestDockWidget.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\ui_ebushandleractionlistwidget.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\ui_mainwindow.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\Tools\UpgradeTool\ui_UpgradeHelper.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\Tools\UpgradeTool\ui_UpgradeTool.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\include\Editor\View\Windows\Tools\UpgradeTool\ui_VersionExplorer.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\GKWACCD7I5\qrc_ScriptCanvasEditorResources.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\mocs_compilation_profile.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Editor.Static_autogen\mocs_compilation_release.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='profile|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\ZERO_CHECK.vcxproj">
+      <Project>{9D084072-A56A-3A6D-8C63-F5385A20608A}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetBuilderSDK\AssetBuilderSDK.vcxproj">
+      <Project>{72093293-9FAC-3AF9-8DE2-B98423F9AA4F}</Project>
+      <Name>AssetBuilderSDK</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore.vcxproj">
+      <Project>{78F97634-33F1-3E9D-BB2E-D24CB7BD9D1E}</Project>
+      <Name>AzCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework.vcxproj">
+      <Project>{32B5BA28-0012-3762-8899-2D392DE6A10B}</Project>
+      <Name>AzFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents.vcxproj">
+      <Project>{A96AE86E-7259-341D-879A-5F0B4ECAAFB8}</Project>
+      <Name>AzQtComponents</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework.vcxproj">
+      <Project>{FBDC5AB0-96E2-3EF6-A16A-7C345C99949B}</Project>
+      <Name>AzToolsFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryCommon.vcxproj">
+      <Project>{5131F2AB-DC9C-3FE9-A0DF-A1E42FAD10E6}</Project>
+      <Name>CryCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Editor\EditorCore.vcxproj">
+      <Project>{82A981A9-7716-336E-AC6A-F13A1FEF87C3}</Project>
+      <Name>EditorCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\ExpressionEvaluation-a923d9cc\Code\ExpressionEvaluation.Static.vcxproj">
+      <Project>{DD64AF47-70C5-3E8F-B608-953920BEC6A8}</Project>
+      <Name>ExpressionEvaluation.Static</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets.vcxproj">
+      <Project>{CD18B9E0-3920-307F-8CD1-132AF5408D6F}</Project>
+      <Name>GraphCanvasWidgets</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate.vcxproj">
+      <Project>{1A59660B-1BCB-3611-B3D0-673DEB6F8A46}</Project>
+      <Name>GridMate</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.vcxproj">
+      <Project>{313CA618-4264-3BC9-AE4A-FAE4B7E8C9C1}</Project>
+      <Name>ScriptCanvas</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvas.Static.vcxproj">
+      <Project>{670EF683-5D62-3409-A402-75A1478591BC}</Project>
+      <Name>ScriptCanvas.Static</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvasDebugger.vcxproj">
+      <Project>{32CAB6E8-C2D9-30FB-893D-FA57F38798DF}</Project>
+      <Name>ScriptCanvasDebugger</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\ScriptCanvas-82287078\Code\ScriptCanvasEditor.vcxproj">
+      <Project>{FBB4C52F-EE09-3354-9CF3-1FE312960E4D}</Project>
+      <Name>ScriptCanvasEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\ScriptEvents-0c87daee\Code\ScriptEvents.Static.vcxproj">
+      <Project>{144A291C-1B1B-3FA3-B1FA-628D146493D1}</Project>
+      <Name>ScriptEvents.Static</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

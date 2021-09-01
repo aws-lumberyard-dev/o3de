@@ -1,0 +1,32 @@
+{
+    "entries": [
+        {
+            "key": "UiFaderNotificationBus",
+            "context": "EBusHandler",
+            "variant": "",
+            "details": {
+                "name": "UiFaderNotificationBus"
+            },
+            "methods": [
+                {
+                    "key": "OnFadeComplete",
+                    "details": {
+                        "name": "OnFadeComplete"
+                    }
+                },
+                {
+                    "key": "OnFadeInterrupted",
+                    "details": {
+                        "name": "OnFadeInterrupted"
+                    }
+                },
+                {
+                    "key": "OnFaderDestroyed",
+                    "details": {
+                        "name": "OnFaderDestroyed"
+                    }
+                }
+            ]
+        }
+    ]
+}

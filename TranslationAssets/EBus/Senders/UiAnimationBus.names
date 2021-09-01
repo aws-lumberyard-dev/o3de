@@ -1,0 +1,350 @@
+{
+    "entries": [
+        {
+            "key": "UiAnimationBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiAnimationBus"
+            },
+            "methods": [
+                {
+                    "key": "ResetSequence",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke ResetSequence"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after ResetSequence is invoked"
+                    },
+                    "details": {
+                        "name": "ResetSequence"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSequencePlayingSpeed",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetSequencePlayingSpeed"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetSequencePlayingSpeed is invoked"
+                    },
+                    "details": {
+                        "name": "GetSequencePlayingSpeed"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSequencePlayingTime",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetSequencePlayingTime"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetSequencePlayingTime is invoked"
+                    },
+                    "details": {
+                        "name": "GetSequencePlayingTime"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AbortSequence",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AbortSequence"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AbortSequence is invoked"
+                    },
+                    "details": {
+                        "name": "AbortSequence"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsSequencePlaying",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IsSequencePlaying"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IsSequencePlaying is invoked"
+                    },
+                    "details": {
+                        "name": "IsSequencePlaying"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSequenceLength",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetSequenceLength"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetSequenceLength is invoked"
+                    },
+                    "details": {
+                        "name": "GetSequenceLength"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "StopSequence",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke StopSequence"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after StopSequence is invoked"
+                    },
+                    "details": {
+                        "name": "StopSequence"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "PlaySequenceRange",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke PlaySequenceRange"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after PlaySequenceRange is invoked"
+                    },
+                    "details": {
+                        "name": "PlaySequenceRange"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "PauseSequence",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke PauseSequence"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after PauseSequence is invoked"
+                    },
+                    "details": {
+                        "name": "PauseSequence"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ResumeSequence",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke ResumeSequence"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after ResumeSequence is invoked"
+                    },
+                    "details": {
+                        "name": "ResumeSequence"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "StartSequence",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke StartSequence"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after StartSequence is invoked"
+                    },
+                    "details": {
+                        "name": "StartSequence"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetSequencePlayingSpeed",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetSequencePlayingSpeed"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetSequencePlayingSpeed is invoked"
+                    },
+                    "details": {
+                        "name": "SetSequencePlayingSpeed"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetSequenceStopBehavior",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetSequenceStopBehavior"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetSequenceStopBehavior is invoked"
+                    },
+                    "details": {
+                        "name": "SetSequenceStopBehavior"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

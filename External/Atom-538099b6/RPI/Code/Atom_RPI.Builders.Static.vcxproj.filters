@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Builders\BuilderComponent.cpp">
+      <Filter>Source\RPI.Builders</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Builders\Common\AnyAssetBuilder.cpp">
+      <Filter>Source\RPI.Builders\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Builders\Material\MaterialBuilder.cpp">
+      <Filter>Source\RPI.Builders\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Builders\Model\MaterialAssetBuilderComponent.cpp">
+      <Filter>Source\RPI.Builders\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Builders\Model\ModelAssetBuilderComponent.cpp">
+      <Filter>Source\RPI.Builders\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Builders\Model\ModelExporterComponent.cpp">
+      <Filter>Source\RPI.Builders\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Builders\Model\ModelExporterContexts.cpp">
+      <Filter>Source\RPI.Builders\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Builders\Model\MorphTargetExporter.cpp">
+      <Filter>Source\RPI.Builders\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Builders\Pass\PassBuilder.cpp">
+      <Filter>Source\RPI.Builders\Pass</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Builders\ResourcePool\ResourcePoolBuilder.cpp">
+      <Filter>Source\RPI.Builders\ResourcePool</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Builders\BuilderComponent.h">
+      <Filter>Source\RPI.Builders</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Builders\Common\AnyAssetBuilder.h">
+      <Filter>Source\RPI.Builders\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Builders\Material\MaterialBuilder.h">
+      <Filter>Source\RPI.Builders\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Builders\Model\MaterialAssetBuilderComponent.h">
+      <Filter>Source\RPI.Builders\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Builders\Model\ModelAssetBuilderComponent.h">
+      <Filter>Source\RPI.Builders\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Builders\Model\ModelExporterComponent.h">
+      <Filter>Source\RPI.Builders\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Builders\Model\ModelExporterContexts.h">
+      <Filter>Source\RPI.Builders\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Builders\Model\MorphTargetExporter.h">
+      <Filter>Source\RPI.Builders\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Builders\Pass\PassBuilder.h">
+      <Filter>Source\RPI.Builders\Pass</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\RPI.Builders\ResourcePool\ResourcePoolBuilder.h">
+      <Filter>Source\RPI.Builders\ResourcePool</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_builders_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\RPI.Builders">
+      <UniqueIdentifier>{F18AE534-401E-3A23-8A1B-F619ABCAE5B9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\RPI.Builders\Common">
+      <UniqueIdentifier>{EDFC9F29-C847-3658-8F57-0EC2FC2BE729}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\RPI.Builders\Material">
+      <UniqueIdentifier>{BCC78B60-32C7-3065-899D-4A20E64E957D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\RPI.Builders\Model">
+      <UniqueIdentifier>{7F03BA72-8EA0-3D0E-9CDF-1A012BCBBC07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\RPI.Builders\Pass">
+      <UniqueIdentifier>{1A2E6905-7E3C-3EB7-A08C-976810C11AC5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\RPI.Builders\ResourcePool">
+      <UniqueIdentifier>{1D9545BE-0246-3643-9B5E-549DDB8ED0FB}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

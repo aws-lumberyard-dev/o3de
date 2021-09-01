@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\AtomToolsFramework\Code\AtomToolsFramework.Static_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Application\AtomToolsApplication.cpp">
+      <Filter>Source\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Communication\LocalServer.cpp">
+      <Filter>Source\Communication</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Communication\LocalSocket.cpp">
+      <Filter>Source\Communication</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Debug\TraceRecorder.cpp">
+      <Filter>Source\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\DynamicProperty\DynamicProperty.cpp">
+      <Filter>Source\DynamicProperty</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\DynamicProperty\DynamicPropertyGroup.cpp">
+      <Filter>Source\DynamicProperty</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Inspector\InspectorWidget.cpp">
+      <Filter>Source\Inspector</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Inspector\InspectorGroupWidget.cpp">
+      <Filter>Source\Inspector</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Inspector\InspectorGroupHeaderWidget.cpp">
+      <Filter>Source\Inspector</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Inspector\InspectorPropertyGroupWidget.cpp">
+      <Filter>Source\Inspector</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Util\MaterialPropertyUtil.cpp">
+      <Filter>Source\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Util\Util.cpp">
+      <Filter>Source\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Viewport\RenderViewportWidget.cpp">
+      <Filter>Source\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Viewport\ModularViewportCameraController.cpp">
+      <Filter>Source\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Window\AtomToolsMainWindow.cpp">
+      <Filter>Source\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Window\AtomToolsMainWindowSystemComponent.cpp">
+      <Filter>Source\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\AtomToolsFramework\Code\AtomToolsFramework.Static_autogen\V62HRH5YY6\qrc_InspectorWidget.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\AtomToolsFramework\Code\AtomToolsFramework.Static_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\AtomToolsFramework\Code\AtomToolsFramework.Static_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Application\AtomToolsApplication.h">
+      <Filter>Include\AtomToolsFramework\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Communication\LocalServer.h">
+      <Filter>Include\AtomToolsFramework\Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Communication\LocalSocket.h">
+      <Filter>Include\AtomToolsFramework\Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Debug\TraceRecorder.h">
+      <Filter>Include\AtomToolsFramework\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\DynamicProperty\DynamicProperty.h">
+      <Filter>Include\AtomToolsFramework\DynamicProperty</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\DynamicProperty\DynamicPropertyGroup.h">
+      <Filter>Include\AtomToolsFramework\DynamicProperty</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Inspector\InspectorWidget.h">
+      <Filter>Include\AtomToolsFramework\Inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Inspector\InspectorRequestBus.h">
+      <Filter>Include\AtomToolsFramework\Inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Inspector\InspectorNotificationBus.h">
+      <Filter>Include\AtomToolsFramework\Inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Inspector\InspectorGroupWidget.h">
+      <Filter>Include\AtomToolsFramework\Inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Inspector\InspectorGroupHeaderWidget.h">
+      <Filter>Include\AtomToolsFramework\Inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Inspector\InspectorPropertyGroupWidget.h">
+      <Filter>Include\AtomToolsFramework\Inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Util\MaterialPropertyUtil.h">
+      <Filter>Include\AtomToolsFramework\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Util\Util.h">
+      <Filter>Include\AtomToolsFramework\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Viewport\RenderViewportWidget.h">
+      <Filter>Include\AtomToolsFramework\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Viewport\ModularViewportCameraController.h">
+      <Filter>Include\AtomToolsFramework\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Viewport\ModularViewportCameraControllerRequestBus.h">
+      <Filter>Include\AtomToolsFramework\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Window\AtomToolsMainWindow.h">
+      <Filter>Include\AtomToolsFramework\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Window\AtomToolsMainWindowRequestBus.h">
+      <Filter>Include\AtomToolsFramework\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Window\AtomToolsMainWindowFactoryRequestBus.h">
+      <Filter>Include\AtomToolsFramework\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Window\AtomToolsMainWindowNotificationBus.h">
+      <Filter>Include\AtomToolsFramework\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Window\AtomToolsMainWindowSystemComponent.h">
+      <Filter>Source\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\AtomToolsFramework\Code\AtomToolsFramework.Static_autogen\include\Source\Inspector\ui_InspectorWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Inspector\InspectorWidget.ui">
+      <Filter>Source\Inspector</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\3daaf90b5d9fb73c4d49cdf42cc91356\qrc_InspectorWidget.cpp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Inspector\InspectorWidget.qrc">
+      <Filter>Source\Inspector</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\atomtoolsframework_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\AtomToolsFramework">
+      <UniqueIdentifier>{1A1EAED2-D1AD-3346-AA99-13233129D646}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\AtomToolsFramework\Application">
+      <UniqueIdentifier>{09C5346D-FE73-3C66-9EDA-635C7D1D67F8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\AtomToolsFramework\Communication">
+      <UniqueIdentifier>{21F00F10-04D2-3BAE-8D3E-9ED407C18C94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\AtomToolsFramework\Debug">
+      <UniqueIdentifier>{E43A37CD-B0A6-399A-8EEA-5E92D3C77CEB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\AtomToolsFramework\DynamicProperty">
+      <UniqueIdentifier>{8C6FC694-8130-309B-AC9B-BD3E8AAAC576}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\AtomToolsFramework\Inspector">
+      <UniqueIdentifier>{A2CE08E8-B0E9-37A6-8A2C-459E77CF335C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\AtomToolsFramework\Util">
+      <UniqueIdentifier>{36903783-78F2-3C4A-A329-777220FC9E21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\AtomToolsFramework\Viewport">
+      <UniqueIdentifier>{28910E3A-038F-38F4-899D-A686DD6EE200}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\AtomToolsFramework\Window">
+      <UniqueIdentifier>{031D78B8-EF17-3C33-8C84-B9208B9C3E61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Application">
+      <UniqueIdentifier>{45DC70E8-7070-3009-92B7-48EA6199FB29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Communication">
+      <UniqueIdentifier>{18038BE3-23AE-374C-95C4-6B58C59A3683}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Debug">
+      <UniqueIdentifier>{27D4B9A1-7884-3552-9BE4-613E87B073FC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\DynamicProperty">
+      <UniqueIdentifier>{DAB776B5-3AF2-3B9D-B80E-E4DE8ABCCD18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Inspector">
+      <UniqueIdentifier>{5F2DDD81-6A6C-32A1-9F88-BFD652178092}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Util">
+      <UniqueIdentifier>{215B44C0-466D-3196-8288-CA050507187A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Viewport">
+      <UniqueIdentifier>{37BF877D-2A89-3F29-AD8F-841697961D51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Window">
+      <UniqueIdentifier>{D4151AC3-1F61-373E-9536-DFD70DED8FAE}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

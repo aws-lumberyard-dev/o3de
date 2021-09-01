@@ -1,0 +1,130 @@
+{
+    "entries": [
+        {
+            "key": "Iterator_VM<AZStd::unordered_map<Crc32, Plane, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Iterator_VM<AZStd::unordered_map<Crc32, Plane, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>"
+            },
+            "methods": [
+                {
+                    "key": "GetKeyUnchecked",
+                    "context": "Iterator_VM<AZStd::unordered_map<Crc32, Plane, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<Crc32, Plane, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::GetKeyUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<Crc32, Plane, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::GetKeyUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<Crc32, Plane, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::GetKeyUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{12668852-2E13-5B48-9C0D-6BF6E8674D78}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<Crc32, Plane, AZStd::hash<Crc3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
+                            "details": {
+                                "name": "Crc32"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ModValueUnchecked",
+                    "context": "Iterator_VM<AZStd::unordered_map<Crc32, Plane, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<Crc32, Plane, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::ModValueUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<Crc32, Plane, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::ModValueUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<Crc32, Plane, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::ModValueUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{12668852-2E13-5B48-9C0D-6BF6E8674D78}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<Crc32, Plane, AZStd::hash<Crc3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
+                            "details": {
+                                "name": "Plane"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsNotAtEnd",
+                    "context": "Iterator_VM<AZStd::unordered_map<Crc32, Plane, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<Crc32, Plane, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::IsNotAtEnd"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<Crc32, Plane, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::IsNotAtEnd is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<Crc32, Plane, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::IsNotAtEnd"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{12668852-2E13-5B48-9C0D-6BF6E8674D78}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<Crc32, Plane, AZStd::hash<Crc3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Next",
+                    "context": "Iterator_VM<AZStd::unordered_map<Crc32, Plane, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<Crc32, Plane, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::Next"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<Crc32, Plane, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::Next is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<Crc32, Plane, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::Next"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{12668852-2E13-5B48-9C0D-6BF6E8674D78}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<Crc32, Plane, AZStd::hash<Crc3"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

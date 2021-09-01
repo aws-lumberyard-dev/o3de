@@ -1,0 +1,12 @@
+{
+    "entries": [
+        {
+            "key": "InputDeviceMotion",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "InputDeviceMotion"
+            }
+        }
+    ]
+}

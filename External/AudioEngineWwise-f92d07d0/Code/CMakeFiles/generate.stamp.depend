@@ -1,0 +1,5 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/AudioEngineWwise/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/AudioEngineWwise/Code/Platform/Windows/PAL_windows.cmake
+J:/Atom/lyfork/o3de/Gems/AudioEngineWwise/Code/audioenginewwise_stub_files.cmake
+J:/Atom/lyfork/o3de/cmake/3rdParty/FindWwise.cmake

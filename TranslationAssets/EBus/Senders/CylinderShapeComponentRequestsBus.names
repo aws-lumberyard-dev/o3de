@@ -1,0 +1,81 @@
+{
+    "entries": [
+        {
+            "key": "CylinderShapeComponentRequestsBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "CylinderShapeComponentRequestsBus"
+            },
+            "methods": [
+                {
+                    "key": "GetCylinderConfiguration",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetCylinderConfiguration"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetCylinderConfiguration is invoked"
+                    },
+                    "details": {
+                        "name": "GetCylinderConfiguration"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{53254779-82F1-441E-9116-81E1FACFECF4}",
+                            "details": {
+                                "name": "Configuration",
+                                "tooltip": "Cylinder shape configuration parameters"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetHeight",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetHeight"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetHeight is invoked"
+                    },
+                    "details": {
+                        "name": "SetHeight"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetRadius",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetRadius"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetRadius is invoked"
+                    },
+                    "details": {
+                        "name": "SetRadius"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

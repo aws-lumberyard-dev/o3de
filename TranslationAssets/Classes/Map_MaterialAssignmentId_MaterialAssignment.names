@@ -1,0 +1,482 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Map<MaterialAssignmentId, MaterialAssignment>",
+                "category": "Map",
+                "tooltip": "A collection of Key/Value pairs, where each Key value must be unique."
+            },
+            "methods": [
+                {
+                    "key": "contains",
+                    "context": "Map<MaterialAssignmentId, MaterialAssignment>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::contains"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::contains is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::contains"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{50F6716F-698B-5A6C-AACD-940597FDEC24}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{EB603581-4654-4C17-B6DE-AE61E79EDA97}",
+                            "details": {
+                                "name": "AZ::Render::MaterialAssignmentId"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Map<MaterialAssignmentId, MaterialAssignment>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{50F6716F-698B-5A6C-AACD-940597FDEC24}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{EB603581-4654-4C17-B6DE-AE61E79EDA97}",
+                            "details": {
+                                "name": "AZ::Render::MaterialAssignmentId"
+                            }
+                        },
+                        {
+                            "typeid": "{C66E5214-A24B-4722-B7F0-5991E6F8F163}",
+                            "details": {
+                                "name": "AZ::Render::MaterialAssignment"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{50F6716F-698B-5A6C-AACD-940597FDEC24}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Map<MaterialAssignmentId, MaterialAssignment>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{50F6716F-698B-5A6C-AACD-940597FDEC24}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Map<MaterialAssignmentId, MaterialAssignment>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{50F6716F-698B-5A6C-AACD-940597FDEC24}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Map<MaterialAssignmentId, MaterialAssignment>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{50F6716F-698B-5A6C-AACD-940597FDEC24}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{94AA4B8D-48FE-5938-9D61-36CD28672B6C}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetKeys",
+                    "context": "Map<MaterialAssignmentId, MaterialAssignment>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::GetKeys"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::GetKeys is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::GetKeys"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{50F6716F-698B-5A6C-AACD-940597FDEC24}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Size",
+                    "context": "Map<MaterialAssignmentId, MaterialAssignment>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{50F6716F-698B-5A6C-AACD-940597FDEC24}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase",
+                    "context": "Map<MaterialAssignmentId, MaterialAssignment>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Erase"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Erase is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Erase"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{50F6716F-698B-5A6C-AACD-940597FDEC24}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{EB603581-4654-4C17-B6DE-AE61E79EDA97}",
+                            "details": {
+                                "name": "AZ::Render::MaterialAssignmentId"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{50F6716F-698B-5A6C-AACD-940597FDEC24}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Map<MaterialAssignmentId, MaterialAssignment>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{50F6716F-698B-5A6C-AACD-940597FDEC24}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{EB603581-4654-4C17-B6DE-AE61E79EDA97}",
+                            "details": {
+                                "name": "AZ::Render::MaterialAssignmentId"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Map<MaterialAssignmentId, MaterialAssignment>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{50F6716F-698B-5A6C-AACD-940597FDEC24}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{50F6716F-698B-5A6C-AACD-940597FDEC24}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "At",
+                    "context": "Map<MaterialAssignmentId, MaterialAssignment>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::At"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::At is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::At"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{50F6716F-698B-5A6C-AACD-940597FDEC24}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{EB603581-4654-4C17-B6DE-AE61E79EDA97}",
+                            "details": {
+                                "name": "AZ::Render::MaterialAssignmentId"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C66E5214-A24B-4722-B7F0-5991E6F8F163}",
+                            "details": {
+                                "name": "AZ::Render::MaterialAssignment"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "BucketCount",
+                    "context": "Map<MaterialAssignmentId, MaterialAssignment>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::BucketCount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::BucketCount is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::BucketCount"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{50F6716F-698B-5A6C-AACD-940597FDEC24}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Map<MaterialAssignmentId, MaterialAssignment>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{50F6716F-698B-5A6C-AACD-940597FDEC24}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Map<MaterialAssignmentId, MaterialAssignment>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::MaterialAssignme::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{50F6716F-698B-5A6C-AACD-940597FDEC24}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{50F6716F-698B-5A6C-AACD-940597FDEC24}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

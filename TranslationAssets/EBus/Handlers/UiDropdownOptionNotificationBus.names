@@ -1,0 +1,20 @@
+{
+    "entries": [
+        {
+            "key": "UiDropdownOptionNotificationBus",
+            "context": "EBusHandler",
+            "variant": "",
+            "details": {
+                "name": "UiDropdownOptionNotificationBus"
+            },
+            "methods": [
+                {
+                    "key": "OnDropdownOptionSelected",
+                    "details": {
+                        "name": "OnDropdownOptionSelected"
+                    }
+                }
+            ]
+        }
+    ]
+}

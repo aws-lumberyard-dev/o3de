@@ -1,0 +1,995 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|x64">
+      <Configuration>debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="profile|x64">
+      <Configuration>profile</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|x64">
+      <Configuration>release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{CD18B9E0-3920-307F-8CD1-132AF5408D6F}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>GraphCanvasWidgets</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\lib\debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">GraphCanvasWidgets.dir\debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='debug|x64'">GraphCanvasWidgets</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\lib\profile\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">GraphCanvasWidgets.dir\profile\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='profile|x64'">GraphCanvasWidgets</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='profile|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\lib\release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">GraphCanvasWidgets.dir\release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='release|x64'">GraphCanvasWidgets</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='release|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include_debug;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib;J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include;J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /RTCsu /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>GRAPH_CANVAS_ENABLE_DETAILED_PROFILING=0;_HAS_EXCEPTIONS=0;_DEBUG;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="debug";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR="debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;GRAPH_CANVAS_ENABLE_DETAILED_PROFILING=0;_HAS_EXCEPTIONS=0;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"debug\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR=\"debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include_debug;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib;J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include;J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include_debug;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib;J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include;J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message>Automatic MOC for target GraphCanvasWidgets</Message>
+      <Command>setlocal
+cd J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autogen J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/CMakeFiles/GraphCanvasWidgets_autogen.dir/AutogenInfo.json debug
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include_profile;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib;J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include;J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StringPooling>true</StringPooling>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>GRAPH_CANVAS_ENABLE_DETAILED_PROFILING=0;_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="profile";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR="profile";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>GRAPH_CANVAS_ENABLE_DETAILED_PROFILING=0;_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"profile\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR=\"profile\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include_profile;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib;J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include;J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include_profile;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib;J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include;J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message>Automatic MOC for target GraphCanvasWidgets</Message>
+      <Command>setlocal
+cd J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autogen J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/CMakeFiles/GraphCanvasWidgets_autogen.dir/AutogenInfo.json profile
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include_release;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib;J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include;J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OmitFramePointers>true</OmitFramePointers>
+      <Optimization>Full</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>GRAPH_CANVAS_ENABLE_DETAILED_PROFILING=0;_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE="release";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR="release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>GRAPH_CANVAS_ENABLE_DETAILED_PROFILING=0;_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE=\"release\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR=\"release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include_release;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib;J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include;J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include_release;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\.;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib;J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include;J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message>Automatic MOC for target GraphCanvasWidgets</Message>
+      <Command>setlocal
+cd J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autogen J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/CMakeFiles/GraphCanvasWidgets_autogen.dir/AutogenInfo.json release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\AssetEditorToolbar\AssetEditorToolbar.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/AssetEditorToolbar/AssetEditorToolbar.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/AssetEditorToolbar/ui_AssetEditorToolbar.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/AssetEditorToolbar/AssetEditorToolbar.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\AssetEditorToolbar\ui_AssetEditorToolbar.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/AssetEditorToolbar/AssetEditorToolbar.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/AssetEditorToolbar/ui_AssetEditorToolbar.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/AssetEditorToolbar/AssetEditorToolbar.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\AssetEditorToolbar\ui_AssetEditorToolbar.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/AssetEditorToolbar/AssetEditorToolbar.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/AssetEditorToolbar/ui_AssetEditorToolbar.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/AssetEditorToolbar/AssetEditorToolbar.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\AssetEditorToolbar\ui_AssetEditorToolbar.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Bookmarks\BookmarkDockWidget.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/Bookmarks/BookmarkDockWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/Bookmarks/ui_BookmarkDockWidget.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/Bookmarks/BookmarkDockWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\Bookmarks\ui_BookmarkDockWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/Bookmarks/BookmarkDockWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/Bookmarks/ui_BookmarkDockWidget.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/Bookmarks/BookmarkDockWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\Bookmarks\ui_BookmarkDockWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/Bookmarks/BookmarkDockWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/Bookmarks/ui_BookmarkDockWidget.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/Bookmarks/BookmarkDockWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\Bookmarks\ui_BookmarkDockWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\ConstructPresetDialog\ConstructPresetDialog.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/ConstructPresetDialog/ConstructPresetDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/ConstructPresetDialog/ui_ConstructPresetDialog.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/ConstructPresetDialog/ConstructPresetDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\ConstructPresetDialog\ui_ConstructPresetDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/ConstructPresetDialog/ConstructPresetDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/ConstructPresetDialog/ui_ConstructPresetDialog.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/ConstructPresetDialog/ConstructPresetDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\ConstructPresetDialog\ui_ConstructPresetDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/ConstructPresetDialog/ConstructPresetDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/ConstructPresetDialog/ui_ConstructPresetDialog.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/ConstructPresetDialog/ConstructPresetDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\ConstructPresetDialog\ui_ConstructPresetDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\GraphCanvasEditorCentralWidget.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/GraphCanvasEditor/GraphCanvasEditorCentralWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/GraphCanvasEditor/ui_GraphCanvasEditorCentralWidget.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/GraphCanvasEditor/GraphCanvasEditorCentralWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\ui_GraphCanvasEditorCentralWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/GraphCanvasEditor/GraphCanvasEditorCentralWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/GraphCanvasEditor/ui_GraphCanvasEditorCentralWidget.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/GraphCanvasEditor/GraphCanvasEditorCentralWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\ui_GraphCanvasEditorCentralWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/GraphCanvasEditor/GraphCanvasEditorCentralWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/GraphCanvasEditor/ui_GraphCanvasEditorCentralWidget.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/GraphCanvasEditor/GraphCanvasEditorCentralWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\ui_GraphCanvasEditorCentralWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\GraphCanvasEditorDockWidget.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/GraphCanvasEditor/GraphCanvasEditorDockWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/GraphCanvasEditor/ui_GraphCanvasEditorDockWidget.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/GraphCanvasEditor/GraphCanvasEditorDockWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\ui_GraphCanvasEditorDockWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/GraphCanvasEditor/GraphCanvasEditorDockWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/GraphCanvasEditor/ui_GraphCanvasEditorDockWidget.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/GraphCanvasEditor/GraphCanvasEditorDockWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\ui_GraphCanvasEditorDockWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/GraphCanvasEditor/GraphCanvasEditorDockWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/GraphCanvasEditor/ui_GraphCanvasEditorDockWidget.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/GraphCanvasEditor/GraphCanvasEditorDockWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\ui_GraphCanvasEditorDockWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\NodePaletteDockWidget.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/NodePalette/NodePaletteDockWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/NodePalette/ui_NodePaletteDockWidget.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/NodePalette/NodePaletteDockWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\NodePalette\ui_NodePaletteDockWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/NodePalette/NodePaletteDockWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/NodePalette/ui_NodePaletteDockWidget.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/NodePalette/NodePaletteDockWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\NodePalette\ui_NodePaletteDockWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/NodePalette/NodePaletteDockWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/NodePalette/ui_NodePaletteDockWidget.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/NodePalette/NodePaletteDockWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\NodePalette\ui_NodePaletteDockWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\NodePaletteWidget.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/NodePalette/NodePaletteWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/NodePalette/ui_NodePaletteWidget.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/NodePalette/NodePaletteWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\NodePalette\ui_NodePaletteWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/NodePalette/NodePaletteWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/NodePalette/ui_NodePaletteWidget.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/NodePalette/NodePaletteWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\NodePalette\ui_NodePaletteWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/NodePalette/NodePaletteWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/NodePalette/ui_NodePaletteWidget.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/NodePalette/NodePaletteWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\NodePalette\ui_NodePaletteWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\ToastNotification\ToastNotification.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/ToastNotification/ToastNotification.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/ToastNotification/ui_ToastNotification.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/ToastNotification/ToastNotification.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\ToastNotification\ui_ToastNotification.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/ToastNotification/ToastNotification.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/ToastNotification/ui_ToastNotification.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/ToastNotification/ToastNotification.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\ToastNotification\ui_ToastNotification.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/ToastNotification/ToastNotification.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/GraphCanvasWidgets_autogen/include/StaticLib/GraphCanvas/Widgets/ToastNotification/ui_ToastNotification.h J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/StaticLib/GraphCanvas/Widgets/ToastNotification/ToastNotification.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\ToastNotification\ui_ToastNotification.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\376820d218f8075ace964b6e2eb9c815\qrc_GraphCanvasEditorResources.cpp.rule">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Automatic RCC for StaticLib/GraphCanvas/Widgets/Resources/GraphCanvasEditorResources.qrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+cd J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/CMakeFiles/GraphCanvasWidgets_autogen.dir/AutoRcc_GraphCanvasEditorResources_3XD3IIXUY6_Info.json debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/CMakeFiles/GraphCanvasWidgets_autogen.dir/AutoRcc_GraphCanvasEditorResources_3XD3IIXUY6_Info.json profile
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/CMakeFiles/GraphCanvasWidgets_autogen.dir/AutoRcc_GraphCanvasEditorResources_3XD3IIXUY6_Info.json release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\GraphCanvasEditorResources.qrc;J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\CMakeFiles\GraphCanvasWidgets_autogen.dir\AutoRcc_GraphCanvasEditorResources_3XD3IIXUY6_Info.json;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\bottom_align_icon.svg;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\lineedit_clear.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\toast_error_icon.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\default_style.json;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\left_align_icon.svg;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\toast_information_icon.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\bottom_right.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\right_align_icon.svg;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\top_left.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\comment.svg;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\center_icon.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\settings_icon.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\search_icon.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\ungroup.svg;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\toast_warning_icon.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\group.svg;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\top_align_icon.svg;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\rcc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\3XD3IIXUY6\qrc_GraphCanvasEditorResources.cpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Automatic RCC for StaticLib/GraphCanvas/Widgets/Resources/GraphCanvasEditorResources.qrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+cd J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/CMakeFiles/GraphCanvasWidgets_autogen.dir/AutoRcc_GraphCanvasEditorResources_3XD3IIXUY6_Info.json debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/CMakeFiles/GraphCanvasWidgets_autogen.dir/AutoRcc_GraphCanvasEditorResources_3XD3IIXUY6_Info.json profile
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/CMakeFiles/GraphCanvasWidgets_autogen.dir/AutoRcc_GraphCanvasEditorResources_3XD3IIXUY6_Info.json release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\GraphCanvasEditorResources.qrc;J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\CMakeFiles\GraphCanvasWidgets_autogen.dir\AutoRcc_GraphCanvasEditorResources_3XD3IIXUY6_Info.json;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\bottom_align_icon.svg;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\lineedit_clear.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\toast_error_icon.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\default_style.json;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\left_align_icon.svg;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\toast_information_icon.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\bottom_right.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\right_align_icon.svg;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\top_left.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\comment.svg;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\center_icon.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\settings_icon.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\search_icon.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\ungroup.svg;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\toast_warning_icon.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\group.svg;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\top_align_icon.svg;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\rcc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\3XD3IIXUY6\qrc_GraphCanvasEditorResources.cpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Automatic RCC for StaticLib/GraphCanvas/Widgets/Resources/GraphCanvasEditorResources.qrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+cd J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/CMakeFiles/GraphCanvasWidgets_autogen.dir/AutoRcc_GraphCanvasEditorResources_3XD3IIXUY6_Info.json debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/CMakeFiles/GraphCanvasWidgets_autogen.dir/AutoRcc_GraphCanvasEditorResources_3XD3IIXUY6_Info.json profile
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/CMakeFiles/GraphCanvasWidgets_autogen.dir/AutoRcc_GraphCanvasEditorResources_3XD3IIXUY6_Info.json release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\GraphCanvasEditorResources.qrc;J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\CMakeFiles\GraphCanvasWidgets_autogen.dir\AutoRcc_GraphCanvasEditorResources_3XD3IIXUY6_Info.json;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\bottom_align_icon.svg;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\lineedit_clear.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\toast_error_icon.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\default_style.json;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\left_align_icon.svg;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\toast_information_icon.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\bottom_right.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\right_align_icon.svg;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\top_left.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\comment.svg;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\center_icon.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\settings_icon.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\search_icon.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\ungroup.svg;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\toast_warning_icon.png;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\group.svg;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\top_align_icon.svg;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\rcc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\3XD3IIXUY6\qrc_GraphCanvasEditorResources.cpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\GraphCanvas_game_files.cmake;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\GraphCanvasEditorResources.qrc;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\graphcanvas_files.cmake;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\graphcanvas_staticlib_files.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\GraphCanvas_game_files.cmake;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\GraphCanvasEditorResources.qrc;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\graphcanvas_files.cmake;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\graphcanvas_staticlib_files.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/GraphCanvas/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/GraphCanvas-d754bf51/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\GraphCanvas_game_files.cmake;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\GraphCanvasEditorResources.qrc;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\graphcanvas_files.cmake;J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\graphcanvas_staticlib_files.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\mocs_compilation_debug.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='profile|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\GraphCanvasEditorResources.qrc">
+    </None>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\Resources.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasMimeContainer.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasMimeContainer.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasMimeEvent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasMimeEvent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasTreeCategorizer.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasTreeCategorizer.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasTreeItem.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasTreeItem.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasTreeModel.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasTreeModel.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePropertyBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\GraphCanvasBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\EntitySaveDataBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\GeometryBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\GraphCanvasPropertyBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\GridBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\LayerBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\MimeDataHandlerBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\PersistentIdBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\SceneBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\StyleBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\ToastBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\ViewBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\VisualBus.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\GraphicsItems\AnimatedPulse.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\GraphicsItems\AnimatedPulse.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\GraphicsItems\GlowOutlineGraphicsItem.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\GraphicsItems\GlowOutlineGraphicsItem.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\GraphicsItems\GraphicsEffect.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\GraphicsItems\Occluder.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\GraphicsItems\Occluder.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\GraphicsItems\ParticleGraphicsItem.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\GraphicsItems\ParticleGraphicsItem.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\GraphicsItems\PulseBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Bookmarks\BookmarkBus.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\ColorPaletteManager\ColorPaletteManagerComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\ColorPaletteManager\ColorPaletteManagerComponent.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Connections\ConnectionBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\AssetIdDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\BooleanDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\ComboBoxDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\DataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\DoubleDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\EntityIdDataInterface.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\NodePropertyDisplay.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\NodePropertyDisplay.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\NumericDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\ReadOnlyDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\StringDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\NodePropertyDisplay\VectorDataInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Nodes\NodeBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Nodes\NodeUIBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Nodes\NodeConfiguration.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Nodes\NodeLayoutBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Nodes\NodeTitleBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Nodes\Comment\CommentBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Nodes\Group\NodeGroupBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Nodes\Wrapper\WrapperNodeBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Slots\SlotBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Slots\Data\DataSlotBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Components\Slots\Property\PropertySlotBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Editor\AssetEditorBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Editor\Automation\AutomationIds.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Editor\Automation\AutomationUtils.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Editor\EditorDockWidgetBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Editor\EditorTypes.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Editor\GraphCanvasProfiler.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Editor\GraphModelBus.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\definitions.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\definitions.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\PseudoElement.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\PseudoElement.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\Selector.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\SelectorImplementations.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\SelectorImplementations.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\Parser.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\Parser.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\Selector.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\Style.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\Style.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\StyleHelper.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\StyleManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Styling\StyleManager.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\ComponentSaveDataInterface.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\ConstructPresets.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\ConstructPresets.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\EntitySaveData.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\Endpoint.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\GraphCanvasGraphData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\GraphCanvasGraphData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\GraphCanvasGraphSerialization.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\GraphCanvasGraphSerialization.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\SceneMemberComponentSaveData.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\TranslationTypes.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\Types.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Types\QtMetaTypes.h" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Resources\default_style.json">
+    </None>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\AssetEditorToolbar\AssetEditorToolbar.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\AssetEditorToolbar\AssetEditorToolbar.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Bookmarks\BookmarkDockWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Bookmarks\BookmarkDockWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Bookmarks\BookmarkTableModel.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\Bookmarks\BookmarkTableModel.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\ComboBox\ComboBoxItemModels.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\ComboBox\ComboBoxItemModelInterface.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\ConstructPresetDialog\ConstructPresetDialog.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\ConstructPresetDialog\ConstructPresetDialog.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\EditorContextMenu.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\EditorContextMenu.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\BookmarkContextMenu.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\BookmarkContextMenu.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\CollapsedNodeGroupContextMenu.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\CollapsedNodeGroupContextMenu.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\CommentContextMenu.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\CommentContextMenu.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\ConnectionContextMenu.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\ConnectionContextMenu.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\NodeContextMenu.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\NodeContextMenu.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\NodeGroupContextMenu.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\NodeGroupContextMenu.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\SceneContextMenu.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\SceneContextMenu.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\SlotContextMenu.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenus\SlotContextMenu.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ContextMenuAction.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ContextMenuAction.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\AlignmentMenuActions\AlignmentActionsMenuGroup.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\AlignmentMenuActions\AlignmentActionsMenuGroup.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\AlignmentMenuActions\AlignmentContextMenuAction.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\AlignmentMenuActions\AlignmentContextMenuActions.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\AlignmentMenuActions\AlignmentContextMenuActions.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions\BookmarkConstructMenuActions.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions\BookmarkConstructMenuActions.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions\CommentConstructMenuActions.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions\CommentConstructMenuActions.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions\ConstructContextMenuAction.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions\ConstructPresetMenuActions.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions\ConstructPresetMenuActions.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions\GraphCanvasConstructActionsMenuGroup.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\ConstructMenuActions\GraphCanvasConstructActionsMenuGroup.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\DisableMenuActions\DisableActionsMenuGroup.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\DisableMenuActions\DisableActionsMenuGroup.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\DisableMenuActions\DisableMenuActions.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\DisableMenuActions\DisableMenuActions.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\DisableMenuActions\DisableMenuAction.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\CommentMenuActions\CommentActionsMenuGroup.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\CommentMenuActions\CommentActionsMenuGroup.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\CommentMenuActions\CommentContextMenuAction.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\CommentMenuActions\CommentContextMenuActions.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\CommentMenuActions\CommentContextMenuActions.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\EditMenuActions\EditActionsMenuGroup.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\EditMenuActions\EditActionsMenuGroup.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\EditMenuActions\EditContextMenuAction.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\EditMenuActions\EditContextMenuActions.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\EditMenuActions\EditContextMenuActions.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\GeneralMenuActions\GeneralMenuActions.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\GeneralMenuActions\GeneralMenuActions.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeGroupMenuActions\NodeGroupActionsMenuGroup.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeGroupMenuActions\NodeGroupActionsMenuGroup.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeGroupMenuActions\NodeGroupContextMenuAction.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeGroupMenuActions\NodeGroupContextMenuActions.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeGroupMenuActions\NodeGroupContextMenuActions.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeMenuActions\NodeContextMenuAction.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeMenuActions\NodeContextMenuActions.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\NodeMenuActions\NodeContextMenuActions.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SceneMenuActions\SceneActionsMenuGroup.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SceneMenuActions\SceneActionsMenuGroup.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SceneMenuActions\SceneContextMenuAction.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SceneMenuActions\SceneContextMenuActions.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SceneMenuActions\SceneContextMenuActions.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SlotMenuActions\SlotContextMenuAction.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SlotMenuActions\SlotContextMenuActions.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\EditorContextMenu\ContextMenuActions\SlotMenuActions\SlotContextMenuActions.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\GraphCanvasAssetEditorMainWindow.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\GraphCanvasAssetEditorMainWindow.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\GraphCanvasEditorCentralWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\GraphCanvasEditorCentralWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\GraphCanvasEditorDockWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\GraphCanvasEditorDockWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasGraphicsView\GraphCanvasGraphicsView.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\GraphCanvasGraphicsView\GraphCanvasGraphicsView.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\MimeEvents\CreateSplicingNodeMimeEvent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\MimeEvents\CreateSplicingNodeMimeEvent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\MiniMapGraphicsView\MiniMapGraphicsView.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\MiniMapGraphicsView\MiniMapGraphicsView.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\NodePaletteDockWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\NodePaletteDockWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\NodePaletteTreeView.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\NodePaletteTreeView.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\NodePaletteWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\NodePaletteWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\Model\NodePaletteSortFilterProxyModel.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\Model\NodePaletteSortFilterProxyModel.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\TreeItems\DraggableNodePaletteTreeItem.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\TreeItems\DraggableNodePaletteTreeItem.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\TreeItems\IconDecoratedNodePaletteTreeItem.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\TreeItems\IconDecoratedNodePaletteTreeItem.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\TreeItems\NodePaletteTreeItem.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\NodePalette\TreeItems\NodePaletteTreeItem.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\StyledItemDelegates\GenericComboBoxDelegate.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\StyledItemDelegates\GenericComboBoxDelegate.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\StyledItemDelegates\IconDecoratedNameDelegate.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\StyledItemDelegates\IconDecoratedNameDelegate.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\ToastNotification\ToastNotification.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Widgets\ToastNotification\ToastNotification.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\ColorUtils.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\ConversionUtils.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\GraphUtils.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\GraphUtils.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\NodeNudgingController.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\NodeNudgingController.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\QtDrawingUtils.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\QtDrawingUtils.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\QtMimeUtils.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\QtVectorMath.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\StateControllers\StateController.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\StateControllers\PrioritizedStateController.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\StaticLib\GraphCanvas\Utils\StateControllers\StackStateController.h" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\graphcanvas_staticlib_files.cmake">
+    </None>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\AssetEditorToolbar\ui_AssetEditorToolbar.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\Bookmarks\ui_BookmarkDockWidget.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\ConstructPresetDialog\ui_ConstructPresetDialog.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\ui_GraphCanvasEditorCentralWidget.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\GraphCanvasEditor\ui_GraphCanvasEditorDockWidget.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\NodePalette\ui_NodePaletteDockWidget.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\NodePalette\ui_NodePaletteWidget.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\include\StaticLib\GraphCanvas\Widgets\ToastNotification\ui_ToastNotification.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\3XD3IIXUY6\qrc_GraphCanvasEditorResources.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\mocs_compilation_profile.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvasWidgets_autogen\mocs_compilation_release.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='profile|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\ZERO_CHECK.vcxproj">
+      <Project>{9D084072-A56A-3A6D-8C63-F5385A20608A}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore.vcxproj">
+      <Project>{78F97634-33F1-3E9D-BB2E-D24CB7BD9D1E}</Project>
+      <Name>AzCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework.vcxproj">
+      <Project>{32B5BA28-0012-3762-8899-2D392DE6A10B}</Project>
+      <Name>AzFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents.vcxproj">
+      <Project>{A96AE86E-7259-341D-879A-5F0B4ECAAFB8}</Project>
+      <Name>AzQtComponents</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework.vcxproj">
+      <Project>{FBDC5AB0-96E2-3EF6-A16A-7C345C99949B}</Project>
+      <Name>AzToolsFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate.vcxproj">
+      <Project>{1A59660B-1BCB-3611-B3D0-673DEB6F8A46}</Project>
+      <Name>GridMate</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

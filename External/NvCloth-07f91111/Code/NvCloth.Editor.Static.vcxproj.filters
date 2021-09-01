@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\NvCloth-07f91111\Code\NvCloth.Editor.Static_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Source\Pipeline\SceneAPIExt\ClothRule.cpp">
+      <Filter>Source\Pipeline\SceneAPIExt</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Source\Pipeline\SceneAPIExt\ClothRuleBehavior.cpp">
+      <Filter>Source\Pipeline\SceneAPIExt</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Source\Components\EditorClothComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Source\Editor\MeshNodeHandler.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Source\Editor\ComboBoxEditButtonPair.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Source\Editor\PropertyTypes.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Source\Editor\EditorSystemComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\NvCloth-07f91111\Code\NvCloth.Editor.Static_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\NvCloth-07f91111\Code\NvCloth.Editor.Static_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Source\Pipeline\SceneAPIExt\ClothRule.h">
+      <Filter>Source\Pipeline\SceneAPIExt</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Source\Pipeline\SceneAPIExt\ClothRuleBehavior.h">
+      <Filter>Source\Pipeline\SceneAPIExt</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Source\Components\EditorClothComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Source\Editor\MeshNodeHandler.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Source\Editor\ComboBoxEditButtonPair.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Source\Editor\PropertyTypes.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\Source\Editor\EditorSystemComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\NvCloth\Code\nvcloth_editor_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components">
+      <UniqueIdentifier>{0B09D740-8293-3A36-BE26-EE344C537516}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor">
+      <UniqueIdentifier>{A8C69C03-0E27-35F8-AFF2-047D842E6663}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Pipeline">
+      <UniqueIdentifier>{7A9075A8-E8F6-3DDA-934D-9D9E45D1ABBD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Pipeline\SceneAPIExt">
+      <UniqueIdentifier>{28CC92BD-B6C8-3F38-AD12-C8BEA1A2474A}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

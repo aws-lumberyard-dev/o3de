@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\PythonBindingsExample\source\Application.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\PythonBindingsExample\source\ApplicationParameters.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\PythonBindingsExample\source\Application.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\PythonBindingsExample\source\ApplicationParameters.h">
+      <Filter>source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\PythonBindingsExample\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\PythonBindingsExample\tool_dependencies.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\PythonBindingsExample\pythonbindingsexample_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\PythonBindingsExample\source\Platform\Common\MSVC\pythonbindingsexample_msvc.cmake">
+      <Filter>source\Platform\Common\MSVC</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{62DE35CE-A268-3B03-84B5-66B7F1FA43B4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Platform">
+      <UniqueIdentifier>{F4ADC6E5-70E0-3B5C-943A-DE04D10723D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Platform\Common">
+      <UniqueIdentifier>{EC87A67E-BC52-3B1B-B127-231CB949AE9F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Platform\Common\MSVC">
+      <UniqueIdentifier>{50EB44CB-8F1A-37B9-891D-F42E0A3D1B5A}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

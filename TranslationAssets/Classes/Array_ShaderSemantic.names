@@ -1,0 +1,854 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::vector<ShaderSemantic, allocator>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Array<ShaderSemantic>",
+                "category": "Array",
+                "tooltip": "A dynamically sized container of elements."
+            },
+            "methods": [
+                {
+                    "key": "Size",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Front",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::Front"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::Front is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::Front"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C6FFF25F-FE52-4D08-8D96-D04C14048816}",
+                            "details": {
+                                "name": "ShaderSemantic"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "HasKey",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::Has Key"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::Has Key is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::Has Key"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Resize",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::Resize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::Resize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::Resize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "at",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::at"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::at is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::at"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C6FFF25F-FE52-4D08-8D96-D04C14048816}",
+                            "details": {
+                                "name": "ShaderSemantic"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Back",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::Back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::Back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::Back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C6FFF25F-FE52-4D08-8D96-D04C14048816}",
+                            "details": {
+                                "name": "ShaderSemantic"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "pop_back",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::pop_back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::pop_back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::pop_back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>*"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "size",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "At",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::At"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::At is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::At"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C6FFF25F-FE52-4D08-8D96-D04C14048816}",
+                            "details": {
+                                "name": "ShaderSemantic"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "push_back",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::push_back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::push_back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::push_back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{C6FFF25F-FE52-4D08-8D96-D04C14048816}",
+                            "details": {
+                                "name": "ShaderSemantic"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "PushBack_VM",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::PushBack_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::PushBack_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::PushBack_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{C6FFF25F-FE52-4D08-8D96-D04C14048816}",
+                            "details": {
+                                "name": "ShaderSemantic"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AtUnchecked",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::AtUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::AtUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::AtUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C6FFF25F-FE52-4D08-8D96-D04C14048816}",
+                            "details": {
+                                "name": "ShaderSemantic"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "clear",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>*"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "NotEmpty",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::NotEmpty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::NotEmpty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::NotEmpty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase_VM",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::Erase_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::Erase_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::Erase_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Capacity",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::Capacity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::Capacity is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::Capacity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AssignAt",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::AssignAt"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::AssignAt is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::AssignAt"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        },
+                        {
+                            "typeid": "{C6FFF25F-FE52-4D08-8D96-D04C14048816}",
+                            "details": {
+                                "name": "ShaderSemantic"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        },
+                        {
+                            "typeid": "{C6FFF25F-FE52-4D08-8D96-D04C14048816}",
+                            "details": {
+                                "name": "ShaderSemantic"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "PushBack",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::PushBack"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::PushBack is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::PushBack"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{C6FFF25F-FE52-4D08-8D96-D04C14048816}",
+                            "details": {
+                                "name": "ShaderSemantic"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Array<ShaderSemantic>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<ShaderSemantic, allocator>::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<ShaderSemantic, allocator>::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<ShaderSemantic, allocator>::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C324F456-AD22-5AE3-990A-D9AEFA964DCC}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<ShaderSemantic, allocator>>"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

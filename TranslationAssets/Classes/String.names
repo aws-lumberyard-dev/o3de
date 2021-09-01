@@ -1,0 +1,303 @@
+{
+    "entries": [
+        {
+            "key": "String",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "String"
+            },
+            "methods": [
+                {
+                    "key": "ReplaceString",
+                    "context": "String",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke String::Replace String"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after String::Replace String is invoked"
+                    },
+                    "details": {
+                        "name": "String::Replace String"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Join",
+                    "context": "String",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke String::Join"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after String::Join is invoked"
+                    },
+                    "details": {
+                        "name": "String::Join"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{99DAD0BC-740E-5E82-826B-8FC7968CC02C}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "StartsWith",
+                    "context": "String",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke String::Starts With"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after String::Starts With is invoked"
+                    },
+                    "details": {
+                        "name": "String::Starts With"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ContainsString",
+                    "context": "String",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke String::Contains String"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after String::Contains String is invoked"
+                    },
+                    "details": {
+                        "name": "String::Contains String"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Split",
+                    "context": "String",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke String::Split"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after String::Split is invoked"
+                    },
+                    "details": {
+                        "name": "String::Split"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{99DAD0BC-740E-5E82-826B-8FC7968CC02C}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsValidFindPosition",
+                    "context": "String",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke String::Is Valid Find Position"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after String::Is Valid Find Position is invoked"
+                    },
+                    "details": {
+                        "name": "String::Is Valid Find Position"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EndsWith",
+                    "context": "String",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke String::Ends With"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after String::Ends With is invoked"
+                    },
+                    "details": {
+                        "name": "String::Ends With"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

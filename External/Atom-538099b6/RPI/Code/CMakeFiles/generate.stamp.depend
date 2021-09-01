@@ -1,0 +1,17 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/Atom/RPI/Assets/atom_rpi_asset_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RPI/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/Atom/RPI/Code/Source/Platform/Common/MSVC/atom_rpi_public_msvc.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RPI/Code/Source/Platform/Windows/PAL_windows.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RPI/Code/Source/Platform/Windows/platform_windows_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RPI/Code/atom_rpi_builders_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RPI/Code/atom_rpi_builders_shared_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RPI/Code/atom_rpi_builders_tests_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RPI/Code/atom_rpi_edit_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RPI/Code/atom_rpi_editor_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RPI/Code/atom_rpi_masked_occlusion_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RPI/Code/atom_rpi_private_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RPI/Code/atom_rpi_public_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RPI/Code/atom_rpi_reflect_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RPI/Code/atom_rpi_tests_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

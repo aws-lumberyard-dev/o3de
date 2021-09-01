@@ -1,0 +1,42 @@
+{
+    "entries": [
+        {
+            "key": "UiSliderNotificationBus",
+            "context": "EBusHandler",
+            "variant": "",
+            "details": {
+                "name": "UiSliderNotificationBus"
+            },
+            "methods": [
+                {
+                    "key": "OnSliderValueChanging",
+                    "details": {
+                        "name": "OnSliderValueChanging"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "OnSliderValueChanged",
+                    "details": {
+                        "name": "OnSliderValueChanged"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "entries": [
+        {
+            "key": "AZ::Render::ShapeWeightModifierComponent",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AZ::Render::ShapeWeightModifierComponent"
+            }
+        }
+    ]
+}

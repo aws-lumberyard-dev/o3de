@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\JackActor.cpp">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\SimpleActors.cpp">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\MeshFactory.cpp">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\AnimGraphFactory.cpp">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\D6JointLimitConfiguration.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\JackActor.h">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\SimpleActors.h">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\MeshFactory.h">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\AnimGraphFactory.h">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\AnimGraphAssetFactory.h">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\ActorAssetFactory.h">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\MotionSetAssetFactory.h">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\D6JointLimitConfiguration.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_shared_tests_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{A12C7827-546E-3D77-AE99-877104F2DFF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\TestAssetCode">
+      <UniqueIdentifier>{CA75C66D-029A-339C-950D-61E6DDB0EF61}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,652 @@
+{
+    "entries": [
+        {
+            "key": "UiTransformBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiTransformBus"
+            },
+            "methods": [
+                {
+                    "key": "GetPivotY",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetPivotY"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetPivotY is invoked"
+                    },
+                    "details": {
+                        "name": "GetPivotY"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetScaleX",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetScaleX"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetScaleX is invoked"
+                    },
+                    "details": {
+                        "name": "GetScaleX"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetScale",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetScale"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetScale is invoked"
+                    },
+                    "details": {
+                        "name": "GetScale"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetLocalPositionX",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetLocalPositionX"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetLocalPositionX is invoked"
+                    },
+                    "details": {
+                        "name": "SetLocalPositionX"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetScaleX",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetScaleX"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetScaleX is invoked"
+                    },
+                    "details": {
+                        "name": "SetScaleX"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetZRotation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetZRotation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetZRotation is invoked"
+                    },
+                    "details": {
+                        "name": "SetZRotation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetScaleToDeviceMode",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetScaleToDeviceMode"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetScaleToDeviceMode is invoked"
+                    },
+                    "details": {
+                        "name": "GetScaleToDeviceMode"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetPivot",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetPivot"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetPivot is invoked"
+                    },
+                    "details": {
+                        "name": "SetPivot"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetScaleY",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetScaleY"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetScaleY is invoked"
+                    },
+                    "details": {
+                        "name": "GetScaleY"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "MoveLocalPositionBy",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MoveLocalPositionBy"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MoveLocalPositionBy is invoked"
+                    },
+                    "details": {
+                        "name": "MoveLocalPositionBy"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetLocalPositionY",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetLocalPositionY"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetLocalPositionY is invoked"
+                    },
+                    "details": {
+                        "name": "SetLocalPositionY"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetViewportPosition",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetViewportPosition"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetViewportPosition is invoked"
+                    },
+                    "details": {
+                        "name": "SetViewportPosition"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetScaleToDeviceMode",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetScaleToDeviceMode"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetScaleToDeviceMode is invoked"
+                    },
+                    "details": {
+                        "name": "SetScaleToDeviceMode"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetLocalPositionX",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetLocalPositionX"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetLocalPositionX is invoked"
+                    },
+                    "details": {
+                        "name": "GetLocalPositionX"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "MoveCanvasPositionBy",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MoveCanvasPositionBy"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MoveCanvasPositionBy is invoked"
+                    },
+                    "details": {
+                        "name": "MoveCanvasPositionBy"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetPivotX",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetPivotX"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetPivotX is invoked"
+                    },
+                    "details": {
+                        "name": "SetPivotX"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "MoveViewportPositionBy",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MoveViewportPositionBy"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MoveViewportPositionBy is invoked"
+                    },
+                    "details": {
+                        "name": "MoveViewportPositionBy"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetPivotY",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetPivotY"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetPivotY is invoked"
+                    },
+                    "details": {
+                        "name": "SetPivotY"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetViewportPosition",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetViewportPosition"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetViewportPosition is invoked"
+                    },
+                    "details": {
+                        "name": "GetViewportPosition"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetScale",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetScale"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetScale is invoked"
+                    },
+                    "details": {
+                        "name": "SetScale"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetLocalPosition",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetLocalPosition"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetLocalPosition is invoked"
+                    },
+                    "details": {
+                        "name": "SetLocalPosition"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetCanvasPosition",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetCanvasPosition"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetCanvasPosition is invoked"
+                    },
+                    "details": {
+                        "name": "GetCanvasPosition"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetPivotX",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetPivotX"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetPivotX is invoked"
+                    },
+                    "details": {
+                        "name": "GetPivotX"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetZRotation",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetZRotation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetZRotation is invoked"
+                    },
+                    "details": {
+                        "name": "GetZRotation"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetLocalPosition",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetLocalPosition"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetLocalPosition is invoked"
+                    },
+                    "details": {
+                        "name": "GetLocalPosition"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetScaleY",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetScaleY"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetScaleY is invoked"
+                    },
+                    "details": {
+                        "name": "SetScaleY"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetPivot",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetPivot"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetPivot is invoked"
+                    },
+                    "details": {
+                        "name": "GetPivot"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetCanvasPosition",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetCanvasPosition"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetCanvasPosition is invoked"
+                    },
+                    "details": {
+                        "name": "SetCanvasPosition"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetLocalPositionY",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetLocalPositionY"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetLocalPositionY is invoked"
+                    },
+                    "details": {
+                        "name": "GetLocalPositionY"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

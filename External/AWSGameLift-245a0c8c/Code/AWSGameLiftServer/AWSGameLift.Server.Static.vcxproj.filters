@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftServer\Source\AWSGameLiftServerManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftServer\Source\AWSGameLiftServerSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftServer\Source\GameLiftServerSDKWrapper.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftCommon\Source\AWSGameLiftSessionConstants.h">
+      <Filter>..\AWSGameLiftCommon\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftServer\Source\AWSGameLiftServerManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftServer\Source\AWSGameLiftServerSystemComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftServer\Source\GameLiftServerSDKWrapper.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftServer\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftServer\awsgamelift_server_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="..">
+      <UniqueIdentifier>{A776B0EA-8717-39A4-85DE-E1E429B7ED9B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\AWSGameLiftCommon">
+      <UniqueIdentifier>{726451B2-1552-37A2-B62B-F28EC05704EC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\AWSGameLiftCommon\Source">
+      <UniqueIdentifier>{B671B9A0-3CFD-34C1-93A4-375457FD7DD6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

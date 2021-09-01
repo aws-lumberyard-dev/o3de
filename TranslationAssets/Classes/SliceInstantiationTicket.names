@@ -1,0 +1,113 @@
+{
+    "entries": [
+        {
+            "key": "SliceInstantiationTicket",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "SliceInstantiationTicket"
+            },
+            "methods": [
+                {
+                    "key": "Equal",
+                    "context": "SliceInstantiationTicket",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SliceInstantiationTicket::Equal"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SliceInstantiationTicket::Equal is invoked"
+                    },
+                    "details": {
+                        "name": "SliceInstantiationTicket::Equal"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
+                            "details": {
+                                "name": "SliceInstantiationTicket"
+                            }
+                        },
+                        {
+                            "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
+                            "details": {
+                                "name": "SliceInstantiationTicket"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ToString",
+                    "context": "SliceInstantiationTicket",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SliceInstantiationTicket::ToString"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SliceInstantiationTicket::ToString is invoked"
+                    },
+                    "details": {
+                        "name": "SliceInstantiationTicket::ToString"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
+                            "details": {
+                                "name": "SliceInstantiationTicket"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsValid",
+                    "context": "SliceInstantiationTicket",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SliceInstantiationTicket::IsValid"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SliceInstantiationTicket::IsValid is invoked"
+                    },
+                    "details": {
+                        "name": "SliceInstantiationTicket::IsValid"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
+                            "details": {
+                                "name": "SliceInstantiationTicket"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

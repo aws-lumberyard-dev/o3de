@@ -1,0 +1,864 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::vector<Parameter, allocator>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Array<Parameter>",
+                "category": "Array",
+                "tooltip": "A dynamically sized container of elements."
+            },
+            "methods": [
+                {
+                    "key": "Size",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Front",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::Front"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::Front is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::Front"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{0DA4809B-08A6-49DC-9024-F81645D97FAC}",
+                            "details": {
+                                "name": "A Script Event's method parameter",
+                                "tooltip": "A parameter to a Script Event's event definition"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "HasKey",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::Has Key"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::Has Key is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::Has Key"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Resize",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::Resize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::Resize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::Resize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "at",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::at"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::at is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::at"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{0DA4809B-08A6-49DC-9024-F81645D97FAC}",
+                            "details": {
+                                "name": "A Script Event's method parameter",
+                                "tooltip": "A parameter to a Script Event's event definition"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Back",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::Back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::Back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::Back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{0DA4809B-08A6-49DC-9024-F81645D97FAC}",
+                            "details": {
+                                "name": "A Script Event's method parameter",
+                                "tooltip": "A parameter to a Script Event's event definition"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "pop_back",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::pop_back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::pop_back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::pop_back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "size",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "At",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::At"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::At is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::At"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{0DA4809B-08A6-49DC-9024-F81645D97FAC}",
+                            "details": {
+                                "name": "A Script Event's method parameter",
+                                "tooltip": "A parameter to a Script Event's event definition"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "push_back",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::push_back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::push_back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::push_back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{0DA4809B-08A6-49DC-9024-F81645D97FAC}",
+                            "details": {
+                                "name": "A Script Event's method parameter",
+                                "tooltip": "A parameter to a Script Event's event definition"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "PushBack_VM",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::PushBack_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::PushBack_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::PushBack_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{0DA4809B-08A6-49DC-9024-F81645D97FAC}",
+                            "details": {
+                                "name": "A Script Event's method parameter",
+                                "tooltip": "A parameter to a Script Event's event definition"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AtUnchecked",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::AtUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::AtUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::AtUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{0DA4809B-08A6-49DC-9024-F81645D97FAC}",
+                            "details": {
+                                "name": "A Script Event's method parameter",
+                                "tooltip": "A parameter to a Script Event's event definition"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "clear",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "NotEmpty",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::NotEmpty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::NotEmpty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::NotEmpty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase_VM",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::Erase_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::Erase_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::Erase_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Capacity",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::Capacity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::Capacity is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::Capacity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AssignAt",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::AssignAt"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::AssignAt is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::AssignAt"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        },
+                        {
+                            "typeid": "{0DA4809B-08A6-49DC-9024-F81645D97FAC}",
+                            "details": {
+                                "name": "A Script Event's method parameter",
+                                "tooltip": "A parameter to a Script Event's event definition"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        },
+                        {
+                            "typeid": "{0DA4809B-08A6-49DC-9024-F81645D97FAC}",
+                            "details": {
+                                "name": "A Script Event's method parameter",
+                                "tooltip": "A parameter to a Script Event's event definition"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "PushBack",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::PushBack"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::PushBack is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::PushBack"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{0DA4809B-08A6-49DC-9024-F81645D97FAC}",
+                            "details": {
+                                "name": "A Script Event's method parameter",
+                                "tooltip": "A parameter to a Script Event's event definition"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Array<Parameter>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<Parameter, allocator>::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<Parameter, allocator>::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<Parameter, allocator>::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ED13EA7-791B-57A8-A4F1-560B5F35B472}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{44F6AC46-CCBE-5FC0-BEEC-1401AD7B4502}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<Parameter, allocator>>"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

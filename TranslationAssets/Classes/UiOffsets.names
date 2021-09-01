@@ -1,0 +1,177 @@
+{
+    "entries": [
+        {
+            "key": "UiOffsets",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiOffsets"
+            },
+            "methods": [
+                {
+                    "key": "SetBottom",
+                    "context": "UiOffsets",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UiOffsets::SetBottom"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UiOffsets::SetBottom is invoked"
+                    },
+                    "details": {
+                        "name": "UiOffsets::SetBottom"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{F681BA9D-245C-4630-B20E-05DD752FAD57}",
+                            "details": {
+                                "name": "Offsets"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetRight",
+                    "context": "UiOffsets",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UiOffsets::SetRight"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UiOffsets::SetRight is invoked"
+                    },
+                    "details": {
+                        "name": "UiOffsets::SetRight"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{F681BA9D-245C-4630-B20E-05DD752FAD57}",
+                            "details": {
+                                "name": "Offsets"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetOffsets",
+                    "context": "UiOffsets",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UiOffsets::SetOffsets"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UiOffsets::SetOffsets is invoked"
+                    },
+                    "details": {
+                        "name": "UiOffsets::SetOffsets"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{F681BA9D-245C-4630-B20E-05DD752FAD57}",
+                            "details": {
+                                "name": "Offsets"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetTop",
+                    "context": "UiOffsets",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UiOffsets::SetTop"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UiOffsets::SetTop is invoked"
+                    },
+                    "details": {
+                        "name": "UiOffsets::SetTop"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{F681BA9D-245C-4630-B20E-05DD752FAD57}",
+                            "details": {
+                                "name": "Offsets"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetLeft",
+                    "context": "UiOffsets",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UiOffsets::SetLeft"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UiOffsets::SetLeft is invoked"
+                    },
+                    "details": {
+                        "name": "UiOffsets::SetLeft"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{F681BA9D-245C-4630-B20E-05DD752FAD57}",
+                            "details": {
+                                "name": "Offsets"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

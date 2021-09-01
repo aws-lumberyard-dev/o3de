@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\ShaderManagementConsole\Code\ShaderManagementConsole.Window_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\Source\Window\ShaderManagementConsoleBrowserInteractions.cpp">
+      <Filter>Source\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\Source\Window\ShaderManagementConsoleWindow.cpp">
+      <Filter>Source\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\Source\Window\ShaderManagementConsoleWindowModule.cpp">
+      <Filter>Source\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\Source\Window\ShaderManagementConsoleBrowserWidget.cpp">
+      <Filter>Source\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\Source\Window\ShaderManagementConsoleWindowComponent.cpp">
+      <Filter>Source\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\Source\Window\ToolBar\ShaderManagementConsoleToolBar.cpp">
+      <Filter>Source\Window\ToolBar</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\ShaderManagementConsole\Code\ShaderManagementConsole.Window_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\ShaderManagementConsole\Code\ShaderManagementConsole.Window_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\Include\Atom\Window\ShaderManagementConsoleWindowModule.h">
+      <Filter>Include\Atom\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\Include\Atom\Core\ShaderManagementConsoleRequestBus.h">
+      <Filter>Include\Atom\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\Source\Window\ShaderManagementConsoleBrowserInteractions.h">
+      <Filter>Source\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\Source\Window\ShaderManagementConsoleWindow.h">
+      <Filter>Source\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\Source\Window\ShaderManagementConsoleBrowserWidget.h">
+      <Filter>Source\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\Source\Window\ShaderManagementConsoleWindowComponent.h">
+      <Filter>Source\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\Source\Window\ToolBar\ShaderManagementConsoleToolBar.h">
+      <Filter>Source\Window\ToolBar</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Tools\ShaderManagementConsole\Code\ShaderManagementConsole.Window_autogen\include\Source\Window\ui_ShaderManagementConsoleBrowserWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\Source\Window\ShaderManagementConsoleBrowserWidget.ui">
+      <Filter>Source\Window</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\Source\Window\ShaderManagementConsole.qrc">
+      <Filter>Source\Window</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\shadermanagementconsolewindow_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom">
+      <UniqueIdentifier>{E66A19AE-451A-3F1F-B698-7608D533AFDF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Core">
+      <UniqueIdentifier>{32B3B6C9-7A70-3046-8DF4-56ED344C10FF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Window">
+      <UniqueIdentifier>{C85CE971-7353-3498-85A7-71783B3960FC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Window">
+      <UniqueIdentifier>{D4151AC3-1F61-373E-9536-DFD70DED8FAE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Window\ToolBar">
+      <UniqueIdentifier>{3EB92223-87CD-3F89-8736-D20A66F9D842}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

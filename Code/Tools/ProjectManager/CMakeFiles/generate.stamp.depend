@@ -1,0 +1,13 @@
+# CMake generation dependency list for this directory.
+C:/Users/luissemp/.o3de/3rdParty/packages/pybind11-2.4.3-rev2-multiplatform/Findpybind11.cmake
+C:/Users/luissemp/.o3de/3rdParty/packages/pybind11-2.4.3-rev2-multiplatform/PackageInfo.json
+J:/Atom/lyfork/o3de/Code/Tools/ProjectManager/CMakeLists.txt
+J:/Atom/lyfork/o3de/Code/Tools/ProjectManager/Platform/Common/MSVC/projectmanager_msvc.cmake
+J:/Atom/lyfork/o3de/Code/Tools/ProjectManager/Platform/Windows/PAL_windows.cmake
+J:/Atom/lyfork/o3de/Code/Tools/ProjectManager/Platform/Windows/PAL_windows_files.cmake
+J:/Atom/lyfork/o3de/Code/Tools/ProjectManager/Platform/Windows/PAL_windows_tests_files.cmake
+J:/Atom/lyfork/o3de/Code/Tools/ProjectManager/Resources/ProjectManager.qrc
+J:/Atom/lyfork/o3de/Code/Tools/ProjectManager/project_manager_app_files.cmake
+J:/Atom/lyfork/o3de/Code/Tools/ProjectManager/project_manager_files.cmake
+J:/Atom/lyfork/o3de/Code/Tools/ProjectManager/project_manager_tests_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

@@ -1,0 +1,660 @@
+{
+    "entries": [
+        {
+            "key": "UiImageBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiImageBus"
+            },
+            "methods": [
+                {
+                    "key": "GetColor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetColor"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetColor is invoked"
+                    },
+                    "details": {
+                        "name": "GetColor"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
+                            "details": {
+                                "name": "Color"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetColor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetColor"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetColor is invoked"
+                    },
+                    "details": {
+                        "name": "SetColor"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
+                            "details": {
+                                "name": "Color"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetSpriteType",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetSpriteType"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetSpriteType is invoked"
+                    },
+                    "details": {
+                        "name": "SetSpriteType"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetFillClockwise",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetFillClockwise"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetFillClockwise is invoked"
+                    },
+                    "details": {
+                        "name": "GetFillClockwise"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetRenderTargetName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetRenderTargetName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetRenderTargetName is invoked"
+                    },
+                    "details": {
+                        "name": "SetRenderTargetName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetSpritePathnameIfExists",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetSpritePathnameIfExists"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetSpritePathnameIfExists is invoked"
+                    },
+                    "details": {
+                        "name": "SetSpritePathnameIfExists"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetEdgeFillOrigin",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetEdgeFillOrigin"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetEdgeFillOrigin is invoked"
+                    },
+                    "details": {
+                        "name": "SetEdgeFillOrigin"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetEdgeFillOrigin",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetEdgeFillOrigin"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetEdgeFillOrigin is invoked"
+                    },
+                    "details": {
+                        "name": "GetEdgeFillOrigin"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetFillClockwise",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetFillClockwise"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetFillClockwise is invoked"
+                    },
+                    "details": {
+                        "name": "SetFillClockwise"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetSpritePathname",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetSpritePathname"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetSpritePathname is invoked"
+                    },
+                    "details": {
+                        "name": "SetSpritePathname"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetFillCenter",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetFillCenter"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetFillCenter is invoked"
+                    },
+                    "details": {
+                        "name": "SetFillCenter"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetAlpha",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetAlpha"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetAlpha is invoked"
+                    },
+                    "details": {
+                        "name": "SetAlpha"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetFillType",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetFillType"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetFillType is invoked"
+                    },
+                    "details": {
+                        "name": "SetFillType"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetFillAmount",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetFillAmount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetFillAmount is invoked"
+                    },
+                    "details": {
+                        "name": "SetFillAmount"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetRadialFillStartAngle",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetRadialFillStartAngle"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetRadialFillStartAngle is invoked"
+                    },
+                    "details": {
+                        "name": "GetRadialFillStartAngle"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetRenderTargetName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetRenderTargetName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetRenderTargetName is invoked"
+                    },
+                    "details": {
+                        "name": "GetRenderTargetName"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsRenderTargetSRGB",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsRenderTargetSRGB"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsRenderTargetSRGB is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsRenderTargetSRGB"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetAlpha",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetAlpha"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetAlpha is invoked"
+                    },
+                    "details": {
+                        "name": "GetAlpha"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsRenderTargetSRGB",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsRenderTargetSRGB"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsRenderTargetSRGB is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsRenderTargetSRGB"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetImageType",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetImageType"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetImageType is invoked"
+                    },
+                    "details": {
+                        "name": "SetImageType"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSpritePathname",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetSpritePathname"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetSpritePathname is invoked"
+                    },
+                    "details": {
+                        "name": "GetSpritePathname"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetFillType",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetFillType"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetFillType is invoked"
+                    },
+                    "details": {
+                        "name": "GetFillType"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetCornerFillOrigin",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetCornerFillOrigin"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetCornerFillOrigin is invoked"
+                    },
+                    "details": {
+                        "name": "SetCornerFillOrigin"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetCornerFillOrigin",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetCornerFillOrigin"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetCornerFillOrigin is invoked"
+                    },
+                    "details": {
+                        "name": "GetCornerFillOrigin"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetImageType",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetImageType"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetImageType is invoked"
+                    },
+                    "details": {
+                        "name": "GetImageType"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetRadialFillStartAngle",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetRadialFillStartAngle"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetRadialFillStartAngle is invoked"
+                    },
+                    "details": {
+                        "name": "SetRadialFillStartAngle"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSpriteType",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetSpriteType"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetSpriteType is invoked"
+                    },
+                    "details": {
+                        "name": "GetSpriteType"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetFillAmount",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetFillAmount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetFillAmount is invoked"
+                    },
+                    "details": {
+                        "name": "GetFillAmount"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetFillCenter",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetFillCenter"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetFillCenter is invoked"
+                    },
+                    "details": {
+                        "name": "GetFillCenter"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

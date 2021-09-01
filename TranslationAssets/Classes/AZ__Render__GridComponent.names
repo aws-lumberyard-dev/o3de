@@ -1,0 +1,12 @@
+{
+    "entries": [
+        {
+            "key": "AZ::Render::GridComponent",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AZ::Render::GridComponent"
+            }
+        }
+    ]
+}

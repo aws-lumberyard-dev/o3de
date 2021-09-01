@@ -1,0 +1,56 @@
+{
+    "entries": [
+        {
+            "key": "UiDraggableNotificationBus",
+            "context": "EBusHandler",
+            "variant": "",
+            "details": {
+                "name": "UiDraggableNotificationBus"
+            },
+            "methods": [
+                {
+                    "key": "OnDragStart",
+                    "details": {
+                        "name": "OnDragStart"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "OnDrag",
+                    "details": {
+                        "name": "OnDrag"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "OnDragEnd",
+                    "details": {
+                        "name": "OnDragEnd"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

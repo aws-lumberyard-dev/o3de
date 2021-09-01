@@ -1,0 +1,81 @@
+{
+    "entries": [
+        {
+            "key": "CapsuleShapeComponentRequestsBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "CapsuleShapeComponentRequestsBus"
+            },
+            "methods": [
+                {
+                    "key": "GetCapsuleConfiguration",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetCapsuleConfiguration"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetCapsuleConfiguration is invoked"
+                    },
+                    "details": {
+                        "name": "GetCapsuleConfiguration"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{00931AEB-2AD8-42CE-B1DC-FA4332F51501}",
+                            "details": {
+                                "name": "Configuration",
+                                "tooltip": "Capsule shape configuration parameters"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetHeight",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetHeight"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetHeight is invoked"
+                    },
+                    "details": {
+                        "name": "SetHeight"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetRadius",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetRadius"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetRadius is invoked"
+                    },
+                    "details": {
+                        "name": "SetRadius"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,636 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|x64">
+      <Configuration>debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="profile|x64">
+      <Configuration>profile</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|x64">
+      <Configuration>release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4FAF40CE-F1E3-31A4-9AC2-DA02322E5650}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>Atom_Feature_Common.Static</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\lib\debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Atom_Feature_Common.Static.dir\debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Atom_Feature_Common.Static</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\lib\profile\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Atom_Feature_Common.Static.dir\profile\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Atom_Feature_Common.Static</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='profile|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\lib\release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">Atom_Feature_Common.Static.dir\release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='release|x64'">Atom_Feature_Common.Static</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='release|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\.;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\3rdParty\ACES;J:\Atom\lyfork\o3de\Gems\ImGui\Code\..\External\ImGui\v1.82;J:\Atom\lyfork\o3de\Gems\ImGui\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /RTCsu /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/openimageio-2.1.16.0-rev2-windows/OpenImageIO/2.1.16.0/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/ilmbase-2.3.0-rev4-multiplatform/ilmbase/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/ilmbase-2.3.0-rev4-multiplatform/ilmbase/include/OpenEXR /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lux_core-2.2-rev5-multiplatform/LuxCore2.2/include</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>IMGUI_DISABLE_OBSOLETE_FUNCTIONS;OPEN_IMAGE_IO_ENABLED;_HAS_EXCEPTIONS=0;_DEBUG;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="debug";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;IMGUI_ENABLED;IMGUI_API_IMPORT;IMGUI_INCLUDE_IMGUI_USER_H;CMAKE_INTDIR="debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;IMGUI_DISABLE_OBSOLETE_FUNCTIONS;OPEN_IMAGE_IO_ENABLED;_HAS_EXCEPTIONS=0;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"debug\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;IMGUI_ENABLED;IMGUI_API_IMPORT;IMGUI_INCLUDE_IMGUI_USER_H;CMAKE_INTDIR=\"debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\.;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\3rdParty\ACES;J:\Atom\lyfork\o3de\Gems\ImGui\Code\..\External\ImGui\v1.82;J:\Atom\lyfork\o3de\Gems\ImGui\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\.;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\3rdParty\ACES;J:\Atom\lyfork\o3de\Gems\ImGui\Code\..\External\ImGui\v1.82;J:\Atom\lyfork\o3de\Gems\ImGui\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\.;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\3rdParty\ACES;J:\Atom\lyfork\o3de\Gems\ImGui\Code\..\External\ImGui\v1.82;J:\Atom\lyfork\o3de\Gems\ImGui\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/openimageio-2.1.16.0-rev2-windows/OpenImageIO/2.1.16.0/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/ilmbase-2.3.0-rev4-multiplatform/ilmbase/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/ilmbase-2.3.0-rev4-multiplatform/ilmbase/include/OpenEXR /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lux_core-2.2-rev5-multiplatform/LuxCore2.2/include</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StringPooling>true</StringPooling>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>IMGUI_DISABLE_OBSOLETE_FUNCTIONS;OPEN_IMAGE_IO_ENABLED;_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="profile";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;IMGUI_ENABLED;IMGUI_API_IMPORT;IMGUI_INCLUDE_IMGUI_USER_H;CMAKE_INTDIR="profile";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>IMGUI_DISABLE_OBSOLETE_FUNCTIONS;OPEN_IMAGE_IO_ENABLED;_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"profile\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;IMGUI_ENABLED;IMGUI_API_IMPORT;IMGUI_INCLUDE_IMGUI_USER_H;CMAKE_INTDIR=\"profile\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\.;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\3rdParty\ACES;J:\Atom\lyfork\o3de\Gems\ImGui\Code\..\External\ImGui\v1.82;J:\Atom\lyfork\o3de\Gems\ImGui\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\.;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\3rdParty\ACES;J:\Atom\lyfork\o3de\Gems\ImGui\Code\..\External\ImGui\v1.82;J:\Atom\lyfork\o3de\Gems\ImGui\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\.;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\3rdParty\ACES;J:\Atom\lyfork\o3de\Gems\ImGui\Code\..\External\ImGui\v1.82;J:\Atom\lyfork\o3de\Gems\ImGui\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/openimageio-2.1.16.0-rev2-windows/OpenImageIO/2.1.16.0/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/ilmbase-2.3.0-rev4-multiplatform/ilmbase/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/ilmbase-2.3.0-rev4-multiplatform/ilmbase/include/OpenEXR /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lux_core-2.2-rev5-multiplatform/LuxCore2.2/include</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OmitFramePointers>true</OmitFramePointers>
+      <Optimization>Full</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>IMGUI_DISABLE_OBSOLETE_FUNCTIONS;OPEN_IMAGE_IO_ENABLED;_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE="release";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;IMGUI_DISABLED;IMGUI_API_IMPORT;IMGUI_INCLUDE_IMGUI_USER_H;CMAKE_INTDIR="release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>IMGUI_DISABLE_OBSOLETE_FUNCTIONS;OPEN_IMAGE_IO_ENABLED;_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE=\"release\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;IMGUI_DISABLED;IMGUI_API_IMPORT;IMGUI_INCLUDE_IMGUI_USER_H;CMAKE_INTDIR=\"release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\.;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\3rdParty\ACES;J:\Atom\lyfork\o3de\Gems\ImGui\Code\..\External\ImGui\v1.82;J:\Atom\lyfork\o3de\Gems\ImGui\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\.;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\3rdParty\ACES;J:\Atom\lyfork\o3de\Gems\ImGui\Code\..\External\ImGui\v1.82;J:\Atom\lyfork\o3de\Gems\ImGui\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/Atom/Feature/Common/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/Atom-538099b6/Feature/Common/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">C:\Users\luissemp\.o3de\3rdParty\packages\lux_core-2.2-rev5-multiplatform\Findlux_core.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\lux_core-2.2-rev5-multiplatform\PackageInfo.json;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Assets\atom_feature_common_asset_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Common\MSVC\atom_feature_common_msvc.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows\runtime_dependencies_clients.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows\runtime_dependencies_tools.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_builders_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_public_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_staticlibrary_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\Atom-538099b6\Feature\Common\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/Atom/Feature/Common/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/Atom-538099b6/Feature/Common/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">C:\Users\luissemp\.o3de\3rdParty\packages\lux_core-2.2-rev5-multiplatform\Findlux_core.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\lux_core-2.2-rev5-multiplatform\PackageInfo.json;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Assets\atom_feature_common_asset_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Common\MSVC\atom_feature_common_msvc.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows\runtime_dependencies_clients.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows\runtime_dependencies_tools.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_builders_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_public_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_staticlibrary_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\Atom-538099b6\Feature\Common\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/Atom/Feature/Common/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/Atom-538099b6/Feature/Common/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">C:\Users\luissemp\.o3de\3rdParty\packages\lux_core-2.2-rev5-multiplatform\Findlux_core.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\lux_core-2.2-rev5-multiplatform\PackageInfo.json;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Assets\atom_feature_common_asset_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Common\MSVC\atom_feature_common_msvc.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows\runtime_dependencies_clients.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows\runtime_dependencies_tools.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_builders_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_public_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_staticlibrary_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\Atom-538099b6\Feature\Common\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\3rdParty\ACES\ACES\Aces.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ACES\AcesDisplayMapperFeatureProcessor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\Automation\AtomAutomationBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\AuxGeom\AuxGeomFeatureProcessor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\CoreLights\CoreLightsConstants.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\DisplayMapper\AcesOutputTransformPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\DisplayMapper\AcesOutputTransformLutPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\DisplayMapper\ApplyShaperLookupTablePass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\DisplayMapper\DisplayMapperPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\DisplayMapper\DisplayMapperFullScreenPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\DisplayMapper\BakeAcesOutputTransformLutPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\DisplayMapper\DisplayMapperConfigurationDescriptor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\DisplayMapper\OutputTransformPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ImGui\ImGuiUtils.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ImGui\SystemBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ImageBasedLights\ImageBasedLightFeatureProcessor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\LookupTable\LookupTableAsset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\Mesh\MeshFeatureProcessor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\PostProcessing\PostProcessingConstants.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\PostProcessing\SMAAFeatureProcessorInterface.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\PostProcess\PostFxLayerCategoriesConstants.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ReflectionProbe\ReflectionProbeFeatureProcessor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\SkyBox\SkyBoxFogBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\SkyBox\SkyboxConstants.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\SkyBox\SkyBoxLUT.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\SphericalHarmonics\SphericalHarmonicsUtility.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\SphericalHarmonics\SphericalHarmonicsUtility.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\TransformService\TransformServiceFeatureProcessor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\Utils\FrameCaptureBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\Utils\GpuBufferHandler.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\Utils\IndexedDataVector.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\Utils\IndexedDataVector.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\Utils\MultiIndexedDataVector.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\Utils\MultiSparseVector.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\Utils\ProfilingCaptureBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\Utils\SparseVector.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\LuxCore\LuxCoreBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\LuxCore\LuxCoreTexturePass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\LuxCore\RenderTexturePass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CommonModule.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CommonSystemComponent.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\FrameCaptureSystemComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\FrameCaptureSystemComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\ProfilingCaptureSystemComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\ProfilingCaptureSystemComponent.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\RenderCommon.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\3rdParty\ACES\ACES\Aces.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\ACES\AcesDisplayMapperFeatureProcessor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\AuxGeom\AuxGeomBase.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\AuxGeom\AuxGeomFeatureProcessor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\AuxGeom\AuxGeomDrawQueue.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\AuxGeom\AuxGeomDrawQueue.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\AuxGeom\AuxGeomDrawProcessorShared.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\AuxGeom\AuxGeomDrawProcessorShared.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\AuxGeom\DynamicPrimitiveProcessor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\AuxGeom\DynamicPrimitiveProcessor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\AuxGeom\FixedShapeProcessor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\AuxGeom\FixedShapeProcessor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\CapsuleLightFeatureProcessor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\CapsuleLightFeatureProcessor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\CascadedShadowmapsPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\CascadedShadowmapsPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\CoreLightsSystemComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\CoreLightsSystemComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\DepthExponentiationPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\DepthExponentiationPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\DirectionalLightFeatureProcessor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\DirectionalLightFeatureProcessor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\DiskLightFeatureProcessor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\DiskLightFeatureProcessor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\EsmShadowmapsPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\EsmShadowmapsPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\LtcCommon.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\LtcCommon.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\PointLightFeatureProcessor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\PointLightFeatureProcessor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\PolygonLightFeatureProcessor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\PolygonLightFeatureProcessor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\ProjectedShadowmapsPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\ProjectedShadowmapsPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\QuadLightFeatureProcessor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\QuadLightFeatureProcessor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\SimplePointLightFeatureProcessor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\SimplePointLightFeatureProcessor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\SimpleSpotLightFeatureProcessor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\SimpleSpotLightFeatureProcessor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\Shadow.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\Shadow.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\ShadowmapAtlas.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\ShadowmapAtlas.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\ShadowmapPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\ShadowmapPass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\LightCullingPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\LightCullingPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\LightCullingTilePreparePass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\LightCullingTilePreparePass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\LightCullingRemap.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\LightCullingRemap.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\LightCullingConstants.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Checkerboard\CheckerboardColorResolvePass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Checkerboard\CheckerboardColorResolvePass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Checkerboard\CheckerboardPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Checkerboard\CheckerboardPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Decals\DecalFeatureProcessor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Decals\DecalFeatureProcessor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Decals\DecalTextureArray.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Decals\DecalTextureArray.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Decals\AsyncLoadTracker.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Decals\DecalTextureArrayFeatureProcessor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Decals\DecalTextureArrayFeatureProcessor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGridRayTracingPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGridRayTracingPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGridBlendIrradiancePass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGridBlendIrradiancePass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGridBlendDistancePass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGridBlendDistancePass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGridBorderUpdatePass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGridBorderUpdatePass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGridRelocationPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGridRelocationPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGridClassificationPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGridClassificationPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGridRenderPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGridRenderPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGrid.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGrid.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGridTextureReadback.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGridTextureReadback.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGridFeatureProcessor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGridFeatureProcessor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DiffuseGlobalIllumination\DiffuseGlobalIlluminationFeatureProcessor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DiffuseGlobalIllumination\DiffuseGlobalIlluminationFeatureProcessor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DisplayMapper\AcesOutputTransformPass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DisplayMapper\AcesOutputTransformLutPass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DisplayMapper\ApplyShaperLookupTablePass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DisplayMapper\DisplayMapperPass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DisplayMapper\DisplayMapperFullScreenPass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DisplayMapper\BakeAcesOutputTransformLutPass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DisplayMapper\DisplayMapperConfigurationDescriptor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\DisplayMapper\OutputTransformPass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\ImGui\ImGuiPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\ImGui\ImGuiPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\ImGui\ImGuiSystemComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\ImGui\ImGuiSystemComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\ImageBasedLights\ImageBasedLightFeatureProcessor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\LookupTable\LookupTableAsset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\ConvertEmissiveUnitFunctor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\ConvertEmissiveUnitFunctor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\SubsurfaceTransmissionParameterFunctor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\SubsurfaceTransmissionParameterFunctor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\Transform2DFunctor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\Transform2DFunctor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\UseTextureFunctor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\UseTextureFunctor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\DrawListFunctor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\DrawListFunctor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Math\GaussianMathFilter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Math\GaussianMathFilter.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Math\MathFilter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Math\MathFilter.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Math\MathFilterDescriptor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Mesh\MeshFeatureProcessor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\MorphTargets\MorphTargetComputePass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\MorphTargets\MorphTargetComputePass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\MorphTargets\MorphTargetDispatchItem.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\MorphTargets\MorphTargetDispatchItem.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\OcclusionCullingPlane\OcclusionCullingPlaneFeatureProcessor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\OcclusionCullingPlane\OcclusionCullingPlaneFeatureProcessor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\OcclusionCullingPlane\OcclusionCullingPlane.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\OcclusionCullingPlane\OcclusionCullingPlane.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcess\PostProcessBase.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcess\PostProcessBase.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcess\PostProcessFeatureProcessor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcess\PostProcessFeatureProcessor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcess\PostProcessSettings.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcess\PostProcessSettings.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcess\Bloom\BloomSettings.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcess\Bloom\BloomSettings.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcess\DepthOfField\DepthOfFieldSettings.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcess\DepthOfField\DepthOfFieldSettings.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcess\ExposureControl\ExposureControlSettings.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcess\ExposureControl\ExposureControlSettings.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcess\Ssao\SsaoSettings.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcess\Ssao\SsaoSettings.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcess\LookModification\LookModificationSettings.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcess\LookModification\LookModificationSettings.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\BlendColorGradingLutsPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\BlendColorGradingLutsPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\DepthOfFieldPencilMap.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\BloomDownsamplePass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\BloomDownsamplePass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\BloomBlurPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\BloomBlurPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\BloomCompositePass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\BloomCompositePass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\BloomParentPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\BloomParentPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\DepthOfFieldCompositePass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\DepthOfFieldCompositePass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\DepthOfFieldBokehBlurPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\DepthOfFieldBokehBlurPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\DepthOfFieldMaskPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\DepthOfFieldMaskPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\DepthOfFieldParentPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\DepthOfFieldParentPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\DepthOfFieldReadBackFocusDepthPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\DepthOfFieldReadBackFocusDepthPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\DepthOfFieldWriteFocusDepthFromGpuPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\DepthOfFieldWriteFocusDepthFromGpuPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\DepthOfFieldCopyFocusDepthToCpuPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\DepthOfFieldCopyFocusDepthToCpuPass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\DepthUpsamplePass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\DepthUpsamplePass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\EyeAdaptationPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\EyeAdaptationPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\FastDepthAwareBlurPasses.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\FastDepthAwareBlurPasses.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\LookModificationCompositePass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\LookModificationCompositePass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\LookModificationTransformPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\LookModificationTransformPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\LuminanceHistogramGeneratorPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\LuminanceHistogramGeneratorPass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\PostProcessingShaderOptionBase.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\PostProcessingShaderOptionBase.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\SMAABasePass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\SMAABasePass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\SMAABlendingWeightCalculationPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\SMAABlendingWeightCalculationPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\SMAACommon.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\SMAAConfigurationDescriptor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\SMAAConfigurationDescriptor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\SMAAEdgeDetectionPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\SMAAEdgeDetectionPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\SMAAFeatureProcessor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\SMAAFeatureProcessor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\SMAANeighborhoodBlendingPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\SMAANeighborhoodBlendingPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\SsaoPasses.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\SsaoPasses.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\SubsurfaceScatteringPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\SubsurfaceScatteringPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\TaaPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\PostProcessing\TaaPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\RayTracing\RayTracingFeatureProcessor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\RayTracing\RayTracingFeatureProcessor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\RayTracing\RayTracingAccelerationStructurePass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\RayTracing\RayTracingAccelerationStructurePass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\RayTracing\RayTracingPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\RayTracing\RayTracingPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\RayTracing\RayTracingPassData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\ReflectionProbe\ReflectionProbeFeatureProcessor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\ReflectionProbe\ReflectionProbe.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\ReflectionScreenSpace\ReflectionScreenSpaceBlurPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\ReflectionScreenSpace\ReflectionScreenSpaceBlurPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\ReflectionScreenSpace\ReflectionScreenSpaceBlurChildPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\ReflectionScreenSpace\ReflectionScreenSpaceBlurChildPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\ReflectionScreenSpace\ReflectionScreenSpaceCompositePass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\ReflectionScreenSpace\ReflectionScreenSpaceCompositePass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\ReflectionScreenSpace\ReflectionCopyFrameBufferPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\ReflectionScreenSpace\ReflectionCopyFrameBufferPass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\ScreenSpace\DeferredFogSettings.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\ScreenSpace\DeferredFogSettings.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\ScreenSpace\DeferredFogPass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\ScreenSpace\DeferredFogPass.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Shadows\ProjectedShadowFeatureProcessor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Shadows\ProjectedShadowFeatureProcessor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkinnedMesh\SkinnedMeshComputePass.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkinnedMesh\SkinnedMeshComputePass.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkinnedMesh\SkinnedMeshDispatchItem.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkinnedMesh\SkinnedMeshDispatchItem.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkinnedMesh\SkinnedMeshFeatureProcessor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkinnedMesh\SkinnedMeshFeatureProcessor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkinnedMesh\SkinnedMeshOutputStreamManager.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkinnedMesh\SkinnedMeshOutputStreamManager.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkinnedMesh\SkinnedMeshRenderProxy.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkinnedMesh\SkinnedMeshRenderProxy.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkinnedMesh\SkinnedMeshShaderOptionsCache.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkinnedMesh\SkinnedMeshShaderOptionsCache.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkinnedMesh\SkinnedMeshStatsCollector.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkinnedMesh\SkinnedMeshStatsCollector.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkinnedMesh\SkinnedMeshSystemComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkinnedMesh\SkinnedMeshSystemComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkinnedMesh\SkinnedMeshVertexStreamProperties.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkinnedMesh\SkinnedMeshVertexStreamProperties.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkyBox\SkyBoxFeatureProcessor.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkyBox\SkyBoxFeatureProcessor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkyBox\SkyBoxFogSettings.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkyBox\SkyBoxFogSettings.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\TransformService\TransformServiceFeatureProcessor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Utils\GpuBufferHandler.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\LuxCore\LuxCoreTexturePass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\LuxCore\RenderTexturePass.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\LuxCore\LuxCoreMaterial.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\LuxCore\LuxCoreMaterial.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\LuxCore\LuxCoreMesh.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\LuxCore\LuxCoreMesh.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\LuxCore\LuxCoreObject.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\LuxCore\LuxCoreObject.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\LuxCore\LuxCoreRenderer.cpp">
+      <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Sync</ExceptionHandling>
+      <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Sync</ExceptionHandling>
+      <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='release|x64'">Sync</ExceptionHandling>
+    </ClCompile>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\LuxCore\LuxCoreRenderer.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\LuxCore\LuxCoreTexture.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\LuxCore\LuxCoreTexture.h" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_files.cmake">
+    </None>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\Material\MaterialAssignment.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\Material\MaterialAssignmentId.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\Utils\LightingPreset.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\Utils\ModelPreset.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\MaterialAssignment.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\MaterialAssignmentId.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\MaterialAssignmentSerializer.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\MaterialAssignmentSerializer.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Utils\LightingPreset.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Utils\ModelPreset.cpp" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_staticlibrary_files.cmake">
+    </None>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows\Atom_Feature_Traits_Platform.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows\Atom_Feature_Traits_Windows.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows\LaunchLuxCoreUI_Windows.cpp" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows\platform_windows_files.cmake">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows\platform_windows.cmake">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Common\MSVC\atom_feature_common_msvc.cmake">
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\ZERO_CHECK.vcxproj">
+      <Project>{9D084072-A56A-3A6D-8C63-F5385A20608A}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore.vcxproj">
+      <Project>{9F85147B-AD44-3A0F-AA74-60212AED63A4}</Project>
+      <Name>AtomCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Feature\Common\Code\Atom_Feature_Common.Public.vcxproj">
+      <Project>{1721CE83-9A3C-30D8-B4FF-46CB826FBEDD}</Project>
+      <Name>Atom_Feature_Common.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\RHI\Code\Atom_RHI.Public.vcxproj">
+      <Project>{0A0834F3-ACAD-337F-8EE6-B6B3D4822C3E}</Project>
+      <Name>Atom_RHI.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\RHI\Code\Atom_RHI.Reflect.vcxproj">
+      <Project>{85639FA0-2DAB-3EDD-AED2-0AFCEF18D511}</Project>
+      <Name>Atom_RHI.Reflect</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\RPI\Code\Atom_RPI.Public.vcxproj">
+      <Project>{88E91A5D-117D-3A1C-A2CC-3989E9B44A26}</Project>
+      <Name>Atom_RPI.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Utils\Code\Atom_Utils.Static.vcxproj">
+      <Project>{36EDED3E-8137-34D9-8697-939CD494EA22}</Project>
+      <Name>Atom_Utils.Static</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore.vcxproj">
+      <Project>{78F97634-33F1-3E9D-BB2E-D24CB7BD9D1E}</Project>
+      <Name>AzCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework.vcxproj">
+      <Project>{32B5BA28-0012-3762-8899-2D392DE6A10B}</Project>
+      <Name>AzFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate.vcxproj">
+      <Project>{1A59660B-1BCB-3611-B3D0-673DEB6F8A46}</Project>
+      <Name>GridMate</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\ImGui-285cebc3\Code\ImGui.imguilib.vcxproj">
+      <Project>{3659026F-4A75-3A19-9FAF-42824917856B}</Project>
+      <Name>ImGui.imguilib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

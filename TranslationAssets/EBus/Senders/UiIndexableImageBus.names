@@ -1,0 +1,168 @@
+{
+    "entries": [
+        {
+            "key": "UiIndexableImageBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiIndexableImageBus"
+            },
+            "methods": [
+                {
+                    "key": "GetImageIndexAlias",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetImageIndexAlias"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetImageIndexAlias is invoked"
+                    },
+                    "details": {
+                        "name": "GetImageIndexAlias"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetImageIndexCount",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetImageIndexCount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetImageIndexCount is invoked"
+                    },
+                    "details": {
+                        "name": "GetImageIndexCount"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetImageIndex",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetImageIndex"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetImageIndex is invoked"
+                    },
+                    "details": {
+                        "name": "SetImageIndex"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetImageIndexAlias",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetImageIndexAlias"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetImageIndexAlias is invoked"
+                    },
+                    "details": {
+                        "name": "SetImageIndexAlias"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetImageIndexFromAlias",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetImageIndexFromAlias"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetImageIndexFromAlias is invoked"
+                    },
+                    "details": {
+                        "name": "GetImageIndexFromAlias"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetImageIndex",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetImageIndex"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetImageIndex is invoked"
+                    },
+                    "details": {
+                        "name": "GetImageIndex"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

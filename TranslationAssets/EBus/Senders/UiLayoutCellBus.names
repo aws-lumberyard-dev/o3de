@@ -1,0 +1,366 @@
+{
+    "entries": [
+        {
+            "key": "UiLayoutCellBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiLayoutCellBus"
+            },
+            "methods": [
+                {
+                    "key": "SetExtraHeightRatio",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetExtraHeightRatio"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetExtraHeightRatio is invoked"
+                    },
+                    "details": {
+                        "name": "SetExtraHeightRatio"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetExtraWidthRatio",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetExtraWidthRatio"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetExtraWidthRatio is invoked"
+                    },
+                    "details": {
+                        "name": "GetExtraWidthRatio"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetExtraWidthRatio",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetExtraWidthRatio"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetExtraWidthRatio is invoked"
+                    },
+                    "details": {
+                        "name": "SetExtraWidthRatio"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetMaxWidth",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetMaxWidth"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetMaxWidth is invoked"
+                    },
+                    "details": {
+                        "name": "SetMaxWidth"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetMaxHeight",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetMaxHeight"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetMaxHeight is invoked"
+                    },
+                    "details": {
+                        "name": "SetMaxHeight"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetMaxWidth",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetMaxWidth"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetMaxWidth is invoked"
+                    },
+                    "details": {
+                        "name": "GetMaxWidth"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetMaxHeight",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetMaxHeight"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetMaxHeight is invoked"
+                    },
+                    "details": {
+                        "name": "GetMaxHeight"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetExtraHeightRatio",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetExtraHeightRatio"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetExtraHeightRatio is invoked"
+                    },
+                    "details": {
+                        "name": "GetExtraHeightRatio"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTargetHeight",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetTargetHeight"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetTargetHeight is invoked"
+                    },
+                    "details": {
+                        "name": "GetTargetHeight"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetMinWidth",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetMinWidth"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetMinWidth is invoked"
+                    },
+                    "details": {
+                        "name": "SetMinWidth"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetMinHeight",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetMinHeight"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetMinHeight is invoked"
+                    },
+                    "details": {
+                        "name": "SetMinHeight"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetMinWidth",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetMinWidth"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetMinWidth is invoked"
+                    },
+                    "details": {
+                        "name": "GetMinWidth"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetMinHeight",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetMinHeight"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetMinHeight is invoked"
+                    },
+                    "details": {
+                        "name": "GetMinHeight"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTargetWidth",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetTargetWidth"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetTargetWidth is invoked"
+                    },
+                    "details": {
+                        "name": "GetTargetWidth"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetTargetWidth",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetTargetWidth"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetTargetWidth is invoked"
+                    },
+                    "details": {
+                        "name": "SetTargetWidth"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetTargetHeight",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetTargetHeight"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetTargetHeight is invoked"
+                    },
+                    "details": {
+                        "name": "SetTargetHeight"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

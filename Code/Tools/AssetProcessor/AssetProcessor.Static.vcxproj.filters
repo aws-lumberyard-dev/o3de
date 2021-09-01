@@ -1,0 +1,374 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor.Static_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetDatabase\AssetDatabase.cpp">
+      <Filter>native\AssetDatabase</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\AssetCatalog.cpp">
+      <Filter>native\AssetManager</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\assetProcessorManager.cpp">
+      <Filter>native\AssetManager</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\AssetRequestHandler.cpp">
+      <Filter>native\AssetManager</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\assetScanFolderInfo.cpp">
+      <Filter>native\AssetManager</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\assetScanner.cpp">
+      <Filter>native\AssetManager</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\assetScannerWorker.cpp">
+      <Filter>native\AssetManager</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\FileStateCache.cpp">
+      <Filter>native\AssetManager</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\PathDependencyManager.cpp">
+      <Filter>native\AssetManager</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\SourceFileRelocator.cpp">
+      <Filter>native\AssetManager</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\ControlRequestHandler.cpp">
+      <Filter>native\AssetManager</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\connection\connection.cpp">
+      <Filter>native\connection</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\connection\connectionManager.cpp">
+      <Filter>native\connection</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\connection\connectionworker.cpp">
+      <Filter>native\connection</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\FileProcessor\FileProcessor.cpp">
+      <Filter>native\FileProcessor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\FileWatcher\FileWatcher.cpp">
+      <Filter>native\FileWatcher</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\InternalBuilders\SettingsRegistryBuilder.cpp">
+      <Filter>native\InternalBuilders</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\JobsModel.cpp">
+      <Filter>native\resourcecompiler</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\RCBuilder.cpp">
+      <Filter>native\resourcecompiler</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\RCCommon.cpp">
+      <Filter>native\resourcecompiler</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\rccontroller.cpp">
+      <Filter>native\resourcecompiler</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\rcjob.cpp">
+      <Filter>native\resourcecompiler</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\rcjoblistmodel.cpp">
+      <Filter>native\resourcecompiler</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\RCJobSortFilterProxyModel.cpp">
+      <Filter>native\resourcecompiler</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\RCQueueSortModel.cpp">
+      <Filter>native\resourcecompiler</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\shadercompiler\shadercompilerjob.cpp">
+      <Filter>native\shadercompiler</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\shadercompiler\shadercompilerManager.cpp">
+      <Filter>native\shadercompiler</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\shadercompiler\shadercompilerModel.cpp">
+      <Filter>native\shadercompiler</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\ApplicationManager.cpp">
+      <Filter>native\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\ApplicationManagerBase.cpp">
+      <Filter>native\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\ApplicationServer.cpp">
+      <Filter>native\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\AssetBuilderInfo.cpp">
+      <Filter>native\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\AssetServerHandler.cpp">
+      <Filter>native\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\assetUtils.cpp">
+      <Filter>native\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\BuilderConfigurationManager.cpp">
+      <Filter>native\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\BuilderManager.cpp">
+      <Filter>native\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\ByteArrayStream.cpp">
+      <Filter>native\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\CommunicatorTracePrinter.cpp">
+      <Filter>native\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\IniConfiguration.cpp">
+      <Filter>native\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\JobDiagnosticTracker.cpp">
+      <Filter>native\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\LineByLineDependencyScanner.cpp">
+      <Filter>native\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\MissingDependencyScanner.cpp">
+      <Filter>native\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\PlatformConfiguration.cpp">
+      <Filter>native\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\ThreadHelper.cpp">
+      <Filter>native\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows\native\FileWatcher\FileWatcher_win.cpp">
+      <Filter>Platform\Windows\native\FileWatcher</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor.Static_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor.Static_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetDatabase\AssetDatabase.h">
+      <Filter>native\AssetDatabase</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\AssetCatalog.h">
+      <Filter>native\AssetManager</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\assetProcessorManager.h">
+      <Filter>native\AssetManager</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\AssetRequestHandler.h">
+      <Filter>native\AssetManager</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\assetScanFolderInfo.h">
+      <Filter>native\AssetManager</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\assetScanner.h">
+      <Filter>native\AssetManager</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\assetScannerWorker.h">
+      <Filter>native\AssetManager</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\FileStateCache.h">
+      <Filter>native\AssetManager</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\PathDependencyManager.h">
+      <Filter>native\AssetManager</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\SourceFileRelocator.h">
+      <Filter>native\AssetManager</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetManager\ControlRequestHandler.h">
+      <Filter>native\AssetManager</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\assetprocessor.h">
+      <Filter>native</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\connection\connection.h">
+      <Filter>native\connection</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\connection\connectionManager.h">
+      <Filter>native\connection</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\connection\connectionMessages.h">
+      <Filter>native\connection</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\connection\connectionworker.h">
+      <Filter>native\connection</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\FileProcessor\FileProcessor.h">
+      <Filter>native\FileProcessor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\FileWatcher\FileWatcher.h">
+      <Filter>native\FileWatcher</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\FileWatcher\FileWatcherAPI.h">
+      <Filter>native\FileWatcher</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\InternalBuilders\SettingsRegistryBuilder.h">
+      <Filter>native\InternalBuilders</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\JobsModel.h">
+      <Filter>native\resourcecompiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\RCBuilder.h">
+      <Filter>native\resourcecompiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\RCCommon.h">
+      <Filter>native\resourcecompiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\rccontroller.h">
+      <Filter>native\resourcecompiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\rcjob.h">
+      <Filter>native\resourcecompiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\rcjoblistmodel.h">
+      <Filter>native\resourcecompiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\RCJobSortFilterProxyModel.h">
+      <Filter>native\resourcecompiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\resourcecompiler\RCQueueSortModel.h">
+      <Filter>native\resourcecompiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\shadercompiler\shadercompilerjob.h">
+      <Filter>native\shadercompiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\shadercompiler\shadercompilerManager.h">
+      <Filter>native\shadercompiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\shadercompiler\shadercompilerMessages.h">
+      <Filter>native\shadercompiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\shadercompiler\shadercompilerModel.h">
+      <Filter>native\shadercompiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\ApplicationManagerAPI.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\ApplicationManager.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\ApplicationManagerBase.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\ApplicationServer.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\AssetBuilderInfo.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\AssetServerHandler.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\AssetUtilEBusHelper.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\assetUtils.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\BuilderConfigurationBus.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\BuilderConfigurationManager.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\BuilderManager.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\BuilderManager.inl">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\ByteArrayStream.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\CommunicatorTracePrinter.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\IniConfiguration.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\JobDiagnosticTracker.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\LineByLineDependencyScanner.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\MissingDependencyScanner.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\PlatformConfiguration.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\PotentialDependencies.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\SpecializedDependencyScanner.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\ThreadHelper.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows\native\resource.h">
+      <Filter>Platform\Windows\native</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\assetprocessor_static_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows\assetprocessor_windows_files.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{D4CCE8D3-A6C9-3C6A-9C86-8BF8F7D77D7F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{9B5BE819-E94D-379A-84DF-5559629D4548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\native">
+      <UniqueIdentifier>{39467A3A-670C-3C01-8ADE-F9BD88A755D9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\native\FileWatcher">
+      <UniqueIdentifier>{E566AB4D-A2D9-38F6-AB02-EA9A25AEC99C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native">
+      <UniqueIdentifier>{F800CF3E-25CA-3CAA-956D-AB2F84D24B25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\AssetDatabase">
+      <UniqueIdentifier>{437359D0-A72B-3C92-A2FC-EB393A64BBAC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\AssetManager">
+      <UniqueIdentifier>{E7577BFF-2AE3-3CFF-80EA-9888D8BCDC48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\FileProcessor">
+      <UniqueIdentifier>{196F6EBF-FC30-3683-8AF3-A48989067BFD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\FileWatcher">
+      <UniqueIdentifier>{AA8A5CCE-435B-392C-95D2-DB98C5D31FEE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\InternalBuilders">
+      <UniqueIdentifier>{CC8C3C1E-C6CE-30A1-8B31-826FD1467ABE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\connection">
+      <UniqueIdentifier>{26A17465-CF00-3028-AA00-D14A738237E6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\resourcecompiler">
+      <UniqueIdentifier>{46A5B58E-628F-384D-A02E-F4DE68605E3D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\shadercompiler">
+      <UniqueIdentifier>{F29C4B33-4EA6-3E2B-BC40-C43899BCF662}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\utilities">
+      <UniqueIdentifier>{BD3D9144-978F-3504-AF7E-4BD36DD1E95A}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

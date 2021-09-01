@@ -1,0 +1,196 @@
+{
+    "entries": [
+        {
+            "key": "SplineComponentRequestBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "SplineComponentRequestBus"
+            },
+            "methods": [
+                {
+                    "key": "ClearVertices",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke ClearVertices"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after ClearVertices is invoked"
+                    },
+                    "details": {
+                        "name": "ClearVertices"
+                    }
+                },
+                {
+                    "key": "RemoveVertex",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke RemoveVertex"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after RemoveVertex is invoked"
+                    },
+                    "details": {
+                        "name": "RemoveVertex"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "UpdateVertex",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UpdateVertex"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UpdateVertex is invoked"
+                    },
+                    "details": {
+                        "name": "UpdateVertex"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AddVertex",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AddVertex"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AddVertex is invoked"
+                    },
+                    "details": {
+                        "name": "AddVertex"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSpline",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetSpline"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetSpline is invoked"
+                    },
+                    "details": {
+                        "name": "GetSpline"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{E13859C4-1F24-5C44-A133-F17B4B050D7C}",
+                            "details": {
+                                "name": "AZStd::shared_ptr"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetClosed",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetClosed"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetClosed is invoked"
+                    },
+                    "details": {
+                        "name": "SetClosed"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "InsertVertex",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke InsertVertex"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after InsertVertex is invoked"
+                    },
+                    "details": {
+                        "name": "InsertVertex"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

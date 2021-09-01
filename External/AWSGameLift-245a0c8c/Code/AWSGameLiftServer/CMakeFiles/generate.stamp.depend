@@ -1,0 +1,8 @@
+# CMake generation dependency list for this directory.
+C:/Users/luissemp/.o3de/3rdParty/packages/AWSGameLiftServerSDK-3.4.1-rev1-windows/FindAWSGameLiftServerSDK.cmake
+C:/Users/luissemp/.o3de/3rdParty/packages/AWSGameLiftServerSDK-3.4.1-rev1-windows/PackageInfo.json
+J:/Atom/lyfork/o3de/Gems/AWSGameLift/Code/AWSGameLiftServer/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/AWSGameLift/Code/AWSGameLiftServer/awsgamelift_server_files.cmake
+J:/Atom/lyfork/o3de/Gems/AWSGameLift/Code/AWSGameLiftServer/awsgamelift_server_shared_files.cmake
+J:/Atom/lyfork/o3de/Gems/AWSGameLift/Code/AWSGameLiftServer/awsgamelift_server_tests_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

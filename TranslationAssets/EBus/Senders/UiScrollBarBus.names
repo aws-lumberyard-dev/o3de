@@ -1,0 +1,280 @@
+{
+    "entries": [
+        {
+            "key": "UiScrollBarBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiScrollBarBus"
+            },
+            "methods": [
+                {
+                    "key": "GetAutoFadeSpeed",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetAutoFadeSpeed"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetAutoFadeSpeed is invoked"
+                    },
+                    "details": {
+                        "name": "GetAutoFadeSpeed"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsAutoFadeEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IsAutoFadeEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IsAutoFadeEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "IsAutoFadeEnabled"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetAutoFadeSpeed",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetAutoFadeSpeed"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetAutoFadeSpeed is invoked"
+                    },
+                    "details": {
+                        "name": "SetAutoFadeSpeed"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetHandleEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetHandleEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetHandleEntity is invoked"
+                    },
+                    "details": {
+                        "name": "SetHandleEntity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetHandleEntity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetHandleEntity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetHandleEntity is invoked"
+                    },
+                    "details": {
+                        "name": "GetHandleEntity"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetAutoFadeDelay",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetAutoFadeDelay"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetAutoFadeDelay is invoked"
+                    },
+                    "details": {
+                        "name": "GetAutoFadeDelay"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetMinHandlePixelSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetMinHandlePixelSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetMinHandlePixelSize is invoked"
+                    },
+                    "details": {
+                        "name": "GetMinHandlePixelSize"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetAutoFadeEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetAutoFadeEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetAutoFadeEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "SetAutoFadeEnabled"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetHandleSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetHandleSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetHandleSize is invoked"
+                    },
+                    "details": {
+                        "name": "SetHandleSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetMinHandlePixelSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetMinHandlePixelSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetMinHandlePixelSize is invoked"
+                    },
+                    "details": {
+                        "name": "SetMinHandlePixelSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetHandleSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetHandleSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetHandleSize is invoked"
+                    },
+                    "details": {
+                        "name": "GetHandleSize"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetAutoFadeDelay",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetAutoFadeDelay"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetAutoFadeDelay is invoked"
+                    },
+                    "details": {
+                        "name": "SetAutoFadeDelay"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

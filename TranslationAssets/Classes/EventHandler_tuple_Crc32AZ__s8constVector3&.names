@@ -1,0 +1,37 @@
+{
+    "entries": [
+        {
+            "key": "EventHandler<tuple<Crc32 AZ::s8 > const Vector3& >",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "EventHandler<tuple<Crc32 AZ::s8 > const Vector3& >"
+            },
+            "methods": [
+                {
+                    "key": "Disconnect",
+                    "context": "EventHandler<tuple<Crc32 AZ::s8 > const Vector3& >",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke EventHandler<tuple<Crc32 AZ::s8 > const Vector3& >::Disconnect"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after EventHandler<tuple<Crc32 AZ::s8 > const Vector3& >::Disconnect is invoked"
+                    },
+                    "details": {
+                        "name": "EventHandler<tuple<Crc32 AZ::s8 > const Vector3& >::Disconnect"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7B055DA7-5E7A-58E6-B31F-8F2D39BD2E86}",
+                            "details": {
+                                "name": "EventHandler<tuple<Crc32 AZ::s8 > const Vector3& >*"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

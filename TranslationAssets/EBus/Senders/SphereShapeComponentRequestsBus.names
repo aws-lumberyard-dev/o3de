@@ -1,0 +1,59 @@
+{
+    "entries": [
+        {
+            "key": "SphereShapeComponentRequestsBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "SphereShapeComponentRequestsBus"
+            },
+            "methods": [
+                {
+                    "key": "GetSphereConfiguration",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetSphereConfiguration"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetSphereConfiguration is invoked"
+                    },
+                    "details": {
+                        "name": "GetSphereConfiguration"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{4AADFD75-48A7-4F31-8F30-FE4505F09E35}",
+                            "details": {
+                                "name": "Configuration",
+                                "tooltip": "Sphere shape configuration parameters"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetRadius",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetRadius"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetRadius is invoked"
+                    },
+                    "details": {
+                        "name": "SetRadius"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

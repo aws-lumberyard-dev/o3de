@@ -1,0 +1,2055 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\EMotionFX-67c89d7e\Code\EMotionFX.Editor.Static_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\System\SystemComponent.cpp">
+      <Filter>Source\Integration\System</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\System\PipelineComponent.cpp">
+      <Filter>Source\Integration\System</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Editor\Components\EditorActorComponent.cpp">
+      <Filter>Source\Integration\Editor\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Editor\Components\EditorAnimAudioComponent.cpp">
+      <Filter>Source\Integration\Editor\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Editor\Components\EditorAnimGraphComponent.cpp">
+      <Filter>Source\Integration\Editor\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Editor\Components\EditorSimpleMotionComponent.cpp">
+      <Filter>Source\Integration\Editor\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Editor\Components\EditorSimpleLODComponent.cpp">
+      <Filter>Source\Integration\Editor\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\ActorJointBrowseEdit.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\ColliderContainerWidget.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\ColliderHelpers.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\InputDialogValidatable.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\JointSelectionWidget.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\JointSelectionDialog.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\LineEditValidatable.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\NotificationWidget.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\ObjectEditor.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\ReselectingTreeView.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\SelectionProxyModel.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\SimulatedObjectHelpers.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\SimulatedObjectModel.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\SimulatedObjectModelCallbacks.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\SkeletonModel.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\SkeletonModelJointWidget.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\SkeletonSortFilterProxyModel.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\TagSelector.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\TypeChoiceButton.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\Cloth\ClothJointInspectorPlugin.cpp">
+      <Filter>Source\Editor\Plugins\Cloth</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\Cloth\ClothJointWidget.cpp">
+      <Filter>Source\Editor\Plugins\Cloth</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\SkeletonOutliner\SkeletonOutlinerPlugin.cpp">
+      <Filter>Source\Editor\Plugins\SkeletonOutliner</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\HitDetection\HitDetectionJointInspectorPlugin.cpp">
+      <Filter>Source\Editor\Plugins\HitDetection</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\HitDetection\HitDetectionJointWidget.cpp">
+      <Filter>Source\Editor\Plugins\HitDetection</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\Ragdoll\RagdollJointLimitWidget.cpp">
+      <Filter>Source\Editor\Plugins\Ragdoll</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\Ragdoll\RagdollNodeInspectorPlugin.cpp">
+      <Filter>Source\Editor\Plugins\Ragdoll</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\Ragdoll\RagdollNodeWidget.cpp">
+      <Filter>Source\Editor\Plugins\Ragdoll</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\SimulatedObject\SimulatedJointWidget.cpp">
+      <Filter>Source\Editor\Plugins\SimulatedObject</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\SimulatedObject\SimulatedObjectActionManager.cpp">
+      <Filter>Source\Editor\Plugins\SimulatedObject</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\SimulatedObject\SimulatedObjectWidget.cpp">
+      <Filter>Source\Editor\Plugins\SimulatedObject</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\SimulatedObject\SimulatedObjectColliderWidget.cpp">
+      <Filter>Source\Editor\Plugins\SimulatedObject</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\SimulatedObject\SimulatedObjectSelectionWindow.cpp">
+      <Filter>Source\Editor\Plugins\SimulatedObject</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\SimulatedObject\SimulatedObjectSelectionWidget.cpp">
+      <Filter>Source\Editor\Plugins\SimulatedObject</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\AnimGraphNodeHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\AnimGraphNodeNameHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\AnimGraphParameterHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\AnimGraphParameterMaskHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\AnimGraphTagHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\AnimGraphTransitionHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\ActorMorphTargetHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\ActorJointHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\ActorGoalNodeHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\BlendSpaceEvaluatorHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\BlendSpaceMotionHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\BlendSpaceMotionContainerHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\EventDataHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\MotionSetMotionIdHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\MotionSetNameHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\MotionDataHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\RagdollJointHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\BlendTreeRotationLimitHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\TransitionStateFilterLocalHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\PropertyTypes.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\BlendNParamWeightsHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\LODTreeSelectionHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\LODTreeSelectionWidget.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\LODSceneGraphWidget.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\SimulatedObjectNameHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\SimulatedObjectSelectionHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\SimulatedObjectColliderTagHandler.cpp">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MysticQt\Source\DialogStack.cpp">
+      <Filter>MysticQt\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MysticQt\Source\KeyboardShortcutManager.cpp">
+      <Filter>MysticQt\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MysticQt\Source\MysticQtManager.cpp">
+      <Filter>MysticQt\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MysticQt\Source\RecentFiles.cpp">
+      <Filter>MysticQt\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\Allocators.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\Commands.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\DockWidgetPlugin.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\EMStudioManager.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\EMStudioPlugin.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\FileManager.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\GUIOptions.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\InvisiblePlugin.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\KeyboardShortcutsWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\LayoutManager.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\MainWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\MotionEventPresetManager.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\PluginManager.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\PluginOptions.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\PreferencesWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RecoverFilesWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RemovePluginOnCloseDockWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\ResetSettingsDialog.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\SaveChangedFilesManager.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\ToolBarPlugin.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\Workspace.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\NotificationWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\NotificationWindowManager.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\LoadActorSettingsWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\MotionSetHierarchyWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\MorphTargetSelectionWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\NodeHierarchyWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\NodeSelectionWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\MotionSetSelectionWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\UnitScaleWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin\CommandCallbacks.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin\ManipulatorCallbacks.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin\RenderOptions.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin\RenderPlugin.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin\RenderUpdateCallback.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin\RenderViewContextMenu.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin\RenderViewWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin\RenderWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\ActionHistory\ActionHistoryCallback.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\ActionHistory</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\ActionHistory\ActionHistoryPlugin.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\ActionHistory</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\Attachments\AttachmentNodesWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\Attachments</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\Attachments\AttachmentsHierarchyWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\Attachments</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\Attachments\AttachmentsPlugin.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\Attachments</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\Attachments\AttachmentsWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\Attachments</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphActionManager.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphEditor.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphItemDelegate.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphModelCallbacks.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphModel.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphSortFilterProxyModel.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AttributesWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\BlendTreeVisualNode.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\BlendGraphViewWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\BlendGraphWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\BlendNodeSelectionWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\BlendSpaceNodeWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\BlendSpace1DNodeWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\BlendSpace2DNodeWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphVisualNode.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphHierarchyWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphNodeWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphOptions.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphPlugin.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphPluginCallbacks.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ContextMenu.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\DebugEventHandler.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\GameController.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\GameControllerWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\GraphNode.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\GraphNodeFactory.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\NavigateWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\NavigationHistory.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\NavigationLinkWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\NodeConnection.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\NodeGraph.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\NodeGraphWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\NodeGroupWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\NodePaletteWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterCreateEditDialog.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterSelectionWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\RoleFilterProxyModel.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphSelectionProxyModel.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\StateFilterSelectionWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\StateGraphNode.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\BoolParameterEditor.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\ColorParameterEditor.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\FloatSliderParameterEditor.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\FloatSpinnerParameterEditor.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\IntSliderParameterEditor.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\IntSpinnerParameterEditor.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\ParameterEditorFactory.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\RotationParameterEditor.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\StringParameterEditor.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\TagParameterEditor.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\ValueParameterEditor.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\Vector2ParameterEditor.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\Vector3GizmoParameterEditor.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\Vector3ParameterEditor.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\Vector4ParameterEditor.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\CommandBar\CommandBarPlugin.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\CommandBar</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\LogWindow\LogWindowCallback.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\LogWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\LogWindow\LogWindowPlugin.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\LogWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MorphTargetsWindow\MorphTargetEditWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MorphTargetsWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MorphTargetsWindow\MorphTargetGroupWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MorphTargetsWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MorphTargetsWindow\MorphTargetsWindowPlugin.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MorphTargetsWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MorphTargetsWindow\PhonemeSelectionWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MorphTargetsWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents\EventDataEditor.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents\MotionEventEditor.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents\MotionEventPresetCreateDialog.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents\MotionEventPresetsWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents\MotionEventWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents\MotionEventsPlugin.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionSetsWindow\MotionSetManagementWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionSetsWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionSetsWindow\MotionSetsWindowPlugin.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionSetsWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionSetsWindow\MotionSetWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionSetsWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionWindow\MotionExtractionWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionWindow\MotionListWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionWindow\MotionPropertiesWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionWindow\MotionRetargetingWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionWindow\MotionWindowPlugin.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeGroups\NodeGroupManagementWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeGroups</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeGroups\NodeGroupsPlugin.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeGroups</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeGroups\NodeGroupWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeGroups</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow\ActorInfo.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow\MeshInfo.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow\NamedPropertyStringValue.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow\NodeInfo.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow\NodeGroupInfo.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow\NodeWindowPlugin.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow\SubMeshInfo.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\SceneManager\ActorPropertiesWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\SceneManager\ActorsWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\SceneManager\MirrorSetupWindow.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\SceneManager\SceneManagerPlugin.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\PlaybackControlsGroup.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\PlaybackOptionsGroup.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\RecorderGroup.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\TimeInfoWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\TimeTrack.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\TimeTrackElement.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\TimeViewPlugin.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\TimeViewToolBar.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\TrackDataHeaderWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\TrackDataWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\TrackHeaderWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\RenderPlugins\Source\OpenGLRender\GLWidget.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\RenderPlugins\Source\OpenGLRender</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\RenderPlugins\Source\OpenGLRender\OpenGLRenderPlugin.cpp">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\RenderPlugins\Source\OpenGLRender</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\Common\Camera.cpp">
+      <Filter>EMotionFX\Rendering\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\Common\FirstPersonCamera.cpp">
+      <Filter>EMotionFX\Rendering\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\Common\LookAtCamera.cpp">
+      <Filter>EMotionFX\Rendering\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\Common\OrbitCamera.cpp">
+      <Filter>EMotionFX\Rendering\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\Common\OrthographicCamera.cpp">
+      <Filter>EMotionFX\Rendering\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\Common\RenderUtil.cpp">
+      <Filter>EMotionFX\Rendering\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\Common\RotateManipulator.cpp">
+      <Filter>EMotionFX\Rendering\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\Common\ScaleManipulator.cpp">
+      <Filter>EMotionFX\Rendering\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\Common\TranslateManipulator.cpp">
+      <Filter>EMotionFX\Rendering\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\GBuffer.cpp">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\GLActor.cpp">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\GLExtensions.cpp">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\GLRenderUtil.cpp">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\GLSLShader.cpp">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\GraphicsManager.cpp">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\IndexBuffer.cpp">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\Material.cpp">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\PostProcessShader.cpp">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\RenderTexture.cpp">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\ShaderCache.cpp">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\StandardMaterial.cpp">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\TextureCache.cpp">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\VertexBuffer.cpp">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Groups\ActorGroup.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Groups</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Groups\MotionGroup.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Groups</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Behaviors\ActorGroupBehavior.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Behaviors\MotionGroupBehavior.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Behaviors\MotionRangeRuleBehavior.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Behaviors\MorphTargetRuleBehavior.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Behaviors\LodRuleBehavior.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Behaviors\SkeletonOptimizationRuleBehavior.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\ActorPhysicsSetupRule.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\ActorScaleRule.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\MetaDataRule.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\MotionCompressionSettingsRule.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\MotionMetaDataRule.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\MotionScaleRule.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\MotionSamplingRule.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\SimulatedObjectSetupRule.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\MotionRangeRule.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\MorphTargetRule.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\LodRule.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\MotionAdditiveRule.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\SkeletonOptimizationRule.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Data\LodNodeSelectionList.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Utilities\LODSelector.cpp">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\ExportContexts.cpp">
+      <Filter>EMotionFX\Pipeline\RCExt</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\Actor\ActorBuilder.cpp">
+      <Filter>EMotionFX\Pipeline\RCExt\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\Actor\ActorExporter.cpp">
+      <Filter>EMotionFX\Pipeline\RCExt\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\Actor\ActorGroupExporter.cpp">
+      <Filter>EMotionFX\Pipeline\RCExt\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\Actor\MorphTargetExporter.cpp">
+      <Filter>EMotionFX\Pipeline\RCExt\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\Motion\MotionDataBuilder.cpp">
+      <Filter>EMotionFX\Pipeline\RCExt\Motion</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\Motion\MotionExporter.cpp">
+      <Filter>EMotionFX\Pipeline\RCExt\Motion</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\Motion\MotionGroupExporter.cpp">
+      <Filter>EMotionFX\Pipeline\RCExt\Motion</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\EMotionFXBuilder\EMotionFXBuilderComponent.cpp">
+      <Filter>EMotionFX\Pipeline\EMotionFXBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\EMotionFXBuilder\AnimGraphBuilderWorker.cpp">
+      <Filter>EMotionFX\Pipeline\EMotionFXBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\EMotionFXBuilder\MotionSetBuilderWorker.cpp">
+      <Filter>EMotionFX\Pipeline\EMotionFXBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Editor\Platform\Windows\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\MainWindowEventFilter_Windows.cpp">
+      <Filter>Editor\Platform\Windows\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\EMotionFX-67c89d7e\Code\EMotionFX.Editor.Static_autogen\BOU6K7L3QR\qrc_Layouts.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\EMotionFX-67c89d7e\Code\EMotionFX.Editor.Static_autogen\LXBC3KP5IR\qrc_Resources.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\EMotionFX-67c89d7e\Code\EMotionFX.Editor.Static_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\EMotionFX-67c89d7e\Code\EMotionFX.Editor.Static_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include\Integration\AnimationBus.h">
+      <Filter>Include\Integration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include\Integration\MotionExtractionBus.h">
+      <Filter>Include\Integration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\System\SystemComponent.h">
+      <Filter>Source\Integration\System</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\System\PipelineComponent.h">
+      <Filter>Source\Integration\System</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Editor\Components\EditorActorComponent.h">
+      <Filter>Source\Integration\Editor\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Editor\Components\EditorAnimAudioComponent.h">
+      <Filter>Source\Integration\Editor\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Editor\Components\EditorAnimGraphComponent.h">
+      <Filter>Source\Integration\Editor\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Editor\Components\EditorSimpleMotionComponent.h">
+      <Filter>Source\Integration\Editor\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\Editor\Components\EditorSimpleLODComponent.h">
+      <Filter>Source\Integration\Editor\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\ActorEditorBus.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\ActorJointBrowseEdit.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\AnimGraphEditorBus.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\ColliderContainerWidget.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\ColliderHelpers.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\InputDialogValidatable.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\JointSelectionWidget.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\JointSelectionDialog.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\LineEditValidatable.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\NotificationWidget.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\ObjectEditor.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\QtMetaTypes.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\ReselectingTreeView.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\SelectionProxyModel.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\SimulatedObjectBus.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\SimulatedObjectHelpers.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\SimulatedObjectModel.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\SkeletonModel.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\SkeletonModelJointWidget.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\SkeletonSortFilterProxyModel.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\TagSelector.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\TypeChoiceButton.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\Cloth\ClothJointInspectorPlugin.h">
+      <Filter>Source\Editor\Plugins\Cloth</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\Cloth\ClothJointWidget.h">
+      <Filter>Source\Editor\Plugins\Cloth</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\SkeletonOutliner\SkeletonOutlinerBus.h">
+      <Filter>Source\Editor\Plugins\SkeletonOutliner</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\SkeletonOutliner\SkeletonOutlinerPlugin.h">
+      <Filter>Source\Editor\Plugins\SkeletonOutliner</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\HitDetection\HitDetectionJointInspectorPlugin.h">
+      <Filter>Source\Editor\Plugins\HitDetection</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\HitDetection\HitDetectionJointWidget.h">
+      <Filter>Source\Editor\Plugins\HitDetection</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\Ragdoll\RagdollJointLimitWidget.h">
+      <Filter>Source\Editor\Plugins\Ragdoll</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\Ragdoll\RagdollNodeInspectorPlugin.h">
+      <Filter>Source\Editor\Plugins\Ragdoll</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\Ragdoll\RagdollNodeWidget.h">
+      <Filter>Source\Editor\Plugins\Ragdoll</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\SimulatedObject\SimulatedJointWidget.h">
+      <Filter>Source\Editor\Plugins\SimulatedObject</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\SimulatedObject\SimulatedObjectActionManager.h">
+      <Filter>Source\Editor\Plugins\SimulatedObject</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\SimulatedObject\SimulatedObjectWidget.h">
+      <Filter>Source\Editor\Plugins\SimulatedObject</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\SimulatedObject\SimulatedObjectColliderWidget.h">
+      <Filter>Source\Editor\Plugins\SimulatedObject</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\SimulatedObject\SimulatedObjectSelectionWindow.h">
+      <Filter>Source\Editor\Plugins\SimulatedObject</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\Plugins\SimulatedObject\SimulatedObjectSelectionWidget.h">
+      <Filter>Source\Editor\Plugins\SimulatedObject</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\AnimGraphNodeHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\AnimGraphNodeNameHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\AnimGraphParameterHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\AnimGraphParameterMaskHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\AnimGraphTagHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\AnimGraphTransitionHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\ActorMorphTargetHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\ActorJointHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\ActorGoalNodeHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\BlendSpaceEvaluatorHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\BlendSpaceMotionHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\BlendSpaceMotionContainerHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\EventDataHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\MotionSetMotionIdHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\MotionSetNameHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\MotionDataHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\RagdollJointHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\BlendTreeRotationLimitHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\TransitionStateFilterLocalHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\PropertyTypes.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\PropertyWidgetAllocator.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\BlendNParamWeightsHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\LODTreeSelectionHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\LODTreeSelectionWidget.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\LODSceneGraphWidget.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\SimulatedObjectNameHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\SimulatedObjectSelectionHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\SimulatedObjectColliderTagHandler.h">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MysticQt\Source\DialogStack.h">
+      <Filter>MysticQt\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MysticQt\Source\KeyboardShortcutManager.h">
+      <Filter>MysticQt\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MysticQt\Source\MysticQtConfig.h">
+      <Filter>MysticQt\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MysticQt\Source\MysticQtManager.h">
+      <Filter>MysticQt\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MysticQt\Source\RecentFiles.h">
+      <Filter>MysticQt\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\Allocators.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\Commands.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\DockWidgetPlugin.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\EMStudioConfig.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\EMStudioCore.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\EMStudioManager.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\EMStudioPlugin.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\FileManager.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\GUIOptions.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\InvisiblePlugin.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\KeyboardShortcutsWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\LayoutManager.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\MainWindowEventFilter.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\MainWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\MotionEventPresetManager.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\PluginManager.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\PluginOptions.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\PluginOptionsBus.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\PreferencesWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RecoverFilesWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RemovePluginOnCloseDockWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\ResetSettingsDialog.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\SaveChangedFilesManager.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\ToolBarPlugin.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\Workspace.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\NotificationWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\NotificationWindowManager.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\LoadActorSettingsWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\MotionSetHierarchyWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\MorphTargetSelectionWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\NodeHierarchyWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\NodeSelectionWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\MotionSetSelectionWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\UnitScaleWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin\ManipulatorCallbacks.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin\RenderLayouts.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin\RenderOptions.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin\RenderPlugin.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin\RenderUpdateCallback.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin\RenderViewWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin\RenderWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\StandardPluginsConfig.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\ActionHistory\ActionHistoryCallback.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\ActionHistory</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\ActionHistory\ActionHistoryPlugin.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\ActionHistory</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\Attachments\AttachmentNodesWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\Attachments</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\Attachments\AttachmentsHierarchyWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\Attachments</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\Attachments\AttachmentsPlugin.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\Attachments</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\Attachments\AttachmentsWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\Attachments</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphActionManager.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphEditor.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphItemDelegate.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphModel.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphSortFilterProxyModel.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AttributesWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\BlendTreeVisualNode.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\BlendGraphViewWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\BlendGraphWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\BlendNodeSelectionWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\BlendSpaceNodeWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\BlendSpace1DNodeWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\BlendSpace2DNodeWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphVisualNode.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphHierarchyWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphNodeWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphOptions.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\AnimGraphPlugin.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\DebugEventHandler.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\GameController.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\GameControllerWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\GraphNode.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\GraphNodeFactory.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\NavigateWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\NavigationHistory.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\NavigationLinkWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\NodeConnection.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\NodeGraph.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\NodeGraphWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\NodeGroupWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\NodePaletteWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterCreateEditDialog.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterSelectionWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\RoleFilterProxyModel.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\SelectionProxyModel.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\StateFilterSelectionWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\StateGraphNode.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\BoolParameterEditor.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\ColorParameterEditor.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\FloatSliderParameterEditor.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\FloatSpinnerParameterEditor.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\IntSliderParameterEditor.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\IntSpinnerParameterEditor.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\ParameterEditorFactory.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\RotationParameterEditor.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\StringParameterEditor.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\TagParameterEditor.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\ValueParameterEditor.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\Vector2ParameterEditor.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\Vector3GizmoParameterEditor.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\Vector3ParameterEditor.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor\Vector4ParameterEditor.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\CommandBar\CommandBarPlugin.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\CommandBar</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\LogWindow\LogWindowCallback.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\LogWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\LogWindow\LogWindowPlugin.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\LogWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MorphTargetsWindow\MorphTargetEditWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MorphTargetsWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MorphTargetsWindow\MorphTargetGroupWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MorphTargetsWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MorphTargetsWindow\MorphTargetsWindowPlugin.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MorphTargetsWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MorphTargetsWindow\PhonemeSelectionWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MorphTargetsWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents\EventDataEditor.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents\MotionEventEditor.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents\MotionEventPresetCreateDialog.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents\MotionEventPresetsWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents\MotionEventWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents\MotionEventsPlugin.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionSetsWindow\MotionSetManagementWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionSetsWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionSetsWindow\MotionSetsWindowPlugin.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionSetsWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionSetsWindow\MotionSetWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionSetsWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionWindow\MotionExtractionWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionWindow\MotionListWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionWindow\MotionPropertiesWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionWindow\MotionRetargetingWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionWindow\MotionWindowPlugin.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeGroups\NodeGroupManagementWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeGroups</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeGroups\NodeGroupsPlugin.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeGroups</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeGroups\NodeGroupWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeGroups</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow\ActorInfo.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow\MeshInfo.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow\NamedPropertyStringValue.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow\NodeInfo.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow\NodeGroupInfo.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow\NodeWindowPlugin.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow\SubMeshInfo.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\SceneManager\ActorPropertiesWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\SceneManager\ActorsWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\SceneManager\MirrorSetupWindow.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\SceneManager\SceneManagerPlugin.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\PlaybackControlsGroup.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\PlaybackOptionsGroup.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\RecorderGroup.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\TimeInfoWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\TimeTrack.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\TimeTrackElement.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\TimeViewPlugin.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\TimeViewShared.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\TimeViewToolBar.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\TrackDataHeaderWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\TrackDataWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView\TrackHeaderWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\RenderPlugins\Source\OpenGLRender\GLWidget.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\RenderPlugins\Source\OpenGLRender</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\RenderPlugins\Source\OpenGLRender\OpenGLRenderPlugin.h">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\RenderPlugins\Source\OpenGLRender</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\Common\Camera.h">
+      <Filter>EMotionFX\Rendering\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\Common\Camera.inl">
+      <Filter>EMotionFX\Rendering\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\Common\FirstPersonCamera.h">
+      <Filter>EMotionFX\Rendering\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\Common\LookAtCamera.h">
+      <Filter>EMotionFX\Rendering\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\Common\MCommonConfig.h">
+      <Filter>EMotionFX\Rendering\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\Common\OrbitCamera.h">
+      <Filter>EMotionFX\Rendering\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\Common\OrthographicCamera.h">
+      <Filter>EMotionFX\Rendering\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\Common\RenderUtil.h">
+      <Filter>EMotionFX\Rendering\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\Common\RotateManipulator.h">
+      <Filter>EMotionFX\Rendering\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\Common\ScaleManipulator.h">
+      <Filter>EMotionFX\Rendering\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\Common\TransformationManipulator.h">
+      <Filter>EMotionFX\Rendering\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\Common\TranslateManipulator.h">
+      <Filter>EMotionFX\Rendering\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\GBuffer.h">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\glactor.h">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\GLExtensions.h">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\GLRenderUtil.h">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\GLSLShader.h">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\GraphicsManager.h">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\IndexBuffer.h">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\Light.h">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\Material.h">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\PostProcessShader.h">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\RenderGLConfig.h">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\RenderTexture.h">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\Shader.h">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\shadercache.h">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\StandardMaterial.h">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\TextureCache.h">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\OpenGL2\Source\VertexBuffer.h">
+      <Filter>EMotionFX\Rendering\OpenGL2\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Groups\IActorGroup.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Groups</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Groups\ActorGroup.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Groups</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Groups\IMotionGroup.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Groups</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Groups\MotionGroup.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Groups</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Behaviors\ActorGroupBehavior.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Behaviors\MotionGroupBehavior.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Behaviors\MotionRangeRuleBehavior.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Behaviors\MorphTargetRuleBehavior.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Behaviors\LodRuleBehavior.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Behaviors\SkeletonOptimizationRuleBehavior.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\ActorPhysicsSetupRule.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\IActorScaleRule.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\ActorScaleRule.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\ExternalToolRule.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\ExternalToolRule.inl">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\MetaDataRule.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\MetaDataRule.inl">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\IMotionCompressionSettingsRule.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\MotionCompressionSettingsRule.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\MotionMetaDataRule.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\IMotionScaleRule.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\MotionScaleRule.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\MotionSamplingRule.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\SimulatedObjectSetupRule.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\MotionRangeRule.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\MorphTargetRule.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\LodRule.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\MotionAdditiveRule.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Rules\SkeletonOptimizationRule.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Rules</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Data\LodNodeSelectionList.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\Utilities\LODSelector.h">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\ExportContexts.h">
+      <Filter>EMotionFX\Pipeline\RCExt</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\Actor\ActorBuilder.h">
+      <Filter>EMotionFX\Pipeline\RCExt\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\Actor\ActorExporter.h">
+      <Filter>EMotionFX\Pipeline\RCExt\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\Actor\ActorGroupExporter.h">
+      <Filter>EMotionFX\Pipeline\RCExt\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\Actor\MorphTargetExporter.h">
+      <Filter>EMotionFX\Pipeline\RCExt\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\Motion\MotionDataBuilder.h">
+      <Filter>EMotionFX\Pipeline\RCExt\Motion</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\Motion\MotionExporter.h">
+      <Filter>EMotionFX\Pipeline\RCExt\Motion</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\Motion\MotionGroupExporter.h">
+      <Filter>EMotionFX\Pipeline\RCExt\Motion</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\EMotionFXBuilder\EMotionFXBuilderComponent.h">
+      <Filter>EMotionFX\Pipeline\EMotionFXBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\EMotionFXBuilder\AnimGraphBuilderWorker.h">
+      <Filter>EMotionFX\Pipeline\EMotionFXBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\EMotionFXBuilder\MotionSetBuilderWorker.h">
+      <Filter>EMotionFX\Pipeline\EMotionFXBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Editor\Platform\Windows\EMotionFX_Traits_Platform.h">
+      <Filter>Editor\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Editor\Platform\Windows\EMotionFX_Traits_Windows.h">
+      <Filter>Editor\Platform\Windows</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\adf905865cc741e7d01dccc8a2a2ca34\qrc_Layouts.cpp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\9dcd09ce5c283378a9fd32dd42b9a326\qrc_Resources.cpp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Assets\Editor\Layouts\Layouts.qrc">
+      <Filter>..\Assets\Editor\Layouts</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Assets\Editor\Images\Icons\Resources.qrc">
+      <Filter>..\Assets\Editor\Images\Icons</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Assets\Editor\Images\Icons\ActorComponent.svg">
+      <Filter>..\Assets\Editor\Images\Icons</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Assets\Editor\Images\Icons\Viewport\ActorComponent.svg">
+      <Filter>..\Assets\Editor\Images\Icons\Viewport</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Assets\Editor\Images\Icons\AnimGraphComponent.svg">
+      <Filter>..\Assets\Editor\Images\Icons</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Assets\Editor\Images\Icons\Viewport\AnimGraphComponent.svg">
+      <Filter>..\Assets\Editor\Images\Icons\Viewport</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Editor\PropertyWidgets\LODSceneGraphWidget.ui">
+      <Filter>Source\Editor\PropertyWidgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_editor_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MysticQt\mysticqt_files.cmake">
+      <Filter>MysticQt</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\emstudiosdk_files.cmake">
+      <Filter>EMotionFX\Tools\EMotionStudio\EMStudioSDK</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\standardplugins_files.cmake">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\RenderPlugins\renderplugins_files.cmake">
+      <Filter>EMotionFX\Tools\EMotionStudio\Plugins\RenderPlugins</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\rendering_files.cmake">
+      <Filter>EMotionFX\Rendering</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\sceneapi_ext_files.cmake">
+      <Filter>EMotionFX\Pipeline\SceneAPIExt</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\rc_ext_files.cmake">
+      <Filter>EMotionFX\Pipeline\RCExt</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\EMotionFXBuilder\emotionfxbuilder_files.cmake">
+      <Filter>EMotionFX\Pipeline\EMotionFXBuilder</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Editor\Platform\Windows\platform_windows_files.cmake">
+      <Filter>Editor\Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Editor\Platform\Windows\platform_windows.cmake">
+      <Filter>Editor\Platform\Windows</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="..">
+      <UniqueIdentifier>{A776B0EA-8717-39A4-85DE-E1E429B7ED9B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\Assets">
+      <UniqueIdentifier>{BDD8E803-85FE-345A-934C-EC0BA8B53600}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\Assets\Editor">
+      <UniqueIdentifier>{5D023145-E118-3A33-A738-49EB5286BA1A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\Assets\Editor\Images">
+      <UniqueIdentifier>{1BA740D3-ADDE-38C2-A1C4-7E44AE925986}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\Assets\Editor\Images\Icons">
+      <UniqueIdentifier>{4290F33E-3E50-3A50-89D0-9142D78843BF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\Assets\Editor\Images\Icons\Viewport">
+      <UniqueIdentifier>{98C7161E-0C87-3D30-AED0-8E7DC88554C4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\Assets\Editor\Layouts">
+      <UniqueIdentifier>{DF77BDA1-D1FB-3267-B400-E21DF2411ACB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX">
+      <UniqueIdentifier>{528F5F53-9206-3D85-AFFD-2F9B6EBFA856}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Pipeline">
+      <UniqueIdentifier>{3721A5D6-9AE3-346C-8D6F-5F47DCD2A0B4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Pipeline\EMotionFXBuilder">
+      <UniqueIdentifier>{B37289EE-DEE2-319A-AD30-E77AB0686B78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Pipeline\RCExt">
+      <UniqueIdentifier>{2233DD13-9417-33F7-9D19-5AC489DDA583}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Pipeline\RCExt\Actor">
+      <UniqueIdentifier>{65CE7080-2DB1-38D3-B6BC-38664FA137F4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Pipeline\RCExt\Motion">
+      <UniqueIdentifier>{AF1886CD-39C7-3C34-95F3-89138C877DBA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Pipeline\SceneAPIExt">
+      <UniqueIdentifier>{E3F85F30-A7F1-3BED-99C4-A4BF7A47C454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Pipeline\SceneAPIExt\Behaviors">
+      <UniqueIdentifier>{2BFAB2F4-7F27-3923-8DE5-E0A09C566790}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Pipeline\SceneAPIExt\Data">
+      <UniqueIdentifier>{1B64C6C9-8A18-3479-9AC9-7D9685F08C98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Pipeline\SceneAPIExt\Groups">
+      <UniqueIdentifier>{A2DBDB9A-EEE3-3CCE-ABCB-C23A388AE50D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Pipeline\SceneAPIExt\Rules">
+      <UniqueIdentifier>{CC802428-4DF1-3CF7-9C03-F577D9EC2B34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Pipeline\SceneAPIExt\Utilities">
+      <UniqueIdentifier>{B7EF67E1-7A30-302C-AF0B-894CCD4790FD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Rendering">
+      <UniqueIdentifier>{82119F4E-D4B2-354F-9820-56BCDAC8B415}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Rendering\Common">
+      <UniqueIdentifier>{81E334F1-7077-3A26-9C99-EC4031B2F3A4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Rendering\OpenGL2">
+      <UniqueIdentifier>{98C18871-9988-3E4B-9D15-B090EC54EC44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Rendering\OpenGL2\Source">
+      <UniqueIdentifier>{F24B3883-24C9-361A-95E7-1886ACF0F8FE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools">
+      <UniqueIdentifier>{2CA8F229-A603-39AA-A7F8-200F059CF1AC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio">
+      <UniqueIdentifier>{BD8F8544-15D4-3556-8CE0-5B103F5EFBB2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\EMStudioSDK">
+      <UniqueIdentifier>{C5593E32-210E-3869-97F7-F84A737C9004}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source">
+      <UniqueIdentifier>{DFBB26C6-2470-34A4-A2D1-BFB2D12BA065}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source\RenderPlugin">
+      <UniqueIdentifier>{A1EAD8ED-66D7-30F8-9032-1A0857D86B2C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\Plugins">
+      <UniqueIdentifier>{61D914DD-DE7A-3432-B358-9BDA16288E99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\Plugins\RenderPlugins">
+      <UniqueIdentifier>{E7AE72A6-DA14-3BDF-BF18-19994755978D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\Plugins\RenderPlugins\Source">
+      <UniqueIdentifier>{8640F22C-D021-3A6A-89BC-0318986D6F3A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\Plugins\RenderPlugins\Source\OpenGLRender">
+      <UniqueIdentifier>{064284F2-27E1-310D-81EC-40B94DEF3F63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins">
+      <UniqueIdentifier>{2035519F-D0CD-38F5-AE44-778749B78FE6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source">
+      <UniqueIdentifier>{28386F0A-2403-3223-BDC4-5FB2D233FB98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\ActionHistory">
+      <UniqueIdentifier>{9BCE5C4D-4B88-3DCE-BC5F-9C0C371DBB8B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph">
+      <UniqueIdentifier>{55E35330-7E16-308E-9B86-A4B3464FBB3B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\AnimGraph\ParameterEditor">
+      <UniqueIdentifier>{32484F56-15C4-32F9-9840-7D1909747A1B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\Attachments">
+      <UniqueIdentifier>{EC36753E-28AA-3231-BD80-CA1E169A1EBE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\CommandBar">
+      <UniqueIdentifier>{60527C05-4545-3BD4-832D-EAE8010FC09D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\LogWindow">
+      <UniqueIdentifier>{2D4A45D1-866F-3BEA-AC88-C8B616B685DC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MorphTargetsWindow">
+      <UniqueIdentifier>{FFEDF49C-2B4B-3283-862B-7BE2DBEDCF67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionEvents">
+      <UniqueIdentifier>{05C976B0-2775-3BD3-85C2-00ADC0B6CC59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionSetsWindow">
+      <UniqueIdentifier>{3D2DBAF3-CEFC-3148-AE78-1E6C6170B95B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\MotionWindow">
+      <UniqueIdentifier>{2D7D5E09-FDC6-324F-8546-4AB639A21D85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeGroups">
+      <UniqueIdentifier>{9A580172-976C-341B-84B1-67FA5AE2A94E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\NodeWindow">
+      <UniqueIdentifier>{AED25110-5F26-305C-817F-DA59BF1D3CC0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\SceneManager">
+      <UniqueIdentifier>{249B4F92-8CA0-3D48-AA7D-791C5D0DEDFF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\Source\TimeView">
+      <UniqueIdentifier>{37983538-110E-3A83-A55B-A7CE8A5377C3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{E975680F-F697-3506-8586-852AB59CD56D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Platform">
+      <UniqueIdentifier>{393C6343-0CBC-3A3A-848C-0D377367809A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Platform\Windows">
+      <UniqueIdentifier>{0E38E926-E7BB-3752-80AF-743C0F2F3CA0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Platform\Windows\EMotionFX">
+      <UniqueIdentifier>{0963E1AD-9C92-3DB3-B1A1-51B0BD28CBDD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Platform\Windows\EMotionFX\Tools">
+      <UniqueIdentifier>{E55A4531-82BD-31AA-8F2D-7FE0156943FC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Platform\Windows\EMotionFX\Tools\EMotionStudio">
+      <UniqueIdentifier>{C6B9EFDC-A5C4-32F2-A46D-2F018025104F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Platform\Windows\EMotionFX\Tools\EMotionStudio\EMStudioSDK">
+      <UniqueIdentifier>{270F5CCB-8861-38BB-A9A1-0BEE62C0CF18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Platform\Windows\EMotionFX\Tools\EMotionStudio\EMStudioSDK\Source">
+      <UniqueIdentifier>{BB3465BE-E212-3C73-90C4-AB9B376F5FF7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Integration">
+      <UniqueIdentifier>{2F0342E4-550F-3833-A586-0EA8A5A7A73C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MysticQt">
+      <UniqueIdentifier>{1D347365-4C56-39F4-BF9D-85494A752A04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MysticQt\Source">
+      <UniqueIdentifier>{7069B5E0-27F5-3FC0-BF00-B06CE194A5A7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor">
+      <UniqueIdentifier>{A8C69C03-0E27-35F8-AFF2-047D842E6663}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\Plugins">
+      <UniqueIdentifier>{C6DD5D8A-F7DB-3E4D-B092-FD984FA61E58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\Plugins\Cloth">
+      <UniqueIdentifier>{7CF97209-9D5E-359D-8ACC-F8460C0ED699}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\Plugins\HitDetection">
+      <UniqueIdentifier>{4D44CAB0-17C6-3FA0-9796-3562F5FD2AA0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\Plugins\Ragdoll">
+      <UniqueIdentifier>{56321753-1FC8-3427-B2FD-D0516684DFBF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\Plugins\SimulatedObject">
+      <UniqueIdentifier>{B73B0AB3-F6A6-32AB-847C-5A8886B2C81A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\Plugins\SkeletonOutliner">
+      <UniqueIdentifier>{C53AFC19-C71F-3AC5-A1B6-CE8B7063A6C6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\PropertyWidgets">
+      <UniqueIdentifier>{B62DF391-8511-3EF1-942A-98860A4203D5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Integration">
+      <UniqueIdentifier>{7CD13E51-A792-390B-9958-BFAF2AAD6788}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Integration\Editor">
+      <UniqueIdentifier>{EABA9DFF-1F1B-3E12-98E5-8AA8626BF56C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Integration\Editor\Components">
+      <UniqueIdentifier>{E114028C-01AD-3911-9AA4-2E622B7E613D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Integration\System">
+      <UniqueIdentifier>{34D626EF-3145-307B-9E87-BA32F75643BA}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

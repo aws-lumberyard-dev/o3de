@@ -1,0 +1,482 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Map<Boolean, String>",
+                "category": "Map",
+                "tooltip": "A collection of Key/Value pairs, where each Key value must be unique."
+            },
+            "methods": [
+                {
+                    "key": "contains",
+                    "context": "Map<Boolean, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::contains"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::contains is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::contains"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C985C516-C64B-5821-9A82-06DBAE6734CA}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Map<Boolean, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C985C516-C64B-5821-9A82-06DBAE6734CA}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C985C516-C64B-5821-9A82-06DBAE6734CA}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Map<Boolean, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C985C516-C64B-5821-9A82-06DBAE6734CA}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Map<Boolean, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C985C516-C64B-5821-9A82-06DBAE6734CA}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Map<Boolean, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C985C516-C64B-5821-9A82-06DBAE6734CA}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{BC94A0EC-1BB3-53FD-B546-BF5626FF225A}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetKeys",
+                    "context": "Map<Boolean, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::GetKeys"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::GetKeys is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::GetKeys"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C985C516-C64B-5821-9A82-06DBAE6734CA}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Size",
+                    "context": "Map<Boolean, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C985C516-C64B-5821-9A82-06DBAE6734CA}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase",
+                    "context": "Map<Boolean, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Erase"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Erase is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Erase"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C985C516-C64B-5821-9A82-06DBAE6734CA}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C985C516-C64B-5821-9A82-06DBAE6734CA}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Map<Boolean, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C985C516-C64B-5821-9A82-06DBAE6734CA}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Map<Boolean, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C985C516-C64B-5821-9A82-06DBAE6734CA}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C985C516-C64B-5821-9A82-06DBAE6734CA}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "At",
+                    "context": "Map<Boolean, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::At"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::At is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::At"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C985C516-C64B-5821-9A82-06DBAE6734CA}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "BucketCount",
+                    "context": "Map<Boolean, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::BucketCount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::BucketCount is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::BucketCount"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C985C516-C64B-5821-9A82-06DBAE6734CA}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Map<Boolean, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C985C516-C64B-5821-9A82-06DBAE6734CA}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Map<Boolean, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<bool, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<bool>, AZStd::equal_to<b::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C985C516-C64B-5821-9A82-06DBAE6734CA}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{C985C516-C64B-5821-9A82-06DBAE6734CA}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

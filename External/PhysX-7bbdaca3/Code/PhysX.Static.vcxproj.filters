@@ -1,0 +1,458 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\SystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\HeightFieldAsset.cpp">
+      <Filter>Include\PhysX</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\RigidBodyComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\BaseColliderComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\MeshColliderComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\BoxColliderComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\SphereColliderComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\CapsuleColliderComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\ShapeColliderComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\ForceRegionComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\StaticRigidBodyComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\BallJointComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\FixedJointComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\HingeJointComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\JointComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Pipeline\MeshAssetHandler.cpp">
+      <Filter>Source\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Pipeline\HeightFieldAssetHandler.cpp">
+      <Filter>Source\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Pipeline\StreamWrapper.cpp">
+      <Filter>Source\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Utils.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\RigidBody.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\RigidBodyStatic.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Collision.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Shape.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Material.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\ForceRegionForces.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\ForceRegion.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\NameConstants.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\DefaultWorldComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\WindProvider.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\PhysXCharacters\API\CharacterController.cpp">
+      <Filter>Source\PhysXCharacters\API</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\PhysXCharacters\API\Ragdoll.cpp">
+      <Filter>Source\PhysXCharacters\API</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\PhysXCharacters\API\RagdollNode.cpp">
+      <Filter>Source\PhysXCharacters\API</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\PhysXCharacters\API\CharacterUtils.cpp">
+      <Filter>Source\PhysXCharacters\API</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\PhysXCharacters\Components\CharacterControllerComponent.cpp">
+      <Filter>Source\PhysXCharacters\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\PhysXCharacters\Components\CharacterGameplayComponent.cpp">
+      <Filter>Source\PhysXCharacters\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\PhysXCharacters\Components\RagdollComponent.cpp">
+      <Filter>Source\PhysXCharacters\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Common\PhysXSceneQueryHelpers.cpp">
+      <Filter>Source\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Configuration\PhysXConfiguration.cpp">
+      <Filter>Source\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Configuration\PhysXSettingsRegistryManager.cpp">
+      <Filter>Source\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Debug\PhysXDebug.cpp">
+      <Filter>Source\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Debug\Configuration\PhysXDebugConfiguration.cpp">
+      <Filter>Source\Debug\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Joint\PhysXJoint.cpp">
+      <Filter>Source\Joint</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Joint\PhysXJointUtils.cpp">
+      <Filter>Source\Joint</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Joint\Configuration\PhysXJointConfiguration.cpp">
+      <Filter>Source\Joint\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Scene\PhysXScene.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Scene\PhysXSceneInterface.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Scene\PhysXSceneSimulationEventCallback.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Scene\PhysXSceneSimulationFilterCallback.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\System\PhysXAllocator.cpp">
+      <Filter>Source\System</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\System\PhysXCookingParams.cpp">
+      <Filter>Source\System</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\System\PhysXCpuDispatcher.cpp">
+      <Filter>Source\System</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\System\PhysXJob.cpp">
+      <Filter>Source\System</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\System\PhysXJointInterface.cpp">
+      <Filter>Source\System</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\System\PhysXSdkCallbacks.cpp">
+      <Filter>Source\System</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\System\PhysXSystem.cpp">
+      <Filter>Source\System</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\SystemComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\SystemComponentBus.h">
+      <Filter>Include\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\ColliderComponentBus.h">
+      <Filter>Include\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\NativeTypeIdentifiers.h">
+      <Filter>Include\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\MeshColliderComponentBus.h">
+      <Filter>Include\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\MeshAsset.h">
+      <Filter>Include\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\HeightFieldAsset.h">
+      <Filter>Include\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\UserDataTypes.h">
+      <Filter>Include\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\UserDataTypes.inl">
+      <Filter>Include\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\Utils.h">
+      <Filter>Include\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\Utils.inl">
+      <Filter>Include\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\MathConversion.h">
+      <Filter>Include\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\ComponentTypeIds.h">
+      <Filter>Include\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\ForceRegionComponentBus.h">
+      <Filter>Include\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\ColliderShapeBus.h">
+      <Filter>Include\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\PhysXLocks.h">
+      <Filter>Include\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\CharacterControllerBus.h">
+      <Filter>Include\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\CharacterGameplayBus.h">
+      <Filter>Include\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\RigidBodyComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\BaseColliderComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\MeshColliderComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\BoxColliderComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\SphereColliderComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\CapsuleColliderComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\ShapeColliderComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\ForceRegionComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\StaticRigidBodyComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\BallJointComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\FixedJointComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\HingeJointComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\JointComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Pipeline\MeshAssetHandler.h">
+      <Filter>Source\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Pipeline\HeightFieldAssetHandler.h">
+      <Filter>Source\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Pipeline\StreamWrapper.h">
+      <Filter>Source\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Utils.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\RigidBody.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\RigidBodyStatic.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Collision.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Shape.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Material.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\ForceRegionForces.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\ForceRegion.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\NameConstants.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\DefaultWorldComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\WindProvider.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\PhysXCharacters\API\CharacterController.h">
+      <Filter>Source\PhysXCharacters\API</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\PhysXCharacters\API\Ragdoll.h">
+      <Filter>Source\PhysXCharacters\API</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\PhysXCharacters\API\RagdollNode.h">
+      <Filter>Source\PhysXCharacters\API</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\PhysXCharacters\API\CharacterUtils.h">
+      <Filter>Source\PhysXCharacters\API</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\PhysXCharacters\Components\CharacterControllerComponent.h">
+      <Filter>Source\PhysXCharacters\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\PhysXCharacters\Components\CharacterGameplayComponent.h">
+      <Filter>Source\PhysXCharacters\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\PhysXCharacters\Components\RagdollComponent.h">
+      <Filter>Source\PhysXCharacters\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\Debug\PhysXDebugConfiguration.h">
+      <Filter>Include\PhysX\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\Debug\PhysXDebugInterface.h">
+      <Filter>Include\PhysX\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\Configuration\PhysXConfiguration.h">
+      <Filter>Include\PhysX\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\Joint\Configuration\PhysXJointConfiguration.h">
+      <Filter>Include\PhysX\Joint\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Common\PhysXSceneQueryHelpers.h">
+      <Filter>Source\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Configuration\PhysXSettingsRegistryManager.h">
+      <Filter>Source\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Debug\PhysXDebug.h">
+      <Filter>Source\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Joint\PhysXJoint.h">
+      <Filter>Source\Joint</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Joint\PhysXJointUtils.h">
+      <Filter>Source\Joint</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Scene\PhysXScene.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Scene\PhysXSceneInterface.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Scene\PhysXSceneSimulationEventCallback.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Scene\PhysXSceneSimulationFilterCallback.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\System\PhysXAllocator.h">
+      <Filter>Source\System</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\System\PhysXCookingParams.h">
+      <Filter>Source\System</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\System\PhysXCpuDispatcher.h">
+      <Filter>Source\System</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\System\PhysXJob.h">
+      <Filter>Source\System</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\System\PhysXJointInterface.h">
+      <Filter>Source\System</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\System\PhysXSdkCallbacks.h">
+      <Filter>Source\System</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\System\PhysXSystem.h">
+      <Filter>Source\System</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\physx_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\PhysX">
+      <UniqueIdentifier>{80951EE5-EAA5-39F7-9250-8DE7695ECD50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\PhysX\Configuration">
+      <UniqueIdentifier>{B558342C-D943-3515-9202-C86A392979DE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\PhysX\Debug">
+      <UniqueIdentifier>{64FAB9AA-395E-3B6C-A22F-102E37B9A89B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\PhysX\Joint">
+      <UniqueIdentifier>{B463B65C-1EB4-3289-9F68-EA8416B89148}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\PhysX\Joint\Configuration">
+      <UniqueIdentifier>{31CFFC80-8453-31C0-A224-635321F0432E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Common">
+      <UniqueIdentifier>{71C5FDB1-CD05-35C9-842F-97EA0949F7A9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Configuration">
+      <UniqueIdentifier>{51192025-095A-36B1-BD38-C0CF4F754098}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Debug">
+      <UniqueIdentifier>{27D4B9A1-7884-3552-9BE4-613E87B073FC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Debug\Configuration">
+      <UniqueIdentifier>{3CE3F697-EF15-3135-BF38-7A60C73FF269}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Joint">
+      <UniqueIdentifier>{29A7D6D8-201D-3BAC-B22F-FE560C628033}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Joint\Configuration">
+      <UniqueIdentifier>{C40BE87D-8D99-3002-8D4B-690D601DBC31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PhysXCharacters">
+      <UniqueIdentifier>{DADDE104-334F-3947-B568-D523779FEFBB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PhysXCharacters\API">
+      <UniqueIdentifier>{96B979E4-5A04-3E32-BDE6-6EC273C001CE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PhysXCharacters\Components">
+      <UniqueIdentifier>{D48B0D75-41C7-36C5-BDA0-9B04BDA7E564}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Pipeline">
+      <UniqueIdentifier>{7A9075A8-E8F6-3DDA-934D-9D9E45D1ABBD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene">
+      <UniqueIdentifier>{31E34CB2-5F6E-3C1E-BD49-1761715C0148}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\System">
+      <UniqueIdentifier>{E7EFB3DF-B561-3E79-8012-7E9AA4445F8D}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

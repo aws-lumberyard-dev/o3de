@@ -1,0 +1,42 @@
+{
+    "entries": [
+        {
+            "key": "UiScrollableNotificationBus",
+            "context": "EBusHandler",
+            "variant": "",
+            "details": {
+                "name": "UiScrollableNotificationBus"
+            },
+            "methods": [
+                {
+                    "key": "OnScrollableValueChanging",
+                    "details": {
+                        "name": "OnScrollableValueChanging"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "OnScrollableValueChanged",
+                    "details": {
+                        "name": "OnScrollableValueChanged"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

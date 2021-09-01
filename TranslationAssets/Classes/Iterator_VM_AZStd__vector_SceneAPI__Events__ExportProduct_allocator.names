@@ -1,0 +1,99 @@
+{
+    "entries": [
+        {
+            "key": "Iterator_VM<AZStd::vector<SceneAPI::Events::ExportProduct, allocator>>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Iterator_VM<AZStd::vector<SceneAPI::Events::ExportProduct, allocator>>"
+            },
+            "methods": [
+                {
+                    "key": "IsNotAtEnd",
+                    "context": "Iterator_VM<AZStd::vector<SceneAPI::Events::ExportProduct, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<SceneAPI::Events::ExportProduct, allocator>>::IsNotAtEnd"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<SceneAPI::Events::ExportProduct, allocator>>::IsNotAtEnd is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::vector<SceneAPI::Events::ExportProduct, allocator>>::IsNotAtEnd"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{CD91071F-DA6D-5F76-9507-CAE09DD9C338}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<SceneAPI::Events::ExportProduct, allo"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ModValueUnchecked",
+                    "context": "Iterator_VM<AZStd::vector<SceneAPI::Events::ExportProduct, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<SceneAPI::Events::ExportProduct, allocator>>::ModValueUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<SceneAPI::Events::ExportProduct, allocator>>::ModValueUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::vector<SceneAPI::Events::ExportProduct, allocator>>::ModValueUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{CD91071F-DA6D-5F76-9507-CAE09DD9C338}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<SceneAPI::Events::ExportProduct, allo"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6054EDCB-4C04-4D96-BF26-704999FFB725}",
+                            "details": {
+                                "name": "SceneAPI::Events::ExportProduct&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Next",
+                    "context": "Iterator_VM<AZStd::vector<SceneAPI::Events::ExportProduct, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<SceneAPI::Events::ExportProduct, allocator>>::Next"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<SceneAPI::Events::ExportProduct, allocator>>::Next is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::vector<SceneAPI::Events::ExportProduct, allocator>>::Next"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{CD91071F-DA6D-5F76-9507-CAE09DD9C338}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<SceneAPI::Events::ExportProduct, allo"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

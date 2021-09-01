@@ -1,0 +1,854 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Array<ShaderVariantInfo>",
+                "category": "Array",
+                "tooltip": "A dynamically sized container of elements."
+            },
+            "methods": [
+                {
+                    "key": "Size",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Front",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Front"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Front is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Front"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C0E1DF8C-D1BE-4AF4-8100-5D71788399BA}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderVariantListSourceData::VariantInfo"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "HasKey",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Has Key"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Has Key is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Has Key"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Resize",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Resize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Resize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Resize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "at",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::at"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::at is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::at"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C0E1DF8C-D1BE-4AF4-8100-5D71788399BA}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderVariantListSourceData::VariantInfo"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Back",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C0E1DF8C-D1BE-4AF4-8100-5D71788399BA}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderVariantListSourceData::VariantInfo"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "pop_back",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::pop_back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::pop_back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::pop_back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "size",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "At",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::At"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::At is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::At"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C0E1DF8C-D1BE-4AF4-8100-5D71788399BA}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderVariantListSourceData::VariantInfo"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "push_back",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::push_back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::push_back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::push_back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{C0E1DF8C-D1BE-4AF4-8100-5D71788399BA}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderVariantListSourceData::VariantInfo"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "PushBack_VM",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::PushBack_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::PushBack_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::PushBack_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{C0E1DF8C-D1BE-4AF4-8100-5D71788399BA}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderVariantListSourceData::VariantInfo"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AtUnchecked",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::AtUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::AtUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::AtUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C0E1DF8C-D1BE-4AF4-8100-5D71788399BA}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderVariantListSourceData::VariantInfo"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "clear",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "NotEmpty",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::NotEmpty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::NotEmpty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::NotEmpty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase_VM",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Erase_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Erase_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Erase_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Capacity",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Capacity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Capacity is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Capacity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AssignAt",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::AssignAt"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::AssignAt is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::AssignAt"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        },
+                        {
+                            "typeid": "{C0E1DF8C-D1BE-4AF4-8100-5D71788399BA}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderVariantListSourceData::VariantInfo"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        },
+                        {
+                            "typeid": "{C0E1DF8C-D1BE-4AF4-8100-5D71788399BA}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderVariantListSourceData::VariantInfo"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "PushBack",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::PushBack"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::PushBack is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::PushBack"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{C0E1DF8C-D1BE-4AF4-8100-5D71788399BA}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderVariantListSourceData::VariantInfo"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Array<ShaderVariantInfo>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{33D5748B-90F1-569F-8C3F-EF32C9747919}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C6C60A04-2C5B-5576-A0D0-0DB6206D0C9F}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<AZ::RPI::ShaderVariantListSourceData::VariantInfo, allocator>>"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

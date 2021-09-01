@@ -1,0 +1,13 @@
+# CMake generation dependency list for this directory.
+C:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/Findlz4.cmake
+C:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/PackageInfo.json
+C:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/Findmd5.cmake
+C:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/PackageInfo.json
+J:/Atom/lyfork/o3de/Code/Framework/AzFramework/AzFramework/azframework_files.cmake
+J:/Atom/lyfork/o3de/Code/Framework/AzFramework/CMakeLists.txt
+J:/Atom/lyfork/o3de/Code/Framework/AzFramework/Platform/Windows/platform_windows.cmake
+J:/Atom/lyfork/o3de/Code/Framework/AzFramework/Platform/Windows/platform_windows_files.cmake
+J:/Atom/lyfork/o3de/Code/Framework/AzFramework/Tests/framework_shared_tests_files.cmake
+J:/Atom/lyfork/o3de/Code/Framework/AzFramework/Tests/frameworktests_files.cmake
+J:/Atom/lyfork/o3de/Code/Framework/AzFramework/Tests/process_launch_test_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

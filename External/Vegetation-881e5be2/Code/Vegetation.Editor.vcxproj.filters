@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\VegetationEditorModule.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorVegetationSystemComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorAreaBlenderComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorBlockerComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorDescriptorListCombinerComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorDescriptorListComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorDescriptorWeightSelectorComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorDistanceBetweenFilterComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorDistributionFilterComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorLevelSettingsComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorMeshBlockerComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorPositionModifierComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorReferenceShapeComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorRotationModifierComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorScaleModifierComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorShapeIntersectionFilterComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorSlopeAlignmentModifierComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorSpawnerComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorSurfaceAltitudeFilterComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorSurfaceMaskDepthFilterComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorSurfaceMaskFilterComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorSurfaceSlopeFilterComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Debugger\EditorAreaDebugComponent.cpp">
+      <Filter>Source\Debugger</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Debugger\EditorDebugComponent.cpp">
+      <Filter>Source\Debugger</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\AreaSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\VegetationModule.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\VegetationEditorModule.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Editor\EditorAreaComponentBase.h">
+      <Filter>Include\Vegetation\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Editor\EditorAreaComponentBase.inl">
+      <Filter>Include\Vegetation\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Editor\EditorVegetationComponentBase.h">
+      <Filter>Include\Vegetation\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Editor\EditorVegetationComponentBase.inl">
+      <Filter>Include\Vegetation\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Include\Vegetation\Editor\EditorVegetationComponentTypeIds.h">
+      <Filter>Include\Vegetation\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorVegetationSystemComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorAreaBlenderComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorBlockerComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorDescriptorListCombinerComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorDescriptorListComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorDescriptorWeightSelectorComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorDistanceBetweenFilterComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorDistributionFilterComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorLevelSettingsComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorMeshBlockerComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorPositionModifierComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorReferenceShapeComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorRotationModifierComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorScaleModifierComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorShapeIntersectionFilterComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorSlopeAlignmentModifierComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorSpawnerComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorSurfaceAltitudeFilterComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorSurfaceMaskDepthFilterComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorSurfaceMaskFilterComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Editor\EditorSurfaceSlopeFilterComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Debugger\EditorAreaDebugComponent.h">
+      <Filter>Source\Debugger</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\Debugger\EditorDebugComponent.h">
+      <Filter>Source\Debugger</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\AreaSystemComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\Source\VegetationModule.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Vegetation\Code\vegetation_editor_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Vegetation">
+      <UniqueIdentifier>{E3F9E8EC-5E17-3E1E-8E71-DF219D90C49E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Vegetation\Editor">
+      <UniqueIdentifier>{A59A8539-AA6D-3D08-83A7-953B1236D82F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Debugger">
+      <UniqueIdentifier>{AFBD3075-41D3-362E-89D8-564A51C0A40A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor">
+      <UniqueIdentifier>{A8C69C03-0E27-35F8-AFF2-047D842E6663}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

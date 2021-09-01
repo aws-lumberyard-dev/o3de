@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\AZTestShared\Utils\Utils.cpp">
+      <Filter>Tests\AZTestShared\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\AZTestShared\Math\MathTestHelpers.cpp">
+      <Filter>Tests\AZTestShared\Math</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\AZTestShared\Utils\Utils.h">
+      <Filter>Tests\AZTestShared\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\AZTestShared\Math\MathTestHelpers.h">
+      <Filter>Tests\AZTestShared\Math</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\aztestshared_files.cmake">
+      <Filter>Tests</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{A12C7827-546E-3D77-AE99-877104F2DFF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\AZTestShared">
+      <UniqueIdentifier>{03BABE03-B759-3970-8C74-1E8DC5EB79AE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\AZTestShared\Math">
+      <UniqueIdentifier>{FF7040C1-B64E-3BA9-8CF0-0C1ECAFDD13B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\AZTestShared\Utils">
+      <UniqueIdentifier>{0E11B495-2752-3CF1-85F9-77BDA9B3BF0A}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

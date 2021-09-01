@@ -1,0 +1,278 @@
+{
+    "entries": [
+        {
+            "key": "UiMaskBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiMaskBus"
+            },
+            "methods": [
+                {
+                    "key": "SetDrawInFront",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetDrawInFront"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetDrawInFront is invoked"
+                    },
+                    "details": {
+                        "name": "SetDrawInFront"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetUseRenderToTexture",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetUseRenderToTexture"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetUseRenderToTexture is invoked"
+                    },
+                    "details": {
+                        "name": "GetUseRenderToTexture"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetDrawInFront",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetDrawInFront"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetDrawInFront is invoked"
+                    },
+                    "details": {
+                        "name": "GetDrawInFront"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetDrawBehind",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetDrawBehind"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetDrawBehind is invoked"
+                    },
+                    "details": {
+                        "name": "GetDrawBehind"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsInteractionMaskingEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsInteractionMaskingEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsInteractionMaskingEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsInteractionMaskingEnabled"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetUseAlphaTest",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetUseAlphaTest"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetUseAlphaTest is invoked"
+                    },
+                    "details": {
+                        "name": "GetUseAlphaTest"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsMaskingEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsMaskingEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsMaskingEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsMaskingEnabled"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetUseRenderToTexture",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetUseRenderToTexture"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetUseRenderToTexture is invoked"
+                    },
+                    "details": {
+                        "name": "SetUseRenderToTexture"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsMaskingEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsMaskingEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsMaskingEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsMaskingEnabled"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsInteractionMaskingEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsInteractionMaskingEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsInteractionMaskingEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsInteractionMaskingEnabled"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetDrawBehind",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetDrawBehind"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetDrawBehind is invoked"
+                    },
+                    "details": {
+                        "name": "SetDrawBehind"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetUseAlphaTest",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetUseAlphaTest"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetUseAlphaTest is invoked"
+                    },
+                    "details": {
+                        "name": "SetUseAlphaTest"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

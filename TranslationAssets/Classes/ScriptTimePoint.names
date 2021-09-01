@@ -1,0 +1,107 @@
+{
+    "entries": [
+        {
+            "key": "ScriptTimePoint",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "ScriptTimePoint"
+            },
+            "methods": [
+                {
+                    "key": "ToString",
+                    "context": "ScriptTimePoint",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke ScriptTimePoint::ToString"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after ScriptTimePoint::ToString is invoked"
+                    },
+                    "details": {
+                        "name": "ScriptTimePoint::ToString"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{4C0F6AD4-0D4F-4354-AD4A-0C01E948245C}",
+                            "details": {
+                                "name": "ScriptTimePoint"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSeconds",
+                    "context": "ScriptTimePoint",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke ScriptTimePoint::GetSeconds"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after ScriptTimePoint::GetSeconds is invoked"
+                    },
+                    "details": {
+                        "name": "ScriptTimePoint::GetSeconds"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{4C0F6AD4-0D4F-4354-AD4A-0C01E948245C}",
+                            "details": {
+                                "name": "ScriptTimePoint"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetMilliseconds",
+                    "context": "ScriptTimePoint",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke ScriptTimePoint::GetMilliseconds"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after ScriptTimePoint::GetMilliseconds is invoked"
+                    },
+                    "details": {
+                        "name": "ScriptTimePoint::GetMilliseconds"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{4C0F6AD4-0D4F-4354-AD4A-0C01E948245C}",
+                            "details": {
+                                "name": "ScriptTimePoint"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

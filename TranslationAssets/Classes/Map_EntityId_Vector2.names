@@ -1,0 +1,487 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Map<EntityId, Vector2>",
+                "category": "Map",
+                "tooltip": "A collection of Key/Value pairs, where each Key value must be unique."
+            },
+            "methods": [
+                {
+                    "key": "contains",
+                    "context": "Map<EntityId, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::contains"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::contains is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::contains"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{87073E82-1470-5DBD-92EB-ED294F351AB6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Map<EntityId, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{87073E82-1470-5DBD-92EB-ED294F351AB6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        },
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{87073E82-1470-5DBD-92EB-ED294F351AB6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Map<EntityId, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{87073E82-1470-5DBD-92EB-ED294F351AB6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Map<EntityId, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{87073E82-1470-5DBD-92EB-ED294F351AB6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Map<EntityId, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{87073E82-1470-5DBD-92EB-ED294F351AB6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{CAF223EA-34CD-52FE-80F1-4FB2A8D3527B}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>>"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetKeys",
+                    "context": "Map<EntityId, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::GetKeys"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::GetKeys is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::GetKeys"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{87073E82-1470-5DBD-92EB-ED294F351AB6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{4841CFF0-7A5C-519C-BD16-D3625E99605E}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Size",
+                    "context": "Map<EntityId, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{87073E82-1470-5DBD-92EB-ED294F351AB6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase",
+                    "context": "Map<EntityId, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Erase"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Erase is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Erase"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{87073E82-1470-5DBD-92EB-ED294F351AB6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{87073E82-1470-5DBD-92EB-ED294F351AB6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Map<EntityId, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{87073E82-1470-5DBD-92EB-ED294F351AB6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Map<EntityId, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{87073E82-1470-5DBD-92EB-ED294F351AB6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{87073E82-1470-5DBD-92EB-ED294F351AB6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "At",
+                    "context": "Map<EntityId, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::At"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::At is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::At"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{87073E82-1470-5DBD-92EB-ED294F351AB6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "BucketCount",
+                    "context": "Map<EntityId, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::BucketCount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::BucketCount is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::BucketCount"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{87073E82-1470-5DBD-92EB-ED294F351AB6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Map<EntityId, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{87073E82-1470-5DBD-92EB-ED294F351AB6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Map<EntityId, Vector2>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{87073E82-1470-5DBD-92EB-ED294F351AB6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{87073E82-1470-5DBD-92EB-ED294F351AB6}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

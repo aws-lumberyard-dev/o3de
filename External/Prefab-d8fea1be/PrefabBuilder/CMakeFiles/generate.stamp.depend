@@ -1,0 +1,6 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/Prefab/PrefabBuilder/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/Prefab/PrefabBuilder/prefabbuilder_files.cmake
+J:/Atom/lyfork/o3de/Gems/Prefab/PrefabBuilder/prefabbuilder_module_files.cmake
+J:/Atom/lyfork/o3de/Gems/Prefab/PrefabBuilder/prefabbuilder_tests_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

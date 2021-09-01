@@ -1,0 +1,434 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\PhysX-7bbdaca3\Code\PhysX.Editor.Static_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\ComponentDescriptors.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\EditorComponentDescriptors.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\EditorRigidBodyComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\EditorColliderComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\EditorShapeColliderComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\EditorForceRegionComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\EditorBallJointComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\EditorFixedJointComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\EditorHingeJointComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\EditorJointComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Pipeline\MeshExporter.cpp">
+      <Filter>Source\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Pipeline\MeshGroup.cpp">
+      <Filter>Source\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Pipeline\MeshBehavior.cpp">
+      <Filter>Source\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Pipeline\PrimitiveShapeFitter\PrimitiveShapeFitter.cpp">
+      <Filter>Source\Pipeline\PrimitiveShapeFitter</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Pipeline\PrimitiveShapeFitter\AbstractShapeParameterization.cpp">
+      <Filter>Source\Pipeline\PrimitiveShapeFitter</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Pipeline\PrimitiveShapeFitter\Utils.cpp">
+      <Filter>Source\Pipeline\PrimitiveShapeFitter</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\PhysXCharacters\Components\EditorCharacterControllerComponent.cpp">
+      <Filter>Source\PhysXCharacters\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\PhysXCharacters\Components\EditorCharacterGameplayComponent.cpp">
+      <Filter>Source\PhysXCharacters\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\ConfigurationWidget.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorWindow.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\SettingsWidget.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\CollisionLayersWidget.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\CollisionLayerWidget.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\CollisionGroupWidget.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\CollisionGroupsWidget.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\CollisionFilteringWidget.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\PropertyTypes.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\MaterialIdWidget.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorClassConverters.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\PvdWidget.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\DocumentationLinkWidget.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\InertiaPropertyHandler.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\ConfigStringLineEditCtrl.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\UniqueStringContainer.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\ComboBoxEditButtonPair.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\ColliderComponentMode.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\ColliderOffsetMode.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\ColliderBoxMode.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\ColliderRotationMode.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\ColliderSphereMode.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\ColliderCapsuleMode.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\ColliderAssetScaleMode.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\DebugDraw.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\PolygonPrismMeshUtils.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorJointComponentMode.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorJointConfiguration.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorJointTypeDrawer.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorSubComponentModeAngleCone.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorSubComponentModeAnglePair.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorSubComponentModeBase.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorSubComponentModeLinear.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorSubComponentModeRotation.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorSubComponentModeSnap.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorSubComponentModeSnapPosition.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorSubComponentModeSnapRotation.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorSubComponentModeVec3.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorViewportEntityPicker.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\Source\Components\EditorSystemComponent.cpp">
+      <Filter>Editor\Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\Source\Configuration\PhysXEditorSettingsRegistryManager.cpp">
+      <Filter>Editor\Source\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\PhysX-7bbdaca3\Code\PhysX.Editor.Static_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\PhysX-7bbdaca3\Code\PhysX.Editor.Static_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\EditorColliderComponentRequestBus.h">
+      <Filter>Include\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Include\PhysX\EditorJointBus.h">
+      <Filter>Include\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\ComponentDescriptors.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\EditorComponentDescriptors.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\EditorRigidBodyComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\EditorColliderComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\EditorShapeColliderComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\EditorForceRegionComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\EditorBallJointComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\EditorFixedJointComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\EditorHingeJointComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\EditorJointComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Pipeline\MeshExporter.h">
+      <Filter>Source\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Pipeline\MeshGroup.h">
+      <Filter>Source\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Pipeline\MeshBehavior.h">
+      <Filter>Source\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Pipeline\PrimitiveShapeFitter\PrimitiveShapeFitter.h">
+      <Filter>Source\Pipeline\PrimitiveShapeFitter</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Pipeline\PrimitiveShapeFitter\AbstractShapeParameterization.h">
+      <Filter>Source\Pipeline\PrimitiveShapeFitter</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\Pipeline\PrimitiveShapeFitter\Utils.h">
+      <Filter>Source\Pipeline\PrimitiveShapeFitter</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\PhysXCharacters\Components\EditorCharacterControllerComponent.h">
+      <Filter>Source\PhysXCharacters\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\PhysXCharacters\Components\EditorCharacterGameplayComponent.h">
+      <Filter>Source\PhysXCharacters\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\ConfigurationWidget.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorWindow.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\SettingsWidget.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\CollisionLayersWidget.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\CollisionLayerWidget.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\CollisionGroupWidget.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\CollisionGroupsWidget.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\CollisionFilteringWidget.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\PropertyTypes.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\MaterialIdWidget.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorClassConverters.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\PvdWidget.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\DocumentationLinkWidget.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\InertiaPropertyHandler.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\ConfigStringLineEditCtrl.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\UniqueStringContainer.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\ComboBoxEditButtonPair.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\ColliderComponentMode.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\ColliderSubComponentMode.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\ColliderOffsetMode.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\ColliderBoxMode.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\ColliderRotationMode.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\ColliderSphereMode.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\ColliderCapsuleMode.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\ColliderAssetScaleMode.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\DebugDraw.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\PolygonPrismMeshUtils.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorJointComponentMode.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorJointConfiguration.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorJointTypeDrawer.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorJointTypeDrawerBus.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorSubComponentModeAngleCone.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorSubComponentModeAnglePair.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorSubComponentModeBase.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorSubComponentModeLinear.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorSubComponentModeRotation.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorSubComponentModeSnap.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorSubComponentModeSnapPosition.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorSubComponentModeSnapRotation.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorSubComponentModeVec3.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorViewportEntityPicker.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\Source\Components\EditorSystemComponent.h">
+      <Filter>Editor\Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\Source\Configuration\PhysXEditorSettingsRegistryManager.h">
+      <Filter>Editor\Source\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\PhysX-7bbdaca3\Code\PhysX.Editor.Static_autogen\include\Editor\ui_EditorWindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Editor\EditorWindow.ui">
+      <Filter>Editor</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\physx_editor_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{E975680F-F697-3506-8586-852AB59CD56D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Source">
+      <UniqueIdentifier>{94FB260A-94BD-389B-9350-43ACCD926FD9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Source\Components">
+      <UniqueIdentifier>{EDF3193A-A360-378E-A323-978101297790}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Source\Configuration">
+      <UniqueIdentifier>{F2B4DE5F-F606-32A5-AC94-0D157044C72C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\PhysX">
+      <UniqueIdentifier>{80951EE5-EAA5-39F7-9250-8DE7695ECD50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PhysXCharacters">
+      <UniqueIdentifier>{DADDE104-334F-3947-B568-D523779FEFBB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PhysXCharacters\Components">
+      <UniqueIdentifier>{D48B0D75-41C7-36C5-BDA0-9B04BDA7E564}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Pipeline">
+      <UniqueIdentifier>{7A9075A8-E8F6-3DDA-934D-9D9E45D1ABBD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Pipeline\PrimitiveShapeFitter">
+      <UniqueIdentifier>{AF2BA5F9-E471-369E-8D70-C3DCE3D8A9D2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

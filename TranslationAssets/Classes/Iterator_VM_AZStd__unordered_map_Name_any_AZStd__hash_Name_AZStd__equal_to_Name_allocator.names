@@ -1,0 +1,130 @@
+{
+    "entries": [
+        {
+            "key": "Iterator_VM<AZStd::unordered_map<Name, any, AZStd::hash<Name>, AZStd::equal_to<Name>, allocator>>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Iterator_VM<AZStd::unordered_map<Name, any, AZStd::hash<Name>, AZStd::equal_to<Name>, allocator>>"
+            },
+            "methods": [
+                {
+                    "key": "GetKeyUnchecked",
+                    "context": "Iterator_VM<AZStd::unordered_map<Name, any, AZStd::hash<Name>, AZStd::equal_to<Name>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<Name, any, AZStd::hash<Name>, AZStd::equal_to<Name>, allocator>>::GetKeyUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<Name, any, AZStd::hash<Name>, AZStd::equal_to<Name>, allocator>>::GetKeyUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<Name, any, AZStd::hash<Name>, AZStd::equal_to<Name>, allocator>>::GetKeyUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D4C51D6C-76EE-5396-AA8F-297470208C1B}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<Name, any, AZStd::hash<Name>, "
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{3D2B920C-9EFD-40D5-AAE0-DF131C3D4931}",
+                            "details": {
+                                "name": "Name"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ModValueUnchecked",
+                    "context": "Iterator_VM<AZStd::unordered_map<Name, any, AZStd::hash<Name>, AZStd::equal_to<Name>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<Name, any, AZStd::hash<Name>, AZStd::equal_to<Name>, allocator>>::ModValueUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<Name, any, AZStd::hash<Name>, AZStd::equal_to<Name>, allocator>>::ModValueUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<Name, any, AZStd::hash<Name>, AZStd::equal_to<Name>, allocator>>::ModValueUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D4C51D6C-76EE-5396-AA8F-297470208C1B}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<Name, any, AZStd::hash<Name>, "
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
+                            "details": {
+                                "name": "any"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsNotAtEnd",
+                    "context": "Iterator_VM<AZStd::unordered_map<Name, any, AZStd::hash<Name>, AZStd::equal_to<Name>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<Name, any, AZStd::hash<Name>, AZStd::equal_to<Name>, allocator>>::IsNotAtEnd"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<Name, any, AZStd::hash<Name>, AZStd::equal_to<Name>, allocator>>::IsNotAtEnd is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<Name, any, AZStd::hash<Name>, AZStd::equal_to<Name>, allocator>>::IsNotAtEnd"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D4C51D6C-76EE-5396-AA8F-297470208C1B}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<Name, any, AZStd::hash<Name>, "
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Next",
+                    "context": "Iterator_VM<AZStd::unordered_map<Name, any, AZStd::hash<Name>, AZStd::equal_to<Name>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<Name, any, AZStd::hash<Name>, AZStd::equal_to<Name>, allocator>>::Next"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<Name, any, AZStd::hash<Name>, AZStd::equal_to<Name>, allocator>>::Next is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<Name, any, AZStd::hash<Name>, AZStd::equal_to<Name>, allocator>>::Next"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D4C51D6C-76EE-5396-AA8F-297470208C1B}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<Name, any, AZStd::hash<Name>, "
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

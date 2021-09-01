@@ -1,0 +1,532 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Asset\ImageProcessingAtom\Code\ImageProcessingAtom.Editor.Static_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\CryTextureSquisher\CryTextureSquisher.cpp">
+      <Filter>Source\Compressors\CryTextureSquisher</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\ImageBuilderComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\ImageProcessingSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\BuilderSettings\BuilderSettingManager.cpp">
+      <Filter>Source\BuilderSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\BuilderSettings\BuilderSettings.cpp">
+      <Filter>Source\BuilderSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\BuilderSettings\CubemapSettings.cpp">
+      <Filter>Source\BuilderSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\BuilderSettings\MipmapSettings.cpp">
+      <Filter>Source\BuilderSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\BuilderSettings\PresetSettings.cpp">
+      <Filter>Source\BuilderSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\BuilderSettings\TextureSettings.cpp">
+      <Filter>Source\BuilderSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Processing\ImageAssetProducer.cpp">
+      <Filter>Source\Processing</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Processing\ImageConvert.cpp">
+      <Filter>Source\Processing</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Processing\ImageConvertJob.cpp">
+      <Filter>Source\Processing</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Processing\ImageObjectImpl.cpp">
+      <Filter>Source\Processing</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Processing\ImagePreview.cpp">
+      <Filter>Source\Processing</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Processing\PixelFormatInfo.cpp">
+      <Filter>Source\Processing</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Processing\Utils.cpp">
+      <Filter>Source\Processing</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Previewer\ImagePreviewer.cpp">
+      <Filter>Source\Previewer</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Previewer\ImagePreviewerFactory.cpp">
+      <Filter>Source\Previewer</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\ImageLoader\DdsLoader.cpp">
+      <Filter>Source\ImageLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\ImageLoader\ImageLoaders.cpp">
+      <Filter>Source\ImageLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\ImageLoader\QtImageLoader.cpp">
+      <Filter>Source\ImageLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\ImageLoader\TIFFLoader.cpp">
+      <Filter>Source\ImageLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\ImageLoader\ExrLoader.cpp">
+      <Filter>Source\ImageLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\EditorCommon.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\ImagePopup.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\MipmapSettingWidget.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\PresetInfoPopup.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\ResolutionSettingItemWidget.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\ResolutionSettingWidget.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\TexturePresetSelectionWidget.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\TexturePreviewWidget.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\TexturePropertyEditor.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Converters\Gamma.cpp">
+      <Filter>Source\Converters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Converters\FIR-Filter.cpp">
+      <Filter>Source\Converters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Converters\FIR-Weights.cpp">
+      <Filter>Source\Converters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Converters\AlphaCoverage.cpp">
+      <Filter>Source\Converters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Converters\PixelOperation.cpp">
+      <Filter>Source\Converters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Converters\Normalize.cpp">
+      <Filter>Source\Converters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Converters\ConvertPixelFormat.cpp">
+      <Filter>Source\Converters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Converters\Cubemap.cpp">
+      <Filter>Source\Converters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Converters\ColorChart.cpp">
+      <Filter>Source\Converters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Converters\HighPass.cpp">
+      <Filter>Source\Converters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Converters\Histogram.cpp">
+      <Filter>Source\Converters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\External\CubeMapGen\CBBoxInt32.cpp">
+      <Filter>..\External\CubeMapGen</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\External\CubeMapGen\CCubeMapProcessor.cpp">
+      <Filter>..\External\CubeMapGen</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\External\CubeMapGen\CImageSurface.cpp">
+      <Filter>..\External\CubeMapGen</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\Compressor.cpp">
+      <Filter>Source\Compressors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\CTSquisher.cpp">
+      <Filter>Source\Compressors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\PVRTC.cpp">
+      <Filter>Source\Compressors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\ETC2.cpp">
+      <Filter>Source\Compressors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\CryTextureSquisher\ColorBlockRGBA4x4f.cpp">
+      <Filter>Source\Compressors\CryTextureSquisher</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\CryTextureSquisher\ColorBlockRGBA4x4s.cpp">
+      <Filter>Source\Compressors\CryTextureSquisher</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\CryTextureSquisher\ColorBlockRGBA4x4c.cpp">
+      <Filter>Source\Compressors\CryTextureSquisher</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Thumbnail\ImageThumbnail.cpp">
+      <Filter>Source\Thumbnail</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Thumbnail\ImageThumbnailSystemComponent.cpp">
+      <Filter>Source\Thumbnail</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\ISPCTextureCompressor.cpp">
+      <Filter>Source\Platform\Windows\..\..\Compressors</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Asset\ImageProcessingAtom\Code\ImageProcessingAtom.Editor.Static_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Asset\ImageProcessingAtom\Code\ImageProcessingAtom.Editor.Static_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\CryTextureSquisher\CryTextureSquisher.h">
+      <Filter>Source\Compressors\CryTextureSquisher</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Include\Atom\ImageProcessing\ImageProcessingBus.h">
+      <Filter>Include\Atom\ImageProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Include\Atom\ImageProcessing\ImageProcessingEditorBus.h">
+      <Filter>Include\Atom\ImageProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Include\Atom\ImageProcessing\PixelFormats.h">
+      <Filter>Include\Atom\ImageProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Include\Atom\ImageProcessing\ImageObject.h">
+      <Filter>Include\Atom\ImageProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\ImageBuilderBaseType.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\ImageBuilderComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\ImageProcessingSystemComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\BuilderSettings\BuilderSettingManager.h">
+      <Filter>Source\BuilderSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\BuilderSettings\BuilderSettings.h">
+      <Filter>Source\BuilderSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\BuilderSettings\CubemapSettings.h">
+      <Filter>Source\BuilderSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\BuilderSettings\ImageProcessingDefines.h">
+      <Filter>Source\BuilderSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\BuilderSettings\MipmapSettings.h">
+      <Filter>Source\BuilderSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\BuilderSettings\PlatformSettings.h">
+      <Filter>Source\BuilderSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\BuilderSettings\PresetSettings.h">
+      <Filter>Source\BuilderSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\BuilderSettings\TextureSettings.h">
+      <Filter>Source\BuilderSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Processing\AzDXGIFormat.h">
+      <Filter>Source\Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Processing\DDSHeader.h">
+      <Filter>Source\Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Processing\ImageAssetProducer.h">
+      <Filter>Source\Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Processing\ImageConvert.h">
+      <Filter>Source\Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Processing\ImageConvertJob.h">
+      <Filter>Source\Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Processing\ImageFlags.h">
+      <Filter>Source\Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Processing\ImageObjectImpl.h">
+      <Filter>Source\Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Processing\ImagePreview.h">
+      <Filter>Source\Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Processing\ImageToProcess.h">
+      <Filter>Source\Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Processing\PixelFormatInfo.h">
+      <Filter>Source\Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Processing\Utils.h">
+      <Filter>Source\Processing</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Previewer\ImagePreviewer.h">
+      <Filter>Source\Previewer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Previewer\ImagePreviewerFactory.h">
+      <Filter>Source\Previewer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\ImageLoader\ImageLoaders.h">
+      <Filter>Source\ImageLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\EditorCommon.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\ImagePopup.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\MipmapSettingWidget.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\PresetInfoPopup.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\ResolutionSettingItemWidget.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\ResolutionSettingWidget.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\TexturePresetSelectionWidget.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\TexturePreviewWidget.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\TexturePropertyEditor.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Converters\FIR-Windows.h">
+      <Filter>Source\Converters</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Converters\FIR-Weights.h">
+      <Filter>Source\Converters</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Converters\PixelOperation.h">
+      <Filter>Source\Converters</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Converters\Cubemap.h">
+      <Filter>Source\Converters</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Converters\Histogram.h">
+      <Filter>Source\Converters</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\External\CubeMapGen\CBBoxInt32.h">
+      <Filter>..\External\CubeMapGen</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\External\CubeMapGen\CCubeMapProcessor.h">
+      <Filter>..\External\CubeMapGen</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\External\CubeMapGen\CImageSurface.h">
+      <Filter>..\External\CubeMapGen</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\External\CubeMapGen\VectorMacros.h">
+      <Filter>..\External\CubeMapGen</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\Compressor.h">
+      <Filter>Source\Compressors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\CTSquisher.h">
+      <Filter>Source\Compressors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\PVRTC.h">
+      <Filter>Source\Compressors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\ETC2.h">
+      <Filter>Source\Compressors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\CryTextureSquisher\ColorBlockRGBA4x4f.h">
+      <Filter>Source\Compressors\CryTextureSquisher</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\CryTextureSquisher\ColorBlockRGBA4x4s.h">
+      <Filter>Source\Compressors\CryTextureSquisher</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\CryTextureSquisher\ColorBlockRGBA4x4c.h">
+      <Filter>Source\Compressors\CryTextureSquisher</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\CryTextureSquisher\ColorTypes.h">
+      <Filter>Source\Compressors\CryTextureSquisher</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Thumbnail\ImageThumbnail.h">
+      <Filter>Source\Thumbnail</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Thumbnail\ImageThumbnailSystemComponent.h">
+      <Filter>Source\Thumbnail</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Platform\Windows\ImageProcessing_Traits_Platform.h">
+      <Filter>Source\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Platform\Windows\ImageProcessing_Traits_Windows.h">
+      <Filter>Source\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\ISPCTextureCompressor.h">
+      <Filter>Source\Platform\Windows\..\..\Compressors</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Asset\ImageProcessingAtom\Code\ImageProcessingAtom.Editor.Static_autogen\include\Source\Previewer\ui_ImagePreviewer.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Asset\ImageProcessingAtom\Code\ImageProcessingAtom.Editor.Static_autogen\include\Source\Editor\ui_ImagePopup.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Asset\ImageProcessingAtom\Code\ImageProcessingAtom.Editor.Static_autogen\include\Source\Editor\ui_MipmapSettingWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Asset\ImageProcessingAtom\Code\ImageProcessingAtom.Editor.Static_autogen\include\Source\Editor\ui_PresetInfoPopup.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Asset\ImageProcessingAtom\Code\ImageProcessingAtom.Editor.Static_autogen\include\Source\Editor\ui_ResolutionSettingItemWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Asset\ImageProcessingAtom\Code\ImageProcessingAtom.Editor.Static_autogen\include\Source\Editor\ui_ResolutionSettingWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Asset\ImageProcessingAtom\Code\ImageProcessingAtom.Editor.Static_autogen\include\Source\Editor\ui_TexturePresetSelectionWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Asset\ImageProcessingAtom\Code\ImageProcessingAtom.Editor.Static_autogen\include\Source\Editor\ui_TexturePreviewWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Asset\ImageProcessingAtom\Code\ImageProcessingAtom.Editor.Static_autogen\include\Source\Editor\ui_TexturePropertyEditor.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Previewer\ImagePreviewer.ui">
+      <Filter>Source\Previewer</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\ImagePopup.ui">
+      <Filter>Source\Editor</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\MipmapSettingWidget.ui">
+      <Filter>Source\Editor</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\PresetInfoPopup.ui">
+      <Filter>Source\Editor</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\ResolutionSettingItemWidget.ui">
+      <Filter>Source\Editor</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\ResolutionSettingWidget.ui">
+      <Filter>Source\Editor</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\TexturePresetSelectionWidget.ui">
+      <Filter>Source\Editor</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\TexturePreviewWidget.ui">
+      <Filter>Source\Editor</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Editor\TexturePropertyEditor.ui">
+      <Filter>Source\Editor</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Assets\Editor\Backward.png">
+      <Filter>..\Assets\Editor</Filter>
+    </Image>
+    <Image Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Assets\Editor\Forward.png">
+      <Filter>..\Assets\Editor</Filter>
+    </Image>
+    <Image Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Assets\Editor\reset.png">
+      <Filter>..\Assets\Editor</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Assets\Editor\Resources.qrc">
+      <Filter>..\Assets\Editor</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\imageprocessing_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Platform\Windows\platform_windows_files.cmake">
+      <Filter>Source\Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Platform\Windows\platform_windows.cmake">
+      <Filter>Source\Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Platform\Common\msvc\imageprocessingatom_editor_static_msvc.cmake">
+      <Filter>Source\Platform\Common\MSVC</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="..">
+      <UniqueIdentifier>{A776B0EA-8717-39A4-85DE-E1E429B7ED9B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\Assets">
+      <UniqueIdentifier>{BDD8E803-85FE-345A-934C-EC0BA8B53600}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\Assets\Editor">
+      <UniqueIdentifier>{5D023145-E118-3A33-A738-49EB5286BA1A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\External">
+      <UniqueIdentifier>{E2087133-80DB-31D1-927D-24855BF00F00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\External\CubeMapGen">
+      <UniqueIdentifier>{B63A6A9D-12D3-38D8-9BD8-B3D7EC9EDE40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom">
+      <UniqueIdentifier>{E66A19AE-451A-3F1F-B698-7608D533AFDF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\ImageProcessing">
+      <UniqueIdentifier>{DFCA06BF-0284-3CF9-A758-74E6BC6A9D1C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\BuilderSettings">
+      <UniqueIdentifier>{B0C4EADD-E355-3A8B-B2DA-AA17CCBE1041}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Compressors">
+      <UniqueIdentifier>{43B83F84-DC86-3802-BE90-6B79D4815C93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Compressors\CryTextureSquisher">
+      <UniqueIdentifier>{9A4FFC96-90D8-37D3-8D7F-814208457FCF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Converters">
+      <UniqueIdentifier>{8B73C9E0-4238-3444-888E-5CD074CEC4D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor">
+      <UniqueIdentifier>{A8C69C03-0E27-35F8-AFF2-047D842E6663}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ImageLoader">
+      <UniqueIdentifier>{D970CE6B-C872-3225-9246-36A601F38CFE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform">
+      <UniqueIdentifier>{619E1779-1529-36CF-BFB6-452991664BCE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Common">
+      <UniqueIdentifier>{499F7547-46FE-36EC-8585-141BF1798B33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Common\MSVC">
+      <UniqueIdentifier>{0CCD0424-3DB8-39C0-9A97-C3EA365F86B3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows">
+      <UniqueIdentifier>{6E009862-2333-3599-9B65-E8F840C182D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows\..">
+      <UniqueIdentifier>{6F36E22C-CF2D-3080-893E-B486004C5B99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows\..\..">
+      <UniqueIdentifier>{C9C1BC38-4EAC-3109-BEDF-BC9B2A330812}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows\..\..\Compressors">
+      <UniqueIdentifier>{D91DF134-9241-3DBC-B709-DE63D6DFB9BB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Previewer">
+      <UniqueIdentifier>{A2289997-C5EE-3EFE-8AB8-9F095C614102}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Processing">
+      <UniqueIdentifier>{3A0C3F48-5A68-36EC-8D7B-C5CE3B3E5A80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Thumbnail">
+      <UniqueIdentifier>{3FC16C4A-C700-36AF-9F39-2DE827150B6D}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

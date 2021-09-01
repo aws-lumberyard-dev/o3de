@@ -1,0 +1,854 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Array<RPI.ShaderOptionDescriptor>",
+                "category": "Array",
+                "tooltip": "A dynamically sized container of elements."
+            },
+            "methods": [
+                {
+                    "key": "Size",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Front",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Front"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Front is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Front"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{07B9E2F7-5408-49E9-904D-CC1A9C33230E}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderOptionDescriptor"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "HasKey",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Has Key"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Has Key is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Has Key"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Resize",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Resize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Resize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Resize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "at",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::at"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::at is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::at"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{07B9E2F7-5408-49E9-904D-CC1A9C33230E}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderOptionDescriptor"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Back",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{07B9E2F7-5408-49E9-904D-CC1A9C33230E}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderOptionDescriptor"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "pop_back",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::pop_back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::pop_back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::pop_back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "size",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "At",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::At"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::At is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::At"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{07B9E2F7-5408-49E9-904D-CC1A9C33230E}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderOptionDescriptor"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "push_back",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::push_back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::push_back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::push_back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{07B9E2F7-5408-49E9-904D-CC1A9C33230E}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderOptionDescriptor"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "PushBack_VM",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::PushBack_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::PushBack_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::PushBack_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{07B9E2F7-5408-49E9-904D-CC1A9C33230E}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderOptionDescriptor"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AtUnchecked",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::AtUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::AtUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::AtUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{07B9E2F7-5408-49E9-904D-CC1A9C33230E}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderOptionDescriptor"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "clear",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "NotEmpty",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::NotEmpty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::NotEmpty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::NotEmpty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase_VM",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Erase_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Erase_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Erase_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Capacity",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Capacity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Capacity is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Capacity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AssignAt",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::AssignAt"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::AssignAt is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::AssignAt"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        },
+                        {
+                            "typeid": "{07B9E2F7-5408-49E9-904D-CC1A9C33230E}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderOptionDescriptor"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        },
+                        {
+                            "typeid": "{07B9E2F7-5408-49E9-904D-CC1A9C33230E}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderOptionDescriptor"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "PushBack",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::PushBack"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::PushBack is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::PushBack"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{07B9E2F7-5408-49E9-904D-CC1A9C33230E}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderOptionDescriptor"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Array<RPI.ShaderOptionDescriptor>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{FF1BF722-91DF-5420-9819-DD2DC7036625}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>>"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

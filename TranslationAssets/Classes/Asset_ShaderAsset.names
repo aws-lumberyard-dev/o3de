@@ -1,0 +1,262 @@
+{
+    "entries": [
+        {
+            "key": "Asset<ShaderAsset>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Asset<ShaderAsset>"
+            },
+            "methods": [
+                {
+                    "key": "IsLoading",
+                    "context": "Asset<ShaderAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<ShaderAsset>::IsLoading"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<ShaderAsset>::IsLoading is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<ShaderAsset>::IsLoading"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C3B16018-28FB-5CFE-B871-25B6E2F0B110}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetType",
+                    "context": "Asset<ShaderAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<ShaderAsset>::GetType"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<ShaderAsset>::GetType is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<ShaderAsset>::GetType"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C3B16018-28FB-5CFE-B871-25B6E2F0B110}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{E152C105-A133-4D03-BBF8-3D4B2FBA3E2A}",
+                            "details": {
+                                "name": "AZ::Uuid"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsError",
+                    "context": "Asset<ShaderAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<ShaderAsset>::IsError"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<ShaderAsset>::IsError is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<ShaderAsset>::IsError"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C3B16018-28FB-5CFE-B871-25B6E2F0B110}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetHint",
+                    "context": "Asset<ShaderAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<ShaderAsset>::GetHint"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<ShaderAsset>::GetHint is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<ShaderAsset>::GetHint"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C3B16018-28FB-5CFE-B871-25B6E2F0B110}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetData",
+                    "context": "Asset<ShaderAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<ShaderAsset>::GetData"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<ShaderAsset>::GetData is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<ShaderAsset>::GetData"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C3B16018-28FB-5CFE-B871-25B6E2F0B110}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{AF3F7D32-1536-422A-89F3-A11E1F5B5A9C}",
+                            "details": {
+                                "name": "AssetData"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsReady",
+                    "context": "Asset<ShaderAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<ShaderAsset>::IsReady"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<ShaderAsset>::IsReady is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<ShaderAsset>::IsReady"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C3B16018-28FB-5CFE-B871-25B6E2F0B110}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetStatus",
+                    "context": "Asset<ShaderAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<ShaderAsset>::GetStatus"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<ShaderAsset>::GetStatus is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<ShaderAsset>::GetStatus"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C3B16018-28FB-5CFE-B871-25B6E2F0B110}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetId",
+                    "context": "Asset<ShaderAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<ShaderAsset>::GetId"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<ShaderAsset>::GetId is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<ShaderAsset>::GetId"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C3B16018-28FB-5CFE-B871-25B6E2F0B110}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
+                            "details": {
+                                "name": "AssetId"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

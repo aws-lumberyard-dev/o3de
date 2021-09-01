@@ -1,0 +1,243 @@
+{
+    "entries": [
+        {
+            "key": "MathOBB_VM",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "MathOBB_VM"
+            },
+            "methods": [
+                {
+                    "key": "GetPosition",
+                    "context": "MathOBB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathOBB_VM::GetPosition"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathOBB_VM::GetPosition is invoked"
+                    },
+                    "details": {
+                        "name": "MathOBB_VM::GetPosition"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{004ABD25-CF14-4EB3-BD41-022C247C07FA}",
+                            "details": {
+                                "name": "Obb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetAxisY",
+                    "context": "MathOBB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathOBB_VM::GetAxisY"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathOBB_VM::GetAxisY is invoked"
+                    },
+                    "details": {
+                        "name": "MathOBB_VM::GetAxisY"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{004ABD25-CF14-4EB3-BD41-022C247C07FA}",
+                            "details": {
+                                "name": "Obb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetAxisX",
+                    "context": "MathOBB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathOBB_VM::GetAxisX"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathOBB_VM::GetAxisX is invoked"
+                    },
+                    "details": {
+                        "name": "MathOBB_VM::GetAxisX"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{004ABD25-CF14-4EB3-BD41-022C247C07FA}",
+                            "details": {
+                                "name": "Obb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromAabb",
+                    "context": "MathOBB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathOBB_VM::FromAabb"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathOBB_VM::FromAabb is invoked"
+                    },
+                    "details": {
+                        "name": "MathOBB_VM::FromAabb"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{004ABD25-CF14-4EB3-BD41-022C247C07FA}",
+                            "details": {
+                                "name": "Obb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromPositionRotationAndHalfLengths",
+                    "context": "MathOBB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathOBB_VM::FromPositionRotationAndHalfLengths"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathOBB_VM::FromPositionRotationAndHalfLengths is invoked"
+                    },
+                    "details": {
+                        "name": "MathOBB_VM::FromPositionRotationAndHalfLengths"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{73103120-3DD3-4873-BAB3-9713FA2804FB}",
+                            "details": {
+                                "name": "Quaternion"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{004ABD25-CF14-4EB3-BD41-022C247C07FA}",
+                            "details": {
+                                "name": "Obb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetAxisZ",
+                    "context": "MathOBB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathOBB_VM::GetAxisZ"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathOBB_VM::GetAxisZ is invoked"
+                    },
+                    "details": {
+                        "name": "MathOBB_VM::GetAxisZ"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{004ABD25-CF14-4EB3-BD41-022C247C07FA}",
+                            "details": {
+                                "name": "Obb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsFinite",
+                    "context": "MathOBB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathOBB_VM::IsFinite"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathOBB_VM::IsFinite is invoked"
+                    },
+                    "details": {
+                        "name": "MathOBB_VM::IsFinite"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{004ABD25-CF14-4EB3-BD41-022C247C07FA}",
+                            "details": {
+                                "name": "Obb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

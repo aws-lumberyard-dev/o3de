@@ -1,0 +1,113 @@
+{
+    "entries": [
+        {
+            "key": "ComponentId",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "ComponentId"
+            },
+            "methods": [
+                {
+                    "key": "IsValid",
+                    "context": "ComponentId",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke ComponentId::IsValid"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after ComponentId::IsValid is invoked"
+                    },
+                    "details": {
+                        "name": "ComponentId::IsValid"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{60A9A069-9C3D-465A-B7AD-0D6CC803990A}",
+                            "details": {
+                                "name": "BehaviorComponentId"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Equal",
+                    "context": "ComponentId",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke ComponentId::Equal"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after ComponentId::Equal is invoked"
+                    },
+                    "details": {
+                        "name": "ComponentId::Equal"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{60A9A069-9C3D-465A-B7AD-0D6CC803990A}",
+                            "details": {
+                                "name": "BehaviorComponentId"
+                            }
+                        },
+                        {
+                            "typeid": "{60A9A069-9C3D-465A-B7AD-0D6CC803990A}",
+                            "details": {
+                                "name": "BehaviorComponentId"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ToString",
+                    "context": "ComponentId",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke ComponentId::ToString"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after ComponentId::ToString is invoked"
+                    },
+                    "details": {
+                        "name": "ComponentId::ToString"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{60A9A069-9C3D-465A-B7AD-0D6CC803990A}",
+                            "details": {
+                                "name": "BehaviorComponentId"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

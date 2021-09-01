@@ -1,0 +1,558 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|x64">
+      <Configuration>debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="profile|x64">
+      <Configuration>profile</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|x64">
+      <Configuration>release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F4F99B1E-856F-3A68-85A6-2C23E32382D0}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>EMotionFX.Tests</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="J:\Atom\lyfork\o3de\cmake\Platform\Common\TestProject.props" Condition="exists('J:\Atom\lyfork\o3de\cmake\Platform\Common\TestProject.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <LocalDebuggerCommand Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:/Atom/lyfork/o3de/bin/debug/AzTestRunner.exe</LocalDebuggerCommand>
+    <LocalDebuggerCommandArguments Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:/Atom/lyfork/o3de/bin/debug/EMotionFX.Tests.dll AzRunUnitTests --gtest_output=xml:J:/Atom/lyfork/o3de/Testing/Gtest/Gem_EMotionFX.Tests.xml</LocalDebuggerCommandArguments>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\bin\debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">EMotionFX.Tests.dir\debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='debug|x64'">EMotionFX.Tests</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='debug|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='debug|x64'">true</GenerateManifest>
+    <LocalDebuggerCommand Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:/Atom/lyfork/o3de/bin/profile/AzTestRunner.exe</LocalDebuggerCommand>
+    <LocalDebuggerCommandArguments Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:/Atom/lyfork/o3de/bin/profile/EMotionFX.Tests.dll AzRunUnitTests --gtest_output=xml:J:/Atom/lyfork/o3de/Testing/Gtest/Gem_EMotionFX.Tests.xml</LocalDebuggerCommandArguments>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\bin\profile\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">EMotionFX.Tests.dir\profile\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='profile|x64'">EMotionFX.Tests</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='profile|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='profile|x64'">true</GenerateManifest>
+    <LocalDebuggerCommand Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:/Atom/lyfork/o3de/bin/release/AzTestRunner.exe</LocalDebuggerCommand>
+    <LocalDebuggerCommandArguments Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:/Atom/lyfork/o3de/bin/release/EMotionFX.Tests.dll AzRunUnitTests --gtest_output=xml:J:/Atom/lyfork/o3de/Testing/Gtest/Gem_EMotionFX.Tests.xml</LocalDebuggerCommandArguments>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\bin\release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">EMotionFX.Tests.dir\release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='release|x64'">EMotionFX.Tests</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='release|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='release|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzTest\.;J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\Platform\Windows;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\.;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /RTCsu /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/googletest-1.8.1-rev4-windows/googletest/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/googlebenchmark-1.5.0-rev2-windows/googlebenchmark/include</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_DEBUG;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="debug";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;HAVE_BENCHMARK;EMFX_DEVELOPMENT_BUILD;CMAKE_INTDIR="debug";EMotionFX_Tests_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;_HAS_EXCEPTIONS=0;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"debug\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;HAVE_BENCHMARK;EMFX_DEVELOPMENT_BUILD;CMAKE_INTDIR=\"debug\";EMotionFX_Tests_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzTest\.;J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\Platform\Windows;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\.;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzTest\.;J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\Platform\Windows;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\.;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/debug/EMotionFX.Tests.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\..\..\lib\debug\CryCommon.lib;..\..\..\lib\debug\AzTest.lib;..\..\..\lib\debug\AzFramework.lib;..\..\..\lib\debug\EMotionFX.Static.lib;..\..\..\lib\debug\EMotionFX.Tests.Static.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\googletest\lib\gmockd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\googletest\lib\gtestd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googlebenchmark-1.5.0-rev2-windows\googlebenchmark\lib\Debug\benchmark.lib;Shlwapi.lib;..\..\..\lib\debug\EMotionFX.Static.lib;..\..\..\lib\debug\EMotionFXStaticLib.lib;..\..\..\lib\debug\CryCommon.lib;..\..\..\lib\debug\Atom_RPI.Public.lib;..\..\..\lib\debug\Atom_RHI.Public.lib;..\..\..\lib\debug\Atom_RHI.Reflect.lib;..\..\..\lib\debug\AzFramework.lib;..\..\..\lib\debug\GridMate.lib;ws2_32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\debug\lib\libssl.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\debug\lib\libcrypto.lib;crypt32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\md5-2.0-multiplatform\md5\build\win_x64\vc140\debug\md5.lib;C:\Users\luissemp\.o3de\3rdParty\packages\lz4-r128-multiplatform\lz4\build\win_x64\vc140\debug\lz4.lib;..\..\..\lib\debug\AtomCore.lib;..\..\..\lib\debug\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\zlib\lib\zlibstaticd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\debug\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\debug\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\debug\cityhash.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099 /ignore:4099</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>J:/Atom/lyfork/o3de/lib/debug/EMotionFX.Tests.lib</ImportLibrary>
+      <ProgramDataBaseFile>J:/Atom/lyfork/o3de/bin/debug/EMotionFX.Tests.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzTest\.;J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\Platform\Windows;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\.;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/googletest-1.8.1-rev4-windows/googletest/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/googlebenchmark-1.5.0-rev2-windows/googlebenchmark/include</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StringPooling>true</StringPooling>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="profile";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;HAVE_BENCHMARK;EMFX_DEVELOPMENT_BUILD;CMAKE_INTDIR="profile";EMotionFX_Tests_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"profile\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;HAVE_BENCHMARK;EMFX_DEVELOPMENT_BUILD;CMAKE_INTDIR=\"profile\";EMotionFX_Tests_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzTest\.;J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\Platform\Windows;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\.;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzTest\.;J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\Platform\Windows;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\.;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/profile/EMotionFX.Tests.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\..\..\lib\profile\CryCommon.lib;..\..\..\lib\profile\AzTest.lib;..\..\..\lib\profile\AzFramework.lib;..\..\..\lib\profile\EMotionFX.Static.lib;..\..\..\lib\profile\EMotionFX.Tests.Static.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\googletest\lib\gmock.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\googletest\lib\gtest.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googlebenchmark-1.5.0-rev2-windows\googlebenchmark\lib\Release\benchmark.lib;Shlwapi.lib;..\..\..\lib\profile\EMotionFX.Static.lib;..\..\..\lib\profile\EMotionFXStaticLib.lib;..\..\..\lib\profile\CryCommon.lib;..\..\..\lib\profile\Atom_RPI.Public.lib;..\..\..\lib\profile\Atom_RHI.Public.lib;..\..\..\lib\profile\Atom_RHI.Reflect.lib;..\..\..\lib\profile\AzFramework.lib;..\..\..\lib\profile\GridMate.lib;ws2_32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libssl.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libcrypto.lib;crypt32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\md5-2.0-multiplatform\md5\build\win_x64\vc140\release\md5.lib;C:\Users\luissemp\.o3de\3rdParty\packages\lz4-r128-multiplatform\lz4\build\win_x64\vc140\release\lz4.lib;..\..\..\lib\profile\AtomCore.lib;..\..\..\lib\profile\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\zlib\lib\zlibstatic.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\release\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\release\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\release\cityhash.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099 /ignore:4099</AdditionalOptions>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>J:/Atom/lyfork/o3de/lib/profile/EMotionFX.Tests.lib</ImportLibrary>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ProgramDataBaseFile>J:/Atom/lyfork/o3de/bin/profile/EMotionFX.Tests.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzTest\.;J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\Platform\Windows;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\.;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/googletest-1.8.1-rev4-windows/googletest/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/googlebenchmark-1.5.0-rev2-windows/googlebenchmark/include</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OmitFramePointers>true</OmitFramePointers>
+      <Optimization>Full</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE="release";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;HAVE_BENCHMARK;EMFX_DEVELOPMENT_BUILD;CMAKE_INTDIR="release";EMotionFX_Tests_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE=\"release\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;HAVE_BENCHMARK;EMFX_DEVELOPMENT_BUILD;CMAKE_INTDIR=\"release\";EMotionFX_Tests_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzTest\.;J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\Platform\Windows;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\.;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzTest\.;J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\Platform\Windows;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\.;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Include;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source;J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include;J:\Atom\lyfork\o3de\Code\Framework\AtomCore\.;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Include;J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\External;J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/release/EMotionFX.Tests.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\..\..\lib\release\CryCommon.lib;..\..\..\lib\release\AzTest.lib;..\..\..\lib\release\AzFramework.lib;..\..\..\lib\release\EMotionFX.Static.lib;..\..\..\lib\release\EMotionFX.Tests.Static.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\googletest\lib\gmock.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\googletest\lib\gtest.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googlebenchmark-1.5.0-rev2-windows\googlebenchmark\lib\Release\benchmark.lib;Shlwapi.lib;..\..\..\lib\release\EMotionFX.Static.lib;..\..\..\lib\release\EMotionFXStaticLib.lib;..\..\..\lib\release\CryCommon.lib;..\..\..\lib\release\Atom_RPI.Public.lib;..\..\..\lib\release\Atom_RHI.Public.lib;..\..\..\lib\release\Atom_RHI.Reflect.lib;..\..\..\lib\release\AzFramework.lib;..\..\..\lib\release\GridMate.lib;ws2_32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libssl.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libcrypto.lib;crypt32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\md5-2.0-multiplatform\md5\build\win_x64\vc140\release\md5.lib;C:\Users\luissemp\.o3de\3rdParty\packages\lz4-r128-multiplatform\lz4\build\win_x64\vc140\release\lz4.lib;..\..\..\lib\release\AtomCore.lib;..\..\..\lib\release\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\zlib\lib\zlibstatic.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\release\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\release\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\release\cityhash.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099 /ignore:4099</AdditionalOptions>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>J:/Atom/lyfork/o3de/lib/release/EMotionFX.Tests.lib</ImportLibrary>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ProgramDataBaseFile>J:/Atom/lyfork/o3de/bin/release/EMotionFX.Tests.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/EMotionFX/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/EMotionFX-67c89d7e/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">C:\Program Files\CMake\share\cmake-3.20\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\FindPackageMessage.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Assets\Editor\Images\Icons\Resources.qrc;J:\Atom\lyfork\o3de\Gems\EMotionFX\Assets\Editor\Layouts\Layouts.qrc;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\commandsystem_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Exporters\ExporterLib\exporterlib_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\EMotionFXBuilder\emotionfxbuilder_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\rc_ext_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\sceneapi_ext_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\rendering_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\emstudiosdk_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\RenderPlugins\renderplugins_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\standardplugins_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\emotionfx_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Editor\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Editor\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\mcore_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MysticQt\mysticqt_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\System\emotionfx_module_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_editor_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_shared_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\3rdParty\FindOpenGLInterface.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\EMotionFX-67c89d7e\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/EMotionFX/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/EMotionFX-67c89d7e/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">C:\Program Files\CMake\share\cmake-3.20\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\FindPackageMessage.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Assets\Editor\Images\Icons\Resources.qrc;J:\Atom\lyfork\o3de\Gems\EMotionFX\Assets\Editor\Layouts\Layouts.qrc;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\commandsystem_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Exporters\ExporterLib\exporterlib_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\EMotionFXBuilder\emotionfxbuilder_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\rc_ext_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\sceneapi_ext_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\rendering_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\emstudiosdk_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\RenderPlugins\renderplugins_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\standardplugins_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\emotionfx_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Editor\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Editor\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\mcore_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MysticQt\mysticqt_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\System\emotionfx_module_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_editor_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_shared_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\3rdParty\FindOpenGLInterface.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\EMotionFX-67c89d7e\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/EMotionFX/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/EMotionFX-67c89d7e/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">C:\Program Files\CMake\share\cmake-3.20\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.20\Modules\FindPackageMessage.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Assets\Editor\Images\Icons\Resources.qrc;J:\Atom\lyfork\o3de\Gems\EMotionFX\Assets\Editor\Layouts\Layouts.qrc;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\CommandSystem\commandsystem_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Exporters\ExporterLib\exporterlib_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\EMotionFXBuilder\emotionfxbuilder_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\RCExt\rc_ext_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Pipeline\SceneAPIExt\sceneapi_ext_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Rendering\rendering_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\EMStudioSDK\emstudiosdk_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\RenderPlugins\renderplugins_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\Tools\EMotionStudio\Plugins\StandardPlugins\standardplugins_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\EMotionFX\emotionfx_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Editor\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Editor\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MCore\mcore_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\MysticQt\mysticqt_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\System\emotionfx_module_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_editor_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_shared_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\3rdParty\FindOpenGLInterface.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\EMotionFX-67c89d7e\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ActorBusTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ActorComponentBusTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ActorFixture.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ActorFixture.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ActorInstanceCommandTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AdditiveMotionSamplingTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimAudioComponentTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphActionTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphCommandTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphActionCommandTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphComponentBusTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphNetworkingBusTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphCopyPasteTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphDeferredInitTests.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphEventHandlerCounter.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphEventHandlerCounter.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphEventTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphFixture.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphFixture.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphFuzzTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphHubNodeTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphLoadingTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphMotionConditionTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphMotionNodeTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphNodeEventFilterTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphNodeGroupTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphNodeProcessingTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphParameterActionTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphParameterConditionCommandTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphParameterConditionTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphRefCountTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphReferenceNodeTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphStateMachineTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphStateMachineInterruptionTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphStateMachineSyncTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphSyncTrackTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphTagConditionTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphTransitionCommandTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphTransitionConditionCommandTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphTransitionConditionFixture.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphTransitionConditionFixture.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphTransitionConditionTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphTransitionFixture.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphTransitionFixture.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphTransitionTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphVector2ConditionTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AutoSkeletonLODTests.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\BlendSpaceFixture.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\BlendSpaceFixture.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\BlendSpaceTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\BlendTreeBlendNNodeTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\BlendTreeFloatConstantNodeTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\BlendTreeFloatConditionNodeTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\BlendTreeFloatMath1NodeTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\BlendTreeFootIKNodeTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\BlendTreeMaskNodeTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\BlendTreeMirrorPoseNodeTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\BlendTreeMotionFrameNodeTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\BlendTreeRagdollNodeTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\BlendTreeRangeRemapperNodeTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\BlendTreeRotationMath2NodeTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\BlendTreeRotationLimitNodeTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\BlendTreeSimulatedObjectNodeTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\BlendTreeTransformNodeTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\BlendTreeTwoLinkIKNodeTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\BoolLogicNodeTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ColliderCommandTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\EMotionFXTest.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\EmotionFXMathLibTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\EventManagerTests.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\JackGraphFixture.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\JackGraphFixture.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\KeyTrackLinearTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\LeaderFollowerVersionTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\MCore\Array2DTests.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\MCoreSystemFixture.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\MCoreSystemFixture.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\MorphTargetRuntimeTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\MorphSkinAttachmentTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\MotionEventCommandTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\MotionEventTrackTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\MotionExtractionTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\MotionExtractionBusTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\MotionInstanceTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\MotionLayerSystemTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\MultiThreadSchedulerTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\PoseTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Printers.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\QuaternionParameterTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\RagdollCommandTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\RandomMotionSelectionTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\RenderBackendManagerTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\SelectionListTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\SimpleMotionComponentBusTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\SimulatedObjectCommandTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\SimulatedObjectSerializeTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\SkeletalLODTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\SkeletonNodeSearchTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\SyncingSystemTests.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\SystemComponentFixture.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\SystemComponentTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TransformUnitTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Vector2ToVector3CompatibilityTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Vector3ParameterTests.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\PhysicsSetupUtils.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\PhysicsSetupUtils.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\MCore\CommandManagerTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\MCore\CommandLineTests.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Prefabs\LeftArmSkeleton.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\MotionEvent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\MotionEvent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\TestActorAssets.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\TestActorAssets.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\TestMotionAssets.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\TestMotionAssets.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\Actor.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\ActorManager.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\AnimGraph.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\AnimGraphInstance.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\AnimGraphManager.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\AnimGraphNode.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\AnimGraphObject.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\AnimGraphObjectData.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\AnimGraphStateTransition.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\BlendTreeParameterNode.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\Command.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\CommandManager.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\CommandManagerCallback.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\CommandSystemCommandManager.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\EMotionFXManager.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\GroupParameter.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\Node.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\ObjectAffectedByParameterChanges.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\Parameter.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\ParameterFactory.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\PhysicsRagdoll.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\SimulatedObject.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\SimulatedObjectSetup.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\Skeleton.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\ValueParameter.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Integration\PoseComparisonFixture.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Integration\PoseComparisonTests.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Integration\EntityComponentFixture.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Integration\EntityComponentFixture.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Integration\ActorComponentRagdollTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Integration\ActorComponentAttachmentTest.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Integration\Components\AnimGraph\CanApplyDefaultParameterValues.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Game\SampleGameFixture.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Game\SamplePerformanceTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Bugs\CanDeleteExitNodeAfterItHasBeenActive.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\AnimGraphParameterCommandsTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\CommandAdjustSimulatedObjectTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\SimulatedObjectSetupTests.cpp" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_tests_files.cmake">
+    </None>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\System\AnimationModule.cpp" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\System\emotionfx_module_files.cmake">
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\ZERO_CHECK.vcxproj">
+      <Project>{9D084072-A56A-3A6D-8C63-F5385A20608A}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore.vcxproj">
+      <Project>{9F85147B-AD44-3A0F-AA74-60212AED63A4}</Project>
+      <Name>AtomCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\RHI\Code\Atom_RHI.Public.vcxproj">
+      <Project>{0A0834F3-ACAD-337F-8EE6-B6B3D4822C3E}</Project>
+      <Name>Atom_RHI.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\RHI\Code\Atom_RHI.Reflect.vcxproj">
+      <Project>{85639FA0-2DAB-3EDD-AED2-0AFCEF18D511}</Project>
+      <Name>Atom_RHI.Reflect</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\RPI\Code\Atom_RPI.Public.vcxproj">
+      <Project>{88E91A5D-117D-3A1C-A2CC-3989E9B44A26}</Project>
+      <Name>Atom_RPI.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore.vcxproj">
+      <Project>{78F97634-33F1-3E9D-BB2E-D24CB7BD9D1E}</Project>
+      <Name>AzCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework.vcxproj">
+      <Project>{32B5BA28-0012-3762-8899-2D392DE6A10B}</Project>
+      <Name>AzFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest.vcxproj">
+      <Project>{51D1E963-97AA-37E4-BAD5-6607CCC70A9E}</Project>
+      <Name>AzTest</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Tools\AzTestRunner\AzTestRunner.vcxproj">
+      <Project>{D30D7C28-6249-38F6-8F8B-B2853B11CC03}</Project>
+      <Name>AzTestRunner</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryCommon.vcxproj">
+      <Project>{5131F2AB-DC9C-3FE9-A0DF-A1E42FAD10E6}</Project>
+      <Name>CryCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\EMotionFX-67c89d7e\Code\EMotionFX.Static.vcxproj">
+      <Project>{E8774A48-4BD0-3EB7-9200-F76F55BCB502}</Project>
+      <Name>EMotionFX.Static</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\EMotionFX-67c89d7e\Code\EMotionFX.Tests.Static.vcxproj">
+      <Project>{5A14526F-876E-3D1E-A3DE-4F6BDD689793}</Project>
+      <Name>EMotionFX.Tests.Static</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\EMotionFX-67c89d7e\Code\EMotionFXStaticLib.vcxproj">
+      <Project>{609CC065-00CE-393B-AABC-0B6361A7F0A1}</Project>
+      <Name>EMotionFXStaticLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate.vcxproj">
+      <Project>{1A59660B-1BCB-3611-B3D0-673DEB6F8A46}</Project>
+      <Name>GridMate</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,48 @@
+{
+    "entries": [
+        {
+            "key": "TickBus",
+            "context": "EBusHandler",
+            "variant": "",
+            "details": {
+                "name": "TickBus"
+            },
+            "methods": [
+                {
+                    "key": "OnTick",
+                    "details": {
+                        "name": "OnTick"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{4C0F6AD4-0D4F-4354-AD4A-0C01E948245C}",
+                            "details": {
+                                "name": "ScriptTimePoint"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTickOrder",
+                    "details": {
+                        "name": "GetTickOrder"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

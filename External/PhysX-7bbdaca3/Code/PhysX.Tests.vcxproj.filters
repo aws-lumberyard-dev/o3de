@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\ComponentDescriptors.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\PhysXComponentBusTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\PhysXGenericTestFixture.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\PhysXTestCommon.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\PhysXTestEnvironment.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\PhysXGenericTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\PhysXSpecificTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\PhysXForceRegionTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\PhysXCollisionFilteringTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\PhysXJointsTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\PhysXSceneTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\PhysXSceneQueryTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\PhysXSystemTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\PhysXTestFixtures.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\PhysXTestUtil.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\PhysXMultithreadingTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\PhysXScriptTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\CharacterControllerTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\RagdollTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\Benchmarks\PhysXBenchmarksUtilities.cpp">
+      <Filter>Tests\Benchmarks</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\Benchmarks\PhysXBenchmarksCommon.cpp">
+      <Filter>Tests\Benchmarks</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\Benchmarks\PhysXBenchmarkWashingMachine.cpp">
+      <Filter>Tests\Benchmarks</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\Benchmarks\PhysXCharactersBenchmarks.cpp">
+      <Filter>Tests\Benchmarks</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\Benchmarks\PhysXCharactersRagdollBenchmarks.cpp">
+      <Filter>Tests\Benchmarks</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\Benchmarks\PhysXGenericBenchmarks.cpp">
+      <Filter>Tests\Benchmarks</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\Benchmarks\PhysXSceneQueryBenchmarks.cpp">
+      <Filter>Tests\Benchmarks</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\Benchmarks\PhysXRigidBodyBenchmarks.cpp">
+      <Filter>Tests\Benchmarks</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\Benchmarks\PhysXJointBenchmarks.cpp">
+      <Filter>Tests\Benchmarks</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Source\ComponentDescriptors.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\PhysXGenericTestFixture.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\PhysXTestCommon.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\PhysXTestCommon.inl">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\PhysXTestEnvironment.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\PhysXTestFixtures.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\PhysXTestUtil.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\RagdollTestData.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\Benchmarks\PhysXBenchmarksUtilities.h">
+      <Filter>Tests\Benchmarks</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\Benchmarks\PhysXBenchmarksCommon.h">
+      <Filter>Tests\Benchmarks</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\Benchmarks\PhysXBenchmarkWashingMachine.h">
+      <Filter>Tests\Benchmarks</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\physx_tests_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <XML Include="J:\Atom\lyfork\o3de\Gems\PhysX\Code\Tests\RagdollConfiguration.xml">
+      <Filter>Tests</Filter>
+    </XML>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{A12C7827-546E-3D77-AE99-877104F2DFF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Benchmarks">
+      <UniqueIdentifier>{3D6D92F5-E8F8-30CC-8237-D6CBF37FEDA7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,527 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Animation\AttachmentComponent.cpp">
+      <Filter>Source\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\AreaLightComponent.cpp">
+      <Filter>Source\CoreLights</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\AreaLightComponentConfig.cpp">
+      <Filter>Source\CoreLights</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\AreaLightComponentController.cpp">
+      <Filter>Source\CoreLights</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\CapsuleLightDelegate.cpp">
+      <Filter>Source\CoreLights</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\DirectionalLightComponent.cpp">
+      <Filter>Source\CoreLights</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\DirectionalLightComponentController.cpp">
+      <Filter>Source\CoreLights</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\DirectionalLightComponentConfig.cpp">
+      <Filter>Source\CoreLights</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\DiskLightDelegate.cpp">
+      <Filter>Source\CoreLights</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\PolygonLightDelegate.cpp">
+      <Filter>Source\CoreLights</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\QuadLightDelegate.cpp">
+      <Filter>Source\CoreLights</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\SimplePointLightDelegate.cpp">
+      <Filter>Source\CoreLights</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\SimpleSpotLightDelegate.cpp">
+      <Filter>Source\CoreLights</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\SphereLightDelegate.cpp">
+      <Filter>Source\CoreLights</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Decals\DecalComponent.cpp">
+      <Filter>Source\Decals</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Decals\DecalComponentController.cpp">
+      <Filter>Source\Decals</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGridComponent.cpp">
+      <Filter>Source\DiffuseGlobalIllumination</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGridComponentController.cpp">
+      <Filter>Source\DiffuseGlobalIllumination</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\DiffuseGlobalIllumination\DiffuseGlobalIlluminationComponent.cpp">
+      <Filter>Source\DiffuseGlobalIllumination</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\DiffuseGlobalIllumination\DiffuseGlobalIlluminationComponentController.cpp">
+      <Filter>Source\DiffuseGlobalIllumination</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\DiffuseGlobalIllumination\DiffuseGlobalIlluminationComponentConfig.cpp">
+      <Filter>Source\DiffuseGlobalIllumination</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Grid\GridComponent.cpp">
+      <Filter>Source\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Grid\GridComponentConfig.cpp">
+      <Filter>Source\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Grid\GridComponentController.cpp">
+      <Filter>Source\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\ImageBasedLights\ImageBasedLightComponent.cpp">
+      <Filter>Source\ImageBasedLights</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\ImageBasedLights\ImageBasedLightComponentConfig.cpp">
+      <Filter>Source\ImageBasedLights</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\ImageBasedLights\ImageBasedLightComponentController.cpp">
+      <Filter>Source\ImageBasedLights</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\MaterialComponent.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\MaterialComponentConfig.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\MaterialComponentController.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Mesh\MeshComponent.cpp">
+      <Filter>Source\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Mesh\MeshComponentController.cpp">
+      <Filter>Source\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\OcclusionCullingPlane\OcclusionCullingPlaneComponent.cpp">
+      <Filter>Source\OcclusionCullingPlane</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\OcclusionCullingPlane\OcclusionCullingPlaneComponentController.cpp">
+      <Filter>Source\OcclusionCullingPlane</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\PostFxLayerComponent.cpp">
+      <Filter>Source\PostProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\PostFxLayerComponentConfig.cpp">
+      <Filter>Source\PostProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\PostFxLayerComponentController.cpp">
+      <Filter>Source\PostProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\Bloom\BloomComponent.cpp">
+      <Filter>Source\PostProcess\Bloom</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\Bloom\BloomComponentConfig.cpp">
+      <Filter>Source\PostProcess\Bloom</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\Bloom\BloomComponentController.cpp">
+      <Filter>Source\PostProcess\Bloom</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\DepthOfField\DepthOfFieldComponent.cpp">
+      <Filter>Source\PostProcess\DepthOfField</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\DepthOfField\DepthOfFieldComponentConfig.cpp">
+      <Filter>Source\PostProcess\DepthOfField</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\DepthOfField\DepthOfFieldComponentController.cpp">
+      <Filter>Source\PostProcess\DepthOfField</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\DisplayMapper\DisplayMapperComponent.cpp">
+      <Filter>Source\PostProcess\DisplayMapper</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\DisplayMapper\DisplayMapperComponentConfig.cpp">
+      <Filter>Source\PostProcess\DisplayMapper</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\DisplayMapper\DisplayMapperComponentController.cpp">
+      <Filter>Source\PostProcess\DisplayMapper</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\ExposureControl\ExposureControlComponent.cpp">
+      <Filter>Source\PostProcess\ExposureControl</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\ExposureControl\ExposureControlComponentConfig.cpp">
+      <Filter>Source\PostProcess\ExposureControl</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\ExposureControl\ExposureControlComponentController.cpp">
+      <Filter>Source\PostProcess\ExposureControl</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\Ssao\SsaoComponent.cpp">
+      <Filter>Source\PostProcess\Ssao</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\Ssao\SsaoComponentConfig.cpp">
+      <Filter>Source\PostProcess\Ssao</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\Ssao\SsaoComponentController.cpp">
+      <Filter>Source\PostProcess\Ssao</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\LookModification\LookModificationComponent.cpp">
+      <Filter>Source\PostProcess\LookModification</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\LookModification\LookModificationComponentConfig.cpp">
+      <Filter>Source\PostProcess\LookModification</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\LookModification\LookModificationComponentController.cpp">
+      <Filter>Source\PostProcess\LookModification</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\RadiusWeightModifier\RadiusWeightModifierComponent.cpp">
+      <Filter>Source\PostProcess\RadiusWeightModifier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\RadiusWeightModifier\RadiusWeightModifierComponentConfig.cpp">
+      <Filter>Source\PostProcess\RadiusWeightModifier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\RadiusWeightModifier\RadiusWeightModifierComponentController.cpp">
+      <Filter>Source\PostProcess\RadiusWeightModifier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\ShapeWeightModifier\ShapeWeightModifierComponent.cpp">
+      <Filter>Source\PostProcess\ShapeWeightModifier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\ShapeWeightModifier\ShapeWeightModifierComponentConfig.cpp">
+      <Filter>Source\PostProcess\ShapeWeightModifier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\ShapeWeightModifier\ShapeWeightModifierComponentController.cpp">
+      <Filter>Source\PostProcess\ShapeWeightModifier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\GradientWeightModifier\GradientWeightModifierComponent.cpp">
+      <Filter>Source\PostProcess\GradientWeightModifier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\GradientWeightModifier\GradientWeightModifierComponentConfig.cpp">
+      <Filter>Source\PostProcess\GradientWeightModifier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\GradientWeightModifier\GradientWeightModifierController.cpp">
+      <Filter>Source\PostProcess\GradientWeightModifier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\ScreenSpace\DeferredFogComponentController.cpp">
+      <Filter>Source\ScreenSpace</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\ScreenSpace\DeferredFogComponent.cpp">
+      <Filter>Source\ScreenSpace</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\ScreenSpace\DeferredFogComponentConfig.cpp">
+      <Filter>Source\ScreenSpace</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\ReflectionProbe\ReflectionProbeComponent.cpp">
+      <Filter>Source\ReflectionProbe</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\ReflectionProbe\ReflectionProbeComponentController.cpp">
+      <Filter>Source\ReflectionProbe</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\SkyBox\HDRiSkyboxComponentConfig.cpp">
+      <Filter>Source\SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\SkyBox\HDRiSkyboxComponentController.cpp">
+      <Filter>Source\SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\SkyBox\HDRiSkyboxComponent.cpp">
+      <Filter>Source\SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\SkyBox\PhysicalSkyComponentConfig.cpp">
+      <Filter>Source\SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\SkyBox\PhysicalSkyComponentController.cpp">
+      <Filter>Source\SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\SkyBox\PhysicalSkyComponent.cpp">
+      <Filter>Source\SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CommonFeaturesSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Scripting\EntityReferenceComponent.cpp">
+      <Filter>Source\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Scripting\EntityReferenceComponentConfig.cpp">
+      <Filter>Source\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Scripting\EntityReferenceComponentController.cpp">
+      <Filter>Source\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\SurfaceData\SurfaceDataMeshComponent.cpp">
+      <Filter>Source\SurfaceData</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Animation\AttachmentComponent.h">
+      <Filter>Source\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\AreaLightComponent.h">
+      <Filter>Source\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\AreaLightComponentController.h">
+      <Filter>Source\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\CapsuleLightDelegate.h">
+      <Filter>Source\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\DirectionalLightComponent.h">
+      <Filter>Source\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\DirectionalLightComponentController.h">
+      <Filter>Source\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\DiskLightDelegate.h">
+      <Filter>Source\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\LightDelegateBase.h">
+      <Filter>Source\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\LightDelegateBase.inl">
+      <Filter>Source\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\LightDelegateInterface.h">
+      <Filter>Source\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\PolygonLightDelegate.h">
+      <Filter>Source\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\QuadLightDelegate.h">
+      <Filter>Source\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\SimplePointLightDelegate.h">
+      <Filter>Source\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\SimpleSpotLightDelegate.h">
+      <Filter>Source\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\SphereLightDelegate.h">
+      <Filter>Source\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Decals\DecalComponent.h">
+      <Filter>Source\Decals</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Decals\DecalComponentController.h">
+      <Filter>Source\Decals</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGridComponent.h">
+      <Filter>Source\DiffuseGlobalIllumination</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\DiffuseGlobalIllumination\DiffuseProbeGridComponentController.h">
+      <Filter>Source\DiffuseGlobalIllumination</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\DiffuseGlobalIllumination\DiffuseGlobalIlluminationComponent.h">
+      <Filter>Source\DiffuseGlobalIllumination</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\DiffuseGlobalIllumination\DiffuseGlobalIlluminationComponentController.h">
+      <Filter>Source\DiffuseGlobalIllumination</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\DiffuseGlobalIllumination\DiffuseGlobalIlluminationComponentConfig.h">
+      <Filter>Source\DiffuseGlobalIllumination</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Grid\GridComponent.h">
+      <Filter>Source\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Grid\GridComponentController.h">
+      <Filter>Source\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\ImageBasedLights\ImageBasedLightComponent.h">
+      <Filter>Source\ImageBasedLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\ImageBasedLights\ImageBasedLightComponentController.h">
+      <Filter>Source\ImageBasedLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\MaterialComponent.h">
+      <Filter>Source\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\MaterialComponentController.h">
+      <Filter>Source\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Mesh\MeshComponent.h">
+      <Filter>Source\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Mesh\MeshComponentController.h">
+      <Filter>Source\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\OcclusionCullingPlane\OcclusionCullingPlaneComponent.h">
+      <Filter>Source\OcclusionCullingPlane</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\OcclusionCullingPlane\OcclusionCullingPlaneComponentController.h">
+      <Filter>Source\OcclusionCullingPlane</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\PostFxLayerComponent.h">
+      <Filter>Source\PostProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\PostFxLayerComponentController.h">
+      <Filter>Source\PostProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\Bloom\BloomComponent.h">
+      <Filter>Source\PostProcess\Bloom</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\Bloom\BloomComponentController.h">
+      <Filter>Source\PostProcess\Bloom</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\DepthOfField\DepthOfFieldComponent.h">
+      <Filter>Source\PostProcess\DepthOfField</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\DepthOfField\DepthOfFieldComponentController.h">
+      <Filter>Source\PostProcess\DepthOfField</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\DisplayMapper\DisplayMapperComponent.h">
+      <Filter>Source\PostProcess\DisplayMapper</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\DisplayMapper\DisplayMapperComponentController.h">
+      <Filter>Source\PostProcess\DisplayMapper</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\ExposureControl\ExposureControlComponent.h">
+      <Filter>Source\PostProcess\ExposureControl</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\ExposureControl\ExposureControlComponentController.h">
+      <Filter>Source\PostProcess\ExposureControl</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\Ssao\SsaoComponent.h">
+      <Filter>Source\PostProcess\Ssao</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\Ssao\SsaoComponentController.h">
+      <Filter>Source\PostProcess\Ssao</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\LookModification\LookModificationComponent.h">
+      <Filter>Source\PostProcess\LookModification</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\LookModification\LookModificationComponentController.h">
+      <Filter>Source\PostProcess\LookModification</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\RadiusWeightModifier\RadiusWeightModifierComponent.h">
+      <Filter>Source\PostProcess\RadiusWeightModifier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\RadiusWeightModifier\RadiusWeightModifierComponentController.h">
+      <Filter>Source\PostProcess\RadiusWeightModifier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\ShapeWeightModifier\ShapeWeightModifierComponent.h">
+      <Filter>Source\PostProcess\ShapeWeightModifier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\ShapeWeightModifier\ShapeWeightModifierComponentController.h">
+      <Filter>Source\PostProcess\ShapeWeightModifier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\GradientWeightModifier\GradientWeightModifierComponent.h">
+      <Filter>Source\PostProcess\GradientWeightModifier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\GradientWeightModifier\GradientWeightModifierController.h">
+      <Filter>Source\PostProcess\GradientWeightModifier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\ScreenSpace\DeferredFogComponentController.h">
+      <Filter>Source\ScreenSpace</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\ScreenSpace\DeferredFogComponent.h">
+      <Filter>Source\ScreenSpace</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\ReflectionProbe\ReflectionProbeComponent.h">
+      <Filter>Source\ReflectionProbe</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\ReflectionProbe\ReflectionProbeComponentController.h">
+      <Filter>Source\ReflectionProbe</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\SkyBox\HDRiSkyboxComponentController.h">
+      <Filter>Source\SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\SkyBox\HDRiSkyboxComponent.h">
+      <Filter>Source\SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\SkyBox\PhysicalSkyComponentController.h">
+      <Filter>Source\SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\SkyBox\PhysicalSkyComponent.h">
+      <Filter>Source\SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CommonFeaturesSystemComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Scripting\EntityReferenceComponent.h">
+      <Filter>Source\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Scripting\EntityReferenceComponentController.h">
+      <Filter>Source\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\SurfaceData\SurfaceDataMeshComponent.h">
+      <Filter>Source\SurfaceData</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\atomlyintegration_commonfeatures_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Animation">
+      <UniqueIdentifier>{35105AA6-B394-3383-B9E0-E23CDE93FF18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreLights">
+      <UniqueIdentifier>{BD0479FF-E2D5-39DE-9053-A56649221D1A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Decals">
+      <UniqueIdentifier>{B91CE1ED-892F-3261-9FD9-3E4720496F5A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\DiffuseGlobalIllumination">
+      <UniqueIdentifier>{AD4F1119-8130-3817-B3C3-AD210F485E01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Grid">
+      <UniqueIdentifier>{4A098002-8F44-3CE5-BBD7-A2A4B5E381BA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ImageBasedLights">
+      <UniqueIdentifier>{A2E6BC7D-420F-3E04-BDD4-9C755D095CA9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Material">
+      <UniqueIdentifier>{8C2A0A28-75C9-3D71-B745-C6A34D43B262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Mesh">
+      <UniqueIdentifier>{7150EE93-51BA-3524-B885-AE7A770DB902}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\OcclusionCullingPlane">
+      <UniqueIdentifier>{29F45E9B-5431-3C1F-ABCF-439B3207997A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PostProcess">
+      <UniqueIdentifier>{F2D934B2-6C2F-3ED3-89CD-8C609C2F57D1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PostProcess\Bloom">
+      <UniqueIdentifier>{2E451DD9-562C-36F7-A73E-E003985313A9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PostProcess\DepthOfField">
+      <UniqueIdentifier>{35914848-58C4-339D-A3FD-1F5E812A5937}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PostProcess\DisplayMapper">
+      <UniqueIdentifier>{8C1FE529-E3A7-3E45-90F5-1B32374D1766}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PostProcess\ExposureControl">
+      <UniqueIdentifier>{0085318D-38EF-3893-8138-ED01FF86DB8E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PostProcess\GradientWeightModifier">
+      <UniqueIdentifier>{C4ED5423-D065-3FAF-8A0E-10D9F6EB56EE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PostProcess\LookModification">
+      <UniqueIdentifier>{9B86429E-376E-3E32-9374-E6961E3023C4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PostProcess\RadiusWeightModifier">
+      <UniqueIdentifier>{174D0068-B05A-3D9D-80CD-FC94489E91C6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PostProcess\ShapeWeightModifier">
+      <UniqueIdentifier>{65D76A66-A0B8-3EDC-8121-0192E175F1B0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PostProcess\Ssao">
+      <UniqueIdentifier>{850294D8-A791-3EF5-94F5-3CC7C3714E4F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ReflectionProbe">
+      <UniqueIdentifier>{D3CE008C-5886-3398-9337-B6930BA90789}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ScreenSpace">
+      <UniqueIdentifier>{5EF366A5-C266-3D9A-959F-473EBF0BCD69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripting">
+      <UniqueIdentifier>{DBEEC417-E544-30B2-8818-04BE3E6B4911}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\SkyBox">
+      <UniqueIdentifier>{F7FFC598-4091-384B-BBDE-F360D9B66A10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\SurfaceData">
+      <UniqueIdentifier>{9BCACBFD-6920-3749-93B4-D1B457DEFD4F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

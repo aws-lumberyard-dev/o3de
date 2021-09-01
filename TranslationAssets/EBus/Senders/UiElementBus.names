@@ -1,0 +1,369 @@
+{
+    "entries": [
+        {
+            "key": "UiElementBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiElementBus"
+            },
+            "methods": [
+                {
+                    "key": "FindChildByName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke FindChildByName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after FindChildByName is invoked"
+                    },
+                    "details": {
+                        "name": "FindChildByName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetChild",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetChild"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetChild is invoked"
+                    },
+                    "details": {
+                        "name": "GetChild"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetNumChildElements",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetNumChildElements"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetNumChildElements is invoked"
+                    },
+                    "details": {
+                        "name": "GetNumChildElements"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetChildren",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetChildren"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetChildren is invoked"
+                    },
+                    "details": {
+                        "name": "GetChildren"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{4841CFF0-7A5C-519C-BD16-D3625E99605E}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "DestroyElement",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke DestroyElement"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after DestroyElement is invoked"
+                    },
+                    "details": {
+                        "name": "DestroyElement"
+                    }
+                },
+                {
+                    "key": "IsAncestor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IsAncestor"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IsAncestor is invoked"
+                    },
+                    "details": {
+                        "name": "IsAncestor"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetParent",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetParent"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetParent is invoked"
+                    },
+                    "details": {
+                        "name": "GetParent"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FindDescendantByName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke FindDescendantByName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after FindDescendantByName is invoked"
+                    },
+                    "details": {
+                        "name": "FindDescendantByName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IsEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IsEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "IsEnabled"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetCanvas",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetCanvas"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetCanvas is invoked"
+                    },
+                    "details": {
+                        "name": "GetCanvas"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reparent",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Reparent"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Reparent is invoked"
+                    },
+                    "details": {
+                        "name": "Reparent"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        },
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetName is invoked"
+                    },
+                    "details": {
+                        "name": "GetName"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIndexOfChildByEntityId",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIndexOfChildByEntityId"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIndexOfChildByEntityId is invoked"
+                    },
+                    "details": {
+                        "name": "GetIndexOfChildByEntityId"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsEnabled"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

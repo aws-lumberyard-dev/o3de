@@ -1,0 +1,482 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Map<ShaderSemantic, Name>",
+                "category": "Map",
+                "tooltip": "A collection of Key/Value pairs, where each Key value must be unique."
+            },
+            "methods": [
+                {
+                    "key": "contains",
+                    "context": "Map<ShaderSemantic, Name>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::contains"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::contains is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::contains"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D6E637F3-3BD8-55E7-911F-F35DE5769296}",
+                            "details": {
+                                "name": "const AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<Sh"
+                            }
+                        },
+                        {
+                            "typeid": "{C6FFF25F-FE52-4D08-8D96-D04C14048816}",
+                            "details": {
+                                "name": "ShaderSemantic"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Map<ShaderSemantic, Name>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D6E637F3-3BD8-55E7-911F-F35DE5769296}",
+                            "details": {
+                                "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSe"
+                            }
+                        },
+                        {
+                            "typeid": "{C6FFF25F-FE52-4D08-8D96-D04C14048816}",
+                            "details": {
+                                "name": "ShaderSemantic"
+                            }
+                        },
+                        {
+                            "typeid": "{3D2B920C-9EFD-40D5-AAE0-DF131C3D4931}",
+                            "details": {
+                                "name": "Name"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6E637F3-3BD8-55E7-911F-F35DE5769296}",
+                            "details": {
+                                "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSe"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Map<ShaderSemantic, Name>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D6E637F3-3BD8-55E7-911F-F35DE5769296}",
+                            "details": {
+                                "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSe"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Map<ShaderSemantic, Name>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D6E637F3-3BD8-55E7-911F-F35DE5769296}",
+                            "details": {
+                                "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSe"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Map<ShaderSemantic, Name>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D6E637F3-3BD8-55E7-911F-F35DE5769296}",
+                            "details": {
+                                "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSe"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{394B021A-D051-5192-AE77-2AEEA417C680}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetKeys",
+                    "context": "Map<ShaderSemantic, Name>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::GetKeys"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::GetKeys is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::GetKeys"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D6E637F3-3BD8-55E7-911F-F35DE5769296}",
+                            "details": {
+                                "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSe"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{80923010-A973-5E4D-8082-3775700ECFF3}",
+                            "details": {
+                                "name": "AZStd::vector<ShaderSemantic, allocator>"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Size",
+                    "context": "Map<ShaderSemantic, Name>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D6E637F3-3BD8-55E7-911F-F35DE5769296}",
+                            "details": {
+                                "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSe"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase",
+                    "context": "Map<ShaderSemantic, Name>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Erase"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Erase is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Erase"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D6E637F3-3BD8-55E7-911F-F35DE5769296}",
+                            "details": {
+                                "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSe"
+                            }
+                        },
+                        {
+                            "typeid": "{C6FFF25F-FE52-4D08-8D96-D04C14048816}",
+                            "details": {
+                                "name": "ShaderSemantic"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6E637F3-3BD8-55E7-911F-F35DE5769296}",
+                            "details": {
+                                "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSe"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Map<ShaderSemantic, Name>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D6E637F3-3BD8-55E7-911F-F35DE5769296}",
+                            "details": {
+                                "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSe"
+                            }
+                        },
+                        {
+                            "typeid": "{C6FFF25F-FE52-4D08-8D96-D04C14048816}",
+                            "details": {
+                                "name": "ShaderSemantic"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Map<ShaderSemantic, Name>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D6E637F3-3BD8-55E7-911F-F35DE5769296}",
+                            "details": {
+                                "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSe"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6E637F3-3BD8-55E7-911F-F35DE5769296}",
+                            "details": {
+                                "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSe"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "At",
+                    "context": "Map<ShaderSemantic, Name>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::At"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::At is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::At"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D6E637F3-3BD8-55E7-911F-F35DE5769296}",
+                            "details": {
+                                "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSe"
+                            }
+                        },
+                        {
+                            "typeid": "{C6FFF25F-FE52-4D08-8D96-D04C14048816}",
+                            "details": {
+                                "name": "ShaderSemantic"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{3D2B920C-9EFD-40D5-AAE0-DF131C3D4931}",
+                            "details": {
+                                "name": "Name"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "BucketCount",
+                    "context": "Map<ShaderSemantic, Name>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::BucketCount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::BucketCount is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::BucketCount"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D6E637F3-3BD8-55E7-911F-F35DE5769296}",
+                            "details": {
+                                "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSe"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Map<ShaderSemantic, Name>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D6E637F3-3BD8-55E7-911F-F35DE5769296}",
+                            "details": {
+                                "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSe"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Map<ShaderSemantic, Name>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D6E637F3-3BD8-55E7-911F-F35DE5769296}",
+                            "details": {
+                                "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSe"
+                            }
+                        },
+                        {
+                            "typeid": "{D6E637F3-3BD8-55E7-911F-F35DE5769296}",
+                            "details": {
+                                "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSe"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

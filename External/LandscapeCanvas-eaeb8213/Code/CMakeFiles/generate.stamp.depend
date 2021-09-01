@@ -1,0 +1,6 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/LandscapeCanvas/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/LandscapeCanvas/Code/landscapecanvas_editor_files.cmake
+J:/Atom/lyfork/o3de/Gems/LandscapeCanvas/Code/landscapecanvas_editor_static_files.cmake
+J:/Atom/lyfork/o3de/Gems/LandscapeCanvas/Code/landscapecanvas_tests_editor_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

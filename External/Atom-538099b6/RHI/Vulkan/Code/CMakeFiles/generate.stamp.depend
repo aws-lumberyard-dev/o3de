@@ -1,0 +1,15 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/Atom/RHI/Vulkan/3rdParty/Findglad_vulkan.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RHI/Vulkan/3rdParty/Platform/Windows/glad_vulkan_windows.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RHI/Vulkan/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/Atom/RHI/Vulkan/Code/Source/Platform/Windows/PAL_windows.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RHI/Vulkan/Code/Source/Platform/Windows/platform_builders_windows_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RHI/Vulkan/Code/Source/Platform/Windows/platform_glad_windows_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RHI/Vulkan/Code/Source/Platform/Windows/platform_private_static_windows.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RHI/Vulkan/Code/Source/Platform/Windows/platform_private_windows_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RHI/Vulkan/Code/Source/Platform/Windows/platform_reflect_windows_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RHI/Vulkan/Code/atom_rhi_vulkan_builders_common_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RHI/Vulkan/Code/atom_rhi_vulkan_glad_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RHI/Vulkan/Code/atom_rhi_vulkan_private_common_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RHI/Vulkan/Code/atom_rhi_vulkan_private_common_shared_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RHI/Vulkan/Code/atom_rhi_vulkan_reflect_common_files.cmake

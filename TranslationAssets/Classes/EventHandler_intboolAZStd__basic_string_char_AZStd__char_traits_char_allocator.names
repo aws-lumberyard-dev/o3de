@@ -1,0 +1,37 @@
+{
+    "entries": [
+        {
+            "key": "EventHandler<int bool AZStd::basic_string<char, AZStd::char_traits<char>, allocator> >",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "EventHandler<int bool AZStd::basic_string<char, AZStd::char_traits<char>, allocator> >"
+            },
+            "methods": [
+                {
+                    "key": "Disconnect",
+                    "context": "EventHandler<int bool AZStd::basic_string<char, AZStd::char_traits<char>, allocator> >",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke EventHandler<int bool AZStd::basic_string<char, AZStd::char_traits<char>, allocator> >::Disconnect"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after EventHandler<int bool AZStd::basic_string<char, AZStd::char_traits<char>, allocator> >::Disconnect is invoked"
+                    },
+                    "details": {
+                        "name": "EventHandler<int bool AZStd::basic_string<char, AZStd::char_traits<char>, allocator> >::Disconnect"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{2F5D1BA1-CDF9-5BB6-B3D4-3E0C3ED078FA}",
+                            "details": {
+                                "name": "EventHandler<int bool AZStd::basic_string<char, AZStd::char_tra"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

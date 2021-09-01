@@ -1,0 +1,12 @@
+{
+    "entries": [
+        {
+            "key": "InputDeviceTouch",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "InputDeviceTouch"
+            }
+        }
+    ]
+}

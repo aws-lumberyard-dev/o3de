@@ -1,0 +1,1636 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\AssetSystemComponentHelper.cpp">
+      <Filter>AzFramework\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\AzFrameworkModule.cpp">
+      <Filter>AzFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Application\Application.cpp">
+      <Filter>AzFramework\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\Archive.cpp">
+      <Filter>AzFramework\Archive</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\ArchiveFileIO.cpp">
+      <Filter>AzFramework\Archive</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\ArchiveFindData.cpp">
+      <Filter>AzFramework\Archive</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\MissingFileReport.cpp">
+      <Filter>AzFramework\Archive</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\NestedArchive.cpp">
+      <Filter>AzFramework\Archive</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\ZipDirCache.cpp">
+      <Filter>AzFramework\Archive</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\ZipDirCacheFactory.cpp">
+      <Filter>AzFramework\Archive</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\ZipDirFind.cpp">
+      <Filter>AzFramework\Archive</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\ZipDirList.cpp">
+      <Filter>AzFramework\Archive</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\ZipDirStructures.cpp">
+      <Filter>AzFramework\Archive</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\ZipDirTree.cpp">
+      <Filter>AzFramework\Archive</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\SimpleAsset.cpp">
+      <Filter>AzFramework\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\AssetCatalog.cpp">
+      <Filter>AzFramework\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\AssetCatalogComponent.cpp">
+      <Filter>AzFramework\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\AssetProcessorMessages.cpp">
+      <Filter>AzFramework\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\AssetRegistry.cpp">
+      <Filter>AzFramework\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\AssetSeedList.cpp">
+      <Filter>AzFramework\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\AssetSystemComponent.cpp">
+      <Filter>AzFramework\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\AssetBundleManifest.cpp">
+      <Filter>AzFramework\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\CustomAssetTypeComponent.cpp">
+      <Filter>AzFramework\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\FileTagAsset.cpp">
+      <Filter>AzFramework\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\XmlSchemaAsset.cpp">
+      <Filter>AzFramework\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\Benchmark\BenchmarkAsset.cpp">
+      <Filter>AzFramework\Asset\Benchmark</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\Benchmark\BenchmarkCommands.cpp">
+      <Filter>AzFramework\Asset\Benchmark</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\Benchmark\BenchmarkSettingsAsset.cpp">
+      <Filter>AzFramework\Asset\Benchmark</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\ViewportBus.cpp">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\ViewportColors.cpp">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\ViewportConstants.cpp">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\SingleViewportController.cpp">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\ViewportControllerList.cpp">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\ViewportScreen.cpp">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\ScreenGeometry.cpp">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\CameraState.cpp">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\CameraInput.cpp">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\ClickDetector.cpp">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Entity\BehaviorEntity.cpp">
+      <Filter>AzFramework\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Entity\GameEntityContextComponent.cpp">
+      <Filter>AzFramework\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Entity\EntityContext.cpp">
+      <Filter>AzFramework\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Entity\SliceEntityOwnershipService.cpp">
+      <Filter>AzFramework\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Entity\SliceGameEntityOwnershipService.cpp">
+      <Filter>AzFramework\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Entity\PrefabEntityOwnershipService.cpp">
+      <Filter>AzFramework\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Driller\RemoteDrillerInterface.cpp">
+      <Filter>AzFramework\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Driller\DrillToFileComponent.cpp">
+      <Filter>AzFramework\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Components\TransformComponent.cpp">
+      <Filter>AzFramework\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Components\ConsoleBus.cpp">
+      <Filter>AzFramework\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Components\AzFrameworkConfigurationSystemComponent.cpp">
+      <Filter>AzFramework\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Components\NonUniformScaleComponent.cpp">
+      <Filter>AzFramework\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\FileFunc\FileFunc.cpp">
+      <Filter>AzFramework\FileFunc</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Gem\GemInfo.cpp">
+      <Filter>AzFramework\Gem</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\IO\LocalFileIO.cpp">
+      <Filter>AzFramework\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\IO\FileOperations.cpp">
+      <Filter>AzFramework\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\IO\RemoteFileIO.cpp">
+      <Filter>AzFramework\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\IO\RemoteStorageDrive.cpp">
+      <Filter>AzFramework\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Network\AssetProcessorConnection.cpp">
+      <Filter>AzFramework\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Network\SocketConnection.cpp">
+      <Filter>AzFramework\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Logging\LogFile.cpp">
+      <Filter>AzFramework\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Logging\LoggingComponent.cpp">
+      <Filter>AzFramework\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Logging\StartupLogSinkReporter.cpp">
+      <Filter>AzFramework\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Logging\MissingAssetLogger.cpp">
+      <Filter>AzFramework\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Scene\Scene.cpp">
+      <Filter>AzFramework\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Scene\SceneSystemComponent.cpp">
+      <Filter>AzFramework\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Script\ScriptComponent.cpp">
+      <Filter>AzFramework\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Script\ScriptDebugMsgReflection.cpp">
+      <Filter>AzFramework\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Script\ScriptRemoteDebugging.cpp">
+      <Filter>AzFramework\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Session\ISessionRequests.cpp">
+      <Filter>AzFramework\Session</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Session\SessionConfig.cpp">
+      <Filter>AzFramework\Session</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\StreamingInstall\StreamingInstall.cpp">
+      <Filter>AzFramework\StreamingInstall</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Collision\CollisionEvents.cpp">
+      <Filter>AzFramework\Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Collision\CollisionLayers.cpp">
+      <Filter>AzFramework\Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Collision\CollisionGroups.cpp">
+      <Filter>AzFramework\Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Common\PhysicsJoint.cpp">
+      <Filter>AzFramework\Physics\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Common\PhysicsSceneQueries.cpp">
+      <Filter>AzFramework\Physics\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Common\PhysicsSimulatedBody.cpp">
+      <Filter>AzFramework\Physics\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Common\PhysicsSimulatedBodyAutomation.cpp">
+      <Filter>AzFramework\Physics\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Common\PhysicsSimulatedBodyEvents.cpp">
+      <Filter>AzFramework\Physics\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Configuration\JointConfiguration.cpp">
+      <Filter>AzFramework\Physics\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Configuration\CollisionConfiguration.cpp">
+      <Filter>AzFramework\Physics\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Configuration\RigidBodyConfiguration.cpp">
+      <Filter>AzFramework\Physics\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Configuration\StaticRigidBodyConfiguration.cpp">
+      <Filter>AzFramework\Physics\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Configuration\SceneConfiguration.cpp">
+      <Filter>AzFramework\Physics\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Configuration\SimulatedBodyConfiguration.cpp">
+      <Filter>AzFramework\Physics\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Configuration\SystemConfiguration.cpp">
+      <Filter>AzFramework\Physics\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\SimulatedBodies\RigidBody.cpp">
+      <Filter>AzFramework\Physics\SimulatedBodies</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\SimulatedBodies\StaticRigidBody.cpp">
+      <Filter>AzFramework\Physics\SimulatedBodies</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\PhysicsSystem.cpp">
+      <Filter>AzFramework\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\PhysicsScene.cpp">
+      <Filter>AzFramework\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\AnimationConfiguration.cpp">
+      <Filter>AzFramework\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Character.cpp">
+      <Filter>AzFramework\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\CollisionBus.cpp">
+      <Filter>AzFramework\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Material.cpp">
+      <Filter>AzFramework\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\NameConstants.cpp">
+      <Filter>AzFramework\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Shape.cpp">
+      <Filter>AzFramework\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\ShapeConfiguration.cpp">
+      <Filter>AzFramework\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Ragdoll.cpp">
+      <Filter>AzFramework\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Utils.cpp">
+      <Filter>AzFramework\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\ClassConverters.cpp">
+      <Filter>AzFramework\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Process\ProcessCommunicator.cpp">
+      <Filter>AzFramework\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Process\ProcessWatcher.cpp">
+      <Filter>AzFramework\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\ProjectManager\ProjectManager.cpp">
+      <Filter>AzFramework\ProjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Render\GameIntersectorComponent.cpp">
+      <Filter>AzFramework\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Render\Intersector.cpp">
+      <Filter>AzFramework\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Spawnable\Spawnable.cpp">
+      <Filter>AzFramework\Spawnable</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Spawnable\SpawnableAssetHandler.cpp">
+      <Filter>AzFramework\Spawnable</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Spawnable\SpawnableEntitiesContainer.cpp">
+      <Filter>AzFramework\Spawnable</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Spawnable\SpawnableEntitiesInterface.cpp">
+      <Filter>AzFramework\Spawnable</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Spawnable\SpawnableEntitiesManager.cpp">
+      <Filter>AzFramework\Spawnable</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Spawnable\SpawnableMetaData.cpp">
+      <Filter>AzFramework\Spawnable</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Spawnable\SpawnableMonitor.cpp">
+      <Filter>AzFramework\Spawnable</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Spawnable\SpawnableSystemComponent.cpp">
+      <Filter>AzFramework\Spawnable</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Terrain\TerrainDataRequestBus.cpp">
+      <Filter>AzFramework\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Windowing\NativeWindow.cpp">
+      <Filter>AzFramework\Windowing</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannel.cpp">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelAnalog.cpp">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelAnalogWithPosition2D.cpp">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelAxis1D.cpp">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelAxis2D.cpp">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelAxis3D.cpp">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelDelta.cpp">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelDeltaWithSharedPosition2D.cpp">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelDigital.cpp">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelDigitalWithPosition2D.cpp">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelDigitalWithSharedModifierKeyStates.cpp">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelDigitalWithSharedPosition2D.cpp">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelId.cpp">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelQuaternion.cpp">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Contexts\InputContext.cpp">
+      <Filter>AzFramework\Input\Contexts</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Devices\InputDevice.cpp">
+      <Filter>AzFramework\Input\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Devices\InputDeviceId.cpp">
+      <Filter>AzFramework\Input\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Devices\Gamepad\InputDeviceGamepad.cpp">
+      <Filter>AzFramework\Input\Devices\Gamepad</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Devices\Keyboard\InputDeviceKeyboard.cpp">
+      <Filter>AzFramework\Input\Devices\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Devices\Motion\InputDeviceMotion.cpp">
+      <Filter>AzFramework\Input\Devices\Motion</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Devices\Mouse\InputDeviceMouse.cpp">
+      <Filter>AzFramework\Input\Devices\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Devices\VirtualKeyboard\InputDeviceVirtualKeyboard.cpp">
+      <Filter>AzFramework\Input\Devices\VirtualKeyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Devices\Touch\InputDeviceTouch.cpp">
+      <Filter>AzFramework\Input\Devices\Touch</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Events\InputChannelEventFilter.cpp">
+      <Filter>AzFramework\Input\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Events\InputChannelEventListener.cpp">
+      <Filter>AzFramework\Input\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Events\InputChannelEventSink.cpp">
+      <Filter>AzFramework\Input\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Events\InputTextEventListener.cpp">
+      <Filter>AzFramework\Input\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Mappings\InputMapping.cpp">
+      <Filter>AzFramework\Input\Mappings</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Mappings\InputMappingAnd.cpp">
+      <Filter>AzFramework\Input\Mappings</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Mappings\InputMappingOr.cpp">
+      <Filter>AzFramework\Input\Mappings</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\System\InputSystemComponent.cpp">
+      <Filter>AzFramework\Input\System</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\TargetManagement\NeighborhoodAPI.cpp">
+      <Filter>AzFramework\TargetManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\TargetManagement\TargetManagementComponent.cpp">
+      <Filter>AzFramework\TargetManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\FileTag\FileTag.cpp">
+      <Filter>AzFramework\FileTag</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\FileTag\FileTagComponent.cpp">
+      <Filter>AzFramework\FileTag</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\UnitTest\TestDebugDisplayRequests.cpp">
+      <Filter>AzFramework\UnitTest</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Slice\SliceInstantiationTicket.cpp">
+      <Filter>AzFramework\Slice</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Visibility\OctreeSystemComponent.cpp">
+      <Filter>AzFramework\Visibility</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Visibility\BoundsBus.cpp">
+      <Filter>AzFramework\Visibility</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Visibility\VisibilityDebug.cpp">
+      <Filter>AzFramework\Visibility</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Visibility\EntityVisibilityBoundsUnionSystem.cpp">
+      <Filter>AzFramework\Visibility</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Visibility\EntityVisibilityQuery.cpp">
+      <Filter>AzFramework\Visibility</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows\AzFramework\Application\Application_Windows.cpp">
+      <Filter>Platform\Windows\AzFramework\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows\AzFramework\Asset\AssetSystemComponentHelper_Windows.cpp">
+      <Filter>Platform\Windows\AzFramework\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows\AzFramework\Process\ProcessWatcher_Win.cpp">
+      <Filter>Platform\Windows\AzFramework\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows\AzFramework\Process\ProcessCommunicator_Win.cpp">
+      <Filter>Platform\Windows\AzFramework\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Common\WinAPI\AzFramework\IO\LocalFileIO_WinAPI.cpp">
+      <Filter>Platform\Windows\..\Common\WinAPI\AzFramework\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows\AzFramework\IO\LocalFileIO_Windows.cpp">
+      <Filter>Platform\Windows\AzFramework\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Common\Unimplemented\AzFramework\StreamingInstall\StreamingInstall_Unimplemented.cpp">
+      <Filter>Platform\Windows\..\Common\Unimplemented\AzFramework\StreamingInstall</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows\AzFramework\TargetManagement\TargetManagementComponent_Windows.cpp">
+      <Filter>Platform\Windows\AzFramework\TargetManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows\AzFramework\Windowing\NativeWindow_Windows.cpp">
+      <Filter>Platform\Windows\AzFramework\Windowing</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows\AzFramework\Input\Devices\Gamepad\InputDeviceGamepad_Windows.cpp">
+      <Filter>Platform\Windows\AzFramework\Input\Devices\Gamepad</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows\AzFramework\Input\Devices\Keyboard\InputDeviceKeyboard_Windows.cpp">
+      <Filter>Platform\Windows\AzFramework\Input\Devices\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Common\Unimplemented\AzFramework\Input\Devices\Motion\InputDeviceMotion_Unimplemented.cpp">
+      <Filter>Platform\Windows\..\Common\Unimplemented\AzFramework\Input\Devices\Motion</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows\AzFramework\Input\Devices\Mouse\InputDeviceMouse_Windows.cpp">
+      <Filter>Platform\Windows\AzFramework\Input\Devices\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Common\Unimplemented\AzFramework\Input\Devices\Touch\InputDeviceTouch_Unimplemented.cpp">
+      <Filter>Platform\Windows\..\Common\Unimplemented\AzFramework\Input\Devices\Touch</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Common\Unimplemented\AzFramework\Input\Devices\VirtualKeyboard\InputDeviceVirtualKeyboard_Unimplemented.cpp">
+      <Filter>Platform\Windows\..\Common\Unimplemented\AzFramework\Input\Devices\VirtualKeyboard</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\AzFrameworkModule.h">
+      <Filter>AzFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\API\ApplicationAPI.h">
+      <Filter>AzFramework\API</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Application\Application.h">
+      <Filter>AzFramework\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\Archive.h">
+      <Filter>AzFramework\Archive</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\ArchiveBus.h">
+      <Filter>AzFramework\Archive</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\ArchiveFileIO.h">
+      <Filter>AzFramework\Archive</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\ArchiveFindData.h">
+      <Filter>AzFramework\Archive</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\ArchiveVars.h">
+      <Filter>AzFramework\Archive</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\Codec.h">
+      <Filter>AzFramework\Archive</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\IArchive.h">
+      <Filter>AzFramework\Archive</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\INestedArchive.h">
+      <Filter>AzFramework\Archive</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\MissingFileReport.h">
+      <Filter>AzFramework\Archive</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\NestedArchive.h">
+      <Filter>AzFramework\Archive</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\ZipDirCache.h">
+      <Filter>AzFramework\Archive</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\ZipDirCacheFactory.h">
+      <Filter>AzFramework\Archive</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\ZipDirFind.h">
+      <Filter>AzFramework\Archive</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\ZipDirList.h">
+      <Filter>AzFramework\Archive</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\ZipDirStructures.h">
+      <Filter>AzFramework\Archive</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\ZipDirTree.h">
+      <Filter>AzFramework\Archive</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Archive\ZipFileFormat.h">
+      <Filter>AzFramework\Archive</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\SimpleAsset.h">
+      <Filter>AzFramework\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\AssetCatalogBus.h">
+      <Filter>AzFramework\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\AssetSystemBus.h">
+      <Filter>AzFramework\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\AssetSystemTypes.h">
+      <Filter>AzFramework\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\AssetCatalog.h">
+      <Filter>AzFramework\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\AssetCatalogComponent.h">
+      <Filter>AzFramework\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\AssetProcessorMessages.h">
+      <Filter>AzFramework\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\AssetRegistry.h">
+      <Filter>AzFramework\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\AssetSeedList.h">
+      <Filter>AzFramework\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\AssetSystemComponent.h">
+      <Filter>AzFramework\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\CfgFileAsset.h">
+      <Filter>AzFramework\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\GenericAssetHandler.h">
+      <Filter>AzFramework\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\AssetBundleManifest.h">
+      <Filter>AzFramework\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\CustomAssetTypeComponent.h">
+      <Filter>AzFramework\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\FileTagAsset.h">
+      <Filter>AzFramework\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\NetworkAssetNotification_private.h">
+      <Filter>AzFramework\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\XmlSchemaAsset.h">
+      <Filter>AzFramework\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\Benchmark\BenchmarkAsset.h">
+      <Filter>AzFramework\Asset\Benchmark</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\Benchmark\BenchmarkCommands.h">
+      <Filter>AzFramework\Asset\Benchmark</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Asset\Benchmark\BenchmarkSettingsAsset.h">
+      <Filter>AzFramework\Asset\Benchmark</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\CommandLine\CommandLine.h">
+      <Filter>AzFramework\CommandLine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\CommandLine\CommandRegistrationBus.h">
+      <Filter>AzFramework\CommandLine</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Debug\DebugCameraBus.h">
+      <Filter>AzFramework\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\ViewportBus.h">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\ViewportColors.h">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\ViewportConstants.h">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\MultiViewportController.h">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\MultiViewportController.inl">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\SingleViewportController.h">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\ViewportControllerInterface.h">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\ViewportControllerList.h">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\ViewportId.h">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\ViewportScreen.h">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\ScreenGeometry.h">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\CameraState.h">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\CameraInput.h">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\ClickDetector.h">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\CursorState.h">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Viewport\DisplayContextRequestBus.h">
+      <Filter>AzFramework\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Entity\BehaviorEntity.h">
+      <Filter>AzFramework\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Entity\GameEntityContextComponent.h">
+      <Filter>AzFramework\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Entity\GameEntityContextBus.h">
+      <Filter>AzFramework\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Entity\EntityContext.h">
+      <Filter>AzFramework\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Entity\EntityContextBus.h">
+      <Filter>AzFramework\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Entity\EntityDebugDisplayBus.h">
+      <Filter>AzFramework\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Entity\EntityOwnershipService.h">
+      <Filter>AzFramework\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Entity\EntityOwnershipServiceBus.h">
+      <Filter>AzFramework\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Entity\SliceEntityOwnershipServiceBus.h">
+      <Filter>AzFramework\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Entity\SliceEntityOwnershipService.h">
+      <Filter>AzFramework\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Entity\SliceGameEntityOwnershipService.h">
+      <Filter>AzFramework\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Entity\SliceGameEntityOwnershipServiceBus.h">
+      <Filter>AzFramework\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Entity\PrefabEntityOwnershipService.h">
+      <Filter>AzFramework\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Driller\RemoteDrillerInterface.h">
+      <Filter>AzFramework\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Driller\DrillerConsoleAPI.h">
+      <Filter>AzFramework\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Driller\DrillToFileComponent.h">
+      <Filter>AzFramework\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Components\ComponentAdapter.h">
+      <Filter>AzFramework\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Components\ComponentAdapter.inl">
+      <Filter>AzFramework\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Components\ComponentAdapterHelpers.h">
+      <Filter>AzFramework\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Components\EditorEntityEvents.h">
+      <Filter>AzFramework\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Components\TransformComponent.h">
+      <Filter>AzFramework\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Components\CameraBus.h">
+      <Filter>AzFramework\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Components\ConsoleBus.h">
+      <Filter>AzFramework\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Components\DeprecatedComponentsBus.h">
+      <Filter>AzFramework\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Components\AzFrameworkConfigurationSystemComponent.h">
+      <Filter>AzFramework\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Components\NonUniformScaleComponent.h">
+      <Filter>AzFramework\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\FileFunc\FileFunc.h">
+      <Filter>AzFramework\FileFunc</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Font\FontInterface.h">
+      <Filter>AzFramework\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Gem\GemInfo.h">
+      <Filter>AzFramework\Gem</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\StringFunc\StringFunc.h">
+      <Filter>AzFramework\StringFunc</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\InGameUI\UiFrameworkBus.h">
+      <Filter>AzFramework\InGameUI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\IO\LocalFileIO.h">
+      <Filter>AzFramework\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\IO\FileOperations.h">
+      <Filter>AzFramework\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\IO\RemoteFileIO.h">
+      <Filter>AzFramework\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\IO\RemoteStorageDrive.h">
+      <Filter>AzFramework\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Math\InterpolationSample.h">
+      <Filter>AzFramework\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Metrics\MetricsPlainTextNameRegistration.h">
+      <Filter>AzFramework\Metrics</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Network\AssetProcessorConnection.h">
+      <Filter>AzFramework\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Network\SocketConnection.h">
+      <Filter>AzFramework\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Logging\LogFile.h">
+      <Filter>AzFramework\Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Logging\LoggingComponent.h">
+      <Filter>AzFramework\Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Logging\StartupLogSinkReporter.h">
+      <Filter>AzFramework\Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Logging\MissingAssetLogger.h">
+      <Filter>AzFramework\Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Logging\MissingAssetNotificationBus.h">
+      <Filter>AzFramework\Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Scene\Scene.h">
+      <Filter>AzFramework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Scene\Scene.inl">
+      <Filter>AzFramework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Scene\SceneSystemComponent.h">
+      <Filter>AzFramework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Scene\SceneSystemInterface.h">
+      <Filter>AzFramework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Script\ScriptComponent.h">
+      <Filter>AzFramework\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Script\ScriptDebugAgentBus.h">
+      <Filter>AzFramework\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Script\ScriptDebugMsgReflection.h">
+      <Filter>AzFramework\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Script\ScriptRemoteDebugging.h">
+      <Filter>AzFramework\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Session\ISessionHandlingRequests.h">
+      <Filter>AzFramework\Session</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Session\ISessionRequests.h">
+      <Filter>AzFramework\Session</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Session\SessionConfig.h">
+      <Filter>AzFramework\Session</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Session\SessionNotifications.h">
+      <Filter>AzFramework\Session</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\StreamingInstall\StreamingInstall.h">
+      <Filter>AzFramework\StreamingInstall</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\StreamingInstall\StreamingInstallRequests.h">
+      <Filter>AzFramework\StreamingInstall</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\StreamingInstall\StreamingInstallNotifications.h">
+      <Filter>AzFramework\StreamingInstall</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Collision\CollisionEvents.h">
+      <Filter>AzFramework\Physics\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Collision\CollisionLayers.h">
+      <Filter>AzFramework\Physics\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Collision\CollisionGroups.h">
+      <Filter>AzFramework\Physics\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Common\PhysicsJoint.h">
+      <Filter>AzFramework\Physics\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Common\PhysicsSceneQueries.h">
+      <Filter>AzFramework\Physics\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Common\PhysicsEvents.h">
+      <Filter>AzFramework\Physics\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Common\PhysicsSimulatedBody.h">
+      <Filter>AzFramework\Physics\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Common\PhysicsSimulatedBodyAutomation.h">
+      <Filter>AzFramework\Physics\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Common\PhysicsSimulatedBodyEvents.h">
+      <Filter>AzFramework\Physics\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Common\PhysicsTypes.h">
+      <Filter>AzFramework\Physics\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Components\SimulatedBodyComponentBus.h">
+      <Filter>AzFramework\Physics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Configuration\JointConfiguration.h">
+      <Filter>AzFramework\Physics\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Configuration\CollisionConfiguration.h">
+      <Filter>AzFramework\Physics\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Configuration\RigidBodyConfiguration.h">
+      <Filter>AzFramework\Physics\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Configuration\StaticRigidBodyConfiguration.h">
+      <Filter>AzFramework\Physics\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Configuration\SceneConfiguration.h">
+      <Filter>AzFramework\Physics\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Configuration\SimulatedBodyConfiguration.h">
+      <Filter>AzFramework\Physics\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Configuration\SystemConfiguration.h">
+      <Filter>AzFramework\Physics\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\SimulatedBodies\RigidBody.h">
+      <Filter>AzFramework\Physics\SimulatedBodies</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\SimulatedBodies\StaticRigidBody.h">
+      <Filter>AzFramework\Physics\SimulatedBodies</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\PhysicsSystem.h">
+      <Filter>AzFramework\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\PhysicsScene.h">
+      <Filter>AzFramework\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\AnimationConfiguration.h">
+      <Filter>AzFramework\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Character.h">
+      <Filter>AzFramework\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\CollisionBus.h">
+      <Filter>AzFramework\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Material.h">
+      <Filter>AzFramework\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\NameConstants.h">
+      <Filter>AzFramework\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\RigidBodyBus.h">
+      <Filter>AzFramework\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Shape.h">
+      <Filter>AzFramework\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\ShapeConfiguration.h">
+      <Filter>AzFramework\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\SystemBus.h">
+      <Filter>AzFramework\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\ColliderComponentBus.h">
+      <Filter>AzFramework\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\RagdollPhysicsBus.h">
+      <Filter>AzFramework\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\CharacterPhysicsDataBus.h">
+      <Filter>AzFramework\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\CharacterBus.h">
+      <Filter>AzFramework\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Ragdoll.h">
+      <Filter>AzFramework\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\Utils.h">
+      <Filter>AzFramework\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\ClassConverters.h">
+      <Filter>AzFramework\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\MaterialBus.h">
+      <Filter>AzFramework\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Physics\WindBus.h">
+      <Filter>AzFramework\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Process\ProcessCommunicator.h">
+      <Filter>AzFramework\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Process\ProcessWatcher.h">
+      <Filter>AzFramework\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Process\ProcessCommon_fwd.h">
+      <Filter>AzFramework\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\ProjectManager\ProjectManager.h">
+      <Filter>AzFramework\ProjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Render\GameIntersectorComponent.h">
+      <Filter>AzFramework\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Render\GeometryIntersectionBus.h">
+      <Filter>AzFramework\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Render\GeometryIntersectionStructures.h">
+      <Filter>AzFramework\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Render\Intersector.h">
+      <Filter>AzFramework\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Render\IntersectorInterface.h">
+      <Filter>AzFramework\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Spawnable\RootSpawnableInterface.h">
+      <Filter>AzFramework\Spawnable</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Spawnable\Spawnable.h">
+      <Filter>AzFramework\Spawnable</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Spawnable\SpawnableAssetHandler.h">
+      <Filter>AzFramework\Spawnable</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Spawnable\SpawnableEntitiesContainer.h">
+      <Filter>AzFramework\Spawnable</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Spawnable\SpawnableEntitiesInterface.h">
+      <Filter>AzFramework\Spawnable</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Spawnable\SpawnableEntitiesManager.h">
+      <Filter>AzFramework\Spawnable</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Spawnable\SpawnableMetaData.h">
+      <Filter>AzFramework\Spawnable</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Spawnable\SpawnableMonitor.h">
+      <Filter>AzFramework\Spawnable</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Spawnable\SpawnableSystemComponent.h">
+      <Filter>AzFramework\Spawnable</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Terrain\TerrainDataRequestBus.h">
+      <Filter>AzFramework\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Thermal\ThermalInfo.h">
+      <Filter>AzFramework\Thermal</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Platform\PlatformDefaults.h">
+      <Filter>AzFramework\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Windowing\WindowBus.h">
+      <Filter>AzFramework\Windowing</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Windowing\NativeWindow.h">
+      <Filter>AzFramework\Windowing</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Buses\Notifications\InputChannelNotificationBus.h">
+      <Filter>AzFramework\Input\Buses\Notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Buses\Notifications\InputDeviceNotificationBus.h">
+      <Filter>AzFramework\Input\Buses\Notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Buses\Notifications\InputSystemNotificationBus.h">
+      <Filter>AzFramework\Input\Buses\Notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Buses\Notifications\InputTextNotificationBus.h">
+      <Filter>AzFramework\Input\Buses\Notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Buses\Requests\InputChannelRequestBus.h">
+      <Filter>AzFramework\Input\Buses\Requests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Buses\Requests\InputDeviceRequestBus.h">
+      <Filter>AzFramework\Input\Buses\Requests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Buses\Requests\InputHapticFeedbackRequestBus.h">
+      <Filter>AzFramework\Input\Buses\Requests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Buses\Requests\InputLightBarRequestBus.h">
+      <Filter>AzFramework\Input\Buses\Requests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Buses\Requests\InputMotionSensorRequestBus.h">
+      <Filter>AzFramework\Input\Buses\Requests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Buses\Requests\InputSystemRequestBus.h">
+      <Filter>AzFramework\Input\Buses\Requests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Buses\Requests\InputSystemCursorRequestBus.h">
+      <Filter>AzFramework\Input\Buses\Requests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Buses\Requests\InputTextEntryRequestBus.h">
+      <Filter>AzFramework\Input\Buses\Requests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannel.h">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelAnalog.h">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelAnalogWithPosition2D.h">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelAxis1D.h">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelAxis2D.h">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelAxis3D.h">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelDelta.h">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelDeltaWithSharedPosition2D.h">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelDigital.h">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelDigitalWithPosition2D.h">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelDigitalWithSharedModifierKeyStates.h">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelDigitalWithSharedPosition2D.h">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelId.h">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Channels\InputChannelQuaternion.h">
+      <Filter>AzFramework\Input\Channels</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Contexts\InputContext.h">
+      <Filter>AzFramework\Input\Contexts</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Devices\InputDevice.h">
+      <Filter>AzFramework\Input\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Devices\InputDeviceId.h">
+      <Filter>AzFramework\Input\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Devices\Gamepad\InputDeviceGamepad.h">
+      <Filter>AzFramework\Input\Devices\Gamepad</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Devices\Keyboard\InputDeviceKeyboard.h">
+      <Filter>AzFramework\Input\Devices\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Devices\Keyboard\InputDeviceKeyboardWindowsScanCodes.h">
+      <Filter>AzFramework\Input\Devices\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Devices\Motion\InputDeviceMotion.h">
+      <Filter>AzFramework\Input\Devices\Motion</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Devices\Mouse\InputDeviceMouse.h">
+      <Filter>AzFramework\Input\Devices\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Devices\VirtualKeyboard\InputDeviceVirtualKeyboard.h">
+      <Filter>AzFramework\Input\Devices\VirtualKeyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Devices\Touch\InputDeviceTouch.h">
+      <Filter>AzFramework\Input\Devices\Touch</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Events\InputChannelEventFilter.h">
+      <Filter>AzFramework\Input\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Events\InputChannelEventListener.h">
+      <Filter>AzFramework\Input\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Events\InputChannelEventSink.h">
+      <Filter>AzFramework\Input\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Events\InputTextEventListener.h">
+      <Filter>AzFramework\Input\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Mappings\InputMapping.h">
+      <Filter>AzFramework\Input\Mappings</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Mappings\InputMappingAnd.h">
+      <Filter>AzFramework\Input\Mappings</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Mappings\InputMappingOr.h">
+      <Filter>AzFramework\Input\Mappings</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\System\InputSystemComponent.h">
+      <Filter>AzFramework\Input\System</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\User\LocalUserId.h">
+      <Filter>AzFramework\Input\User</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Utils\AdjustAnalogInputForDeadZone.h">
+      <Filter>AzFramework\Input\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Utils\IsAnyKeyOrButton.h">
+      <Filter>AzFramework\Input\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Input\Utils\ProcessRawInputEventQueues.h">
+      <Filter>AzFramework\Input\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\TargetManagement\NeighborhoodAPI.h">
+      <Filter>AzFramework\TargetManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\TargetManagement\TargetManagementAPI.h">
+      <Filter>AzFramework\TargetManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\TargetManagement\TargetManagementComponent.h">
+      <Filter>AzFramework\TargetManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\FileTag\FileTag.h">
+      <Filter>AzFramework\FileTag</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\FileTag\FileTagBus.h">
+      <Filter>AzFramework\FileTag</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\FileTag\FileTagComponent.h">
+      <Filter>AzFramework\FileTag</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\UnitTest\FrameworkTestTypes.h">
+      <Filter>AzFramework\UnitTest</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\UnitTest\TestDebugDisplayRequests.h">
+      <Filter>AzFramework\UnitTest</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Slice\SliceEntityBus.h">
+      <Filter>AzFramework\Slice</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Slice\SliceInstantiationBus.h">
+      <Filter>AzFramework\Slice</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Slice\SliceInstantiationTicket.h">
+      <Filter>AzFramework\Slice</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Visibility\IVisibilitySystem.h">
+      <Filter>AzFramework\Visibility</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Visibility\OctreeSystemComponent.h">
+      <Filter>AzFramework\Visibility</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Visibility\BoundsBus.h">
+      <Filter>AzFramework\Visibility</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Visibility\VisibilityDebug.h">
+      <Filter>AzFramework\Visibility</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Visibility\EntityBoundsUnionBus.h">
+      <Filter>AzFramework\Visibility</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Visibility\EntityVisibilityBoundsUnionSystem.h">
+      <Filter>AzFramework\Visibility</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Visibility\EntityVisibilityQuery.h">
+      <Filter>AzFramework\Visibility</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Dependency\Dependency.h">
+      <Filter>AzFramework\Dependency</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Dependency\Dependency.inl">
+      <Filter>AzFramework\Dependency</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Dependency\Version.h">
+      <Filter>AzFramework\Dependency</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows\AzFramework\AzFramework_Traits_Platform.h">
+      <Filter>Platform\Windows\AzFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows\AzFramework\AzFramework_Traits_Windows.h">
+      <Filter>Platform\Windows\AzFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows\AzFramework\API\ApplicationAPI_Platform.h">
+      <Filter>Platform\Windows\AzFramework\API</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows\AzFramework\API\ApplicationAPI_Windows.h">
+      <Filter>Platform\Windows\AzFramework\API</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows\AzFramework\Process\ProcessCommon.h">
+      <Filter>Platform\Windows\AzFramework\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows\AzFramework\Input\Buses\Notifications\RawInputNotificationBus_Platform.h">
+      <Filter>Platform\Windows\AzFramework\Input\Buses\Notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows\AzFramework\Input\Buses\Notifications\RawInputNotificationBus_Windows.h">
+      <Filter>Platform\Windows\AzFramework\Input\Buses\Notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Common\WinAPI\AzFramework\Input\Devices\Keyboard\InputDeviceKeyboard_WinAPI.h">
+      <Filter>Platform\Windows\..\Common\WinAPI\AzFramework\Input\Devices\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows\AzFramework\Input\User\LocalUserId_Platform.h">
+      <Filter>Platform\Windows\AzFramework\Input\User</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Common\Default\AzFramework\Input\User\LocalUserId_Default.h">
+      <Filter>Platform\Windows\..\Common\Default\AzFramework\Input\User</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows\AzFramework\Archive\ArchiveVars_Platform.h">
+      <Filter>Platform\Windows\AzFramework\Archive</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows\AzFramework\Archive\ArchiveVars_Windows.h">
+      <Filter>Platform\Windows\AzFramework\Archive</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\azframework_files.cmake">
+      <Filter>AzFramework</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows\platform_windows_files.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows\platform_windows.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="AzFramework">
+      <UniqueIdentifier>{710B4819-7D56-36A7-AB49-CC811443AEDC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\API">
+      <UniqueIdentifier>{F54EF176-5D79-3F5E-97A3-1F45A71393C6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Application">
+      <UniqueIdentifier>{C6704EF1-DFC0-3471-A0CA-95910BF3D2F6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Archive">
+      <UniqueIdentifier>{28E6F337-7363-36CB-B248-BDD60AFB378F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Asset">
+      <UniqueIdentifier>{E7D21A13-78B9-3F01-B718-63C4852A781E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Asset\Benchmark">
+      <UniqueIdentifier>{2E7EA83C-6628-31BE-9DAD-BB9AEDF5E135}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\CommandLine">
+      <UniqueIdentifier>{949CD5A3-8761-371D-9C78-EF61E1E46597}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Components">
+      <UniqueIdentifier>{1524302A-5F8F-353B-A87E-941A99E69BC1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Debug">
+      <UniqueIdentifier>{CF6854E9-CA6C-3DA6-9CC7-9AFF83348AE8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Dependency">
+      <UniqueIdentifier>{37B1B852-ABC1-3457-BD29-CB911C3D0247}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Driller">
+      <UniqueIdentifier>{41D81C97-7B8F-3391-B48B-62A8A09A89DA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Entity">
+      <UniqueIdentifier>{1CDD8B19-BD8B-3379-B87D-27232E12B564}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\FileFunc">
+      <UniqueIdentifier>{122F75FF-3116-3944-8288-A7D259A35BA1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\FileTag">
+      <UniqueIdentifier>{D312B40D-0436-35D9-A9E2-225DA8213D91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Font">
+      <UniqueIdentifier>{BB47A992-C710-3673-B7EF-9DB7D3C7CC33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Gem">
+      <UniqueIdentifier>{A1292E72-23E2-3023-A208-0289D99E9513}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\IO">
+      <UniqueIdentifier>{7A851CD1-3761-3B65-BD10-CAD9F1B05521}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\InGameUI">
+      <UniqueIdentifier>{C129F578-1974-3CBE-B3A9-E71236F603D2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Input">
+      <UniqueIdentifier>{9FACB965-5285-3ACF-B652-D125D97C7D96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Input\Buses">
+      <UniqueIdentifier>{E6C1709C-FFB9-3575-93EB-B5A474A22B7B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Input\Buses\Notifications">
+      <UniqueIdentifier>{270A06B8-47DC-310F-9B02-172DD6D7508D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Input\Buses\Requests">
+      <UniqueIdentifier>{D05896C7-6A18-3798-9C62-8F3EFA5DB573}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Input\Channels">
+      <UniqueIdentifier>{E732A601-9ED5-3258-92C5-3CAD33AB63D1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Input\Contexts">
+      <UniqueIdentifier>{F7F75721-E098-3C7A-9CD6-AE58D26669AD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Input\Devices">
+      <UniqueIdentifier>{930FDE3E-2FF3-3D85-95A8-C27BDC4E6D38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Input\Devices\Gamepad">
+      <UniqueIdentifier>{102E2259-CD91-3911-A743-3BDB89C51E1A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Input\Devices\Keyboard">
+      <UniqueIdentifier>{AB715F14-2B72-393A-B8F0-A27AA4E088B2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Input\Devices\Motion">
+      <UniqueIdentifier>{CAAC942F-1FC7-33DA-B67C-1A0DAACEC5F1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Input\Devices\Mouse">
+      <UniqueIdentifier>{6BDEDD80-EE59-38A2-B953-838D199B24D6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Input\Devices\Touch">
+      <UniqueIdentifier>{FE738AFA-D573-3DDE-A682-0DDD3015C057}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Input\Devices\VirtualKeyboard">
+      <UniqueIdentifier>{232BE1CE-136B-3879-B23B-728C97964277}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Input\Events">
+      <UniqueIdentifier>{145AB1C1-FBEA-3D97-84C7-33B4280941B6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Input\Mappings">
+      <UniqueIdentifier>{2C9E0328-3243-3C2B-B910-127530EFAD43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Input\System">
+      <UniqueIdentifier>{D3BF22F8-B717-3E6B-B278-B0897E8B5EC6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Input\User">
+      <UniqueIdentifier>{F0C3E10A-F3EC-3AA3-92F7-A8E84CACB007}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Input\Utils">
+      <UniqueIdentifier>{8FF39CDA-5FDC-3C69-A36B-F7DFC33AC265}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Logging">
+      <UniqueIdentifier>{86AB75F4-25E4-3D12-9664-79734167F4D0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Math">
+      <UniqueIdentifier>{9EB0B2E8-AD11-3CDB-8803-180A44607B6C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Metrics">
+      <UniqueIdentifier>{87B88473-3D6C-3BF8-8103-8B8F5A81281B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Network">
+      <UniqueIdentifier>{B671D6AE-A129-3E42-8744-7D15BDA5EF61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Physics">
+      <UniqueIdentifier>{E755C876-380B-33F5-9B97-2AFD8DBFBB40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Physics\Collision">
+      <UniqueIdentifier>{13565D5E-FDFE-3272-B368-BCEBE3C29E60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Physics\Common">
+      <UniqueIdentifier>{0CBE566B-67CE-38A7-85EE-F1C8FB184D45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Physics\Components">
+      <UniqueIdentifier>{0BCB1F86-FF86-3434-8F8F-B7143BA56C5D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Physics\Configuration">
+      <UniqueIdentifier>{30A12B12-002D-3D0C-82A6-4953886224B8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Physics\SimulatedBodies">
+      <UniqueIdentifier>{CD2DF735-3CD5-3AEE-8717-11B06B13EAD3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Platform">
+      <UniqueIdentifier>{B5EB5677-4E29-37C1-B7F6-064850B59E1E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Process">
+      <UniqueIdentifier>{FF4AF2B8-5231-3B74-99B0-1CF0DAA8A02B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\ProjectManager">
+      <UniqueIdentifier>{5EA122B6-A368-3E55-98B1-1AD641C64BAF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Render">
+      <UniqueIdentifier>{01A0AB63-4580-3907-BDF9-DF344C685689}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Scene">
+      <UniqueIdentifier>{002BC133-F126-3E93-B9F0-4CE24B760E9B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Script">
+      <UniqueIdentifier>{4424CB19-A59B-368A-98C7-81B5A38C3DB6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Session">
+      <UniqueIdentifier>{ECB55A7C-C2C3-3D0E-9AD8-24DFFE05B711}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Slice">
+      <UniqueIdentifier>{34D70148-B609-3CB8-861B-911D152447D8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Spawnable">
+      <UniqueIdentifier>{4928B929-DCE9-3562-9FB0-A10CE34CCED0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\StreamingInstall">
+      <UniqueIdentifier>{08F0A6A7-4E66-30B3-8817-191D8F7F85BE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\StringFunc">
+      <UniqueIdentifier>{9745DA15-60A4-3D5A-952D-A04AED0FD534}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\TargetManagement">
+      <UniqueIdentifier>{6D52D0CC-46A7-380D-ACBA-13470FA8FBAA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Terrain">
+      <UniqueIdentifier>{26FA7BD8-8C6D-35DA-83E2-65E4452C2490}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Thermal">
+      <UniqueIdentifier>{263DFFCC-1DBA-3D14-8822-24432B368617}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\UnitTest">
+      <UniqueIdentifier>{68F33C4E-1AEE-3116-B098-22D26AFB11D5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Viewport">
+      <UniqueIdentifier>{6DAE5B09-A9C4-38B4-8A94-059D966A9110}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Visibility">
+      <UniqueIdentifier>{D8FBA90C-C226-3235-A87F-64FCA95E61E9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzFramework\Windowing">
+      <UniqueIdentifier>{5D3052E5-844A-3D44-BAB7-27FFDF183E29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{D4CCE8D3-A6C9-3C6A-9C86-8BF8F7D77D7F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{9B5BE819-E94D-379A-84DF-5559629D4548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..">
+      <UniqueIdentifier>{731ADA3D-17B6-381E-ABF5-417E8742D0A7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common">
+      <UniqueIdentifier>{DE695BA1-3376-3AAF-953B-BD43429F4343}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\Default">
+      <UniqueIdentifier>{53222E90-A844-3FA3-89B6-1016A6784F7D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\Default\AzFramework">
+      <UniqueIdentifier>{5CFDF1CD-D7B0-3220-B154-2E6942B0F9F2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\Default\AzFramework\Input">
+      <UniqueIdentifier>{941542D6-ADF7-305F-BB9A-C758D9B4585B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\Default\AzFramework\Input\User">
+      <UniqueIdentifier>{3070A58C-D038-32D8-A9C4-C7F3D35DF465}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\Unimplemented">
+      <UniqueIdentifier>{DDBCEECD-E309-37E2-B1DF-EF70FCD163E6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\Unimplemented\AzFramework">
+      <UniqueIdentifier>{A856F158-04C3-3667-9662-0E6430A139B7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\Unimplemented\AzFramework\Input">
+      <UniqueIdentifier>{B1ECC984-7414-33C5-9B8F-544108914172}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\Unimplemented\AzFramework\Input\Devices">
+      <UniqueIdentifier>{38AC33A3-B3B1-3048-92C9-A407C1AE9691}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\Unimplemented\AzFramework\Input\Devices\Motion">
+      <UniqueIdentifier>{BC75CAE8-2A85-3884-8B1B-ACD97A19C477}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\Unimplemented\AzFramework\Input\Devices\Touch">
+      <UniqueIdentifier>{2B126887-7E0C-30EC-8E86-FC397656F9A1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\Unimplemented\AzFramework\Input\Devices\VirtualKeyboard">
+      <UniqueIdentifier>{93E79745-12B5-3CCA-9879-B2426C4FA0D2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\Unimplemented\AzFramework\StreamingInstall">
+      <UniqueIdentifier>{A445FD07-3744-3111-9E54-A516AB2C766A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\WinAPI">
+      <UniqueIdentifier>{85A1FA1A-D5F4-35A3-A95D-DF55BB4894C6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\WinAPI\AzFramework">
+      <UniqueIdentifier>{C70DF3F3-31CF-3F71-BFFC-D47106131F55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\WinAPI\AzFramework\IO">
+      <UniqueIdentifier>{A4CE4641-3EF6-376B-8E86-7723C0F0F047}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\WinAPI\AzFramework\Input">
+      <UniqueIdentifier>{A7696886-8E3B-3130-8B92-FD615B0FB3A2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\WinAPI\AzFramework\Input\Devices">
+      <UniqueIdentifier>{A06633D1-74E2-3F9C-B4A7-191BB63A8E46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\WinAPI\AzFramework\Input\Devices\Keyboard">
+      <UniqueIdentifier>{6616AAC8-BDD9-3342-8F3E-0E2ECE1C3C98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\AzFramework">
+      <UniqueIdentifier>{CE8FE2EC-EE84-326E-B39F-0BB4220FD090}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\AzFramework\API">
+      <UniqueIdentifier>{96149DE3-40AD-3BC0-A221-59D527196FB2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\AzFramework\Application">
+      <UniqueIdentifier>{DA925DC4-4F2B-3113-A27D-3C32D430E155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\AzFramework\Archive">
+      <UniqueIdentifier>{E8262E03-4A53-33C1-8D31-86E66645A653}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\AzFramework\Asset">
+      <UniqueIdentifier>{16A6D26E-B424-30AF-81F6-7EFAC4326974}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\AzFramework\IO">
+      <UniqueIdentifier>{1025F982-1316-3C5D-9159-F13A327CFC8D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\AzFramework\Input">
+      <UniqueIdentifier>{BDA5F7A5-659F-321D-BC59-78519D1173E1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\AzFramework\Input\Buses">
+      <UniqueIdentifier>{FC1058FA-4FE8-3626-BC17-EE870CBF1165}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\AzFramework\Input\Buses\Notifications">
+      <UniqueIdentifier>{FDF58A5F-1249-350C-B1F4-7D12207F712F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\AzFramework\Input\Devices">
+      <UniqueIdentifier>{0AA50DBE-39BE-3E11-8C3E-AC55EC70B834}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\AzFramework\Input\Devices\Gamepad">
+      <UniqueIdentifier>{6F39D711-3AE3-3FF4-8FA0-C23FE766981D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\AzFramework\Input\Devices\Keyboard">
+      <UniqueIdentifier>{C70AFB38-CC7E-320E-8688-91BDEAE9BB07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\AzFramework\Input\Devices\Mouse">
+      <UniqueIdentifier>{34C65C47-E151-3BD2-9CF4-0F1C6D699ADC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\AzFramework\Input\User">
+      <UniqueIdentifier>{76B3E49E-D942-3D13-A882-ABA2562D40BD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\AzFramework\Process">
+      <UniqueIdentifier>{A5AAB3DA-FD74-38C9-A821-1B93F8D68F83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\AzFramework\TargetManagement">
+      <UniqueIdentifier>{AC55AABD-185A-3A8A-862D-6EFA616687FA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\AzFramework\Windowing">
+      <UniqueIdentifier>{A28EC9BB-6DFA-3D4E-8F60-7F290E22F023}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\AWSCoreSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Configuration\AWSCoreConfiguration.cpp">
+      <Filter>Source\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Credential\AWSCredentialManager.cpp">
+      <Filter>Source\Credential</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Credential\AWSCVarCredentialHandler.cpp">
+      <Filter>Source\Credential</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Credential\AWSDefaultCredentialHandler.cpp">
+      <Filter>Source\Credential</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Framework\AWSApiJob.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Framework\AWSApiJobConfig.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Framework\Error.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Framework\HttpRequestJob.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Framework\HttpRequestJobConfig.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Framework\JsonObjectHandler.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Framework\MultipartFormData.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Framework\RequestBuilder.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Framework\ServiceJob.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Framework\ServiceJobConfig.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\ResourceMapping\AWSResourceMappingManager.cpp">
+      <Filter>Source\ResourceMapping</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\ResourceMapping\AWSResourceMappingUtils.cpp">
+      <Filter>Source\ResourceMapping</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\ScriptCanvas\AWSScriptBehaviorDynamoDB.cpp">
+      <Filter>Source\ScriptCanvas</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\ScriptCanvas\AWSScriptBehaviorLambda.cpp">
+      <Filter>Source\ScriptCanvas</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\ScriptCanvas\AWSScriptBehaviorS3.cpp">
+      <Filter>Source\ScriptCanvas</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\ScriptCanvas\AWSScriptBehaviorsComponent.cpp">
+      <Filter>Source\ScriptCanvas</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Framework\Platform\Common\GetCertsPath_Null.cpp">
+      <Filter>Source\Framework\Platform\Windows\..\Common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\AWSCoreBus.h">
+      <Filter>Include\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Credential\AWSCredentialBus.h">
+      <Filter>Include\Public\Credential</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\AWSApiClientJob.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\AWSApiClientJobConfig.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\AWSApiJob.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\AWSApiJobConfig.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\AWSApiRequestJob.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\AWSApiRequestJobConfig.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\Error.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\HttpClientComponent.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\HttpRequestJob.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\HttpRequestJobConfig.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\JobExecuter.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\JsonObjectHandler.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\JsonWriter.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\MultipartFormData.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\RequestBuilder.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\ServiceClientJob.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\ServiceClientJobConfig.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\ServiceJob.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\ServiceJobConfig.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\ServiceJobUtil.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\ServiceRequestJob.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\ServiceRequestJobConfig.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\Framework\Util.h">
+      <Filter>Include\Public\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\ResourceMapping\AWSResourceMappingBus.h">
+      <Filter>Include\Public\ResourceMapping</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\ScriptCanvas\AWSScriptBehaviorDynamoDB.h">
+      <Filter>Include\Public\ScriptCanvas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\ScriptCanvas\AWSScriptBehaviorLambda.h">
+      <Filter>Include\Public\ScriptCanvas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\ScriptCanvas\AWSScriptBehaviorS3.h">
+      <Filter>Include\Public\ScriptCanvas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Public\ScriptCanvas\AWSScriptBehaviorsComponent.h">
+      <Filter>Include\Public\ScriptCanvas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\AWSCoreInternalBus.h">
+      <Filter>Include\Private</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\AWSCoreSystemComponent.h">
+      <Filter>Include\Private</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\Configuration\AWSCoreConfiguration.h">
+      <Filter>Include\Private\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\Credential\AWSCredentialManager.h">
+      <Filter>Include\Private\Credential</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\Credential\AWSCVarCredentialHandler.h">
+      <Filter>Include\Private\Credential</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\Credential\AWSDefaultCredentialHandler.h">
+      <Filter>Include\Private\Credential</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\ResourceMapping\AWSResourceMappingConstants.h">
+      <Filter>Include\Private\ResourceMapping</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\ResourceMapping\AWSResourceMappingManager.h">
+      <Filter>Include\Private\ResourceMapping</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Include\Private\ResourceMapping\AWSResourceMappingUtils.h">
+      <Filter>Include\Private\ResourceMapping</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\awscore_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\AWSCore\Code\Source\Framework\Platform\Windows\platform_windows_files.cmake">
+      <Filter>Source\Framework\Platform\Windows</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Private">
+      <UniqueIdentifier>{BF9280D1-E1B7-308D-B433-C4B96E16D0C2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Private\Configuration">
+      <UniqueIdentifier>{A7FA0A8E-5174-3D05-9E06-DA92358ED155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Private\Credential">
+      <UniqueIdentifier>{A4F3BA2F-7E19-3781-B627-34DF522C04CE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Private\ResourceMapping">
+      <UniqueIdentifier>{14BD0CE3-7D52-34CA-9EB8-F9BDCA05A5C4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Public">
+      <UniqueIdentifier>{6BCE243A-06DF-328F-8BAD-1A26557995D1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Public\Credential">
+      <UniqueIdentifier>{46F0F6D8-38B0-3613-BE49-8B1568F11271}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Public\Framework">
+      <UniqueIdentifier>{1E96DF0D-3793-3D97-8C3E-2451039DCD62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Public\ResourceMapping">
+      <UniqueIdentifier>{5AB29221-7BF9-3113-A02C-B6B1675AD1AB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Public\ScriptCanvas">
+      <UniqueIdentifier>{CFE46680-EA55-3654-A9C5-5408A9860C47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Configuration">
+      <UniqueIdentifier>{51192025-095A-36B1-BD38-C0CF4F754098}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Credential">
+      <UniqueIdentifier>{3215B679-BEF9-3E16-87AC-846BBBBD80AB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Framework">
+      <UniqueIdentifier>{310F290A-7B52-3514-9A67-A36D0BD9BAC7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Framework\Platform">
+      <UniqueIdentifier>{6FEF3C3B-C264-355F-B032-7B48D6FD697E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Framework\Platform\Windows">
+      <UniqueIdentifier>{98FCFFB6-0592-325F-A4A3-A6042A0ECEEE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Framework\Platform\Windows\..">
+      <UniqueIdentifier>{0AA5C88A-C462-301D-B74A-68C2F38174CA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Framework\Platform\Windows\..\Common">
+      <UniqueIdentifier>{0529DE9F-E62A-397D-8C71-98D4906B7DED}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ResourceMapping">
+      <UniqueIdentifier>{45D4999F-DB40-3D36-8453-FBE585DE07D2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ScriptCanvas">
+      <UniqueIdentifier>{6E309FD9-203F-37BD-8008-2BB21840924F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

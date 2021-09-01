@@ -1,0 +1,12 @@
+{
+    "entries": [
+        {
+            "key": "ConstantGradientConfig",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "ConstantGradientConfig"
+            }
+        }
+    ]
+}

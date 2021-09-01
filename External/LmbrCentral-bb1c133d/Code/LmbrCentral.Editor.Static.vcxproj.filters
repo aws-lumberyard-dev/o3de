@@ -1,0 +1,461 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Audio\EditorAudioAreaEnvironmentComponent.cpp">
+      <Filter>Source\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Audio\EditorAudioEnvironmentComponent.cpp">
+      <Filter>Source\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Audio\EditorAudioListenerComponent.cpp">
+      <Filter>Source\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Audio\EditorAudioMultiPositionComponent.cpp">
+      <Filter>Source\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Audio\EditorAudioPreloadComponent.cpp">
+      <Filter>Source\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Audio\EditorAudioRtpcComponent.cpp">
+      <Filter>Source\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Audio\EditorAudioSwitchComponent.cpp">
+      <Filter>Source\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Audio\EditorAudioTriggerComponent.cpp">
+      <Filter>Source\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\BenchmarkAssetBuilder\BenchmarkAssetBuilderComponent.cpp">
+      <Filter>Source\Builders\BenchmarkAssetBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\BenchmarkAssetBuilder\BenchmarkAssetBuilderWorker.cpp">
+      <Filter>Source\Builders\BenchmarkAssetBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Scripting\EditorLookAtComponent.cpp">
+      <Filter>Source\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Scripting\EditorRandomTimedSpawnerComponent.cpp">
+      <Filter>Source\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Scripting\EditorSpawnerComponent.cpp">
+      <Filter>Source\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Scripting\EditorTagComponent.cpp">
+      <Filter>Source\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorBaseShapeComponent.cpp">
+      <Filter>Source\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorSphereShapeComponent.cpp">
+      <Filter>Source\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorDiskShapeComponent.cpp">
+      <Filter>Source\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorBoxShapeComponent.cpp">
+      <Filter>Source\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorCylinderShapeComponent.cpp">
+      <Filter>Source\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorCapsuleShapeComponent.cpp">
+      <Filter>Source\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorCompoundShapeComponent.cpp">
+      <Filter>Source\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorQuadShapeComponent.cpp">
+      <Filter>Source\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorSplineComponent.cpp">
+      <Filter>Source\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorSplineComponentMode.cpp">
+      <Filter>Source\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorTubeShapeComponent.cpp">
+      <Filter>Source\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorTubeShapeComponentMode.cpp">
+      <Filter>Source\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorPolygonPrismShapeComponent.cpp">
+      <Filter>Source\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorPolygonPrismShapeComponentMode.cpp">
+      <Filter>Source\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorShapeComponentConverters.cpp">
+      <Filter>Source\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Ai\EditorNavigationSeedComponent.cpp">
+      <Filter>Source\Ai</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Ai\EditorNavigationAreaComponent.cpp">
+      <Filter>Source\Ai</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Ai\EditorNavigationUtil.cpp">
+      <Filter>Source\Ai</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Editor\EditorCommentComponent.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Ai\NavigationComponent.cpp">
+      <Filter>Source\Ai</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Scripting\SpawnerComponent.cpp">
+      <Filter>Source\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\TubeShape.cpp">
+      <Filter>Source\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\CopyDependencyBuilder\CopyDependencyBuilderComponent.cpp">
+      <Filter>Source\Builders\CopyDependencyBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\CopyDependencyBuilder\CopyDependencyBuilderWorker.cpp">
+      <Filter>Source\Builders\CopyDependencyBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\CopyDependencyBuilder\CfgBuilderWorker\CfgBuilderWorker.cpp">
+      <Filter>Source\Builders\CopyDependencyBuilder\CfgBuilderWorker</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\CopyDependencyBuilder\EmfxWorkspaceBuilderWorker\EmfxWorkspaceBuilderWorker.cpp">
+      <Filter>Source\Builders\CopyDependencyBuilder\EmfxWorkspaceBuilderWorker</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\CopyDependencyBuilder\FontBuilderWorker\FontBuilderWorker.cpp">
+      <Filter>Source\Builders\CopyDependencyBuilder\FontBuilderWorker</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\CopyDependencyBuilder\SchemaBuilderWorker\SchemaBuilderWorker.cpp">
+      <Filter>Source\Builders\CopyDependencyBuilder\SchemaBuilderWorker</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\CopyDependencyBuilder\SchemaBuilderWorker\SchemaUtils.cpp">
+      <Filter>Source\Builders\CopyDependencyBuilder\SchemaBuilderWorker</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\CopyDependencyBuilder\XmlBuilderWorker\XmlBuilderWorker.cpp">
+      <Filter>Source\Builders\CopyDependencyBuilder\XmlBuilderWorker</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\CopyDependencyBuilder\XmlFormattedAssetBuilderWorker.cpp">
+      <Filter>Source\Builders\CopyDependencyBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\DependencyBuilder\DependencyBuilderComponent.cpp">
+      <Filter>Source\Builders\DependencyBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\DependencyBuilder\DependencyBuilderWorker.cpp">
+      <Filter>Source\Builders\DependencyBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\DependencyBuilder\SeedBuilderWorker\SeedBuilderWorker.cpp">
+      <Filter>Source\Builders\DependencyBuilder\SeedBuilderWorker</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\LevelBuilder\LevelBuilderComponent.cpp">
+      <Filter>Source\Builders\LevelBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\LevelBuilder\LevelBuilderWorker.cpp">
+      <Filter>Source\Builders\LevelBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\MaterialBuilder\MaterialBuilderComponent.cpp">
+      <Filter>Source\Builders\MaterialBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\SliceBuilder\SliceBuilderComponent.cpp">
+      <Filter>Source\Builders\SliceBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\SliceBuilder\SliceBuilderWorker.cpp">
+      <Filter>Source\Builders\SliceBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\TranslationBuilder\TranslationBuilderComponent.cpp">
+      <Filter>Source\Builders\TranslationBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\LuaBuilder\LuaBuilderComponent.cpp">
+      <Filter>Source\Builders\LuaBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\LuaBuilder\LuaBuilderWorker.cpp">
+      <Filter>Source\Builders\LuaBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\LuaBuilder\LuaHelpers.cpp">
+      <Filter>Source\Builders\LuaBuilder</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include\LmbrCentral\Rendering\EditorCameraCorrectionBus.h">
+      <Filter>include\LmbrCentral\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include\LmbrCentral\Rendering\EditorLightComponentBus.h">
+      <Filter>include\LmbrCentral\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include\LmbrCentral\Shape\EditorPolygonPrismShapeComponentBus.h">
+      <Filter>include\LmbrCentral\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include\LmbrCentral\Shape\EditorSplineComponentBus.h">
+      <Filter>include\LmbrCentral\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include\LmbrCentral\Shape\EditorTubeShapeComponentBus.h">
+      <Filter>include\LmbrCentral\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include\LmbrCentral\Component\EditorWrappedComponentBase.h">
+      <Filter>include\LmbrCentral\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include\LmbrCentral\Component\EditorWrappedComponentBase.inl">
+      <Filter>include\LmbrCentral\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Audio\EditorAudioAreaEnvironmentComponent.h">
+      <Filter>Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Audio\EditorAudioEnvironmentComponent.h">
+      <Filter>Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Audio\EditorAudioListenerComponent.h">
+      <Filter>Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Audio\EditorAudioMultiPositionComponent.h">
+      <Filter>Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Audio\EditorAudioPreloadComponent.h">
+      <Filter>Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Audio\EditorAudioRtpcComponent.h">
+      <Filter>Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Audio\EditorAudioSwitchComponent.h">
+      <Filter>Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Audio\EditorAudioTriggerComponent.h">
+      <Filter>Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\BenchmarkAssetBuilder\BenchmarkAssetBuilderComponent.h">
+      <Filter>Source\Builders\BenchmarkAssetBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\BenchmarkAssetBuilder\BenchmarkAssetBuilderWorker.h">
+      <Filter>Source\Builders\BenchmarkAssetBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Scripting\EditorLookAtComponent.h">
+      <Filter>Source\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Scripting\EditorRandomTimedSpawnerComponent.h">
+      <Filter>Source\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Scripting\EditorSpawnerComponent.h">
+      <Filter>Source\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Scripting\EditorTagComponent.h">
+      <Filter>Source\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorBaseShapeComponent.h">
+      <Filter>Source\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorSphereShapeComponent.h">
+      <Filter>Source\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorDiskShapeComponent.h">
+      <Filter>Source\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorBoxShapeComponent.h">
+      <Filter>Source\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorCylinderShapeComponent.h">
+      <Filter>Source\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorCapsuleShapeComponent.h">
+      <Filter>Source\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorCompoundShapeComponent.h">
+      <Filter>Source\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorQuadShapeComponent.h">
+      <Filter>Source\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorSplineComponent.h">
+      <Filter>Source\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorSplineComponentMode.h">
+      <Filter>Source\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorTubeShapeComponent.h">
+      <Filter>Source\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorTubeShapeComponentMode.h">
+      <Filter>Source\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorPolygonPrismShapeComponent.h">
+      <Filter>Source\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorPolygonPrismShapeComponentMode.h">
+      <Filter>Source\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorShapeComponentConverters.h">
+      <Filter>Source\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Ai\EditorNavigationSeedComponent.h">
+      <Filter>Source\Ai</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Ai\EditorNavigationAreaComponent.h">
+      <Filter>Source\Ai</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Ai\EditorNavigationUtil.h">
+      <Filter>Source\Ai</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Editor\EditorCommentComponent.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Ai\NavigationComponent.h">
+      <Filter>Source\Ai</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Scripting\SpawnerComponent.h">
+      <Filter>Source\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\TubeShape.h">
+      <Filter>Source\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\CopyDependencyBuilder\CopyDependencyBuilderComponent.h">
+      <Filter>Source\Builders\CopyDependencyBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\CopyDependencyBuilder\CopyDependencyBuilderWorker.h">
+      <Filter>Source\Builders\CopyDependencyBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\CopyDependencyBuilder\CfgBuilderWorker\CfgBuilderWorker.h">
+      <Filter>Source\Builders\CopyDependencyBuilder\CfgBuilderWorker</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\CopyDependencyBuilder\EmfxWorkspaceBuilderWorker\EmfxWorkspaceBuilderWorker.h">
+      <Filter>Source\Builders\CopyDependencyBuilder\EmfxWorkspaceBuilderWorker</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\CopyDependencyBuilder\FontBuilderWorker\FontBuilderWorker.h">
+      <Filter>Source\Builders\CopyDependencyBuilder\FontBuilderWorker</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\CopyDependencyBuilder\SchemaBuilderWorker\SchemaBuilderWorker.h">
+      <Filter>Source\Builders\CopyDependencyBuilder\SchemaBuilderWorker</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\CopyDependencyBuilder\SchemaBuilderWorker\SchemaUtils.h">
+      <Filter>Source\Builders\CopyDependencyBuilder\SchemaBuilderWorker</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\CopyDependencyBuilder\XmlBuilderWorker\XmlBuilderWorker.h">
+      <Filter>Source\Builders\CopyDependencyBuilder\XmlBuilderWorker</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\CopyDependencyBuilder\XmlFormattedAssetBuilderWorker.h">
+      <Filter>Source\Builders\CopyDependencyBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\DependencyBuilder\DependencyBuilderComponent.h">
+      <Filter>Source\Builders\DependencyBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\DependencyBuilder\DependencyBuilderWorker.h">
+      <Filter>Source\Builders\DependencyBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\DependencyBuilder\SeedBuilderWorker\SeedBuilderWorker.h">
+      <Filter>Source\Builders\DependencyBuilder\SeedBuilderWorker</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\LevelBuilder\LevelBuilderComponent.h">
+      <Filter>Source\Builders\LevelBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\LevelBuilder\LevelBuilderWorker.h">
+      <Filter>Source\Builders\LevelBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\MaterialBuilder\MaterialBuilderComponent.h">
+      <Filter>Source\Builders\MaterialBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\SliceBuilder\SliceBuilderComponent.h">
+      <Filter>Source\Builders\SliceBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\SliceBuilder\SliceBuilderWorker.h">
+      <Filter>Source\Builders\SliceBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\TranslationBuilder\TranslationBuilderComponent.h">
+      <Filter>Source\Builders\TranslationBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\LuaBuilder\LuaBuilderComponent.h">
+      <Filter>Source\Builders\LuaBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\LuaBuilder\LuaBuilderWorker.h">
+      <Filter>Source\Builders\LuaBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Builders\LuaBuilder\LuaHelpers.h">
+      <Filter>Source\Builders\LuaBuilder</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\lmbrcentral_editor_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Ai">
+      <UniqueIdentifier>{9759AFF4-EDE7-32DE-AE73-59F2E8553556}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Audio">
+      <UniqueIdentifier>{5609D778-A4A8-3FEF-943B-4E13776D9174}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Builders">
+      <UniqueIdentifier>{D9C807DB-6B40-34E6-A4C4-25F38FF73E5B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Builders\BenchmarkAssetBuilder">
+      <UniqueIdentifier>{40B0CA51-916D-31A9-BD1B-C0D34E7B1268}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Builders\CopyDependencyBuilder">
+      <UniqueIdentifier>{3E7CA020-4015-3DB7-B8CC-988E1C344F08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Builders\CopyDependencyBuilder\CfgBuilderWorker">
+      <UniqueIdentifier>{4AA97DC7-FA6E-3BFC-B36D-BDEED2463CE8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Builders\CopyDependencyBuilder\EmfxWorkspaceBuilderWorker">
+      <UniqueIdentifier>{8EE999C4-8882-32E4-B110-BD2AB3724BA3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Builders\CopyDependencyBuilder\FontBuilderWorker">
+      <UniqueIdentifier>{E47E96A9-11DF-3A4A-915B-3B5023FB9DFB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Builders\CopyDependencyBuilder\SchemaBuilderWorker">
+      <UniqueIdentifier>{0C52A5C2-C33C-3A4C-A2EE-578361E404DB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Builders\CopyDependencyBuilder\XmlBuilderWorker">
+      <UniqueIdentifier>{840B7E33-0AF2-3324-8CC2-6A3B510EF3AD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Builders\DependencyBuilder">
+      <UniqueIdentifier>{AABA1FBD-81BF-3A82-A68C-103A87A3FE5A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Builders\DependencyBuilder\SeedBuilderWorker">
+      <UniqueIdentifier>{DA2E2234-93AC-3F20-8F40-C4815633B8E7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Builders\LevelBuilder">
+      <UniqueIdentifier>{2162B78A-B3E6-31A1-9F8F-89F4C14D153E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Builders\LuaBuilder">
+      <UniqueIdentifier>{30637E0E-3C4C-32A2-AE8A-F490824CC16B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Builders\MaterialBuilder">
+      <UniqueIdentifier>{96F499E2-1432-3685-BDDF-40B01AB46D2F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Builders\SliceBuilder">
+      <UniqueIdentifier>{1E7C8DCE-C0F8-3121-9C37-39AC59995BAD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Builders\TranslationBuilder">
+      <UniqueIdentifier>{76F19F6C-DFDC-3C8A-A1DE-0D395FC5993D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor">
+      <UniqueIdentifier>{A8C69C03-0E27-35F8-AFF2-047D842E6663}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripting">
+      <UniqueIdentifier>{DBEEC417-E544-30B2-8818-04BE3E6B4911}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Shape">
+      <UniqueIdentifier>{F76C3D4F-F1D5-3406-A2DF-C9BE3A261E0C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{4EEEE190-B91D-3E34-9133-03DF85796165}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\LmbrCentral">
+      <UniqueIdentifier>{15BEAEAC-160D-3467-80FB-81AA420196AD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\LmbrCentral\Component">
+      <UniqueIdentifier>{0503E054-62D0-3ECE-9355-7D514F4769BD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\LmbrCentral\Rendering">
+      <UniqueIdentifier>{D21F92DA-1A60-3946-9332-E6C0EFB563B2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\LmbrCentral\Shape">
+      <UniqueIdentifier>{8E5F17E2-10F6-3459-8E57-EBE3729D5FFA}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

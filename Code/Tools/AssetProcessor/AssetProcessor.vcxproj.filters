@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\AssetProcessorBuildTarget.cpp">
+      <Filter>native</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\FileServer\fileServer.cpp">
+      <Filter>native\FileServer</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\AssetDetailsPanel.cpp">
+      <Filter>native\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\AssetTreeFilterModel.cpp">
+      <Filter>native\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\AssetTreeModel.cpp">
+      <Filter>native\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\AssetTreeItem.cpp">
+      <Filter>native\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\ConnectionEditDialog.cpp">
+      <Filter>native\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\GoToButton.cpp">
+      <Filter>native\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\JobTreeViewItemDelegate.cpp">
+      <Filter>native\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\MainWindow.cpp">
+      <Filter>native\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\ProductAssetDetailsPanel.cpp">
+      <Filter>native\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\ProductAssetTreeItemData.cpp">
+      <Filter>native\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\ProductAssetTreeModel.cpp">
+      <Filter>native\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\SourceAssetDetailsPanel.cpp">
+      <Filter>native\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\SourceAssetTreeItemData.cpp">
+      <Filter>native\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\SourceAssetTreeModel.cpp">
+      <Filter>native\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\GUIApplicationServer.cpp">
+      <Filter>native\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\GUIApplicationManager.cpp">
+      <Filter>native\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\windowscreen.cpp">
+      <Filter>native\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\LogPanel.cpp">
+      <Filter>native\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\main_gui.cpp">
+      <Filter>native</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor_autogen\LXJKROEMHS\qrc_AssetProcessor.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\FileServer\fileServer.h">
+      <Filter>native\FileServer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\AssetDetailsPanel.h">
+      <Filter>native\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\AssetTreeFilterModel.h">
+      <Filter>native\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\AssetTreeModel.h">
+      <Filter>native\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\AssetTreeItem.h">
+      <Filter>native\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\ConnectionEditDialog.h">
+      <Filter>native\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\GoToButton.h">
+      <Filter>native\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\JobTreeViewItemDelegate.h">
+      <Filter>native\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\ProductAssetDetailsPanel.h">
+      <Filter>native\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\ProductAssetTreeItemData.h">
+      <Filter>native\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\ProductAssetTreeModel.h">
+      <Filter>native\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\SourceAssetDetailsPanel.h">
+      <Filter>native\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\SourceAssetTreeItemData.h">
+      <Filter>native\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\SourceAssetTreeModel.h">
+      <Filter>native\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\GUIApplicationServer.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\GUIApplicationManager.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\windowscreen.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\AssetUtilEBusHelper.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\LogPanel.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor_autogen\include\native\ui\ui_GoToButton.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor_autogen\include\native\ui\ui_MainWindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor_autogen\include\native\ui\ui_ProductAssetDetailsPanel.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor_autogen\include\native\ui\ui_SourceAssetDetailsPanel.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\GoToButton.ui">
+      <Filter>native\ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\MainWindow.ui">
+      <Filter>native\ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\ProductAssetDetailsPanel.ui">
+      <Filter>native\ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\SourceAssetDetailsPanel.ui">
+      <Filter>native\ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\8862209e4af06404f0f42cd201c09a8c\qrc_AssetProcessor.cpp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\style\AssetProcessor.qrc">
+      <Filter>native\ui\style</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\style\AssetProcessor.qss">
+      <Filter>native\ui\style</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\style\AssetProcessorConfig.ini">
+      <Filter>native\ui\style</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\style\AssetsTab.qss">
+      <Filter>native\ui\style</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\style\LogsTab.qss">
+      <Filter>native\ui\style</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\assetprocessor_gui_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows\assetprocessor_gui_windows_files.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows\assetprocessor_windows.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows\AssetProcessor.rc">
+      <Filter>Platform\Windows</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{D4CCE8D3-A6C9-3C6A-9C86-8BF8F7D77D7F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{9B5BE819-E94D-379A-84DF-5559629D4548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native">
+      <UniqueIdentifier>{F800CF3E-25CA-3CAA-956D-AB2F84D24B25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\FileServer">
+      <UniqueIdentifier>{4C451320-1E51-337D-BA34-332F9BD07442}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\ui">
+      <UniqueIdentifier>{64514F87-227D-30B6-875C-A68ED422F9B5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\ui\style">
+      <UniqueIdentifier>{C0E8BB19-2425-3717-A749-1E2DFDB3B43C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\utilities">
+      <UniqueIdentifier>{BD3D9144-978F-3504-AF7E-4BD36DD1E95A}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

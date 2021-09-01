@@ -1,0 +1,58 @@
+{
+    "entries": [
+        {
+            "key": "UiButtonBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiButtonBus"
+            },
+            "methods": [
+                {
+                    "key": "GetOnClickActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetOnClickActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetOnClickActionName is invoked"
+                    },
+                    "details": {
+                        "name": "GetOnClickActionName"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetOnClickActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetOnClickActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetOnClickActionName is invoked"
+                    },
+                    "details": {
+                        "name": "SetOnClickActionName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

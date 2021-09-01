@@ -1,0 +1,57 @@
+{
+    "entries": [
+        {
+            "key": "TestTupleMethods",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "TestTupleMethods"
+            },
+            "methods": [
+                {
+                    "key": "Three",
+                    "context": "TestTupleMethods",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke TestTupleMethods::Three"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after TestTupleMethods::Three is invoked"
+                    },
+                    "details": {
+                        "name": "TestTupleMethods::Three"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{5BAFAD11-D6AF-5946-B09B-6E0B72E1209C}",
+                            "details": {
+                                "name": "tuple<Vector3 AZStd::basic_string<char, AZStd::char_traits<char>, allocator> bool >"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

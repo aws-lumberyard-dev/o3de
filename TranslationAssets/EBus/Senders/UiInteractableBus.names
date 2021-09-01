@@ -1,0 +1,146 @@
+{
+    "entries": [
+        {
+            "key": "UiInteractableBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiInteractableBus"
+            },
+            "methods": [
+                {
+                    "key": "SetIsAutoActivationEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsAutoActivationEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsAutoActivationEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsAutoActivationEnabled"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsAutoActivationEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsAutoActivationEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsAutoActivationEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsAutoActivationEnabled"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsHandlingMultiTouchEvents",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsHandlingMultiTouchEvents"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsHandlingMultiTouchEvents is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsHandlingMultiTouchEvents"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsHandlingMultiTouchEvents",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IsHandlingMultiTouchEvents"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IsHandlingMultiTouchEvents is invoked"
+                    },
+                    "details": {
+                        "name": "IsHandlingMultiTouchEvents"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsHandlingEvents",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IsHandlingEvents"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IsHandlingEvents is invoked"
+                    },
+                    "details": {
+                        "name": "IsHandlingEvents"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsHandlingEvents",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsHandlingEvents"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsHandlingEvents is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsHandlingEvents"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

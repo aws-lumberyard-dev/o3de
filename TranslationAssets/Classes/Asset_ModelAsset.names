@@ -1,0 +1,262 @@
+{
+    "entries": [
+        {
+            "key": "Asset<ModelAsset>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Asset<ModelAsset>"
+            },
+            "methods": [
+                {
+                    "key": "IsLoading",
+                    "context": "Asset<ModelAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<ModelAsset>::IsLoading"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<ModelAsset>::IsLoading is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<ModelAsset>::IsLoading"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A1F6761B-B5CA-59E6-89FF-EB0ABDF6BD68}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetType",
+                    "context": "Asset<ModelAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<ModelAsset>::GetType"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<ModelAsset>::GetType is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<ModelAsset>::GetType"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A1F6761B-B5CA-59E6-89FF-EB0ABDF6BD68}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{E152C105-A133-4D03-BBF8-3D4B2FBA3E2A}",
+                            "details": {
+                                "name": "AZ::Uuid"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsError",
+                    "context": "Asset<ModelAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<ModelAsset>::IsError"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<ModelAsset>::IsError is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<ModelAsset>::IsError"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A1F6761B-B5CA-59E6-89FF-EB0ABDF6BD68}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetHint",
+                    "context": "Asset<ModelAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<ModelAsset>::GetHint"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<ModelAsset>::GetHint is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<ModelAsset>::GetHint"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A1F6761B-B5CA-59E6-89FF-EB0ABDF6BD68}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetData",
+                    "context": "Asset<ModelAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<ModelAsset>::GetData"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<ModelAsset>::GetData is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<ModelAsset>::GetData"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A1F6761B-B5CA-59E6-89FF-EB0ABDF6BD68}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{AF3F7D32-1536-422A-89F3-A11E1F5B5A9C}",
+                            "details": {
+                                "name": "AssetData"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsReady",
+                    "context": "Asset<ModelAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<ModelAsset>::IsReady"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<ModelAsset>::IsReady is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<ModelAsset>::IsReady"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A1F6761B-B5CA-59E6-89FF-EB0ABDF6BD68}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetStatus",
+                    "context": "Asset<ModelAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<ModelAsset>::GetStatus"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<ModelAsset>::GetStatus is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<ModelAsset>::GetStatus"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A1F6761B-B5CA-59E6-89FF-EB0ABDF6BD68}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetId",
+                    "context": "Asset<ModelAsset>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Asset<ModelAsset>::GetId"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Asset<ModelAsset>::GetId is invoked"
+                    },
+                    "details": {
+                        "name": "Asset<ModelAsset>::GetId"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A1F6761B-B5CA-59E6-89FF-EB0ABDF6BD68}",
+                            "details": {
+                                "name": "Asset"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
+                            "details": {
+                                "name": "AssetId"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

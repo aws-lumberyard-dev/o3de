@@ -1,0 +1,15 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/View/Windows/ScriptCanvasEditorResources.qrc
+J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/scriptcanvasgem_common_files.cmake
+J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/scriptcanvasgem_debugger_files.cmake
+J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/scriptcanvasgem_editor_asset_files.cmake
+J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/scriptcanvasgem_editor_builder_files.cmake
+J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/scriptcanvasgem_editor_files.cmake
+J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/scriptcanvasgem_editor_shared_files.cmake
+J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/scriptcanvasgem_editor_static_files.cmake
+J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/scriptcanvasgem_editor_tests_files.cmake
+J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/scriptcanvasgem_game_files.cmake
+J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/scriptcanvasgem_runtime_asset_files.cmake
+J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/scriptcanvasgem_tests_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

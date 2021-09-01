@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Source\AtomFont.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Source\AtomFontSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Source\FFont.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Source\FFontXML.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Source\FontRenderer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Source\FontTexture.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Source\GlyphBitmap.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Source\GlyphCache.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Source\AtomNullFont.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Source\Module.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Platform\Windows\FFontXML_Windows.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Platform\Windows\FontTexture_Windows.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Source\AtomFontSystemComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Source\FFontXML_Internal.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Include\AtomLyIntegration\AtomFont\AtomFont.h">
+      <Filter>Include\AtomLyIntegration\AtomFont</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Include\AtomLyIntegration\AtomFont\FBitmap.h">
+      <Filter>Include\AtomLyIntegration\AtomFont</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Include\AtomLyIntegration\AtomFont\FFont.h">
+      <Filter>Include\AtomLyIntegration\AtomFont</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Include\AtomLyIntegration\AtomFont\FontRenderer.h">
+      <Filter>Include\AtomLyIntegration\AtomFont</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Include\AtomLyIntegration\AtomFont\FontCommon.h">
+      <Filter>Include\AtomLyIntegration\AtomFont</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Include\AtomLyIntegration\AtomFont\FontTexture.h">
+      <Filter>Include\AtomLyIntegration\AtomFont</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Include\AtomLyIntegration\AtomFont\GlyphBitmap.h">
+      <Filter>Include\AtomLyIntegration\AtomFont</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Include\AtomLyIntegration\AtomFont\GlyphCache.h">
+      <Filter>Include\AtomLyIntegration\AtomFont</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Include\AtomLyIntegration\AtomFont\AtomNullFont.h">
+      <Filter>Include\AtomLyIntegration\AtomFont</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Include\AtomLyIntegration\AtomFont\resource.h">
+      <Filter>Include\AtomLyIntegration\AtomFont</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\atomfont_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\AtomFont\Code\Platform\Windows\platform_windows_files.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\AtomLyIntegration">
+      <UniqueIdentifier>{8A8DB0F6-BA10-33F9-A87A-7AE463B369ED}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\AtomLyIntegration\AtomFont">
+      <UniqueIdentifier>{FE53A96E-17C7-3A2A-AEDF-A43ECCACDDEF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{D4CCE8D3-A6C9-3C6A-9C86-8BF8F7D77D7F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{9B5BE819-E94D-379A-84DF-5559629D4548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

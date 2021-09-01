@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Metal\Code\Source\Platform\Windows\RHI.Builders\BuilderModule_Windows.cpp">
+      <Filter>Source\Platform\Windows\RHI.Builders</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Metal\Code\Source\RHI.Reflect\PipelineLayoutDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Metal\Code\Source\RHI.Reflect\ReflectSystemComponent.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Metal\Code\Source\RHI.Reflect\BufferPoolDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Metal\Code\Source\RHI.Reflect\ShaderStageFunction.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Metal\Code\Source\RHI.Reflect\PlatformLimitsDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Metal\Code\Include\Atom\RHI.Reflect\Metal\PipelineLayoutDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect\Metal</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Metal\Code\Include\Atom\RHI.Reflect\Metal\ReflectSystemComponent.h">
+      <Filter>Include\Atom\RHI.Reflect\Metal</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Metal\Code\Include\Atom\RHI.Reflect\Metal\BufferPoolDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect\Metal</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Metal\Code\Include\Atom\RHI.Reflect\Metal\ShaderStageFunction.h">
+      <Filter>Include\Atom\RHI.Reflect\Metal</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Metal\Code\Include\Atom\RHI.Reflect\Metal\PlatformLimitsDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect\Metal</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Metal\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Metal\Code\Source\Platform\Windows\platform_builders_windows_files.cmake">
+      <Filter>Source\Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Metal\Code\atom_rhi_metal_reflect_common_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom">
+      <UniqueIdentifier>{E66A19AE-451A-3F1F-B698-7608D533AFDF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\RHI.Reflect">
+      <UniqueIdentifier>{CE92A1D2-9F0D-37D3-9AE5-F83BB7FDF16E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\RHI.Reflect\Metal">
+      <UniqueIdentifier>{51598659-A43F-323F-A707-773CB4AF3EB2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform">
+      <UniqueIdentifier>{619E1779-1529-36CF-BFB6-452991664BCE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows">
+      <UniqueIdentifier>{6E009862-2333-3599-9B65-E8F840C182D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows\RHI.Builders">
+      <UniqueIdentifier>{7D7C4741-A95A-38BB-A5AA-8069AECDCEB1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\RHI.Reflect">
+      <UniqueIdentifier>{46DEAEBF-5EE8-3D59-B3FB-9D06E8C216B1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

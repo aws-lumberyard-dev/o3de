@@ -1,0 +1,82 @@
+{
+    "entries": [
+        {
+            "key": "ShaderVariantId",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "ShaderVariantId"
+            },
+            "methods": [
+                {
+                    "key": "Equal",
+                    "context": "ShaderVariantId",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke ShaderVariantId::Equal"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after ShaderVariantId::Equal is invoked"
+                    },
+                    "details": {
+                        "name": "ShaderVariantId::Equal"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{27B1FEC2-8C8A-47D7-A034-6609FA092B34}",
+                            "details": {
+                                "name": "ShaderVariantId"
+                            }
+                        },
+                        {
+                            "typeid": "{27B1FEC2-8C8A-47D7-A034-6609FA092B34}",
+                            "details": {
+                                "name": "ShaderVariantId"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsEmpty",
+                    "context": "ShaderVariantId",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke ShaderVariantId::IsEmpty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after ShaderVariantId::IsEmpty is invoked"
+                    },
+                    "details": {
+                        "name": "ShaderVariantId::IsEmpty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{27B1FEC2-8C8A-47D7-A034-6609FA092B34}",
+                            "details": {
+                                "name": "ShaderVariantId"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

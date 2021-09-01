@@ -1,0 +1,102 @@
+{
+    "entries": [
+        {
+            "key": "UiDropTargetBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiDropTargetBus"
+            },
+            "methods": [
+                {
+                    "key": "GetOnDropActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetOnDropActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetOnDropActionName is invoked"
+                    },
+                    "details": {
+                        "name": "GetOnDropActionName"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetOnDropActionName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetOnDropActionName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetOnDropActionName is invoked"
+                    },
+                    "details": {
+                        "name": "SetOnDropActionName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetDropState",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetDropState"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetDropState is invoked"
+                    },
+                    "details": {
+                        "name": "GetDropState"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetDropState",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetDropState"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetDropState is invoked"
+                    },
+                    "details": {
+                        "name": "SetDropState"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

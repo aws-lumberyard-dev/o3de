@@ -1,0 +1,4 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Code/Tools/SerializeContextTools/CMakeLists.txt
+J:/Atom/lyfork/o3de/Code/Tools/SerializeContextTools/Platform/Windows/PAL_windows.cmake
+J:/Atom/lyfork/o3de/Code/Tools/SerializeContextTools/serializecontexttools_files.cmake

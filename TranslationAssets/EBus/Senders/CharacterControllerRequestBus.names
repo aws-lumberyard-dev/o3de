@@ -1,0 +1,278 @@
+{
+    "entries": [
+        {
+            "key": "CharacterControllerRequestBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "CharacterControllerRequestBus"
+            },
+            "methods": [
+                {
+                    "key": "SetSlopeLimitDegrees",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetSlopeLimitDegrees"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetSlopeLimitDegrees is invoked"
+                    },
+                    "details": {
+                        "name": "SetSlopeLimitDegrees"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSlopeLimitDegrees",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetSlopeLimitDegrees"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetSlopeLimitDegrees is invoked"
+                    },
+                    "details": {
+                        "name": "GetSlopeLimitDegrees"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetMaximumSpeed",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetMaximumSpeed"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetMaximumSpeed is invoked"
+                    },
+                    "details": {
+                        "name": "SetMaximumSpeed"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetUpDirection",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetUpDirection"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetUpDirection is invoked"
+                    },
+                    "details": {
+                        "name": "GetUpDirection"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AddVelocity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AddVelocity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AddVelocity is invoked"
+                    },
+                    "details": {
+                        "name": "AddVelocity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetBasePosition",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetBasePosition"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetBasePosition is invoked"
+                    },
+                    "details": {
+                        "name": "SetBasePosition"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetCenterPosition",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetCenterPosition"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetCenterPosition is invoked"
+                    },
+                    "details": {
+                        "name": "GetCenterPosition"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetStepHeight",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetStepHeight"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetStepHeight is invoked"
+                    },
+                    "details": {
+                        "name": "GetStepHeight"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetBasePosition",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetBasePosition"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetBasePosition is invoked"
+                    },
+                    "details": {
+                        "name": "GetBasePosition"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetStepHeight",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetStepHeight"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetStepHeight is invoked"
+                    },
+                    "details": {
+                        "name": "SetStepHeight"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetMaximumSpeed",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetMaximumSpeed"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetMaximumSpeed is invoked"
+                    },
+                    "details": {
+                        "name": "GetMaximumSpeed"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetVelocity",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetVelocity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetVelocity is invoked"
+                    },
+                    "details": {
+                        "name": "GetVelocity"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

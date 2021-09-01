@@ -1,0 +1,1531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|x64">
+      <Configuration>debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="profile|x64">
+      <Configuration>profile</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|x64">
+      <Configuration>release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{02E58B6C-9A2F-3450-96CB-D84C7FFFBAAD}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>Profiler</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\bin\debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Profiler.dir\debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Profiler</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='debug|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\bin\profile\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Profiler.dir\profile\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Profiler</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='profile|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='profile|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\bin\release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">Profiler.dir\release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='release|x64'">Profiler</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='release|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='release|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include_debug;J:\Atom\lyfork\o3de\Code\Tools\Standalone\.;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Editor;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\IO;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Editor;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Carrier;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Profiler;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\IO;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /RTCsu /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>STANDALONETOOLS_ENABLE_PROFILER;_HAS_EXCEPTIONS=0;_DEBUG;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="debug";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR="debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;STANDALONETOOLS_ENABLE_PROFILER;_HAS_EXCEPTIONS=0;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"debug\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR=\"debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include_debug;J:\Atom\lyfork\o3de\Code\Tools\Standalone\.;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Editor;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\IO;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Editor;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Carrier;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Profiler;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\IO;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include_debug;J:\Atom\lyfork\o3de\Code\Tools\Standalone\.;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Editor;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\IO;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Editor;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Carrier;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Profiler;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\IO;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message>Automatic MOC for target Profiler</Message>
+      <Command>setlocal
+cd J:\Atom\lyfork\o3de\Code\Tools\Standalone
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autogen J:/Atom/lyfork/o3de/Code/Tools/Standalone/CMakeFiles/Profiler_autogen.dir/AutogenInfo.json debug
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/debug/Profiler.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\..\..\lib\debug\CryCommon.lib;..\..\..\lib\debug\AzCore.lib;..\..\..\lib\debug\AzFramework.lib;..\..\..\lib\debug\AzToolsFramework.lib;..\..\..\lib\debug\GridMate.lib;..\..\..\lib\debug\AzFramework.lib;..\..\..\lib\debug\GridMate.lib;ws2_32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\debug\lib\libssl.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\debug\lib\libcrypto.lib;crypt32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\md5-2.0-multiplatform\md5\build\win_x64\vc140\debug\md5.lib;C:\Users\luissemp\.o3de\3rdParty\packages\lz4-r128-multiplatform\lz4\build\win_x64\vc140\debug\lz4.lib;C:\Users\luissemp\.o3de\3rdParty\packages\SQLite-3.32.2-rev3-multiplatform\SQLite\build\win_x64\vc140\debug\sqlite.lib;..\..\..\lib\debug\AzQtComponents.lib;..\..\..\lib\debug\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\debug\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\zlib\lib\zlibstaticd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\debug\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\debug\cityhash.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Svgd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Widgetsd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Guid.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Xmld.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Cored.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\qtmaind.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>J:/Atom/lyfork/o3de/lib/debug/Profiler.lib</ImportLibrary>
+      <ProgramDataBaseFile>J:/Atom/lyfork/o3de/bin/debug/Profiler.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include_profile;J:\Atom\lyfork\o3de\Code\Tools\Standalone\.;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Editor;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\IO;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Editor;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Carrier;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Profiler;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\IO;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StringPooling>true</StringPooling>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>STANDALONETOOLS_ENABLE_PROFILER;_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="profile";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR="profile";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>STANDALONETOOLS_ENABLE_PROFILER;_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"profile\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR=\"profile\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include_profile;J:\Atom\lyfork\o3de\Code\Tools\Standalone\.;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Editor;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\IO;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Editor;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Carrier;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Profiler;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\IO;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include_profile;J:\Atom\lyfork\o3de\Code\Tools\Standalone\.;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Editor;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\IO;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Editor;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Carrier;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Profiler;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\IO;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message>Automatic MOC for target Profiler</Message>
+      <Command>setlocal
+cd J:\Atom\lyfork\o3de\Code\Tools\Standalone
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autogen J:/Atom/lyfork/o3de/Code/Tools/Standalone/CMakeFiles/Profiler_autogen.dir/AutogenInfo.json profile
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/profile/Profiler.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\..\..\lib\profile\CryCommon.lib;..\..\..\lib\profile\AzCore.lib;..\..\..\lib\profile\AzFramework.lib;..\..\..\lib\profile\AzToolsFramework.lib;..\..\..\lib\profile\GridMate.lib;..\..\..\lib\profile\AzFramework.lib;..\..\..\lib\profile\GridMate.lib;ws2_32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libssl.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libcrypto.lib;crypt32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\md5-2.0-multiplatform\md5\build\win_x64\vc140\release\md5.lib;C:\Users\luissemp\.o3de\3rdParty\packages\lz4-r128-multiplatform\lz4\build\win_x64\vc140\release\lz4.lib;C:\Users\luissemp\.o3de\3rdParty\packages\SQLite-3.32.2-rev3-multiplatform\SQLite\build\win_x64\vc140\release\sqlite.lib;..\..\..\lib\profile\AzQtComponents.lib;..\..\..\lib\profile\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\release\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\zlib\lib\zlibstatic.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\release\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\release\cityhash.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Svg.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Widgets.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Gui.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Xml.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Core.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\qtmain.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>J:/Atom/lyfork/o3de/lib/profile/Profiler.lib</ImportLibrary>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ProgramDataBaseFile>J:/Atom/lyfork/o3de/bin/profile/Profiler.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include_release;J:\Atom\lyfork\o3de\Code\Tools\Standalone\.;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Editor;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\IO;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Editor;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Carrier;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Profiler;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\IO;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OmitFramePointers>true</OmitFramePointers>
+      <Optimization>Full</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>STANDALONETOOLS_ENABLE_PROFILER;_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE="release";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR="release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>STANDALONETOOLS_ENABLE_PROFILER;_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE=\"release\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;QT_SVG_LIB;QT_XML_LIB;CMAKE_INTDIR=\"release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include_release;J:\Atom\lyfork\o3de\Code\Tools\Standalone\.;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Editor;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\IO;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Editor;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Carrier;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Profiler;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\IO;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include_release;J:\Atom\lyfork\o3de\Code\Tools\Standalone\.;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Editor;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\IO;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Editor;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Carrier;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Profiler;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\IO;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message>Automatic MOC for target Profiler</Message>
+      <Command>setlocal
+cd J:\Atom\lyfork\o3de\Code\Tools\Standalone
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autogen J:/Atom/lyfork/o3de/Code/Tools/Standalone/CMakeFiles/Profiler_autogen.dir/AutogenInfo.json release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/release/Profiler.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\..\..\lib\release\CryCommon.lib;..\..\..\lib\release\AzCore.lib;..\..\..\lib\release\AzFramework.lib;..\..\..\lib\release\AzToolsFramework.lib;..\..\..\lib\release\GridMate.lib;..\..\..\lib\release\AzFramework.lib;..\..\..\lib\release\GridMate.lib;ws2_32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libssl.lib;C:\Users\luissemp\.o3de\3rdParty\packages\OpenSSL-1.1.1b-rev2-windows\OpenSSL\lib\libcrypto.lib;crypt32.lib;C:\Users\luissemp\.o3de\3rdParty\packages\md5-2.0-multiplatform\md5\build\win_x64\vc140\release\md5.lib;C:\Users\luissemp\.o3de\3rdParty\packages\lz4-r128-multiplatform\lz4\build\win_x64\vc140\release\lz4.lib;C:\Users\luissemp\.o3de\3rdParty\packages\SQLite-3.32.2-rev3-multiplatform\SQLite\build\win_x64\vc140\release\sqlite.lib;..\..\..\lib\release\AzQtComponents.lib;..\..\..\lib\release\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\release\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\zlib\lib\zlibstatic.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\release\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\release\cityhash.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Svg.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Widgets.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Gui.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Xml.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\Qt5Core.lib;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\lib\qtmain.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>J:/Atom/lyfork/o3de/lib/release/Profiler.lib</ImportLibrary>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ProgramDataBaseFile>J:/Atom/lyfork/o3de/bin/release/Profiler.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelControl.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/ChannelControl.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_ChannelControl.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/ChannelControl.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_ChannelControl.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/ChannelControl.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_ChannelControl.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/ChannelControl.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_ChannelControl.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/ChannelControl.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_ChannelControl.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/ChannelControl.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_ChannelControl.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelProfilerWidget.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/ChannelProfilerWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_ChannelProfilerWidget.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/ChannelProfilerWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_ChannelProfilerWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/ChannelProfilerWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_ChannelProfilerWidget.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/ChannelProfilerWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_ChannelProfilerWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/ChannelProfilerWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_ChannelProfilerWidget.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/ChannelProfilerWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_ChannelProfilerWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\CollapsiblePanel.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/CollapsiblePanel.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_CollapsiblePanel.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/CollapsiblePanel.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_CollapsiblePanel.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/CollapsiblePanel.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_CollapsiblePanel.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/CollapsiblePanel.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_CollapsiblePanel.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/CollapsiblePanel.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_CollapsiblePanel.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/CollapsiblePanel.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_CollapsiblePanel.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DoubleListSelector.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DoubleListSelector.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_DoubleListSelector.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DoubleListSelector.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_DoubleListSelector.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DoubleListSelector.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_DoubleListSelector.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DoubleListSelector.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_DoubleListSelector.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DoubleListSelector.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_DoubleListSelector.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DoubleListSelector.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_DoubleListSelector.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerCaptureWindow.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DrillerCaptureWindow.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_DrillerCaptureWindow.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DrillerCaptureWindow.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_DrillerCaptureWindow.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DrillerCaptureWindow.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_DrillerCaptureWindow.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DrillerCaptureWindow.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_DrillerCaptureWindow.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DrillerCaptureWindow.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_DrillerCaptureWindow.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DrillerCaptureWindow.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_DrillerCaptureWindow.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerMainChannelsView.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DrillerMainChannelsView.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_DrillerMainChannelsView.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DrillerMainChannelsView.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_DrillerMainChannelsView.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DrillerMainChannelsView.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_DrillerMainChannelsView.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DrillerMainChannelsView.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_DrillerMainChannelsView.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DrillerMainChannelsView.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_DrillerMainChannelsView.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DrillerMainChannelsView.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_DrillerMainChannelsView.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerMainWindow.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DrillerMainWindow.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_DrillerMainWindow.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DrillerMainWindow.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_DrillerMainWindow.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DrillerMainWindow.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_DrillerMainWindow.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DrillerMainWindow.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_DrillerMainWindow.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DrillerMainWindow.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_DrillerMainWindow.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/DrillerMainWindow.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_DrillerMainWindow.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\FilteredListView.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/FilteredListView.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_FilteredListView.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/FilteredListView.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_FilteredListView.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/FilteredListView.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_FilteredListView.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/FilteredListView.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_FilteredListView.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/FilteredListView.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_FilteredListView.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/FilteredListView.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_FilteredListView.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\GenericCustomizeCSVExportWidget.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/GenericCustomizeCSVExportWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_GenericCustomizeCSVExportWidget.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/GenericCustomizeCSVExportWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_GenericCustomizeCSVExportWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/GenericCustomizeCSVExportWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_GenericCustomizeCSVExportWidget.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/GenericCustomizeCSVExportWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_GenericCustomizeCSVExportWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/GenericCustomizeCSVExportWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/ui_GenericCustomizeCSVExportWidget.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/GenericCustomizeCSVExportWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_GenericCustomizeCSVExportWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\AnnotationHeaderView.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Annotations/AnnotationHeaderView.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Annotations/ui_AnnotationHeaderView.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Annotations/AnnotationHeaderView.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Annotations\ui_AnnotationHeaderView.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Annotations/AnnotationHeaderView.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Annotations/ui_AnnotationHeaderView.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Annotations/AnnotationHeaderView.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Annotations\ui_AnnotationHeaderView.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Annotations/AnnotationHeaderView.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Annotations/ui_AnnotationHeaderView.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Annotations/AnnotationHeaderView.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Annotations\ui_AnnotationHeaderView.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\ConfigureAnnotationsDialog.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Annotations/ConfigureAnnotationsDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Annotations/ui_ConfigureAnnotationsDialog.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Annotations/ConfigureAnnotationsDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Annotations\ui_ConfigureAnnotationsDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Annotations/ConfigureAnnotationsDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Annotations/ui_ConfigureAnnotationsDialog.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Annotations/ConfigureAnnotationsDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Annotations\ui_ConfigureAnnotationsDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Annotations/ConfigureAnnotationsDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Annotations/ui_ConfigureAnnotationsDialog.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Annotations/ConfigureAnnotationsDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Annotations\ui_ConfigureAnnotationsDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier\CarrierDataView.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Carrier/CarrierDataView.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Carrier/ui_CarrierDataView.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Carrier/CarrierDataView.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Carrier\ui_CarrierDataView.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Carrier/CarrierDataView.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Carrier/ui_CarrierDataView.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Carrier/CarrierDataView.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Carrier\ui_CarrierDataView.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Carrier/CarrierDataView.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Carrier/ui_CarrierDataView.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Carrier/CarrierDataView.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Carrier\ui_CarrierDataView.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Memory\MemoryDataView.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Memory/MemoryDataView.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Memory/ui_MemoryDataView.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Memory/MemoryDataView.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Memory\ui_MemoryDataView.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Memory/MemoryDataView.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Memory/ui_MemoryDataView.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Memory/MemoryDataView.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Memory\ui_MemoryDataView.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Memory/MemoryDataView.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Memory/ui_MemoryDataView.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Memory/MemoryDataView.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Memory\ui_MemoryDataView.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerDataView.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Profiler/ProfilerDataView.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Profiler/ui_ProfilerDataView.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Profiler/ProfilerDataView.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Profiler\ui_ProfilerDataView.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Profiler/ProfilerDataView.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Profiler/ui_ProfilerDataView.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Profiler/ProfilerDataView.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Profiler\ui_ProfilerDataView.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Profiler/ProfilerDataView.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Profiler/ui_ProfilerDataView.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Profiler/ProfilerDataView.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Profiler\ui_ProfilerDataView.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\basedetailview.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/basedetailview.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Replica/ui_basedetailview.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/basedetailview.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_basedetailview.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/basedetailview.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Replica/ui_basedetailview.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/basedetailview.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_basedetailview.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/basedetailview.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Replica/ui_basedetailview.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/basedetailview.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_basedetailview.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\overallreplicadetailview.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/overallreplicadetailview.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Replica/ui_overallreplicadetailview.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/overallreplicadetailview.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_overallreplicadetailview.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/overallreplicadetailview.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Replica/ui_overallreplicadetailview.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/overallreplicadetailview.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_overallreplicadetailview.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/overallreplicadetailview.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Replica/ui_overallreplicadetailview.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/overallreplicadetailview.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_overallreplicadetailview.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDataAggregatorConfigurationPanel.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/ReplicaDataAggregatorConfigurationPanel.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Replica/ui_ReplicaDataAggregatorConfigurationPanel.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/ReplicaDataAggregatorConfigurationPanel.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_ReplicaDataAggregatorConfigurationPanel.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/ReplicaDataAggregatorConfigurationPanel.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Replica/ui_ReplicaDataAggregatorConfigurationPanel.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/ReplicaDataAggregatorConfigurationPanel.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_ReplicaDataAggregatorConfigurationPanel.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/ReplicaDataAggregatorConfigurationPanel.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Replica/ui_ReplicaDataAggregatorConfigurationPanel.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/ReplicaDataAggregatorConfigurationPanel.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_ReplicaDataAggregatorConfigurationPanel.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\replicadataview.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/replicadataview.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Replica/ui_replicadataview.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/replicadataview.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_replicadataview.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/replicadataview.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Replica/ui_replicadataview.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/replicadataview.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_replicadataview.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/replicadataview.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Replica/ui_replicadataview.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/replicadataview.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_replicadataview.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDataViewConfigDialog.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/ReplicaDataViewConfigDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Replica/ui_ReplicaDataViewConfigDialog.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/ReplicaDataViewConfigDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_ReplicaDataViewConfigDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/ReplicaDataViewConfigDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Replica/ui_ReplicaDataViewConfigDialog.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/ReplicaDataViewConfigDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_ReplicaDataViewConfigDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/ReplicaDataViewConfigDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Replica/ui_ReplicaDataViewConfigDialog.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/ReplicaDataViewConfigDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_ReplicaDataViewConfigDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDrillerConfigToolbar.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/ReplicaDrillerConfigToolbar.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Replica/ui_ReplicaDrillerConfigToolbar.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/ReplicaDrillerConfigToolbar.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_ReplicaDrillerConfigToolbar.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/ReplicaDrillerConfigToolbar.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Replica/ui_ReplicaDrillerConfigToolbar.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/ReplicaDrillerConfigToolbar.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_ReplicaDrillerConfigToolbar.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/ReplicaDrillerConfigToolbar.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Replica/ui_ReplicaDrillerConfigToolbar.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Replica/ReplicaDrillerConfigToolbar.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_ReplicaDrillerConfigToolbar.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Trace\TraceDrillerDialog.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Trace/TraceDrillerDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Trace/ui_TraceDrillerDialog.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Trace/TraceDrillerDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Trace\ui_TraceDrillerDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Trace/TraceDrillerDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Trace/ui_TraceDrillerDialog.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Trace/TraceDrillerDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Trace\ui_TraceDrillerDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Trace/TraceDrillerDialog.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/Code/Tools/Standalone/Profiler_autogen/include/Source/Driller/Trace/ui_TraceDrillerDialog.h J:/Atom/lyfork/o3de/Code/Tools/Standalone/Source/Driller/Trace/TraceDrillerDialog.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Trace\ui_TraceDrillerDialog.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Tools/Standalone/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/Code/Tools/Standalone/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Platform\Windows\lua_ide_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Platform\Windows\profiler_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\Standalone\lua_ide_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\Standalone\profiler_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\Standalone\standalone_tools_files.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Tools/Standalone/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/Code/Tools/Standalone/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Platform\Windows\lua_ide_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Platform\Windows\profiler_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\Standalone\lua_ide_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\Standalone\profiler_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\Standalone\standalone_tools_files.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Tools/Standalone/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/Code/Tools/Standalone/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\Platform\Windows\lua_ide_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\Standalone\Platform\Windows\profiler_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\Standalone\lua_ide_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\Standalone\profiler_files.cmake;J:\Atom\lyfork\o3de\Code\Tools\Standalone\standalone_tools_files.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Tools\Standalone\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\mocs_compilation_debug.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='profile|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\targetver.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\StandaloneToolsApplication.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\StandaloneToolsApplication.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Editor\Resource.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Editor\targetver.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Telemetry\TelemetryBus.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Telemetry\TelemetryComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Telemetry\TelemetryComponent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Telemetry\TelemetryEvent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Telemetry\TelemetryEvent.h" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\standalone_tools_files.cmake">
+    </None>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\ProfilerApplication.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\ProfilerApplication.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Editor\ProfilerEditor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Editor\ProfilerEditor.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Axis.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Axis.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\AreaChart.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\AreaChart.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelConfigurationDialog.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelConfigurationDialog.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelConfigurationWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelConfigurationWidget.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelControl.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelControl.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelProfilerWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelProfilerWidget.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelDataView.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelDataView.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChartNumberFormats.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChartNumberFormats.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChartTypes.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChartTypes.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\CollapsiblePanel.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\CollapsiblePanel.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\CombinedEventsControl.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\CombinedEventsControl.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\CustomizeCSVExportWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\CustomizeCSVExportWidget.hxx" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\CSVExportSettings.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DoubleListSelector.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DoubleListSelector.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerAggregator.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerAggregator.hxx" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerAggregatorOptions.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerCaptureWindow.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerCaptureWindow.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerContext.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerContext.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerContextInterface.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerDataContainer.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerDataContainer.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerDataTypes.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerEvent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerEvent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerMainWindow.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerMainWindow.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerMainWindowMessages.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerMainWindowMessages.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerNetworkMessages.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerOperationTelemetryEvent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerOperationTelemetryEvent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\FilteredListView.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\FilteredListView.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\GenericCustomizeCSVExportWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\GenericCustomizeCSVExportWidget.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\RacetrackChart.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\RacetrackChart.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\StripChart.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\StripChart.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\AnnotationHeaderView.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\AnnotationHeaderView.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\Annotations.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\Annotations.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\AnnotationsDataView.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\AnnotationsDataView.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\AnnotationsDataView_Events.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\AnnotationsDataView_Events.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\AnnotationsHeaderView_Events.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\AnnotationsHeaderView_Events.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\ConfigureAnnotationsWindow.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\ConfigureAnnotationsWindow.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier\CarrierDataAggregator.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier\CarrierDataAggregator.hxx" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier\CarrierDataEvents.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier\CarrierDataParser.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier\CarrierDataParser.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier\CarrierDataView.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier\CarrierDataView.hxx" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier\CarrierOperationTelemetryEvent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\EventTrace\EventTraceDataAggregator.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\EventTrace\EventTraceDataAggregator.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\EventTrace\EventTraceDataParser.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\EventTrace\EventTraceDataParser.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\EventTrace\EventTraceEvents.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Memory\MemoryDataAggregator.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Memory\MemoryDataAggregator.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Memory\MemoryDataParser.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Memory\MemoryDataParser.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Memory\MemoryDataView.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Memory\MemoryDataView.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Memory\MemoryEvents.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Memory\MemoryEvents.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerDataAggregator.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerDataAggregator.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerDataPanel.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerDataPanel.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerDataParser.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerDataParser.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerDataView.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerDataView.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerEvents.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerEvents.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerOperationTelemetryEvent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Rendering\VRAM\VRAMDataAggregator.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Rendering\VRAM\VRAMDataAggregator.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Rendering\VRAM\VRAMDataParser.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Rendering\VRAM\VRAMDataParser.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Rendering\VRAM\VRAMEvents.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Rendering\VRAM\VRAMEvents.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\BaseDetailViewSavedState.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\BaseDetailViewQObject.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\BaseDetailViewQObject.hxx" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\BaseDetailView.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\BaseDetailView.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\OverallReplicaDetailView.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\OverallReplicaDetailView.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaBandwidthChartData.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaBandwidthChartData.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaChunkTypeDetailView.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaChunkTypeDetailView.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaChunkUsageDataContainers.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaChunkUsageDataContainers.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDataAggregator.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDataAggregator.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDataAggregatorConfigurationPanel.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDataAggregatorConfigurationPanel.hxx" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDataEvents.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDataParser.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDataParser.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDataView.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDataView.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDetailView.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDetailView.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDisplayHelpers.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDisplayHelpers.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDisplayTypes.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDisplayTypes.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDrillerConfigToolbar.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDrillerConfigToolbar.hxx" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaOperationTelemetryEvent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaTreeViewModel.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaTreeViewModel.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaUsageDataContainers.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaUsageDataContainers.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Trace\TraceDrillerDialog.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Trace\TraceDrillerDialog.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Trace\TraceMessageDataAggregator.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Trace\TraceMessageDataAggregator.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Trace\TraceMessageDataParser.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Trace\TraceMessageDataParser.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Trace\TraceMessageEvents.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Trace\TraceOperationTelemetryEvent.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Unsupported\UnsupportedDataAggregator.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Unsupported\UnsupportedDataAggregator.hxx" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Unsupported\UnsupportedDataParser.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Unsupported\UnsupportedDataParser.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Unsupported\UnsupportedEvents.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Workspaces\Workspace.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Workspaces\Workspace.h" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\profiler_files.cmake">
+    </None>
+    <ResourceCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Editor\ProfilerEditor.rc" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Platform\Windows\Source\StandaloneApplication_Windows.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Platform\Windows\Source\Driller\EvenTrace\EventTraceDataAggregator_Windows.cpp" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Platform\Windows\profiler_windows_files.cmake">
+    </None>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_ChannelControl.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_ChannelProfilerWidget.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_CollapsiblePanel.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_DoubleListSelector.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_DrillerCaptureWindow.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_DrillerMainChannelsView.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_DrillerMainWindow.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_FilteredListView.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_GenericCustomizeCSVExportWidget.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Annotations\ui_AnnotationHeaderView.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Annotations\ui_ConfigureAnnotationsDialog.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Carrier\ui_CarrierDataView.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Memory\ui_MemoryDataView.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Profiler\ui_ProfilerDataView.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_basedetailview.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_overallreplicadetailview.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_ReplicaDataAggregatorConfigurationPanel.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_replicadataview.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_ReplicaDataViewConfigDialog.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_ReplicaDrillerConfigToolbar.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Trace\ui_TraceDrillerDialog.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\mocs_compilation_profile.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\mocs_compilation_release.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='profile|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\ZERO_CHECK.vcxproj">
+      <Project>{9D084072-A56A-3A6D-8C63-F5385A20608A}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore.vcxproj">
+      <Project>{78F97634-33F1-3E9D-BB2E-D24CB7BD9D1E}</Project>
+      <Name>AzCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework.vcxproj">
+      <Project>{32B5BA28-0012-3762-8899-2D392DE6A10B}</Project>
+      <Name>AzFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents.vcxproj">
+      <Project>{A96AE86E-7259-341D-879A-5F0B4ECAAFB8}</Project>
+      <Name>AzQtComponents</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework.vcxproj">
+      <Project>{FBDC5AB0-96E2-3EF6-A16A-7C345C99949B}</Project>
+      <Name>AzToolsFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryCommon.vcxproj">
+      <Project>{5131F2AB-DC9C-3FE9-A0DF-A1E42FAD10E6}</Project>
+      <Name>CryCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate.vcxproj">
+      <Project>{1A59660B-1BCB-3611-B3D0-673DEB6F8A46}</Project>
+      <Name>GridMate</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

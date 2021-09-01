@@ -1,0 +1,150 @@
+{
+    "entries": [
+        {
+            "key": "AZ::RPI::ShaderOptionDescriptor",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AZ::RPI::ShaderOptionDescriptor"
+            },
+            "methods": [
+                {
+                    "key": "GetName",
+                    "context": "AZ::RPI::ShaderOptionDescriptor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZ::RPI::ShaderOptionDescriptor::GetName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZ::RPI::ShaderOptionDescriptor::GetName is invoked"
+                    },
+                    "details": {
+                        "name": "AZ::RPI::ShaderOptionDescriptor::GetName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{07B9E2F7-5408-49E9-904D-CC1A9C33230E}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderOptionDescriptor"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{3D2B920C-9EFD-40D5-AAE0-DF131C3D4931}",
+                            "details": {
+                                "name": "Name"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetDefaultValue",
+                    "context": "AZ::RPI::ShaderOptionDescriptor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZ::RPI::ShaderOptionDescriptor::GetDefaultValue"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZ::RPI::ShaderOptionDescriptor::GetDefaultValue is invoked"
+                    },
+                    "details": {
+                        "name": "AZ::RPI::ShaderOptionDescriptor::GetDefaultValue"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{07B9E2F7-5408-49E9-904D-CC1A9C33230E}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderOptionDescriptor"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{3D2B920C-9EFD-40D5-AAE0-DF131C3D4931}",
+                            "details": {
+                                "name": "Name"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetValueName",
+                    "context": "AZ::RPI::ShaderOptionDescriptor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZ::RPI::ShaderOptionDescriptor::GetValueName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZ::RPI::ShaderOptionDescriptor::GetValueName is invoked"
+                    },
+                    "details": {
+                        "name": "AZ::RPI::ShaderOptionDescriptor::GetValueName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{07B9E2F7-5408-49E9-904D-CC1A9C33230E}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderOptionDescriptor"
+                            }
+                        },
+                        {
+                            "typeid": "{C10E7B12-BCB6-5872-810D-D597F123DB61}",
+                            "details": {
+                                "name": "AZ::RHI::Handle<unsigned int, RPI::ShaderOptionValueNamespace>"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{3D2B920C-9EFD-40D5-AAE0-DF131C3D4931}",
+                            "details": {
+                                "name": "Name"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FindValue",
+                    "context": "AZ::RPI::ShaderOptionDescriptor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZ::RPI::ShaderOptionDescriptor::FindValue"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZ::RPI::ShaderOptionDescriptor::FindValue is invoked"
+                    },
+                    "details": {
+                        "name": "AZ::RPI::ShaderOptionDescriptor::FindValue"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{07B9E2F7-5408-49E9-904D-CC1A9C33230E}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderOptionDescriptor"
+                            }
+                        },
+                        {
+                            "typeid": "{3D2B920C-9EFD-40D5-AAE0-DF131C3D4931}",
+                            "details": {
+                                "name": "Name"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C10E7B12-BCB6-5872-810D-D597F123DB61}",
+                            "details": {
+                                "name": "AZ::RHI::Handle<unsigned int, RPI::ShaderOptionValueNamespace>"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

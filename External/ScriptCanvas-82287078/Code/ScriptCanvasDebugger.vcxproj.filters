@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\API.cpp">
+      <Filter>Include\ScriptCanvas\Debugger</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\APIArguments.cpp">
+      <Filter>Include\ScriptCanvas\Debugger</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\ClientTransceiver.cpp">
+      <Filter>Include\ScriptCanvas\Debugger</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\Debugger.cpp">
+      <Filter>Include\ScriptCanvas\Debugger</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\Logger.cpp">
+      <Filter>Include\ScriptCanvas\Debugger</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\LogReader.cpp">
+      <Filter>Include\ScriptCanvas\Debugger</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\Messages\Notify.cpp">
+      <Filter>Include\ScriptCanvas\Debugger\Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\Messages\Request.cpp">
+      <Filter>Include\ScriptCanvas\Debugger\Messages</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\API.h">
+      <Filter>Include\ScriptCanvas\Debugger</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\APIArguments.h">
+      <Filter>Include\ScriptCanvas\Debugger</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\Bus.h">
+      <Filter>Include\ScriptCanvas\Debugger</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\ClientTransceiver.h">
+      <Filter>Include\ScriptCanvas\Debugger</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\Debugger.h">
+      <Filter>Include\ScriptCanvas\Debugger</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\Logger.h">
+      <Filter>Include\ScriptCanvas\Debugger</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\LogReader.h">
+      <Filter>Include\ScriptCanvas\Debugger</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\StatusBus.h">
+      <Filter>Include\ScriptCanvas\Debugger</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\Messages\Notify.h">
+      <Filter>Include\ScriptCanvas\Debugger\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\Messages\Request.h">
+      <Filter>Include\ScriptCanvas\Debugger\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\ValidationEvents\ValidationEvent.h">
+      <Filter>Include\ScriptCanvas\Debugger\ValidationEvents</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\ValidationEvents\GraphTranslationValidation\GraphTranslationValidations.h">
+      <Filter>Include\ScriptCanvas\Debugger\ValidationEvents\GraphTranslationValidation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\ValidationEvents\GraphTranslationValidation\GraphTranslationValidationIds.h">
+      <Filter>Include\ScriptCanvas\Debugger\ValidationEvents\GraphTranslationValidation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\ValidationEvents\ParsingValidation\ParsingValidations.h">
+      <Filter>Include\ScriptCanvas\Debugger\ValidationEvents\ParsingValidation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\ValidationEvents\ParsingValidation\ParsingValidationIds.h">
+      <Filter>Include\ScriptCanvas\Debugger\ValidationEvents\ParsingValidation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\ValidationEvents\DataValidation\DataValidationEvents.h">
+      <Filter>Include\ScriptCanvas\Debugger\ValidationEvents\DataValidation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\ValidationEvents\DataValidation\DataValidationIds.h">
+      <Filter>Include\ScriptCanvas\Debugger\ValidationEvents\DataValidation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\ValidationEvents\DataValidation\DynamicDataTypeEvent.h">
+      <Filter>Include\ScriptCanvas\Debugger\ValidationEvents\DataValidation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\ValidationEvents\DataValidation\InvalidExpressionEvent.h">
+      <Filter>Include\ScriptCanvas\Debugger\ValidationEvents\DataValidation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\ValidationEvents\DataValidation\InvalidRandomSignalEvent.h">
+      <Filter>Include\ScriptCanvas\Debugger\ValidationEvents\DataValidation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\ValidationEvents\DataValidation\ScopedDataConnectionEvent.h">
+      <Filter>Include\ScriptCanvas\Debugger\ValidationEvents\DataValidation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\ValidationEvents\DataValidation\SlotReferenceEvent.h">
+      <Filter>Include\ScriptCanvas\Debugger\ValidationEvents\DataValidation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\ValidationEvents\DataValidation\UnknownEndpointEvent.h">
+      <Filter>Include\ScriptCanvas\Debugger\ValidationEvents\DataValidation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\ValidationEvents\DataValidation\ScriptEventVersionMismatch.h">
+      <Filter>Include\ScriptCanvas\Debugger\ValidationEvents\DataValidation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\ValidationEvents\ExecutionValidation\ExecutionValidationEvents.h">
+      <Filter>Include\ScriptCanvas\Debugger\ValidationEvents\ExecutionValidation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\ValidationEvents\ExecutionValidation\ExecutionValidationIds.h">
+      <Filter>Include\ScriptCanvas\Debugger\ValidationEvents\ExecutionValidation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\ValidationEvents\ExecutionValidation\UnusedNodeEvent.h">
+      <Filter>Include\ScriptCanvas\Debugger\ValidationEvents\ExecutionValidation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\ValidationEvents\ValidationEffects\FocusOnEffect.h">
+      <Filter>Include\ScriptCanvas\Debugger\ValidationEvents\ValidationEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\ValidationEvents\ValidationEffects\HighlightEffect.h">
+      <Filter>Include\ScriptCanvas\Debugger\ValidationEvents\ValidationEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Debugger\ValidationEvents\ValidationEffects\GreyOutEffect.h">
+      <Filter>Include\ScriptCanvas\Debugger\ValidationEvents\ValidationEffects</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\scriptcanvasgem_debugger_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas">
+      <UniqueIdentifier>{EE2A7069-1F5E-335F-8850-086810F2CA1F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Debugger">
+      <UniqueIdentifier>{E93DC5FC-5412-3A73-BB0C-BFD94D89E871}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Debugger\Messages">
+      <UniqueIdentifier>{F3C6AD97-6029-3949-9F53-456FCA6C62A0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Debugger\ValidationEvents">
+      <UniqueIdentifier>{4F65FF67-D44B-3B1C-B775-178308C11A5D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Debugger\ValidationEvents\DataValidation">
+      <UniqueIdentifier>{D5499AFA-A692-396D-AEFF-822DECFC974A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Debugger\ValidationEvents\ExecutionValidation">
+      <UniqueIdentifier>{7E460329-D173-3C8D-B0B6-F972DB2077CB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Debugger\ValidationEvents\GraphTranslationValidation">
+      <UniqueIdentifier>{3F02F335-32A0-35D0-84C2-6CC786D95B71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Debugger\ValidationEvents\ParsingValidation">
+      <UniqueIdentifier>{6BDE78CA-57BD-328C-9714-B2979EF4A7D0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScriptCanvas\Debugger\ValidationEvents\ValidationEffects">
+      <UniqueIdentifier>{C9F39233-4B46-337D-8A07-ED4B9B89D297}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

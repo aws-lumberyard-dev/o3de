@@ -1,0 +1,78 @@
+{
+    "entries": [
+        {
+            "key": "TransformConfig",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "TransformConfig"
+            },
+            "methods": [
+                {
+                    "key": "SetTransform",
+                    "context": "TransformConfig",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke TransformConfig::SetTransform"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after TransformConfig::SetTransform is invoked"
+                    },
+                    "details": {
+                        "name": "TransformConfig::SetTransform"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B3AAB26D-D075-4E2B-9653-9527EE363DF8}",
+                            "details": {
+                                "name": "TransformConfig*"
+                            }
+                        },
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetLocalAndWorldTransform",
+                    "context": "TransformConfig",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke TransformConfig::SetLocalAndWorldTransform"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after TransformConfig::SetLocalAndWorldTransform is invoked"
+                    },
+                    "details": {
+                        "name": "TransformConfig::SetLocalAndWorldTransform"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B3AAB26D-D075-4E2B-9653-9527EE363DF8}",
+                            "details": {
+                                "name": "TransformConfig*"
+                            }
+                        },
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        },
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

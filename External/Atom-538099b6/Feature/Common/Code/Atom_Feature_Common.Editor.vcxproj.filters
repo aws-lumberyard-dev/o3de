@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Utils\EditorLightingPreset.cpp">
+      <Filter>Source\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Utils\EditorModelPreset.cpp">
+      <Filter>Source\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\EditorCommonSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CommonModule.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\ConvertEmissiveUnitFunctorSourceData.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\MaterialConverterSystemComponent.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\SubsurfaceTransmissionParameterFunctorSourceData.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\Transform2DFunctorSourceData.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\UseTextureFunctorSourceData.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\DrawListFunctorSourceData.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\Utils\EditorRenderComponentAdapter.h">
+      <Filter>Include\Atom\Feature\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\Utils\EditorRenderComponentAdapter.inl">
+      <Filter>Include\Atom\Feature\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\Utils\EditorLightingPreset.h">
+      <Filter>Include\Atom\Feature\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\Utils\EditorModelPreset.h">
+      <Filter>Include\Atom\Feature\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\EditorCommonSystemComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\RenderCommon.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\ConvertEmissiveUnitFunctorSourceData.h">
+      <Filter>Source\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\MaterialConverterSystemComponent.h">
+      <Filter>Source\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\SubsurfaceTransmissionParameterFunctorSourceData.h">
+      <Filter>Source\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\Transform2DFunctorSourceData.h">
+      <Filter>Source\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\UseTextureFunctorSourceData.h">
+      <Filter>Source\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Material\DrawListFunctorSourceData.h">
+      <Filter>Source\Material</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_editor_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\Platform\Windows\runtime_dependencies_tools.cmake">
+      <Filter>Source\Platform\Windows</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom">
+      <UniqueIdentifier>{E66A19AE-451A-3F1F-B698-7608D533AFDF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature">
+      <UniqueIdentifier>{E05362D9-7F9B-38F6-A9C4-38C00036C2F2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature\Utils">
+      <UniqueIdentifier>{CFAF9DA2-1B72-349A-9281-254F4D91A1D7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Material">
+      <UniqueIdentifier>{8C2A0A28-75C9-3D71-B745-C6A34D43B262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform">
+      <UniqueIdentifier>{619E1779-1529-36CF-BFB6-452991664BCE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows">
+      <UniqueIdentifier>{6E009862-2333-3599-9B65-E8F840C182D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Utils">
+      <UniqueIdentifier>{2BB98316-69D6-3B96-832B-594CA3641CC1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,12 @@
+{
+    "entries": [
+        {
+            "key": "AZ::Render::DirectionalLightComponent",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AZ::Render::DirectionalLightComponent"
+            }
+        }
+    ]
+}

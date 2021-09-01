@@ -1,0 +1,214 @@
+{
+    "entries": [
+        {
+            "key": "SequenceComponentRequestBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "SequenceComponentRequestBus"
+            },
+            "methods": [
+                {
+                    "key": "GetPlaySpeed",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetPlaySpeed"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetPlaySpeed is invoked"
+                    },
+                    "details": {
+                        "name": "GetPlaySpeed"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "JumpToTime",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke JumpToTime"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after JumpToTime is invoked"
+                    },
+                    "details": {
+                        "name": "JumpToTime"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Resume",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Resume"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Resume is invoked"
+                    },
+                    "details": {
+                        "name": "Resume"
+                    }
+                },
+                {
+                    "key": "JumpToEnd",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke JumpToEnd"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after JumpToEnd is invoked"
+                    },
+                    "details": {
+                        "name": "JumpToEnd"
+                    }
+                },
+                {
+                    "key": "GetCurrentPlayTime",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetCurrentPlayTime"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetCurrentPlayTime is invoked"
+                    },
+                    "details": {
+                        "name": "GetCurrentPlayTime"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Pause",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Pause"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Pause is invoked"
+                    },
+                    "details": {
+                        "name": "Pause"
+                    }
+                },
+                {
+                    "key": "PlayBetweenTimes",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke PlayBetweenTimes"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after PlayBetweenTimes is invoked"
+                    },
+                    "details": {
+                        "name": "PlayBetweenTimes"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Stop",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Stop"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Stop is invoked"
+                    },
+                    "details": {
+                        "name": "Stop"
+                    }
+                },
+                {
+                    "key": "JumpToBeginning",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke JumpToBeginning"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after JumpToBeginning is invoked"
+                    },
+                    "details": {
+                        "name": "JumpToBeginning"
+                    }
+                },
+                {
+                    "key": "Play",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Play"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Play is invoked"
+                    },
+                    "details": {
+                        "name": "Play"
+                    }
+                },
+                {
+                    "key": "SetPlaySpeed",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetPlaySpeed"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetPlaySpeed is invoked"
+                    },
+                    "details": {
+                        "name": "SetPlaySpeed"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

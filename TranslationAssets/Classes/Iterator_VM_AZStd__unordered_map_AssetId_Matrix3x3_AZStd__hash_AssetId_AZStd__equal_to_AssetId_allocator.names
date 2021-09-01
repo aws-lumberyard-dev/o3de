@@ -1,0 +1,130 @@
+{
+    "entries": [
+        {
+            "key": "Iterator_VM<AZStd::unordered_map<AssetId, Matrix3x3, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Iterator_VM<AZStd::unordered_map<AssetId, Matrix3x3, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>"
+            },
+            "methods": [
+                {
+                    "key": "GetKeyUnchecked",
+                    "context": "Iterator_VM<AZStd::unordered_map<AssetId, Matrix3x3, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<AssetId, Matrix3x3, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::GetKeyUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<AssetId, Matrix3x3, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::GetKeyUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<AssetId, Matrix3x3, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::GetKeyUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{16BF44CD-FF78-5C51-8037-1519139FA3A5}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<AssetId, Matrix3x3, AZStd::has"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
+                            "details": {
+                                "name": "AssetId"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ModValueUnchecked",
+                    "context": "Iterator_VM<AZStd::unordered_map<AssetId, Matrix3x3, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<AssetId, Matrix3x3, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::ModValueUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<AssetId, Matrix3x3, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::ModValueUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<AssetId, Matrix3x3, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::ModValueUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{16BF44CD-FF78-5C51-8037-1519139FA3A5}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<AssetId, Matrix3x3, AZStd::has"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsNotAtEnd",
+                    "context": "Iterator_VM<AZStd::unordered_map<AssetId, Matrix3x3, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<AssetId, Matrix3x3, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::IsNotAtEnd"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<AssetId, Matrix3x3, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::IsNotAtEnd is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<AssetId, Matrix3x3, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::IsNotAtEnd"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{16BF44CD-FF78-5C51-8037-1519139FA3A5}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<AssetId, Matrix3x3, AZStd::has"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Next",
+                    "context": "Iterator_VM<AZStd::unordered_map<AssetId, Matrix3x3, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<AssetId, Matrix3x3, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::Next"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<AssetId, Matrix3x3, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::Next is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<AssetId, Matrix3x3, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::Next"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{16BF44CD-FF78-5C51-8037-1519139FA3A5}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<AssetId, Matrix3x3, AZStd::has"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

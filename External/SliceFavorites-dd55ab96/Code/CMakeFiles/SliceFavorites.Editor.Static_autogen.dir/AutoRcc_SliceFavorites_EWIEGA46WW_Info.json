@@ -1,0 +1,31 @@
+{
+	"BUILD_DIR" : "J:/Atom/lyfork/o3de/External/SliceFavorites-dd55ab96/Code/SliceFavorites.Editor.Static_autogen",
+	"CMAKE_BINARY_DIR" : "J:/Atom/lyfork/o3de",
+	"CMAKE_CURRENT_BINARY_DIR" : "J:/Atom/lyfork/o3de/External/SliceFavorites-dd55ab96/Code",
+	"CMAKE_CURRENT_SOURCE_DIR" : "J:/Atom/lyfork/o3de/Gems/SliceFavorites/Code",
+	"CMAKE_SOURCE_DIR" : "J:/Atom/lyfork/o3de",
+	"INCLUDE_DIR" : "J:/Atom/lyfork/o3de/External/SliceFavorites-dd55ab96/Code/SliceFavorites.Editor.Static_autogen/include",
+	"INCLUDE_DIR_debug" : "J:/Atom/lyfork/o3de/External/SliceFavorites-dd55ab96/Code/SliceFavorites.Editor.Static_autogen/include_debug",
+	"INCLUDE_DIR_profile" : "J:/Atom/lyfork/o3de/External/SliceFavorites-dd55ab96/Code/SliceFavorites.Editor.Static_autogen/include_profile",
+	"INCLUDE_DIR_release" : "J:/Atom/lyfork/o3de/External/SliceFavorites-dd55ab96/Code/SliceFavorites.Editor.Static_autogen/include_release",
+	"INPUTS" : 
+	[
+		"J:/Atom/lyfork/o3de/Gems/SliceFavorites/Code/resources/SliceFavorite_Icon_Manage.png",
+		"J:/Atom/lyfork/o3de/Gems/SliceFavorites/Code/resources/SliceFavorite_Icon_Folder.png",
+		"J:/Atom/lyfork/o3de/Gems/SliceFavorites/Code/resources/SliceFavorite_Icon_Favorite.png",
+		"J:/Atom/lyfork/o3de/Gems/SliceFavorites/Code/resources/SliceFavorite_Icon_DynamicFavorite.png"
+	],
+	"LOCK_FILE" : "J:/Atom/lyfork/o3de/External/SliceFavorites-dd55ab96/Code/CMakeFiles/SliceFavorites.Editor.Static_autogen.dir/AutoRcc_SliceFavorites_EWIEGA46WW_Lock.lock",
+	"MULTI_CONFIG" : true,
+	"OPTIONS" : [ "-name", "SliceFavorites" ],
+	"OUTPUT_CHECKSUM" : "EWIEGA46WW",
+	"OUTPUT_NAME" : "qrc_SliceFavorites.cpp",
+	"RCC_EXECUTABLE" : "C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin/rcc.exe",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "J:/Atom/lyfork/o3de/External/SliceFavorites-dd55ab96/Code/CMakeFiles/SliceFavorites.Editor.Static_autogen.dir/AutoRcc_SliceFavorites_EWIEGA46WW_Used.txt",
+	"SETTINGS_FILE_debug" : "J:/Atom/lyfork/o3de/External/SliceFavorites-dd55ab96/Code/CMakeFiles/SliceFavorites.Editor.Static_autogen.dir/AutoRcc_SliceFavorites_EWIEGA46WW_Used_debug.txt",
+	"SETTINGS_FILE_profile" : "J:/Atom/lyfork/o3de/External/SliceFavorites-dd55ab96/Code/CMakeFiles/SliceFavorites.Editor.Static_autogen.dir/AutoRcc_SliceFavorites_EWIEGA46WW_Used_profile.txt",
+	"SETTINGS_FILE_release" : "J:/Atom/lyfork/o3de/External/SliceFavorites-dd55ab96/Code/CMakeFiles/SliceFavorites.Editor.Static_autogen.dir/AutoRcc_SliceFavorites_EWIEGA46WW_Used_release.txt",
+	"SOURCE" : "J:/Atom/lyfork/o3de/Gems/SliceFavorites/Code/SliceFavorites.qrc",
+	"VERBOSITY" : 0
+}

@@ -1,0 +1,130 @@
+{
+    "entries": [
+        {
+            "key": "Iterator_VM<AZStd::unordered_map<double, Crc32, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Iterator_VM<AZStd::unordered_map<double, Crc32, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>"
+            },
+            "methods": [
+                {
+                    "key": "GetKeyUnchecked",
+                    "context": "Iterator_VM<AZStd::unordered_map<double, Crc32, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<double, Crc32, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::GetKeyUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<double, Crc32, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::GetKeyUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<double, Crc32, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::GetKeyUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{37F3A504-2009-552E-8122-0B917B5DCD05}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<double, Crc32, AZStd::hash<dou"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ModValueUnchecked",
+                    "context": "Iterator_VM<AZStd::unordered_map<double, Crc32, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<double, Crc32, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::ModValueUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<double, Crc32, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::ModValueUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<double, Crc32, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::ModValueUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{37F3A504-2009-552E-8122-0B917B5DCD05}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<double, Crc32, AZStd::hash<dou"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
+                            "details": {
+                                "name": "Crc32"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsNotAtEnd",
+                    "context": "Iterator_VM<AZStd::unordered_map<double, Crc32, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<double, Crc32, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::IsNotAtEnd"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<double, Crc32, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::IsNotAtEnd is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<double, Crc32, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::IsNotAtEnd"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{37F3A504-2009-552E-8122-0B917B5DCD05}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<double, Crc32, AZStd::hash<dou"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Next",
+                    "context": "Iterator_VM<AZStd::unordered_map<double, Crc32, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<double, Crc32, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::Next"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<double, Crc32, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::Next is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<double, Crc32, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>::Next"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{37F3A504-2009-552E-8122-0B917B5DCD05}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<double, Crc32, AZStd::hash<dou"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

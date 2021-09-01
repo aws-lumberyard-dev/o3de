@@ -1,0 +1,482 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Map<String, CRC>",
+                "category": "Map",
+                "tooltip": "A collection of Key/Value pairs, where each Key value must be unique."
+            },
+            "methods": [
+                {
+                    "key": "contains",
+                    "context": "Map<String, CRC>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::contains"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::contains is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::contains"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E1CD6BDA-AB0E-5B5A-8DDA-AFEF7A94FD06}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Map<String, CRC>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E1CD6BDA-AB0E-5B5A-8DDA-AFEF7A94FD06}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        },
+                        {
+                            "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
+                            "details": {
+                                "name": "Crc32"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{E1CD6BDA-AB0E-5B5A-8DDA-AFEF7A94FD06}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Map<String, CRC>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E1CD6BDA-AB0E-5B5A-8DDA-AFEF7A94FD06}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Map<String, CRC>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E1CD6BDA-AB0E-5B5A-8DDA-AFEF7A94FD06}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Map<String, CRC>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E1CD6BDA-AB0E-5B5A-8DDA-AFEF7A94FD06}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{9F3F2E3C-39C3-58E7-AFA1-D6D4782D1D65}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetKeys",
+                    "context": "Map<String, CRC>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::GetKeys"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::GetKeys is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::GetKeys"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E1CD6BDA-AB0E-5B5A-8DDA-AFEF7A94FD06}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{99DAD0BC-740E-5E82-826B-8FC7968CC02C}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Size",
+                    "context": "Map<String, CRC>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E1CD6BDA-AB0E-5B5A-8DDA-AFEF7A94FD06}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase",
+                    "context": "Map<String, CRC>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Erase"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Erase is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Erase"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E1CD6BDA-AB0E-5B5A-8DDA-AFEF7A94FD06}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{E1CD6BDA-AB0E-5B5A-8DDA-AFEF7A94FD06}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Map<String, CRC>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E1CD6BDA-AB0E-5B5A-8DDA-AFEF7A94FD06}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Map<String, CRC>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E1CD6BDA-AB0E-5B5A-8DDA-AFEF7A94FD06}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{E1CD6BDA-AB0E-5B5A-8DDA-AFEF7A94FD06}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "At",
+                    "context": "Map<String, CRC>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::At"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::At is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::At"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E1CD6BDA-AB0E-5B5A-8DDA-AFEF7A94FD06}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
+                            "details": {
+                                "name": "Crc32"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "BucketCount",
+                    "context": "Map<String, CRC>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::BucketCount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::BucketCount is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::BucketCount"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E1CD6BDA-AB0E-5B5A-8DDA-AFEF7A94FD06}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Map<String, CRC>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E1CD6BDA-AB0E-5B5A-8DDA-AFEF7A94FD06}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Map<String, CRC>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Crc32, AZStd::hash<AZStd::basic_string<cha::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E1CD6BDA-AB0E-5B5A-8DDA-AFEF7A94FD06}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{E1CD6BDA-AB0E-5B5A-8DDA-AFEF7A94FD06}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

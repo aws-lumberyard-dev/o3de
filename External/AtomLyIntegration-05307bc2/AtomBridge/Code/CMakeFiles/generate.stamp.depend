@@ -1,0 +1,7 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/AtomLyIntegration/AtomBridge/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/AtomLyIntegration/AtomBridge/Code/Source/Platform/Windows/additional_windows_runtime_deps.cmake
+J:/Atom/lyfork/o3de/Gems/AtomLyIntegration/AtomBridge/Code/Source/Platform/Windows/additional_windows_tool_deps.cmake
+J:/Atom/lyfork/o3de/Gems/AtomLyIntegration/AtomBridge/Code/atombridge_editor_files.cmake
+J:/Atom/lyfork/o3de/Gems/AtomLyIntegration/AtomBridge/Code/atombridge_files.cmake
+J:/Atom/lyfork/o3de/Gems/AtomLyIntegration/AtomBridge/Code/atombridge_shared_files.cmake

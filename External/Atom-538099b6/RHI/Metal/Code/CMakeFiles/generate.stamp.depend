@@ -1,0 +1,6 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/Atom/RHI/Metal/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/Atom/RHI/Metal/Code/Source/Platform/Windows/PAL2_windows.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RHI/Metal/Code/Source/Platform/Windows/platform_builders_windows_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RHI/Metal/Code/atom_rhi_metal_reflect_common_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/RHI/Metal/Code/atom_rhi_metal_stub_module.cmake

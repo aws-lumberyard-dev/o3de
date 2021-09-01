@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\AZCrySystemInitLogSink.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\CmdLine.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\CmdLineArg.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\ConsoleBatchFile.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\ConsoleHelpGen.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\DebugCallStack.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\IDebugCallStack.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\Log.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\System.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\SystemCFG.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\SystemEventDispatcher.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\SystemInit.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\SystemWin32.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\Timer.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XConsole.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XConsoleVariable.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\SerializeXMLReader.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\SerializeXMLWriter.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\xml.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\XMLPatcher.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\XmlUtils.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\ReadXMLSink.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\WriteXMLSource.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\LocalizedStringManager.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\Huffman.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\RemoteConsole\RemoteConsole.cpp">
+      <Filter>RemoteConsole</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\LevelSystem\LevelSystem.cpp">
+      <Filter>LevelSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\LevelSystem\SpawnableLevelSystem.cpp">
+      <Filter>LevelSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\ViewSystem\DebugCamera.cpp">
+      <Filter>ViewSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\ViewSystem\View.cpp">
+      <Filter>ViewSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\ViewSystem\ViewSystem.cpp">
+      <Filter>ViewSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\WindowsErrorReporting.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\ReadWriteXMLSink.h">
+      <Filter>XML</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\AZCrySystemInitLogSink.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\AZCoreLogSink.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\CmdLine.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\CmdLineArg.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\ConsoleBatchFile.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\ConsoleHelpGen.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\DebugCallStack.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\IDebugCallStack.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\Log.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\SimpleStringPool.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\CrySystem_precompiled.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\System.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\SystemCFG.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\SystemEventDispatcher.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\Timer.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XConsole.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XConsoleVariable.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\SerializeXMLReader.h">
+      <Filter>XML</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\SerializeXMLWriter.h">
+      <Filter>XML</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\xml.h">
+      <Filter>XML</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\XMLPatcher.h">
+      <Filter>XML</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\xml_string.h">
+      <Filter>XML</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\XmlUtils.h">
+      <Filter>XML</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\LocalizedStringManager.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\Huffman.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\RemoteConsole\RemoteConsole.h">
+      <Filter>RemoteConsole</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\RemoteConsole\RemoteConsole_impl.inl">
+      <Filter>RemoteConsole</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\RemoteConsole\RemoteConsole_none.inl">
+      <Filter>RemoteConsole</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\LevelSystem\LevelSystem.h">
+      <Filter>LevelSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\LevelSystem\SpawnableLevelSystem.h">
+      <Filter>LevelSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\ViewSystem\DebugCamera.h">
+      <Filter>ViewSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\ViewSystem\View.h">
+      <Filter>ViewSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\ViewSystem\ViewSystem.h">
+      <Filter>ViewSystem</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\crysystem_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LevelSystem">
+      <UniqueIdentifier>{78C81F02-5981-3F54-8249-5F7F60EA461A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RemoteConsole">
+      <UniqueIdentifier>{45DF7663-BA03-3326-8514-E3771A2A89C3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ViewSystem">
+      <UniqueIdentifier>{842944EB-A554-331D-8224-DA4FB1CB5D7B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XML">
+      <UniqueIdentifier>{A55EDDF0-5E30-3F4E-B7CC-5749FE1CD7BE}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

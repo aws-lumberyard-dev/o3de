@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\ProjectManager\tests\ApplicationTests.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\ProjectManager\tests\PythonBindingsTests.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\ProjectManager\tests\main.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\ProjectManager\tests\UtilsTests.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\ProjectManager\ProjectManager.Tests_autogen\S5YYZ2ZCNV\qrc_ProjectManager.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\ProjectManager\Platform\Windows\ProjectManager_Test_Traits_Platform.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\ProjectManager\Platform\Windows\ProjectManager_Test_Traits_Windows.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\3c5804fa670379344dde1cf374ed6917\qrc_ProjectManager.cpp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\ProjectManager\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\ProjectManager\Resources\ProjectManager.qrc">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\ProjectManager\Resources\ProjectManager.qss">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\ProjectManager\project_manager_tests_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\ProjectManager\Platform\Windows\PAL_windows_tests_files.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{D4CCE8D3-A6C9-3C6A-9C86-8BF8F7D77D7F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{9B5BE819-E94D-379A-84DF-5559629D4548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{65C4F774-3277-3C8A-94DC-340251367DA5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tests">
+      <UniqueIdentifier>{E1F94757-54BB-3463-B59E-391B80623CC3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

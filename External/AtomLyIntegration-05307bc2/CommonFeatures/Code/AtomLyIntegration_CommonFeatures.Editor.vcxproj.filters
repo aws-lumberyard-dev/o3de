@@ -1,0 +1,497 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\AtomLyIntegration-05307bc2\CommonFeatures\Code\AtomLyIntegration_CommonFeatures.Editor_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Module.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Animation\EditorAttachmentComponent.cpp">
+      <Filter>Source\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\EditorCommonFeaturesSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\EditorAreaLightComponent.cpp">
+      <Filter>Source\CoreLights</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\EditorDirectionalLightComponent.cpp">
+      <Filter>Source\CoreLights</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Decals\EditorDecalComponent.cpp">
+      <Filter>Source\Decals</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\DiffuseGlobalIllumination\EditorDiffuseProbeGridComponent.cpp">
+      <Filter>Source\DiffuseGlobalIllumination</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\DiffuseGlobalIllumination\EditorDiffuseGlobalIlluminationComponent.cpp">
+      <Filter>Source\DiffuseGlobalIllumination</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Grid\EditorGridComponent.cpp">
+      <Filter>Source\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\ImageBasedLights\EditorImageBasedLightComponent.cpp">
+      <Filter>Source\ImageBasedLights</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\EditorMaterialComponent.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\EditorMaterialComponentUtil.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\EditorMaterialComponentSlot.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\EditorMaterialComponentExporter.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\EditorMaterialComponentInspector.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\EditorMaterialModelUvNameMapInspector.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\EditorMaterialSystemComponent.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\MaterialBrowserInteractions.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\MaterialThumbnail.cpp">
+      <Filter>Source\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Mesh\EditorMeshComponent.cpp">
+      <Filter>Source\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Mesh\EditorMeshStats.cpp">
+      <Filter>Source\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Mesh\EditorMeshSystemComponent.cpp">
+      <Filter>Source\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Mesh\EditorMeshStatsSerializer.cpp">
+      <Filter>Source\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Mesh\MeshThumbnail.cpp">
+      <Filter>Source\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\OcclusionCullingPlane\EditorOcclusionCullingPlaneComponent.cpp">
+      <Filter>Source\OcclusionCullingPlane</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\EditorPostFxLayerComponent.cpp">
+      <Filter>Source\PostProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\Bloom\EditorBloomComponent.cpp">
+      <Filter>Source\PostProcess\Bloom</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\DepthOfField\EditorDepthOfFieldComponent.cpp">
+      <Filter>Source\PostProcess\DepthOfField</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\DisplayMapper\EditorDisplayMapperComponent.cpp">
+      <Filter>Source\PostProcess\DisplayMapper</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\ExposureControl\EditorExposureControlComponent.cpp">
+      <Filter>Source\PostProcess\ExposureControl</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\Ssao\EditorSsaoComponent.cpp">
+      <Filter>Source\PostProcess\Ssao</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\LookModification\EditorLookModificationComponent.cpp">
+      <Filter>Source\PostProcess\LookModification</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\RadiusWeightModifier\EditorRadiusWeightModifierComponent.cpp">
+      <Filter>Source\PostProcess\RadiusWeightModifier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\ShapeWeightModifier\EditorShapeWeightModifierComponent.cpp">
+      <Filter>Source\PostProcess\ShapeWeightModifier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\GradientWeightModifier\EditorGradientWeightModifierComponent.cpp">
+      <Filter>Source\PostProcess\GradientWeightModifier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\EditorPostFxLayerCategoriesAsset.cpp">
+      <Filter>Source\PostProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\EditorPostFxSystemComponent.cpp">
+      <Filter>Source\PostProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\ScreenSpace\EditorDeferredFogComponent.cpp">
+      <Filter>Source\ScreenSpace</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\ReflectionProbe\EditorReflectionProbeComponent.cpp">
+      <Filter>Source\ReflectionProbe</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\SkinnedMesh\SkinnedMeshDebugDisplay.cpp">
+      <Filter>Source\SkinnedMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\SkyBox\EditorHDRiSkyboxComponent.cpp">
+      <Filter>Source\SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\SkyBox\EditorPhysicalSkyComponent.cpp">
+      <Filter>Source\SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Thumbnails\ThumbnailUtils.cpp">
+      <Filter>Source\Thumbnails</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Thumbnails\Preview\CommonPreviewer.cpp">
+      <Filter>Source\Thumbnails\Preview</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Thumbnails\Preview\CommonPreviewerFactory.cpp">
+      <Filter>Source\Thumbnails\Preview</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Thumbnails\Rendering\CommonThumbnailRenderer.cpp">
+      <Filter>Source\Thumbnails\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Thumbnails\Rendering\ThumbnailRendererSteps\InitializeStep.cpp">
+      <Filter>Source\Thumbnails\Rendering\ThumbnailRendererSteps</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Thumbnails\Rendering\ThumbnailRendererSteps\FindThumbnailToRenderStep.cpp">
+      <Filter>Source\Thumbnails\Rendering\ThumbnailRendererSteps</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Thumbnails\Rendering\ThumbnailRendererSteps\WaitForAssetsToLoadStep.cpp">
+      <Filter>Source\Thumbnails\Rendering\ThumbnailRendererSteps</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Thumbnails\Rendering\ThumbnailRendererSteps\CaptureStep.cpp">
+      <Filter>Source\Thumbnails\Rendering\ThumbnailRendererSteps</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Thumbnails\Rendering\ThumbnailRendererSteps\ReleaseResourcesStep.cpp">
+      <Filter>Source\Thumbnails\Rendering\ThumbnailRendererSteps</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Scripting\EditorEntityReferenceComponent.cpp">
+      <Filter>Source\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\SurfaceData\EditorSurfaceDataMeshComponent.cpp">
+      <Filter>Source\SurfaceData</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\AtomLyIntegration-05307bc2\CommonFeatures\Code\AtomLyIntegration_CommonFeatures.Editor_autogen\S5YYZ2ZCNV\qrc_AtomLyIntegrationResources.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\AtomLyIntegration-05307bc2\CommonFeatures\Code\AtomLyIntegration_CommonFeatures.Editor_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\AtomLyIntegration-05307bc2\CommonFeatures\Code\AtomLyIntegration_CommonFeatures.Editor_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Include\AtomLyIntegration\CommonFeatures\Material\EditorMaterialSystemComponentRequestBus.h">
+      <Filter>Include\AtomLyIntegration\CommonFeatures\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Include\AtomLyIntegration\CommonFeatures\ReflectionProbe\EditorReflectionProbeBus.h">
+      <Filter>Include\AtomLyIntegration\CommonFeatures\ReflectionProbe</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Include\AtomLyIntegration\CommonFeatures\Thumbnails\ThumbnailFeatureProcessorProviderBus.h">
+      <Filter>Include\AtomLyIntegration\CommonFeatures\Thumbnails</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Animation\EditorAttachmentComponent.h">
+      <Filter>Source\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\EditorCommonFeaturesSystemComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\EditorAreaLightComponent.h">
+      <Filter>Source\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\CoreLights\EditorDirectionalLightComponent.h">
+      <Filter>Source\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Decals\EditorDecalComponent.h">
+      <Filter>Source\Decals</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\DiffuseGlobalIllumination\EditorDiffuseProbeGridComponent.h">
+      <Filter>Source\DiffuseGlobalIllumination</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\DiffuseGlobalIllumination\EditorDiffuseGlobalIlluminationComponent.h">
+      <Filter>Source\DiffuseGlobalIllumination</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Grid\EditorGridComponent.h">
+      <Filter>Source\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\ImageBasedLights\EditorImageBasedLightComponent.h">
+      <Filter>Source\ImageBasedLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\EditorMaterialComponent.h">
+      <Filter>Source\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\EditorMaterialComponentUtil.h">
+      <Filter>Source\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\EditorMaterialComponentSlot.h">
+      <Filter>Source\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\EditorMaterialComponentExporter.h">
+      <Filter>Source\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\EditorMaterialComponentInspector.h">
+      <Filter>Source\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\EditorMaterialModelUvNameMapInspector.h">
+      <Filter>Source\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\EditorMaterialSystemComponent.h">
+      <Filter>Source\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\MaterialBrowserInteractions.h">
+      <Filter>Source\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Material\MaterialThumbnail.h">
+      <Filter>Source\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Mesh\EditorMeshComponent.h">
+      <Filter>Source\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Mesh\EditorMeshStats.h">
+      <Filter>Source\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Mesh\EditorMeshSystemComponent.h">
+      <Filter>Source\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Mesh\EditorMeshStatsSerializer.h">
+      <Filter>Source\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Mesh\MeshThumbnail.h">
+      <Filter>Source\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\OcclusionCullingPlane\EditorOcclusionCullingPlaneComponent.h">
+      <Filter>Source\OcclusionCullingPlane</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\EditorPostFxLayerComponent.h">
+      <Filter>Source\PostProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\Bloom\EditorBloomComponent.h">
+      <Filter>Source\PostProcess\Bloom</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\DepthOfField\EditorDepthOfFieldComponent.h">
+      <Filter>Source\PostProcess\DepthOfField</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\DisplayMapper\EditorDisplayMapperComponent.h">
+      <Filter>Source\PostProcess\DisplayMapper</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\ExposureControl\EditorExposureControlComponent.h">
+      <Filter>Source\PostProcess\ExposureControl</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\Ssao\EditorSsaoComponent.h">
+      <Filter>Source\PostProcess\Ssao</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\LookModification\EditorLookModificationComponent.h">
+      <Filter>Source\PostProcess\LookModification</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\RadiusWeightModifier\EditorRadiusWeightModifierComponent.h">
+      <Filter>Source\PostProcess\RadiusWeightModifier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\GradientWeightModifier\EditorGradientWeightModifierComponent.h">
+      <Filter>Source\PostProcess\GradientWeightModifier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\ShapeWeightModifier\EditorShapeWeightModifierComponent.h">
+      <Filter>Source\PostProcess\ShapeWeightModifier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\EditorPostFxLayerCategoriesAsset.h">
+      <Filter>Source\PostProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\PostProcess\EditorPostFxSystemComponent.h">
+      <Filter>Source\PostProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\ScreenSpace\EditorDeferredFogComponent.h">
+      <Filter>Source\ScreenSpace</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\ReflectionProbe\EditorReflectionProbeComponent.h">
+      <Filter>Source\ReflectionProbe</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\SkinnedMesh\SkinnedMeshDebugDisplay.h">
+      <Filter>Source\SkinnedMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\SkyBox\EditorHDRiSkyboxComponent.h">
+      <Filter>Source\SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\SkyBox\EditorPhysicalSkyComponent.h">
+      <Filter>Source\SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Thumbnails\ThumbnailUtils.h">
+      <Filter>Source\Thumbnails</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Thumbnails\Preview\CommonPreviewer.h">
+      <Filter>Source\Thumbnails\Preview</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Thumbnails\Preview\CommonPreviewerFactory.h">
+      <Filter>Source\Thumbnails\Preview</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Thumbnails\Rendering\CommonThumbnailRenderer.h">
+      <Filter>Source\Thumbnails\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Thumbnails\Rendering\ThumbnailRendererData.h">
+      <Filter>Source\Thumbnails\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Thumbnails\Rendering\ThumbnailRendererContext.h">
+      <Filter>Source\Thumbnails\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Thumbnails\Rendering\ThumbnailRendererSteps\ThumbnailRendererStep.h">
+      <Filter>Source\Thumbnails\Rendering\ThumbnailRendererSteps</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Thumbnails\Rendering\ThumbnailRendererSteps\InitializeStep.h">
+      <Filter>Source\Thumbnails\Rendering\ThumbnailRendererSteps</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Thumbnails\Rendering\ThumbnailRendererSteps\FindThumbnailToRenderStep.h">
+      <Filter>Source\Thumbnails\Rendering\ThumbnailRendererSteps</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Thumbnails\Rendering\ThumbnailRendererSteps\WaitForAssetsToLoadStep.h">
+      <Filter>Source\Thumbnails\Rendering\ThumbnailRendererSteps</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Thumbnails\Rendering\ThumbnailRendererSteps\CaptureStep.h">
+      <Filter>Source\Thumbnails\Rendering\ThumbnailRendererSteps</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Thumbnails\Rendering\ThumbnailRendererSteps\ReleaseResourcesStep.h">
+      <Filter>Source\Thumbnails\Rendering\ThumbnailRendererSteps</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Scripting\EditorEntityReferenceComponent.h">
+      <Filter>Source\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\SurfaceData\EditorSurfaceDataMeshComponent.h">
+      <Filter>Source\SurfaceData</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\AtomLyIntegration-05307bc2\CommonFeatures\Code\AtomLyIntegration_CommonFeatures.Editor_autogen\include\Source\Thumbnails\Preview\ui_CommonPreviewer.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Thumbnails\Preview\CommonPreviewer.ui">
+      <Filter>Source\Thumbnails\Preview</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\9d8d31611bec96738f515b007cdddc3c\qrc_AtomLyIntegrationResources.cpp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Resources\AtomLyIntegrationResources.qrc">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\atomlyintegration_commonfeatures_editor_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\AtomLyIntegration\CommonFeatures\Code\Source\Platform\Windows\platform_windows_files.cmake">
+      <Filter>Source\Platform\Windows</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\AtomLyIntegration">
+      <UniqueIdentifier>{8A8DB0F6-BA10-33F9-A87A-7AE463B369ED}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\AtomLyIntegration\CommonFeatures">
+      <UniqueIdentifier>{A15458FD-A28B-36F1-8CCE-F82DBDFB4801}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\AtomLyIntegration\CommonFeatures\Material">
+      <UniqueIdentifier>{9290D2C0-65D9-3871-A5CF-B62A47E850E9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\AtomLyIntegration\CommonFeatures\ReflectionProbe">
+      <UniqueIdentifier>{FDE948BE-1C78-3537-9933-7E02C443821F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\AtomLyIntegration\CommonFeatures\Thumbnails">
+      <UniqueIdentifier>{803F339C-03CC-372B-B7DF-068F4D20E4F3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{65C4F774-3277-3C8A-94DC-340251367DA5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Animation">
+      <UniqueIdentifier>{35105AA6-B394-3383-B9E0-E23CDE93FF18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreLights">
+      <UniqueIdentifier>{BD0479FF-E2D5-39DE-9053-A56649221D1A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Decals">
+      <UniqueIdentifier>{B91CE1ED-892F-3261-9FD9-3E4720496F5A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\DiffuseGlobalIllumination">
+      <UniqueIdentifier>{AD4F1119-8130-3817-B3C3-AD210F485E01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Grid">
+      <UniqueIdentifier>{4A098002-8F44-3CE5-BBD7-A2A4B5E381BA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ImageBasedLights">
+      <UniqueIdentifier>{A2E6BC7D-420F-3E04-BDD4-9C755D095CA9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Material">
+      <UniqueIdentifier>{8C2A0A28-75C9-3D71-B745-C6A34D43B262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Mesh">
+      <UniqueIdentifier>{7150EE93-51BA-3524-B885-AE7A770DB902}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\OcclusionCullingPlane">
+      <UniqueIdentifier>{29F45E9B-5431-3C1F-ABCF-439B3207997A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform">
+      <UniqueIdentifier>{619E1779-1529-36CF-BFB6-452991664BCE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows">
+      <UniqueIdentifier>{6E009862-2333-3599-9B65-E8F840C182D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PostProcess">
+      <UniqueIdentifier>{F2D934B2-6C2F-3ED3-89CD-8C609C2F57D1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PostProcess\Bloom">
+      <UniqueIdentifier>{2E451DD9-562C-36F7-A73E-E003985313A9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PostProcess\DepthOfField">
+      <UniqueIdentifier>{35914848-58C4-339D-A3FD-1F5E812A5937}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PostProcess\DisplayMapper">
+      <UniqueIdentifier>{8C1FE529-E3A7-3E45-90F5-1B32374D1766}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PostProcess\ExposureControl">
+      <UniqueIdentifier>{0085318D-38EF-3893-8138-ED01FF86DB8E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PostProcess\GradientWeightModifier">
+      <UniqueIdentifier>{C4ED5423-D065-3FAF-8A0E-10D9F6EB56EE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PostProcess\LookModification">
+      <UniqueIdentifier>{9B86429E-376E-3E32-9374-E6961E3023C4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PostProcess\RadiusWeightModifier">
+      <UniqueIdentifier>{174D0068-B05A-3D9D-80CD-FC94489E91C6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PostProcess\ShapeWeightModifier">
+      <UniqueIdentifier>{65D76A66-A0B8-3EDC-8121-0192E175F1B0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PostProcess\Ssao">
+      <UniqueIdentifier>{850294D8-A791-3EF5-94F5-3CC7C3714E4F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ReflectionProbe">
+      <UniqueIdentifier>{D3CE008C-5886-3398-9337-B6930BA90789}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ScreenSpace">
+      <UniqueIdentifier>{5EF366A5-C266-3D9A-959F-473EBF0BCD69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scripting">
+      <UniqueIdentifier>{DBEEC417-E544-30B2-8818-04BE3E6B4911}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\SkinnedMesh">
+      <UniqueIdentifier>{E85B80D8-FA7C-3BBC-B335-78363AD9C1B1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\SkyBox">
+      <UniqueIdentifier>{F7FFC598-4091-384B-BBDE-F360D9B66A10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\SurfaceData">
+      <UniqueIdentifier>{9BCACBFD-6920-3749-93B4-D1B457DEFD4F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Thumbnails">
+      <UniqueIdentifier>{66D3E379-7B80-366A-9E9F-90E0351C78BE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Thumbnails\Preview">
+      <UniqueIdentifier>{29E56E15-0068-334E-820A-594BD7479259}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Thumbnails\Rendering">
+      <UniqueIdentifier>{414CAF65-F85A-386C-92A7-E62F742FA25F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Thumbnails\Rendering\ThumbnailRendererSteps">
+      <UniqueIdentifier>{062EECBF-3198-33E7-AC62-390B1EF5D5AC}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,45 @@
+{
+    "entries": [
+        {
+            "key": "Event<tuple<Crc32 int > const TriggerEvent& >",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Event<tuple<Crc32 int > const TriggerEvent& >"
+            },
+            "methods": [
+                {
+                    "key": "HasHandlerConnected",
+                    "context": "Event<tuple<Crc32 int > const TriggerEvent& >",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Event<tuple<Crc32 int > const TriggerEvent& >::HasHandlerConnected"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Event<tuple<Crc32 int > const TriggerEvent& >::HasHandlerConnected is invoked"
+                    },
+                    "details": {
+                        "name": "Event<tuple<Crc32 int > const TriggerEvent& >::HasHandlerConnected"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{C00D2478-E0F3-57A3-AB60-A04DFC515016}",
+                            "details": {
+                                "name": "Event<tuple<Crc32 int > const TriggerEvent& >*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

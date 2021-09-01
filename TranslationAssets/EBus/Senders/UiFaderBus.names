@@ -1,0 +1,152 @@
+{
+    "entries": [
+        {
+            "key": "UiFaderBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiFaderBus"
+            },
+            "methods": [
+                {
+                    "key": "GetUseRenderToTexture",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetUseRenderToTexture"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetUseRenderToTexture is invoked"
+                    },
+                    "details": {
+                        "name": "GetUseRenderToTexture"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsFading",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IsFading"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IsFading is invoked"
+                    },
+                    "details": {
+                        "name": "IsFading"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Fade",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Fade"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Fade is invoked"
+                    },
+                    "details": {
+                        "name": "Fade"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetFadeValue",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetFadeValue"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetFadeValue is invoked"
+                    },
+                    "details": {
+                        "name": "SetFadeValue"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetFadeValue",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetFadeValue"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetFadeValue is invoked"
+                    },
+                    "details": {
+                        "name": "GetFadeValue"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetUseRenderToTexture",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetUseRenderToTexture"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetUseRenderToTexture is invoked"
+                    },
+                    "details": {
+                        "name": "SetUseRenderToTexture"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

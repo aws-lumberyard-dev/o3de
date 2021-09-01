@@ -1,0 +1,12 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Code/LauncherUnified/CMakeLists.txt
+J:/Atom/lyfork/o3de/Code/LauncherUnified/Platform/Windows/LauncherUnified_traits_windows.cmake
+J:/Atom/lyfork/o3de/Code/LauncherUnified/Platform/Windows/launcher_game_windows_files.cmake
+J:/Atom/lyfork/o3de/Code/LauncherUnified/Platform/Windows/platform_windows.cmake
+J:/Atom/lyfork/o3de/Code/LauncherUnified/Platform/Windows/platform_windows_files.cmake
+J:/Atom/lyfork/o3de/Code/LauncherUnified/launcher_files.cmake
+J:/Atom/lyfork/o3de/Code/LauncherUnified/launcher_game_files.cmake
+J:/Atom/lyfork/o3de/Code/LauncherUnified/launcher_generator.cmake
+J:/Atom/lyfork/o3de/Code/LauncherUnified/launcher_server_files.cmake
+J:/Atom/lyfork/o3de/Code/LauncherUnified/launcher_test_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

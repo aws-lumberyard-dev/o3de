@@ -1,0 +1,96 @@
+{
+    "entries": [
+        {
+            "key": "WindRequestsBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "WindRequestsBus"
+            },
+            "methods": [
+                {
+                    "key": "GetGlobalWind",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetGlobalWind"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetGlobalWind is invoked"
+                    },
+                    "details": {
+                        "name": "GetGlobalWind"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetWindAtPosition",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetWindAtPosition"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetWindAtPosition is invoked"
+                    },
+                    "details": {
+                        "name": "GetWindAtPosition"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetWindInsideAabb",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetWindInsideAabb"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetWindInsideAabb is invoked"
+                    },
+                    "details": {
+                        "name": "GetWindInsideAabb"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

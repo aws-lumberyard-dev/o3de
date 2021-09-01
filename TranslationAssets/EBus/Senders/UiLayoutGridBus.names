@@ -1,0 +1,278 @@
+{
+    "entries": [
+        {
+            "key": "UiLayoutGridBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiLayoutGridBus"
+            },
+            "methods": [
+                {
+                    "key": "GetStartingDirection",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetStartingDirection"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetStartingDirection is invoked"
+                    },
+                    "details": {
+                        "name": "GetStartingDirection"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetHorizontalOrder",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetHorizontalOrder"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetHorizontalOrder is invoked"
+                    },
+                    "details": {
+                        "name": "SetHorizontalOrder"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetCellSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetCellSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetCellSize is invoked"
+                    },
+                    "details": {
+                        "name": "SetCellSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetSpacing",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetSpacing"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetSpacing is invoked"
+                    },
+                    "details": {
+                        "name": "SetSpacing"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSpacing",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetSpacing"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetSpacing is invoked"
+                    },
+                    "details": {
+                        "name": "GetSpacing"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetCellSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetCellSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetCellSize is invoked"
+                    },
+                    "details": {
+                        "name": "GetCellSize"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetPadding",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetPadding"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetPadding is invoked"
+                    },
+                    "details": {
+                        "name": "GetPadding"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{DE5C18B0-4214-4A37-B590-8D45CC450A96}",
+                            "details": {
+                                "name": "Padding"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetPadding",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetPadding"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetPadding is invoked"
+                    },
+                    "details": {
+                        "name": "SetPadding"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{DE5C18B0-4214-4A37-B590-8D45CC450A96}",
+                            "details": {
+                                "name": "Padding"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetHorizontalOrder",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetHorizontalOrder"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetHorizontalOrder is invoked"
+                    },
+                    "details": {
+                        "name": "GetHorizontalOrder"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetVerticalOrder",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetVerticalOrder"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetVerticalOrder is invoked"
+                    },
+                    "details": {
+                        "name": "GetVerticalOrder"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetVerticalOrder",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetVerticalOrder"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetVerticalOrder is invoked"
+                    },
+                    "details": {
+                        "name": "SetVerticalOrder"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetStartingDirection",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetStartingDirection"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetStartingDirection is invoked"
+                    },
+                    "details": {
+                        "name": "SetStartingDirection"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

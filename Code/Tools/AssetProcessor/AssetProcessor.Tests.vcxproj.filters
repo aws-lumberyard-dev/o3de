@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor.Tests_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\AssetProcessorTest.cpp">
+      <Filter>native\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\assetdatabase\AssetDatabaseTest.cpp">
+      <Filter>native\tests\assetdatabase</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\resourcecompiler\RCBuilderTest.cpp">
+      <Filter>native\tests\resourcecompiler</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\resourcecompiler\RCControllerTest.cpp">
+      <Filter>native\tests\resourcecompiler</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\resourcecompiler\RCJobTest.cpp">
+      <Filter>native\tests\resourcecompiler</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\assetBuilderSDK\assetBuilderSDKTest.cpp">
+      <Filter>native\tests\assetBuilderSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\assetBuilderSDK\SerializationDependenciesTests.cpp">
+      <Filter>native\tests\assetBuilderSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\assetmanager\AssetProcessorManagerTest.cpp">
+      <Filter>native\tests\assetmanager</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\utilities\assetUtilsTest.cpp">
+      <Filter>native\tests\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\platformconfiguration\platformconfigurationtests.cpp">
+      <Filter>native\tests\platformconfiguration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\utilities\JobModelTest.cpp">
+      <Filter>native\tests\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\AssetCatalog\AssetCatalogUnitTests.cpp">
+      <Filter>native\tests\AssetCatalog</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\assetscanner\AssetScannerTests.cpp">
+      <Filter>native\tests\assetscanner</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\BuilderConfiguration\BuilderConfigurationTests.cpp">
+      <Filter>native\tests\BuilderConfiguration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\FileProcessor\FileProcessorTests.cpp">
+      <Filter>native\tests\FileProcessor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\FileStateCache\FileStateCacheTests.cpp">
+      <Filter>native\tests\FileStateCache</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\InternalBuilders\SettingsRegistryBuilderTests.cpp">
+      <Filter>native\tests\InternalBuilders</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\MissingDependencyScannerTests.cpp">
+      <Filter>native\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\SourceFileRelocatorTests.cpp">
+      <Filter>native\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\AssetProcessorMessagesTests.cpp">
+      <Filter>native\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\AssetProcessingStateDataUnitTests.cpp">
+      <Filter>native\unittests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\AssetProcessorManagerUnitTests.cpp">
+      <Filter>native\unittests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\AssetProcessorServerUnitTests.cpp">
+      <Filter>native\unittests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\AssetScannerUnitTests.cpp">
+      <Filter>native\unittests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\ConnectionUnitTests.cpp">
+      <Filter>native\unittests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\ConnectionManagerUnitTests.cpp">
+      <Filter>native\unittests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\FileWatcherUnitTests.cpp">
+      <Filter>native\unittests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\PlatformConfigurationUnitTests.cpp">
+      <Filter>native\unittests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\RCcontrollerUnitTests.cpp">
+      <Filter>native\unittests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\ShaderCompilerUnitTests.cpp">
+      <Filter>native\unittests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\UnitTestRunner.cpp">
+      <Filter>native\unittests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\UtilitiesUnitTests.cpp">
+      <Filter>native\unittests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\AssetRequestHandlerUnitTests.cpp">
+      <Filter>native\unittests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\MockApplicationManager.cpp">
+      <Filter>native\unittests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\BuilderSDKUnitTests.cpp">
+      <Filter>native\unittests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\UnitTestShaderCompilerServer.cpp">
+      <Filter>native\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\test_main.cpp">
+      <Filter>native\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor.Tests_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\AssetProcessor.Tests_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\AssetProcessorTest.h">
+      <Filter>native\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\BaseAssetProcessorTest.h">
+      <Filter>native\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\resourcecompiler\RCBuilderTest.h">
+      <Filter>native\tests\resourcecompiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\resourcecompiler\RCControllerTest.h">
+      <Filter>native\tests\resourcecompiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\resourcecompiler\RCJobTest.h">
+      <Filter>native\tests\resourcecompiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\assetBuilderSDK\assetBuilderSDKTest.h">
+      <Filter>native\tests\assetBuilderSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\assetmanager\AssetProcessorManagerTest.h">
+      <Filter>native\tests\assetmanager</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\platformconfiguration\platformconfigurationtests.h">
+      <Filter>native\tests\platformconfiguration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\utilities\JobModelTest.h">
+      <Filter>native\tests\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\assetscanner\AssetScannerTests.h">
+      <Filter>native\tests\assetscanner</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\FileProcessor\FileProcessorTests.h">
+      <Filter>native\tests\FileProcessor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\tests\FileStateCache\FileStateCacheTests.h">
+      <Filter>native\tests\FileStateCache</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\AssetProcessingStateDataUnitTests.h">
+      <Filter>native\unittests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\AssetProcessorManagerUnitTests.h">
+      <Filter>native\unittests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\AssetProcessorServerUnitTests.h">
+      <Filter>native\unittests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\AssetScannerUnitTests.h">
+      <Filter>native\unittests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\ConnectionUnitTests.h">
+      <Filter>native\unittests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\ConnectionManagerUnitTests.h">
+      <Filter>native\unittests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\FileWatcherUnitTests.h">
+      <Filter>native\unittests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\PlatformConfigurationUnitTests.h">
+      <Filter>native\unittests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\RCcontrollerUnitTests.h">
+      <Filter>native\unittests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\ShaderCompilerUnitTests.h">
+      <Filter>native\unittests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\UnitTestRunner.h">
+      <Filter>native\unittests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\UtilitiesUnitTests.h">
+      <Filter>native\unittests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\AssetRequestHandlerUnitTests.h">
+      <Filter>native\unittests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\MockConnectionHandler.h">
+      <Filter>native\unittests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\unittests\MockApplicationManager.h">
+      <Filter>native\unittests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\utilities\UnitTestShaderCompilerServer.h">
+      <Filter>native\utilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\testdata\config_broken_badplatform\AssetProcessorPlatformConfig.setreg">
+      <Filter>testdata\config_broken_badplatform</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\testdata\config_broken_noplatform\AssetProcessorPlatformConfig.setreg">
+      <Filter>testdata\config_broken_noplatform</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\testdata\config_broken_noscans\AssetProcessorPlatformConfig.setreg">
+      <Filter>testdata\config_broken_noscans</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\testdata\config_broken_recognizers\AssetProcessorPlatformConfig.setreg">
+      <Filter>testdata\config_broken_recognizers</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\testdata\config_regular\AssetProcessorPlatformConfig.setreg">
+      <Filter>testdata\config_regular</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\testdata\config_metadata\AssetProcessorPlatformConfig.setreg">
+      <Filter>testdata\config_metadata</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\testdata\config_regular_platform_scanfolder\AssetProcessorPlatformConfig.setreg">
+      <Filter>testdata\config_regular_platform_scanfolder</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\testdata\EmptyDummyProject\AssetProcessorGamePlatformConfig.setreg">
+      <Filter>testdata\EmptyDummyProject</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\testdata\DummyProject\AssetProcessorGamePlatformConfig.setreg">
+      <Filter>testdata\DummyProject</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\assetprocessor_test_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native">
+      <UniqueIdentifier>{F800CF3E-25CA-3CAA-956D-AB2F84D24B25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\tests">
+      <UniqueIdentifier>{49534997-5E55-33F2-9C7D-03AD5F493657}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\tests\AssetCatalog">
+      <UniqueIdentifier>{8C86FF23-C54C-3780-974F-DBCA34959A8B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\tests\BuilderConfiguration">
+      <UniqueIdentifier>{F22828A1-7ED5-371A-8AFF-31A31C41D640}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\tests\FileProcessor">
+      <UniqueIdentifier>{F05074F9-FCB0-36F4-9207-D6401D4A7795}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\tests\FileStateCache">
+      <UniqueIdentifier>{131EA090-C55A-32D0-96D8-29C259E621C5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\tests\InternalBuilders">
+      <UniqueIdentifier>{ED6BBFEE-B1DE-3049-AB5D-81300E8AEEDD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\tests\assetBuilderSDK">
+      <UniqueIdentifier>{E710D992-F3F7-35B0-8D0F-C015FE6D84FB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\tests\assetdatabase">
+      <UniqueIdentifier>{80778E3A-A163-3014-B1D5-7C24B9F82F71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\tests\assetmanager">
+      <UniqueIdentifier>{7D58EA22-70E3-318E-AC73-B8B4947AE909}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\tests\assetscanner">
+      <UniqueIdentifier>{F2DE7DCB-8B3E-3B0F-A5EC-14D1FF590A81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\tests\platformconfiguration">
+      <UniqueIdentifier>{94E09D53-8014-3089-A869-AA7690EF09CE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\tests\resourcecompiler">
+      <UniqueIdentifier>{BAD9B540-0837-307A-80CA-B08EE2781CDF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\tests\utilities">
+      <UniqueIdentifier>{26578888-3F89-3F79-8431-87F573391CAC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\unittests">
+      <UniqueIdentifier>{4D00EC9C-B662-3BFF-A654-7A4E004BAE18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native\utilities">
+      <UniqueIdentifier>{BD3D9144-978F-3504-AF7E-4BD36DD1E95A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="testdata">
+      <UniqueIdentifier>{16B2BAFE-A52E-3AA3-9B2D-00FB13AD655D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="testdata\DummyProject">
+      <UniqueIdentifier>{7DB78E22-A73D-3DD2-B4C1-3A91A353DFB5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="testdata\EmptyDummyProject">
+      <UniqueIdentifier>{2E99F04C-EBA8-3BE6-8F67-C1053A314861}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="testdata\config_broken_badplatform">
+      <UniqueIdentifier>{357A4772-22ED-3951-AFCF-A9C2B1DD3949}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="testdata\config_broken_noplatform">
+      <UniqueIdentifier>{3DF40A9A-FAFE-384A-A48F-41151EAF966A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="testdata\config_broken_noscans">
+      <UniqueIdentifier>{DDBAC33B-F9CB-3DE1-A183-9570AC4E7394}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="testdata\config_broken_recognizers">
+      <UniqueIdentifier>{4EF87269-5089-35B9-8722-1C8F71B0B642}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="testdata\config_metadata">
+      <UniqueIdentifier>{72645F97-F2B3-3752-973A-29BDFA65CA63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="testdata\config_regular">
+      <UniqueIdentifier>{DF5A848C-8A68-3BC1-B76D-F419510925D2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="testdata\config_regular_platform_scanfolder">
+      <UniqueIdentifier>{59C50267-323E-339B-8345-4DDC1B34806B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

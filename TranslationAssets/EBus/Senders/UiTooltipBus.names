@@ -1,0 +1,58 @@
+{
+    "entries": [
+        {
+            "key": "UiTooltipBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiTooltipBus"
+            },
+            "methods": [
+                {
+                    "key": "GetText",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetText"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetText is invoked"
+                    },
+                    "details": {
+                        "name": "GetText"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetText",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetText"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetText is invoked"
+                    },
+                    "details": {
+                        "name": "SetText"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

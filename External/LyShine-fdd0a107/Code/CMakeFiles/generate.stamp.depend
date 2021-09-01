@@ -1,0 +1,12 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/LyShine/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/Animation/UiAnimViewDialog.qrc
+J:/Atom/lyfork/o3de/Gems/LyShine/Code/Editor/UiCanvasEditor.qrc
+J:/Atom/lyfork/o3de/Gems/LyShine/Code/Source/Platform/Windows/platform_windows_files.cmake
+J:/Atom/lyfork/o3de/Gems/LyShine/Code/lyshine_common_module_files.cmake
+J:/Atom/lyfork/o3de/Gems/LyShine/Code/lyshine_editor_builder_files.cmake
+J:/Atom/lyfork/o3de/Gems/LyShine/Code/lyshine_editor_tests_files.cmake
+J:/Atom/lyfork/o3de/Gems/LyShine/Code/lyshine_static_files.cmake
+J:/Atom/lyfork/o3de/Gems/LyShine/Code/lyshine_tests_files.cmake
+J:/Atom/lyfork/o3de/Gems/LyShine/Code/lyshine_uicanvaseditor_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

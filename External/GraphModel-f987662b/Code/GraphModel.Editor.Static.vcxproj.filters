@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\GraphModelSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\Model\Connection.cpp">
+      <Filter>Source\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\Model\DataType.cpp">
+      <Filter>Source\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\Model\Graph.cpp">
+      <Filter>Source\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\Model\GraphElement.cpp">
+      <Filter>Source\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\Model\Node.cpp">
+      <Filter>Source\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\Model\Slot.cpp">
+      <Filter>Source\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\Model\Module\InputOutputNodes.cpp">
+      <Filter>Source\Model\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\Model\Module\ModuleGraphManager.cpp">
+      <Filter>Source\Model\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\Model\Module\ModuleNode.cpp">
+      <Filter>Source\Model\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\Integration\EditorMainWindow.cpp">
+      <Filter>Source\Integration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\Integration\ReadOnlyDataInterface.cpp">
+      <Filter>Source\Integration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\Integration\ThumbnailItem.cpp">
+      <Filter>Source\Integration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\Integration\ThumbnailImageItem.cpp">
+      <Filter>Source\Integration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\Integration\GraphCanvasMetadata.cpp">
+      <Filter>Source\Integration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\Integration\GraphController.cpp">
+      <Filter>Source\Integration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\Integration\GraphControllerManager.cpp">
+      <Filter>Source\Integration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\Integration\BooleanDataInterface.cpp">
+      <Filter>Source\Integration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\Integration\FloatDataInterface.cpp">
+      <Filter>Source\Integration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\Integration\IntegerDataInterface.cpp">
+      <Filter>Source\Integration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\Integration\StringDataInterface.cpp">
+      <Filter>Source\Integration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\Integration\NodePalette\GraphCanvasNodePaletteItems.cpp">
+      <Filter>Source\Integration\NodePalette</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\GraphModelBus.h">
+      <Filter>Include\GraphModel</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Model\Common.h">
+      <Filter>Include\GraphModel\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Model\Connection.h">
+      <Filter>Include\GraphModel\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Model\DataType.h">
+      <Filter>Include\GraphModel\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Model\Graph.h">
+      <Filter>Include\GraphModel\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Model\GraphElement.h">
+      <Filter>Include\GraphModel\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Model\IGraphContext.h">
+      <Filter>Include\GraphModel\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Model\Node.h">
+      <Filter>Include\GraphModel\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Model\Slot.h">
+      <Filter>Include\GraphModel\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Model\Module\InputOutputNodes.h">
+      <Filter>Include\GraphModel\Model\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Model\Module\ModuleGraphManager.h">
+      <Filter>Include\GraphModel\Model\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Model\Module\ModuleNode.h">
+      <Filter>Include\GraphModel\Model\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Integration\EditorMainWindow.h">
+      <Filter>Include\GraphModel\Integration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Integration\ReadOnlyDataInterface.h">
+      <Filter>Include\GraphModel\Integration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Integration\ThumbnailItem.h">
+      <Filter>Include\GraphModel\Integration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Integration\ThumbnailImageItem.h">
+      <Filter>Include\GraphModel\Integration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Integration\GraphCanvasMetadata.h">
+      <Filter>Include\GraphModel\Integration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Integration\GraphController.h">
+      <Filter>Include\GraphModel\Integration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Integration\GraphControllerManager.h">
+      <Filter>Include\GraphModel\Integration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Integration\Helpers.h">
+      <Filter>Include\GraphModel\Integration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Integration\BooleanDataInterface.h">
+      <Filter>Include\GraphModel\Integration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Integration\FloatDataInterface.h">
+      <Filter>Include\GraphModel\Integration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Integration\IntegerDataInterface.h">
+      <Filter>Include\GraphModel\Integration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Integration\StringDataInterface.h">
+      <Filter>Include\GraphModel\Integration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Integration\VectorDataInterface.inl">
+      <Filter>Include\GraphModel\Integration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Integration\IntegrationBus.h">
+      <Filter>Include\GraphModel\Integration</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Integration\NodePalette\InputOutputNodePaletteItem.h">
+      <Filter>Include\GraphModel\Integration\NodePalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Integration\NodePalette\ModuleNodePaletteItem.h">
+      <Filter>Include\GraphModel\Integration\NodePalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Integration\NodePalette\StandardNodePaletteItem.h">
+      <Filter>Include\GraphModel\Integration\NodePalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Include\GraphModel\Integration\NodePalette\GraphCanvasNodePaletteItems.h">
+      <Filter>Include\GraphModel\Integration\NodePalette</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\Source\GraphModelSystemComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GraphModel\Code\graphmodel_editor_static_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\GraphModel">
+      <UniqueIdentifier>{97216D75-7D5E-3E05-A2BC-8E2A7D858DE1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\GraphModel\Integration">
+      <UniqueIdentifier>{6B632C10-68D6-3DCE-8D38-7AB9EF1D5EA2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\GraphModel\Integration\NodePalette">
+      <UniqueIdentifier>{9EEA0FA5-04B4-3568-BE33-F4A5DBC445E2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\GraphModel\Model">
+      <UniqueIdentifier>{C6D19C2F-412D-3643-9773-418669C1473D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\GraphModel\Model\Module">
+      <UniqueIdentifier>{6C914C87-261D-399C-AB51-57F3F4F92788}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Integration">
+      <UniqueIdentifier>{7CD13E51-A792-390B-9958-BFAF2AAD6788}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Integration\NodePalette">
+      <UniqueIdentifier>{EE40DD44-0982-3843-BE99-52DAF6E18BED}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Model">
+      <UniqueIdentifier>{5B983AF5-760C-3884-A909-80541DFC86EE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Model\Module">
+      <UniqueIdentifier>{2CA7475D-0576-33EE-A118-0E694006B66A}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

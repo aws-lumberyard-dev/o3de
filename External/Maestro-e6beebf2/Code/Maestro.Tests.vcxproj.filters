@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Maestro\Code\Source\Cinematics\Tests\AssetBlendTrackTest.cpp">
+      <Filter>Source\Cinematics\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Maestro\Code\Source\Cinematics\Tests\EntityNodeTest.cpp">
+      <Filter>Source\Cinematics\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Maestro\Code\Tests\MaestroTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Maestro\Code\Tests\Tracks\BoolTrackTest.cpp">
+      <Filter>Tests\Tracks</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Maestro\Code\Tests\Tracks\AnimTrackTest.cpp">
+      <Filter>Tests\Tracks</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Maestro\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Maestro\Code\maestro_tests_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Cinematics">
+      <UniqueIdentifier>{B1D5FDD4-97DA-3D6C-BFB0-0216EC621ED2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Cinematics\Tests">
+      <UniqueIdentifier>{9B264C66-114E-3C67-BE6E-052A4C380919}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{A12C7827-546E-3D77-AE99-877104F2DFF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Tracks">
+      <UniqueIdentifier>{4F32D654-9395-3B65-BAC9-13EF7792B2D3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

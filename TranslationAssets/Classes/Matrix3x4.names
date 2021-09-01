@@ -1,0 +1,1887 @@
+{
+    "entries": [
+        {
+            "key": "Matrix3x4",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Matrix3x4"
+            },
+            "methods": [
+                {
+                    "key": "CreateZero",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::CreateZero"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::CreateZero is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::CreateZero"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetRotationPartFromQuaternion",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::SetRotationPartFromQuaternion"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::SetRotationPartFromQuaternion is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::SetRotationPartFromQuaternion"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{73103120-3DD3-4873-BAB3-9713FA2804FB}",
+                            "details": {
+                                "name": "Quaternion"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "CreateFromColumns",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::CreateFromColumns"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::CreateFromColumns is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::CreateFromColumns"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsClose",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::IsClose"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::IsClose is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::IsClose"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsOrthogonal",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::IsOrthogonal"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::IsOrthogonal is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::IsOrthogonal"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Orthogonalize",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::Orthogonalize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::Orthogonalize is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::Orthogonalize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "CreateFromMatrix3x3",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::CreateFromMatrix3x3"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::CreateFromMatrix3x3 is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::CreateFromMatrix3x3"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RetrieveScale",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::RetrieveScale"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::RetrieveScale is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::RetrieveScale"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "CreateRotationX",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::CreateRotationX"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::CreateRotationX is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::CreateRotationX"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "CreateFromMatrix3x3AndTranslation",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::CreateFromMatrix3x3AndTranslation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::CreateFromMatrix3x3AndTranslation is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::CreateFromMatrix3x3AndTranslation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
+                            "details": {
+                                "name": "Matrix3x3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ToString",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::ToString"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::ToString is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::ToString"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ExtractScale",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::ExtractScale"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::ExtractScale is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::ExtractScale"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTranspose",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::GetTranspose"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::GetTranspose is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::GetTranspose"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "InvertFast",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::InvertFast"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::InvertFast is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::InvertFast"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "CreateFromRows",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::CreateFromRows"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::CreateFromRows is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::CreateFromRows"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
+                            "details": {
+                                "name": "Vector4"
+                            }
+                        },
+                        {
+                            "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
+                            "details": {
+                                "name": "Vector4"
+                            }
+                        },
+                        {
+                            "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
+                            "details": {
+                                "name": "Vector4"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "CreateTranslation",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::CreateTranslation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::CreateTranslation is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::CreateTranslation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTranspose3x3",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::GetTranspose3x3"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::GetTranspose3x3 is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::GetTranspose3x3"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetColumn",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::SetColumn"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::SetColumn is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::SetColumn"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetRow",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::GetRow"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::GetRow is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::GetRow"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
+                            "details": {
+                                "name": "Vector4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetInverseFast",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::GetInverseFast"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::GetInverseFast is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::GetInverseFast"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetOrthogonalized",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::GetOrthogonalized"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::GetOrthogonalized is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::GetOrthogonalized"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Multiply3x3",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::Multiply3x3"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::Multiply3x3 is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::Multiply3x3"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsFinite",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::IsFinite"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::IsFinite is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::IsFinite"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "CreateFromQuaternion",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::CreateFromQuaternion"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::CreateFromQuaternion is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::CreateFromQuaternion"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{73103120-3DD3-4873-BAB3-9713FA2804FB}",
+                            "details": {
+                                "name": "Quaternion"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetBasisAndTranslation",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::SetBasisAndTranslation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::SetBasisAndTranslation is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::SetBasisAndTranslation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "MultiplyVector4",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::MultiplyVector4"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::MultiplyVector4 is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::MultiplyVector4"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
+                            "details": {
+                                "name": "Vector4"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
+                            "details": {
+                                "name": "Vector4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "CreateScale",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::CreateScale"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::CreateScale is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::CreateScale"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "CreateDiagonal",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::CreateDiagonal"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::CreateDiagonal is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::CreateDiagonal"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTranslation",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::GetTranslation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::GetTranslation is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::GetTranslation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "InvertFull",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::InvertFull"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::InvertFull is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::InvertFull"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetColumns",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::SetColumns"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::SetColumns is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::SetColumns"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetElement",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::SetElement"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::SetElement is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::SetElement"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Equal",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::Equal"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::Equal is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::Equal"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetDeterminant3x3",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::GetDeterminant3x3"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::GetDeterminant3x3 is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::GetDeterminant3x3"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetColumns",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::GetColumns"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::GetColumns is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::GetColumns"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetRows",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::SetRows"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::SetRows is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::SetRows"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
+                            "details": {
+                                "name": "Vector4"
+                            }
+                        },
+                        {
+                            "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
+                            "details": {
+                                "name": "Vector4"
+                            }
+                        },
+                        {
+                            "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
+                            "details": {
+                                "name": "Vector4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetMultipliedByScale",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::GetMultipliedByScale"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::GetMultipliedByScale is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::GetMultipliedByScale"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "CreateRotationZ",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::CreateRotationZ"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::CreateRotationZ is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::CreateRotationZ"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "CreateFromQuaternionAndTranslation",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::CreateFromQuaternionAndTranslation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::CreateFromQuaternionAndTranslation is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::CreateFromQuaternionAndTranslation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{73103120-3DD3-4873-BAB3-9713FA2804FB}",
+                            "details": {
+                                "name": "Quaternion"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetRowAsVector3",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::GetRowAsVector3"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::GetRowAsVector3 is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::GetRowAsVector3"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "MultiplyMatrix3x4",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::MultiplyMatrix3x4"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::MultiplyMatrix3x4 is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::MultiplyMatrix3x4"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetRows",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::GetRows"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::GetRows is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::GetRows"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
+                            "details": {
+                                "name": "Vector4"
+                            }
+                        },
+                        {
+                            "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
+                            "details": {
+                                "name": "Vector4"
+                            }
+                        },
+                        {
+                            "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
+                            "details": {
+                                "name": "Vector4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clone",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::Clone"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::Clone is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::Clone"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "MultiplyVector3",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::MultiplyVector3"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::MultiplyVector3 is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::MultiplyVector3"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "CreateIdentity",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::CreateIdentity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::CreateIdentity is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::CreateIdentity"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetBasisAndTranslation",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::GetBasisAndTranslation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::GetBasisAndTranslation is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::GetBasisAndTranslation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "CreateFromValue",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::CreateFromValue"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::CreateFromValue is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::CreateFromValue"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetElement",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::GetElement"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::GetElement is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::GetElement"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Transpose3x3",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::Transpose3x3"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::Transpose3x3 is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::Transpose3x3"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Transpose",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::Transpose"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::Transpose is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::Transpose"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "CreateRotationY",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::CreateRotationY"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::CreateRotationY is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::CreateRotationY"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetRow",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::SetRow"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::SetRow is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::SetRow"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        },
+                        {
+                            "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
+                            "details": {
+                                "name": "Vector4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetInverseFull",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::GetInverseFull"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::GetInverseFull is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::GetInverseFull"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetColumn",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::GetColumn"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::GetColumn is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::GetColumn"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetTranslation",
+                    "context": "Matrix3x4",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Matrix3x4::SetTranslation"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Matrix3x4::SetTranslation is invoked"
+                    },
+                    "details": {
+                        "name": "Matrix3x4::SetTranslation"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
+                            "details": {
+                                "name": "Matrix3x4"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,37 @@
+{
+    "entries": [
+        {
+            "key": "AcesParameterOverrides",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AcesParameterOverrides"
+            },
+            "methods": [
+                {
+                    "key": "LoadPreset",
+                    "context": "AcesParameterOverrides",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AcesParameterOverrides::LoadPreset"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AcesParameterOverrides::LoadPreset is invoked"
+                    },
+                    "details": {
+                        "name": "AcesParameterOverrides::LoadPreset"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3EE8C0D4-3792-46C0-B91C-B89A81C36B91}",
+                            "details": {
+                                "name": "AcesParameterOverrides"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

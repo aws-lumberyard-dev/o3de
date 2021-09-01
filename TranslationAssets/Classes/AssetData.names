@@ -1,0 +1,175 @@
+{
+    "entries": [
+        {
+            "key": "AssetData",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AssetData"
+            },
+            "methods": [
+                {
+                    "key": "GetUseCount",
+                    "context": "AssetData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AssetData::GetUseCount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AssetData::GetUseCount is invoked"
+                    },
+                    "details": {
+                        "name": "AssetData::GetUseCount"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{AF3F7D32-1536-422A-89F3-A11E1F5B5A9C}",
+                            "details": {
+                                "name": "AssetData"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsLoading",
+                    "context": "AssetData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AssetData::IsLoading"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AssetData::IsLoading is invoked"
+                    },
+                    "details": {
+                        "name": "AssetData::IsLoading"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{AF3F7D32-1536-422A-89F3-A11E1F5B5A9C}",
+                            "details": {
+                                "name": "AssetData"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsError",
+                    "context": "AssetData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AssetData::IsError"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AssetData::IsError is invoked"
+                    },
+                    "details": {
+                        "name": "AssetData::IsError"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{AF3F7D32-1536-422A-89F3-A11E1F5B5A9C}",
+                            "details": {
+                                "name": "AssetData"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsReady",
+                    "context": "AssetData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AssetData::IsReady"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AssetData::IsReady is invoked"
+                    },
+                    "details": {
+                        "name": "AssetData::IsReady"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{AF3F7D32-1536-422A-89F3-A11E1F5B5A9C}",
+                            "details": {
+                                "name": "AssetData"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetId",
+                    "context": "AssetData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AssetData::GetId"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AssetData::GetId is invoked"
+                    },
+                    "details": {
+                        "name": "AssetData::GetId"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{AF3F7D32-1536-422A-89F3-A11E1F5B5A9C}",
+                            "details": {
+                                "name": "AssetData"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
+                            "details": {
+                                "name": "AssetId"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

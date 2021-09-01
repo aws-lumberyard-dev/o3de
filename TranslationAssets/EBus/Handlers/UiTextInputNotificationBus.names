@@ -1,0 +1,56 @@
+{
+    "entries": [
+        {
+            "key": "UiTextInputNotificationBus",
+            "context": "EBusHandler",
+            "variant": "",
+            "details": {
+                "name": "UiTextInputNotificationBus"
+            },
+            "methods": [
+                {
+                    "key": "OnTextInputChange",
+                    "details": {
+                        "name": "OnTextInputChange"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "OnTextInputEndEdit",
+                    "details": {
+                        "name": "OnTextInputEndEdit"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "OnTextInputEnter",
+                    "details": {
+                        "name": "OnTextInputEnter"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

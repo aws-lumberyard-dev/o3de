@@ -1,0 +1,921 @@
+{
+    "entries": [
+        {
+            "key": "MathAABB_VM",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "MathAABB_VM"
+            },
+            "methods": [
+                {
+                    "key": "Overlaps",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::Overlaps"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::Overlaps is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::Overlaps"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        },
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SurfaceArea",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::SurfaceArea"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::SurfaceArea is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::SurfaceArea"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ToSphere",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::ToSphere"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::ToSphere is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::ToSphere"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{CD6328B1-6CC4-54CE-97F4-9D91F5A242F4}",
+                            "details": {
+                                "name": "tuple<Vector3 double >"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromOBB",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::FromOBB"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::FromOBB is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::FromOBB"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{004ABD25-CF14-4EB3-BD41-022C247C07FA}",
+                            "details": {
+                                "name": "Obb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Translate",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::Translate"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::Translate is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::Translate"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ContainsVector3",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::ContainsVector3"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::ContainsVector3 is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::ContainsVector3"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Distance",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::Distance"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::Distance is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::Distance"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromPoint",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::FromPoint"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::FromPoint is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::FromPoint"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Null",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::Null"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::Null is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::Null"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "YExtent",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::YExtent"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::YExtent is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::YExtent"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clamp",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::Clamp"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::Clamp is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::Clamp"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        },
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ContainsAABB",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::ContainsAABB"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::ContainsAABB is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::ContainsAABB"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        },
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Expand",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::Expand"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::Expand is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::Expand"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Extents",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::Extents"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::Extents is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::Extents"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromCenterHalfExtents",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::FromCenterHalfExtents"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::FromCenterHalfExtents is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::FromCenterHalfExtents"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetMin",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::GetMin"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::GetMin is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::GetMin"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ApplyTransform",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::ApplyTransform"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::ApplyTransform is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::ApplyTransform"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        },
+                        {
+                            "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
+                            "details": {
+                                "name": "Transform"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Center",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::Center"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::Center is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::Center"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromMinMax",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::FromMinMax"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::FromMinMax is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::FromMinMax"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsFinite",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::IsFinite"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::IsFinite is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::IsFinite"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsValid",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::IsValid"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::IsValid is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::IsValid"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetMax",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::GetMax"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::GetMax is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::GetMax"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "XExtent",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::XExtent"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::XExtent is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::XExtent"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AddPoint",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::AddPoint"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::AddPoint is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::AddPoint"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        },
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AddAABB",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::AddAABB"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::AddAABB is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::AddAABB"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        },
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FromCenterRadius",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::FromCenterRadius"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::FromCenterRadius is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::FromCenterRadius"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ZExtent",
+                    "context": "MathAABB_VM",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MathAABB_VM::ZExtent"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MathAABB_VM::ZExtent is invoked"
+                    },
+                    "details": {
+                        "name": "MathAABB_VM::ZExtent"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

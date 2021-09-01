@@ -1,0 +1,130 @@
+{
+    "entries": [
+        {
+            "key": "Iterator_VM<AZStd::unordered_map<AssetId, Plane, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Iterator_VM<AZStd::unordered_map<AssetId, Plane, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>"
+            },
+            "methods": [
+                {
+                    "key": "GetKeyUnchecked",
+                    "context": "Iterator_VM<AZStd::unordered_map<AssetId, Plane, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<AssetId, Plane, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::GetKeyUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<AssetId, Plane, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::GetKeyUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<AssetId, Plane, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::GetKeyUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{4E4F7D81-68EA-5DCB-82F6-3314742F9B14}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<AssetId, Plane, AZStd::hash<As"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
+                            "details": {
+                                "name": "AssetId"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ModValueUnchecked",
+                    "context": "Iterator_VM<AZStd::unordered_map<AssetId, Plane, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<AssetId, Plane, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::ModValueUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<AssetId, Plane, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::ModValueUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<AssetId, Plane, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::ModValueUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{4E4F7D81-68EA-5DCB-82F6-3314742F9B14}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<AssetId, Plane, AZStd::hash<As"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
+                            "details": {
+                                "name": "Plane"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsNotAtEnd",
+                    "context": "Iterator_VM<AZStd::unordered_map<AssetId, Plane, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<AssetId, Plane, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::IsNotAtEnd"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<AssetId, Plane, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::IsNotAtEnd is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<AssetId, Plane, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::IsNotAtEnd"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{4E4F7D81-68EA-5DCB-82F6-3314742F9B14}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<AssetId, Plane, AZStd::hash<As"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Next",
+                    "context": "Iterator_VM<AZStd::unordered_map<AssetId, Plane, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<AssetId, Plane, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::Next"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<AssetId, Plane, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::Next is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<AssetId, Plane, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>>::Next"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{4E4F7D81-68EA-5DCB-82F6-3314742F9B14}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<AssetId, Plane, AZStd::hash<As"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

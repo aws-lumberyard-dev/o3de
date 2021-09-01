@@ -1,0 +1,45 @@
+{
+    "entries": [
+        {
+            "key": "AZ::RPI::ShaderOptionGroupLayout",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AZ::RPI::ShaderOptionGroupLayout"
+            },
+            "methods": [
+                {
+                    "key": "GetShaderOptions",
+                    "context": "AZ::RPI::ShaderOptionGroupLayout",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZ::RPI::ShaderOptionGroupLayout::GetShaderOptions"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZ::RPI::ShaderOptionGroupLayout::GetShaderOptions is invoked"
+                    },
+                    "details": {
+                        "name": "AZ::RPI::ShaderOptionGroupLayout::GetShaderOptions"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{32E269DE-12A2-4B65-B4F8-BAE93DD39D7E}",
+                            "details": {
+                                "name": "AZ::RPI::ShaderOptionGroupLayout"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

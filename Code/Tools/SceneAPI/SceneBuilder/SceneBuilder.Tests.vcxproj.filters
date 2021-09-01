@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneBuilder\Tests\TestsMain.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneBuilder\Tests\Importers\SceneImporterUtilitiesTests.cpp">
+      <Filter>Tests\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneBuilder\Tests\Importers\Utilities\RenamedNodesMapTests.cpp">
+      <Filter>Tests\Importers\Utilities</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneBuilder\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneBuilder\scenebuilder_testing_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{A12C7827-546E-3D77-AE99-877104F2DFF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Importers">
+      <UniqueIdentifier>{30552E8C-B2BD-3CBD-9FA8-3AEC62D07001}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Importers\Utilities">
+      <UniqueIdentifier>{E829CD04-9A97-35A9-A4F0-E553A41E9F02}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

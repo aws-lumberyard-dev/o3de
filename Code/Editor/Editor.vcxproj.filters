@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\main.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\qrc_i18n_Translations.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Editor_autogen\ZTQVCGDY76\qrc_resources.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\d27b41b4c9e01371659ca489c8d17f1d\editor_en-us.qm.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\d27b41b4c9e01371659ca489c8d17f1d\assetbrowser_en-us.qm.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Editor\i18n_Translations.qrc">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\bb62dd177de5d4c838a49e7d0a4ffff6\qrc_resources.cpp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Editor\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Editor\Style\Editor.qss">
+      <Filter>Style</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Editor\Style\resources.qrc">
+      <Filter>Style</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Editor\editor_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Editor\Platform\Windows\editor_windows.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Editor\editor_en-us.qm">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Editor\assetbrowser_en-us.qm">
+      <Filter>Generated Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="J:\Atom\lyfork\o3de\Code\Editor\EditorCryEdit.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{D4CCE8D3-A6C9-3C6A-9C86-8BF8F7D77D7F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{9B5BE819-E94D-379A-84DF-5559629D4548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Style">
+      <UniqueIdentifier>{4AB555BC-36DF-3F68-8F15-1D02A53109C2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ImGui\Code\Source\LYImGuiUtils\HistogramContainer.cpp">
+      <Filter>Source\LYImGuiUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ImGui\Code\Source\LYImGuiUtils\ImGuiDrawHelpers.cpp">
+      <Filter>Source\LYImGuiUtils</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ImGui\Code\Include\LYImGuiUtils\HistogramContainer.h">
+      <Filter>Include\LYImGuiUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ImGui\Code\Include\LYImGuiUtils\ImGuiDrawHelpers.h">
+      <Filter>Include\LYImGuiUtils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ImGui\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\ImGui\Code\imgui_lyutils_static_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\LYImGuiUtils">
+      <UniqueIdentifier>{6C1A357C-E69F-3F53-BF96-51B4423EDE38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\LYImGuiUtils">
+      <UniqueIdentifier>{0205A3E2-85C5-3ADD-8DFC-AFB4C6F259D2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

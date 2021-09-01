@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\SceneProcessing-4b7a899c\Code\SceneProcessing.Editor.Static_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Config\Components\SceneProcessingConfigSystemComponent.cpp">
+      <Filter>Source\Config\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Config\Components\SoftNameBehavior.cpp">
+      <Filter>Source\Config\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Generation\Components\TangentGenerator\TangentGenerateComponent.cpp">
+      <Filter>Source\Generation\Components\TangentGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Generation\Components\TangentGenerator\TangentPreExportComponent.cpp">
+      <Filter>Source\Generation\Components\TangentGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Generation\Components\TangentGenerator\TangentGenerators\MikkTGenerator.cpp">
+      <Filter>Source\Generation\Components\TangentGenerator\TangentGenerators</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Generation\Components\TangentGenerator\TangentGenerators\BlendShapeMikkTGenerator.cpp">
+      <Filter>Source\Generation\Components\TangentGenerator\TangentGenerators</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Generation\Components\MeshOptimizer\MeshBuilder.cpp">
+      <Filter>Source\Generation\Components\MeshOptimizer</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Generation\Components\MeshOptimizer\MeshBuilderSkinningInfo.cpp">
+      <Filter>Source\Generation\Components\MeshOptimizer</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Generation\Components\MeshOptimizer\MeshBuilderSubMesh.cpp">
+      <Filter>Source\Generation\Components\MeshOptimizer</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Generation\Components\MeshOptimizer\MeshBuilderVertexAttributeLayers.cpp">
+      <Filter>Source\Generation\Components\MeshOptimizer</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Generation\Components\MeshOptimizer\MeshOptimizerComponent.cpp">
+      <Filter>Source\Generation\Components\MeshOptimizer</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Config\SettingsObjects\SoftNameSetting.cpp">
+      <Filter>Source\Config\SettingsObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Config\SettingsObjects\NodeSoftNameSetting.cpp">
+      <Filter>Source\Config\SettingsObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Config\SettingsObjects\FileSoftNameSetting.cpp">
+      <Filter>Source\Config\SettingsObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Config\Widgets\GraphTypeSelector.cpp">
+      <Filter>Source\Config\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\SceneBuilder\SceneBuilderComponent.cpp">
+      <Filter>Source\SceneBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\SceneBuilder\SceneBuilderWorker.cpp">
+      <Filter>Source\SceneBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\SceneBuilder\SceneSerializationHandler.cpp">
+      <Filter>Source\SceneBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\SceneBuilder\TraceMessageHook.cpp">
+      <Filter>Source\SceneBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\SceneProcessing-4b7a899c\Code\SceneProcessing.Editor.Static_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\SceneProcessing-4b7a899c\Code\SceneProcessing.Editor.Static_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Include\Config\SceneProcessingConfigBus.h">
+      <Filter>Include\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Config\Components\SceneProcessingConfigSystemComponent.h">
+      <Filter>Source\Config\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Config\Components\SoftNameBehavior.h">
+      <Filter>Source\Config\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Generation\Components\TangentGenerator\TangentGenerateComponent.h">
+      <Filter>Source\Generation\Components\TangentGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Generation\Components\TangentGenerator\TangentPreExportComponent.h">
+      <Filter>Source\Generation\Components\TangentGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Generation\Components\TangentGenerator\TangentGenerators\MikkTGenerator.h">
+      <Filter>Source\Generation\Components\TangentGenerator\TangentGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Generation\Components\TangentGenerator\TangentGenerators\BlendShapeMikkTGenerator.h">
+      <Filter>Source\Generation\Components\TangentGenerator\TangentGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Generation\Components\MeshOptimizer\MeshBuilder.h">
+      <Filter>Source\Generation\Components\MeshOptimizer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Generation\Components\MeshOptimizer\MeshBuilderInvalidIndex.h">
+      <Filter>Source\Generation\Components\MeshOptimizer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Generation\Components\MeshOptimizer\MeshBuilderSkinningInfo.h">
+      <Filter>Source\Generation\Components\MeshOptimizer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Generation\Components\MeshOptimizer\MeshBuilderSubMesh.h">
+      <Filter>Source\Generation\Components\MeshOptimizer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Generation\Components\MeshOptimizer\MeshBuilderVertexAttributeLayers.h">
+      <Filter>Source\Generation\Components\MeshOptimizer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Generation\Components\MeshOptimizer\MeshOptimizerComponent.h">
+      <Filter>Source\Generation\Components\MeshOptimizer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Config\SettingsObjects\SoftNameSetting.h">
+      <Filter>Source\Config\SettingsObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Config\SettingsObjects\NodeSoftNameSetting.h">
+      <Filter>Source\Config\SettingsObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Config\SettingsObjects\FileSoftNameSetting.h">
+      <Filter>Source\Config\SettingsObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\Config\Widgets\GraphTypeSelector.h">
+      <Filter>Source\Config\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\SceneBuilder\SceneBuilderComponent.h">
+      <Filter>Source\SceneBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\SceneBuilder\SceneBuilderWorker.h">
+      <Filter>Source\SceneBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\SceneBuilder\SceneSerializationHandler.h">
+      <Filter>Source\SceneBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Source\SceneBuilder\TraceMessageHook.h">
+      <Filter>Source\SceneBuilder</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\sceneprocessing_editor_static_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Config">
+      <UniqueIdentifier>{1104606D-2517-3F33-9676-8A01C47F90FC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Config">
+      <UniqueIdentifier>{4997CFE5-AA7D-3EDA-9255-65C155535AF3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Config\Components">
+      <UniqueIdentifier>{645D8786-BE91-3F04-8B30-74880FF5060D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Config\SettingsObjects">
+      <UniqueIdentifier>{DF7D763F-0B89-376A-A392-A7A6D6684EE6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Config\Widgets">
+      <UniqueIdentifier>{CDDDA52B-2A3C-3D29-B243-36648D997071}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Generation">
+      <UniqueIdentifier>{01863F7F-CCB0-3268-9AE9-635E1D252824}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Generation\Components">
+      <UniqueIdentifier>{55157288-6BA5-39B8-B89B-7162F88740B6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Generation\Components\MeshOptimizer">
+      <UniqueIdentifier>{E045D735-1305-348E-AF27-B3C7CB9F5425}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Generation\Components\TangentGenerator">
+      <UniqueIdentifier>{BF67C2A2-7EE1-3A25-867C-01E58BFFA830}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Generation\Components\TangentGenerator\TangentGenerators">
+      <UniqueIdentifier>{30C63E14-1923-391E-B0BC-8D979EE80401}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\SceneBuilder">
+      <UniqueIdentifier>{DC156935-8041-3DF6-8E6F-E9FC3AF4B6D6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

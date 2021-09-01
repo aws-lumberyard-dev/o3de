@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Tests\CommonTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Tests\CoreLights\ShadowmapAtlasTest.cpp">
+      <Filter>Tests\CoreLights</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Tests\IndexedDataVectorTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Tests\IndexableListTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Tests\SparseVectorTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Tests\SkinnedMesh\SkinnedMeshDispatchItemTests.cpp">
+      <Filter>Tests\SkinnedMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Tests\Decals\DecalTextureArrayTests.cpp">
+      <Filter>Tests\Decals</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Mocks\MockMeshFeatureProcessor.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_tests_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mocks">
+      <UniqueIdentifier>{D43DAD66-F22E-30C0-9C05-DA18FA2E7338}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{A12C7827-546E-3D77-AE99-877104F2DFF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\CoreLights">
+      <UniqueIdentifier>{F45AF1F2-BCA0-30D0-BFB6-B8FCCE1CC4BE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Decals">
+      <UniqueIdentifier>{84720731-2C4E-3642-8FB7-73896B2982A6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\SkinnedMesh">
+      <UniqueIdentifier>{74F591E3-F1FC-33BE-BB46-432D57E11527}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

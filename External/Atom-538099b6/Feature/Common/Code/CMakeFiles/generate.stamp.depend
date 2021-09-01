@@ -1,0 +1,18 @@
+# CMake generation dependency list for this directory.
+C:/Users/luissemp/.o3de/3rdParty/packages/lux_core-2.2-rev5-multiplatform/Findlux_core.cmake
+C:/Users/luissemp/.o3de/3rdParty/packages/lux_core-2.2-rev5-multiplatform/PackageInfo.json
+J:/Atom/lyfork/o3de/Gems/Atom/Feature/Common/Assets/atom_feature_common_asset_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/Feature/Common/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/Atom/Feature/Common/Code/Source/Platform/Common/MSVC/atom_feature_common_msvc.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/Feature/Common/Code/Source/Platform/Windows/platform_windows.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/Feature/Common/Code/Source/Platform/Windows/platform_windows_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/Feature/Common/Code/Source/Platform/Windows/runtime_dependencies_clients.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/Feature/Common/Code/Source/Platform/Windows/runtime_dependencies_tools.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/Feature/Common/Code/atom_feature_common_builders_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/Feature/Common/Code/atom_feature_common_editor_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/Feature/Common/Code/atom_feature_common_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/Feature/Common/Code/atom_feature_common_public_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/Feature/Common/Code/atom_feature_common_shared_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/Feature/Common/Code/atom_feature_common_staticlibrary_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/Feature/Common/Code/atom_feature_common_tests_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

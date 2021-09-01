@@ -1,0 +1,177 @@
+{
+    "entries": [
+        {
+            "key": "UVCoords",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UVCoords"
+            },
+            "methods": [
+                {
+                    "key": "SetUVCoords",
+                    "context": "UVCoords",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UVCoords::SetUVCoords"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UVCoords::SetUVCoords is invoked"
+                    },
+                    "details": {
+                        "name": "UVCoords::SetUVCoords"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E134EAE8-52A1-4E43-847B-09E546CC5B95}",
+                            "details": {
+                                "name": ""
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetBottom",
+                    "context": "UVCoords",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UVCoords::SetBottom"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UVCoords::SetBottom is invoked"
+                    },
+                    "details": {
+                        "name": "UVCoords::SetBottom"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E134EAE8-52A1-4E43-847B-09E546CC5B95}",
+                            "details": {
+                                "name": ""
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetRight",
+                    "context": "UVCoords",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UVCoords::SetRight"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UVCoords::SetRight is invoked"
+                    },
+                    "details": {
+                        "name": "UVCoords::SetRight"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E134EAE8-52A1-4E43-847B-09E546CC5B95}",
+                            "details": {
+                                "name": ""
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetTop",
+                    "context": "UVCoords",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UVCoords::SetTop"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UVCoords::SetTop is invoked"
+                    },
+                    "details": {
+                        "name": "UVCoords::SetTop"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E134EAE8-52A1-4E43-847B-09E546CC5B95}",
+                            "details": {
+                                "name": ""
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetLeft",
+                    "context": "UVCoords",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UVCoords::SetLeft"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UVCoords::SetLeft is invoked"
+                    },
+                    "details": {
+                        "name": "UVCoords::SetLeft"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E134EAE8-52A1-4E43-847B-09E546CC5B95}",
+                            "details": {
+                                "name": ""
+                            }
+                        },
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

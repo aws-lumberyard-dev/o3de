@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzManipulatorTestFramework\Source\ViewportInteraction.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzManipulatorTestFramework\Source\DirectManipulatorViewportInteraction.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzManipulatorTestFramework\Source\IndirectManipulatorViewportInteraction.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzManipulatorTestFramework\Source\ImmediateModeActionDispatcher.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzManipulatorTestFramework\Source\RetainedModeActionDispatcher.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzManipulatorTestFramework\Source\AzManipulatorTestFrameworkUtils.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzManipulatorTestFramework\Include\AzManipulatorTestFramework\AzManipulatorTestFramework.h">
+      <Filter>Include\AzManipulatorTestFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzManipulatorTestFramework\Include\AzManipulatorTestFramework\AzManipulatorTestFrameworkTestHelpers.h">
+      <Filter>Include\AzManipulatorTestFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzManipulatorTestFramework\Include\AzManipulatorTestFramework\ViewportInteraction.h">
+      <Filter>Include\AzManipulatorTestFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzManipulatorTestFramework\Include\AzManipulatorTestFramework\ActionDispatcher.h">
+      <Filter>Include\AzManipulatorTestFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzManipulatorTestFramework\Include\AzManipulatorTestFramework\DirectManipulatorViewportInteraction.h">
+      <Filter>Include\AzManipulatorTestFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzManipulatorTestFramework\Include\AzManipulatorTestFramework\IndirectManipulatorViewportInteraction.h">
+      <Filter>Include\AzManipulatorTestFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzManipulatorTestFramework\Include\AzManipulatorTestFramework\ImmediateModeActionDispatcher.h">
+      <Filter>Include\AzManipulatorTestFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzManipulatorTestFramework\Include\AzManipulatorTestFramework\RetainedModeActionDispatcher.h">
+      <Filter>Include\AzManipulatorTestFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzManipulatorTestFramework\Include\AzManipulatorTestFramework\AzManipulatorTestFrameworkUtils.h">
+      <Filter>Include\AzManipulatorTestFramework</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzManipulatorTestFramework\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzManipulatorTestFramework\azmanipulatortestframework_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\AzManipulatorTestFramework">
+      <UniqueIdentifier>{5E9D3334-1FE1-3E28-B025-6810A4DC2184}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,747 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\StandaloneToolsApplication.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Telemetry\TelemetryComponent.cpp">
+      <Filter>Source\Telemetry</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Telemetry\TelemetryEvent.cpp">
+      <Filter>Source\Telemetry</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\ProfilerApplication.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Editor\ProfilerEditor.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Axis.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\AreaChart.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelConfigurationDialog.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelConfigurationWidget.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelControl.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelProfilerWidget.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelDataView.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChartNumberFormats.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChartTypes.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\CollapsiblePanel.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\CombinedEventsControl.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\CustomizeCSVExportWidget.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DoubleListSelector.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerAggregator.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerCaptureWindow.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerContext.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerDataContainer.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerEvent.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerMainWindow.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerMainWindowMessages.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerOperationTelemetryEvent.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\FilteredListView.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\GenericCustomizeCSVExportWidget.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\RacetrackChart.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\StripChart.cpp">
+      <Filter>Source\Driller</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\AnnotationHeaderView.cpp">
+      <Filter>Source\Driller\Annotations</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\Annotations.cpp">
+      <Filter>Source\Driller\Annotations</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\AnnotationsDataView.cpp">
+      <Filter>Source\Driller\Annotations</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\AnnotationsDataView_Events.cpp">
+      <Filter>Source\Driller\Annotations</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\AnnotationsHeaderView_Events.cpp">
+      <Filter>Source\Driller\Annotations</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\ConfigureAnnotationsWindow.cpp">
+      <Filter>Source\Driller\Annotations</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier\CarrierDataAggregator.cpp">
+      <Filter>Source\Driller\Carrier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier\CarrierDataParser.cpp">
+      <Filter>Source\Driller\Carrier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier\CarrierDataView.cpp">
+      <Filter>Source\Driller\Carrier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\EventTrace\EventTraceDataAggregator.cpp">
+      <Filter>Source\Driller\EventTrace</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\EventTrace\EventTraceDataParser.cpp">
+      <Filter>Source\Driller\EventTrace</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Memory\MemoryDataAggregator.cpp">
+      <Filter>Source\Driller\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Memory\MemoryDataParser.cpp">
+      <Filter>Source\Driller\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Memory\MemoryDataView.cpp">
+      <Filter>Source\Driller\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Memory\MemoryEvents.cpp">
+      <Filter>Source\Driller\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerDataAggregator.cpp">
+      <Filter>Source\Driller\Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerDataPanel.cpp">
+      <Filter>Source\Driller\Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerDataParser.cpp">
+      <Filter>Source\Driller\Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerDataView.cpp">
+      <Filter>Source\Driller\Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerEvents.cpp">
+      <Filter>Source\Driller\Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Rendering\VRAM\VRAMDataAggregator.cpp">
+      <Filter>Source\Driller\Rendering\VRAM</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Rendering\VRAM\VRAMDataParser.cpp">
+      <Filter>Source\Driller\Rendering\VRAM</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Rendering\VRAM\VRAMEvents.cpp">
+      <Filter>Source\Driller\Rendering\VRAM</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\BaseDetailViewQObject.cpp">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\OverallReplicaDetailView.cpp">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaBandwidthChartData.cpp">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaChunkTypeDetailView.cpp">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaChunkUsageDataContainers.cpp">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDataAggregator.cpp">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDataAggregatorConfigurationPanel.cpp">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDataParser.cpp">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDataView.cpp">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDetailView.cpp">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDisplayHelpers.cpp">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDisplayTypes.cpp">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDrillerConfigToolbar.cpp">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaTreeViewModel.cpp">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaUsageDataContainers.cpp">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Trace\TraceDrillerDialog.cpp">
+      <Filter>Source\Driller\Trace</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Trace\TraceMessageDataAggregator.cpp">
+      <Filter>Source\Driller\Trace</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Trace\TraceMessageDataParser.cpp">
+      <Filter>Source\Driller\Trace</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Unsupported\UnsupportedDataAggregator.cpp">
+      <Filter>Source\Driller\Unsupported</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Unsupported\UnsupportedDataParser.cpp">
+      <Filter>Source\Driller\Unsupported</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Workspaces\Workspace.cpp">
+      <Filter>Source\Driller\Workspaces</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Platform\Windows\Source\StandaloneApplication_Windows.cpp">
+      <Filter>Platform\Windows\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Platform\Windows\Source\Driller\EvenTrace\EventTraceDataAggregator_Windows.cpp">
+      <Filter>Platform\Windows\Source\Driller\EvenTrace</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\targetver.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\StandaloneToolsApplication.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Editor\Resource.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Editor\targetver.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Telemetry\TelemetryBus.h">
+      <Filter>Source\Telemetry</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Telemetry\TelemetryComponent.h">
+      <Filter>Source\Telemetry</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Telemetry\TelemetryEvent.h">
+      <Filter>Source\Telemetry</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\ProfilerApplication.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Editor\ProfilerEditor.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Axis.hxx">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\AreaChart.hxx">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelConfigurationDialog.hxx">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelConfigurationWidget.hxx">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelControl.hxx">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelProfilerWidget.hxx">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelDataView.hxx">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChartNumberFormats.h">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChartTypes.hxx">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\CollapsiblePanel.hxx">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\CombinedEventsControl.hxx">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\CustomizeCSVExportWidget.hxx">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\CSVExportSettings.h">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DoubleListSelector.hxx">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerAggregator.hxx">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerAggregatorOptions.hxx">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerCaptureWindow.hxx">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerContext.h">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerContextInterface.h">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerDataContainer.h">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerDataTypes.h">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerEvent.h">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerMainWindow.hxx">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerMainWindowMessages.h">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerNetworkMessages.h">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerOperationTelemetryEvent.h">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\FilteredListView.hxx">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\GenericCustomizeCSVExportWidget.hxx">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\RacetrackChart.hxx">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\StripChart.hxx">
+      <Filter>Source\Driller</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\AnnotationHeaderView.hxx">
+      <Filter>Source\Driller\Annotations</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\Annotations.hxx">
+      <Filter>Source\Driller\Annotations</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\AnnotationsDataView.hxx">
+      <Filter>Source\Driller\Annotations</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\AnnotationsDataView_Events.hxx">
+      <Filter>Source\Driller\Annotations</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\AnnotationsHeaderView_Events.hxx">
+      <Filter>Source\Driller\Annotations</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\ConfigureAnnotationsWindow.hxx">
+      <Filter>Source\Driller\Annotations</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier\CarrierDataAggregator.hxx">
+      <Filter>Source\Driller\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier\CarrierDataEvents.h">
+      <Filter>Source\Driller\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier\CarrierDataParser.h">
+      <Filter>Source\Driller\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier\CarrierDataView.hxx">
+      <Filter>Source\Driller\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier\CarrierOperationTelemetryEvent.h">
+      <Filter>Source\Driller\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\EventTrace\EventTraceDataAggregator.h">
+      <Filter>Source\Driller\EventTrace</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\EventTrace\EventTraceDataParser.h">
+      <Filter>Source\Driller\EventTrace</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\EventTrace\EventTraceEvents.h">
+      <Filter>Source\Driller\EventTrace</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Memory\MemoryDataAggregator.hxx">
+      <Filter>Source\Driller\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Memory\MemoryDataParser.h">
+      <Filter>Source\Driller\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Memory\MemoryDataView.hxx">
+      <Filter>Source\Driller\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Memory\MemoryEvents.h">
+      <Filter>Source\Driller\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerDataAggregator.hxx">
+      <Filter>Source\Driller\Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerDataPanel.hxx">
+      <Filter>Source\Driller\Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerDataParser.h">
+      <Filter>Source\Driller\Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerDataView.hxx">
+      <Filter>Source\Driller\Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerEvents.h">
+      <Filter>Source\Driller\Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerOperationTelemetryEvent.h">
+      <Filter>Source\Driller\Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Rendering\VRAM\VRAMDataAggregator.hxx">
+      <Filter>Source\Driller\Rendering\VRAM</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Rendering\VRAM\VRAMDataParser.h">
+      <Filter>Source\Driller\Rendering\VRAM</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Rendering\VRAM\VRAMEvents.h">
+      <Filter>Source\Driller\Rendering\VRAM</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\BaseDetailViewSavedState.h">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\BaseDetailViewQObject.hxx">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\BaseDetailView.inl">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\BaseDetailView.h">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\OverallReplicaDetailView.hxx">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaBandwidthChartData.h">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaChunkTypeDetailView.h">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaChunkUsageDataContainers.h">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDataAggregator.hxx">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDataAggregatorConfigurationPanel.hxx">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDataEvents.h">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDataParser.h">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDataView.hxx">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDetailView.h">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDisplayHelpers.h">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDisplayTypes.h">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDrillerConfigToolbar.hxx">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaOperationTelemetryEvent.h">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaTreeViewModel.hxx">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaUsageDataContainers.h">
+      <Filter>Source\Driller\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Trace\TraceDrillerDialog.hxx">
+      <Filter>Source\Driller\Trace</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Trace\TraceMessageDataAggregator.hxx">
+      <Filter>Source\Driller\Trace</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Trace\TraceMessageDataParser.h">
+      <Filter>Source\Driller\Trace</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Trace\TraceMessageEvents.h">
+      <Filter>Source\Driller\Trace</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Trace\TraceOperationTelemetryEvent.h">
+      <Filter>Source\Driller\Trace</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Unsupported\UnsupportedDataAggregator.hxx">
+      <Filter>Source\Driller\Unsupported</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Unsupported\UnsupportedDataParser.h">
+      <Filter>Source\Driller\Unsupported</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Unsupported\UnsupportedEvents.h">
+      <Filter>Source\Driller\Unsupported</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Workspaces\Workspace.h">
+      <Filter>Source\Driller\Workspaces</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_ChannelControl.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_ChannelProfilerWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_CollapsiblePanel.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_DoubleListSelector.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_DrillerCaptureWindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_DrillerMainChannelsView.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_DrillerMainWindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_FilteredListView.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\ui_GenericCustomizeCSVExportWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Annotations\ui_AnnotationHeaderView.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Annotations\ui_ConfigureAnnotationsDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Carrier\ui_CarrierDataView.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Memory\ui_MemoryDataView.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Profiler\ui_ProfilerDataView.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_basedetailview.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_overallreplicadetailview.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_ReplicaDataAggregatorConfigurationPanel.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_replicadataview.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_ReplicaDataViewConfigDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Replica\ui_ReplicaDrillerConfigToolbar.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Profiler_autogen\include\Source\Driller\Trace\ui_TraceDrillerDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelControl.ui">
+      <Filter>Source\Driller</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\ChannelProfilerWidget.ui">
+      <Filter>Source\Driller</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\CollapsiblePanel.ui">
+      <Filter>Source\Driller</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DoubleListSelector.ui">
+      <Filter>Source\Driller</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerCaptureWindow.ui">
+      <Filter>Source\Driller</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerMainChannelsView.ui">
+      <Filter>Source\Driller</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\DrillerMainWindow.ui">
+      <Filter>Source\Driller</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\FilteredListView.ui">
+      <Filter>Source\Driller</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\GenericCustomizeCSVExportWidget.ui">
+      <Filter>Source\Driller</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\AnnotationHeaderView.ui">
+      <Filter>Source\Driller\Annotations</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Annotations\ConfigureAnnotationsDialog.ui">
+      <Filter>Source\Driller\Annotations</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Carrier\CarrierDataView.ui">
+      <Filter>Source\Driller\Carrier</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Memory\MemoryDataView.ui">
+      <Filter>Source\Driller\Memory</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Profiler\ProfilerDataView.ui">
+      <Filter>Source\Driller\Profiler</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\basedetailview.ui">
+      <Filter>Source\Driller\Replica</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\overallreplicadetailview.ui">
+      <Filter>Source\Driller\Replica</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDataAggregatorConfigurationPanel.ui">
+      <Filter>Source\Driller\Replica</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\replicadataview.ui">
+      <Filter>Source\Driller\Replica</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDataViewConfigDialog.ui">
+      <Filter>Source\Driller\Replica</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Replica\ReplicaDrillerConfigToolbar.ui">
+      <Filter>Source\Driller\Replica</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Driller\Trace\TraceDrillerDialog.ui">
+      <Filter>Source\Driller\Trace</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\standalone_tools_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\profiler_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Platform\Windows\profiler_windows_files.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\Editor\ProfilerEditor.rc">
+      <Filter>Platform\Windows\..\..\Source\Editor</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{D4CCE8D3-A6C9-3C6A-9C86-8BF8F7D77D7F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{9B5BE819-E94D-379A-84DF-5559629D4548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..">
+      <UniqueIdentifier>{731ADA3D-17B6-381E-ABF5-417E8742D0A7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\..">
+      <UniqueIdentifier>{E1670BFB-41AD-36ED-8AA5-0D0AF4336AD6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\..\Source">
+      <UniqueIdentifier>{30D7BD81-3C97-3089-8583-AF72503ACC9E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\..\Source\Editor">
+      <UniqueIdentifier>{1368A072-71A8-3C20-AFC0-94508A043BA1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\Source">
+      <UniqueIdentifier>{9A00965F-ACB6-368C-B1D2-2B64E162C642}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\Source\Driller">
+      <UniqueIdentifier>{19F60213-E76C-33D4-A350-3D8562D13D8E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\Source\Driller\EvenTrace">
+      <UniqueIdentifier>{3F663644-1485-3DD9-B2D1-91833963F07E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Driller">
+      <UniqueIdentifier>{817C6DD0-D614-37CE-80D5-94DAF3EDB793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Driller\Annotations">
+      <UniqueIdentifier>{DF3803BE-2851-3AD5-86BB-84C35FC8428B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Driller\Carrier">
+      <UniqueIdentifier>{AFF04C61-CC81-3B0F-98F0-121553FD8BB8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Driller\EventTrace">
+      <UniqueIdentifier>{C8E5902A-310D-3A23-8CB7-11757FE180AF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Driller\Memory">
+      <UniqueIdentifier>{8C65476A-DD2B-3883-A29F-4B707891969D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Driller\Profiler">
+      <UniqueIdentifier>{005110CD-BD2A-331B-A321-C3DEE749C8B3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Driller\Rendering">
+      <UniqueIdentifier>{213AD82E-C2C9-325E-AD2D-6DE853947140}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Driller\Rendering\VRAM">
+      <UniqueIdentifier>{E7751D06-CEC9-3DD8-892A-C51A6DE1F8E9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Driller\Replica">
+      <UniqueIdentifier>{EEC46446-6ACF-33B6-87DD-255982001272}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Driller\Trace">
+      <UniqueIdentifier>{5422E8D7-5C31-360D-9007-5B9F5B80286F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Driller\Unsupported">
+      <UniqueIdentifier>{6B0AFBAD-F86E-32DB-9DEA-A2747F8696C1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Driller\Workspaces">
+      <UniqueIdentifier>{0C4F849C-2D28-312D-A9C4-3157D7A81827}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor">
+      <UniqueIdentifier>{A8C69C03-0E27-35F8-AFF2-047D842E6663}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Telemetry">
+      <UniqueIdentifier>{CC00160B-9BFA-3D18-9178-5CBFAF97C2C3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

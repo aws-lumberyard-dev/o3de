@@ -1,0 +1,705 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|x64">
+      <Configuration>debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="profile|x64">
+      <Configuration>profile</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|x64">
+      <Configuration>release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4DA56D94-6D37-3C37-AB76-CF6A565388C1}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>AudioSystem.Editor.Static</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\lib\debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='debug|x64'">AudioSystem.Editor.Static.dir\debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='debug|x64'">AudioSystem.Editor.Static</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\lib\profile\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='profile|x64'">AudioSystem.Editor.Static.dir\profile\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='profile|x64'">AudioSystem.Editor.Static</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='profile|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\lib\release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='release|x64'">AudioSystem.Editor.Static.dir\release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='release|x64'">AudioSystem.Editor.Static</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='release|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include_debug;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\.;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Engine;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Platform\Windows;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Editor;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Engine;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Include\Engine;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Platform\Windows;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Include\Editor;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\.;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /RTCsu /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>AUDIO_SYSTEM_EDITOR;_HAS_EXCEPTIONS=0;_DEBUG;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="debug";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;OPENSSL_ENABLED;QT_SVG_LIB;QT_XML_LIB;EDITOR;EDITOR_COMMON_IMPORTS;ENABLE_AUDIO_LOGGING;CMAKE_INTDIR="debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;AUDIO_SYSTEM_EDITOR;_HAS_EXCEPTIONS=0;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"debug\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;OPENSSL_ENABLED;QT_SVG_LIB;QT_XML_LIB;EDITOR;EDITOR_COMMON_IMPORTS;ENABLE_AUDIO_LOGGING;CMAKE_INTDIR=\"debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include_debug;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\.;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Engine;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Platform\Windows;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Editor;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Engine;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Include\Engine;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Platform\Windows;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Include\Editor;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\.;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include_debug;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\.;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Engine;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Platform\Windows;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Editor;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Engine;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Include\Engine;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Platform\Windows;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Include\Editor;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\.;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message>Automatic MOC for target AudioSystem.Editor.Static</Message>
+      <Command>setlocal
+cd J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autogen J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/CMakeFiles/AudioSystem.Editor.Static_autogen.dir/AutogenInfo.json debug
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include_profile;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\.;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Engine;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Platform\Windows;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Editor;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Engine;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Include\Engine;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Platform\Windows;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Include\Editor;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\.;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StringPooling>true</StringPooling>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>AUDIO_SYSTEM_EDITOR;_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE="profile";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;OPENSSL_ENABLED;QT_SVG_LIB;QT_XML_LIB;EDITOR;EDITOR_COMMON_IMPORTS;ENABLE_AUDIO_LOGGING;CMAKE_INTDIR="profile";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>AUDIO_SYSTEM_EDITOR;_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"profile\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;OPENSSL_ENABLED;QT_SVG_LIB;QT_XML_LIB;EDITOR;EDITOR_COMMON_IMPORTS;ENABLE_AUDIO_LOGGING;CMAKE_INTDIR=\"profile\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include_profile;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\.;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Engine;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Platform\Windows;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Editor;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Engine;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Include\Engine;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Platform\Windows;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Include\Editor;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\.;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include_profile;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\.;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Engine;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Platform\Windows;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Editor;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Engine;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Include\Engine;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Platform\Windows;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Include\Editor;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\.;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message>Automatic MOC for target AudioSystem.Editor.Static</Message>
+      <Command>setlocal
+cd J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autogen J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/CMakeFiles/AudioSystem.Editor.Static_autogen.dir/AutogenInfo.json profile
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include_release;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\.;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Engine;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Platform\Windows;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Editor;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Engine;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Include\Engine;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Platform\Windows;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Include\Editor;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\.;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/ /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/.//mkspecs/win32-msvc /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include//QtANGLE /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtGui/5.15.1/QtGui /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtCore/5.15.1/QtCore /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtWidgets/5.15.1/QtWidgets /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtSvg /external:IC:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/include/QtXml</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OmitFramePointers>true</OmitFramePointers>
+      <Optimization>Full</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>AUDIO_SYSTEM_EDITOR;_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE="release";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;OPENSSL_ENABLED;QT_SVG_LIB;QT_XML_LIB;EDITOR;EDITOR_COMMON_IMPORTS;AUDIO_RELEASE;CMAKE_INTDIR="release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>AUDIO_SYSTEM_EDITOR;_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE=\"release\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;QT_CORE_LIB;QT_NO_DEBUG;QT_GUI_LIB;QT_WIDGETS_LIB;OPENSSL_ENABLED;QT_SVG_LIB;QT_XML_LIB;EDITOR;EDITOR_COMMON_IMPORTS;AUDIO_RELEASE;CMAKE_INTDIR=\"release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include_release;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\.;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Engine;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Platform\Windows;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Editor;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Engine;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Include\Engine;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Platform\Windows;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Include\Editor;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\.;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include_release;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\.;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Engine;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Engine;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Platform\Windows;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Editor;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Engine;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Include\Engine;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Platform\Windows;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Include\Editor;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework;J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Editor\Include;J:\Atom\lyfork\o3de\Code\Editor\.;J:\Atom\lyfork\o3de\Code\Editor\..;J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\.;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PreBuildEvent>
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message>Automatic MOC for target AudioSystem.Editor.Static</Message>
+      <Command>setlocal
+cd J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autogen J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/CMakeFiles/AudioSystem.Editor.Static_autogen.dir/AutogenInfo.json release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PreBuildEvent>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\ATLControlsPanel.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/ATLControlsPanel.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/AudioSystem.Editor.Static_autogen/include/Source/Editor/ui_ATLControlsPanel.h J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/ATLControlsPanel.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor\ui_ATLControlsPanel.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/ATLControlsPanel.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/AudioSystem.Editor.Static_autogen/include/Source/Editor/ui_ATLControlsPanel.h J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/ATLControlsPanel.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor\ui_ATLControlsPanel.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/ATLControlsPanel.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/AudioSystem.Editor.Static_autogen/include/Source/Editor/ui_ATLControlsPanel.h J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/ATLControlsPanel.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor\ui_ATLControlsPanel.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioControlsEditorMainWindow.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/AudioControlsEditorMainWindow.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/AudioSystem.Editor.Static_autogen/include/Source/Editor/ui_AudioControlsEditorMainWindow.h J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/AudioControlsEditorMainWindow.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor\ui_AudioControlsEditorMainWindow.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/AudioControlsEditorMainWindow.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/AudioSystem.Editor.Static_autogen/include/Source/Editor/ui_AudioControlsEditorMainWindow.h J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/AudioControlsEditorMainWindow.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor\ui_AudioControlsEditorMainWindow.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/AudioControlsEditorMainWindow.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/AudioSystem.Editor.Static_autogen/include/Source/Editor/ui_AudioControlsEditorMainWindow.h J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/AudioControlsEditorMainWindow.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor\ui_AudioControlsEditorMainWindow.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioSystemPanel.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/AudioSystemPanel.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/AudioSystem.Editor.Static_autogen/include/Source/Editor/ui_AudioSystemPanel.h J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/AudioSystemPanel.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor\ui_AudioSystemPanel.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/AudioSystemPanel.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/AudioSystem.Editor.Static_autogen/include/Source/Editor/ui_AudioSystemPanel.h J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/AudioSystemPanel.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor\ui_AudioSystemPanel.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/AudioSystemPanel.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/AudioSystem.Editor.Static_autogen/include/Source/Editor/ui_AudioSystemPanel.h J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/AudioSystemPanel.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor\ui_AudioSystemPanel.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\ConnectionsWidget.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/ConnectionsWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/AudioSystem.Editor.Static_autogen/include/Source/Editor/ui_ConnectionsWidget.h J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/ConnectionsWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor\ui_ConnectionsWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/ConnectionsWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/AudioSystem.Editor.Static_autogen/include/Source/Editor/ui_ConnectionsWidget.h J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/ConnectionsWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor\ui_ConnectionsWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/ConnectionsWidget.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/AudioSystem.Editor.Static_autogen/include/Source/Editor/ui_ConnectionsWidget.h J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/ConnectionsWidget.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor\ui_ConnectionsWidget.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\InspectorPanel.ui">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">UIC J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/InspectorPanel.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/AudioSystem.Editor.Static_autogen/include/Source/Editor/ui_InspectorPanel.h J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/InspectorPanel.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor\ui_InspectorPanel.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">UIC J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/InspectorPanel.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/AudioSystem.Editor.Static_autogen/include/Source/Editor/ui_InspectorPanel.h J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/InspectorPanel.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor\ui_InspectorPanel.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">UIC J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/InspectorPanel.ui</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\uic.exe -o J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/AudioSystem.Editor.Static_autogen/include/Source/Editor/ui_InspectorPanel.h J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Source/Editor/InspectorPanel.ui
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor\ui_InspectorPanel.h</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\b9f6b4ade99f2c04db587e5f14f58a76\qrc_AudioControlsEditorUI.cpp.rule">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Automatic RCC for Source/Editor/AudioControlsEditorUI.qrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+cd J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/CMakeFiles/AudioSystem.Editor.Static_autogen.dir/AutoRcc_AudioControlsEditorUI_VQH663J3CY_Info.json debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/CMakeFiles/AudioSystem.Editor.Static_autogen.dir/AutoRcc_AudioControlsEditorUI_VQH663J3CY_Info.json profile
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/CMakeFiles/AudioSystem.Editor.Static_autogen.dir/AutoRcc_AudioControlsEditorUI_VQH663J3CY_Info.json release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioControlsEditorUI.qrc;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\CMakeFiles\AudioSystem.Editor.Static_autogen.dir\AutoRcc_AudioControlsEditorUI_VQH663J3CY_Info.json;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Unassigned.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\RTPC_Icon.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\folder purple.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\folder yellow.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Config_Blue_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Environment_Icon.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Config_Green_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Folder_Icon_Selected.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Config_Purple_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\folder white.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Folder_Icon.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\folder green.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Trigger_Icon.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Load_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Search_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Bank_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Preload_Icon.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Switch_Icon.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Save_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\folder red.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Property_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Config_Yellow_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Config_Red_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\folder blue.svg;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\rcc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\VQH663J3CY\qrc_AudioControlsEditorUI.cpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Automatic RCC for Source/Editor/AudioControlsEditorUI.qrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+cd J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/CMakeFiles/AudioSystem.Editor.Static_autogen.dir/AutoRcc_AudioControlsEditorUI_VQH663J3CY_Info.json debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/CMakeFiles/AudioSystem.Editor.Static_autogen.dir/AutoRcc_AudioControlsEditorUI_VQH663J3CY_Info.json profile
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/CMakeFiles/AudioSystem.Editor.Static_autogen.dir/AutoRcc_AudioControlsEditorUI_VQH663J3CY_Info.json release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioControlsEditorUI.qrc;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\CMakeFiles\AudioSystem.Editor.Static_autogen.dir\AutoRcc_AudioControlsEditorUI_VQH663J3CY_Info.json;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Unassigned.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\RTPC_Icon.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\folder purple.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\folder yellow.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Config_Blue_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Environment_Icon.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Config_Green_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Folder_Icon_Selected.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Config_Purple_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\folder white.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Folder_Icon.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\folder green.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Trigger_Icon.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Load_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Search_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Bank_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Preload_Icon.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Switch_Icon.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Save_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\folder red.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Property_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Config_Yellow_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Config_Red_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\folder blue.svg;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\rcc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\VQH663J3CY\qrc_AudioControlsEditorUI.cpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Automatic RCC for Source/Editor/AudioControlsEditorUI.qrc</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+cd J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code
+if %errorlevel% neq 0 goto :cmEnd
+J:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/CMakeFiles/AudioSystem.Editor.Static_autogen.dir/AutoRcc_AudioControlsEditorUI_VQH663J3CY_Info.json debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/CMakeFiles/AudioSystem.Editor.Static_autogen.dir/AutoRcc_AudioControlsEditorUI_VQH663J3CY_Info.json profile
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_autorcc J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/CMakeFiles/AudioSystem.Editor.Static_autogen.dir/AutoRcc_AudioControlsEditorUI_VQH663J3CY_Info.json release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioControlsEditorUI.qrc;J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\CMakeFiles\AudioSystem.Editor.Static_autogen.dir\AutoRcc_AudioControlsEditorUI_VQH663J3CY_Info.json;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Unassigned.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\RTPC_Icon.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\folder purple.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\folder yellow.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Config_Blue_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Environment_Icon.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Config_Green_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Folder_Icon_Selected.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Config_Purple_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\folder white.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Folder_Icon.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\folder green.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Trigger_Icon.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Load_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Search_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Bank_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Preload_Icon.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Switch_Icon.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Save_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\folder red.svg;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Property_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Config_Yellow_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\Config_Red_Icon.png;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\Icons\folder blue.svg;C:\Users\luissemp\.o3de\3rdParty\packages\qt-5.15.2-rev4-windows\qt\bin\rcc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\VQH663J3CY\qrc_AudioControlsEditorUI.cpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioControlsEditorUI.qrc;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\audiosystem_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\audiosystem_editor_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\audiosystem_editor_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\audiosystem_files.cmake;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\audiosystem_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\audiosystem_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioControlsEditorUI.qrc;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\audiosystem_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\audiosystem_editor_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\audiosystem_editor_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\audiosystem_files.cmake;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\audiosystem_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\audiosystem_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SJ:/Atom/lyfork/o3de -BJ:/Atom/lyfork/o3de --check-stamp-file J:/Atom/lyfork/o3de/External/AudioSystem-97044ba4/Code/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioControlsEditorUI.qrc;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\audiosystem_editor_files.cmake;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\audiosystem_editor_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\audiosystem_editor_tests_files.cmake;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\audiosystem_files.cmake;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\audiosystem_shared_files.cmake;J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\audiosystem_tests_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\mocs_compilation_debug.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='profile|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <None Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioControlsEditorUI.qrc">
+    </None>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\QATLControlsTreeModel.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\QATLControlsTreeModel.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\QAudioControlEditorIcons.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\QAudioControlTreeWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\QAudioControlTreeWidget.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\QConnectionListWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\QConnectionsWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\QConnectionsWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\QSimpleAudioControlListWidget.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\QSimpleAudioControlListWidget.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\QTreeWidgetFilter.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\QTreeWidgetFilter.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Editor\ACETypes.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Editor\IAudioConnection.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Editor\IAudioSystemControl.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Include\Editor\IAudioSystemEditor.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\ATLControlsModel.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\ATLControlsPanel.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\ATLControlsResourceDialog.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioControl.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioControlFilters.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioControlsEditorPlugin.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioControlsEditorUndo.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioControlsEditorWindow.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioControlsLoader.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioControlsWriter.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioResourceSelectors.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioSystemPanel.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\ImplementationManager.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\InspectorPanel.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\ACEEnums.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\ATLControlsModel.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\ATLControlsPanel.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\ATLControlsResourceDialog.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioControl.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioControlFilters.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioControlsEditorPlugin.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioControlsEditorUndo.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioControlsEditorWindow.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioControlsLoader.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioControlsWriter.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioResourceSelectors.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\AudioSystemPanel.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\ImplementationManager.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\Editor\InspectorPanel.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\AudioSystemGemSystemComponent.cpp" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\Source\AudioSystemGemSystemComponent.h" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\AudioSystem\Code\audiosystem_editor_files.cmake">
+    </None>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor\ui_ATLControlsPanel.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor\ui_AudioControlsEditorMainWindow.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor\ui_AudioSystemPanel.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor\ui_ConnectionsWidget.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\include\Source\Editor\ui_InspectorPanel.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\VQH663J3CY\qrc_AudioControlsEditorUI.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\mocs_compilation_profile.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Editor.Static_autogen\mocs_compilation_release.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='profile|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\ZERO_CHECK.vcxproj">
+      <Project>{9D084072-A56A-3A6D-8C63-F5385A20608A}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\External\AudioSystem-97044ba4\Code\AudioSystem.Static.vcxproj">
+      <Project>{A492A64D-6779-3078-9773-9BBC2D7BCA1A}</Project>
+      <Name>AudioSystem.Static</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore.vcxproj">
+      <Project>{78F97634-33F1-3E9D-BB2E-D24CB7BD9D1E}</Project>
+      <Name>AzCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework.vcxproj">
+      <Project>{32B5BA28-0012-3762-8899-2D392DE6A10B}</Project>
+      <Name>AzFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents.vcxproj">
+      <Project>{A96AE86E-7259-341D-879A-5F0B4ECAAFB8}</Project>
+      <Name>AzQtComponents</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework.vcxproj">
+      <Project>{FBDC5AB0-96E2-3EF6-A16A-7C345C99949B}</Project>
+      <Name>AzToolsFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryCommon.vcxproj">
+      <Project>{5131F2AB-DC9C-3FE9-A0DF-A1E42FAD10E6}</Project>
+      <Name>CryCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\EditorCommon.vcxproj">
+      <Project>{28A7472C-BC24-34BE-9911-0E873193F853}</Project>
+      <Name>EditorCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Editor\EditorCore.vcxproj">
+      <Project>{82A981A9-7716-336E-AC6A-F13A1FEF87C3}</Project>
+      <Name>EditorCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate.vcxproj">
+      <Project>{1A59660B-1BCB-3611-B3D0-673DEB6F8A46}</Project>
+      <Name>GridMate</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

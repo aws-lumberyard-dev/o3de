@@ -1,0 +1,32 @@
+{
+    "entries": [
+        {
+            "key": "UiFlipbookAnimationNotificationsBus",
+            "context": "EBusHandler",
+            "variant": "",
+            "details": {
+                "name": "UiFlipbookAnimationNotificationsBus"
+            },
+            "methods": [
+                {
+                    "key": "OnAnimationStarted",
+                    "details": {
+                        "name": "OnAnimationStarted"
+                    }
+                },
+                {
+                    "key": "OnAnimationStopped",
+                    "details": {
+                        "name": "OnAnimationStopped"
+                    }
+                },
+                {
+                    "key": "OnLoopSequenceCompleted",
+                    "details": {
+                        "name": "OnLoopSequenceCompleted"
+                    }
+                }
+            ]
+        }
+    ]
+}

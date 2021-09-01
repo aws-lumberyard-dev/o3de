@@ -1,0 +1,609 @@
+{
+    "entries": [
+        {
+            "key": "PropertyTreeEditor",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "PropertyTreeEditor"
+            },
+            "methods": [
+                {
+                    "key": "ResetContainer",
+                    "context": "PropertyTreeEditor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::ResetContainer"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after PropertyTreeEditor::ResetContainer is invoked"
+                    },
+                    "details": {
+                        "name": "PropertyTreeEditor::ResetContainer"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{704E727E-E941-47EE-9C70-065BC3AD66F3}",
+                            "details": {
+                                "name": "PropertyTreeEditor*"
+                            }
+                        },
+                        {
+                            "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
+                            "details": {
+                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{B57176AF-63A1-5531-B77E-BD7337E66127}",
+                            "details": {
+                                "name": "Outcome<any, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>>"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "CompareProperty",
+                    "context": "PropertyTreeEditor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::CompareProperty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after PropertyTreeEditor::CompareProperty is invoked"
+                    },
+                    "details": {
+                        "name": "PropertyTreeEditor::CompareProperty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{704E727E-E941-47EE-9C70-065BC3AD66F3}",
+                            "details": {
+                                "name": "PropertyTreeEditor*"
+                            }
+                        },
+                        {
+                            "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
+                            "details": {
+                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                            }
+                        },
+                        {
+                            "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
+                            "details": {
+                                "name": "any"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsContainer",
+                    "context": "PropertyTreeEditor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::IsContainer"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after PropertyTreeEditor::IsContainer is invoked"
+                    },
+                    "details": {
+                        "name": "PropertyTreeEditor::IsContainer"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{704E727E-E941-47EE-9C70-065BC3AD66F3}",
+                            "details": {
+                                "name": "PropertyTreeEditor*"
+                            }
+                        },
+                        {
+                            "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
+                            "details": {
+                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetContainerCount",
+                    "context": "PropertyTreeEditor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::GetContainerCount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after PropertyTreeEditor::GetContainerCount is invoked"
+                    },
+                    "details": {
+                        "name": "PropertyTreeEditor::GetContainerCount"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{704E727E-E941-47EE-9C70-065BC3AD66F3}",
+                            "details": {
+                                "name": "PropertyTreeEditor*"
+                            }
+                        },
+                        {
+                            "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
+                            "details": {
+                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{B57176AF-63A1-5531-B77E-BD7337E66127}",
+                            "details": {
+                                "name": "Outcome<any, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>>"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetProperty",
+                    "context": "PropertyTreeEditor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::SetProperty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after PropertyTreeEditor::SetProperty is invoked"
+                    },
+                    "details": {
+                        "name": "PropertyTreeEditor::SetProperty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{704E727E-E941-47EE-9C70-065BC3AD66F3}",
+                            "details": {
+                                "name": "PropertyTreeEditor*"
+                            }
+                        },
+                        {
+                            "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
+                            "details": {
+                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                            }
+                        },
+                        {
+                            "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
+                            "details": {
+                                "name": "any"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{B57176AF-63A1-5531-B77E-BD7337E66127}",
+                            "details": {
+                                "name": "Outcome<any, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>>"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AppendContainerItem",
+                    "context": "PropertyTreeEditor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::AppendContainerItem"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after PropertyTreeEditor::AppendContainerItem is invoked"
+                    },
+                    "details": {
+                        "name": "PropertyTreeEditor::AppendContainerItem"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{704E727E-E941-47EE-9C70-065BC3AD66F3}",
+                            "details": {
+                                "name": "PropertyTreeEditor*"
+                            }
+                        },
+                        {
+                            "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
+                            "details": {
+                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                            }
+                        },
+                        {
+                            "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
+                            "details": {
+                                "name": "any"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{B57176AF-63A1-5531-B77E-BD7337E66127}",
+                            "details": {
+                                "name": "Outcome<any, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>>"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetProperty",
+                    "context": "PropertyTreeEditor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::GetProperty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after PropertyTreeEditor::GetProperty is invoked"
+                    },
+                    "details": {
+                        "name": "PropertyTreeEditor::GetProperty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{704E727E-E941-47EE-9C70-065BC3AD66F3}",
+                            "details": {
+                                "name": "PropertyTreeEditor*"
+                            }
+                        },
+                        {
+                            "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
+                            "details": {
+                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{B57176AF-63A1-5531-B77E-BD7337E66127}",
+                            "details": {
+                                "name": "Outcome<any, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>>"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AddContainerItem",
+                    "context": "PropertyTreeEditor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::AddContainerItem"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after PropertyTreeEditor::AddContainerItem is invoked"
+                    },
+                    "details": {
+                        "name": "PropertyTreeEditor::AddContainerItem"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{704E727E-E941-47EE-9C70-065BC3AD66F3}",
+                            "details": {
+                                "name": "PropertyTreeEditor*"
+                            }
+                        },
+                        {
+                            "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
+                            "details": {
+                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                            }
+                        },
+                        {
+                            "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
+                            "details": {
+                                "name": "any"
+                            }
+                        },
+                        {
+                            "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
+                            "details": {
+                                "name": "any"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{B57176AF-63A1-5531-B77E-BD7337E66127}",
+                            "details": {
+                                "name": "Outcome<any, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>>"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RemoveContainerItem",
+                    "context": "PropertyTreeEditor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::RemoveContainerItem"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after PropertyTreeEditor::RemoveContainerItem is invoked"
+                    },
+                    "details": {
+                        "name": "PropertyTreeEditor::RemoveContainerItem"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{704E727E-E941-47EE-9C70-065BC3AD66F3}",
+                            "details": {
+                                "name": "PropertyTreeEditor*"
+                            }
+                        },
+                        {
+                            "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
+                            "details": {
+                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                            }
+                        },
+                        {
+                            "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
+                            "details": {
+                                "name": "any"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{B57176AF-63A1-5531-B77E-BD7337E66127}",
+                            "details": {
+                                "name": "Outcome<any, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>>"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "BuildPathsListWithTypes",
+                    "context": "PropertyTreeEditor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::BuildPathsListWithTypes"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after PropertyTreeEditor::BuildPathsListWithTypes is invoked"
+                    },
+                    "details": {
+                        "name": "PropertyTreeEditor::BuildPathsListWithTypes"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{704E727E-E941-47EE-9C70-065BC3AD66F3}",
+                            "details": {
+                                "name": "PropertyTreeEditor*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{99DAD0BC-740E-5E82-826B-8FC7968CC02C}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "HasAttribute",
+                    "context": "PropertyTreeEditor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::HasAttribute"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after PropertyTreeEditor::HasAttribute is invoked"
+                    },
+                    "details": {
+                        "name": "PropertyTreeEditor::HasAttribute"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{704E727E-E941-47EE-9C70-065BC3AD66F3}",
+                            "details": {
+                                "name": "PropertyTreeEditor*"
+                            }
+                        },
+                        {
+                            "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
+                            "details": {
+                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                            }
+                        },
+                        {
+                            "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
+                            "details": {
+                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "BuildPathsList",
+                    "context": "PropertyTreeEditor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::BuildPathsList"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after PropertyTreeEditor::BuildPathsList is invoked"
+                    },
+                    "details": {
+                        "name": "PropertyTreeEditor::BuildPathsList"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{704E727E-E941-47EE-9C70-065BC3AD66F3}",
+                            "details": {
+                                "name": "PropertyTreeEditor*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{99DAD0BC-740E-5E82-826B-8FC7968CC02C}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetVisibleEnforcement",
+                    "context": "PropertyTreeEditor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::SetVisibleEnforcement"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after PropertyTreeEditor::SetVisibleEnforcement is invoked"
+                    },
+                    "details": {
+                        "name": "PropertyTreeEditor::SetVisibleEnforcement"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{704E727E-E941-47EE-9C70-065BC3AD66F3}",
+                            "details": {
+                                "name": "PropertyTreeEditor*"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "UpdateContainerItem",
+                    "context": "PropertyTreeEditor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::UpdateContainerItem"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after PropertyTreeEditor::UpdateContainerItem is invoked"
+                    },
+                    "details": {
+                        "name": "PropertyTreeEditor::UpdateContainerItem"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{704E727E-E941-47EE-9C70-065BC3AD66F3}",
+                            "details": {
+                                "name": "PropertyTreeEditor*"
+                            }
+                        },
+                        {
+                            "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
+                            "details": {
+                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                            }
+                        },
+                        {
+                            "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
+                            "details": {
+                                "name": "any"
+                            }
+                        },
+                        {
+                            "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
+                            "details": {
+                                "name": "any"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{B57176AF-63A1-5531-B77E-BD7337E66127}",
+                            "details": {
+                                "name": "Outcome<any, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>>"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetContainerItem",
+                    "context": "PropertyTreeEditor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::GetContainerItem"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after PropertyTreeEditor::GetContainerItem is invoked"
+                    },
+                    "details": {
+                        "name": "PropertyTreeEditor::GetContainerItem"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{704E727E-E941-47EE-9C70-065BC3AD66F3}",
+                            "details": {
+                                "name": "PropertyTreeEditor*"
+                            }
+                        },
+                        {
+                            "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
+                            "details": {
+                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                            }
+                        },
+                        {
+                            "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
+                            "details": {
+                                "name": "any"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{B57176AF-63A1-5531-B77E-BD7337E66127}",
+                            "details": {
+                                "name": "Outcome<any, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>>"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,6 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/AssetMemoryAnalyzer/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/AssetMemoryAnalyzer/Code/assetmemoryanalyzer_files.cmake
+J:/Atom/lyfork/o3de/Gems/AssetMemoryAnalyzer/Code/assetmemoryanalyzer_shared_files.cmake
+J:/Atom/lyfork/o3de/Gems/AssetMemoryAnalyzer/Code/assetmemoryanalyzer_tests_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

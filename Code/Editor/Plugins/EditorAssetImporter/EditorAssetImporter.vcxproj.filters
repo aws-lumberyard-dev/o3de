@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\EditorAssetImporter_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\AssetImporterWindow.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\AssetImporterPlugin.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\AssetImporterDocument.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\ImporterRootDisplay.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\AssetBrowserContextProvider.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\SceneSerializationHandler.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\Main.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\EditorAssetImporter_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\EditorAssetImporter_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\AssetImporterWindow.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\AssetImporterPlugin.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\AssetImporterDocument.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\ImporterRootDisplay.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\AssetBrowserContextProvider.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\SceneSerializationHandler.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\EditorAssetImporter_autogen\include\ui_AssetImporterWindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\EditorAssetImporter_autogen\include\ui_ImporterRootDisplay.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\AssetImporterWindow.ui" />
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\ImporterRootDisplay.ui" />
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\AssetImporter.qrc" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\editorassetimporter_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

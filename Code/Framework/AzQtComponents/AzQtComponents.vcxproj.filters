@@ -1,0 +1,1011 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Application\AzQtApplication.cpp">
+      <Filter>AzQtComponents\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\AutoCustomWindowDecorations.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\ButtonDivider.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\ButtonStripe.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\ConfigHelpers.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\DockBar.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\DockBarButton.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\DockMainWindow.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\DockTabBar.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\DockTabWidget.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\FancyDocking.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\FancyDockingGhostWidget.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\FancyDockingDropZoneWidget.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\FilteredSearchWidget.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\GlobalEventFilter.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Titlebar.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\TitleBarOverdrawHandler.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\ToolButtonComboBox.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\ToolButtonLineEdit.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\ToolButtonWithWidget.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\StyledDockWidget.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\StyledBusyLabel.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\StyledDetailsTableModel.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\StyledDetailsTableView.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\HelpButton.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\InteractiveWindowGeometryChanger.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\SearchLineEdit.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\StyledDialog.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\StyledLineEdit.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\StyledSpinBox.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Style.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\StyleManager.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\StyleSheetCache.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\StylesheetPreprocessor.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\TagSelector.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\ToolBarArea.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\VectorEdit.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\WindowDecorationWrapper.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\ExtendedLabel.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\FlowLayout.cpp">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\AssetFolderListView.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\AssetFolderThumbnailView.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\BreadCrumbs.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\BrowseEdit.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\Card.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\CardHeader.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\CardNotification.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\CheckBox.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorLabel.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ComboBox.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\DialogButtonBox.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\DragAndDrop.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ElidingLabel.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\Eyedropper.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\GradientSlider.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\LineEdit.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\LogicalTabOrderingWidget.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\Menu.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\MessageBox.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\OverlayWidget.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\Internal\OverlayWidgetLayer.cpp">
+      <Filter>AzQtComponents\Components\Widgets\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ProgressBar.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\PushButton.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\RadioButton.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ScrollBar.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\SegmentBar.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\SegmentControl.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\Slider.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\SliderCombo.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\SpinBox.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\StatusBar.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\TableView.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\TabWidget.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\TabWidgetActionToolBar.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\Text.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ToolBar.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ToolButton.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\TreeView.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\VectorInput.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\ColorController.cpp">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\ColorComponentSliders.cpp">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\ColorPreview.cpp">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\ColorRGBAEdit.cpp">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\ColorHexEdit.cpp">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\ColorGrid.cpp">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\ColorValidator.cpp">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\PaletteView.cpp">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\Palette.cpp">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\GammaEdit.cpp">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\PaletteCard.cpp">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\PaletteCardCollection.cpp">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\Swatch.cpp">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\ColorWarning.cpp">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\ColorUtilities.cpp">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\Conversions.cpp">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\DesktopUtilities.cpp">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\HandleDpiAwareness.cpp">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\QtPluginPaths.cpp">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\QtWindowUtilities.cpp">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\QtViewPaneEffects.cpp">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\RandomNumberGenerator.cpp">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\ScreenUtilities.cpp">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\SelectionProxyModel.cpp">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\TextUtilities.cpp">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\Platform\Windows\AzQtComponents\Utilities\HandleDpiAwareness_Windows.cpp">
+      <Filter>AzQtComponents\Platform\Windows\..\..\..\Platform\Windows\AzQtComponents\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\MouseHider_win.cpp">
+      <Filter>AzQtComponents\Platform\Windows\..\..\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\QtWindowUtilities_win.cpp">
+      <Filter>AzQtComponents\Platform\Windows\..\..\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\ScreenGrabber_win.cpp">
+      <Filter>AzQtComponents\Platform\Windows\..\..\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\TitleBarOverdrawHandler_win.cpp">
+      <Filter>AzQtComponents\Platform\Windows\..\..\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\TitleBarOverdrawScreenHandler_win.cpp">
+      <Filter>AzQtComponents\Platform\Windows\..\..\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\Platform\Windows\AzQtComponents\Components\StyledDockWidget_Windows.cpp">
+      <Filter>AzQtComponents\Platform\Windows\..\..\..\Platform\Windows\AzQtComponents\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents_autogen\WZGSBCMU2U\qrc_resources.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents_autogen\5MPEWRFMVA\qrc_resources.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\AzQtComponentsAPI.h">
+      <Filter>AzQtComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Application\AzQtApplication.h">
+      <Filter>AzQtComponents\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Buses\DragAndDrop.h">
+      <Filter>AzQtComponents\Buses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Buses\ShortcutDispatch.h">
+      <Filter>AzQtComponents\Buses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\DragAndDrop\MainWindowDragAndDrop.h">
+      <Filter>AzQtComponents\DragAndDrop</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\DragAndDrop\ViewportDragAndDrop.h">
+      <Filter>AzQtComponents\DragAndDrop</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\AutoCustomWindowDecorations.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\ButtonDivider.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\ButtonStripe.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\ConfigHelpers.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\DockBar.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\DockBarButton.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\DockMainWindow.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\DockTabBar.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\DockTabWidget.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\FancyDocking.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\FancyDockingGhostWidget.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\FancyDockingDropZoneWidget.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\FilteredSearchWidget.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\GlobalEventFilter.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\O3DEStylesheet.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Titlebar.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\TitleBarOverdrawHandler.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\ToolButtonComboBox.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\ToolButtonLineEdit.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\ToolButtonWithWidget.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\StyledDockWidget.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\StyledBusyLabel.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\StyledDetailsTableModel.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\StyledDetailsTableView.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\HelpButton.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\InteractiveWindowGeometryChanger.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\SearchLineEdit.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\StyledDialog.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\StyledLineEdit.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\StyledSpinBox.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Style.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\StyleHelpers.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\StyleManager.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\StyleSheetCache.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\StylesheetPreprocessor.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\TagSelector.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\ToolBarArea.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\VectorEdit.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\WindowDecorationWrapper.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\ExtendedLabel.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\RepolishMinimizer.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\FlowLayout.h">
+      <Filter>AzQtComponents\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\AssetFolderListView.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\AssetFolderThumbnailView.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\BreadCrumbs.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\BrowseEdit.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\Card.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\CardHeader.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\CardNotification.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\CheckBox.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorLabel.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ComboBox.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\DialogButtonBox.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\DragAndDrop.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ElidingLabel.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\Eyedropper.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\GradientSlider.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\LineEdit.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\LogicalTabOrderingWidget.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\Menu.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\MessageBox.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\OverlayWidget.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\Internal\OverlayWidgetLayer.h">
+      <Filter>AzQtComponents\Components\Widgets\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ProgressBar.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\PushButton.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\RadioButton.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ScrollBar.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\SegmentBar.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\SegmentControl.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\Slider.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\SliderCombo.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\SpinBox.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\StatusBar.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\TableView.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\TabWidget.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\TabWidgetActionToolBar.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\Text.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ToolBar.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ToolButton.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\TreeView.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\VectorInput.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\ColorController.h">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\ColorComponentSliders.h">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\ColorPreview.h">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\ColorRGBAEdit.h">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\ColorHexEdit.h">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\ColorGrid.h">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\ColorValidator.h">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\PaletteView.h">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\Palette.h">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\GammaEdit.h">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\PaletteCard.h">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\PaletteCardCollection.h">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\Swatch.h">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\ColorWarning.h">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\AutoSettingsGroup.h">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\ColorUtilities.h">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\Conversions.h">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\DesktopUtilities.h">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\HandleDpiAwareness.h">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\MouseHider.h">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\QtPluginPaths.h">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\QtWindowUtilities.h">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\QtViewPaneEffects.h">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\RandomNumberGenerator.h">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\ScreenUtilities.h">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\ScreenGrabber.h">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\ScopedCleanup.h">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\SelectionProxyModel.h">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Utilities\TextUtilities.h">
+      <Filter>AzQtComponents\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\TitleBarOverdrawHandler_win.h">
+      <Filter>AzQtComponents\Platform\Windows\..\..\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\TitleBarOverdrawScreenHandler_win.h">
+      <Filter>AzQtComponents\Platform\Windows\..\..\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents_autogen\include\AzQtComponents\Components\ui_FilteredSearchWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents_autogen\include\AzQtComponents\Components\Widgets\Internal\ui_OverlayWidgetLayer.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\FilteredSearchWidget.ui">
+      <Filter>AzQtComponents\Components</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\Internal\OverlayWidgetLayer.ui">
+      <Filter>AzQtComponents\Components\Widgets\Internal</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\4821ed08314951a93728ddce36cca782\qrc_resources.cpp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\a8431567510d3413e5b054e1fc69da0b\qrc_resources.cpp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\natvis\qt.natvis">
+      <Filter>AzQtComponents\Platform\Windows\..\..\natvis</Filter>
+    </Natvis>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\DockBarButtonConfig.ini">
+      <Filter>AzQtComponents\Components</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\resources.qrc">
+      <Filter>AzQtComponents\Components</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\BaseStyleSheet.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\AssetFolderListView.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\AssetFolderThumbnailViewConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\BreadCrumbsConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\BreadCrumbs.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\BrowseEdit.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\BrowseEditConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\CardConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\Card.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\CheckBox.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\CheckBoxConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorLabel.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPickerConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ComboBox.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ComboBoxConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\DragAndDropConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\EyedropperConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\FilteredSearchWidget.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\FilteredSearchWidgetConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\LineEdit.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\LineEditConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\Menu.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\MenuConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ProgressBarConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ProgressBar.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\PushButtonConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\PushButton.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\QDockWidget.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\RadioButton.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\RadioButtonConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ReflectedPropertyEditor.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ScrollBar.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ScrollBarConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\SegmentControl.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\Slider.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\SliderConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\SpinBox.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\SpinBoxConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\StatusBarConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\StyledDockWidget.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\TableView.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\TabWidget.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\TabWidgetConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\TabWidgetActionToolBar.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\Text.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\TitleBar.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\TitleBarConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ToolBar.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ToolBarConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ToolButtonConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ToolTip.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\TreeViewConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\VectorInput.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\WindowDecorationWrapper.qss">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\ColorPicker\PaletteViewConfig.ini">
+      <Filter>AzQtComponents\Components\Widgets\ColorPicker</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Images\resources.qrc">
+      <Filter>AzQtComponents\Images</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\azqtcomponents_files.cmake">
+      <Filter>AzQtComponents</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Platform\Windows\platform_windows_files.cmake">
+      <Filter>AzQtComponents\Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\Platform\Windows\platform_windows.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="AzQtComponents">
+      <UniqueIdentifier>{151EC677-0369-3561-9141-0492C992CFC3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\Application">
+      <UniqueIdentifier>{7141E675-3638-3DDE-A4CA-086AD87C29C1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\Buses">
+      <UniqueIdentifier>{DFAF3F4E-E4C2-347E-A861-9E3C59852B98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\Components">
+      <UniqueIdentifier>{C1CA5FA5-953A-32A4-B5B7-8F85E247BE44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\Components\Widgets">
+      <UniqueIdentifier>{2369B076-CFBB-32A5-BE95-5A2E2CBB8FB8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\Components\Widgets\ColorPicker">
+      <UniqueIdentifier>{2A03EC3D-EF52-365A-B696-403673C90943}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\Components\Widgets\Internal">
+      <UniqueIdentifier>{719152DB-4154-3485-BC14-CC9EF264BF13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\DragAndDrop">
+      <UniqueIdentifier>{99AF01B0-D864-3E9A-9D35-FA757D7C46BA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\Images">
+      <UniqueIdentifier>{3FFC5210-4A9D-33F0-82C9-1445EFC5F2EC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\Platform">
+      <UniqueIdentifier>{15E5EDF3-7DC5-38AD-83AC-0362844A554C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\Platform\Windows">
+      <UniqueIdentifier>{994D50BC-4D98-3277-8147-443D4C7541F9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\Platform\Windows\..">
+      <UniqueIdentifier>{B745C10F-228F-3168-BA3D-E7E8CF7AE407}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\Platform\Windows\..\..">
+      <UniqueIdentifier>{AF69010D-63A3-3891-99E6-6AE1883E0D38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\Platform\Windows\..\..\..">
+      <UniqueIdentifier>{96883110-94AD-3B63-AFED-27CA88F1D137}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\Platform\Windows\..\..\..\Platform">
+      <UniqueIdentifier>{4CACCE62-4F3E-3FD6-A544-7C13DF4B9E9F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\Platform\Windows\..\..\..\Platform\Windows">
+      <UniqueIdentifier>{D59D5B64-28D5-3788-96C8-E9442DA76E13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\Platform\Windows\..\..\..\Platform\Windows\AzQtComponents">
+      <UniqueIdentifier>{6E1CE9C4-F7D5-31D4-AAFB-8686300622C4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\Platform\Windows\..\..\..\Platform\Windows\AzQtComponents\Components">
+      <UniqueIdentifier>{385E6EBD-FDF7-36A9-B64F-050713728872}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\Platform\Windows\..\..\..\Platform\Windows\AzQtComponents\Utilities">
+      <UniqueIdentifier>{A717BB51-759C-3960-8CC0-B81BB52B05E0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\Platform\Windows\..\..\Components">
+      <UniqueIdentifier>{39512985-BA6C-3EE2-809F-A3047B078712}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\Platform\Windows\..\..\Utilities">
+      <UniqueIdentifier>{284B2473-4461-399A-B62B-2C516F35EAEA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\Platform\Windows\..\..\natvis">
+      <UniqueIdentifier>{DDE62805-B63B-3863-B8DC-3319E4580F1D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AzQtComponents\Utilities">
+      <UniqueIdentifier>{E9BE2EDD-2E86-34FE-93E2-C4C3AC53A81F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{D4CCE8D3-A6C9-3C6A-9C86-8BF8F7D77D7F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{9B5BE819-E94D-379A-84DF-5559629D4548}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

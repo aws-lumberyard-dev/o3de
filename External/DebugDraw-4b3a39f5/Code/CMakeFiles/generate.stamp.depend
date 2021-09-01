@@ -1,0 +1,5 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/DebugDraw/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/DebugDraw/Code/debugdraw_editor_files.cmake
+J:/Atom/lyfork/o3de/Gems/DebugDraw/Code/debugdraw_files.cmake
+J:/Atom/lyfork/o3de/Gems/DebugDraw/Code/debugdraw_shared_files.cmake

@@ -1,0 +1,533 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvas.Editor_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\GraphCanvas.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\GraphCanvasEditorModule.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\tools.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\BookmarkManagerComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\GeometryComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\GridComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\GridVisualComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\LayerControllerComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\PersistentIdComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\SceneComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\SceneMemberComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\StylingComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\BookmarkAnchor\BookmarkAnchorComponent.cpp">
+      <Filter>Source\Components\BookmarkAnchor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\BookmarkAnchor\BookmarkAnchorVisualComponent.cpp">
+      <Filter>Source\Components\BookmarkAnchor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Connections\ConnectionComponent.cpp">
+      <Filter>Source\Components\Connections</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Connections\ConnectionLayerControllerComponent.cpp">
+      <Filter>Source\Components\Connections</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Connections\ConnectionVisualComponent.cpp">
+      <Filter>Source\Components\Connections</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Connections\DataConnections\DataConnectionComponent.cpp">
+      <Filter>Source\Components\Connections\DataConnections</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Connections\DataConnections\DataConnectionGraphicsItem.cpp">
+      <Filter>Source\Components\Connections\DataConnections</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Connections\DataConnections\DataConnectionVisualComponent.cpp">
+      <Filter>Source\Components\Connections\DataConnections</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\NodePropertyDisplays\AssetIdNodePropertyDisplay.cpp">
+      <Filter>Source\Components\NodePropertyDisplays</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\NodePropertyDisplays\BooleanNodePropertyDisplay.cpp">
+      <Filter>Source\Components\NodePropertyDisplays</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\NodePropertyDisplays\ComboBoxNodePropertyDisplay.cpp">
+      <Filter>Source\Components\NodePropertyDisplays</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\NodePropertyDisplays\NumericNodePropertyDisplay.cpp">
+      <Filter>Source\Components\NodePropertyDisplays</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\NodePropertyDisplays\EntityIdNodePropertyDisplay.cpp">
+      <Filter>Source\Components\NodePropertyDisplays</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\NodePropertyDisplays\ReadOnlyNodePropertyDisplay.cpp">
+      <Filter>Source\Components\NodePropertyDisplays</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\NodePropertyDisplays\StringNodePropertyDisplay.cpp">
+      <Filter>Source\Components\NodePropertyDisplays</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\NodePropertyDisplays\VectorNodePropertyDisplay.cpp">
+      <Filter>Source\Components\NodePropertyDisplays</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\NodeComponent.cpp">
+      <Filter>Source\Components\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\NodeFrameGraphicsWidget.cpp">
+      <Filter>Source\Components\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\Comment\CommentNodeFrameComponent.cpp">
+      <Filter>Source\Components\Nodes\Comment</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\Comment\CommentNodeLayoutComponent.cpp">
+      <Filter>Source\Components\Nodes\Comment</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\Comment\CommentNodeTextComponent.cpp">
+      <Filter>Source\Components\Nodes\Comment</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\Comment\CommentTextGraphicsWidget.cpp">
+      <Filter>Source\Components\Nodes\Comment</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\General\GeneralNodeFrameComponent.cpp">
+      <Filter>Source\Components\Nodes\General</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\General\GeneralNodeLayoutComponent.cpp">
+      <Filter>Source\Components\Nodes\General</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\General\GeneralNodeTitleComponent.cpp">
+      <Filter>Source\Components\Nodes\General</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\General\GeneralSlotLayoutComponent.cpp">
+      <Filter>Source\Components\Nodes\General</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\Group\CollapsedNodeGroupComponent.cpp">
+      <Filter>Source\Components\Nodes\Group</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\Group\NodeGroupFrameComponent.cpp">
+      <Filter>Source\Components\Nodes\Group</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\Group\NodeGroupLayoutComponent.cpp">
+      <Filter>Source\Components\Nodes\Group</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\Wrapper\WrapperNodeLayoutComponent.cpp">
+      <Filter>Source\Components\Nodes\Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\SlotComponent.cpp">
+      <Filter>Source\Components\Slots</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\SlotConnectionFilterComponent.cpp">
+      <Filter>Source\Components\Slots</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\SlotConnectionPin.cpp">
+      <Filter>Source\Components\Slots</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\SlotLayoutComponent.cpp">
+      <Filter>Source\Components\Slots</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Data\DataSlotComponent.cpp">
+      <Filter>Source\Components\Slots\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Data\DataSlotConnectionPin.cpp">
+      <Filter>Source\Components\Slots\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Data\DataSlotLayoutComponent.cpp">
+      <Filter>Source\Components\Slots\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Default\DefaultSlotLayoutComponent.cpp">
+      <Filter>Source\Components\Slots\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Execution\ExecutionSlotComponent.cpp">
+      <Filter>Source\Components\Slots\Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Execution\ExecutionSlotConnectionPin.cpp">
+      <Filter>Source\Components\Slots\Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Execution\ExecutionSlotLayoutComponent.cpp">
+      <Filter>Source\Components\Slots\Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Extender\ExtenderSlotComponent.cpp">
+      <Filter>Source\Components\Slots\Extender</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Extender\ExtenderSlotConnectionPin.cpp">
+      <Filter>Source\Components\Slots\Extender</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Extender\ExtenderSlotLayoutComponent.cpp">
+      <Filter>Source\Components\Slots\Extender</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Property\PropertySlotComponent.cpp">
+      <Filter>Source\Components\Slots\Property</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Property\PropertySlotLayoutComponent.cpp">
+      <Filter>Source\Components\Slots\Property</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Widgets\GraphCanvasCheckBox.cpp">
+      <Filter>Source\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Widgets\GraphCanvasComboBox.cpp">
+      <Filter>Source\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Widgets\GraphCanvasLabel.cpp">
+      <Filter>Source\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Widgets\NodePropertyDisplayWidget.cpp">
+      <Filter>Source\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Translation\TranslationAsset.cpp">
+      <Filter>Source\Translation</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Translation\TranslationBuilder.cpp">
+      <Filter>Source\Translation</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Translation\TranslationDatabase.cpp">
+      <Filter>Source\Translation</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Translation\TranslationSerializer.cpp">
+      <Filter>Source\Translation</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvas.Editor_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\GraphCanvas-d754bf51\Code\GraphCanvas.Editor_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Include\GraphCanvas\Widgets\RootGraphicsItem.h">
+      <Filter>Include\GraphCanvas\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Include\GraphCanvas\tools.h">
+      <Filter>Include\GraphCanvas</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Include\GraphCanvas\Components\Connections\ConnectionFilters\ConnectionFilterBus.h">
+      <Filter>Include\GraphCanvas\Components\Connections\ConnectionFilters</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Include\GraphCanvas\Components\Connections\ConnectionFilters\ConnectionFilters.h">
+      <Filter>Include\GraphCanvas\Components\Connections\ConnectionFilters</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Include\GraphCanvas\Components\Connections\ConnectionFilters\DataConnectionFilters.h">
+      <Filter>Include\GraphCanvas\Components\Connections\ConnectionFilters</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\GraphCanvas.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\GraphCanvasModule.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\BookmarkManagerComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\GeometryComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\GridComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\GridVisualComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\LayerControllerComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\PersistentIdComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\SceneComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\SceneMemberComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\StylingComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\BookmarkAnchor\BookmarkAnchorComponent.h">
+      <Filter>Source\Components\BookmarkAnchor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\BookmarkAnchor\BookmarkAnchorLayerControllerComponent.h">
+      <Filter>Source\Components\BookmarkAnchor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\BookmarkAnchor\BookmarkAnchorVisualComponent.h">
+      <Filter>Source\Components\BookmarkAnchor</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Connections\ConnectionComponent.h">
+      <Filter>Source\Components\Connections</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Connections\ConnectionLayerControllerComponent.h">
+      <Filter>Source\Components\Connections</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Connections\ConnectionVisualComponent.h">
+      <Filter>Source\Components\Connections</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Connections\DataConnections\DataConnectionComponent.h">
+      <Filter>Source\Components\Connections\DataConnections</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Connections\DataConnections\DataConnectionGraphicsItem.h">
+      <Filter>Source\Components\Connections\DataConnections</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Connections\DataConnections\DataConnectionVisualComponent.h">
+      <Filter>Source\Components\Connections\DataConnections</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\NodePropertyDisplays\AssetIdNodePropertyDisplay.h">
+      <Filter>Source\Components\NodePropertyDisplays</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\NodePropertyDisplays\BooleanNodePropertyDisplay.h">
+      <Filter>Source\Components\NodePropertyDisplays</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\NodePropertyDisplays\ComboBoxNodePropertyDisplay.h">
+      <Filter>Source\Components\NodePropertyDisplays</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\NodePropertyDisplays\NumericNodePropertyDisplay.h">
+      <Filter>Source\Components\NodePropertyDisplays</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\NodePropertyDisplays\EntityIdNodePropertyDisplay.h">
+      <Filter>Source\Components\NodePropertyDisplays</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\NodePropertyDisplays\ReadOnlyNodePropertyDisplay.h">
+      <Filter>Source\Components\NodePropertyDisplays</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\NodePropertyDisplays\StringNodePropertyDisplay.h">
+      <Filter>Source\Components\NodePropertyDisplays</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\NodePropertyDisplays\VectorNodePropertyDisplay.h">
+      <Filter>Source\Components\NodePropertyDisplays</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\NodeComponent.h">
+      <Filter>Source\Components\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\NodeFrameGraphicsWidget.h">
+      <Filter>Source\Components\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\NodeLayerControllerComponent.h">
+      <Filter>Source\Components\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\NodeLayoutComponent.h">
+      <Filter>Source\Components\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\Comment\CommentLayerControllerComponent.h">
+      <Filter>Source\Components\Nodes\Comment</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\Comment\CommentNodeFrameComponent.h">
+      <Filter>Source\Components\Nodes\Comment</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\Comment\CommentNodeLayoutComponent.h">
+      <Filter>Source\Components\Nodes\Comment</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\Comment\CommentNodeTextComponent.h">
+      <Filter>Source\Components\Nodes\Comment</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\Comment\CommentTextGraphicsWidget.h">
+      <Filter>Source\Components\Nodes\Comment</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\General\GeneralNodeFrameComponent.h">
+      <Filter>Source\Components\Nodes\General</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\General\GeneralNodeLayoutComponent.h">
+      <Filter>Source\Components\Nodes\General</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\General\GeneralNodeTitleComponent.h">
+      <Filter>Source\Components\Nodes\General</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\General\GeneralSlotLayoutComponent.h">
+      <Filter>Source\Components\Nodes\General</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\Group\CollapsedNodeGroupComponent.h">
+      <Filter>Source\Components\Nodes\Group</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\Group\NodeGroupFrameComponent.h">
+      <Filter>Source\Components\Nodes\Group</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\Group\NodeGroupLayerControllerComponent.h">
+      <Filter>Source\Components\Nodes\Group</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\Group\NodeGroupLayoutComponent.h">
+      <Filter>Source\Components\Nodes\Group</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Nodes\Wrapper\WrapperNodeLayoutComponent.h">
+      <Filter>Source\Components\Nodes\Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\SlotComponent.h">
+      <Filter>Source\Components\Slots</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\SlotConnectionFilterComponent.h">
+      <Filter>Source\Components\Slots</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\SlotConnectionPin.h">
+      <Filter>Source\Components\Slots</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\SlotLayoutComponent.h">
+      <Filter>Source\Components\Slots</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\SlotLayoutItem.h">
+      <Filter>Source\Components\Slots</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Data\DataSlotComponent.h">
+      <Filter>Source\Components\Slots\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Data\DataSlotConnectionPin.h">
+      <Filter>Source\Components\Slots\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Data\DataSlotLayoutComponent.h">
+      <Filter>Source\Components\Slots\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Default\DefaultSlotLayoutComponent.h">
+      <Filter>Source\Components\Slots\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Execution\ExecutionSlotComponent.h">
+      <Filter>Source\Components\Slots\Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Execution\ExecutionSlotConnectionPin.h">
+      <Filter>Source\Components\Slots\Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Execution\ExecutionSlotLayoutComponent.h">
+      <Filter>Source\Components\Slots\Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Extender\ExtenderSlotComponent.h">
+      <Filter>Source\Components\Slots\Extender</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Extender\ExtenderSlotConnectionPin.h">
+      <Filter>Source\Components\Slots\Extender</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Extender\ExtenderSlotLayoutComponent.h">
+      <Filter>Source\Components\Slots\Extender</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Property\PropertySlotComponent.h">
+      <Filter>Source\Components\Slots\Property</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Components\Slots\Property\PropertySlotLayoutComponent.h">
+      <Filter>Source\Components\Slots\Property</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Widgets\GraphCanvasCheckBox.h">
+      <Filter>Source\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Widgets\GraphCanvasComboBox.h">
+      <Filter>Source\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Widgets\GraphCanvasLabel.h">
+      <Filter>Source\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Widgets\NodePropertyDisplayWidget.h">
+      <Filter>Source\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Translation\TranslationAsset.h">
+      <Filter>Source\Translation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Translation\TranslationBuilder.h">
+      <Filter>Source\Translation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Translation\TranslationBus.h">
+      <Filter>Source\Translation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Translation\TranslationDatabase.h">
+      <Filter>Source\Translation</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\Source\Translation\TranslationSerializer.h">
+      <Filter>Source\Translation</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GraphCanvas\Code\graphcanvas_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\GraphCanvas">
+      <UniqueIdentifier>{177151F2-DA88-3710-9CA2-15862F7B7433}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\GraphCanvas\Components">
+      <UniqueIdentifier>{A84AB5C3-FDDC-32E0-8424-85A5CB7C25D1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\GraphCanvas\Components\Connections">
+      <UniqueIdentifier>{730232C4-727C-3DA1-9433-47CA5DE0B850}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\GraphCanvas\Components\Connections\ConnectionFilters">
+      <UniqueIdentifier>{67B13203-28F5-3C39-AEB9-136053B1B72D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\GraphCanvas\Widgets">
+      <UniqueIdentifier>{6A912F32-916D-3DD5-A984-E28CD7F7B778}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components">
+      <UniqueIdentifier>{0B09D740-8293-3A36-BE26-EE344C537516}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components\BookmarkAnchor">
+      <UniqueIdentifier>{B3CC66C7-B93E-3A4A-8527-F0518F47E988}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components\Connections">
+      <UniqueIdentifier>{302CEBB9-BD96-3491-B732-688AD36C3808}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components\Connections\DataConnections">
+      <UniqueIdentifier>{8D1C02E1-61C9-39F8-BB1F-57BE1D918556}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components\NodePropertyDisplays">
+      <UniqueIdentifier>{B726B88A-8B71-38CD-8C59-A9391FC81C93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components\Nodes">
+      <UniqueIdentifier>{A682974E-7D13-3AD4-A9E8-64959B1BE2DD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components\Nodes\Comment">
+      <UniqueIdentifier>{8AE3CAA2-F20A-32D9-B153-B759E6C1A5EE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components\Nodes\General">
+      <UniqueIdentifier>{29651D62-A9AF-37E4-8055-53B922586077}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components\Nodes\Group">
+      <UniqueIdentifier>{4BC701D6-CB20-37EF-806C-CC215C6EA8C8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components\Nodes\Wrapper">
+      <UniqueIdentifier>{D4CA24D0-1C1E-39E1-B9FB-8E340FA13D46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components\Slots">
+      <UniqueIdentifier>{D03CD5D7-FB47-3327-AD65-C1BD7B9029B0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components\Slots\Data">
+      <UniqueIdentifier>{7E14AB84-0D5E-392A-A444-816A30125309}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components\Slots\Default">
+      <UniqueIdentifier>{B86D2ADD-4169-3086-82B4-E2521AFA7493}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components\Slots\Execution">
+      <UniqueIdentifier>{C617E58D-5493-3A7E-A678-B12B4BB1B140}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components\Slots\Extender">
+      <UniqueIdentifier>{7C2FCEC8-D74A-38DB-BDCE-B431067CB717}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components\Slots\Property">
+      <UniqueIdentifier>{DFF3E1DD-93FE-38CE-98F7-F5048CA437C9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Translation">
+      <UniqueIdentifier>{4FB46022-BBB2-3475-8C9E-F59D47374D9C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Widgets">
+      <UniqueIdentifier>{766BC042-4D2D-3043-B37F-11978D5E0799}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

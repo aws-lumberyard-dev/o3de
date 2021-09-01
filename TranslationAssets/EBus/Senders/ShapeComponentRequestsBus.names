@@ -1,0 +1,148 @@
+{
+    "entries": [
+        {
+            "key": "ShapeComponentRequestsBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "ShapeComponentRequestsBus"
+            },
+            "methods": [
+                {
+                    "key": "DistanceSquaredFromPoint",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke DistanceSquaredFromPoint"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after DistanceSquaredFromPoint is invoked"
+                    },
+                    "details": {
+                        "name": "DistanceSquaredFromPoint"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "DistanceFromPoint",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke DistanceFromPoint"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after DistanceFromPoint is invoked"
+                    },
+                    "details": {
+                        "name": "DistanceFromPoint"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsPointInside",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IsPointInside"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IsPointInside is invoked"
+                    },
+                    "details": {
+                        "name": "IsPointInside"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetEncompassingAabb",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetEncompassingAabb"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetEncompassingAabb is invoked"
+                    },
+                    "details": {
+                        "name": "GetEncompassingAabb"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetShapeType",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetShapeType"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetShapeType is invoked"
+                    },
+                    "details": {
+                        "name": "GetShapeType"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
+                            "details": {
+                                "name": "Crc32"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

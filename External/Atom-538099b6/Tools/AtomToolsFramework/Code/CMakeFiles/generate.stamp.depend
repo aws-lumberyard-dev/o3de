@@ -1,0 +1,5 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/Atom/Tools/AtomToolsFramework/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/Atom/Tools/AtomToolsFramework/Code/Source/Inspector/InspectorWidget.qrc
+J:/Atom/lyfork/o3de/Gems/Atom/Tools/AtomToolsFramework/Code/atomtoolsframework_files.cmake
+J:/Atom/lyfork/o3de/Gems/Atom/Tools/AtomToolsFramework/Code/atomtoolsframework_shared_files.cmake

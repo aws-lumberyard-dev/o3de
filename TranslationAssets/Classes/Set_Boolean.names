@@ -1,0 +1,439 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Set<Boolean>",
+                "category": "Set",
+                "tooltip": "A dynamically sized container, where each element is unique."
+            },
+            "methods": [
+                {
+                    "key": "Size",
+                    "context": "Set<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{0D5E2C44-B2DE-57D6-B4B9-3F37C5D9B245}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetKeys",
+                    "context": "Set<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::GetKeys"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::GetKeys is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::GetKeys"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{0D5E2C44-B2DE-57D6-B4B9-3F37C5D9B245}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "contains",
+                    "context": "Set<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::contains"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::contains is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::contains"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{0D5E2C44-B2DE-57D6-B4B9-3F37C5D9B245}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Set<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{0D5E2C44-B2DE-57D6-B4B9-3F37C5D9B245}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{0D5E2C44-B2DE-57D6-B4B9-3F37C5D9B245}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Set<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{0D5E2C44-B2DE-57D6-B4B9-3F37C5D9B245}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Set<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{0D5E2C44-B2DE-57D6-B4B9-3F37C5D9B245}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Set<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{0D5E2C44-B2DE-57D6-B4B9-3F37C5D9B245}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{FB7FD37D-C9BD-5EA1-99CF-EE3BB84E1043}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Set<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{0D5E2C44-B2DE-57D6-B4B9-3F37C5D9B245}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase",
+                    "context": "Set<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Erase"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Erase is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Erase"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{0D5E2C44-B2DE-57D6-B4B9-3F37C5D9B245}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{0D5E2C44-B2DE-57D6-B4B9-3F37C5D9B245}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Set<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{0D5E2C44-B2DE-57D6-B4B9-3F37C5D9B245}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{0D5E2C44-B2DE-57D6-B4B9-3F37C5D9B245}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "BucketCount",
+                    "context": "Set<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::BucketCount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::BucketCount is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::BucketCount"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{0D5E2C44-B2DE-57D6-B4B9-3F37C5D9B245}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Set<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{0D5E2C44-B2DE-57D6-B4B9-3F37C5D9B245}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Set<Boolean>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_set<bool, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{0D5E2C44-B2DE-57D6-B4B9-3F37C5D9B245}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        },
+                        {
+                            "typeid": "{0D5E2C44-B2DE-57D6-B4B9-3F37C5D9B245}",
+                            "details": {
+                                "name": "AZStd::unordered_set"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

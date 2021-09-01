@@ -1,0 +1,128 @@
+{
+    "entries": [
+        {
+            "key": "UiCanvasManagerBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiCanvasManagerBus"
+            },
+            "methods": [
+                {
+                    "key": "CreateCanvas",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke CreateCanvas"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after CreateCanvas is invoked"
+                    },
+                    "details": {
+                        "name": "CreateCanvas"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "LoadCanvas",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke LoadCanvas"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after LoadCanvas is invoked"
+                    },
+                    "details": {
+                        "name": "LoadCanvas"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "UnloadCanvas",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UnloadCanvas"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UnloadCanvas is invoked"
+                    },
+                    "details": {
+                        "name": "UnloadCanvas"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FindLoadedCanvasByPathName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke FindLoadedCanvasByPathName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after FindLoadedCanvasByPathName is invoked"
+                    },
+                    "details": {
+                        "name": "FindLoadedCanvasByPathName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        },
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

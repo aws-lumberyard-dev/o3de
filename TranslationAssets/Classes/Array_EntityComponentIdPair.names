@@ -1,0 +1,854 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::vector<EntityComponentIdPair, allocator>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Array<EntityComponentIdPair>",
+                "category": "Array",
+                "tooltip": "A dynamically sized container of elements."
+            },
+            "methods": [
+                {
+                    "key": "Size",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Front",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::Front"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::Front is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::Front"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C845E5EC-5580-4E12-A9B2-9AE7E5B7826F}",
+                            "details": {
+                                "name": "EntityComponentIdPair"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "HasKey",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::Has Key"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::Has Key is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::Has Key"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Resize",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::Resize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::Resize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::Resize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "at",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::at"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::at is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::at"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C845E5EC-5580-4E12-A9B2-9AE7E5B7826F}",
+                            "details": {
+                                "name": "EntityComponentIdPair"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Back",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::Back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::Back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::Back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C845E5EC-5580-4E12-A9B2-9AE7E5B7826F}",
+                            "details": {
+                                "name": "EntityComponentIdPair"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "pop_back",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::pop_back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::pop_back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::pop_back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "size",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "At",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::At"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::At is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::At"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C845E5EC-5580-4E12-A9B2-9AE7E5B7826F}",
+                            "details": {
+                                "name": "EntityComponentIdPair"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "push_back",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::push_back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::push_back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::push_back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{C845E5EC-5580-4E12-A9B2-9AE7E5B7826F}",
+                            "details": {
+                                "name": "EntityComponentIdPair"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "PushBack_VM",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::PushBack_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::PushBack_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::PushBack_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{C845E5EC-5580-4E12-A9B2-9AE7E5B7826F}",
+                            "details": {
+                                "name": "EntityComponentIdPair"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AtUnchecked",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::AtUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::AtUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::AtUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C845E5EC-5580-4E12-A9B2-9AE7E5B7826F}",
+                            "details": {
+                                "name": "EntityComponentIdPair"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "clear",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "NotEmpty",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::NotEmpty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::NotEmpty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::NotEmpty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase_VM",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::Erase_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::Erase_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::Erase_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Capacity",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::Capacity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::Capacity is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::Capacity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AssignAt",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::AssignAt"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::AssignAt is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::AssignAt"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        },
+                        {
+                            "typeid": "{C845E5EC-5580-4E12-A9B2-9AE7E5B7826F}",
+                            "details": {
+                                "name": "EntityComponentIdPair"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        },
+                        {
+                            "typeid": "{C845E5EC-5580-4E12-A9B2-9AE7E5B7826F}",
+                            "details": {
+                                "name": "EntityComponentIdPair"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "PushBack",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::PushBack"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::PushBack is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::PushBack"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{C845E5EC-5580-4E12-A9B2-9AE7E5B7826F}",
+                            "details": {
+                                "name": "EntityComponentIdPair"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Array<EntityComponentIdPair>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<EntityComponentIdPair, allocator>::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<EntityComponentIdPair, allocator>::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<EntityComponentIdPair, allocator>::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43147344-44F8-597D-9F8C-B97DFC20C337}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{1378A8E9-E2C4-5831-8373-B384FEF5962F}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<EntityComponentIdPair, allocator>>"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

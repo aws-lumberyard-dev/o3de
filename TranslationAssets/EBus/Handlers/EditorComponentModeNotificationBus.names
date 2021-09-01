@@ -1,0 +1,56 @@
+{
+    "entries": [
+        {
+            "key": "EditorComponentModeNotificationBus",
+            "context": "EBusHandler",
+            "variant": "",
+            "details": {
+                "name": "EditorComponentModeNotificationBus"
+            },
+            "methods": [
+                {
+                    "key": "EnteredComponentMode",
+                    "details": {
+                        "name": "EnteredComponentMode"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3A9E52F9-1A46-5FC6-822A-249BBFB50C90}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "LeftComponentMode",
+                    "details": {
+                        "name": "LeftComponentMode"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3A9E52F9-1A46-5FC6-822A-249BBFB50C90}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ActiveComponentModeChanged",
+                    "details": {
+                        "name": "ActiveComponentModeChanged"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{E152C105-A133-4D03-BBF8-3D4B2FBA3E2A}",
+                            "details": {
+                                "name": "AZ::Uuid"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

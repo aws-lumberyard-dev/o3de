@@ -1,0 +1,158 @@
+{
+    "entries": [
+        {
+            "key": "SimpleStateComponentRequestBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "SimpleStateComponentRequestBus"
+            },
+            "methods": [
+                {
+                    "key": "GetNumStates",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetNumStates"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetNumStates is invoked"
+                    },
+                    "details": {
+                        "name": "GetNumStates"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetToLastState",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetToLastState"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetToLastState is invoked"
+                    },
+                    "details": {
+                        "name": "SetToLastState"
+                    }
+                },
+                {
+                    "key": "SetToPreviousState",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetToPreviousState"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetToPreviousState is invoked"
+                    },
+                    "details": {
+                        "name": "SetToPreviousState"
+                    }
+                },
+                {
+                    "key": "SetToFirstState",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetToFirstState"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetToFirstState is invoked"
+                    },
+                    "details": {
+                        "name": "SetToFirstState"
+                    }
+                },
+                {
+                    "key": "SetToNextState",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetToNextState"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetToNextState is invoked"
+                    },
+                    "details": {
+                        "name": "SetToNextState"
+                    }
+                },
+                {
+                    "key": "SetStateByIndex",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetStateByIndex"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetStateByIndex is invoked"
+                    },
+                    "details": {
+                        "name": "SetStateByIndex"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetState",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetState"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetState is invoked"
+                    },
+                    "details": {
+                        "name": "SetState"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
+                            "details": {
+                                "name": "char"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetCurrentState",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetCurrentState"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetCurrentState is invoked"
+                    },
+                    "details": {
+                        "name": "GetCurrentState"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
+                            "details": {
+                                "name": "char"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

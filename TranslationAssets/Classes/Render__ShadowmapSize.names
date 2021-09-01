@@ -1,0 +1,12 @@
+{
+    "entries": [
+        {
+            "key": "Render::ShadowmapSize",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Render::ShadowmapSize"
+            }
+        }
+    ]
+}

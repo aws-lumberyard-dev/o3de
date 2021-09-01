@@ -1,0 +1,42 @@
+{
+    "entries": [
+        {
+            "key": "TagComponentNotificationsBus",
+            "context": "EBusHandler",
+            "variant": "",
+            "details": {
+                "name": "TagComponentNotificationsBus"
+            },
+            "methods": [
+                {
+                    "key": "OnTagAdded",
+                    "details": {
+                        "name": "OnTagAdded"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
+                            "details": {
+                                "name": "Crc32"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "OnTagRemoved",
+                    "details": {
+                        "name": "OnTagRemoved"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
+                            "details": {
+                                "name": "Crc32"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

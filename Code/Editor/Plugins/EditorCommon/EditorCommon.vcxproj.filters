@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\EditorCommon_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\EditorCommon.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\ActionOutput.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\DockTitleBarWidget.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\SaveUtilities\AsyncSaveRunner.cpp">
+      <Filter>SaveUtilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\AxisHelper.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\DisplayContext.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\DeepFilterProxyModel.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\DrawingPrimitives\Ruler.cpp">
+      <Filter>DrawingPrimitives</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\DrawingPrimitives\TimeSlider.cpp">
+      <Filter>DrawingPrimitives</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\WinWidget\WinWidgetManager.cpp">
+      <Filter>WinWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\EditorCommon_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\EditorCommon_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\EditorCommon.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\EditorCommonAPI.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\ActionOutput.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\UiEditorDLLBus.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\DockTitleBarWidget.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\SaveUtilities\AsyncSaveRunner.h">
+      <Filter>SaveUtilities</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\DeepFilterProxyModel.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\Resource.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\DrawingPrimitives\Ruler.h">
+      <Filter>DrawingPrimitives</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\DrawingPrimitives\TimeSlider.h">
+      <Filter>DrawingPrimitives</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\WinWidget\WinWidget.h">
+      <Filter>WinWidget</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\WinWidget\WinWidgetManager.h">
+      <Filter>WinWidget</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\editorcommon_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorCommon\EditorCommon.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="DrawingPrimitives">
+      <UniqueIdentifier>{BBA19811-2C8E-3081-B1B5-C73E6A5C7169}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SaveUtilities">
+      <UniqueIdentifier>{95617A38-9BB3-33F3-B809-B1B1D2188C6A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WinWidget">
+      <UniqueIdentifier>{D48691D3-9D10-3FBA-84D9-331FBD935DF5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

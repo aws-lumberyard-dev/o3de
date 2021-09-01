@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\CoreLights\PhotometricValue.cpp">
+      <Filter>Source\CoreLights</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\MorphTargets\MorphTargetInputBuffers.cpp">
+      <Filter>Source\MorphTargets</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkinnedMesh\SkinnedMeshInputBuffers.cpp">
+      <Filter>Source\SkinnedMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Source\SkinnedMesh\SkinnedMeshInstance.cpp">
+      <Filter>Source\SkinnedMesh</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\CoreLights\CapsuleLightFeatureProcessorInterface.h">
+      <Filter>Include\Atom\Feature\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\CoreLights\DirectionalLightFeatureProcessorInterface.h">
+      <Filter>Include\Atom\Feature\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\CoreLights\DiskLightFeatureProcessorInterface.h">
+      <Filter>Include\Atom\Feature\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\CoreLights\EsmShadowmapsPassData.h">
+      <Filter>Include\Atom\Feature\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\CoreLights\PhotometricValue.h">
+      <Filter>Include\Atom\Feature\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\CoreLights\PointLightFeatureProcessorInterface.h">
+      <Filter>Include\Atom\Feature\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\CoreLights\PolygonLightFeatureProcessorInterface.h">
+      <Filter>Include\Atom\Feature\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\CoreLights\QuadLightFeatureProcessorInterface.h">
+      <Filter>Include\Atom\Feature\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\CoreLights\SimplePointLightFeatureProcessorInterface.h">
+      <Filter>Include\Atom\Feature\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\CoreLights\SimpleSpotLightFeatureProcessorInterface.h">
+      <Filter>Include\Atom\Feature\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\CoreLights\ShadowConstants.h">
+      <Filter>Include\Atom\Feature\CoreLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\Decals\DecalFeatureProcessorInterface.h">
+      <Filter>Include\Atom\Feature\Decals</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\DiffuseGlobalIllumination\DiffuseProbeGridFeatureProcessorInterface.h">
+      <Filter>Include\Atom\Feature\DiffuseGlobalIllumination</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\DiffuseGlobalIllumination\DiffuseGlobalIlluminationFeatureProcessorInterface.h">
+      <Filter>Include\Atom\Feature\DiffuseGlobalIllumination</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\DisplayMapper\DisplayMapperFeatureProcessorInterface.h">
+      <Filter>Include\Atom\Feature\DisplayMapper</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ImageBasedLights\ImageBasedLightFeatureProcessorInterface.h">
+      <Filter>Include\Atom\Feature\ImageBasedLights</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\Mesh\MeshFeatureProcessorInterface.h">
+      <Filter>Include\Atom\Feature\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\MorphTargets\MorphTargetInputBuffers.h">
+      <Filter>Include\Atom\Feature\MorphTargets</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ParamMacros\EndParams.inl">
+      <Filter>Include\Atom\Feature\ParamMacros</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ParamMacros\MapAllCommon.inl">
+      <Filter>Include\Atom\Feature\ParamMacros</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ParamMacros\MapOverrideCommon.inl">
+      <Filter>Include\Atom\Feature\ParamMacros</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ParamMacros\MapOverrideEmpty.inl">
+      <Filter>Include\Atom\Feature\ParamMacros</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ParamMacros\MapParamCommon.inl">
+      <Filter>Include\Atom\Feature\ParamMacros</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ParamMacros\MapParamEmpty.inl">
+      <Filter>Include\Atom\Feature\ParamMacros</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ParamMacros\ParamMacrosHowTo.inl">
+      <Filter>Include\Atom\Feature\ParamMacros</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ParamMacros\StartOverrideBlend.inl">
+      <Filter>Include\Atom\Feature\ParamMacros</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ParamMacros\StartOverrideEditorContext.inl">
+      <Filter>Include\Atom\Feature\ParamMacros</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ParamMacros\StartParamBehaviorContext.inl">
+      <Filter>Include\Atom\Feature\ParamMacros</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ParamMacros\StartParamCopySettingsFrom.inl">
+      <Filter>Include\Atom\Feature\ParamMacros</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ParamMacros\StartParamCopySettingsTo.inl">
+      <Filter>Include\Atom\Feature\ParamMacros</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ParamMacros\StartParamFunctions.inl">
+      <Filter>Include\Atom\Feature\ParamMacros</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ParamMacros\StartParamFunctionsOverride.inl">
+      <Filter>Include\Atom\Feature\ParamMacros</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ParamMacros\StartParamFunctionsVirtual.inl">
+      <Filter>Include\Atom\Feature\ParamMacros</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ParamMacros\StartParamMembers.inl">
+      <Filter>Include\Atom\Feature\ParamMacros</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ParamMacros\StartParamSerializeContext.inl">
+      <Filter>Include\Atom\Feature\ParamMacros</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\OcclusionCullingPlane\OcclusionCullingPlaneFeatureProcessorInterface.h">
+      <Filter>Include\Atom\Feature\OcclusionCullingPlane</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\PostProcess\PostProcessFeatureProcessorInterface.h">
+      <Filter>Include\Atom\Feature\PostProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\PostProcess\PostProcessParams.inl">
+      <Filter>Include\Atom\Feature\PostProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\PostProcess\PostProcessSettings.inl">
+      <Filter>Include\Atom\Feature\PostProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\PostProcess\PostProcessSettingsInterface.h">
+      <Filter>Include\Atom\Feature\PostProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\PostProcess\Bloom\BloomConstants.h">
+      <Filter>Include\Atom\Feature\PostProcess\Bloom</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\PostProcess\Bloom\BloomParams.inl">
+      <Filter>Include\Atom\Feature\PostProcess\Bloom</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\PostProcess\Bloom\BloomSettingsInterface.h">
+      <Filter>Include\Atom\Feature\PostProcess\Bloom</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\PostProcess\DepthOfField\DepthOfFieldConstants.h">
+      <Filter>Include\Atom\Feature\PostProcess\DepthOfField</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\PostProcess\DepthOfField\DepthOfFieldParams.inl">
+      <Filter>Include\Atom\Feature\PostProcess\DepthOfField</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\PostProcess\DepthOfField\DepthOfFieldSettingsInterface.h">
+      <Filter>Include\Atom\Feature\PostProcess\DepthOfField</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\PostProcess\ExposureControl\ExposureControlConstants.h">
+      <Filter>Include\Atom\Feature\PostProcess\ExposureControl</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\PostProcess\ExposureControl\ExposureControlParams.inl">
+      <Filter>Include\Atom\Feature\PostProcess\ExposureControl</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\PostProcess\ExposureControl\ExposureControlSettingsInterface.h">
+      <Filter>Include\Atom\Feature\PostProcess\ExposureControl</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\PostProcess\Ssao\SsaoConstants.h">
+      <Filter>Include\Atom\Feature\PostProcess\Ssao</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\PostProcess\Ssao\SsaoParams.inl">
+      <Filter>Include\Atom\Feature\PostProcess\Ssao</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\PostProcess\Ssao\SsaoSettingsInterface.h">
+      <Filter>Include\Atom\Feature\PostProcess\Ssao</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\PostProcess\LookModification\LookModificationParams.inl">
+      <Filter>Include\Atom\Feature\PostProcess\LookModification</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\PostProcess\LookModification\LookModificationSettingsInterface.h">
+      <Filter>Include\Atom\Feature\PostProcess\LookModification</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ScreenSpace\DeferredFogSettingsInterface.h">
+      <Filter>Include\Atom\Feature\ScreenSpace</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ScreenSpace\DeferredFogParams.inl">
+      <Filter>Include\Atom\Feature\ScreenSpace</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\ReflectionProbe\ReflectionProbeFeatureProcessorInterface.h">
+      <Filter>Include\Atom\Feature\ReflectionProbe</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\Shadows\ProjectedShadowFeatureProcessorInterface.h">
+      <Filter>Include\Atom\Feature\Shadows</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\SkinnedMesh\SkinnedMeshFeatureProcessorBus.h">
+      <Filter>Include\Atom\Feature\SkinnedMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\SkinnedMesh\SkinnedMeshFeatureProcessorInterface.h">
+      <Filter>Include\Atom\Feature\SkinnedMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\SkinnedMesh\SkinnedMeshInputBuffers.h">
+      <Filter>Include\Atom\Feature\SkinnedMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\SkinnedMesh\SkinnedMeshInstance.h">
+      <Filter>Include\Atom\Feature\SkinnedMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\SkinnedMesh\SkinnedMeshOutputStreamManagerInterface.h">
+      <Filter>Include\Atom\Feature\SkinnedMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\SkinnedMesh\SkinnedMeshRenderProxyInterface.h">
+      <Filter>Include\Atom\Feature\SkinnedMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\SkinnedMesh\SkinnedMeshStatsBus.h">
+      <Filter>Include\Atom\Feature\SkinnedMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\SkinnedMesh\SkinnedMeshVertexStreams.h">
+      <Filter>Include\Atom\Feature\SkinnedMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\SkinnedMesh\SkinnedMeshShaderOptions.h">
+      <Filter>Include\Atom\Feature\SkinnedMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\TransformService\TransformServiceFeatureProcessorInterface.h">
+      <Filter>Include\Atom\Feature\TransformService</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\Include\Atom\Feature\SkyBox\SkyBoxFeatureProcessorInterface.h">
+      <Filter>Include\Atom\Feature\SkyBox</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_public_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom">
+      <UniqueIdentifier>{E66A19AE-451A-3F1F-B698-7608D533AFDF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature">
+      <UniqueIdentifier>{E05362D9-7F9B-38F6-A9C4-38C00036C2F2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature\CoreLights">
+      <UniqueIdentifier>{F0981430-307F-3828-B9D0-3FF190DE043C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature\Decals">
+      <UniqueIdentifier>{69A91585-F697-380D-B416-0850DB9E1621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature\DiffuseGlobalIllumination">
+      <UniqueIdentifier>{636EE82E-BD3C-35EC-B9A9-7057AA3C6694}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature\DisplayMapper">
+      <UniqueIdentifier>{C8DDEC0D-BBF7-3217-8D55-EBC8F8B920A9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature\ImageBasedLights">
+      <UniqueIdentifier>{C40AEFED-1F47-3992-A851-19665C972BE3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature\Mesh">
+      <UniqueIdentifier>{286CC982-7D44-3B79-93F5-CDEFC400BA92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature\MorphTargets">
+      <UniqueIdentifier>{B7416F0C-C930-3E8D-93FE-3148E2B13512}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature\OcclusionCullingPlane">
+      <UniqueIdentifier>{63ED03F4-C6D7-3D88-8259-911032B2CDBC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature\ParamMacros">
+      <UniqueIdentifier>{63B8D3FE-8F79-3483-9528-25D0390DEB74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature\PostProcess">
+      <UniqueIdentifier>{07844D17-1854-34D8-A0BB-1E7C957FED8F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature\PostProcess\Bloom">
+      <UniqueIdentifier>{C0C7B117-A016-317E-A411-722701B8FB30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature\PostProcess\DepthOfField">
+      <UniqueIdentifier>{C615AA78-5457-337F-9E82-9B403A565328}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature\PostProcess\ExposureControl">
+      <UniqueIdentifier>{13794D28-2B4E-3E0D-A242-01DB1A813F99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature\PostProcess\LookModification">
+      <UniqueIdentifier>{4BD7FE36-E882-337A-B543-CCACCF764E5A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature\PostProcess\Ssao">
+      <UniqueIdentifier>{84B9D304-08B0-3A0C-97DC-C65F769232BE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature\ReflectionProbe">
+      <UniqueIdentifier>{0D5C1C6B-4C78-313C-BD07-6935DA2FC866}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature\ScreenSpace">
+      <UniqueIdentifier>{D523E810-8E21-3A85-B0E2-600400408CBB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature\Shadows">
+      <UniqueIdentifier>{93FBD706-B16C-30AD-A847-C0CADC4CDF2A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature\SkinnedMesh">
+      <UniqueIdentifier>{C45E7F99-7762-3FC6-9BFA-4A277EE2A81E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature\SkyBox">
+      <UniqueIdentifier>{E8232E60-E80F-3D69-BDC4-8711BB2FF2B3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\Feature\TransformService">
+      <UniqueIdentifier>{C5051FB3-109B-32DB-BAAB-AE8ACDD07307}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreLights">
+      <UniqueIdentifier>{BD0479FF-E2D5-39DE-9053-A56649221D1A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MorphTargets">
+      <UniqueIdentifier>{8DD43F8B-AC18-3F5A-A836-AE7EC7F1272D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\SkinnedMesh">
+      <UniqueIdentifier>{E85B80D8-FA7C-3BBC-B335-78363AD9C1B1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

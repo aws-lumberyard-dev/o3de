@@ -1,0 +1,9 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/Metastream/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/Metastream/Code/Source/Platform/Common/MSVC/metastream_msvc.cmake
+J:/Atom/lyfork/o3de/Gems/Metastream/Code/Source/Platform/Windows/metastream_windows.cmake
+J:/Atom/lyfork/o3de/Gems/Metastream/Code/Source/Platform/Windows/platform_windows_files.cmake
+J:/Atom/lyfork/o3de/Gems/Metastream/Code/metastream_files.cmake
+J:/Atom/lyfork/o3de/Gems/Metastream/Code/metastream_shared_files.cmake
+J:/Atom/lyfork/o3de/Gems/Metastream/Code/metastream_tests_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

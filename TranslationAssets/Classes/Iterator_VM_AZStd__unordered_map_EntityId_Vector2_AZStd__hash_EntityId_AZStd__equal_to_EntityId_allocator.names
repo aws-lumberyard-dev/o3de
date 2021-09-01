@@ -1,0 +1,131 @@
+{
+    "entries": [
+        {
+            "key": "Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>>"
+            },
+            "methods": [
+                {
+                    "key": "GetKeyUnchecked",
+                    "context": "Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>>::GetKeyUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>>::GetKeyUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>>::GetKeyUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{CAF223EA-34CD-52FE-80F1-4FB2A8D3527B}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ModValueUnchecked",
+                    "context": "Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>>::ModValueUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>>::ModValueUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>>::ModValueUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{CAF223EA-34CD-52FE-80F1-4FB2A8D3527B}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsNotAtEnd",
+                    "context": "Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>>::IsNotAtEnd"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>>::IsNotAtEnd is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>>::IsNotAtEnd"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{CAF223EA-34CD-52FE-80F1-4FB2A8D3527B}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Next",
+                    "context": "Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>>::Next"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>>::Next is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>>::Next"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{CAF223EA-34CD-52FE-80F1-4FB2A8D3527B}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<EntityId, Vector2, AZStd::hash"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

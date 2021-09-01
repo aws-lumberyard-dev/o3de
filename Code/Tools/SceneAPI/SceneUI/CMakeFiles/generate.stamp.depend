@@ -1,0 +1,6 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Code/Tools/SceneAPI/SceneUI/CMakeLists.txt
+J:/Atom/lyfork/o3de/Code/Tools/SceneAPI/SceneUI/SceneUI.qrc
+J:/Atom/lyfork/o3de/Code/Tools/SceneAPI/SceneUI/SceneUI_files.cmake
+J:/Atom/lyfork/o3de/Code/Tools/SceneAPI/SceneUI/SceneUI_testing_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

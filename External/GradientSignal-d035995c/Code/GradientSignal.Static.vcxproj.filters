@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\ConstantGradientComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\DitherGradientComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\GradientSurfaceDataComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\GradientTransformComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\ImageGradientComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\InvertGradientComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\LevelsGradientComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\MixedGradientComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\PerlinGradientComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\PosterizeGradientComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\RandomGradientComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\ReferenceGradientComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\ShapeAreaFalloffGradientComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\SmoothStepGradientComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\SurfaceAltitudeGradientComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\SurfaceMaskGradientComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\SurfaceSlopeGradientComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\ThresholdGradientComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\GradientSampler.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\GradientSignalSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\SmoothStep.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\ImageAsset.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\ImageSettings.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\PerlinImprovedNoise.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Util.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\GradientImageConversion.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\GradientSampler.h">
+      <Filter>Include\GradientSignal</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\SmoothStep.h">
+      <Filter>Include\GradientSignal</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\ImageAsset.h">
+      <Filter>Include\GradientSignal</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\ImageSettings.h">
+      <Filter>Include\GradientSignal</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\PerlinImprovedNoise.h">
+      <Filter>Include\GradientSignal</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Util.h">
+      <Filter>Include\GradientSignal</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\GradientImageConversion.h">
+      <Filter>Include\GradientSignal</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\GradientTransformRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\GradientRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\GradientPreviewRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\GradientPreviewContextRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\SectorDataRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\RandomGradientRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\PerlinGradientRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\DitherGradientRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\GradientTransformModifierRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\InvertGradientRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\LevelsGradientRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\PosterizeGradientRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\SmoothStepGradientRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\ThresholdGradientRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\ConstantGradientRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\ImageGradientRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\MixedGradientRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\ReferenceGradientRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\ShapeAreaFalloffGradientRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\SurfaceAltitudeGradientRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\SurfaceMaskGradientRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\SurfaceSlopeGradientRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\GradientSurfaceDataRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Include\GradientSignal\Ebuses\SmoothStepRequestBus.h">
+      <Filter>Include\GradientSignal\Ebuses</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\ConstantGradientComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\DitherGradientComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\GradientSurfaceDataComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\GradientTransformComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\ImageGradientComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\InvertGradientComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\LevelsGradientComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\MixedGradientComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\PerlinGradientComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\PosterizeGradientComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\RandomGradientComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\ReferenceGradientComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\ShapeAreaFalloffGradientComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\SmoothStepGradientComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\SurfaceAltitudeGradientComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\SurfaceMaskGradientComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\SurfaceSlopeGradientComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\Components\ThresholdGradientComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\Source\GradientSignalSystemComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\GradientSignal\Code\gradientsignal_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\GradientSignal">
+      <UniqueIdentifier>{696C1EF0-B118-3B87-9FA6-79DF4E56269E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\GradientSignal\Ebuses">
+      <UniqueIdentifier>{51B034E4-0BC9-3CB4-A92A-29581148AAE1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components">
+      <UniqueIdentifier>{0B09D740-8293-3A36-BE26-EE344C537516}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

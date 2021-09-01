@@ -1,0 +1,335 @@
+{
+    "entries": [
+        {
+            "key": "IBlendShapeData",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "IBlendShapeData"
+            },
+            "methods": [
+                {
+                    "key": "GetNormal",
+                    "context": "IBlendShapeData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IBlendShapeData::GetNormal"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IBlendShapeData::GetNormal is invoked"
+                    },
+                    "details": {
+                        "name": "IBlendShapeData::GetNormal"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{55E7384D-9333-4C51-BC91-E90CAC2C30E2}",
+                            "details": {
+                                "name": "IBlendShapeData"
+                            }
+                        },
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetFaceVertexIndex",
+                    "context": "IBlendShapeData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IBlendShapeData::GetFaceVertexIndex"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IBlendShapeData::GetFaceVertexIndex is invoked"
+                    },
+                    "details": {
+                        "name": "IBlendShapeData::GetFaceVertexIndex"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{55E7384D-9333-4C51-BC91-E90CAC2C30E2}",
+                            "details": {
+                                "name": "IBlendShapeData"
+                            }
+                        },
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        },
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetFaceInfo",
+                    "context": "IBlendShapeData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IBlendShapeData::GetFaceInfo"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IBlendShapeData::GetFaceInfo is invoked"
+                    },
+                    "details": {
+                        "name": "IBlendShapeData::GetFaceInfo"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{55E7384D-9333-4C51-BC91-E90CAC2C30E2}",
+                            "details": {
+                                "name": "IBlendShapeData"
+                            }
+                        },
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C972EC9A-3A5C-47CD-9A92-ECB4C0C0451C}",
+                            "details": {
+                                "name": "const SceneAPI::DataTypes::IBlendShapeData::Face&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetPosition",
+                    "context": "IBlendShapeData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IBlendShapeData::GetPosition"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IBlendShapeData::GetPosition is invoked"
+                    },
+                    "details": {
+                        "name": "IBlendShapeData::GetPosition"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{55E7384D-9333-4C51-BC91-E90CAC2C30E2}",
+                            "details": {
+                                "name": "IBlendShapeData"
+                            }
+                        },
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
+                            "details": {
+                                "name": "Vector3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetUsedPointIndexForControlPoint",
+                    "context": "IBlendShapeData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IBlendShapeData::GetUsedPointIndexForControlPoint"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IBlendShapeData::GetUsedPointIndexForControlPoint is invoked"
+                    },
+                    "details": {
+                        "name": "IBlendShapeData::GetUsedPointIndexForControlPoint"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{55E7384D-9333-4C51-BC91-E90CAC2C30E2}",
+                            "details": {
+                                "name": "IBlendShapeData"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetVertexCount",
+                    "context": "IBlendShapeData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IBlendShapeData::GetVertexCount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IBlendShapeData::GetVertexCount is invoked"
+                    },
+                    "details": {
+                        "name": "IBlendShapeData::GetVertexCount"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{55E7384D-9333-4C51-BC91-E90CAC2C30E2}",
+                            "details": {
+                                "name": "IBlendShapeData"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetFaceCount",
+                    "context": "IBlendShapeData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IBlendShapeData::GetFaceCount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IBlendShapeData::GetFaceCount is invoked"
+                    },
+                    "details": {
+                        "name": "IBlendShapeData::GetFaceCount"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{55E7384D-9333-4C51-BC91-E90CAC2C30E2}",
+                            "details": {
+                                "name": "IBlendShapeData"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetControlPointIndex",
+                    "context": "IBlendShapeData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IBlendShapeData::GetControlPointIndex"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IBlendShapeData::GetControlPointIndex is invoked"
+                    },
+                    "details": {
+                        "name": "IBlendShapeData::GetControlPointIndex"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{55E7384D-9333-4C51-BC91-E90CAC2C30E2}",
+                            "details": {
+                                "name": "IBlendShapeData"
+                            }
+                        },
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetUsedControlPointCount",
+                    "context": "IBlendShapeData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IBlendShapeData::GetUsedControlPointCount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IBlendShapeData::GetUsedControlPointCount is invoked"
+                    },
+                    "details": {
+                        "name": "IBlendShapeData::GetUsedControlPointCount"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{55E7384D-9333-4C51-BC91-E90CAC2C30E2}",
+                            "details": {
+                                "name": "IBlendShapeData"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

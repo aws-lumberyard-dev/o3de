@@ -1,0 +1,28 @@
+{
+    "entries": [
+        {
+            "key": "UiRadioButtonNotificationBus",
+            "context": "EBusHandler",
+            "variant": "",
+            "details": {
+                "name": "UiRadioButtonNotificationBus"
+            },
+            "methods": [
+                {
+                    "key": "OnRadioButtonStateChange",
+                    "details": {
+                        "name": "OnRadioButtonStateChange"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

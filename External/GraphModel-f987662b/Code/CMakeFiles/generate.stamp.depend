@@ -1,0 +1,6 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/GraphModel/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/GraphModel/Code/graphmodel_editor_files.cmake
+J:/Atom/lyfork/o3de/Gems/GraphModel/Code/graphmodel_editor_static_files.cmake
+J:/Atom/lyfork/o3de/Gems/GraphModel/Code/graphmodel_tests_editor_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

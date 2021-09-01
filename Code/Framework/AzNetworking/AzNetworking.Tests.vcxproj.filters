@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\Main.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\ConnectionLayer\ConnectionMetricsTests.cpp">
+      <Filter>Tests\ConnectionLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\ConnectionLayer\SequenceGeneratorTests.cpp">
+      <Filter>Tests\ConnectionLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\DataStructures\FixedSizeBitsetTests.cpp">
+      <Filter>Tests\DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\DataStructures\FixedSizeBitsetViewTests.cpp">
+      <Filter>Tests\DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\DataStructures\FixedSizeVectorBitsetTests.cpp">
+      <Filter>Tests\DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\DataStructures\RingBufferBitsetTests.cpp">
+      <Filter>Tests\DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\DataStructures\TimeoutQueueTests.cpp">
+      <Filter>Tests\DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\Serialization\DeltaSerializerTests.cpp">
+      <Filter>Tests\Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\Serialization\HashSerializerTests.cpp">
+      <Filter>Tests\Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\Serialization\NetworkInputSerializerTests.cpp">
+      <Filter>Tests\Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\Serialization\NetworkOutputSerializerTests.cpp">
+      <Filter>Tests\Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\Serialization\TrackChangedSerializerTests.cpp">
+      <Filter>Tests\Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\TcpTransport\TcpTransportTests.cpp">
+      <Filter>Tests\TcpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\UdpTransport\UdpTransportTests.cpp">
+      <Filter>Tests\UdpTransport</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\Utilities\CidrAddressTests.cpp">
+      <Filter>Tests\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\Utilities\IpAddressTests.cpp">
+      <Filter>Tests\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\Utilities\NetworkCommonTests.cpp">
+      <Filter>Tests\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\Utilities\QuantizedValuesTests.cpp">
+      <Filter>Tests\Utilities</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzNetworking\Tests\aznetworkingtests_files.cmake">
+      <Filter>Tests</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{A12C7827-546E-3D77-AE99-877104F2DFF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\ConnectionLayer">
+      <UniqueIdentifier>{C2183928-B83C-3872-A752-F3F66E922669}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\DataStructures">
+      <UniqueIdentifier>{08DB9DDC-F318-3A6E-AE5A-51E5FCDAA1F0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Serialization">
+      <UniqueIdentifier>{EF70317C-46E0-349B-B66A-B2517853F643}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\TcpTransport">
+      <UniqueIdentifier>{A9723273-91B9-3FC8-BB4F-9926ED76FC8A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\UdpTransport">
+      <UniqueIdentifier>{DF98A1EA-59C1-3C5A-810F-E3EF3849ADB3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Utilities">
+      <UniqueIdentifier>{88EC1603-907A-39AF-BED0-92AAEA927310}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

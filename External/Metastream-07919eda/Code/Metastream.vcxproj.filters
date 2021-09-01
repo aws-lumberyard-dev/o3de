@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Metastream\Code\Source\MetastreamGem.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Metastream\Code\Source\BaseHttpServer.cpp">
+      <Filter>Source\Platform\Windows\..\..</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Metastream\Code\Source\CivetHttpServer.cpp">
+      <Filter>Source\Platform\Windows\..\..</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Metastream\Code\Source\MetastreamGem.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Metastream\Code\Source\Platform\Windows\Metastream_Traits_Platform.h">
+      <Filter>Source\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Metastream\Code\Source\Platform\Windows\Metastream_Traits_Windows.h">
+      <Filter>Source\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Metastream\Code\Source\BaseHttpServer.h">
+      <Filter>Source\Platform\Windows\..\..</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Metastream\Code\Source\CivetHttpServer.h">
+      <Filter>Source\Platform\Windows\..\..</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Metastream\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Metastream\Code\metastream_shared_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\Metastream\Code\Source\Platform\Windows\platform_windows_files.cmake">
+      <Filter>Source\Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Metastream\Code\Source\Platform\Windows\metastream_windows.cmake">
+      <Filter>Source\Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Metastream\Code\Source\Platform\Common\MSVC\metastream_msvc.cmake">
+      <Filter>Source\Platform\Common\MSVC</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform">
+      <UniqueIdentifier>{619E1779-1529-36CF-BFB6-452991664BCE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Common">
+      <UniqueIdentifier>{499F7547-46FE-36EC-8585-141BF1798B33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Common\MSVC">
+      <UniqueIdentifier>{0CCD0424-3DB8-39C0-9A97-C3EA365F86B3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows">
+      <UniqueIdentifier>{6E009862-2333-3599-9B65-E8F840C182D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows\..">
+      <UniqueIdentifier>{6F36E22C-CF2D-3080-893E-B486004C5B99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows\..\..">
+      <UniqueIdentifier>{C9C1BC38-4EAC-3109-BEDF-BC9B2A330812}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

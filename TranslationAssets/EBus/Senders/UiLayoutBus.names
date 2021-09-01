@@ -1,0 +1,146 @@
+{
+    "entries": [
+        {
+            "key": "UiLayoutBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiLayoutBus"
+            },
+            "methods": [
+                {
+                    "key": "SetIgnoreDefaultLayoutCells",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIgnoreDefaultLayoutCells"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIgnoreDefaultLayoutCells is invoked"
+                    },
+                    "details": {
+                        "name": "SetIgnoreDefaultLayoutCells"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetVerticalChildAlignment",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetVerticalChildAlignment"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetVerticalChildAlignment is invoked"
+                    },
+                    "details": {
+                        "name": "SetVerticalChildAlignment"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetHorizontalChildAlignment",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetHorizontalChildAlignment"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetHorizontalChildAlignment is invoked"
+                    },
+                    "details": {
+                        "name": "SetHorizontalChildAlignment"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetHorizontalChildAlignment",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetHorizontalChildAlignment"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetHorizontalChildAlignment is invoked"
+                    },
+                    "details": {
+                        "name": "GetHorizontalChildAlignment"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetVerticalChildAlignment",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetVerticalChildAlignment"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetVerticalChildAlignment is invoked"
+                    },
+                    "details": {
+                        "name": "GetVerticalChildAlignment"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIgnoreDefaultLayoutCells",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIgnoreDefaultLayoutCells"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIgnoreDefaultLayoutCells is invoked"
+                    },
+                    "details": {
+                        "name": "GetIgnoreDefaultLayoutCells"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

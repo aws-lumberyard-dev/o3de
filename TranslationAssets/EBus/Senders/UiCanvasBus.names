@@ -1,0 +1,911 @@
+{
+    "entries": [
+        {
+            "key": "UiCanvasBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiCanvasBus"
+            },
+            "methods": [
+                {
+                    "key": "ForceHoverInteractable",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke ForceHoverInteractable"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after ForceHoverInteractable is invoked"
+                    },
+                    "details": {
+                        "name": "ForceHoverInteractable"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetNavigationRepeatPeriod",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetNavigationRepeatPeriod"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetNavigationRepeatPeriod is invoked"
+                    },
+                    "details": {
+                        "name": "GetNavigationRepeatPeriod"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetNavigationRepeatDelay",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetNavigationRepeatDelay"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetNavigationRepeatDelay is invoked"
+                    },
+                    "details": {
+                        "name": "GetNavigationRepeatDelay"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetHoverInteractable",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetHoverInteractable"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetHoverInteractable is invoked"
+                    },
+                    "details": {
+                        "name": "GetHoverInteractable"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetNavigationThreshold",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetNavigationThreshold"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetNavigationThreshold is invoked"
+                    },
+                    "details": {
+                        "name": "SetNavigationThreshold"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsConsumingAllInputEvents",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsConsumingAllInputEvents"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsConsumingAllInputEvents is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsConsumingAllInputEvents"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetDrawOrder",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetDrawOrder"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetDrawOrder is invoked"
+                    },
+                    "details": {
+                        "name": "SetDrawOrder"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsPositionalInputSupported",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsPositionalInputSupported"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsPositionalInputSupported is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsPositionalInputSupported"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "RecomputeChangedLayouts",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke RecomputeChangedLayouts"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after RecomputeChangedLayouts is invoked"
+                    },
+                    "details": {
+                        "name": "RecomputeChangedLayouts"
+                    }
+                },
+                {
+                    "key": "SetRenderTargetName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetRenderTargetName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetRenderTargetName is invoked"
+                    },
+                    "details": {
+                        "name": "SetRenderTargetName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTooltipDisplayElement",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetTooltipDisplayElement"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetTooltipDisplayElement is invoked"
+                    },
+                    "details": {
+                        "name": "GetTooltipDisplayElement"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsNavigationSupported",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsNavigationSupported"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsNavigationSupported is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsNavigationSupported"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetNavigationRepeatPeriod",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetNavigationRepeatPeriod"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetNavigationRepeatPeriod is invoked"
+                    },
+                    "details": {
+                        "name": "SetNavigationRepeatPeriod"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetRenderTargetName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetRenderTargetName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetRenderTargetName is invoked"
+                    },
+                    "details": {
+                        "name": "GetRenderTargetName"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "FindElementByName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke FindElementByName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after FindElementByName is invoked"
+                    },
+                    "details": {
+                        "name": "FindElementByName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetTooltipDisplayElement",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetTooltipDisplayElement"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetTooltipDisplayElement is invoked"
+                    },
+                    "details": {
+                        "name": "SetTooltipDisplayElement"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetChildElement",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetChildElement"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetChildElement is invoked"
+                    },
+                    "details": {
+                        "name": "GetChildElement"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetKeepLoadedOnLevelUnload",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetKeepLoadedOnLevelUnload"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetKeepLoadedOnLevelUnload is invoked"
+                    },
+                    "details": {
+                        "name": "GetKeepLoadedOnLevelUnload"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsTextPixelAligned",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsTextPixelAligned"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsTextPixelAligned is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsTextPixelAligned"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsConsumingAllInputEvents",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsConsumingAllInputEvents"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsConsumingAllInputEvents is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsConsumingAllInputEvents"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetNavigationThreshold",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetNavigationThreshold"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetNavigationThreshold is invoked"
+                    },
+                    "details": {
+                        "name": "GetNavigationThreshold"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetKeepLoadedOnLevelUnload",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetKeepLoadedOnLevelUnload"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetKeepLoadedOnLevelUnload is invoked"
+                    },
+                    "details": {
+                        "name": "SetKeepLoadedOnLevelUnload"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsMultiTouchSupported",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsMultiTouchSupported"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsMultiTouchSupported is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsMultiTouchSupported"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsRenderToTexture",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsRenderToTexture"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsRenderToTexture is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsRenderToTexture"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetChildElements",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetChildElements"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetChildElements is invoked"
+                    },
+                    "details": {
+                        "name": "GetChildElements"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{4841CFF0-7A5C-519C-BD16-D3625E99605E}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetNumChildElements",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetNumChildElements"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetNumChildElements is invoked"
+                    },
+                    "details": {
+                        "name": "GetNumChildElements"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsPixelAligned",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsPixelAligned"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsPixelAligned is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsPixelAligned"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "GetEnabled"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsNavigationSupported",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsNavigationSupported"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsNavigationSupported is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsNavigationSupported"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetDrawOrder",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetDrawOrder"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetDrawOrder is invoked"
+                    },
+                    "details": {
+                        "name": "GetDrawOrder"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ForceEnterInputEventOnInteractable",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke ForceEnterInputEventOnInteractable"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after ForceEnterInputEventOnInteractable is invoked"
+                    },
+                    "details": {
+                        "name": "ForceEnterInputEventOnInteractable"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsMultiTouchSupported",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsMultiTouchSupported"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsMultiTouchSupported is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsMultiTouchSupported"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsPixelAligned",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsPixelAligned"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsPixelAligned is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsPixelAligned"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsPositionalInputSupported",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsPositionalInputSupported"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsPositionalInputSupported is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsPositionalInputSupported"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "CloneElement",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke CloneElement"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after CloneElement is invoked"
+                    },
+                    "details": {
+                        "name": "CloneElement"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        },
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        },
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetNavigationRepeatDelay",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetNavigationRepeatDelay"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetNavigationRepeatDelay is invoked"
+                    },
+                    "details": {
+                        "name": "SetNavigationRepeatDelay"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsRenderToTexture",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsRenderToTexture"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsRenderToTexture is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsRenderToTexture"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "SetEnabled"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsTextPixelAligned",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsTextPixelAligned"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsTextPixelAligned is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsTextPixelAligned"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

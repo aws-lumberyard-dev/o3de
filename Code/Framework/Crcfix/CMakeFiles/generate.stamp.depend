@@ -1,0 +1,4 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Code/Framework/Crcfix/CMakeLists.txt
+J:/Atom/lyfork/o3de/Code/Framework/Crcfix/Platform/Windows/PAL_windows.cmake
+J:/Atom/lyfork/o3de/Code/Framework/Crcfix/crcfix_files.cmake

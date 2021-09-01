@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\InAppPurchases\Code\Source\InAppPurchasesSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\InAppPurchases\Code\Source\InAppPurchasesInterface.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\InAppPurchases\Code\Source\Platform\Common\Unimplemented\InAppPurchases_Unimplemented.cpp">
+      <Filter>Source\Platform\Windows\..\Common\Unimplemented</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\InAppPurchases\Code\Include\InAppPurchases\InAppPurchasesBus.h">
+      <Filter>Include\InAppPurchases</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\InAppPurchases\Code\Include\InAppPurchases\InAppPurchasesInterface.h">
+      <Filter>Include\InAppPurchases</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\InAppPurchases\Code\Include\InAppPurchases\InAppPurchasesResponseBus.h">
+      <Filter>Include\InAppPurchases</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\InAppPurchases\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\InAppPurchases\Code\inapppurchases_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\InAppPurchases\Code\Source\Platform\Windows\platform_windows_files.cmake">
+      <Filter>Source\Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\InAppPurchases\Code\Source\Platform\Windows\platform_windows.cmake">
+      <Filter>Source\Platform\Windows</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\InAppPurchases">
+      <UniqueIdentifier>{B5EF46AE-9E71-3B03-9913-535C8634F0D5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform">
+      <UniqueIdentifier>{619E1779-1529-36CF-BFB6-452991664BCE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows">
+      <UniqueIdentifier>{6E009862-2333-3599-9B65-E8F840C182D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows\..">
+      <UniqueIdentifier>{6F36E22C-CF2D-3080-893E-B486004C5B99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows\..\Common">
+      <UniqueIdentifier>{B6307493-3CF3-3707-ACD9-A7277FA3FC28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows\..\Common\Unimplemented">
+      <UniqueIdentifier>{197DAAC5-6DE2-3279-929E-E1D126C20680}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,704 @@
+{
+    "entries": [
+        {
+            "key": "UiTextBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiTextBus"
+            },
+            "methods": [
+                {
+                    "key": "GetTextHeight",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetTextHeight"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetTextHeight is invoked"
+                    },
+                    "details": {
+                        "name": "GetTextHeight"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetColor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetColor"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetColor is invoked"
+                    },
+                    "details": {
+                        "name": "GetColor"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
+                            "details": {
+                                "name": "Color"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetLineSpacing",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetLineSpacing"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetLineSpacing is invoked"
+                    },
+                    "details": {
+                        "name": "GetLineSpacing"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTextWidth",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetTextWidth"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetTextWidth is invoked"
+                    },
+                    "details": {
+                        "name": "GetTextWidth"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetWrapText",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetWrapText"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetWrapText is invoked"
+                    },
+                    "details": {
+                        "name": "SetWrapText"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetFontEffectName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetFontEffectName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetFontEffectName is invoked"
+                    },
+                    "details": {
+                        "name": "GetFontEffectName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetShrinkToFit",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetShrinkToFit"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetShrinkToFit is invoked"
+                    },
+                    "details": {
+                        "name": "GetShrinkToFit"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetOverflowMode",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetOverflowMode"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetOverflowMode is invoked"
+                    },
+                    "details": {
+                        "name": "GetOverflowMode"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetFontEffect",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetFontEffect"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetFontEffect is invoked"
+                    },
+                    "details": {
+                        "name": "GetFontEffect"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetFontEffect",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetFontEffect"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetFontEffect is invoked"
+                    },
+                    "details": {
+                        "name": "SetFontEffect"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetHorizontalTextAlignment",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetHorizontalTextAlignment"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetHorizontalTextAlignment is invoked"
+                    },
+                    "details": {
+                        "name": "GetHorizontalTextAlignment"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetFont",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetFont"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetFont is invoked"
+                    },
+                    "details": {
+                        "name": "GetFont"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetVerticalTextAlignment",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetVerticalTextAlignment"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetVerticalTextAlignment is invoked"
+                    },
+                    "details": {
+                        "name": "SetVerticalTextAlignment"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetVerticalTextAlignment",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetVerticalTextAlignment"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetVerticalTextAlignment is invoked"
+                    },
+                    "details": {
+                        "name": "GetVerticalTextAlignment"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetOverflowMode",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetOverflowMode"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetOverflowMode is invoked"
+                    },
+                    "details": {
+                        "name": "SetOverflowMode"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetColor",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetColor"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetColor is invoked"
+                    },
+                    "details": {
+                        "name": "SetColor"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
+                            "details": {
+                                "name": "Color"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetFontSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetFontSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetFontSize is invoked"
+                    },
+                    "details": {
+                        "name": "SetFontSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetCharacterSpacing",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetCharacterSpacing"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetCharacterSpacing is invoked"
+                    },
+                    "details": {
+                        "name": "SetCharacterSpacing"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetLineSpacing",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetLineSpacing"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetLineSpacing is invoked"
+                    },
+                    "details": {
+                        "name": "SetLineSpacing"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetCharacterSpacing",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetCharacterSpacing"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetCharacterSpacing is invoked"
+                    },
+                    "details": {
+                        "name": "GetCharacterSpacing"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetHorizontalTextAlignment",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetHorizontalTextAlignment"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetHorizontalTextAlignment is invoked"
+                    },
+                    "details": {
+                        "name": "SetHorizontalTextAlignment"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetText",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetText"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetText is invoked"
+                    },
+                    "details": {
+                        "name": "SetText"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetFont",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetFont"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetFont is invoked"
+                    },
+                    "details": {
+                        "name": "SetFont"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetFontEffectByName",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetFontEffectByName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetFontEffectByName is invoked"
+                    },
+                    "details": {
+                        "name": "SetFontEffectByName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsMarkupEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsMarkupEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsMarkupEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsMarkupEnabled"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetWrapText",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetWrapText"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetWrapText is invoked"
+                    },
+                    "details": {
+                        "name": "GetWrapText"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetText",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetText"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetText is invoked"
+                    },
+                    "details": {
+                        "name": "GetText"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetTextSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetTextSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetTextSize is invoked"
+                    },
+                    "details": {
+                        "name": "GetTextSize"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsMarkupEnabled",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsMarkupEnabled"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsMarkupEnabled is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsMarkupEnabled"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetFontSize",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetFontSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetFontSize is invoked"
+                    },
+                    "details": {
+                        "name": "GetFontSize"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetShrinkToFit",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetShrinkToFit"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetShrinkToFit is invoked"
+                    },
+                    "details": {
+                        "name": "SetShrinkToFit"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

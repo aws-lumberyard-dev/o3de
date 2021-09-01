@@ -1,0 +1,116 @@
+{
+    "entries": [
+        {
+            "key": "AudioPreloadComponentRequestBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AudioPreloadComponentRequestBus"
+            },
+            "methods": [
+                {
+                    "key": "IsLoaded",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IsLoaded"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IsLoaded is invoked"
+                    },
+                    "details": {
+                        "name": "IsLoaded"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
+                            "details": {
+                                "name": "char"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Unload",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Unload"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Unload is invoked"
+                    },
+                    "details": {
+                        "name": "Unload"
+                    }
+                },
+                {
+                    "key": "UnloadPreload",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke UnloadPreload"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after UnloadPreload is invoked"
+                    },
+                    "details": {
+                        "name": "UnloadPreload"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
+                            "details": {
+                                "name": "char"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Load",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Load"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Load is invoked"
+                    },
+                    "details": {
+                        "name": "Load"
+                    }
+                },
+                {
+                    "key": "LoadPreload",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke LoadPreload"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after LoadPreload is invoked"
+                    },
+                    "details": {
+                        "name": "LoadPreload"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
+                            "details": {
+                                "name": "char"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

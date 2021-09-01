@@ -1,0 +1,130 @@
+{
+    "entries": [
+        {
+            "key": "Iterator_VM<AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>,",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Iterator_VM<AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>,"
+            },
+            "methods": [
+                {
+                    "key": "GetKeyUnchecked",
+                    "context": "Iterator_VM<AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>,",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>,::GetKeyUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>,::GetKeyUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>,::GetKeyUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{041189DC-081D-5773-A986-A315539C058F}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{E152C105-A133-4D03-BBF8-3D4B2FBA3E2A}",
+                            "details": {
+                                "name": "AZ::Uuid"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ModValueUnchecked",
+                    "context": "Iterator_VM<AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>,",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>,::ModValueUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>,::ModValueUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>,::ModValueUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{041189DC-081D-5773-A986-A315539C058F}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{9F4210F0-9A8E-5536-A6FD-F3F55D854C0A}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsNotAtEnd",
+                    "context": "Iterator_VM<AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>,",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>,::IsNotAtEnd"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>,::IsNotAtEnd is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>,::IsNotAtEnd"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{041189DC-081D-5773-A986-A315539C058F}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Next",
+                    "context": "Iterator_VM<AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>,",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>,::Next"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>,::Next is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>,::Next"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{041189DC-081D-5773-A986-A315539C058F}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

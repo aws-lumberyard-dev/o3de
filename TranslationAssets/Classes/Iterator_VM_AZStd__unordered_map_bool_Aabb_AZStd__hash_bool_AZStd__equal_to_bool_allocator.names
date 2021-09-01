@@ -1,0 +1,130 @@
+{
+    "entries": [
+        {
+            "key": "Iterator_VM<AZStd::unordered_map<bool, Aabb, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Iterator_VM<AZStd::unordered_map<bool, Aabb, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>"
+            },
+            "methods": [
+                {
+                    "key": "GetKeyUnchecked",
+                    "context": "Iterator_VM<AZStd::unordered_map<bool, Aabb, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<bool, Aabb, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::GetKeyUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<bool, Aabb, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::GetKeyUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<bool, Aabb, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::GetKeyUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03427020-0827-58FD-B9E7-1F885F682E45}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<bool, Aabb, AZStd::hash<bool>,"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "ModValueUnchecked",
+                    "context": "Iterator_VM<AZStd::unordered_map<bool, Aabb, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<bool, Aabb, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::ModValueUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<bool, Aabb, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::ModValueUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<bool, Aabb, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::ModValueUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03427020-0827-58FD-B9E7-1F885F682E45}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<bool, Aabb, AZStd::hash<bool>,"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
+                            "details": {
+                                "name": "Aabb"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsNotAtEnd",
+                    "context": "Iterator_VM<AZStd::unordered_map<bool, Aabb, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<bool, Aabb, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::IsNotAtEnd"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<bool, Aabb, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::IsNotAtEnd is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<bool, Aabb, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::IsNotAtEnd"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03427020-0827-58FD-B9E7-1F885F682E45}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<bool, Aabb, AZStd::hash<bool>,"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Next",
+                    "context": "Iterator_VM<AZStd::unordered_map<bool, Aabb, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<bool, Aabb, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::Next"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<bool, Aabb, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::Next is invoked"
+                    },
+                    "details": {
+                        "name": "Iterator_VM<AZStd::unordered_map<bool, Aabb, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::Next"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{03427020-0827-58FD-B9E7-1F885F682E45}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<bool, Aabb, AZStd::hash<bool>,"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

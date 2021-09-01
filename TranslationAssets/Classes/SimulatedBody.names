@@ -1,0 +1,174 @@
+{
+    "entries": [
+        {
+            "key": "SimulatedBody",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "SimulatedBody"
+            },
+            "methods": [
+                {
+                    "key": "GetOnCollisionEndEvent",
+                    "context": "SimulatedBody",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SimulatedBody::GetOnCollisionEndEvent"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SimulatedBody::GetOnCollisionEndEvent is invoked"
+                    },
+                    "details": {
+                        "name": "SimulatedBody::GetOnCollisionEndEvent"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{4C19E257-F929-524E-80E3-C910C5F3E2D9}",
+                            "details": {
+                                "name": "Event<tuple<Crc32 int > const CollisionEvent& >*"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetOnCollisionPersistEvent",
+                    "context": "SimulatedBody",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SimulatedBody::GetOnCollisionPersistEvent"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SimulatedBody::GetOnCollisionPersistEvent is invoked"
+                    },
+                    "details": {
+                        "name": "SimulatedBody::GetOnCollisionPersistEvent"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{4C19E257-F929-524E-80E3-C910C5F3E2D9}",
+                            "details": {
+                                "name": "Event<tuple<Crc32 int > const CollisionEvent& >*"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetOnTriggerEnterEvent",
+                    "context": "SimulatedBody",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SimulatedBody::GetOnTriggerEnterEvent"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SimulatedBody::GetOnTriggerEnterEvent is invoked"
+                    },
+                    "details": {
+                        "name": "SimulatedBody::GetOnTriggerEnterEvent"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C00D2478-E0F3-57A3-AB60-A04DFC515016}",
+                            "details": {
+                                "name": "Event<tuple<Crc32 int > const TriggerEvent& >*"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetOnCollisionBeginEvent",
+                    "context": "SimulatedBody",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SimulatedBody::GetOnCollisionBeginEvent"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SimulatedBody::GetOnCollisionBeginEvent is invoked"
+                    },
+                    "details": {
+                        "name": "SimulatedBody::GetOnCollisionBeginEvent"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{4C19E257-F929-524E-80E3-C910C5F3E2D9}",
+                            "details": {
+                                "name": "Event<tuple<Crc32 int > const CollisionEvent& >*"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetOnTriggerExitEvent",
+                    "context": "SimulatedBody",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SimulatedBody::GetOnTriggerExitEvent"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SimulatedBody::GetOnTriggerExitEvent is invoked"
+                    },
+                    "details": {
+                        "name": "SimulatedBody::GetOnTriggerExitEvent"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{C00D2478-E0F3-57A3-AB60-A04DFC515016}",
+                            "details": {
+                                "name": "Event<tuple<Crc32 int > const TriggerEvent& >*"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

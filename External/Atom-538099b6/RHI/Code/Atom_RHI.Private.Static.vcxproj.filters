@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Private\FactoryManagerSystemComponent.cpp">
+      <Filter>Source\RHI.Private</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Private\FactoryRegistrationFinalizerSystemComponent.cpp">
+      <Filter>Source\RHI.Private</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Private\FactoryManagerSystemComponent.h">
+      <Filter>Source\RHI.Private</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Private\FactoryRegistrationFinalizerSystemComponent.h">
+      <Filter>Source\RHI.Private</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\atom_rhi_private_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\RHI.Private">
+      <UniqueIdentifier>{506FE46D-1C8C-3D69-8E9B-EFDA22F23D2C}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

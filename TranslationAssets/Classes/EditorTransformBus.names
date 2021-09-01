@@ -1,0 +1,12 @@
+{
+    "entries": [
+        {
+            "key": "EditorTransformBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "EditorTransformBus"
+            }
+        }
+    ]
+}

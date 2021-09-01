@@ -1,0 +1,53 @@
+{
+    "entries": [
+        {
+            "key": "UiInteractableNotificationBus",
+            "context": "EBusHandler",
+            "variant": "",
+            "details": {
+                "name": "UiInteractableNotificationBus"
+            },
+            "methods": [
+                {
+                    "key": "OnHoverStart",
+                    "details": {
+                        "name": "OnHoverStart"
+                    }
+                },
+                {
+                    "key": "OnHoverEnd",
+                    "details": {
+                        "name": "OnHoverEnd"
+                    }
+                },
+                {
+                    "key": "OnPressed",
+                    "details": {
+                        "name": "OnPressed"
+                    }
+                },
+                {
+                    "key": "OnReleased",
+                    "details": {
+                        "name": "OnReleased"
+                    }
+                },
+                {
+                    "key": "OnReceivedHoverByNavigatingFromDescendant",
+                    "details": {
+                        "name": "OnReceivedHoverByNavigatingFromDescendant"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

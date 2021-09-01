@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzGameFramework\AzGameFramework\AzGameFrameworkModule.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzGameFramework\AzGameFramework\Application\GameApplication.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzGameFramework\AzGameFramework\AzGameFrameworkModule.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzGameFramework\AzGameFramework\API\GameApplicationAPI.h">
+      <Filter>API</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzGameFramework\AzGameFramework\Application\GameApplication.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzGameFramework\AzGameFramework\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzGameFramework\AzGameFramework\azgameframework_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="API">
+      <UniqueIdentifier>{D924D9F6-E1A7-3FDD-81A8-BC1CDD03B779}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application">
+      <UniqueIdentifier>{658FDED5-B7A2-3752-BC48-D3C4C931F849}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

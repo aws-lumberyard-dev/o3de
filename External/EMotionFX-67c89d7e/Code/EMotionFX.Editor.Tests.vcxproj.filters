@@ -1,0 +1,414 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\EMotionFX-67c89d7e\Code\EMotionFX.Editor.Tests_autogen\mocs_compilation_debug.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\JackActor.cpp">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\SimpleActors.cpp">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\MeshFactory.cpp">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\AnimGraphFactory.cpp">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\D6JointLimitConfiguration.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\BlendTreeParameterNodeTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\CommandRemoveMotionTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\EMotionFXTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\MetaDataRuleTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\MorphTargetPipelineTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Printers.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\PhysicsSetupUtils.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\SimulatedObjectModelTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\SimulatedObjectPipelineTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Bugs\CanDeleteMotionSetWhenSameMotionInTwoMotionSets.cpp">
+      <Filter>Tests\Bugs</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CanAddSimulatedObject.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CanAddToSimulatedObject.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CanAddAnimGraph.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CanAddReferenceNode.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CanAddMotionToAnimGraphNode.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CanAddMotionToMotionSet.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CanChangeParametersInSimulatedObject.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CanEditParameters.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CanMorphManyShapes.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CanSeeJoints.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CanAutoSaveFile.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CanRemoveMotionFromMotionSet.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CanUseLayoutMenu.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CanUseViewMenu.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CanUseFileMenu.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\ClothColliderTests.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CanUseEditMenu.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CanOpenWorkspace.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CanUseHelpMenu.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CommandRunnerFixture.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\LODSkinnedMeshTests.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\RagdollEditTests.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\UIFixture.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\ModalPopupHandler.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\AnimGraphUIFixture.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\MenuUIFixture.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CanRenameParameter_ParameterNodeUpdates.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CanDeleteAnimGraphNode_AnimGraphModelUpdates.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CanAdjustGroupParameter.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CanAddJointAndChildren.cpp">
+      <Filter>Tests\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Integration\CanAddActor.cpp">
+      <Filter>Tests\Integration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Integration\CanAddSimpleMotionComponent.cpp">
+      <Filter>Tests\Integration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Integration\CanDeleteJackEntity.cpp">
+      <Filter>Tests\Integration</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Bugs\CanDeleteMotionWhenMotionIsBeingBlended.cpp">
+      <Filter>Tests\Bugs</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Bugs\CanUndoParameterDeletionAndRestoreBlendTreeConnections.cpp">
+      <Filter>Tests\Bugs</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Editor\FileManagerTests.cpp">
+      <Filter>Tests\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Editor\ParametersGroupDefaultValues.cpp">
+      <Filter>Tests\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Editor\MotionSetLoadEscalation.cpp">
+      <Filter>Tests\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\AnimGraphActivateTests.cpp">
+      <Filter>Tests\ProvidesUI\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\SimpleAnimGraphUIFixture.cpp">
+      <Filter>Tests\ProvidesUI\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\AnimGraphModelTests.cpp">
+      <Filter>Tests\ProvidesUI\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\ParameterWindowTests.cpp">
+      <Filter>Tests\ProvidesUI\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\AnimGraphPreviewMotionTests.cpp">
+      <Filter>Tests\ProvidesUI\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\CanDeleteAnimGraphNode.cpp">
+      <Filter>Tests\ProvidesUI\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\AnimGraphNodeTests.cpp">
+      <Filter>Tests\ProvidesUI\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\CanEditAnimGraphNode.cpp">
+      <Filter>Tests\ProvidesUI\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\PreviewMotionFixture.cpp">
+      <Filter>Tests\ProvidesUI\AnimGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\Parameters\AddGroup.cpp">
+      <Filter>Tests\ProvidesUI\AnimGraph\Parameters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\Parameters\AddParameter.cpp">
+      <Filter>Tests\ProvidesUI\AnimGraph\Parameters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\Parameters\CannotAssignGroupsParentAsChild.cpp">
+      <Filter>Tests\ProvidesUI\AnimGraph\Parameters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\Parameters\RemoveParameter.cpp">
+      <Filter>Tests\ProvidesUI\AnimGraph\Parameters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\Parameters\RemoveGroup.cpp">
+      <Filter>Tests\ProvidesUI\AnimGraph\Parameters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\Parameters\ParameterGroupEdit.cpp">
+      <Filter>Tests\ProvidesUI\AnimGraph\Parameters</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\Transitions\RemoveTransition.cpp">
+      <Filter>Tests\ProvidesUI\AnimGraph\Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\Transitions\AddTransition.cpp">
+      <Filter>Tests\ProvidesUI\AnimGraph\Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\Transitions\AddTransitionCondition.cpp">
+      <Filter>Tests\ProvidesUI\AnimGraph\Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\Transitions\EditTransition.cpp">
+      <Filter>Tests\ProvidesUI\AnimGraph\Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\Transitions\RemoveTransitionCondition.cpp">
+      <Filter>Tests\ProvidesUI\AnimGraph\Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\StateMachine\EntryStateTests.cpp">
+      <Filter>Tests\ProvidesUI\AnimGraph\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\Menus\FileMenu\CanReset.cpp">
+      <Filter>Tests\ProvidesUI\Menus\FileMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\MotionSet\CanCreateMotionSet.cpp">
+      <Filter>Tests\ProvidesUI\MotionSet</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\MotionSet\CanRemoveMotionSet.cpp">
+      <Filter>Tests\ProvidesUI\MotionSet</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\Motions\CanAddMotions.cpp">
+      <Filter>Tests\ProvidesUI\Motions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\Motions\CanRemoveMotions.cpp">
+      <Filter>Tests\ProvidesUI\Motions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\Motions\MotionPlaybacksTests.cpp">
+      <Filter>Tests\ProvidesUI\Motions</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\Ragdoll\CanCopyPasteJointLimits.cpp">
+      <Filter>Tests\ProvidesUI\Ragdoll</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\Ragdoll\CanCopyPasteColliders.cpp">
+      <Filter>Tests\ProvidesUI\Ragdoll</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\EMotionFXBuilderTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\EMotionFXBuilderFixture.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\TestActorAssets.cpp">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\System\AnimationModule.cpp">
+      <Filter>Source\Integration\System</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\EMotionFX-67c89d7e\Code\EMotionFX.Editor.Tests_autogen\mocs_compilation_profile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\External\EMotionFX-67c89d7e\Code\EMotionFX.Editor.Tests_autogen\mocs_compilation_release.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\JackActor.h">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\SimpleActors.h">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\MeshFactory.h">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\AnimGraphFactory.h">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\AnimGraphAssetFactory.h">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\ActorAssetFactory.h">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\MotionSetAssetFactory.h">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\D6JointLimitConfiguration.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\InitSceneAPIFixture.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\PhysicsSetupUtils.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\SystemComponentFixture.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\CommandRunnerFixture.h">
+      <Filter>Tests\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\UIFixture.h">
+      <Filter>Tests\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\ModalPopupHandler.h">
+      <Filter>Tests\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\AnimGraphUIFixture.h">
+      <Filter>Tests\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\UI\MenuUIFixture.h">
+      <Filter>Tests\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\SimpleAnimGraphUIFixture.h">
+      <Filter>Tests\ProvidesUI\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\ProvidesUI\AnimGraph\PreviewMotionFixture.h">
+      <Filter>Tests\ProvidesUI\AnimGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\EMotionFXBuilderFixture.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\TestAssetCode\TestActorAssets.h">
+      <Filter>Tests\TestAssetCode</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Tests\Mocks\PhysicsSystem.h">
+      <Filter>Tests\Mocks</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_shared_tests_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_editor_tests_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\System\emotionfx_module_files.cmake">
+      <Filter>Source\Integration\System</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Integration">
+      <UniqueIdentifier>{7CD13E51-A792-390B-9958-BFAF2AAD6788}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Integration\System">
+      <UniqueIdentifier>{34D626EF-3145-307B-9E87-BA32F75643BA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{A12C7827-546E-3D77-AE99-877104F2DFF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Bugs">
+      <UniqueIdentifier>{FEE008A4-A074-3BE6-8DCA-B3ADD620BA21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Editor">
+      <UniqueIdentifier>{D3BD7AED-9D00-3AAE-9FBF-45AF74F76A6A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Integration">
+      <UniqueIdentifier>{72F635C3-6220-3568-A170-FEE526C2ED0B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Mocks">
+      <UniqueIdentifier>{53A6A82D-F762-3B17-819E-BD0E21ED366B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\ProvidesUI">
+      <UniqueIdentifier>{0E66670E-B37C-37D9-BB8A-65397F7F34BD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\ProvidesUI\AnimGraph">
+      <UniqueIdentifier>{479354F5-8469-3EE8-AE7F-1586F0E9BED4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\ProvidesUI\AnimGraph\Parameters">
+      <UniqueIdentifier>{C3598D4B-671F-352D-A006-B928910C3853}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\ProvidesUI\AnimGraph\StateMachine">
+      <UniqueIdentifier>{A0EEF884-104B-37C8-A177-5159FB2A4233}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\ProvidesUI\AnimGraph\Transitions">
+      <UniqueIdentifier>{382A3E79-8FE4-3937-BB06-A41C0B26AD3E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\ProvidesUI\Menus">
+      <UniqueIdentifier>{28F0202D-C695-3C10-9841-A08E6FBF3D14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\ProvidesUI\Menus\FileMenu">
+      <UniqueIdentifier>{271BE534-D432-39D9-B509-324B4A2D5639}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\ProvidesUI\MotionSet">
+      <UniqueIdentifier>{5F5CCE80-EFBC-36CE-96F7-B27EDA36A27D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\ProvidesUI\Motions">
+      <UniqueIdentifier>{E451F318-E15B-3BB3-B17D-B3B65FC79633}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\ProvidesUI\Ragdoll">
+      <UniqueIdentifier>{2FC0065E-E804-335F-8D05-B25778033106}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\TestAssetCode">
+      <UniqueIdentifier>{CA75C66D-029A-339C-950D-61E6DDB0EF61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\UI">
+      <UniqueIdentifier>{B7F4D111-8216-3B65-BF35-8525EAFEF961}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

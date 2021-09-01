@@ -1,0 +1,34 @@
+{
+    "entries": [
+        {
+            "key": "SimpleStateComponentNotificationBus",
+            "context": "EBusHandler",
+            "variant": "",
+            "details": {
+                "name": "SimpleStateComponentNotificationBus"
+            },
+            "methods": [
+                {
+                    "key": "OnStateChanged",
+                    "details": {
+                        "name": "OnStateChanged"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
+                            "details": {
+                                "name": "char"
+                            }
+                        },
+                        {
+                            "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
+                            "details": {
+                                "name": "char"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

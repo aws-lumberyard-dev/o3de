@@ -1,0 +1,45 @@
+{
+    "entries": [
+        {
+            "key": "Event<int bool AZStd::basic_string<char, AZStd::char_traits<char>, allocator> >",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Event<int bool AZStd::basic_string<char, AZStd::char_traits<char>, allocator> >"
+            },
+            "methods": [
+                {
+                    "key": "HasHandlerConnected",
+                    "context": "Event<int bool AZStd::basic_string<char, AZStd::char_traits<char>, allocator> >",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Event<int bool AZStd::basic_string<char, AZStd::char_traits<char>, allocator> >::HasHandlerConnected"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Event<int bool AZStd::basic_string<char, AZStd::char_traits<char>, allocator> >::HasHandlerConnected is invoked"
+                    },
+                    "details": {
+                        "name": "Event<int bool AZStd::basic_string<char, AZStd::char_traits<char>, allocator> >::HasHandlerConnected"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6ACECB77-D489-52CF-8473-9116466ABC59}",
+                            "details": {
+                                "name": "Event<int bool AZStd::basic_string<char, AZStd::char_traits<cha"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

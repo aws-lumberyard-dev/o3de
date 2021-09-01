@@ -1,0 +1,5 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Gems/RADTelemetry/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/RADTelemetry/Code/Source/Platform/Windows/platform_windows_files.cmake
+J:/Atom/lyfork/o3de/Gems/RADTelemetry/Code/radtelemetry_files.cmake
+J:/Atom/lyfork/o3de/Gems/RADTelemetry/Code/radtelemetry_shared_files.cmake

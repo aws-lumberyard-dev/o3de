@@ -1,0 +1,45 @@
+{
+    "entries": [
+        {
+            "key": "DisplaySettingsState",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "DisplaySettingsState"
+            },
+            "methods": [
+                {
+                    "key": "ToString",
+                    "context": "DisplaySettingsState",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke DisplaySettingsState::ToString"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after DisplaySettingsState::ToString is invoked"
+                    },
+                    "details": {
+                        "name": "DisplaySettingsState::ToString"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EBEDA5EC-29D3-4F23-ABCC-C7C4EE48FA36}",
+                            "details": {
+                                "name": "DisplaySettingsState"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

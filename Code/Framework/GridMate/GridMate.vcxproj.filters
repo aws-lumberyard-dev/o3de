@@ -1,0 +1,484 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\GridMate.cpp">
+      <Filter>GridMate</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\Carrier.cpp">
+      <Filter>GridMate\Carrier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\DefaultHandshake.cpp">
+      <Filter>GridMate\Carrier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\DefaultSimulator.cpp">
+      <Filter>GridMate\Carrier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\DefaultTrafficControl.cpp">
+      <Filter>GridMate\Carrier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\SocketDriver.cpp">
+      <Filter>GridMate\Carrier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\StreamSocketDriver.cpp">
+      <Filter>GridMate\Carrier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Drillers\CarrierDriller.cpp">
+      <Filter>GridMate\Drillers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Drillers\ReplicaDriller.cpp">
+      <Filter>GridMate\Drillers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Drillers\SessionDriller.cpp">
+      <Filter>GridMate\Drillers</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\DataSet.cpp">
+      <Filter>GridMate\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\MigrationSequence.cpp">
+      <Filter>GridMate\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\RemoteProcedureCall.cpp">
+      <Filter>GridMate\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\Replica.cpp">
+      <Filter>GridMate\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\ReplicaChunk.cpp">
+      <Filter>GridMate\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\ReplicaChunkDescriptor.cpp">
+      <Filter>GridMate\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\ReplicaMgr.cpp">
+      <Filter>GridMate\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\ReplicaStatus.cpp">
+      <Filter>GridMate\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\ReplicaTarget.cpp">
+      <Filter>GridMate\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\SystemReplicas.cpp">
+      <Filter>GridMate\Replica</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\Tasks\ReplicaMarshalTasks.cpp">
+      <Filter>GridMate\Replica\Tasks</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\Tasks\ReplicaUpdateTasks.cpp">
+      <Filter>GridMate\Replica\Tasks</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\Tasks\ReplicaProcessPolicy.cpp">
+      <Filter>GridMate\Replica\Tasks</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\Interest\BitmaskInterestHandler.cpp">
+      <Filter>GridMate\Replica\Interest</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\Interest\InterestManager.cpp">
+      <Filter>GridMate\Replica\Interest</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Serialize\Buffer.cpp">
+      <Filter>GridMate\Serialize</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Serialize\CompressionMarshal.cpp">
+      <Filter>GridMate\Serialize</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Session\LANSession.cpp">
+      <Filter>GridMate\Session</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Session\Session.cpp">
+      <Filter>GridMate\Session</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\SecureSocketDriver.cpp">
+      <Filter>GridMate\Carrier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\StreamSecureSocketDriver.cpp">
+      <Filter>GridMate\Carrier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Common\WinAPI\GridMate\Carrier\SocketDriver_WinAPI.cpp">
+      <Filter>Platform\Windows\..\Common\WinAPI\GridMate\Carrier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Common\WinAPI\GridMate\Carrier\Utils_WinAPI.cpp">
+      <Filter>Platform\Windows\..\Common\WinAPI\GridMate\Carrier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows\GridMate\Carrier\Utils_Windows.cpp">
+      <Filter>Platform\Windows\GridMate\Carrier</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows\GridMate\Session\LANSession_Windows.cpp">
+      <Filter>Platform\Windows\GridMate\Session</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\BuildInfo.h">
+      <Filter>GridMate</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\EBus.h">
+      <Filter>GridMate</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Docs.h">
+      <Filter>GridMate</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\GridMate.h">
+      <Filter>GridMate</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\GridMateEventsBus.h">
+      <Filter>GridMate</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\GridMateService.h">
+      <Filter>GridMate</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\MathUtils.h">
+      <Filter>GridMate</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Memory.h">
+      <Filter>GridMate</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Types.h">
+      <Filter>GridMate</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Version.h">
+      <Filter>GridMate</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\Carrier.h">
+      <Filter>GridMate\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\Compressor.h">
+      <Filter>GridMate\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\Cripter.h">
+      <Filter>GridMate\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\DefaultHandshake.h">
+      <Filter>GridMate\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\DefaultSimulator.h">
+      <Filter>GridMate\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\DefaultTrafficControl.h">
+      <Filter>GridMate\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\Driver.h">
+      <Filter>GridMate\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\DriverEvents.h">
+      <Filter>GridMate\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\Handshake.h">
+      <Filter>GridMate\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\Simulator.h">
+      <Filter>GridMate\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\SocketDriver.h">
+      <Filter>GridMate\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\StreamSocketDriver.h">
+      <Filter>GridMate\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\TrafficControl.h">
+      <Filter>GridMate\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\Utils.h">
+      <Filter>GridMate\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Containers\list.h">
+      <Filter>GridMate\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Containers\queue.h">
+      <Filter>GridMate\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Containers\set.h">
+      <Filter>GridMate\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Containers\slist.h">
+      <Filter>GridMate\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Containers\unordered_map.h">
+      <Filter>GridMate\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Containers\unordered_set.h">
+      <Filter>GridMate\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Containers\vector.h">
+      <Filter>GridMate\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Drillers\CarrierDriller.h">
+      <Filter>GridMate\Drillers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Drillers\ReplicaDriller.h">
+      <Filter>GridMate\Drillers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Drillers\SessionDriller.h">
+      <Filter>GridMate\Drillers</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Online\OnlineUtilityThread.h">
+      <Filter>GridMate\Online</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Online\UserServiceTypes.h">
+      <Filter>GridMate\Online</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\BasicHostChunkDescriptor.h">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\DeltaCompressedDataSet.h">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\DataSet.h">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\Interpolators.h">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\MigrationSequence.h">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\RemoteProcedureCall.h">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\Replica.h">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\ReplicaChunk.h">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\ReplicaChunkDescriptor.h">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\ReplicaChunkInterface.h">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\ReplicaCommon.h">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\ReplicaDefs.h">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\ReplicaDrillerEvents.h">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\ReplicaFunctions.h">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\ReplicaFunctions.inl">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\ReplicaInline.inl">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\ReplicaMgr.h">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\ReplicaStatus.h">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\ReplicaStatusInterface.h">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\ReplicaTarget.h">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\ReplicaUtils.h">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\SystemReplicas.h">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\Throttles.h">
+      <Filter>GridMate\Replica</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\Tasks\ReplicaMarshalTasks.h">
+      <Filter>GridMate\Replica\Tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\Tasks\ReplicaTask.h">
+      <Filter>GridMate\Replica\Tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\Tasks\ReplicaTaskManager.h">
+      <Filter>GridMate\Replica\Tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\Tasks\ReplicaUpdateTasks.h">
+      <Filter>GridMate\Replica\Tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\Tasks\ReplicaProcessPolicy.h">
+      <Filter>GridMate\Replica\Tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\Tasks\ReplicaPriorityPolicy.h">
+      <Filter>GridMate\Replica\Tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\Interest\BitmaskInterestHandler.h">
+      <Filter>GridMate\Replica\Interest</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\Interest\InterestDefs.h">
+      <Filter>GridMate\Replica\Interest</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\Interest\InterestManager.h">
+      <Filter>GridMate\Replica\Interest</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\Interest\InterestQueryResult.h">
+      <Filter>GridMate\Replica\Interest</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Replica\Interest\RulesHandler.h">
+      <Filter>GridMate\Replica\Interest</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Serialize\Buffer.h">
+      <Filter>GridMate\Serialize</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Serialize\PackedSize.h">
+      <Filter>GridMate\Serialize</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Serialize\CompressionMarshal.h">
+      <Filter>GridMate\Serialize</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Serialize\ContainerMarshal.h">
+      <Filter>GridMate\Serialize</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Serialize\DataMarshal.h">
+      <Filter>GridMate\Serialize</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Serialize\MarshalerTypes.h">
+      <Filter>GridMate\Serialize</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Serialize\MathMarshal.h">
+      <Filter>GridMate\Serialize</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Serialize\UtilityMarshal.h">
+      <Filter>GridMate\Serialize</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Serialize\UuidMarshal.h">
+      <Filter>GridMate\Serialize</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Session\LANSession.h">
+      <Filter>GridMate\Session</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Session\LANSessionServiceTypes.h">
+      <Filter>GridMate\Session</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Session\LANSessionServiceBus.h">
+      <Filter>GridMate\Session</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Session\Session.h">
+      <Filter>GridMate\Session</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Session\SessionServiceBus.h">
+      <Filter>GridMate\Session</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\VoiceChat\VoiceChatServiceBus.h">
+      <Filter>GridMate\VoiceChat</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\SecureSocketDriver.h">
+      <Filter>GridMate\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\Carrier\StreamSecureSocketDriver.h">
+      <Filter>GridMate\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows\GridMate\Carrier\SocketDriver_Platform.h">
+      <Filter>Platform\Windows\GridMate\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows\GridMate\Carrier\SocketDriver_Windows.h">
+      <Filter>Platform\Windows\GridMate\Carrier</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows\GridMate\Session\Session_Platform.h">
+      <Filter>Platform\Windows\GridMate\Session</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows\GridMate\Session\Session_Windows.h">
+      <Filter>Platform\Windows\GridMate\Session</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows\GridMate_Traits_Platform.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows\GridMate_Traits_Windows.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\gridmate_files.cmake">
+      <Filter>GridMate</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\GridMate\gridmate_ssl_files.cmake">
+      <Filter>GridMate</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows\platform_windows_files.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows\platform_windows.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Common\gridmate_msvc.cmake">
+      <Filter>Platform\Common</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GridMate">
+      <UniqueIdentifier>{F54B58DA-C976-33AC-9F91-06215E24C100}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GridMate\Carrier">
+      <UniqueIdentifier>{BCDF2B31-AB35-3BAC-AA47-C9C42E410AB0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GridMate\Containers">
+      <UniqueIdentifier>{50260A04-F2C8-3FE0-8F5B-EDF99C839BA9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GridMate\Drillers">
+      <UniqueIdentifier>{3A033C4E-89B6-3C23-A0EE-D75DC4FF5106}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GridMate\Online">
+      <UniqueIdentifier>{FA65D804-98E8-3CF2-BDB1-96A9CF458668}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GridMate\Replica">
+      <UniqueIdentifier>{A4ED3FED-A541-3EF9-B68A-735545864BC1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GridMate\Replica\Interest">
+      <UniqueIdentifier>{4267F0C5-2006-3180-86DF-906AAB0C1E32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GridMate\Replica\Tasks">
+      <UniqueIdentifier>{75E5BCE9-1CBB-396F-82CE-87EE25A91A02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GridMate\Serialize">
+      <UniqueIdentifier>{065444B6-B6F5-346C-BEF8-8169193512EB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GridMate\Session">
+      <UniqueIdentifier>{2A33E2F6-F925-3F25-84A3-005BE096B83A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GridMate\VoiceChat">
+      <UniqueIdentifier>{DAF32909-D7FF-3C2E-9901-E1E53404C113}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{D4CCE8D3-A6C9-3C6A-9C86-8BF8F7D77D7F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Common">
+      <UniqueIdentifier>{C3B9BA79-B7DE-3656-9F2E-A2DB09E250B2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{9B5BE819-E94D-379A-84DF-5559629D4548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..">
+      <UniqueIdentifier>{731ADA3D-17B6-381E-ABF5-417E8742D0A7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common">
+      <UniqueIdentifier>{DE695BA1-3376-3AAF-953B-BD43429F4343}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\WinAPI">
+      <UniqueIdentifier>{85A1FA1A-D5F4-35A3-A95D-DF55BB4894C6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\WinAPI\GridMate">
+      <UniqueIdentifier>{504D8890-0F85-3854-873C-463D4D335FD8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\..\Common\WinAPI\GridMate\Carrier">
+      <UniqueIdentifier>{6246CED3-4262-37B4-81E4-F53DA90D56D6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\GridMate">
+      <UniqueIdentifier>{8E9E561C-8625-3A31-BE5D-46A12B52BE91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\GridMate\Carrier">
+      <UniqueIdentifier>{A696FFBE-AE89-3D77-BE32-42AB638A89AE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows\GridMate\Session">
+      <UniqueIdentifier>{70EB8E03-4BAB-3CCA-BF65-11AA19D58C1F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

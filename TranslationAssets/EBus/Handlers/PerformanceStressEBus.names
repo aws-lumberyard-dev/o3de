@@ -1,0 +1,74 @@
+{
+    "entries": [
+        {
+            "key": "PerformanceStressEBus",
+            "context": "EBusHandler",
+            "variant": "",
+            "details": {
+                "name": "PerformanceStressEBus"
+            },
+            "methods": [
+                {
+                    "key": "ForceStringCompare0",
+                    "details": {
+                        "name": "ForceStringCompare0"
+                    }
+                },
+                {
+                    "key": "ForceStringCompare1",
+                    "details": {
+                        "name": "ForceStringCompare1"
+                    }
+                },
+                {
+                    "key": "ForceStringCompare2",
+                    "details": {
+                        "name": "ForceStringCompare2"
+                    }
+                },
+                {
+                    "key": "ForceStringCompare3",
+                    "details": {
+                        "name": "ForceStringCompare3"
+                    }
+                },
+                {
+                    "key": "ForceStringCompare4",
+                    "details": {
+                        "name": "ForceStringCompare4"
+                    }
+                },
+                {
+                    "key": "ForceStringCompare5",
+                    "details": {
+                        "name": "ForceStringCompare5"
+                    }
+                },
+                {
+                    "key": "ForceStringCompare6",
+                    "details": {
+                        "name": "ForceStringCompare6"
+                    }
+                },
+                {
+                    "key": "ForceStringCompare7",
+                    "details": {
+                        "name": "ForceStringCompare7"
+                    }
+                },
+                {
+                    "key": "ForceStringCompare8",
+                    "details": {
+                        "name": "ForceStringCompare8"
+                    }
+                },
+                {
+                    "key": "ForceStringCompare9",
+                    "details": {
+                        "name": "ForceStringCompare9"
+                    }
+                }
+            ]
+        }
+    ]
+}

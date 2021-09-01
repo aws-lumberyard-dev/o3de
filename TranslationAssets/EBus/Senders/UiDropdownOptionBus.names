@@ -1,0 +1,152 @@
+{
+    "entries": [
+        {
+            "key": "UiDropdownOptionBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiDropdownOptionBus"
+            },
+            "methods": [
+                {
+                    "key": "GetTextElement",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetTextElement"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetTextElement is invoked"
+                    },
+                    "details": {
+                        "name": "GetTextElement"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIconElement",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIconElement"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIconElement is invoked"
+                    },
+                    "details": {
+                        "name": "GetIconElement"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIconElement",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIconElement"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIconElement is invoked"
+                    },
+                    "details": {
+                        "name": "SetIconElement"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetOwningDropdown",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetOwningDropdown"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetOwningDropdown is invoked"
+                    },
+                    "details": {
+                        "name": "SetOwningDropdown"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetTextElement",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetTextElement"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetTextElement is invoked"
+                    },
+                    "details": {
+                        "name": "SetTextElement"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetOwningDropdown",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetOwningDropdown"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetOwningDropdown is invoked"
+                    },
+                    "details": {
+                        "name": "GetOwningDropdown"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "details": {
+                                "name": "EntityId",
+                                "tooltip": "Entity Unique Id"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

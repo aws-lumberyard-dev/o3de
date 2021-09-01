@@ -1,0 +1,12 @@
+{
+    "entries": [
+        {
+            "key": "AZ::Render::EditorRadiusWeightModifierComponent",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "AZ::Render::EditorRadiusWeightModifierComponent"
+            }
+        }
+    ]
+}

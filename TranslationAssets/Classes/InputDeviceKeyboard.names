@@ -1,0 +1,12 @@
+{
+    "entries": [
+        {
+            "key": "InputDeviceKeyboard",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "InputDeviceKeyboard"
+            }
+        }
+    ]
+}

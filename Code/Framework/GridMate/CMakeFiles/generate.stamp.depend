@@ -1,0 +1,10 @@
+# CMake generation dependency list for this directory.
+J:/Atom/lyfork/o3de/Code/Framework/GridMate/CMakeLists.txt
+J:/Atom/lyfork/o3de/Code/Framework/GridMate/GridMate/gridmate_files.cmake
+J:/Atom/lyfork/o3de/Code/Framework/GridMate/GridMate/gridmate_ssl_files.cmake
+J:/Atom/lyfork/o3de/Code/Framework/GridMate/Platform/Common/gridmate_msvc.cmake
+J:/Atom/lyfork/o3de/Code/Framework/GridMate/Platform/Windows/platform_windows.cmake
+J:/Atom/lyfork/o3de/Code/Framework/GridMate/Platform/Windows/platform_windows_files.cmake
+J:/Atom/lyfork/o3de/Code/Framework/GridMate/Tests/Platform/Windows/platform_windows_files.cmake
+J:/Atom/lyfork/o3de/Code/Framework/GridMate/Tests/gridmate_test_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

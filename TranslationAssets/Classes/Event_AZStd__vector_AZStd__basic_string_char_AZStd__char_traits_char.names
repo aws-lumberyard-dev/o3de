@@ -1,0 +1,45 @@
+{
+    "entries": [
+        {
+            "key": "Event<AZStd::vector<AZStd::basic_string<char, AZStd::char_traits<char >",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Event<AZStd::vector<AZStd::basic_string<char, AZStd::char_traits<char >"
+            },
+            "methods": [
+                {
+                    "key": "HasHandlerConnected",
+                    "context": "Event<AZStd::vector<AZStd::basic_string<char, AZStd::char_traits<char >",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Event<AZStd::vector<AZStd::basic_string<char, AZStd::char_traits<char >::HasHandlerConnected"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Event<AZStd::vector<AZStd::basic_string<char, AZStd::char_traits<char >::HasHandlerConnected is invoked"
+                    },
+                    "details": {
+                        "name": "Event<AZStd::vector<AZStd::basic_string<char, AZStd::char_traits<char >::HasHandlerConnected"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{36AD4D04-5A5D-52DC-A864-7027D563EFA2}",
+                            "details": {
+                                "name": "Event<AZStd::vector<AZStd::basic_string<char, AZStd::char_trait"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

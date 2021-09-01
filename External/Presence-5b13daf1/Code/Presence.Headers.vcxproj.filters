@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Presence\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Presence\Code\Include\Presence\PresenceRequestBus.h">
+      <Filter>Include\Presence</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Presence\Code\Include\Presence\PresenceNotificationBus.h">
+      <Filter>Include\Presence</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Presence\Code\presence_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Presence">
+      <UniqueIdentifier>{4466B66D-572C-396E-9162-CAF580171403}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

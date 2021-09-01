@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSClientAuth\Code\Tests\AWSClientAuthGemTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSClientAuth\Code\Tests\AWSClientAuthSystemComponentTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSClientAuth\Code\Tests\Authentication\AuthenticationProviderManagerTest.cpp">
+      <Filter>Tests\Authentication</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSClientAuth\Code\Tests\Authentication\AuthenticationProviderManagerScriptCanvasBusTest.cpp">
+      <Filter>Tests\Authentication</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSClientAuth\Code\Tests\Authentication\AWSCognitoAuthenticationProviderTest.cpp">
+      <Filter>Tests\Authentication</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSClientAuth\Code\Tests\Authentication\LWAAuthenticationProviderTest.cpp">
+      <Filter>Tests\Authentication</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSClientAuth\Code\Tests\Authentication\GoogleAuthenticationProviderTest.cpp">
+      <Filter>Tests\Authentication</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSClientAuth\Code\Tests\Authorization\AWSClientAuthPersistentCognitoIdentityProviderTest.cpp">
+      <Filter>Tests\Authorization</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSClientAuth\Code\Tests\Authorization\AWSCognitoAuthorizationControllerTest.cpp">
+      <Filter>Tests\Authorization</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSClientAuth\Code\Tests\UserManagement\AWSCognitoUserManagementControllerTest.cpp">
+      <Filter>Tests\UserManagement</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSClientAuth\Code\Tests\AWSClientAuthGemMock.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSClientAuth\Code\Tests\Authentication\AuthenticationProviderManagerMock.h">
+      <Filter>Tests\Authentication</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\AWSClientAuth\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\AWSClientAuth\Code\awsclientauth_test_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{A12C7827-546E-3D77-AE99-877104F2DFF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Authentication">
+      <UniqueIdentifier>{FE4496A8-A22A-3B43-8984-B90C4E18CEED}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Authorization">
+      <UniqueIdentifier>{E71E745C-D76C-3C07-9FC3-FA9E28AA9FF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\UserManagement">
+      <UniqueIdentifier>{D01B7B12-9B5F-3941-BA58-71435552D526}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

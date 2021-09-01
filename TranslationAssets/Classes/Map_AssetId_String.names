@@ -1,0 +1,482 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Map<AssetId, String>",
+                "category": "Map",
+                "tooltip": "A collection of Key/Value pairs, where each Key value must be unique."
+            },
+            "methods": [
+                {
+                    "key": "contains",
+                    "context": "Map<AssetId, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::contains"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::contains is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::contains"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{73383C40-9632-58AB-9CFE-E90C89E1C612}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
+                            "details": {
+                                "name": "AssetId"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Map<AssetId, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{73383C40-9632-58AB-9CFE-E90C89E1C612}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
+                            "details": {
+                                "name": "AssetId"
+                            }
+                        },
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{73383C40-9632-58AB-9CFE-E90C89E1C612}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Map<AssetId, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{73383C40-9632-58AB-9CFE-E90C89E1C612}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Map<AssetId, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{73383C40-9632-58AB-9CFE-E90C89E1C612}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Map<AssetId, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{73383C40-9632-58AB-9CFE-E90C89E1C612}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{94456F04-E3B1-5ADC-8949-9F200A4F0DDC}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>,"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetKeys",
+                    "context": "Map<AssetId, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::GetKeys"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::GetKeys is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::GetKeys"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{73383C40-9632-58AB-9CFE-E90C89E1C612}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{877C4A33-39B5-51D7-948D-F97DB81372A1}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Size",
+                    "context": "Map<AssetId, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{73383C40-9632-58AB-9CFE-E90C89E1C612}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase",
+                    "context": "Map<AssetId, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Erase"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Erase is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Erase"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{73383C40-9632-58AB-9CFE-E90C89E1C612}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
+                            "details": {
+                                "name": "AssetId"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{73383C40-9632-58AB-9CFE-E90C89E1C612}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Map<AssetId, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{73383C40-9632-58AB-9CFE-E90C89E1C612}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
+                            "details": {
+                                "name": "AssetId"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Map<AssetId, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{73383C40-9632-58AB-9CFE-E90C89E1C612}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{73383C40-9632-58AB-9CFE-E90C89E1C612}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "At",
+                    "context": "Map<AssetId, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::At"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::At is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::At"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{73383C40-9632-58AB-9CFE-E90C89E1C612}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
+                            "details": {
+                                "name": "AssetId"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
+                            "details": {
+                                "name": "AZStd::string"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "BucketCount",
+                    "context": "Map<AssetId, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::BucketCount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::BucketCount is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::BucketCount"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{73383C40-9632-58AB-9CFE-E90C89E1C612}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Map<AssetId, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{73383C40-9632-58AB-9CFE-E90C89E1C612}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Map<AssetId, String>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<AssetId, AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AssetId>, AZStd::equa::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{73383C40-9632-58AB-9CFE-E90C89E1C612}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{73383C40-9632-58AB-9CFE-E90C89E1C612}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

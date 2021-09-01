@@ -1,0 +1,14 @@
+# CMake generation dependency list for this directory.
+C:/Users/luissemp/.o3de/3rdParty/packages/poly2tri-7f0487a-rev1-windows/Findpoly2tri.cmake
+C:/Users/luissemp/.o3de/3rdParty/packages/poly2tri-7f0487a-rev1-windows/PackageInfo.json
+C:/Users/luissemp/.o3de/3rdParty/packages/v-hacd-2.3-1a49edf-rev1-windows/Findv-hacd.cmake
+C:/Users/luissemp/.o3de/3rdParty/packages/v-hacd-2.3-1a49edf-rev1-windows/PackageInfo.json
+J:/Atom/lyfork/o3de/Gems/PhysX/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/PhysX/Code/Source/Platform/Windows/PAL_windows.cmake
+J:/Atom/lyfork/o3de/Gems/PhysX/Code/physx_editor_files.cmake
+J:/Atom/lyfork/o3de/Gems/PhysX/Code/physx_editor_shared_files.cmake
+J:/Atom/lyfork/o3de/Gems/PhysX/Code/physx_editor_tests_files.cmake
+J:/Atom/lyfork/o3de/Gems/PhysX/Code/physx_files.cmake
+J:/Atom/lyfork/o3de/Gems/PhysX/Code/physx_shared_files.cmake
+J:/Atom/lyfork/o3de/Gems/PhysX/Code/physx_tests_files.cmake
+J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

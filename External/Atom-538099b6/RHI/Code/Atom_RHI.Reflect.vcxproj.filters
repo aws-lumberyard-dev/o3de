@@ -1,0 +1,410 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\AttachmentEnums.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\UnifiedAttachmentDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\Base.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\ClearValue.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\Format.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\Interval.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\Origin.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\Size.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\BufferDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\BufferViewDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\BufferPoolDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\Scissor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\Viewport.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\DeviceDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\ImageDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\ImageSubresource.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\ImageViewDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\ImagePoolDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\StreamingImagePoolDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\IndirectBufferLayout.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\MemoryUsage.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\PhysicalDeviceDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\PhysicalDeviceDriverInfoSerializer.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\InputStreamLayout.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\InputStreamLayoutBuilder.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\MultisampleState.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\RenderAttachmentLayout.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\RenderAttachmentLayoutBuilder.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\PipelineLibraryData.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\RenderStates.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\SamplerState.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\ShaderSemantic.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\QueryPoolDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\ResourcePoolDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\AttachmentLoadStoreAction.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\BufferScopeAttachmentDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\ImageScopeAttachmentDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\ResolveScopeAttachmentDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\ScopeAttachmentDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\UnifiedScopeAttachmentDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\ConstantsLayout.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\PipelineLayoutDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\ShaderStageFunction.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\ShaderDataMappings.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\ShaderResourceGroupLayout.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\ShaderResourceGroupLayoutDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\ShaderResourceGroupPoolDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\SwapChainDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\ReflectSystemComponent.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\RHISystemDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\AliasedHeapEnums.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\TransientBufferDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\TransientImageDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\PlatformLimitsDescriptor.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\ShaderInputNameIndex.cpp">
+      <Filter>Source\RHI.Reflect</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\AttachmentEnums.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\AttachmentId.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\UnifiedAttachmentDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\Base.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\Bits.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\ClearValue.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\Format.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\Handle.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\Interval.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\NameIdReflectionMap.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\Origin.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\Size.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\BufferDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\BufferViewDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\BufferPoolDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\Limits.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\Scissor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\Viewport.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\DeviceDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\DeviceFeatures.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\DeviceLimits.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\FrameSchedulerEnums.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\ImageDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\ImageSubresource.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\ImageViewDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\ImagePoolDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\StreamingImagePoolDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\IndirectBufferLayout.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\MemoryEnums.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\MemoryUsage.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\PhysicalDeviceDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\PhysicalDeviceDriverInfoSerializer.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\InputStreamLayout.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\InputStreamLayoutBuilder.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\MultisampleState.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\RenderAttachmentLayout.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\RenderAttachmentLayoutBuilder.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\PipelineLibraryData.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\RenderStates.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\SamplerState.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\ShaderSemantic.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\QueryPoolDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\ResourcePoolDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\ScopeId.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\AttachmentLoadStoreAction.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\BufferScopeAttachmentDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\ImageScopeAttachmentDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\ResolveScopeAttachmentDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\ScopeAttachmentDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\UnifiedScopeAttachmentDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\ConstantsLayout.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\PipelineLayoutDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\ShaderStages.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\ShaderStageFunction.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\ShaderDataMappings.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\ShaderResourceGroupLayout.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\ShaderResourceGroupLayoutDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\ShaderResourceGroupPoolDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\CpuTimingStatistics.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\MemoryStatistics.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\TransientAttachmentStatistics.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\SwapChainDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\ReflectSystemComponent.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\RHISystemDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\AliasedHeapEnums.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\TransientBufferDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\TransientImageDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\ImageEnums.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\PlatformLimitsDescriptor.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\ShaderInputNameIndex.h">
+      <Filter>Include\Atom\RHI.Reflect</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\atom_rhi_reflect_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom">
+      <UniqueIdentifier>{E66A19AE-451A-3F1F-B698-7608D533AFDF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Atom\RHI.Reflect">
+      <UniqueIdentifier>{CE92A1D2-9F0D-37D3-9AE5-F83BB7FDF16E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\RHI.Reflect">
+      <UniqueIdentifier>{46DEAEBF-5EE8-3D59-B3FB-9D06E8C216B1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

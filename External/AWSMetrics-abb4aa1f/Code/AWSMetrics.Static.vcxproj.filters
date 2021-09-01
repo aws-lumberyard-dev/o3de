@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Source\ClientConfiguration.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Source\DefaultClientIdProvider.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Source\AWSMetricsServiceApi.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Source\AWSMetricsSystemComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Source\IdentityProvider.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Source\MetricsEvent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Source\MetricsEventBuilder.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Source\MetricsAttribute.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Source\MetricsManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Source\MetricsQueue.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Include\Public\AWSMetricsBus.h">
+      <Filter>Include\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Include\Private\AWSMetricsConstant.h">
+      <Filter>Include\Private</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Include\Private\AWSMetricsServiceApi.h">
+      <Filter>Include\Private</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Include\Private\AWSMetricsSystemComponent.h">
+      <Filter>Include\Private</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Include\Private\ClientConfiguration.h">
+      <Filter>Include\Private</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Include\Private\DefaultClientIdProvider.h">
+      <Filter>Include\Private</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Include\Private\GlobalStatistics.h">
+      <Filter>Include\Private</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Include\Private\IdentityProvider.h">
+      <Filter>Include\Private</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Include\Private\MetricsAttribute.h">
+      <Filter>Include\Private</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Include\Private\MetricsEvent.h">
+      <Filter>Include\Private</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Include\Private\MetricsEventBuilder.h">
+      <Filter>Include\Private</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Include\Private\MetricsManager.h">
+      <Filter>Include\Private</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\Include\Private\MetricsQueue.h">
+      <Filter>Include\Private</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\AWSMetrics\Code\awsmetrics_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Private">
+      <UniqueIdentifier>{BF9280D1-E1B7-308D-B433-C4B96E16D0C2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Public">
+      <UniqueIdentifier>{6BCE243A-06DF-328F-8BAD-1A26557995D1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

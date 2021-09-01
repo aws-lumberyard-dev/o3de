@@ -1,0 +1,42 @@
+{
+    "entries": [
+        {
+            "key": "LyShineExamplesCppExampleBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "LyShineExamplesCppExampleBus"
+            },
+            "methods": [
+                {
+                    "key": "CreateCanvas",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke CreateCanvas"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after CreateCanvas is invoked"
+                    },
+                    "details": {
+                        "name": "CreateCanvas"
+                    }
+                },
+                {
+                    "key": "DestroyCanvas",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke DestroyCanvas"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after DestroyCanvas is invoked"
+                    },
+                    "details": {
+                        "name": "DestroyCanvas"
+                    }
+                }
+            ]
+        }
+    ]
+}

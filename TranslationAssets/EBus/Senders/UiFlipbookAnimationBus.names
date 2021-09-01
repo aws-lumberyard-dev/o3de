@@ -1,0 +1,548 @@
+{
+    "entries": [
+        {
+            "key": "UiFlipbookAnimationBus",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "UiFlipbookAnimationBus"
+            },
+            "methods": [
+                {
+                    "key": "GetLoopType",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetLoopType"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetLoopType is invoked"
+                    },
+                    "details": {
+                        "name": "GetLoopType"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetReverseDelay",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetReverseDelay"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetReverseDelay is invoked"
+                    },
+                    "details": {
+                        "name": "GetReverseDelay"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetIsAutoPlay",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetIsAutoPlay"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetIsAutoPlay is invoked"
+                    },
+                    "details": {
+                        "name": "SetIsAutoPlay"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetCurrentFrame",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetCurrentFrame"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetCurrentFrame is invoked"
+                    },
+                    "details": {
+                        "name": "SetCurrentFrame"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetLoopStartFrame",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetLoopStartFrame"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetLoopStartFrame is invoked"
+                    },
+                    "details": {
+                        "name": "GetLoopStartFrame"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetLoopType",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetLoopType"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetLoopType is invoked"
+                    },
+                    "details": {
+                        "name": "SetLoopType"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetStartDelay",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetStartDelay"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetStartDelay is invoked"
+                    },
+                    "details": {
+                        "name": "GetStartDelay"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetStartDelay",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetStartDelay"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetStartDelay is invoked"
+                    },
+                    "details": {
+                        "name": "SetStartDelay"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetCurrentFrame",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetCurrentFrame"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetCurrentFrame is invoked"
+                    },
+                    "details": {
+                        "name": "GetCurrentFrame"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetFramerate",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetFramerate"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetFramerate is invoked"
+                    },
+                    "details": {
+                        "name": "GetFramerate"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetLoopDelay",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetLoopDelay"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetLoopDelay is invoked"
+                    },
+                    "details": {
+                        "name": "SetLoopDelay"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetStartFrame",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetStartFrame"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetStartFrame is invoked"
+                    },
+                    "details": {
+                        "name": "GetStartFrame"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetFramerateUnit",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetFramerateUnit"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetFramerateUnit is invoked"
+                    },
+                    "details": {
+                        "name": "SetFramerateUnit"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "IsPlaying",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke IsPlaying"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after IsPlaying is invoked"
+                    },
+                    "details": {
+                        "name": "IsPlaying"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetEndFrame",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetEndFrame"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetEndFrame is invoked"
+                    },
+                    "details": {
+                        "name": "SetEndFrame"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetLoopStartFrame",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetLoopStartFrame"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetLoopStartFrame is invoked"
+                    },
+                    "details": {
+                        "name": "SetLoopStartFrame"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetReverseDelay",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetReverseDelay"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetReverseDelay is invoked"
+                    },
+                    "details": {
+                        "name": "SetReverseDelay"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Stop",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Stop"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Stop is invoked"
+                    },
+                    "details": {
+                        "name": "Stop"
+                    }
+                },
+                {
+                    "key": "SetFramerate",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetFramerate"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetFramerate is invoked"
+                    },
+                    "details": {
+                        "name": "SetFramerate"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetIsAutoPlay",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetIsAutoPlay"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetIsAutoPlay is invoked"
+                    },
+                    "details": {
+                        "name": "GetIsAutoPlay"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Start",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke Start"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after Start is invoked"
+                    },
+                    "details": {
+                        "name": "Start"
+                    }
+                },
+                {
+                    "key": "SetStartFrame",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetStartFrame"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetStartFrame is invoked"
+                    },
+                    "details": {
+                        "name": "SetStartFrame"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetEndFrame",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetEndFrame"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetEndFrame is invoked"
+                    },
+                    "details": {
+                        "name": "GetEndFrame"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
+                            "details": {
+                                "name": "unsigned int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetFramerateUnit",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetFramerateUnit"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetFramerateUnit is invoked"
+                    },
+                    "details": {
+                        "name": "GetFramerateUnit"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetLoopDelay",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetLoopDelay"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetLoopDelay is invoked"
+                    },
+                    "details": {
+                        "name": "GetLoopDelay"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,482 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Map<Number, Number>",
+                "category": "Map",
+                "tooltip": "A collection of Key/Value pairs, where each Key value must be unique."
+            },
+            "methods": [
+                {
+                    "key": "contains",
+                    "context": "Map<Number, Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::contains"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::contains is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::contains"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{9D83FE2E-68F4-5FDC-92AE-52C395FB5BFB}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Map<Number, Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{9D83FE2E-68F4-5FDC-92AE-52C395FB5BFB}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{9D83FE2E-68F4-5FDC-92AE-52C395FB5BFB}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Map<Number, Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{9D83FE2E-68F4-5FDC-92AE-52C395FB5BFB}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Map<Number, Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{9D83FE2E-68F4-5FDC-92AE-52C395FB5BFB}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Map<Number, Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{9D83FE2E-68F4-5FDC-92AE-52C395FB5BFB}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{73BC66AE-1DA0-5428-8294-F269A545005F}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>>"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetKeys",
+                    "context": "Map<Number, Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::GetKeys"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::GetKeys is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::GetKeys"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{9D83FE2E-68F4-5FDC-92AE-52C395FB5BFB}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{F31F64EA-E384-5536-ACD6-8F01849730FC}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Size",
+                    "context": "Map<Number, Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{9D83FE2E-68F4-5FDC-92AE-52C395FB5BFB}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase",
+                    "context": "Map<Number, Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Erase"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Erase is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Erase"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{9D83FE2E-68F4-5FDC-92AE-52C395FB5BFB}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{9D83FE2E-68F4-5FDC-92AE-52C395FB5BFB}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Map<Number, Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{9D83FE2E-68F4-5FDC-92AE-52C395FB5BFB}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Map<Number, Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{9D83FE2E-68F4-5FDC-92AE-52C395FB5BFB}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{9D83FE2E-68F4-5FDC-92AE-52C395FB5BFB}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "At",
+                    "context": "Map<Number, Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::At"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::At is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::At"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{9D83FE2E-68F4-5FDC-92AE-52C395FB5BFB}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
+                            "details": {
+                                "name": "double"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "BucketCount",
+                    "context": "Map<Number, Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::BucketCount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::BucketCount is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::BucketCount"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{9D83FE2E-68F4-5FDC-92AE-52C395FB5BFB}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Map<Number, Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{9D83FE2E-68F4-5FDC-92AE-52C395FB5BFB}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Map<Number, Number>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::unordered_map<double, double, AZStd::hash<double>, AZStd::equal_to<double>, allocator>::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{9D83FE2E-68F4-5FDC-92AE-52C395FB5BFB}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        },
+                        {
+                            "typeid": "{9D83FE2E-68F4-5FDC-92AE-52C395FB5BFB}",
+                            "details": {
+                                "name": "AZStd::unordered_map"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

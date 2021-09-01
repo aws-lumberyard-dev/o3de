@@ -1,0 +1,854 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Array<MaterialAssignmentId>",
+                "category": "Array",
+                "tooltip": "A dynamically sized container of elements."
+            },
+            "methods": [
+                {
+                    "key": "Size",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Front",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Front"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Front is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Front"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EB603581-4654-4C17-B6DE-AE61E79EDA97}",
+                            "details": {
+                                "name": "AZ::Render::MaterialAssignmentId"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "HasKey",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Has Key"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Has Key is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Has Key"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Resize",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Resize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Resize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Resize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "at",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::at"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::at is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::at"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EB603581-4654-4C17-B6DE-AE61E79EDA97}",
+                            "details": {
+                                "name": "AZ::Render::MaterialAssignmentId"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Back",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EB603581-4654-4C17-B6DE-AE61E79EDA97}",
+                            "details": {
+                                "name": "AZ::Render::MaterialAssignmentId"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "pop_back",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::pop_back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::pop_back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::pop_back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>*"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "size",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "At",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::At"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::At is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::At"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EB603581-4654-4C17-B6DE-AE61E79EDA97}",
+                            "details": {
+                                "name": "AZ::Render::MaterialAssignmentId"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "push_back",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::push_back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::push_back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::push_back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{EB603581-4654-4C17-B6DE-AE61E79EDA97}",
+                            "details": {
+                                "name": "AZ::Render::MaterialAssignmentId"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "PushBack_VM",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::PushBack_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::PushBack_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::PushBack_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{EB603581-4654-4C17-B6DE-AE61E79EDA97}",
+                            "details": {
+                                "name": "AZ::Render::MaterialAssignmentId"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AtUnchecked",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::AtUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::AtUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::AtUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{EB603581-4654-4C17-B6DE-AE61E79EDA97}",
+                            "details": {
+                                "name": "AZ::Render::MaterialAssignmentId"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "clear",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>*"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "NotEmpty",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::NotEmpty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::NotEmpty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::NotEmpty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase_VM",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Erase_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Erase_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Erase_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Capacity",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Capacity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Capacity is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Capacity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AssignAt",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::AssignAt"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::AssignAt is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::AssignAt"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        },
+                        {
+                            "typeid": "{EB603581-4654-4C17-B6DE-AE61E79EDA97}",
+                            "details": {
+                                "name": "AZ::Render::MaterialAssignmentId"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        },
+                        {
+                            "typeid": "{EB603581-4654-4C17-B6DE-AE61E79EDA97}",
+                            "details": {
+                                "name": "AZ::Render::MaterialAssignmentId"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "PushBack",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::PushBack"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::PushBack is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::PushBack"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{EB603581-4654-4C17-B6DE-AE61E79EDA97}",
+                            "details": {
+                                "name": "AZ::Render::MaterialAssignmentId"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Array<MaterialAssignmentId>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7770AD3E-BABE-5F1C-B322-DE5DEAE94974}",
+                            "details": {
+                                "name": "AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{F13815CB-DBCA-5DF2-B424-B99865E0B78D}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<AZ::Render::MaterialAssignmentId, allocator>>"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

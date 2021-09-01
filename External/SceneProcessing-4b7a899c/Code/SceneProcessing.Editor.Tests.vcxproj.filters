@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Tests\MeshBuilder\MeshOptimizerComponentTests.cpp">
+      <Filter>Tests\MeshBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Tests\MeshBuilder\MeshBuilderTests.cpp">
+      <Filter>Tests\MeshBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Tests\MeshBuilder\MeshVerticesTests.cpp">
+      <Filter>Tests\MeshBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Tests\MeshBuilder\SkinInfluencesTests.cpp">
+      <Filter>Tests\MeshBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Tests\MeshOptimizer\HasBlendshapes.cpp">
+      <Filter>Tests\MeshOptimizer</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Tests\SceneBuilder\SceneBuilderPhasesTests.cpp">
+      <Filter>Tests\SceneBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Tests\SceneBuilder\SceneBuilderTests.cpp">
+      <Filter>Tests\SceneBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Tests\SceneProcessingConfigTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\Tests\InitSceneAPIFixture.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\SceneProcessing\Code\sceneprocessing_editor_tests_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{A12C7827-546E-3D77-AE99-877104F2DFF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\MeshBuilder">
+      <UniqueIdentifier>{CA11BA56-775D-3084-A353-2F2AFD208596}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\MeshOptimizer">
+      <UniqueIdentifier>{75E14B75-4607-38ED-826F-C8D9A1E888AF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\SceneBuilder">
+      <UniqueIdentifier>{076C66CF-2A08-39A0-8936-2550CD31E915}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

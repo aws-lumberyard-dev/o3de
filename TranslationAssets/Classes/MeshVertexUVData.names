@@ -1,0 +1,113 @@
+{
+    "entries": [
+        {
+            "key": "MeshVertexUVData",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "MeshVertexUVData"
+            },
+            "methods": [
+                {
+                    "key": "GetCustomName",
+                    "context": "MeshVertexUVData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MeshVertexUVData::GetCustomName"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MeshVertexUVData::GetCustomName is invoked"
+                    },
+                    "details": {
+                        "name": "MeshVertexUVData::GetCustomName"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B435C091-482C-4EB9-B1F4-FA5B480796DA}",
+                            "details": {
+                                "name": "MeshVertexUVData"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
+                            "details": {
+                                "name": "char"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetCount",
+                    "context": "MeshVertexUVData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MeshVertexUVData::GetCount"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MeshVertexUVData::GetCount is invoked"
+                    },
+                    "details": {
+                        "name": "MeshVertexUVData::GetCount"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B435C091-482C-4EB9-B1F4-FA5B480796DA}",
+                            "details": {
+                                "name": "MeshVertexUVData"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetUV",
+                    "context": "MeshVertexUVData",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke MeshVertexUVData::GetUV"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after MeshVertexUVData::GetUV is invoked"
+                    },
+                    "details": {
+                        "name": "MeshVertexUVData::GetUV"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{B435C091-482C-4EB9-B1F4-FA5B480796DA}",
+                            "details": {
+                                "name": "MeshVertexUVData"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
+                            "details": {
+                                "name": "Vector2"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

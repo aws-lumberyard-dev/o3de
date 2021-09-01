@@ -1,0 +1,854 @@
+{
+    "entries": [
+        {
+            "key": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>",
+            "context": "",
+            "variant": "",
+            "details": {
+                "name": "Array<ExportProduct>",
+                "category": "Array",
+                "tooltip": "A dynamically sized container of elements."
+            },
+            "methods": [
+                {
+                    "key": "Size",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Front",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Front"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Front is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Front"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6054EDCB-4C04-4D96-BF26-704999FFB725}",
+                            "details": {
+                                "name": "SceneAPI::Events::ExportProduct&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "HasKey",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Has Key"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Has Key is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Has Key"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Resize",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Resize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Resize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Resize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "at",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::at"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::at is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::at"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6054EDCB-4C04-4D96-BF26-704999FFB725}",
+                            "details": {
+                                "name": "SceneAPI::Events::ExportProduct&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Back",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6054EDCB-4C04-4D96-BF26-704999FFB725}",
+                            "details": {
+                                "name": "SceneAPI::Events::ExportProduct&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "pop_back",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::pop_back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::pop_back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::pop_back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>*"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "size",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::size"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::size is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::size"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "At",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::At"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::At is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::At"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6054EDCB-4C04-4D96-BF26-704999FFB725}",
+                            "details": {
+                                "name": "SceneAPI::Events::ExportProduct&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Empty",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Empty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Empty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Empty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Swap",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Swap"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Swap is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Swap"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "push_back",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::push_back"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::push_back is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::push_back"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{6054EDCB-4C04-4D96-BF26-704999FFB725}",
+                            "details": {
+                                "name": "const SceneAPI::Events::ExportProduct&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "PushBack_VM",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::PushBack_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::PushBack_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::PushBack_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{6054EDCB-4C04-4D96-BF26-704999FFB725}",
+                            "details": {
+                                "name": "const SceneAPI::Events::ExportProduct&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AtUnchecked",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::AtUnchecked"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::AtUnchecked is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::AtUnchecked"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{6054EDCB-4C04-4D96-BF26-704999FFB725}",
+                            "details": {
+                                "name": "SceneAPI::Events::ExportProduct&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "clear",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>*"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "NotEmpty",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::NotEmpty"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::NotEmpty is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::NotEmpty"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Erase_VM",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Erase_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Erase_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Erase_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "EraseCheck_VM",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::EraseCheck_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::EraseCheck_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::EraseCheck_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "details": {
+                                "name": "bool"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Capacity",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Capacity"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Capacity is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Capacity"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>*"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Clear",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Clear"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Clear is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Clear"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "AssignAt",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::AssignAt"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::AssignAt is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::AssignAt"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        },
+                        {
+                            "typeid": "{6054EDCB-4C04-4D96-BF26-704999FFB725}",
+                            "details": {
+                                "name": "SceneAPI::Events::ExportProduct&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetSize",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::GetSize"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::GetSize is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::GetSize"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
+                            "details": {
+                                "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Insert",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Insert"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Insert is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Insert"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>&"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        },
+                        {
+                            "typeid": "{6054EDCB-4C04-4D96-BF26-704999FFB725}",
+                            "details": {
+                                "name": "const SceneAPI::Events::ExportProduct&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "PushBack",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::PushBack"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::PushBack is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::PushBack"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{6054EDCB-4C04-4D96-BF26-704999FFB725}",
+                            "details": {
+                                "name": "const SceneAPI::Events::ExportProduct&"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Reserve",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Reserve"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Reserve is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Reserve"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>*"
+                            }
+                        },
+                        {
+                            "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
+                            "details": {
+                                "name": "AZ::u64"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "Iterate_VM",
+                    "context": "Array<ExportProduct>",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Iterate_VM"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Iterate_VM is invoked"
+                    },
+                    "details": {
+                        "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>::Iterate_VM"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{BFBA17B6-CDE2-5239-AEE0-58DF7FA14E3C}",
+                            "details": {
+                                "name": "AZStd::vector<SceneAPI::Events::ExportProduct, allocator>&"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{CD91071F-DA6D-5F76-9507-CAE09DD9C338}",
+                            "details": {
+                                "name": "Iterator_VM<AZStd::vector<SceneAPI::Events::ExportProduct, allocator>>"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

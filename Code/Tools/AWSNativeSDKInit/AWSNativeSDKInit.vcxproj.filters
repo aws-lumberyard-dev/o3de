@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AWSNativeSDKInit\source\AWSNativeSDKInit.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AWSNativeSDKInit\source\AWSMemoryInterface.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AWSNativeSDKInit\source\AWSLogSystemInterface.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AWSNativeSDKInit\source\Platform\Common\Default\AWSNativeSDKInit_Default.cpp">
+      <Filter>source\Platform\Windows\..\Common\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Tools\AWSNativeSDKInit\source\Platform\Common\Default\InitializeCerts_Null.cpp">
+      <Filter>source\Platform\Windows\..\Common\Default</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AWSNativeSDKInit\include\AWSNativeSDKInit\AWSNativeSDKInit.h">
+      <Filter>include\AWSNativeSDKInit</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AWSNativeSDKInit\include\AWSNativeSDKInit\AWSMemoryInterface.h">
+      <Filter>include\AWSNativeSDKInit</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\AWSNativeSDKInit\include\AWSNativeSDKInit\AWSLogSystemInterface.h">
+      <Filter>include\AWSNativeSDKInit</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AWSNativeSDKInit\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AWSNativeSDKInit\aws_native_sdk_init_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Tools\AWSNativeSDKInit\source\Platform\Windows\platform_windows_files.cmake">
+      <Filter>source\Platform\Windows</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{4EEEE190-B91D-3E34-9133-03DF85796165}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\AWSNativeSDKInit">
+      <UniqueIdentifier>{02F48974-5458-3D2B-8EC1-DBD136FA0381}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{62DE35CE-A268-3B03-84B5-66B7F1FA43B4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Platform">
+      <UniqueIdentifier>{F4ADC6E5-70E0-3B5C-943A-DE04D10723D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Platform\Windows">
+      <UniqueIdentifier>{CBA59A64-D1EF-333D-9E57-104EDEB9C3C8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Platform\Windows\..">
+      <UniqueIdentifier>{CD0BB3B5-098A-3878-B855-6E00E6D9FA7C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Platform\Windows\..\Common">
+      <UniqueIdentifier>{613F3FCF-7E1A-3153-8727-1378AC0BD44C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Platform\Windows\..\Common\Default">
+      <UniqueIdentifier>{3080DBCE-C410-3C09-8DB9-208349040B75}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
