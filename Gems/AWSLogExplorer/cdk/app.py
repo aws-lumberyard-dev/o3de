@@ -8,6 +8,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 """
 
 from aws_cdk import core
+from aws_logexplorer.aws_logexplorer_construct import AWSLogExplorer
 
 import os
 

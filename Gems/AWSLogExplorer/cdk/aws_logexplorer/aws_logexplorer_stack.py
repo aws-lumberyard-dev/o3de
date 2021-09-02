@@ -4,13 +4,16 @@ For complete copyright and license terms please see the LICENSE at the root of t
 
 SPDX-License-Identifier: Apache-2.0 OR MIT
 """
-
-from aws_cdk import core
-
+from aws_cdk import (
+    core,
+)
 
 class AWSLogExplorerStack(core.Stack):
 
-    def __init__(self, scope: core.Construct, construct_id: str, **kwargs) -> None:
-        super().__init__(scope, construct_id, **kwargs)
-
-        # The code that defines your stack goes here
+    def __init__(self, 
+                 scope: core.Construct, 
+                 id_: str, 
+                 project_name: str, 
+                 feature_name: str, 
+                 **kwargs) -> None:
+        super().__init__(scope, id_, **kwargs)
