@@ -86,6 +86,7 @@ set(FILES
     Passes/CascadedShadowmaps.pass
     Passes/CheckerboardResolveColor.pass
     Passes/CheckerboardResolveDepth.pass
+    Passes/ColorGrading.pass
     Passes/ContrastAdaptiveSharpening.pass
     Passes/ConvertToAcescg.pass
     Passes/DebugOverlayParent.pass
@@ -277,7 +278,10 @@ set(FILES
     ShaderLib/Atom/Features/PostProcessing/FullscreenVertexUtil.azsli
     ShaderLib/Atom/Features/PostProcessing/GlyphData.azsli
     ShaderLib/Atom/Features/PostProcessing/GlyphRender.azsli
+    ShaderLib/Atom/Features/PostProcessing/KelvinToRGB.azsli
     ShaderLib/Atom/Features/PostProcessing/PostProcessUtil.azsli
+    ShaderLib/Atom/Features/PostProcessing/PSstyleColorBlends_NonSeparable.azsli
+    ShaderLib/Atom/Features/PostProcessing/PSstyleColorBlends_Separable.azsli 
     ShaderLib/Atom/Features/RayTracing/RayTracingSceneSrg.azsli
     ShaderLib/Atom/Features/ScreenSpace/ScreenSpaceUtil.azsli
     ShaderLib/Atom/Features/Shadow/BicubicPcfFilters.azsli
@@ -357,6 +361,8 @@ set(FILES
     Shaders/PostProcessing/BloomCompositeCS.shader
     Shaders/PostProcessing/BloomDownsampleCS.azsl
     Shaders/PostProcessing/BloomDownsampleCS.shader
+    Shaders/PostProcessing/ColorGrading.azsl
+    Shaders/PostProcessing/ColorGrading.shader
     Shaders/PostProcessing/ConvertToAcescg.azsl
     Shaders/PostProcessing/ConvertToAcescg.shader
     Shaders/PostProcessing/DepthDownsample.azsl

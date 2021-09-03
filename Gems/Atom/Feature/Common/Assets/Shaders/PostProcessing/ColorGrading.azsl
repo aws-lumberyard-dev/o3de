@@ -23,11 +23,6 @@
 
 #define saturate(value) clamp(value, FLOAT_EPSILON, 1.0f)
 
-//float saturate(float v) { return clamp(v, 0.0,       1.0); }
-//float2  saturate(float2  v) { return clamp(v, float2(0.0), float2(1.0)); }
-//float3  saturate(float3  v) { return clamp(v, float3(0.0), float3(1.0)); }
-//float4  saturate(float4  v) { return clamp(v, float4(0.0), float4(1.0)); }
-
 // ACES constants
 static const float ACEScc_MAX = 1.4679964;
 static const float ACEScc_MIDGREY = 0.4135884;  // is correct
@@ -263,14 +258,6 @@ float3 ColorGradeShadowsMidtonesHighlights (float3 frame_color, float shadowsSta
 	                   frame_color * highlightsColor.rgb * highlightsWeight;
 	return lerp( frame_color.rgb, frame_smh.rgb, mix );
 }
-
-//TransformColor(sampledAbledo, ColorSpaceId::LinearSRGB, ColorSpaceId::ACEScg);
-
-//    if (o_shadeAll)
-//    {
-//        litRatio = 0.0f;
-//    }
-
 
 float3 ColorGrade ( float3 frame_color ) {
     frame_color = min( frame_color, 60.0 );
