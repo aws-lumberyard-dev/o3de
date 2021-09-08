@@ -92,8 +92,8 @@
                     ]
                 },
                 {
-                    "Name": "ColorGradingPass",
-                    "TemplateName": "ColorGradingTemplate",
+                    "Name": "HDRColorGradingPass",
+                    "TemplateName": "HDRColorGradingTemplate",
                     "Enabled": true,
                     "Connections": [
                         {
@@ -113,7 +113,7 @@
                         {
                             "LocalSlot": "Input",
                             "AttachmentRef": {
-                                "Pass": "ColorGradingPass",
+                                "Pass": "HDRColorGradingPass",
                                 "Attachment": "Output"
                             }
                         },

@@ -1,13 +1,19 @@
+/*
+ * Copyright (c) Contributors to the Open 3D Engine Project.
+ * For complete copyright and license terms please see the LICENSE at the root of this distribution.
+ *
+ * SPDX-License-Identifier: (Apache-2.0 OR MIT) AND Creative Commons 3.0
+ *
+ */
+
 // ported by Renaud Bédard (@renaudbedard) from original code from Tanner Helland
 // http://www.tannerhelland.com/4435/convert-temperature-rgb-algorithm-code/
-// https://www.shadertoy.com/view/lsSXW1
+
+// color space functions translated from HLSL versions on Chilli Ant (by Ian Taylor)
+// http://www.chilliant.com/rgb2hsv.html
 
 // licensed and released under Creative Commons 3.0 Attribution
 // https://creativecommons.org/licenses/by/3.0/
-
-// MIT License
-// https://github.com/prod80/prod80-ReShade-Repository/blob/1c810bef7b032d26d64a385625e2d5aeff073429/LICENSE
-// https://github.com/prod80/prod80-ReShade-Repository/blob/1c810bef7b032d26d64a385625e2d5aeff073429/Shaders/PD80_00_Color_Spaces.fxh
 
 float3 HUEToRGB( float H )
 {

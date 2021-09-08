@@ -4,7 +4,7 @@
     "ClassName": "PassAsset",
     "ClassData": {
         "PassTemplate": {
-            "Name": "ColorGradingTemplate",
+            "Name": "HDRColorGradingTemplate",
             "PassClass": "FullScreenTriangle",
             "Slots": [
                 {
@@ -48,14 +48,14 @@
             ],
             "FallbackConnections": [
                 {
-                    "Input" : "Input",
-                    "Output" : "Output"
+                    "Input": "Input",
+                    "Output": "Output"
                 }
             ],
             "PassData": {
                 "$type": "FullscreenTrianglePassData",
                 "ShaderAsset": {
-                    "FilePath": "Shaders/PostProcessing/ColorGrading.shader"
+                    "FilePath": "Shaders/PostProcessing/HDRColorGrading.shader"
                 },
                 "ShaderDataMappings": {
                     "FloatMappings": [
@@ -196,19 +196,25 @@
                         {
                             "Name": "m_channelMixingRed",
                             "Value": [
-                                1.0, 0.0, 0.0
+                                1.0,
+                                0.0,
+                                0.0
                             ]
                         },
                         {
                             "Name": "m_channelMixingGreen",
                             "Value": [
-                                0.0, 1.0, 0.0
+                                0.0,
+                                1.0,
+                                0.0
                             ]
                         },
                         {
                             "Name": "m_channelMixingBlue",
                             "Value": [
-                                0.0, 0.0, 1.0
+                                0.0,
+                                0.0,
+                                1.0
                             ]
                         }
                     ]

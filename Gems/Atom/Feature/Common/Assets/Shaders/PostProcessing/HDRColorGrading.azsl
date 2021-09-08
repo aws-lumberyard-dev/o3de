@@ -12,9 +12,9 @@
 #include <Atom/Features/PostProcessing/FullscreenVertex.azsli>
 
 #include <Atom/Features/ColorManagement/TransformColor.azsli>
-#include <Atom/Features/PostProcessing/PSstyleColorBlends_Separable.azsli>
-#include <Atom/Features/PostProcessing/PSstyleColorBlends_NonSeparable.azsli>
-#include <Atom/Features/PostProcessing/KelvinToRGB.azsli>
+#include <3rdParty/Features/PostProcessing/PSstyleColorBlends_Separable.azsli>
+#include <3rdParty/Features/PostProcessing/PSstyleColorBlends_NonSeparable.azsli>
+#include <3rdParty/Features/PostProcessing/KelvinToRGB.azsli>
 
 #define EPSILON 10e-5f
 #define FLOAT_EPSILON     1.192092896e-07 // 1.0 + FLOAT_EPSILON != 1.0, smallest positive float

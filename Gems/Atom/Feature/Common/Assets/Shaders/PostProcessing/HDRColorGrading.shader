@@ -1,5 +1,5 @@
 {
-    "Source" : "ColorGrading",
+    "Source" : "HDRColorGrading",
 
     "DepthStencilState" : {
         "Depth" : { "Enable" : false }

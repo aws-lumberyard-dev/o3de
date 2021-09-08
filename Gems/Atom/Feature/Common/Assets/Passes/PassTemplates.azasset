@@ -505,8 +505,8 @@
                 "Path": "Passes/LowEndPipeline.pass"
             },
             {
-                "Name": "ColorGradingTemplate",
-                "Path": "Passes/ColorGrading.pass"
+                "Name": "HDRColorGradingTemplate",
+                "Path": "Passes/HDRColorGrading.pass"
             }
         ]
     }
