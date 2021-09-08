@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZ::RHI::Handle<unsigned int, MaterialPropertyIndexType>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "AZ::RHI::Handle<unsigned int, MaterialPropertyIndexType>"
@@ -13,20 +13,21 @@
                     "context": "AZ::RHI::Handle<unsigned int, MaterialPropertyIndexType>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZ::RHI::Handle<unsigned int, MaterialPropertyIndexType>::IsValid"
+                        "tooltip": "When signaled, this will invoke IsValid"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZ::RHI::Handle<unsigned int, MaterialPropertyIndexType>::IsValid is invoked"
+                        "tooltip": "Signaled after IsValid is invoked"
                     },
                     "details": {
-                        "name": "AZ::RHI::Handle<unsigned int, MaterialPropertyIndexType>::IsValid"
+                        "name": "AZ::RHI::Handle<unsigned int, MaterialPropertyIndexType>::IsValid",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{DCFE9FBF-39BF-5B3C-AD28-D61ADBAF1711}",
                             "details": {
-                                "name": "AZ::RHI::Handle<unsigned int, MaterialPropertyIndexType>"
+                                "name": "AZ::RHI::Handle<unsigned int, MaterialPropertyIndexType>*"
                             }
                         }
                     ],

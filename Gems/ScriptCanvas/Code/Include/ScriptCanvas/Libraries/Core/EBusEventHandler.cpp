@@ -78,6 +78,8 @@ namespace ScriptCanvas
                         variableIds.insert(scopedVariableId->m_identifier);
                     }
                 }
+
+                Node::CollectVariableReferences(variableIds);
             }
 
             bool EBusEventHandler::ContainsReferencesToVariables(const AZStd::unordered_set< ScriptCanvas::VariableId >& variableIds) const

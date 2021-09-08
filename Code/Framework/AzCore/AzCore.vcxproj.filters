@@ -88,19 +88,16 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\AssetTracking.cpp">
       <Filter>AzCore\Debug</Filter>
     </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\Budget.cpp">
+      <Filter>AzCore\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\BudgetTracker.cpp">
+      <Filter>AzCore\Debug</Filter>
+    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\LocalFileEventLogger.cpp">
       <Filter>AzCore\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\FrameProfilerComponent.cpp">
-      <Filter>AzCore\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\ProfileModuleInit.cpp">
-      <Filter>AzCore\Debug</Filter>
-    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\Profiler.cpp">
-      <Filter>AzCore\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\ProfilerDriller.cpp">
       <Filter>AzCore\Debug</Filter>
     </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\EventTrace.cpp">
@@ -520,6 +517,9 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Serialization\Json\JsonSystemComponent.cpp">
       <Filter>AzCore\Serialization\Json</Filter>
     </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Serialization\Json\JsonUtils.cpp">
+      <Filter>AzCore\Serialization\Json</Filter>
+    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Serialization\Json\MapSerializer.cpp">
       <Filter>AzCore\Serialization\Json</Filter>
     </ClCompile>
@@ -569,9 +569,6 @@
       <Filter>AzCore\Statistics</Filter>
     </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Statistics\StatisticalProfilerProxySystemComponent.cpp">
-      <Filter>AzCore\Statistics</Filter>
-    </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Statistics\TimeDataStatisticsManager.cpp">
       <Filter>AzCore\Statistics</Filter>
     </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\StringFunc\StringFunc.cpp">
@@ -729,6 +726,9 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Asset\AssetManager.h">
       <Filter>AzCore\Asset</Filter>
     </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Asset\AssetManager_private.h">
+      <Filter>AzCore\Asset</Filter>
+    </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Asset\AssetManagerBus.h">
       <Filter>AzCore\Asset</Filter>
     </ClInclude>
@@ -864,34 +864,28 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\AssetTrackingTypes.h">
       <Filter>AzCore\Debug</Filter>
     </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\Budget.h">
+      <Filter>AzCore\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\BudgetTracker.h">
+      <Filter>AzCore\Debug</Filter>
+    </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\LocalFileEventLogger.h">
-      <Filter>AzCore\Debug</Filter>
-    </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\FrameProfiler.h">
-      <Filter>AzCore\Debug</Filter>
-    </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\FrameProfilerBus.h">
-      <Filter>AzCore\Debug</Filter>
-    </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\FrameProfilerComponent.h">
       <Filter>AzCore\Debug</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\IEventLogger.h">
       <Filter>AzCore\Debug</Filter>
     </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\ProfileModuleInit.h">
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\MemoryProfiler.h">
+      <Filter>AzCore\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\Profiler.inl">
       <Filter>AzCore\Debug</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\Profiler.h">
       <Filter>AzCore\Debug</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\ProfilerBus.h">
-      <Filter>AzCore\Debug</Filter>
-    </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\ProfilerDriller.h">
-      <Filter>AzCore\Debug</Filter>
-    </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\ProfilerDrillerBus.h">
       <Filter>AzCore\Debug</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Debug\StackTracer.h">
@@ -1737,6 +1731,9 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Serialization\Json\JsonSystemComponent.h">
       <Filter>AzCore\Serialization\Json</Filter>
     </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Serialization\Json\JsonUtils.h">
+      <Filter>AzCore\Serialization\Json</Filter>
+    </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Serialization\Json\MapSerializer.h">
       <Filter>AzCore\Serialization\Json</Filter>
     </ClInclude>
@@ -1801,9 +1798,6 @@
       <Filter>AzCore\Statistics</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Statistics\StatisticsManager.h">
-      <Filter>AzCore\Statistics</Filter>
-    </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\Statistics\TimeDataStatisticsManager.h">
       <Filter>AzCore\Statistics</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\StringFunc\StringFunc.h">

@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "EditorEntityAPIBus"
+                "name": "EDITORENTITYAPIBUS_NAME",
+                "category": "EDITORENTITYAPIBUS_CATEGORY"
             },
             "methods": [
                 {

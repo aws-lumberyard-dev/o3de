@@ -5,21 +5,22 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "FlyCameraInputBus"
+                "name": "Fly Camera",
+                "category": "Camera"
             },
             "methods": [
                 {
                     "key": "SetIsEnabled",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetIsEnabled"
+                        "tooltip": "When signaled, this will invoke Set Is Enabled"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetIsEnabled is invoked"
+                        "tooltip": "Signaled after Set Is Enabled is invoked"
                     },
                     "details": {
-                        "name": "SetIsEnabled"
+                        "name": "Set Is Enabled"
                     },
                     "params": [
                         {
@@ -34,14 +35,14 @@
                     "key": "GetIsEnabled",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetIsEnabled"
+                        "tooltip": "When signaled, this will invoke Is Enabled"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetIsEnabled is invoked"
+                        "tooltip": "Signaled after Is Enabled is invoked"
                     },
                     "details": {
-                        "name": "GetIsEnabled"
+                        "name": "Is Enabled"
                     },
                     "results": [
                         {

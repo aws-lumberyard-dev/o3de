@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "Scene",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Scene"
@@ -13,14 +13,15 @@
                     "context": "Scene",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Scene::GetOriginalSceneOrientation"
+                        "tooltip": "When signaled, this will invoke GetOriginalSceneOrientation"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Scene::GetOriginalSceneOrientation is invoked"
+                        "tooltip": "Signaled after GetOriginalSceneOrientation is invoked"
                     },
                     "details": {
-                        "name": "Scene::GetOriginalSceneOrientation"
+                        "name": "Scene::GetOriginalSceneOrientation",
+                        "category": "Other"
                     },
                     "params": [
                         {

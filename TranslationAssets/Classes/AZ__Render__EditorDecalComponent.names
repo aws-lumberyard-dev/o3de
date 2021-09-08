@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZ::Render::EditorDecalComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "AZ::Render::EditorDecalComponent"

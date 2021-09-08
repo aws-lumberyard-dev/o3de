@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "Event<float >",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Event<float >"
@@ -13,14 +13,15 @@
                     "context": "Event<float >",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Event<float >::HasHandlerConnected"
+                        "tooltip": "When signaled, this will invoke HasHandlerConnected"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Event<float >::HasHandlerConnected is invoked"
+                        "tooltip": "Signaled after HasHandlerConnected is invoked"
                     },
                     "details": {
-                        "name": "Event<float >::HasHandlerConnected"
+                        "name": "Event<float >::HasHandlerConnected",
+                        "category": "Other"
                     },
                     "params": [
                         {

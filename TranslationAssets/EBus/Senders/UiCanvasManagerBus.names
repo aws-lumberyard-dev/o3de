@@ -5,21 +5,23 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiCanvasManagerBus"
+                "name": "UI Canvas Manager",
+                "category": "UI"
             },
             "methods": [
                 {
                     "key": "CreateCanvas",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke CreateCanvas"
+                        "tooltip": "When signaled, this will invoke Create Canvas"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after CreateCanvas is invoked"
+                        "tooltip": "Signaled after Create Canvas is invoked"
                     },
                     "details": {
-                        "name": "CreateCanvas"
+                        "name": "Create Canvas",
+                        "tooltip": "Creates an empty canvas"
                     },
                     "results": [
                         {
@@ -35,20 +37,22 @@
                     "key": "LoadCanvas",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke LoadCanvas"
+                        "tooltip": "When signaled, this will invoke Load Canvas"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after LoadCanvas is invoked"
+                        "tooltip": "Signaled after Load Canvas is invoked"
                     },
                     "details": {
-                        "name": "LoadCanvas"
+                        "name": "Load Canvas",
+                        "tooltip": "Loads a canvas"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Pathname",
+                                "tooltip": "The pathname of the canvas"
                             }
                         }
                     ],
@@ -57,7 +61,7 @@
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
                                 "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "tooltip": "The pathname of the canvas"
                             }
                         }
                     ]
@@ -66,21 +70,22 @@
                     "key": "UnloadCanvas",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke UnloadCanvas"
+                        "tooltip": "When signaled, this will invoke Unload Canvas"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after UnloadCanvas is invoked"
+                        "tooltip": "Signaled after Unload Canvas is invoked"
                     },
                     "details": {
-                        "name": "UnloadCanvas"
+                        "name": "Unload Canvas",
+                        "tooltip": "Unloads a loaded canvas"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Canvas EntityID",
+                                "tooltip": "The canvas to unload"
                             }
                         }
                     ]
@@ -89,20 +94,22 @@
                     "key": "FindLoadedCanvasByPathName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke FindLoadedCanvasByPathName"
+                        "tooltip": "When signaled, this will invoke Find Loaded Canvas By Pathname"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after FindLoadedCanvasByPathName is invoked"
+                        "tooltip": "Signaled after Find Loaded Canvas By Pathname is invoked"
                     },
                     "details": {
-                        "name": "FindLoadedCanvasByPathName"
+                        "name": "Find Loaded Canvas By Pathname",
+                        "tooltip": "Finds a loaded canvas by its pathname"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Pathname",
+                                "tooltip": "The pathname of the loaded canvas"
                             }
                         },
                         {
@@ -117,7 +124,7 @@
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
                                 "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "tooltip": "The pathname of the loaded canvas"
                             }
                         }
                     ]

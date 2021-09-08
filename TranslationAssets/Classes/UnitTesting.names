@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "Unit Testing",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Unit Testing"
@@ -13,20 +13,21 @@
                     "context": "Unit Testing",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Unit Testing::Expect Less Than Equal"
+                        "tooltip": "When signaled, this will invoke ExpectLessThanEqual"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Unit Testing::Expect Less Than Equal is invoked"
+                        "tooltip": "Signaled after ExpectLessThanEqual is invoked"
                     },
                     "details": {
-                        "name": "Unit Testing::Expect Less Than Equal"
+                        "name": "Unit Testing::Expect Less Than Equal",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
+                                "name": "const EntityId&",
                                 "tooltip": "Entity Unique Id"
                             }
                         },
@@ -45,7 +46,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "const AZStd::basic_string<char, AZStd::char_traits<char>, alloc"
                             }
                         }
                     ]
@@ -55,20 +56,21 @@
                     "context": "Unit Testing",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Unit Testing::Expect Greater Than Equal"
+                        "tooltip": "When signaled, this will invoke ExpectGreaterThanEqual"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Unit Testing::Expect Greater Than Equal is invoked"
+                        "tooltip": "Signaled after ExpectGreaterThanEqual is invoked"
                     },
                     "details": {
-                        "name": "Unit Testing::Expect Greater Than Equal"
+                        "name": "Unit Testing::Expect Greater Than Equal",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
+                                "name": "const EntityId&",
                                 "tooltip": "Entity Unique Id"
                             }
                         },
@@ -87,7 +89,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "const AZStd::basic_string<char, AZStd::char_traits<char>, alloc"
                             }
                         }
                     ]
@@ -97,27 +99,28 @@
                     "context": "Unit Testing",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Unit Testing::Mark Complete"
+                        "tooltip": "When signaled, this will invoke MarkComplete"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Unit Testing::Mark Complete is invoked"
+                        "tooltip": "Signaled after MarkComplete is invoked"
                     },
                     "details": {
-                        "name": "Unit Testing::Mark Complete"
+                        "name": "Unit Testing::Mark Complete",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
+                                "name": "const EntityId&",
                                 "tooltip": "Entity Unique Id"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "const AZStd::basic_string<char, AZStd::char_traits<char>, alloc"
                             }
                         }
                     ]
@@ -127,20 +130,21 @@
                     "context": "Unit Testing",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Unit Testing::Expect True"
+                        "tooltip": "When signaled, this will invoke ExpectTrue"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Unit Testing::Expect True is invoked"
+                        "tooltip": "Signaled after ExpectTrue is invoked"
                     },
                     "details": {
-                        "name": "Unit Testing::Expect True"
+                        "name": "Unit Testing::Expect True",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
+                                "name": "const EntityId&",
                                 "tooltip": "Entity Unique Id"
                             }
                         },
@@ -153,7 +157,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "const AZStd::basic_string<char, AZStd::char_traits<char>, alloc"
                             }
                         }
                     ]
@@ -163,27 +167,28 @@
                     "context": "Unit Testing",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Unit Testing::Checkpoint"
+                        "tooltip": "When signaled, this will invoke Checkpoint"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Unit Testing::Checkpoint is invoked"
+                        "tooltip": "Signaled after Checkpoint is invoked"
                     },
                     "details": {
-                        "name": "Unit Testing::Checkpoint"
+                        "name": "Unit Testing::Checkpoint",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
+                                "name": "const EntityId&",
                                 "tooltip": "Entity Unique Id"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "const AZStd::basic_string<char, AZStd::char_traits<char>, alloc"
                             }
                         }
                     ]
@@ -193,20 +198,21 @@
                     "context": "Unit Testing",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Unit Testing::Expect False"
+                        "tooltip": "When signaled, this will invoke ExpectFalse"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Unit Testing::Expect False is invoked"
+                        "tooltip": "Signaled after ExpectFalse is invoked"
                     },
                     "details": {
-                        "name": "Unit Testing::Expect False"
+                        "name": "Unit Testing::Expect False",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
+                                "name": "const EntityId&",
                                 "tooltip": "Entity Unique Id"
                             }
                         },
@@ -219,7 +225,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "const AZStd::basic_string<char, AZStd::char_traits<char>, alloc"
                             }
                         }
                     ]
@@ -229,20 +235,21 @@
                     "context": "Unit Testing",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Unit Testing::Expect Equal"
+                        "tooltip": "When signaled, this will invoke ExpectEqual"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Unit Testing::Expect Equal is invoked"
+                        "tooltip": "Signaled after ExpectEqual is invoked"
                     },
                     "details": {
-                        "name": "Unit Testing::Expect Equal"
+                        "name": "Unit Testing::Expect Equal",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
+                                "name": "const EntityId&",
                                 "tooltip": "Entity Unique Id"
                             }
                         },
@@ -261,7 +268,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "const AZStd::basic_string<char, AZStd::char_traits<char>, alloc"
                             }
                         }
                     ]
@@ -271,20 +278,21 @@
                     "context": "Unit Testing",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Unit Testing::Expect Less Than"
+                        "tooltip": "When signaled, this will invoke ExpectLessThan"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Unit Testing::Expect Less Than is invoked"
+                        "tooltip": "Signaled after ExpectLessThan is invoked"
                     },
                     "details": {
-                        "name": "Unit Testing::Expect Less Than"
+                        "name": "Unit Testing::Expect Less Than",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
+                                "name": "const EntityId&",
                                 "tooltip": "Entity Unique Id"
                             }
                         },
@@ -303,7 +311,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "const AZStd::basic_string<char, AZStd::char_traits<char>, alloc"
                             }
                         }
                     ]
@@ -313,27 +321,28 @@
                     "context": "Unit Testing",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Unit Testing::Add Success"
+                        "tooltip": "When signaled, this will invoke AddSuccess"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Unit Testing::Add Success is invoked"
+                        "tooltip": "Signaled after AddSuccess is invoked"
                     },
                     "details": {
-                        "name": "Unit Testing::Add Success"
+                        "name": "Unit Testing::Add Success",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
+                                "name": "const EntityId&",
                                 "tooltip": "Entity Unique Id"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "const AZStd::basic_string<char, AZStd::char_traits<char>, alloc"
                             }
                         }
                     ]
@@ -343,20 +352,21 @@
                     "context": "Unit Testing",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Unit Testing::Expect Not Equal"
+                        "tooltip": "When signaled, this will invoke ExpectNotEqual"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Unit Testing::Expect Not Equal is invoked"
+                        "tooltip": "Signaled after ExpectNotEqual is invoked"
                     },
                     "details": {
-                        "name": "Unit Testing::Expect Not Equal"
+                        "name": "Unit Testing::Expect Not Equal",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
+                                "name": "const EntityId&",
                                 "tooltip": "Entity Unique Id"
                             }
                         },
@@ -375,7 +385,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "const AZStd::basic_string<char, AZStd::char_traits<char>, alloc"
                             }
                         }
                     ]
@@ -385,20 +395,21 @@
                     "context": "Unit Testing",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Unit Testing::Expect Greater Than"
+                        "tooltip": "When signaled, this will invoke ExpectGreaterThan"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Unit Testing::Expect Greater Than is invoked"
+                        "tooltip": "Signaled after ExpectGreaterThan is invoked"
                     },
                     "details": {
-                        "name": "Unit Testing::Expect Greater Than"
+                        "name": "Unit Testing::Expect Greater Than",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
+                                "name": "const EntityId&",
                                 "tooltip": "Entity Unique Id"
                             }
                         },
@@ -417,7 +428,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "const AZStd::basic_string<char, AZStd::char_traits<char>, alloc"
                             }
                         }
                     ]
@@ -427,27 +438,28 @@
                     "context": "Unit Testing",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Unit Testing::Add Failure"
+                        "tooltip": "When signaled, this will invoke AddFailure"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Unit Testing::Add Failure is invoked"
+                        "tooltip": "Signaled after AddFailure is invoked"
                     },
                     "details": {
-                        "name": "Unit Testing::Add Failure"
+                        "name": "Unit Testing::Add Failure",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
+                                "name": "const EntityId&",
                                 "tooltip": "Entity Unique Id"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "const AZStd::basic_string<char, AZStd::char_traits<char>, alloc"
                             }
                         }
                     ]

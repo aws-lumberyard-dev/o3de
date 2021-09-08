@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Aabb, AZStd::hash<AZStd::basic",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Aabb, AZStd::hash<AZStd::basic"
@@ -13,14 +13,15 @@
                     "context": "Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Aabb, AZStd::hash<AZStd::basic",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Aabb, AZStd::hash<AZStd::basic::GetKeyUnchecked"
+                        "tooltip": "When signaled, this will invoke GetKeyUnchecked"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Aabb, AZStd::hash<AZStd::basic::GetKeyUnchecked is invoked"
+                        "tooltip": "Signaled after GetKeyUnchecked is invoked"
                     },
                     "details": {
-                        "name": "Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Aabb, AZStd::hash<AZStd::basic::GetKeyUnchecked"
+                        "name": "Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Aabb, AZStd::hash<AZStd::basic::GetKeyUnchecked",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -34,7 +35,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "const AZStd::basic_string<char, AZStd::char_traits<char>, alloc"
                             }
                         }
                     ]
@@ -44,14 +45,15 @@
                     "context": "Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Aabb, AZStd::hash<AZStd::basic",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Aabb, AZStd::hash<AZStd::basic::ModValueUnchecked"
+                        "tooltip": "When signaled, this will invoke ModValueUnchecked"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Aabb, AZStd::hash<AZStd::basic::ModValueUnchecked is invoked"
+                        "tooltip": "Signaled after ModValueUnchecked is invoked"
                     },
                     "details": {
-                        "name": "Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Aabb, AZStd::hash<AZStd::basic::ModValueUnchecked"
+                        "name": "Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Aabb, AZStd::hash<AZStd::basic::ModValueUnchecked",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -65,7 +67,7 @@
                         {
                             "typeid": "{A54C2B36-D5B8-46A1-A529-4EBDBD2450E7}",
                             "details": {
-                                "name": "Aabb"
+                                "name": "Aabb&"
                             }
                         }
                     ]
@@ -75,14 +77,15 @@
                     "context": "Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Aabb, AZStd::hash<AZStd::basic",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Aabb, AZStd::hash<AZStd::basic::IsNotAtEnd"
+                        "tooltip": "When signaled, this will invoke IsNotAtEnd"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Aabb, AZStd::hash<AZStd::basic::IsNotAtEnd is invoked"
+                        "tooltip": "Signaled after IsNotAtEnd is invoked"
                     },
                     "details": {
-                        "name": "Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Aabb, AZStd::hash<AZStd::basic::IsNotAtEnd"
+                        "name": "Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Aabb, AZStd::hash<AZStd::basic::IsNotAtEnd",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -106,14 +109,15 @@
                     "context": "Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Aabb, AZStd::hash<AZStd::basic",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Aabb, AZStd::hash<AZStd::basic::Next"
+                        "tooltip": "When signaled, this will invoke Next"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Aabb, AZStd::hash<AZStd::basic::Next is invoked"
+                        "tooltip": "Signaled after Next is invoked"
                     },
                     "details": {
-                        "name": "Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Aabb, AZStd::hash<AZStd::basic::Next"
+                        "name": "Iterator_VM<AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, Aabb, AZStd::hash<AZStd::basic::Next",
+                        "category": "Other"
                     },
                     "params": [
                         {

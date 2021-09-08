@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZ::RHI::Handle<unsigned int, ShaderInputSamplerDescriptor>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "AZ::RHI::Handle<unsigned int, ShaderInputSamplerDescriptor>"
@@ -13,20 +13,21 @@
                     "context": "AZ::RHI::Handle<unsigned int, ShaderInputSamplerDescriptor>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZ::RHI::Handle<unsigned int, ShaderInputSamplerDescriptor>::IsValid"
+                        "tooltip": "When signaled, this will invoke IsValid"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZ::RHI::Handle<unsigned int, ShaderInputSamplerDescriptor>::IsValid is invoked"
+                        "tooltip": "Signaled after IsValid is invoked"
                     },
                     "details": {
-                        "name": "AZ::RHI::Handle<unsigned int, ShaderInputSamplerDescriptor>::IsValid"
+                        "name": "AZ::RHI::Handle<unsigned int, ShaderInputSamplerDescriptor>::IsValid",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{8F19B652-17A5-5646-9001-120CE0D5BF02}",
                             "details": {
-                                "name": "AZ::RHI::Handle<unsigned int, ShaderInputSamplerDescriptor>"
+                                "name": "AZ::RHI::Handle<unsigned int, ShaderInputSamplerDescriptor>*"
                             }
                         }
                     ],

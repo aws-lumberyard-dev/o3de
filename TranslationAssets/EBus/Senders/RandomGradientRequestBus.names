@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "RandomGradientRequestBus"
+                "name": "RANDOMGRADIENTREQUESTBUS_NAME",
+                "category": "RANDOMGRADIENTREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

@@ -5,21 +5,22 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "ConsoleRequestBus"
+                "name": "Console",
+                "category": "Utilities"
             },
             "methods": [
                 {
                     "key": "ExecuteConsoleCommand",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke ExecuteConsoleCommand"
+                        "tooltip": "When signaled, this will invoke Execute Console Command"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after ExecuteConsoleCommand is invoked"
+                        "tooltip": "Signaled after Execute Console Command is invoked"
                     },
                     "details": {
-                        "name": "ExecuteConsoleCommand"
+                        "name": "Execute Console Command"
                     },
                     "params": [
                         {

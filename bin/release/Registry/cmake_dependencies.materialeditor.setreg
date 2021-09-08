@@ -87,6 +87,21 @@
             {
                 "Modules":["QtForPython.Editor.dll"],
                 "SourcePaths":["Gems/QtForPython"]
+            },
+            "LmbrCentral.Editor":
+            {
+                "Modules":["LmbrCentral.Editor.dll"],
+                "SourcePaths":["Gems/LmbrCentral"]
+            },
+            "TextureAtlas.Editor":
+            {
+                "Modules":["TextureAtlas.Editor.dll"],
+                "SourcePaths":["Gems/TextureAtlas"]
+            },
+            "LyShine.Editor":
+            {
+                "Modules":["LyShine.Editor.dll"],
+                "SourcePaths":["Gems/LyShine"]
             }
         }
     }

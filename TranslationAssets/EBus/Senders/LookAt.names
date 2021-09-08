@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "LookAt"
+                "name": "LOOKAT_NAME",
+                "category": "LOOKAT_CATEGORY"
             },
             "methods": [
                 {
@@ -48,8 +49,7 @@
                         {
                             "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
                             "details": {
-                                "name": "Vector3",
-                                "tooltip": "The position to look at"
+                                "name": "Vector3"
                             }
                         }
                     ]
@@ -71,8 +71,7 @@
                         {
                             "typeid": "{72B9409A-7D1A-4831-9CFE-FCB3FADD3426}",
                             "details": {
-                                "name": "unsigned char",
-                                "tooltip": "The forward axis to use as reference"
+                                "name": "unsigned char"
                             }
                         }
                     ]

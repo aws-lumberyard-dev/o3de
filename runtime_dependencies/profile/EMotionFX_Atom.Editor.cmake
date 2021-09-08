@@ -127,3 +127,5 @@ ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/LmbrCentral.Editor.dll" "J:/Atom/lyfork/o3de/bin/profile")
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/EMotionFX.Editor.dll" "J:/Atom/lyfork/o3de/bin/profile")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/profile/EMotionFX_Atom.Editor_profile.stamp)

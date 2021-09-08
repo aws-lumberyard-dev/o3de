@@ -479,6 +479,12 @@
 			null
 		],
 		[
+			"J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Components/Widgets/FileDialog.h",
+			"Mu",
+			"L56LPORO6V/moc_FileDialog.cpp",
+			null
+		],
+		[
 			"J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Components/Widgets/GradientSlider.h",
 			"Mu",
 			"L56LPORO6V/moc_GradientSlider.cpp",
@@ -1266,6 +1272,11 @@
 		],
 		[
 			"J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Components/Widgets/Eyedropper.cpp",
+			"Mu",
+			null
+		],
+		[
+			"J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents/AzQtComponents/Components/Widgets/FileDialog.cpp",
 			"Mu",
 			null
 		],

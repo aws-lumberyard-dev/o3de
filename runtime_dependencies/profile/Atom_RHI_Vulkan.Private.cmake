@@ -22,3 +22,5 @@ function(ly_copy source_file target_directory)
 endfunction()
 
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/profile/Atom_RHI_Vulkan.Private_profile.stamp)

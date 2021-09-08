@@ -4,9 +4,6 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\Tests\test_Main.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\Tests\TestProfiler.cpp">
-      <Filter>Tests</Filter>
-    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\Tests\Session.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
@@ -23,9 +20,6 @@
       <Filter>Tests</Filter>
     </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\Tests\ReplicaBehavior.cpp">
-      <Filter>Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\Tests\Replica.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\Tests\StreamSecureSocketDriverTests.cpp">
@@ -56,6 +50,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\GridMate.Tests_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\CMakeLists.txt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -69,6 +66,15 @@
     </None>
     <None Include="J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows\platform_windows.cmake">
       <Filter>Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\GridMate.Tests_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\GridMate.Tests_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\GridMate.Tests_release.stamp">
+      <Filter>Generated Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

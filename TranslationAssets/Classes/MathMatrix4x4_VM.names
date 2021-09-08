@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "MathMatrix4x4_VM",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "MathMatrix4x4_VM"
@@ -13,20 +13,21 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::GetRow"
+                        "tooltip": "When signaled, this will invoke GetRow"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::GetRow is invoked"
+                        "tooltip": "Signaled after GetRow is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::GetRow"
+                        "name": "MathMatrix4x4_VM::GetRow",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{157193C7-B673-4A2B-8B43-5681DCC3DEC3}",
                             "details": {
-                                "name": "Matrix4x4"
+                                "name": "const Matrix4x4&"
                             }
                         },
                         {
@@ -50,14 +51,15 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::FromRotationXDegrees"
+                        "tooltip": "When signaled, this will invoke FromRotationXDegrees"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::FromRotationXDegrees is invoked"
+                        "tooltip": "Signaled after FromRotationXDegrees is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::FromRotationXDegrees"
+                        "name": "MathMatrix4x4_VM::FromRotationXDegrees",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -81,14 +83,15 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::FromRotationZDegrees"
+                        "tooltip": "When signaled, this will invoke FromRotationZDegrees"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::FromRotationZDegrees is invoked"
+                        "tooltip": "Signaled after FromRotationZDegrees is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::FromRotationZDegrees"
+                        "name": "MathMatrix4x4_VM::FromRotationZDegrees",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -112,38 +115,39 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::FromRows"
+                        "tooltip": "When signaled, this will invoke FromRows"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::FromRows is invoked"
+                        "tooltip": "Signaled after FromRows is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::FromRows"
+                        "name": "MathMatrix4x4_VM::FromRows",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
                             "details": {
-                                "name": "Vector4"
+                                "name": "const Vector4&"
                             }
                         },
                         {
                             "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
                             "details": {
-                                "name": "Vector4"
+                                "name": "const Vector4&"
                             }
                         },
                         {
                             "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
                             "details": {
-                                "name": "Vector4"
+                                "name": "const Vector4&"
                             }
                         },
                         {
                             "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
                             "details": {
-                                "name": "Vector4"
+                                "name": "const Vector4&"
                             }
                         }
                     ],
@@ -161,20 +165,21 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::ToScale"
+                        "tooltip": "When signaled, this will invoke ToScale"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::ToScale is invoked"
+                        "tooltip": "Signaled after ToScale is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::ToScale"
+                        "name": "MathMatrix4x4_VM::ToScale",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{157193C7-B673-4A2B-8B43-5681DCC3DEC3}",
                             "details": {
-                                "name": "Matrix4x4"
+                                "name": "const Matrix4x4&"
                             }
                         }
                     ],
@@ -192,20 +197,21 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::FromQuaternion"
+                        "tooltip": "When signaled, this will invoke FromQuaternion"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::FromQuaternion is invoked"
+                        "tooltip": "Signaled after FromQuaternion is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::FromQuaternion"
+                        "name": "MathMatrix4x4_VM::FromQuaternion",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{73103120-3DD3-4873-BAB3-9713FA2804FB}",
                             "details": {
-                                "name": "Quaternion"
+                                "name": "const Quaternion&"
                             }
                         }
                     ],
@@ -223,20 +229,21 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::FromScale"
+                        "tooltip": "When signaled, this will invoke FromScale"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::FromScale is invoked"
+                        "tooltip": "Signaled after FromScale is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::FromScale"
+                        "name": "MathMatrix4x4_VM::FromScale",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
                             "details": {
-                                "name": "Vector3"
+                                "name": "const Vector3&"
                             }
                         }
                     ],
@@ -254,20 +261,21 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::FromTransform"
+                        "tooltip": "When signaled, this will invoke FromTransform"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::FromTransform is invoked"
+                        "tooltip": "Signaled after FromTransform is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::FromTransform"
+                        "name": "MathMatrix4x4_VM::FromTransform",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
                             "details": {
-                                "name": "Transform"
+                                "name": "const Transform&"
                             }
                         }
                     ],
@@ -285,20 +293,21 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::GetTranslation"
+                        "tooltip": "When signaled, this will invoke GetTranslation"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::GetTranslation is invoked"
+                        "tooltip": "Signaled after GetTranslation is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::GetTranslation"
+                        "name": "MathMatrix4x4_VM::GetTranslation",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{157193C7-B673-4A2B-8B43-5681DCC3DEC3}",
                             "details": {
-                                "name": "Matrix4x4"
+                                "name": "const Matrix4x4&"
                             }
                         }
                     ],
@@ -316,26 +325,27 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::FromQuaternionAndTranslation"
+                        "tooltip": "When signaled, this will invoke FromQuaternionAndTranslation"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::FromQuaternionAndTranslation is invoked"
+                        "tooltip": "Signaled after FromQuaternionAndTranslation is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::FromQuaternionAndTranslation"
+                        "name": "MathMatrix4x4_VM::FromQuaternionAndTranslation",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{73103120-3DD3-4873-BAB3-9713FA2804FB}",
                             "details": {
-                                "name": "Quaternion"
+                                "name": "const Quaternion&"
                             }
                         },
                         {
                             "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
                             "details": {
-                                "name": "Vector3"
+                                "name": "const Vector3&"
                             }
                         }
                     ],
@@ -353,20 +363,21 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::GetColumn"
+                        "tooltip": "When signaled, this will invoke GetColumn"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::GetColumn is invoked"
+                        "tooltip": "Signaled after GetColumn is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::GetColumn"
+                        "name": "MathMatrix4x4_VM::GetColumn",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{157193C7-B673-4A2B-8B43-5681DCC3DEC3}",
                             "details": {
-                                "name": "Matrix4x4"
+                                "name": "const Matrix4x4&"
                             }
                         },
                         {
@@ -390,20 +401,21 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::GetDiagonal"
+                        "tooltip": "When signaled, this will invoke GetDiagonal"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::GetDiagonal is invoked"
+                        "tooltip": "Signaled after GetDiagonal is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::GetDiagonal"
+                        "name": "MathMatrix4x4_VM::GetDiagonal",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{157193C7-B673-4A2B-8B43-5681DCC3DEC3}",
                             "details": {
-                                "name": "Matrix4x4"
+                                "name": "const Matrix4x4&"
                             }
                         }
                     ],
@@ -421,20 +433,21 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::Invert"
+                        "tooltip": "When signaled, this will invoke Invert"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::Invert is invoked"
+                        "tooltip": "Signaled after Invert is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::Invert"
+                        "name": "MathMatrix4x4_VM::Invert",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{157193C7-B673-4A2B-8B43-5681DCC3DEC3}",
                             "details": {
-                                "name": "Matrix4x4"
+                                "name": "const Matrix4x4&"
                             }
                         }
                     ],
@@ -452,26 +465,27 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::IsClose"
+                        "tooltip": "When signaled, this will invoke IsClose"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::IsClose is invoked"
+                        "tooltip": "Signaled after IsClose is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::IsClose"
+                        "name": "MathMatrix4x4_VM::IsClose",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{157193C7-B673-4A2B-8B43-5681DCC3DEC3}",
                             "details": {
-                                "name": "Matrix4x4"
+                                "name": "const Matrix4x4&"
                             }
                         },
                         {
                             "typeid": "{157193C7-B673-4A2B-8B43-5681DCC3DEC3}",
                             "details": {
-                                "name": "Matrix4x4"
+                                "name": "const Matrix4x4&"
                             }
                         },
                         {
@@ -495,20 +509,21 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::FromMatrix3x3"
+                        "tooltip": "When signaled, this will invoke FromMatrix3x3"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::FromMatrix3x3 is invoked"
+                        "tooltip": "Signaled after FromMatrix3x3 is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::FromMatrix3x3"
+                        "name": "MathMatrix4x4_VM::FromMatrix3x3",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
                             "details": {
-                                "name": "Matrix3x3"
+                                "name": "const Matrix3x3&"
                             }
                         }
                     ],
@@ -526,20 +541,21 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::GetColumns"
+                        "tooltip": "When signaled, this will invoke GetColumns"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::GetColumns is invoked"
+                        "tooltip": "Signaled after GetColumns is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::GetColumns"
+                        "name": "MathMatrix4x4_VM::GetColumns",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{157193C7-B673-4A2B-8B43-5681DCC3DEC3}",
                             "details": {
-                                "name": "Matrix4x4"
+                                "name": "const Matrix4x4&"
                             }
                         }
                     ],
@@ -557,20 +573,21 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::GetRows"
+                        "tooltip": "When signaled, this will invoke GetRows"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::GetRows is invoked"
+                        "tooltip": "Signaled after GetRows is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::GetRows"
+                        "name": "MathMatrix4x4_VM::GetRows",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{157193C7-B673-4A2B-8B43-5681DCC3DEC3}",
                             "details": {
-                                "name": "Matrix4x4"
+                                "name": "const Matrix4x4&"
                             }
                         }
                     ],
@@ -588,26 +605,27 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::MultiplyByMatrix"
+                        "tooltip": "When signaled, this will invoke MultiplyByMatrix"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::MultiplyByMatrix is invoked"
+                        "tooltip": "Signaled after MultiplyByMatrix is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::MultiplyByMatrix"
+                        "name": "MathMatrix4x4_VM::MultiplyByMatrix",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{157193C7-B673-4A2B-8B43-5681DCC3DEC3}",
                             "details": {
-                                "name": "Matrix4x4"
+                                "name": "const Matrix4x4&"
                             }
                         },
                         {
                             "typeid": "{157193C7-B673-4A2B-8B43-5681DCC3DEC3}",
                             "details": {
-                                "name": "Matrix4x4"
+                                "name": "const Matrix4x4&"
                             }
                         }
                     ],
@@ -625,20 +643,21 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::FromDiagonal"
+                        "tooltip": "When signaled, this will invoke FromDiagonal"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::FromDiagonal is invoked"
+                        "tooltip": "Signaled after FromDiagonal is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::FromDiagonal"
+                        "name": "MathMatrix4x4_VM::FromDiagonal",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
                             "details": {
-                                "name": "Vector4"
+                                "name": "const Vector4&"
                             }
                         }
                     ],
@@ -656,14 +675,15 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::FromRotationYDegrees"
+                        "tooltip": "When signaled, this will invoke FromRotationYDegrees"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::FromRotationYDegrees is invoked"
+                        "tooltip": "Signaled after FromRotationYDegrees is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::FromRotationYDegrees"
+                        "name": "MathMatrix4x4_VM::FromRotationYDegrees",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -687,20 +707,21 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::GetElement"
+                        "tooltip": "When signaled, this will invoke GetElement"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::GetElement is invoked"
+                        "tooltip": "Signaled after GetElement is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::GetElement"
+                        "name": "MathMatrix4x4_VM::GetElement",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{157193C7-B673-4A2B-8B43-5681DCC3DEC3}",
                             "details": {
-                                "name": "Matrix4x4"
+                                "name": "const Matrix4x4&"
                             }
                         },
                         {
@@ -730,20 +751,21 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::Transpose"
+                        "tooltip": "When signaled, this will invoke Transpose"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::Transpose is invoked"
+                        "tooltip": "Signaled after Transpose is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::Transpose"
+                        "name": "MathMatrix4x4_VM::Transpose",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{157193C7-B673-4A2B-8B43-5681DCC3DEC3}",
                             "details": {
-                                "name": "Matrix4x4"
+                                "name": "const Matrix4x4&"
                             }
                         }
                     ],
@@ -761,38 +783,39 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::FromColumns"
+                        "tooltip": "When signaled, this will invoke FromColumns"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::FromColumns is invoked"
+                        "tooltip": "Signaled after FromColumns is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::FromColumns"
+                        "name": "MathMatrix4x4_VM::FromColumns",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
                             "details": {
-                                "name": "Vector4"
+                                "name": "const Vector4&"
                             }
                         },
                         {
                             "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
                             "details": {
-                                "name": "Vector4"
+                                "name": "const Vector4&"
                             }
                         },
                         {
                             "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
                             "details": {
-                                "name": "Vector4"
+                                "name": "const Vector4&"
                             }
                         },
                         {
                             "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
                             "details": {
-                                "name": "Vector4"
+                                "name": "const Vector4&"
                             }
                         }
                     ],
@@ -810,20 +833,21 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::FromTranslation"
+                        "tooltip": "When signaled, this will invoke FromTranslation"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::FromTranslation is invoked"
+                        "tooltip": "Signaled after FromTranslation is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::FromTranslation"
+                        "name": "MathMatrix4x4_VM::FromTranslation",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
                             "details": {
-                                "name": "Vector3"
+                                "name": "const Vector3&"
                             }
                         }
                     ],
@@ -841,20 +865,21 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::IsFinite"
+                        "tooltip": "When signaled, this will invoke IsFinite"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::IsFinite is invoked"
+                        "tooltip": "Signaled after IsFinite is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::IsFinite"
+                        "name": "MathMatrix4x4_VM::IsFinite",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{157193C7-B673-4A2B-8B43-5681DCC3DEC3}",
                             "details": {
-                                "name": "Matrix4x4"
+                                "name": "const Matrix4x4&"
                             }
                         }
                     ],
@@ -872,26 +897,27 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::MultiplyByVector"
+                        "tooltip": "When signaled, this will invoke MultiplyByVector"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::MultiplyByVector is invoked"
+                        "tooltip": "Signaled after MultiplyByVector is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::MultiplyByVector"
+                        "name": "MathMatrix4x4_VM::MultiplyByVector",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{157193C7-B673-4A2B-8B43-5681DCC3DEC3}",
                             "details": {
-                                "name": "Matrix4x4"
+                                "name": "const Matrix4x4&"
                             }
                         },
                         {
                             "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
                             "details": {
-                                "name": "Vector4"
+                                "name": "const Vector4&"
                             }
                         }
                     ],
@@ -909,14 +935,15 @@
                     "context": "MathMatrix4x4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathMatrix4x4_VM::Zero"
+                        "tooltip": "When signaled, this will invoke Zero"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathMatrix4x4_VM::Zero is invoked"
+                        "tooltip": "Signaled after Zero is invoked"
                     },
                     "details": {
-                        "name": "MathMatrix4x4_VM::Zero"
+                        "name": "MathMatrix4x4_VM::Zero",
+                        "category": "Other"
                     },
                     "results": [
                         {

@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "ProfilingCaptureRequestBus"
+                "name": "PROFILINGCAPTUREREQUESTBUS_NAME",
+                "category": "PROFILINGCAPTUREREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

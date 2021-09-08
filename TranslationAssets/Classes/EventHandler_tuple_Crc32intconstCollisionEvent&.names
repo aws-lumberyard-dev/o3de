@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "EventHandler<tuple<Crc32 int > const CollisionEvent& >",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "EventHandler<tuple<Crc32 int > const CollisionEvent& >"
@@ -13,14 +13,15 @@
                     "context": "EventHandler<tuple<Crc32 int > const CollisionEvent& >",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke EventHandler<tuple<Crc32 int > const CollisionEvent& >::Disconnect"
+                        "tooltip": "When signaled, this will invoke Disconnect"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after EventHandler<tuple<Crc32 int > const CollisionEvent& >::Disconnect is invoked"
+                        "tooltip": "Signaled after Disconnect is invoked"
                     },
                     "details": {
-                        "name": "EventHandler<tuple<Crc32 int > const CollisionEvent& >::Disconnect"
+                        "name": "EventHandler<tuple<Crc32 int > const CollisionEvent& >::Disconnect",
+                        "category": "Other"
                     },
                     "params": [
                         {

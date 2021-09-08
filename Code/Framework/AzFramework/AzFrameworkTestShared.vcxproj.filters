@@ -9,6 +9,9 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\Mocks\MockSpawnableEntitiesInterface.h">
       <Filter>Tests\Mocks</Filter>
     </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\Mocks\MockWindowRequests.h">
+      <Filter>Tests\Mocks</Filter>
+    </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Tests\Utils\Utils.h">
       <Filter>Tests\Utils</Filter>
     </ClInclude>

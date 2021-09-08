@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "Render::DisplayMapperOperationType",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Render::DisplayMapperOperationType"

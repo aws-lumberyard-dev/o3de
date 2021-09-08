@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "GradientTransformModifierRequestBus"
+                "name": "GRADIENTTRANSFORMMODIFIERREQUESTBUS_NAME",
+                "category": "GRADIENTTRANSFORMMODIFIERREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

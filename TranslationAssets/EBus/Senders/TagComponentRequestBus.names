@@ -5,27 +5,30 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "TagComponentRequestBus"
+                "name": "Tag",
+                "category": "Gameplay"
             },
             "methods": [
                 {
                     "key": "HasTag",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke HasTag"
+                        "tooltip": "When signaled, this will invoke Has Tag"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after HasTag is invoked"
+                        "tooltip": "Signaled after Has Tag is invoked"
                     },
                     "details": {
-                        "name": "HasTag"
+                        "name": "Has Tag",
+                        "tooltip": "Returns true if an entity has a specified tag"
                     },
                     "params": [
                         {
                             "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
                             "details": {
-                                "name": "Crc32"
+                                "name": "Tag",
+                                "tooltip": "The tag to check if the source entity has"
                             }
                         }
                     ],
@@ -33,7 +36,8 @@
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "bool",
+                                "tooltip": "The tag to check if the source entity has"
                             }
                         }
                     ]
@@ -42,20 +46,22 @@
                     "key": "AddTag",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AddTag"
+                        "tooltip": "When signaled, this will invoke Add Tag"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AddTag is invoked"
+                        "tooltip": "Signaled after Add Tag is invoked"
                     },
                     "details": {
-                        "name": "AddTag"
+                        "name": "Add Tag",
+                        "tooltip": "Adds a tag to an entity if it didn't already have it"
                     },
                     "params": [
                         {
                             "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
                             "details": {
-                                "name": "Crc32"
+                                "name": "Tag",
+                                "tooltip": "The tag to add to the entity"
                             }
                         }
                     ]
@@ -64,20 +70,22 @@
                     "key": "RemoveTag",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke RemoveTag"
+                        "tooltip": "When signaled, this will invoke Remove Tag"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after RemoveTag is invoked"
+                        "tooltip": "Signaled after Remove Tag is invoked"
                     },
                     "details": {
-                        "name": "RemoveTag"
+                        "name": "Remove Tag",
+                        "tooltip": "Removes a tag from an entity if it had it"
                     },
                     "params": [
                         {
                             "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
                             "details": {
-                                "name": "Crc32"
+                                "name": "Tag",
+                                "tooltip": "The tag to remove from the entity"
                             }
                         }
                     ]

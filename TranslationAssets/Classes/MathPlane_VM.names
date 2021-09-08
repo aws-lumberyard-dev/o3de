@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "MathPlane_VM",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "MathPlane_VM"
@@ -13,14 +13,15 @@
                     "context": "MathPlane_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathPlane_VM::GetPlaneEquationCoefficients"
+                        "tooltip": "When signaled, this will invoke GetPlaneEquationCoefficients"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathPlane_VM::GetPlaneEquationCoefficients is invoked"
+                        "tooltip": "Signaled after GetPlaneEquationCoefficients is invoked"
                     },
                     "details": {
-                        "name": "MathPlane_VM::GetPlaneEquationCoefficients"
+                        "name": "MathPlane_VM::GetPlaneEquationCoefficients",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -44,14 +45,15 @@
                     "context": "MathPlane_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathPlane_VM::GetDistance"
+                        "tooltip": "When signaled, this will invoke GetDistance"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathPlane_VM::GetDistance is invoked"
+                        "tooltip": "Signaled after GetDistance is invoked"
                     },
                     "details": {
-                        "name": "MathPlane_VM::GetDistance"
+                        "name": "MathPlane_VM::GetDistance",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -75,14 +77,15 @@
                     "context": "MathPlane_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathPlane_VM::Project"
+                        "tooltip": "When signaled, this will invoke Project"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathPlane_VM::Project is invoked"
+                        "tooltip": "Signaled after Project is invoked"
                     },
                     "details": {
-                        "name": "MathPlane_VM::Project"
+                        "name": "MathPlane_VM::Project",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -112,14 +115,15 @@
                     "context": "MathPlane_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathPlane_VM::FromNormalAndPoint"
+                        "tooltip": "When signaled, this will invoke FromNormalAndPoint"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathPlane_VM::FromNormalAndPoint is invoked"
+                        "tooltip": "Signaled after FromNormalAndPoint is invoked"
                     },
                     "details": {
-                        "name": "MathPlane_VM::FromNormalAndPoint"
+                        "name": "MathPlane_VM::FromNormalAndPoint",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -149,14 +153,15 @@
                     "context": "MathPlane_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathPlane_VM::IsFinite"
+                        "tooltip": "When signaled, this will invoke IsFinite"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathPlane_VM::IsFinite is invoked"
+                        "tooltip": "Signaled after IsFinite is invoked"
                     },
                     "details": {
-                        "name": "MathPlane_VM::IsFinite"
+                        "name": "MathPlane_VM::IsFinite",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -180,14 +185,15 @@
                     "context": "MathPlane_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathPlane_VM::Transform"
+                        "tooltip": "When signaled, this will invoke Transform"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathPlane_VM::Transform is invoked"
+                        "tooltip": "Signaled after Transform is invoked"
                     },
                     "details": {
-                        "name": "MathPlane_VM::Transform"
+                        "name": "MathPlane_VM::Transform",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -199,7 +205,7 @@
                         {
                             "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
                             "details": {
-                                "name": "Transform"
+                                "name": "const Transform&"
                             }
                         }
                     ],
@@ -217,14 +223,15 @@
                     "context": "MathPlane_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathPlane_VM::DistanceToPoint"
+                        "tooltip": "When signaled, this will invoke DistanceToPoint"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathPlane_VM::DistanceToPoint is invoked"
+                        "tooltip": "Signaled after DistanceToPoint is invoked"
                     },
                     "details": {
-                        "name": "MathPlane_VM::DistanceToPoint"
+                        "name": "MathPlane_VM::DistanceToPoint",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -254,14 +261,15 @@
                     "context": "MathPlane_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathPlane_VM::FromCoefficients"
+                        "tooltip": "When signaled, this will invoke FromCoefficients"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathPlane_VM::FromCoefficients is invoked"
+                        "tooltip": "Signaled after FromCoefficients is invoked"
                     },
                     "details": {
-                        "name": "MathPlane_VM::FromCoefficients"
+                        "name": "MathPlane_VM::FromCoefficients",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -303,14 +311,15 @@
                     "context": "MathPlane_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathPlane_VM::FromNormalAndDistance"
+                        "tooltip": "When signaled, this will invoke FromNormalAndDistance"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathPlane_VM::FromNormalAndDistance is invoked"
+                        "tooltip": "Signaled after FromNormalAndDistance is invoked"
                     },
                     "details": {
-                        "name": "MathPlane_VM::FromNormalAndDistance"
+                        "name": "MathPlane_VM::FromNormalAndDistance",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -340,14 +349,15 @@
                     "context": "MathPlane_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathPlane_VM::GetNormal"
+                        "tooltip": "When signaled, this will invoke GetNormal"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathPlane_VM::GetNormal is invoked"
+                        "tooltip": "Signaled after GetNormal is invoked"
                     },
                     "details": {
-                        "name": "MathPlane_VM::GetNormal"
+                        "name": "MathPlane_VM::GetNormal",
+                        "category": "Other"
                     },
                     "params": [
                         {

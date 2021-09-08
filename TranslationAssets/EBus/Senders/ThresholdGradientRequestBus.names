@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "ThresholdGradientRequestBus"
+                "name": "THRESHOLDGRADIENTREQUESTBUS_NAME",
+                "category": "THRESHOLDGRADIENTREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

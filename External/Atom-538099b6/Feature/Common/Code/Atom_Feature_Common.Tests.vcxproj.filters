@@ -29,12 +29,24 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\Atom_Feature_Common.Tests_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\CMakeLists.txt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Feature\Common\Code\atom_feature_common_tests_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\Atom_Feature_Common.Tests_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\Atom_Feature_Common.Tests_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\Atom_Feature_Common.Tests_release.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Generated Files">

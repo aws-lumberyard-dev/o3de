@@ -34,7 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("J:/Atom/lyfork/o3de/scripts/detect_file_changes/cmake_install.cmake")
+  include("J:/Atom/lyfork/o3de/scripts/bundler/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
@@ -44,11 +44,16 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("J:/Atom/lyfork/o3de/scripts/o3de/cmake_install.cmake")
+  include("J:/Atom/lyfork/o3de/scripts/ctest/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("J:/Atom/lyfork/o3de/scripts/ctest/cmake_install.cmake")
+  include("J:/Atom/lyfork/o3de/scripts/detect_file_changes/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("J:/Atom/lyfork/o3de/scripts/o3de/cmake_install.cmake")
 endif()
 

@@ -24,3 +24,5 @@ endfunction()
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/ImGui.imguilib.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/LmbrCentral.dll" "J:/Atom/lyfork/o3de/bin/debug")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/debug/ImGui_debug.stamp)

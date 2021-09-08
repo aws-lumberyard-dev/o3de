@@ -5,27 +5,30 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "AudioSwitchComponentRequestBus"
+                "name": "Audio Switch",
+                "category": "Audio"
             },
             "methods": [
                 {
                     "key": "SetState",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetState"
+                        "tooltip": "When signaled, this will invoke Set State"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetState is invoked"
+                        "tooltip": "Signaled after Set State is invoked"
                     },
                     "details": {
-                        "name": "SetState"
+                        "name": "Set State",
+                        "tooltip": "Sets the specified state of the default switch"
                     },
                     "params": [
                         {
                             "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
                             "details": {
-                                "name": "char"
+                                "name": "State Name",
+                                "tooltip": "Name of the state to set"
                             }
                         }
                     ]
@@ -34,26 +37,29 @@
                     "key": "SetSwitchState",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetSwitchState"
+                        "tooltip": "When signaled, this will invoke Set Switch State"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetSwitchState is invoked"
+                        "tooltip": "Signaled after Set Switch State is invoked"
                     },
                     "details": {
-                        "name": "SetSwitchState"
+                        "name": "Set Switch State",
+                        "tooltip": "Sets a specified switch to a specified state"
                     },
                     "params": [
                         {
                             "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
                             "details": {
-                                "name": "char"
+                                "name": "Switch Name",
+                                "tooltip": "Name of the switch to set"
                             }
                         },
                         {
                             "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
                             "details": {
-                                "name": "char"
+                                "name": "State Name",
+                                "tooltip": "Name of the state to set"
                             }
                         }
                     ]

@@ -5,7 +5,8 @@
             "context": "EBusHandler",
             "variant": "",
             "details": {
-                "name": "AudioTriggerComponentNotificationBus"
+                "name": "Audio Trigger",
+                "category": "Audio"
             },
             "methods": [
                 {
@@ -17,7 +18,8 @@
                         {
                             "typeid": "{D6597933-47CD-4FC8-B911-63F3E2B0993A}",
                             "details": {
-                                "name": "AZ::u64"
+                                "name": "Trigger ID",
+                                "tooltip": "The ID of the trigger that was successfully executed"
                             }
                         }
                     ]

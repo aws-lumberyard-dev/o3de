@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "GradientRequestBus"
+                "name": "GRADIENTREQUESTBUS_NAME",
+                "category": "GRADIENTREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {
@@ -25,7 +26,7 @@
                         {
                             "typeid": "{DC4B9269-CB3C-4071-989D-C885FB9946A5}",
                             "details": {
-                                "name": "const GradientSampleParams&"
+                                "name": ""
                             }
                         }
                     ],

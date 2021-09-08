@@ -161,6 +161,9 @@
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\native\ui\SourceAssetDetailsPanel.ui">
       <Filter>native\ui</Filter>
     </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\AssetProcessor_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\8862209e4af06404f0f42cd201c09a8c\qrc_AssetProcessor.cpp.rule">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -190,6 +193,15 @@
     </None>
     <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetProcessor\Platform\Windows\assetprocessor_windows.cmake">
       <Filter>Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\AssetProcessor_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\AssetProcessor_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\AssetProcessor_release.stamp">
+      <Filter>Generated Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

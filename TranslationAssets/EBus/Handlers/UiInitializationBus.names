@@ -5,7 +5,8 @@
             "context": "EBusHandler",
             "variant": "",
             "details": {
-                "name": "UiInitializationBus"
+                "name": "UI Initialization",
+                "category": "UI"
             },
             "methods": [
                 {

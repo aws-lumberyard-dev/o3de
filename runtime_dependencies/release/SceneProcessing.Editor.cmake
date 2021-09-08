@@ -95,3 +95,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/release/SceneCore.dll" "J:/Atom/lyfork/o3de/bin
 ly_copy("J:/Atom/lyfork/o3de/bin/release/SceneData.dll" "J:/Atom/lyfork/o3de/bin/release")
 ly_copy("J:/Atom/lyfork/o3de/bin/release/SceneUI.dll" "J:/Atom/lyfork/o3de/bin/release")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/release/SceneProcessing.Editor_release.stamp)

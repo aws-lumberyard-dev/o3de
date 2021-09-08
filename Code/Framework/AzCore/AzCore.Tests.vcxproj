@@ -78,13 +78,14 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzTest\.;J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /RTCsu /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/googletest-1.8.1-rev4-windows/googletest/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/googlebenchmark-1.5.0-rev2-windows/googlebenchmark/include</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /RTCsu /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-rev1-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev2-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/googletest-1.8.1-rev4-windows/googletest/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/googlebenchmark-1.5.0-rev2-windows/googlebenchmark/include</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BufferSecurityCheck>true</BufferSecurityCheck>
       <CallingConvention>Cdecl</CallingConvention>
+      <ConformanceMode>true</ConformanceMode>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
-      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4201</DisableSpecificWarnings>
       <ExceptionHandling>
       </ExceptionHandling>
       <FloatingPointModel>Fast</FloatingPointModel>
@@ -96,6 +97,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatSpecificWarningsAsErrors>4296;5233;4426;4777;5031;5032</TreatSpecificWarningsAsErrors>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
@@ -115,22 +117,10 @@
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
-    <PostBuildEvent>
-      <Message></Message>
-      <Command>setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/debug/AzCore.Tests.cmake
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-    </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>..\..\..\lib\debug\AzCore.lib;..\..\..\lib\debug\AzCoreTestCommon.lib;..\..\..\lib\debug\AzTestShared.lib;..\..\..\lib\debug\AzTest.lib;..\..\..\lib\debug\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\debug\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\zlib\lib\zlibstaticd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\debug\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\debug\cityhash.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\googletest\lib\gmockd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googlebenchmark-1.5.0-rev2-windows\googlebenchmark\lib\Debug\benchmark.lib;Shlwapi.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\googletest\lib\gtestd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>..\..\..\lib\debug\AzCore.lib;..\..\..\lib\debug\AzCoreTestCommon.lib;..\..\..\lib\debug\AzTestShared.lib;..\..\..\lib\debug\AzTest.lib;..\..\..\lib\debug\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\debug\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev2-windows\zlib\lib\zlibstaticd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\debug\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\debug\cityhash.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\googletest\lib\gmockd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googlebenchmark-1.5.0-rev2-windows\googlebenchmark\lib\Debug\benchmark.lib;Shlwapi.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\googletest\lib\gtestd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099 /ignore:4099</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64 /IGNORE:4099 /ignore:4099</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>J:/Atom/lyfork/o3de/lib/debug/AzCore.Tests.lib</ImportLibrary>
@@ -146,12 +136,13 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzTest\.;J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/googletest-1.8.1-rev4-windows/googletest/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/googlebenchmark-1.5.0-rev2-windows/googlebenchmark/include</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-rev1-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev2-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/googletest-1.8.1-rev4-windows/googletest/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/googlebenchmark-1.5.0-rev2-windows/googlebenchmark/include</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CallingConvention>Cdecl</CallingConvention>
+      <ConformanceMode>true</ConformanceMode>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
-      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4201</DisableSpecificWarnings>
       <ExceptionHandling>
       </ExceptionHandling>
       <FloatingPointModel>Fast</FloatingPointModel>
@@ -165,6 +156,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <StringPooling>true</StringPooling>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatSpecificWarningsAsErrors>4296;5233;4426;4777;5031;5032</TreatSpecificWarningsAsErrors>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
@@ -185,22 +177,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
-    <PostBuildEvent>
-      <Message></Message>
-      <Command>setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/profile/AzCore.Tests.cmake
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-    </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>..\..\..\lib\profile\AzCore.lib;..\..\..\lib\profile\AzCoreTestCommon.lib;..\..\..\lib\profile\AzTestShared.lib;..\..\..\lib\profile\AzTest.lib;..\..\..\lib\profile\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\release\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\zlib\lib\zlibstatic.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\release\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\release\cityhash.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\googletest\lib\gmock.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googlebenchmark-1.5.0-rev2-windows\googlebenchmark\lib\Release\benchmark.lib;Shlwapi.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\googletest\lib\gtest.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>..\..\..\lib\profile\AzCore.lib;..\..\..\lib\profile\AzCoreTestCommon.lib;..\..\..\lib\profile\AzTestShared.lib;..\..\..\lib\profile\AzTest.lib;..\..\..\lib\profile\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\release\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev2-windows\zlib\lib\zlibstatic.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\release\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\release\cityhash.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\googletest\lib\gmock.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googlebenchmark-1.5.0-rev2-windows\googlebenchmark\lib\Release\benchmark.lib;Shlwapi.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\googletest\lib\gtest.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099 /ignore:4099</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64 /IGNORE:4099 /ignore:4099</AdditionalOptions>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -218,11 +198,12 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzTest\.;J:\Atom\lyfork\o3de\Code\Framework\AzTest\AzTest\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/googletest-1.8.1-rev4-windows/googletest/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/googlebenchmark-1.5.0-rev2-windows/googlebenchmark/include</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-rev1-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev2-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/googletest-1.8.1-rev4-windows/googletest/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/googlebenchmark-1.5.0-rev2-windows/googlebenchmark/include</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CallingConvention>Cdecl</CallingConvention>
+      <ConformanceMode>true</ConformanceMode>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
-      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4201</DisableSpecificWarnings>
       <ExceptionHandling>
       </ExceptionHandling>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -237,6 +218,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatSpecificWarningsAsErrors>4296;5233;4426;4777;5031;5032</TreatSpecificWarningsAsErrors>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
@@ -258,22 +240,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
-    <PostBuildEvent>
-      <Message></Message>
-      <Command>setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/release/AzCore.Tests.cmake
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-    </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>..\..\..\lib\release\AzCore.lib;..\..\..\lib\release\AzCoreTestCommon.lib;..\..\..\lib\release\AzTestShared.lib;..\..\..\lib\release\AzTest.lib;..\..\..\lib\release\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\release\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\zlib\lib\zlibstatic.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\release\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\release\cityhash.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\googletest\lib\gmock.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googlebenchmark-1.5.0-rev2-windows\googlebenchmark\lib\Release\benchmark.lib;Shlwapi.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\googletest\lib\gtest.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>..\..\..\lib\release\AzCore.lib;..\..\..\lib\release\AzCoreTestCommon.lib;..\..\..\lib\release\AzTestShared.lib;..\..\..\lib\release\AzTest.lib;..\..\..\lib\release\AzCore.lib;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\lua\lib\release\lualib.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev2-windows\zlib\lib\zlibstatic.lib;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\zstd\bin\win-x64-vc140\release\zstd.lib;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\cityhash\build\win_x64\vc140\release\cityhash.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\googletest\lib\gmock.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googlebenchmark-1.5.0-rev2-windows\googlebenchmark\lib\Release\benchmark.lib;Shlwapi.lib;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\googletest\lib\gtest.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099 /ignore:4099</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64 /IGNORE:4099 /ignore:4099</AdditionalOptions>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -289,6 +259,49 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\AzCore.Tests_(CONFIG).stamp.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Copying AzCore.Tests runtime dependencies to output...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/debug/AzCore.Tests.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\bin\debug\AzCoreTestDLL.dll;J:\Atom\lyfork\o3de\bin\debug\AzTestRunner.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\runtime_dependencies\debug\AzCore.Tests_debug.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Copying AzCore.Tests runtime dependencies to output...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='profile|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/profile/AzCore.Tests.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\bin\profile\AzCoreTestDLL.dll;J:\Atom\lyfork\o3de\bin\profile\AzTestRunner.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\runtime_dependencies\profile\AzCore.Tests_profile.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Copying AzCore.Tests runtime dependencies to output...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -P J:/Atom/lyfork/o3de/runtime_dependencies/release/AzCore.Tests.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\bin\release\AzCoreTestDLL.dll;J:\Atom\lyfork\o3de\bin\release\AzTestRunner.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\runtime_dependencies\release\AzCore.Tests_release.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\CMakeLists.txt">
       <StdOutEncoding>UTF-8</StdOutEncoding>
       <Message Condition="'$(Configuration)|$(Platform)'=='debug|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Framework/AzCore/CMakeLists.txt</Message>
@@ -301,7 +314,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\FindLua.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\RapidXML-1.13-multiplatform\FindRapidXML.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\RapidXML-1.13-multiplatform\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\Findcityhash.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\googlebenchmark-1.5.0-rev2-windows\FindGoogleBenchmark.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\googlebenchmark-1.5.0-rev2-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\Findgoogletest.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\Findzlib.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\Findzstd.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\PackageInfo.json;J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\azcore_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\azcoretestcommon_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\std\azstd_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\azcoretestdll_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\azcoretests_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\aztestshared_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\FindLua.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\RapidXML-1.13-multiplatform\FindRapidXML.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\RapidXML-1.13-multiplatform\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\Findcityhash.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\googlebenchmark-1.5.0-rev2-windows\FindGoogleBenchmark.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\googlebenchmark-1.5.0-rev2-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\Findgoogletest.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev2-windows\Findzlib.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev2-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\Findzstd.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\PackageInfo.json;J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\azcore_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\azcoretestcommon_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\std\azstd_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\azcoretestdll_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\azcoretests_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\aztestshared_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzCore\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Framework/AzCore/CMakeLists.txt</Message>
@@ -314,7 +327,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\FindLua.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\RapidXML-1.13-multiplatform\FindRapidXML.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\RapidXML-1.13-multiplatform\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\Findcityhash.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\googlebenchmark-1.5.0-rev2-windows\FindGoogleBenchmark.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\googlebenchmark-1.5.0-rev2-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\Findgoogletest.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\Findzlib.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\Findzstd.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\PackageInfo.json;J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\azcore_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\azcoretestcommon_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\std\azstd_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\azcoretestdll_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\azcoretests_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\aztestshared_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\FindLua.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\RapidXML-1.13-multiplatform\FindRapidXML.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\RapidXML-1.13-multiplatform\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\Findcityhash.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\googlebenchmark-1.5.0-rev2-windows\FindGoogleBenchmark.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\googlebenchmark-1.5.0-rev2-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\Findgoogletest.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev2-windows\Findzlib.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev2-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\Findzstd.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\PackageInfo.json;J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\azcore_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\azcoretestcommon_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\std\azstd_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\azcoretestdll_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\azcoretests_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\aztestshared_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzCore\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Framework/AzCore/CMakeLists.txt</Message>
@@ -327,7 +340,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\FindLua.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\RapidXML-1.13-multiplatform\FindRapidXML.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\RapidXML-1.13-multiplatform\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\Findcityhash.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\googlebenchmark-1.5.0-rev2-windows\FindGoogleBenchmark.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\googlebenchmark-1.5.0-rev2-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\Findgoogletest.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\Findzlib.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev1-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\Findzstd.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\PackageInfo.json;J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\azcore_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\azcoretestcommon_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\std\azstd_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\azcoretestdll_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\azcoretests_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\aztestshared_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\FindLua.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\Lua-5.3.5-rev5-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\RapidXML-1.13-multiplatform\FindRapidXML.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\RapidXML-1.13-multiplatform\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\Findcityhash.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\cityhash-1.1-multiplatform\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\googlebenchmark-1.5.0-rev2-windows\FindGoogleBenchmark.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\googlebenchmark-1.5.0-rev2-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\Findgoogletest.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\googletest-1.8.1-rev4-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev2-windows\Findzlib.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\zlib-1.2.11-rev2-windows\PackageInfo.json;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\Findzstd.cmake;C:\Users\luissemp\.o3de\3rdParty\packages\zstd-1.35-multiplatform\PackageInfo.json;J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\azcore_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\azcoretestcommon_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\AzCore\std\azstd_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Platform\Windows\platform_windows.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Platform\Windows\platform_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\azcoretestdll_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\azcoretests_files.cmake;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\aztestshared_files.cmake;J:\Atom\lyfork\o3de\cmake\Platform\Windows\LYTestWrappers_windows.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Framework\AzCore\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
     </CustomBuild>
@@ -359,7 +372,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='release|x64'">AZCORETEST_DLL_NAME="AzCore.Tests.dll";%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\DLL.cpp" />
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Driller.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\EBus.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\EntityIdTests.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\EntityTests.cpp" />
@@ -390,14 +402,12 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\SerializeContextFixture.h" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Slice.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\State.cpp" />
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\StatisticalProfiler.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Statistics.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\StreamerTests.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\StringFunc.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\SystemFile.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\TaskTests.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\TickBusTest.cpp" />
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\TimeDataStatistics.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\UUIDTests.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\XML.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Debug\AssetTracking.cpp" />
@@ -435,6 +445,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Serialization\Json\JsonSerializationResultTests.cpp" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Serialization\Json\JsonSerializationTests.h" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Serialization\Json\JsonSerializationTests.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Serialization\Json\JsonSerializationUtilsTests.cpp" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Serialization\Json\JsonSerializerConformityTests.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Serialization\Json\JsonSerializerMock.h" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Serialization\Json\MapSerializerTests.cpp" />
@@ -547,6 +558,12 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Platform\Windows\platform_windows_files.cmake">
     </None>
     <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Platform\Windows\platform_windows.cmake">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\AzCore.Tests_debug.stamp">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\AzCore.Tests_profile.stamp">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\AzCore.Tests_release.stamp">
     </None>
   </ItemGroup>
   <ItemGroup>

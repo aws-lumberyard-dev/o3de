@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZ::Render::DepthOfFieldComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "AZ::Render::DepthOfFieldComponent"

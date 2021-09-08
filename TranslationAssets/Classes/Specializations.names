@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "Specializations",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Specializations"
@@ -13,14 +13,15 @@
                     "context": "Specializations",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Specializations::GetPriority"
+                        "tooltip": "When signaled, this will invoke GetPriority"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Specializations::GetPriority is invoked"
+                        "tooltip": "Signaled after GetPriority is invoked"
                     },
                     "details": {
-                        "name": "Specializations::GetPriority"
+                        "name": "Specializations::GetPriority",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -50,14 +51,15 @@
                     "context": "Specializations",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Specializations::GetCount"
+                        "tooltip": "When signaled, this will invoke GetCount"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Specializations::GetCount is invoked"
+                        "tooltip": "Signaled after GetCount is invoked"
                     },
                     "details": {
-                        "name": "Specializations::GetCount"
+                        "name": "Specializations::GetCount",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -81,14 +83,15 @@
                     "context": "Specializations",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Specializations::Contains"
+                        "tooltip": "When signaled, this will invoke Contains"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Specializations::Contains is invoked"
+                        "tooltip": "Signaled after Contains is invoked"
                     },
                     "details": {
-                        "name": "Specializations::Contains"
+                        "name": "Specializations::Contains",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -118,14 +121,15 @@
                     "context": "Specializations",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Specializations::Append"
+                        "tooltip": "When signaled, this will invoke Append"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Specializations::Append is invoked"
+                        "tooltip": "Signaled after Append is invoked"
                     },
                     "details": {
-                        "name": "Specializations::Append"
+                        "name": "Specializations::Append",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -155,14 +159,15 @@
                     "context": "Specializations",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Specializations::GetSpecialization"
+                        "tooltip": "When signaled, this will invoke GetSpecialization"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Specializations::GetSpecialization is invoked"
+                        "tooltip": "Signaled after GetSpecialization is invoked"
                     },
                     "details": {
-                        "name": "Specializations::GetSpecialization"
+                        "name": "Specializations::GetSpecialization",
+                        "category": "Other"
                     },
                     "params": [
                         {

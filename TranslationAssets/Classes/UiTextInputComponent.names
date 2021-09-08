@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "UiTextInputComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "UiTextInputComponent"

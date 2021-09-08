@@ -32,3 +32,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/profile/LmbrCentral.dll" "J:/Atom/lyfork/o3de/b
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/ImGui.dll" "J:/Atom/lyfork/o3de/bin/profile")
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/PhysX.Gem.dll" "J:/Atom/lyfork/o3de/bin/profile")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/profile/PhysXDebug_profile.stamp)

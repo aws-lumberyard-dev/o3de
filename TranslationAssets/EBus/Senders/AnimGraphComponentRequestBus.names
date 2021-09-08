@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "AnimGraphComponentRequestBus"
+                "name": "Anim Graph",
+                "category": "Animation"
             },
             "methods": [
                 {

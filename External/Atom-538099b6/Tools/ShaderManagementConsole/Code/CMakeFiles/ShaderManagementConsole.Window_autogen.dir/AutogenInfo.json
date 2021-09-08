@@ -74,7 +74,7 @@
 	"MOC_COMPILATION_FILE_release" : "J:/Atom/lyfork/o3de/External/Atom-538099b6/Tools/ShaderManagementConsole/Code/ShaderManagementConsole.Window_autogen/mocs_compilation_release.cpp",
 	"MOC_DEFINITIONS" : 
 	[
-		"DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev1-windows/python\"",
+		"DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev2-windows/python\"",
 		"NOMINMAX",
 		"OPENSSL_ENABLED",
 		"QT_CORE_LIB",
@@ -97,7 +97,7 @@
 		"AZ_DEBUG_BUILD=1",
 		"AZ_ENABLE_DEBUG_TOOLS",
 		"AZ_ENABLE_TRACING",
-		"DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev1-windows/python\"",
+		"DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev2-windows/python\"",
 		"NOMINMAX",
 		"OPENSSL_ENABLED",
 		"QT_CORE_LIB",
@@ -119,7 +119,7 @@
 		"AZ_BUILD_CONFIGURATION_TYPE=\"profile\"",
 		"AZ_ENABLE_DEBUG_TOOLS",
 		"AZ_ENABLE_TRACING",
-		"DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev1-windows/python\"",
+		"DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev2-windows/python\"",
 		"NDEBUG",
 		"NOMINMAX",
 		"OPENSSL_ENABLED",
@@ -142,7 +142,7 @@
 	"MOC_DEFINITIONS_release" : 
 	[
 		"AZ_BUILD_CONFIGURATION_TYPE=\"release\"",
-		"DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev1-windows/python\"",
+		"DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev2-windows/python\"",
 		"NDEBUG",
 		"NOMINMAX",
 		"OPENSSL_ENABLED",

@@ -23,3 +23,5 @@ endfunction()
 
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/AzTestRunner.exe" "J:/Atom/lyfork/o3de/bin/debug")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/debug/AzTestRunner.Tests_debug.stamp)

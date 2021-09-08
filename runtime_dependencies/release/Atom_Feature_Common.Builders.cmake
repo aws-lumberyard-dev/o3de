@@ -99,3 +99,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/release/Atom_RHI_Metal.Private.dll" "J:/Atom/ly
 ly_copy("J:/Atom/lyfork/o3de/bin/release/Atom_RHI_Vulkan.Builders.dll" "J:/Atom/lyfork/o3de/bin/release")
 ly_copy("J:/Atom/lyfork/o3de/bin/release/Atom_RHI_Vulkan.Private.dll" "J:/Atom/lyfork/o3de/bin/release")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/release/Atom_Feature_Common.Builders_release.stamp)

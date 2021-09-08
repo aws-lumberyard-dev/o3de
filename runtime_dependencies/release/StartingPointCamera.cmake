@@ -23,3 +23,5 @@ endfunction()
 
 ly_copy("J:/Atom/lyfork/o3de/bin/release/CameraFramework.dll" "J:/Atom/lyfork/o3de/bin/release")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/release/StartingPointCamera_release.stamp)

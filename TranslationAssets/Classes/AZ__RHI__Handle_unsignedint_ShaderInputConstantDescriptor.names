@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZ::RHI::Handle<unsigned int, ShaderInputConstantDescriptor>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "AZ::RHI::Handle<unsigned int, ShaderInputConstantDescriptor>"
@@ -13,20 +13,21 @@
                     "context": "AZ::RHI::Handle<unsigned int, ShaderInputConstantDescriptor>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZ::RHI::Handle<unsigned int, ShaderInputConstantDescriptor>::IsValid"
+                        "tooltip": "When signaled, this will invoke IsValid"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZ::RHI::Handle<unsigned int, ShaderInputConstantDescriptor>::IsValid is invoked"
+                        "tooltip": "Signaled after IsValid is invoked"
                     },
                     "details": {
-                        "name": "AZ::RHI::Handle<unsigned int, ShaderInputConstantDescriptor>::IsValid"
+                        "name": "AZ::RHI::Handle<unsigned int, ShaderInputConstantDescriptor>::IsValid",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{3F860893-1F57-5615-92CA-389B49687A9C}",
                             "details": {
-                                "name": "AZ::RHI::Handle<unsigned int, ShaderInputConstantDescriptor>"
+                                "name": "AZ::RHI::Handle<unsigned int, ShaderInputConstantDescriptor>*"
                             }
                         }
                     ],

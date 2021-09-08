@@ -443,6 +443,9 @@
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Gallery\TreeViewPage.ui">
       <Filter>AzQtComponents\Gallery</Filter>
     </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\O3DEQtControlGallery_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\CMakeLists.txt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -468,6 +471,15 @@
     </None>
     <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\azqtcomponents_gallery_files.cmake">
       <Filter>AzQtComponents</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\O3DEQtControlGallery_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\O3DEQtControlGallery_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\O3DEQtControlGallery_release.stamp">
+      <Filter>Generated Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

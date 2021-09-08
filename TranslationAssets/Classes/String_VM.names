@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "String_VM",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "String_VM"
@@ -13,20 +13,21 @@
                     "context": "String_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke String_VM::ToLower"
+                        "tooltip": "When signaled, this will invoke ToLower"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after String_VM::ToLower is invoked"
+                        "tooltip": "Signaled after ToLower is invoked"
                     },
                     "details": {
-                        "name": "String_VM::ToLower"
+                        "name": "String_VM::ToLower",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "AZStd::basic_string<char, AZStd::char_traits<char>, allocator>"
                             }
                         }
                     ],
@@ -34,7 +35,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "AZStd::basic_string<char, AZStd::char_traits<char>, allocator>"
                             }
                         }
                     ]
@@ -44,20 +45,21 @@
                     "context": "String_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke String_VM::ToUpper"
+                        "tooltip": "When signaled, this will invoke ToUpper"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after String_VM::ToUpper is invoked"
+                        "tooltip": "Signaled after ToUpper is invoked"
                     },
                     "details": {
-                        "name": "String_VM::ToUpper"
+                        "name": "String_VM::ToUpper",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "AZStd::basic_string<char, AZStd::char_traits<char>, allocator>"
                             }
                         }
                     ],
@@ -65,7 +67,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "AZStd::basic_string<char, AZStd::char_traits<char>, allocator>"
                             }
                         }
                     ]
@@ -75,20 +77,21 @@
                     "context": "String_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke String_VM::Substring"
+                        "tooltip": "When signaled, this will invoke Substring"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after String_VM::Substring is invoked"
+                        "tooltip": "Signaled after Substring is invoked"
                     },
                     "details": {
-                        "name": "String_VM::Substring"
+                        "name": "String_VM::Substring",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "AZStd::basic_string<char, AZStd::char_traits<char>, allocator>"
                             }
                         },
                         {
@@ -108,7 +111,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "AZStd::basic_string<char, AZStd::char_traits<char>, allocator>"
                             }
                         }
                     ]

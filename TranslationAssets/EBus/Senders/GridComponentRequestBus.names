@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "GridComponentRequestBus"
+                "name": "GRIDCOMPONENTREQUESTBUS_NAME",
+                "category": "GRIDCOMPONENTREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

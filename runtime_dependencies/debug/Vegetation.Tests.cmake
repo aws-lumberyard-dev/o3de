@@ -55,3 +55,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/debug/LmbrCentral.dll" "J:/Atom/lyfork/o3de/bin
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/GradientSignal.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/AzTestRunner.exe" "J:/Atom/lyfork/o3de/bin/debug")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/debug/Vegetation.Tests_debug.stamp)

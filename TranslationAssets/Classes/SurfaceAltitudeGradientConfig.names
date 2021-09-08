@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "SurfaceAltitudeGradientConfig",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "SurfaceAltitudeGradientConfig"
@@ -13,20 +13,21 @@
                     "context": "SurfaceAltitudeGradientConfig",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SurfaceAltitudeGradientConfig::GetNumTags"
+                        "tooltip": "When signaled, this will invoke GetNumTags"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SurfaceAltitudeGradientConfig::GetNumTags is invoked"
+                        "tooltip": "Signaled after GetNumTags is invoked"
                     },
                     "details": {
-                        "name": "SurfaceAltitudeGradientConfig::GetNumTags"
+                        "name": "SurfaceAltitudeGradientConfig::GetNumTags",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{3CB05FC9-6E0F-435E-B420-F027B6716804}",
                             "details": {
-                                "name": "Altitude Gradient",
+                                "name": "SurfaceAltitudeGradientConfig*",
                                 "tooltip": "altitude Gradient"
                             }
                         }
@@ -45,20 +46,21 @@
                     "context": "SurfaceAltitudeGradientConfig",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SurfaceAltitudeGradientConfig::GetTag"
+                        "tooltip": "When signaled, this will invoke GetTag"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SurfaceAltitudeGradientConfig::GetTag is invoked"
+                        "tooltip": "Signaled after GetTag is invoked"
                     },
                     "details": {
-                        "name": "SurfaceAltitudeGradientConfig::GetTag"
+                        "name": "SurfaceAltitudeGradientConfig::GetTag",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{3CB05FC9-6E0F-435E-B420-F027B6716804}",
                             "details": {
-                                "name": "Altitude Gradient",
+                                "name": "SurfaceAltitudeGradientConfig*",
                                 "tooltip": "altitude Gradient"
                             }
                         },
@@ -83,20 +85,21 @@
                     "context": "SurfaceAltitudeGradientConfig",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SurfaceAltitudeGradientConfig::RemoveTag"
+                        "tooltip": "When signaled, this will invoke RemoveTag"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SurfaceAltitudeGradientConfig::RemoveTag is invoked"
+                        "tooltip": "Signaled after RemoveTag is invoked"
                     },
                     "details": {
-                        "name": "SurfaceAltitudeGradientConfig::RemoveTag"
+                        "name": "SurfaceAltitudeGradientConfig::RemoveTag",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{3CB05FC9-6E0F-435E-B420-F027B6716804}",
                             "details": {
-                                "name": "Altitude Gradient",
+                                "name": "SurfaceAltitudeGradientConfig*",
                                 "tooltip": "altitude Gradient"
                             }
                         },
@@ -113,27 +116,28 @@
                     "context": "SurfaceAltitudeGradientConfig",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SurfaceAltitudeGradientConfig::AddTag"
+                        "tooltip": "When signaled, this will invoke AddTag"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SurfaceAltitudeGradientConfig::AddTag is invoked"
+                        "tooltip": "Signaled after AddTag is invoked"
                     },
                     "details": {
-                        "name": "SurfaceAltitudeGradientConfig::AddTag"
+                        "name": "SurfaceAltitudeGradientConfig::AddTag",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{3CB05FC9-6E0F-435E-B420-F027B6716804}",
                             "details": {
-                                "name": "Altitude Gradient",
+                                "name": "SurfaceAltitudeGradientConfig*",
                                 "tooltip": "altitude Gradient"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "AZStd::basic_string<char, AZStd::char_traits<char>, allocator>"
                             }
                         }
                     ]

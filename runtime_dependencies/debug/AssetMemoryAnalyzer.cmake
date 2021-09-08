@@ -25,3 +25,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/debug/ImGui.imguilib.dll" "J:/Atom/lyfork/o3de/
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/LmbrCentral.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/ImGui.dll" "J:/Atom/lyfork/o3de/bin/debug")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/debug/AssetMemoryAnalyzer_debug.stamp)

@@ -23,3 +23,5 @@ endfunction()
 
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/AzTestRunner.exe" "J:/Atom/lyfork/o3de/bin/profile")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/profile/AtomFont.Tests_profile.stamp)

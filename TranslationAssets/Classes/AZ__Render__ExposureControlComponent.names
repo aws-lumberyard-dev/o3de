@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZ::Render::ExposureControlComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "AZ::Render::ExposureControlComponent"

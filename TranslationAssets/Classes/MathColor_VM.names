@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "MathColor_VM",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "MathColor_VM"
@@ -13,14 +13,15 @@
                     "context": "MathColor_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathColor_VM::One"
+                        "tooltip": "When signaled, this will invoke One"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathColor_VM::One is invoked"
+                        "tooltip": "Signaled after One is invoked"
                     },
                     "details": {
-                        "name": "MathColor_VM::One"
+                        "name": "MathColor_VM::One",
+                        "category": "Other"
                     },
                     "results": [
                         {
@@ -36,14 +37,15 @@
                     "context": "MathColor_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathColor_VM::LinearToGamma"
+                        "tooltip": "When signaled, this will invoke LinearToGamma"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathColor_VM::LinearToGamma is invoked"
+                        "tooltip": "Signaled after LinearToGamma is invoked"
                     },
                     "details": {
-                        "name": "MathColor_VM::LinearToGamma"
+                        "name": "MathColor_VM::LinearToGamma",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -67,14 +69,15 @@
                     "context": "MathColor_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathColor_VM::FromVector3"
+                        "tooltip": "When signaled, this will invoke FromVector3"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathColor_VM::FromVector3 is invoked"
+                        "tooltip": "Signaled after FromVector3 is invoked"
                     },
                     "details": {
-                        "name": "MathColor_VM::FromVector3"
+                        "name": "MathColor_VM::FromVector3",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -98,14 +101,15 @@
                     "context": "MathColor_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathColor_VM::MultiplyByNumber"
+                        "tooltip": "When signaled, this will invoke MultiplyByNumber"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathColor_VM::MultiplyByNumber is invoked"
+                        "tooltip": "Signaled after MultiplyByNumber is invoked"
                     },
                     "details": {
-                        "name": "MathColor_VM::MultiplyByNumber"
+                        "name": "MathColor_VM::MultiplyByNumber",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -135,14 +139,15 @@
                     "context": "MathColor_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathColor_VM::Negate"
+                        "tooltip": "When signaled, this will invoke Negate"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathColor_VM::Negate is invoked"
+                        "tooltip": "Signaled after Negate is invoked"
                     },
                     "details": {
-                        "name": "MathColor_VM::Negate"
+                        "name": "MathColor_VM::Negate",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -166,14 +171,15 @@
                     "context": "MathColor_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathColor_VM::Dot3"
+                        "tooltip": "When signaled, this will invoke Dot3"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathColor_VM::Dot3 is invoked"
+                        "tooltip": "Signaled after Dot3 is invoked"
                     },
                     "details": {
-                        "name": "MathColor_VM::Dot3"
+                        "name": "MathColor_VM::Dot3",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -203,14 +209,15 @@
                     "context": "MathColor_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathColor_VM::Dot"
+                        "tooltip": "When signaled, this will invoke Dot"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathColor_VM::Dot is invoked"
+                        "tooltip": "Signaled after Dot is invoked"
                     },
                     "details": {
-                        "name": "MathColor_VM::Dot"
+                        "name": "MathColor_VM::Dot",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -240,14 +247,15 @@
                     "context": "MathColor_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathColor_VM::FromValues"
+                        "tooltip": "When signaled, this will invoke FromValues"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathColor_VM::FromValues is invoked"
+                        "tooltip": "Signaled after FromValues is invoked"
                     },
                     "details": {
-                        "name": "MathColor_VM::FromValues"
+                        "name": "MathColor_VM::FromValues",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -289,14 +297,15 @@
                     "context": "MathColor_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathColor_VM::DivideByNumber"
+                        "tooltip": "When signaled, this will invoke DivideByNumber"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathColor_VM::DivideByNumber is invoked"
+                        "tooltip": "Signaled after DivideByNumber is invoked"
                     },
                     "details": {
-                        "name": "MathColor_VM::DivideByNumber"
+                        "name": "MathColor_VM::DivideByNumber",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -326,14 +335,15 @@
                     "context": "MathColor_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathColor_VM::FromVector3AndNumber"
+                        "tooltip": "When signaled, this will invoke FromVector3AndNumber"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathColor_VM::FromVector3AndNumber is invoked"
+                        "tooltip": "Signaled after FromVector3AndNumber is invoked"
                     },
                     "details": {
-                        "name": "MathColor_VM::FromVector3AndNumber"
+                        "name": "MathColor_VM::FromVector3AndNumber",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -363,14 +373,15 @@
                     "context": "MathColor_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathColor_VM::GammaToLinear"
+                        "tooltip": "When signaled, this will invoke GammaToLinear"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathColor_VM::GammaToLinear is invoked"
+                        "tooltip": "Signaled after GammaToLinear is invoked"
                     },
                     "details": {
-                        "name": "MathColor_VM::GammaToLinear"
+                        "name": "MathColor_VM::GammaToLinear",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -394,14 +405,15 @@
                     "context": "MathColor_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathColor_VM::IsClose"
+                        "tooltip": "When signaled, this will invoke IsClose"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathColor_VM::IsClose is invoked"
+                        "tooltip": "Signaled after IsClose is invoked"
                     },
                     "details": {
-                        "name": "MathColor_VM::IsClose"
+                        "name": "MathColor_VM::IsClose",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -437,14 +449,15 @@
                     "context": "MathColor_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathColor_VM::IsZero"
+                        "tooltip": "When signaled, this will invoke IsZero"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathColor_VM::IsZero is invoked"
+                        "tooltip": "Signaled after IsZero is invoked"
                     },
                     "details": {
-                        "name": "MathColor_VM::IsZero"
+                        "name": "MathColor_VM::IsZero",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -474,14 +487,15 @@
                     "context": "MathColor_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathColor_VM::MultiplyByColor"
+                        "tooltip": "When signaled, this will invoke MultiplyByColor"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathColor_VM::MultiplyByColor is invoked"
+                        "tooltip": "Signaled after MultiplyByColor is invoked"
                     },
                     "details": {
-                        "name": "MathColor_VM::MultiplyByColor"
+                        "name": "MathColor_VM::MultiplyByColor",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -511,14 +525,15 @@
                     "context": "MathColor_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathColor_VM::Add"
+                        "tooltip": "When signaled, this will invoke Add"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathColor_VM::Add is invoked"
+                        "tooltip": "Signaled after Add is invoked"
                     },
                     "details": {
-                        "name": "MathColor_VM::Add"
+                        "name": "MathColor_VM::Add",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -548,14 +563,15 @@
                     "context": "MathColor_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathColor_VM::Subtract"
+                        "tooltip": "When signaled, this will invoke Subtract"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathColor_VM::Subtract is invoked"
+                        "tooltip": "Signaled after Subtract is invoked"
                     },
                     "details": {
-                        "name": "MathColor_VM::Subtract"
+                        "name": "MathColor_VM::Subtract",
+                        "category": "Other"
                     },
                     "params": [
                         {

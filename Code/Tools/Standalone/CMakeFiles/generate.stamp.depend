@@ -1,7 +1,5 @@
 # CMake generation dependency list for this directory.
 J:/Atom/lyfork/o3de/Code/Tools/Standalone/CMakeLists.txt
 J:/Atom/lyfork/o3de/Code/Tools/Standalone/Platform/Windows/lua_ide_windows_files.cmake
-J:/Atom/lyfork/o3de/Code/Tools/Standalone/Platform/Windows/profiler_windows_files.cmake
 J:/Atom/lyfork/o3de/Code/Tools/Standalone/lua_ide_files.cmake
-J:/Atom/lyfork/o3de/Code/Tools/Standalone/profiler_files.cmake
 J:/Atom/lyfork/o3de/Code/Tools/Standalone/standalone_tools_files.cmake

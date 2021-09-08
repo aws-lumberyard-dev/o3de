@@ -5,21 +5,22 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "GameEntityContextRequestBus"
+                "name": "Game Entity",
+                "category": "Entity"
             },
             "methods": [
                 {
                     "key": "DeactivateGameEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke DeactivateGameEntity"
+                        "tooltip": "When signaled, this will invoke Deactivate Game Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after DeactivateGameEntity is invoked"
+                        "tooltip": "Signaled after Deactivate Game Entity is invoked"
                     },
                     "details": {
-                        "name": "DeactivateGameEntity"
+                        "name": "Deactivate Game Entity"
                     },
                     "params": [
                         {
@@ -35,14 +36,14 @@
                     "key": "GetEntityName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetEntityName"
+                        "tooltip": "When signaled, this will invoke Get Entity Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetEntityName is invoked"
+                        "tooltip": "Signaled after Get Entity Name is invoked"
                     },
                     "details": {
-                        "name": "GetEntityName"
+                        "name": "Get Entity Name"
                     },
                     "params": [
                         {
@@ -66,14 +67,14 @@
                     "key": "ActivateGameEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke ActivateGameEntity"
+                        "tooltip": "When signaled, this will invoke Activate Game Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after ActivateGameEntity is invoked"
+                        "tooltip": "Signaled after Activate Game Entity is invoked"
                     },
                     "details": {
-                        "name": "ActivateGameEntity"
+                        "name": "Activate Game Entity"
                     },
                     "params": [
                         {
@@ -89,14 +90,14 @@
                     "key": "DestroyGameEntityAndDescendants",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke DestroyGameEntityAndDescendants"
+                        "tooltip": "When signaled, this will invoke Destroy Game Entity And Descendants"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after DestroyGameEntityAndDescendants is invoked"
+                        "tooltip": "Signaled after Destroy Game Entity And Descendants is invoked"
                     },
                     "details": {
-                        "name": "DestroyGameEntityAndDescendants"
+                        "name": "Destroy Game Entity And Descendants"
                     },
                     "params": [
                         {
@@ -112,14 +113,14 @@
                     "key": "DestroyGameEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke DestroyGameEntity"
+                        "tooltip": "When signaled, this will invoke Destroy Game Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after DestroyGameEntity is invoked"
+                        "tooltip": "Signaled after Destroy Game Entity is invoked"
                     },
                     "details": {
-                        "name": "DestroyGameEntity"
+                        "name": "Destroy Game Entity"
                     },
                     "params": [
                         {

@@ -95,3 +95,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/profile/SceneCore.dll" "J:/Atom/lyfork/o3de/bin
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/SceneData.dll" "J:/Atom/lyfork/o3de/bin/profile")
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/SceneUI.dll" "J:/Atom/lyfork/o3de/bin/profile")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/profile/SceneProcessing.Editor_profile.stamp)

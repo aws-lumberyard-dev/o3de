@@ -96,3 +96,5 @@ ly_copy("J:/Atom/lyfork/o3de/Gems/Atom/RHI/Code/Tests/UtilsTestsData/DummyTransf
 ly_copy("J:/Atom/lyfork/o3de/Gems/Atom/RHI/Code/Tests/UtilsTestsData/DummyTransformColor.MainPS.vulkan.spirv.txt" "J:/Atom/lyfork/o3de/bin/profile/Gems/Atom/RHI/Code/Tests/UtilsTestsData")
 ly_copy("J:/Atom/lyfork/o3de/Gems/Atom/RHI/Code/Tests/UtilsTestsData/HelloWorld.txt" "J:/Atom/lyfork/o3de/bin/profile/Gems/Atom/RHI/Code/Tests/UtilsTestsData")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/profile/Atom_RHI.Tests_profile.stamp)

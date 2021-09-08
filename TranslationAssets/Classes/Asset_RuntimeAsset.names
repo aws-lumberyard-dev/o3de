@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "Asset<RuntimeAsset>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Asset<RuntimeAsset>"
@@ -13,20 +13,21 @@
                     "context": "Asset<RuntimeAsset>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Asset<RuntimeAsset>::IsLoading"
+                        "tooltip": "When signaled, this will invoke IsLoading"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Asset<RuntimeAsset>::IsLoading is invoked"
+                        "tooltip": "Signaled after IsLoading is invoked"
                     },
                     "details": {
-                        "name": "Asset<RuntimeAsset>::IsLoading"
+                        "name": "Asset<RuntimeAsset>::IsLoading",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{C73A5FA9-295B-57F8-97D0-947B74603D96}",
                             "details": {
-                                "name": "Asset"
+                                "name": "Asset<RuntimeAsset>*"
                             }
                         }
                     ],
@@ -44,20 +45,21 @@
                     "context": "Asset<RuntimeAsset>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Asset<RuntimeAsset>::GetType"
+                        "tooltip": "When signaled, this will invoke GetType"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Asset<RuntimeAsset>::GetType is invoked"
+                        "tooltip": "Signaled after GetType is invoked"
                     },
                     "details": {
-                        "name": "Asset<RuntimeAsset>::GetType"
+                        "name": "Asset<RuntimeAsset>::GetType",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{C73A5FA9-295B-57F8-97D0-947B74603D96}",
                             "details": {
-                                "name": "Asset"
+                                "name": "Asset<RuntimeAsset>*"
                             }
                         }
                     ],
@@ -65,7 +67,7 @@
                         {
                             "typeid": "{E152C105-A133-4D03-BBF8-3D4B2FBA3E2A}",
                             "details": {
-                                "name": "AZ::Uuid"
+                                "name": "const AZ::Uuid&"
                             }
                         }
                     ]
@@ -75,20 +77,21 @@
                     "context": "Asset<RuntimeAsset>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Asset<RuntimeAsset>::IsError"
+                        "tooltip": "When signaled, this will invoke IsError"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Asset<RuntimeAsset>::IsError is invoked"
+                        "tooltip": "Signaled after IsError is invoked"
                     },
                     "details": {
-                        "name": "Asset<RuntimeAsset>::IsError"
+                        "name": "Asset<RuntimeAsset>::IsError",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{C73A5FA9-295B-57F8-97D0-947B74603D96}",
                             "details": {
-                                "name": "Asset"
+                                "name": "Asset<RuntimeAsset>*"
                             }
                         }
                     ],
@@ -106,20 +109,21 @@
                     "context": "Asset<RuntimeAsset>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Asset<RuntimeAsset>::GetHint"
+                        "tooltip": "When signaled, this will invoke GetHint"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Asset<RuntimeAsset>::GetHint is invoked"
+                        "tooltip": "Signaled after GetHint is invoked"
                     },
                     "details": {
-                        "name": "Asset<RuntimeAsset>::GetHint"
+                        "name": "Asset<RuntimeAsset>::GetHint",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{C73A5FA9-295B-57F8-97D0-947B74603D96}",
                             "details": {
-                                "name": "Asset"
+                                "name": "Asset<RuntimeAsset>*"
                             }
                         }
                     ],
@@ -127,7 +131,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "const AZStd::basic_string<char, AZStd::char_traits<char>, alloc"
                             }
                         }
                     ]
@@ -137,20 +141,21 @@
                     "context": "Asset<RuntimeAsset>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Asset<RuntimeAsset>::GetData"
+                        "tooltip": "When signaled, this will invoke GetData"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Asset<RuntimeAsset>::GetData is invoked"
+                        "tooltip": "Signaled after GetData is invoked"
                     },
                     "details": {
-                        "name": "Asset<RuntimeAsset>::GetData"
+                        "name": "Asset<RuntimeAsset>::GetData",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{C73A5FA9-295B-57F8-97D0-947B74603D96}",
                             "details": {
-                                "name": "Asset"
+                                "name": "Asset<RuntimeAsset>*"
                             }
                         }
                     ],
@@ -158,7 +163,7 @@
                         {
                             "typeid": "{AF3F7D32-1536-422A-89F3-A11E1F5B5A9C}",
                             "details": {
-                                "name": "AssetData"
+                                "name": "AssetData*"
                             }
                         }
                     ]
@@ -168,20 +173,21 @@
                     "context": "Asset<RuntimeAsset>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Asset<RuntimeAsset>::IsReady"
+                        "tooltip": "When signaled, this will invoke IsReady"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Asset<RuntimeAsset>::IsReady is invoked"
+                        "tooltip": "Signaled after IsReady is invoked"
                     },
                     "details": {
-                        "name": "Asset<RuntimeAsset>::IsReady"
+                        "name": "Asset<RuntimeAsset>::IsReady",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{C73A5FA9-295B-57F8-97D0-947B74603D96}",
                             "details": {
-                                "name": "Asset"
+                                "name": "Asset<RuntimeAsset>*"
                             }
                         }
                     ],
@@ -199,20 +205,21 @@
                     "context": "Asset<RuntimeAsset>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Asset<RuntimeAsset>::GetStatus"
+                        "tooltip": "When signaled, this will invoke GetStatus"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Asset<RuntimeAsset>::GetStatus is invoked"
+                        "tooltip": "Signaled after GetStatus is invoked"
                     },
                     "details": {
-                        "name": "Asset<RuntimeAsset>::GetStatus"
+                        "name": "Asset<RuntimeAsset>::GetStatus",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{C73A5FA9-295B-57F8-97D0-947B74603D96}",
                             "details": {
-                                "name": "Asset"
+                                "name": "Asset<RuntimeAsset>*"
                             }
                         }
                     ],
@@ -230,20 +237,21 @@
                     "context": "Asset<RuntimeAsset>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Asset<RuntimeAsset>::GetId"
+                        "tooltip": "When signaled, this will invoke GetId"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Asset<RuntimeAsset>::GetId is invoked"
+                        "tooltip": "Signaled after GetId is invoked"
                     },
                     "details": {
-                        "name": "Asset<RuntimeAsset>::GetId"
+                        "name": "Asset<RuntimeAsset>::GetId",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{C73A5FA9-295B-57F8-97D0-947B74603D96}",
                             "details": {
-                                "name": "Asset"
+                                "name": "Asset<RuntimeAsset>*"
                             }
                         }
                     ],
@@ -251,7 +259,7 @@
                         {
                             "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
                             "details": {
-                                "name": "AssetId"
+                                "name": "const AssetId&"
                             }
                         }
                     ]

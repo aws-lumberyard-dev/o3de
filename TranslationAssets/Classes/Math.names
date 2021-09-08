@@ -2,10 +2,11 @@
     "entries": [
         {
             "key": "Math",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
-                "name": "Math"
+                "name": "Trigonometry",
+                "category": "Math"
             },
             "methods": [
                 {
@@ -13,14 +14,15 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::Divide By Number"
+                        "tooltip": "When signaled, this will invoke DivideByNumber"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::Divide By Number is invoked"
+                        "tooltip": "Signaled after DivideByNumber is invoked"
                     },
                     "details": {
-                        "name": "Math::Divide By Number"
+                        "name": "Math::Divide By Number",
+                        "category": "Math"
                     },
                     "params": [
                         {
@@ -50,20 +52,22 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::Round"
+                        "tooltip": "When signaled, this will invoke Round"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::Round is invoked"
+                        "tooltip": "Signaled after Round is invoked"
                     },
                     "details": {
-                        "name": "Math::Round"
+                        "name": "Math::Round",
+                        "category": "Math/Number"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Number",
+                                "tooltip": "Number to round"
                             }
                         }
                     ],
@@ -71,7 +75,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Number",
+                                "tooltip": "Rounded number"
                             }
                         }
                     ]
@@ -81,20 +86,22 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::Sqrt"
+                        "tooltip": "When signaled, this will invoke Sqrt"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::Sqrt is invoked"
+                        "tooltip": "Signaled after Sqrt is invoked"
                     },
                     "details": {
-                        "name": "Math::Sqrt"
+                        "name": "Math::Sqrt",
+                        "category": "Math/Number"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Number",
+                                "tooltip": "Number to get the square root of"
                             }
                         }
                     ],
@@ -102,7 +109,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Number",
+                                "tooltip": "Square root of the number"
                             }
                         }
                     ]
@@ -112,26 +120,29 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::Mod"
+                        "tooltip": "When signaled, this will invoke Mod"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::Mod is invoked"
+                        "tooltip": "Signaled after Mod is invoked"
                     },
                     "details": {
-                        "name": "Math::Mod"
+                        "name": "Math::Mod",
+                        "category": "Math/Number"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Dividend",
+                                "tooltip": "The number to be divided"
                             }
                         },
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Divisor",
+                                "tooltip": "The number to be divided by"
                             }
                         }
                     ],
@@ -139,7 +150,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Remainder",
+                                "tooltip": "The remainder of the division between the two inputs"
                             }
                         }
                     ]
@@ -149,20 +161,22 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::Ceil"
+                        "tooltip": "When signaled, this will invoke Ceil"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::Ceil is invoked"
+                        "tooltip": "Signaled after Ceil is invoked"
                     },
                     "details": {
-                        "name": "Math::Ceil"
+                        "name": "Math::Ceil",
+                        "category": "Math/Number"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Number",
+                                "tooltip": "The number to be rounded up"
                             }
                         }
                     ],
@@ -170,7 +184,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Ceiling",
+                                "tooltip": "The value rounded up"
                             }
                         }
                     ]
@@ -180,20 +195,22 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::IsEven"
+                        "tooltip": "When signaled, this will invoke IsEven"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::IsEven is invoked"
+                        "tooltip": "Signaled after IsEven is invoked"
                     },
                     "details": {
-                        "name": "Math::IsEven"
+                        "name": "Math::IsEven",
+                        "category": "Math/Number"
                     },
                     "params": [
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Number",
+                                "tooltip": "Number to be checked"
                             }
                         }
                     ],
@@ -201,7 +218,8 @@
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Boolean",
+                                "tooltip": "Returns true if the number is even; false if not"
                             }
                         }
                     ]
@@ -211,32 +229,36 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::IsClose"
+                        "tooltip": "When signaled, this will invoke IsClose"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::IsClose is invoked"
+                        "tooltip": "Signaled after IsClose is invoked"
                     },
                     "details": {
-                        "name": "Math::IsClose"
+                        "name": "Math::IsClose",
+                        "category": "Math/Number"
                     },
                     "params": [
                         {
                             "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
                             "details": {
-                                "name": "double"
+                                "name": "Number A",
+                                "tooltip": "Number to compare"
                             }
                         },
                         {
                             "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
                             "details": {
-                                "name": "double"
+                                "name": "Number B",
+                                "tooltip": "Number to compare"
                             }
                         },
                         {
                             "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
                             "details": {
-                                "name": "double"
+                                "name": "Tolerance",
+                                "tooltip": "The value range to check the numbers against"
                             }
                         }
                     ],
@@ -244,7 +266,7 @@
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Boolean"
                             }
                         }
                     ]
@@ -254,20 +276,22 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::ArcSin"
+                        "tooltip": "When signaled, this will invoke ArcSin"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::ArcSin is invoked"
+                        "tooltip": "Signaled after ArcSin is invoked"
                     },
                     "details": {
-                        "name": "Math::ArcSin"
+                        "name": "Math::ArcSin",
+                        "category": "Math"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Angle",
+                                "tooltip": "Angle as radians"
                             }
                         }
                     ],
@@ -275,7 +299,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Angle",
+                                "tooltip": "Angle as radians"
                             }
                         }
                     ]
@@ -285,20 +310,22 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::ArcTan"
+                        "tooltip": "When signaled, this will invoke ArcTan"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::ArcTan is invoked"
+                        "tooltip": "Signaled after ArcTan is invoked"
                     },
                     "details": {
-                        "name": "Math::ArcTan"
+                        "name": "Math::ArcTan",
+                        "category": "Math"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Angle",
+                                "tooltip": "Angle as radians"
                             }
                         }
                     ],
@@ -306,7 +333,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Angle",
+                                "tooltip": "Angle as radians"
                             }
                         }
                     ]
@@ -316,26 +344,29 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::Max"
+                        "tooltip": "When signaled, this will invoke Max"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::Max is invoked"
+                        "tooltip": "Signaled after Max is invoked"
                     },
                     "details": {
-                        "name": "Math::Max"
+                        "name": "Math::Max",
+                        "category": "Math/Number"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Number A",
+                                "tooltip": "Number to be compared"
                             }
                         },
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Number B",
+                                "tooltip": "Number to be compared"
                             }
                         }
                     ],
@@ -343,7 +374,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Max",
+                                "tooltip": "The largest between two numbers"
                             }
                         }
                     ]
@@ -353,20 +385,22 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::Tan"
+                        "tooltip": "When signaled, this will invoke Tan"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::Tan is invoked"
+                        "tooltip": "Signaled after Tan is invoked"
                     },
                     "details": {
-                        "name": "Math::Tan"
+                        "name": "Math::Tan",
+                        "category": "Math"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Angle",
+                                "tooltip": "Angle as radians"
                             }
                         }
                     ],
@@ -374,7 +408,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Angle",
+                                "tooltip": "Angle as radians"
                             }
                         }
                     ]
@@ -384,26 +419,29 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::ArcTan2"
+                        "tooltip": "When signaled, this will invoke ArcTan2"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::ArcTan2 is invoked"
+                        "tooltip": "Signaled after ArcTan2 is invoked"
                     },
                     "details": {
-                        "name": "Math::ArcTan2"
+                        "name": "Math::ArcTan2",
+                        "category": "Math"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Angle A",
+                                "tooltip": "Angle as radians"
                             }
                         },
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Angle B",
+                                "tooltip": "Angle as radians"
                             }
                         }
                     ],
@@ -411,7 +449,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Angle",
+                                "tooltip": "Angle as radians"
                             }
                         }
                     ]
@@ -421,20 +460,22 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::Floor"
+                        "tooltip": "When signaled, this will invoke Floor"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::Floor is invoked"
+                        "tooltip": "Signaled after Floor is invoked"
                     },
                     "details": {
-                        "name": "Math::Floor"
+                        "name": "Math::Floor",
+                        "category": "Math/Number"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Number",
+                                "tooltip": "The number to be rounded down"
                             }
                         }
                     ],
@@ -442,7 +483,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Floor",
+                                "tooltip": "The value rounded down"
                             }
                         }
                     ]
@@ -452,26 +494,29 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::Min"
+                        "tooltip": "When signaled, this will invoke Min"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::Min is invoked"
+                        "tooltip": "Signaled after Min is invoked"
                     },
                     "details": {
-                        "name": "Math::Min"
+                        "name": "Math::Min",
+                        "category": "Math/Number"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Number A",
+                                "tooltip": "Number to be compared"
                             }
                         },
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Number B",
+                                "tooltip": "Number to be compared"
                             }
                         }
                     ],
@@ -479,7 +524,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Min",
+                                "tooltip": "The smallest between two numbers"
                             }
                         }
                     ]
@@ -489,32 +535,33 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::Lerp"
+                        "tooltip": "When signaled, this will invoke Lerp"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::Lerp is invoked"
+                        "tooltip": "Signaled after Lerp is invoked"
                     },
                     "details": {
-                        "name": "Math::Lerp"
+                        "name": "Math::Lerp",
+                        "category": "Math/Number"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "a"
                             }
                         },
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "b"
                             }
                         },
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "t"
                             }
                         }
                     ],
@@ -522,7 +569,7 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Number"
                             }
                         }
                     ]
@@ -532,32 +579,33 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::LerpInverse"
+                        "tooltip": "When signaled, this will invoke LerpInverse"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::LerpInverse is invoked"
+                        "tooltip": "Signaled after LerpInverse is invoked"
                     },
                     "details": {
-                        "name": "Math::LerpInverse"
+                        "name": "Math::LerpInverse",
+                        "category": "Math/Number"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "a"
                             }
                         },
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "b"
                             }
                         },
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "value"
                             }
                         }
                     ],
@@ -565,7 +613,7 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Number"
                             }
                         }
                     ]
@@ -575,20 +623,22 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::IsOdd"
+                        "tooltip": "When signaled, this will invoke IsOdd"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::IsOdd is invoked"
+                        "tooltip": "Signaled after IsOdd is invoked"
                     },
                     "details": {
-                        "name": "Math::IsOdd"
+                        "name": "Math::IsOdd",
+                        "category": "Math/Number"
                     },
                     "params": [
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Number",
+                                "tooltip": "Number to be checked"
                             }
                         }
                     ],
@@ -596,7 +646,8 @@
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Boolean",
+                                "tooltip": "Returns true if the number is not even; false if it is"
                             }
                         }
                     ]
@@ -606,14 +657,15 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::Abs"
+                        "tooltip": "When signaled, this will invoke Abs"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::Abs is invoked"
+                        "tooltip": "Signaled after Abs is invoked"
                     },
                     "details": {
-                        "name": "Math::Abs"
+                        "name": "Math::Abs",
+                        "category": "Math"
                     },
                     "params": [
                         {
@@ -637,20 +689,22 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::RadToDeg"
+                        "tooltip": "When signaled, this will invoke RadToDeg"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::RadToDeg is invoked"
+                        "tooltip": "Signaled after RadToDeg is invoked"
                     },
                     "details": {
-                        "name": "Math::RadToDeg"
+                        "name": "Math::RadToDeg",
+                        "category": "Math"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Radians",
+                                "tooltip": "Radians to be converted"
                             }
                         }
                     ],
@@ -658,7 +712,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Degrees",
+                                "tooltip": "Degrees from radians"
                             }
                         }
                     ]
@@ -668,20 +723,22 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::Sin"
+                        "tooltip": "When signaled, this will invoke Sin"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::Sin is invoked"
+                        "tooltip": "Signaled after Sin is invoked"
                     },
                     "details": {
-                        "name": "Math::Sin"
+                        "name": "Math::Sin",
+                        "category": "Math"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Angle",
+                                "tooltip": "Number as radians"
                             }
                         }
                     ],
@@ -689,7 +746,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Angle",
+                                "tooltip": "Number as radians"
                             }
                         }
                     ]
@@ -699,20 +757,22 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::Cos"
+                        "tooltip": "When signaled, this will invoke Cos"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::Cos is invoked"
+                        "tooltip": "Signaled after Cos is invoked"
                     },
                     "details": {
-                        "name": "Math::Cos"
+                        "name": "Math::Cos",
+                        "category": "Math"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Angle",
+                                "tooltip": "Angle as radians"
                             }
                         }
                     ],
@@ -720,7 +780,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Angle",
+                                "tooltip": "Angle as radians"
                             }
                         }
                     ]
@@ -730,20 +791,22 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::ArcCos"
+                        "tooltip": "When signaled, this will invoke ArcCos"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::ArcCos is invoked"
+                        "tooltip": "Signaled after ArcCos is invoked"
                     },
                     "details": {
-                        "name": "Math::ArcCos"
+                        "name": "Math::ArcCos",
+                        "category": "Math"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Angle",
+                                "tooltip": "Angle as radians"
                             }
                         }
                     ],
@@ -751,7 +814,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Angle",
+                                "tooltip": "Angle as radians"
                             }
                         }
                     ]
@@ -761,20 +825,22 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::Sign"
+                        "tooltip": "When signaled, this will invoke Sign"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::Sign is invoked"
+                        "tooltip": "Signaled after Sign is invoked"
                     },
                     "details": {
-                        "name": "Math::Sign"
+                        "name": "Math::Sign",
+                        "category": "Math/Number"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Number",
+                                "tooltip": "Number to check"
                             }
                         }
                     ],
@@ -782,7 +848,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Sign",
+                                "tooltip": "Returns 1 if the number is positive and -1 if the number is negative"
                             }
                         }
                     ]
@@ -792,32 +859,36 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::Clamp"
+                        "tooltip": "When signaled, this will invoke Clamp"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::Clamp is invoked"
+                        "tooltip": "Signaled after Clamp is invoked"
                     },
                     "details": {
-                        "name": "Math::Clamp"
+                        "name": "Math::Clamp",
+                        "category": "Math/Number"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Number",
+                                "tooltip": "Value to be clamped"
                             }
                         },
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Min",
+                                "tooltip": "The minimum value to clamp to"
                             }
                         },
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Max",
+                                "tooltip": "The maximum value to clamp to"
                             }
                         }
                     ],
@@ -825,7 +896,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Number",
+                                "tooltip": "The result of the clamp"
                             }
                         }
                     ]
@@ -835,14 +907,15 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::GetSinCos"
+                        "tooltip": "When signaled, this will invoke GetSinCos"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::GetSinCos is invoked"
+                        "tooltip": "Signaled after GetSinCos is invoked"
                     },
                     "details": {
-                        "name": "Math::GetSinCos"
+                        "name": "Math::GetSinCos",
+                        "category": "Math"
                     },
                     "params": [
                         {
@@ -854,13 +927,13 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "float&"
                             }
                         },
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "float&"
                             }
                         }
                     ]
@@ -870,20 +943,22 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::DegToRad"
+                        "tooltip": "When signaled, this will invoke DegToRad"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::DegToRad is invoked"
+                        "tooltip": "Signaled after DegToRad is invoked"
                     },
                     "details": {
-                        "name": "Math::DegToRad"
+                        "name": "Math::DegToRad",
+                        "category": "Math"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Degrees",
+                                "tooltip": "Degrees to be converted"
                             }
                         }
                     ],
@@ -891,7 +966,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Radians",
+                                "tooltip": "Radians from degrees"
                             }
                         }
                     ]
@@ -901,26 +977,29 @@
                     "context": "Math",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math::Pow"
+                        "tooltip": "When signaled, this will invoke Pow"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math::Pow is invoked"
+                        "tooltip": "Signaled after Pow is invoked"
                     },
                     "details": {
-                        "name": "Math::Pow"
+                        "name": "Math::Pow",
+                        "category": "Math/Number"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Number",
+                                "tooltip": "The value to be raised"
                             }
                         },
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Exponent",
+                                "tooltip": "The power exponent"
                             }
                         }
                     ],
@@ -928,7 +1007,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Number",
+                                "tooltip": "The result of the number raised to the power exponent"
                             }
                         }
                     ]

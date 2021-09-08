@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "EditorTransformComponentSelectionRequestBus"
+                "name": "EDITORTRANSFORMCOMPONENTSELECTIONREQUESTBUS_NAME",
+                "category": "EDITORTRANSFORMCOMPONENTSELECTIONREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "SurfaceMaskGradientRequestBus"
+                "name": "SURFACEMASKGRADIENTREQUESTBUS_NAME",
+                "category": "SURFACEMASKGRADIENTREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

@@ -10,7 +10,6 @@
 		"J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/AzToolsFramework/aztoolsframework_files.cmake",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/AzToolsFramework/aztoolsframework_windows_files.cmake",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/Platform/Windows/platform_windows_files.cmake",
-		"J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/Platform/Common/MSVC/aztoolsframework_msvc.cmake",
 		"C:/Users/luissemp/.o3de/3rdParty/packages/SQLite-3.32.2-rev3-multiplatform/FindSQLite.cmake",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/AzToolsFramework/aztoolsframeworktestcommon_files.cmake",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/Tests/aztoolsframeworktests_files.cmake",
@@ -267,8 +266,13 @@
 	"MOC_INCLUDES" : 
 	[
 		"J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/Tests",
-		"J:/Atom/lyfork/o3de/Code/Framework/AzCore/Tests",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzFramework/Tests",
+		"J:/Atom/lyfork/o3de/Code/Framework/AzTest",
+		"J:/Atom/lyfork/o3de/Code/Framework/AzTest/AzTest/Platform/Windows",
+		"J:/Atom/lyfork/o3de/Code/Framework/AzCore",
+		"J:/Atom/lyfork/o3de/Code/Framework/AzCore/Platform/Windows",
+		"J:/Atom/lyfork/o3de/Code/Framework/AzCore/Platform/Common",
+		"J:/Atom/lyfork/o3de/Code/Framework/AzCore/Tests",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/AzToolsFramework",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/Platform/Windows",
@@ -277,12 +281,7 @@
 		"J:/Atom/lyfork/o3de/Code/Framework/GridMate",
 		"J:/Atom/lyfork/o3de/Code/Framework/GridMate/Platform/Windows",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents",
-		"J:/Atom/lyfork/o3de/Code/Framework/AzCore",
-		"J:/Atom/lyfork/o3de/Code/Framework/AzCore/Platform/Windows",
-		"J:/Atom/lyfork/o3de/Code/Framework/AzCore/Platform/Common",
-		"J:/Atom/lyfork/o3de/Code/Framework/AzManipulatorTestFramework/Include",
-		"J:/Atom/lyfork/o3de/Code/Framework/AzTest",
-		"J:/Atom/lyfork/o3de/Code/Framework/AzTest/AzTest/Platform/Windows"
+		"J:/Atom/lyfork/o3de/Code/Framework/AzManipulatorTestFramework/Include"
 	],
 	"MOC_MACRO_NAMES" : [ "Q_OBJECT", "Q_GADGET", "Q_NAMESPACE", "Q_NAMESPACE_EXPORT" ],
 	"MOC_OPTIONS" : [],

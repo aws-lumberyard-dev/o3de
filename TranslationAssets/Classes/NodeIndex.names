@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "NodeIndex",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "NodeIndex"
@@ -13,14 +13,15 @@
                     "context": "NodeIndex",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke NodeIndex::Equal"
+                        "tooltip": "When signaled, this will invoke Equal"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after NodeIndex::Equal is invoked"
+                        "tooltip": "Signaled after Equal is invoked"
                     },
                     "details": {
-                        "name": "NodeIndex::Equal"
+                        "name": "NodeIndex::Equal",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -50,14 +51,15 @@
                     "context": "NodeIndex",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke NodeIndex::ToString"
+                        "tooltip": "When signaled, this will invoke ToString"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after NodeIndex::ToString is invoked"
+                        "tooltip": "Signaled after ToString is invoked"
                     },
                     "details": {
-                        "name": "NodeIndex::ToString"
+                        "name": "NodeIndex::ToString",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -71,7 +73,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "AZStd::basic_string<char, AZStd::char_traits<char>, allocator>"
                             }
                         }
                     ]
@@ -81,14 +83,15 @@
                     "context": "NodeIndex",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke NodeIndex::IsValid"
+                        "tooltip": "When signaled, this will invoke IsValid"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after NodeIndex::IsValid is invoked"
+                        "tooltip": "Signaled after IsValid is invoked"
                     },
                     "details": {
-                        "name": "NodeIndex::IsValid"
+                        "name": "NodeIndex::IsValid",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -112,14 +115,15 @@
                     "context": "NodeIndex",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke NodeIndex::Distance"
+                        "tooltip": "When signaled, this will invoke Distance"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after NodeIndex::Distance is invoked"
+                        "tooltip": "Signaled after Distance is invoked"
                     },
                     "details": {
-                        "name": "NodeIndex::Distance"
+                        "name": "NodeIndex::Distance",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -149,14 +153,15 @@
                     "context": "NodeIndex",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke NodeIndex::AsNumber"
+                        "tooltip": "When signaled, this will invoke AsNumber"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after NodeIndex::AsNumber is invoked"
+                        "tooltip": "Signaled after AsNumber is invoked"
                     },
                     "details": {
-                        "name": "NodeIndex::AsNumber"
+                        "name": "NodeIndex::AsNumber",
+                        "category": "Other"
                     },
                     "params": [
                         {

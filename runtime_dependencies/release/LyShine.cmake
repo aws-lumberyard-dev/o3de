@@ -24,3 +24,5 @@ endfunction()
 ly_copy("J:/Atom/lyfork/o3de/bin/release/LmbrCentral.dll" "J:/Atom/lyfork/o3de/bin/release")
 ly_copy("J:/Atom/lyfork/o3de/bin/release/TextureAtlas.dll" "J:/Atom/lyfork/o3de/bin/release")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/release/LyShine_release.stamp)

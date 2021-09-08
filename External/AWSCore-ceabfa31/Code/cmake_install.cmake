@@ -33,6 +33,6 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xCorex" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/Gems/AWSCore/Code/Tools" TYPE DIRECTORY MESSAGE_NEVER FILES "J:/Atom/lyfork/o3de/Gems/AWSCore/Code/Tools/ResourceMappingTool" REGEX "/\\_\\_pycache\\_\\_$" EXCLUDE)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/Gems/AWSCore/Code/Tools" TYPE DIRECTORY MESSAGE_NEVER FILES "J:/Atom/lyfork/o3de/Gems/AWSCore/Code/Tools/ResourceMappingTool" REGEX "/cmakelists\\.txt$" EXCLUDE REGEX "/[^/]*\\.cmake$" EXCLUDE REGEX "/\\_\\_pycache\\_\\_$" EXCLUDE REGEX "/[^/]*\\.egg\\-info$" EXCLUDE)
 endif()
 

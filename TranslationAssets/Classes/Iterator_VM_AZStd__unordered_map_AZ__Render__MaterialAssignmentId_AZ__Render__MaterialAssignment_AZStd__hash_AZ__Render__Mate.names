@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate"
@@ -13,14 +13,15 @@
                     "context": "Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate::GetKeyUnchecked"
+                        "tooltip": "When signaled, this will invoke GetKeyUnchecked"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate::GetKeyUnchecked is invoked"
+                        "tooltip": "Signaled after GetKeyUnchecked is invoked"
                     },
                     "details": {
-                        "name": "Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate::GetKeyUnchecked"
+                        "name": "Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate::GetKeyUnchecked",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -34,7 +35,7 @@
                         {
                             "typeid": "{EB603581-4654-4C17-B6DE-AE61E79EDA97}",
                             "details": {
-                                "name": "AZ::Render::MaterialAssignmentId"
+                                "name": "const AZ::Render::MaterialAssignmentId&"
                             }
                         }
                     ]
@@ -44,14 +45,15 @@
                     "context": "Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate::ModValueUnchecked"
+                        "tooltip": "When signaled, this will invoke ModValueUnchecked"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate::ModValueUnchecked is invoked"
+                        "tooltip": "Signaled after ModValueUnchecked is invoked"
                     },
                     "details": {
-                        "name": "Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate::ModValueUnchecked"
+                        "name": "Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate::ModValueUnchecked",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -65,7 +67,7 @@
                         {
                             "typeid": "{C66E5214-A24B-4722-B7F0-5991E6F8F163}",
                             "details": {
-                                "name": "AZ::Render::MaterialAssignment"
+                                "name": "AZ::Render::MaterialAssignment&"
                             }
                         }
                     ]
@@ -75,14 +77,15 @@
                     "context": "Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate::IsNotAtEnd"
+                        "tooltip": "When signaled, this will invoke IsNotAtEnd"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate::IsNotAtEnd is invoked"
+                        "tooltip": "Signaled after IsNotAtEnd is invoked"
                     },
                     "details": {
-                        "name": "Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate::IsNotAtEnd"
+                        "name": "Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate::IsNotAtEnd",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -106,14 +109,15 @@
                     "context": "Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate::Next"
+                        "tooltip": "When signaled, this will invoke Next"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate::Next is invoked"
+                        "tooltip": "Signaled after Next is invoked"
                     },
                     "details": {
-                        "name": "Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate::Next"
+                        "name": "Iterator_VM<AZStd::unordered_map<AZ::Render::MaterialAssignmentId, AZ::Render::MaterialAssignment, AZStd::hash<AZ::Render::Mate::Next",
+                        "category": "Other"
                     },
                     "params": [
                         {

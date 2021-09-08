@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZStd::vector<Transform, allocator>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Array<Transform>",
@@ -15,20 +15,21 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::Size"
+                        "tooltip": "When signaled, this will invoke Size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::Size is invoked"
+                        "tooltip": "Signaled after Size is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::Size"
+                        "name": "AZStd::vector<Transform, allocator>::Size",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>&"
                             }
                         }
                     ],
@@ -46,20 +47,21 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::Front"
+                        "tooltip": "When signaled, this will invoke Front"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::Front is invoked"
+                        "tooltip": "Signaled after Front is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::Front"
+                        "name": "AZStd::vector<Transform, allocator>::Front",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>*"
                             }
                         }
                     ],
@@ -67,7 +69,7 @@
                         {
                             "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
                             "details": {
-                                "name": "Transform"
+                                "name": "Transform&"
                             }
                         }
                     ]
@@ -77,20 +79,21 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::Has Key"
+                        "tooltip": "When signaled, this will invoke HasKey"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::Has Key is invoked"
+                        "tooltip": "Signaled after HasKey is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::Has Key"
+                        "name": "AZStd::vector<Transform, allocator>::Has Key",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>&"
                             }
                         },
                         {
@@ -114,20 +117,21 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::Resize"
+                        "tooltip": "When signaled, this will invoke Resize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::Resize is invoked"
+                        "tooltip": "Signaled after Resize is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::Resize"
+                        "name": "AZStd::vector<Transform, allocator>::Resize",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>*"
                             }
                         },
                         {
@@ -143,20 +147,21 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::at"
+                        "tooltip": "When signaled, this will invoke at"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::at is invoked"
+                        "tooltip": "Signaled after at is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::at"
+                        "name": "AZStd::vector<Transform, allocator>::at",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>*"
                             }
                         },
                         {
@@ -170,7 +175,7 @@
                         {
                             "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
                             "details": {
-                                "name": "Transform"
+                                "name": "Transform&"
                             }
                         }
                     ]
@@ -180,20 +185,21 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::Back"
+                        "tooltip": "When signaled, this will invoke Back"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::Back is invoked"
+                        "tooltip": "Signaled after Back is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::Back"
+                        "name": "AZStd::vector<Transform, allocator>::Back",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>*"
                             }
                         }
                     ],
@@ -201,7 +207,7 @@
                         {
                             "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
                             "details": {
-                                "name": "Transform"
+                                "name": "Transform&"
                             }
                         }
                     ]
@@ -211,20 +217,21 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::pop_back"
+                        "tooltip": "When signaled, this will invoke pop_back"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::pop_back is invoked"
+                        "tooltip": "Signaled after pop_back is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::pop_back"
+                        "name": "AZStd::vector<Transform, allocator>::pop_back",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>*"
                             }
                         }
                     ]
@@ -234,20 +241,21 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::size"
+                        "tooltip": "When signaled, this will invoke size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::size is invoked"
+                        "tooltip": "Signaled after size is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::size"
+                        "name": "AZStd::vector<Transform, allocator>::size",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>&"
                             }
                         }
                     ],
@@ -265,20 +273,21 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::At"
+                        "tooltip": "When signaled, this will invoke At"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::At is invoked"
+                        "tooltip": "Signaled after At is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::At"
+                        "name": "AZStd::vector<Transform, allocator>::At",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>*"
                             }
                         },
                         {
@@ -292,7 +301,7 @@
                         {
                             "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
                             "details": {
-                                "name": "Transform"
+                                "name": "Transform&"
                             }
                         }
                     ]
@@ -302,20 +311,21 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::Empty"
+                        "tooltip": "When signaled, this will invoke Empty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::Empty is invoked"
+                        "tooltip": "Signaled after Empty is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::Empty"
+                        "name": "AZStd::vector<Transform, allocator>::Empty",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>*"
                             }
                         }
                     ],
@@ -333,26 +343,27 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::Swap"
+                        "tooltip": "When signaled, this will invoke Swap"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::Swap is invoked"
+                        "tooltip": "Signaled after Swap is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::Swap"
+                        "name": "AZStd::vector<Transform, allocator>::Swap",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>*"
                             }
                         },
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>&"
                             }
                         }
                     ]
@@ -362,26 +373,27 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::push_back"
+                        "tooltip": "When signaled, this will invoke push_back"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::push_back is invoked"
+                        "tooltip": "Signaled after push_back is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::push_back"
+                        "name": "AZStd::vector<Transform, allocator>::push_back",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>*"
                             }
                         },
                         {
                             "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
                             "details": {
-                                "name": "Transform"
+                                "name": "const Transform&"
                             }
                         }
                     ]
@@ -391,26 +403,27 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::PushBack_VM"
+                        "tooltip": "When signaled, this will invoke PushBack_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::PushBack_VM is invoked"
+                        "tooltip": "Signaled after PushBack_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::PushBack_VM"
+                        "name": "AZStd::vector<Transform, allocator>::PushBack_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>&"
                             }
                         },
                         {
                             "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
                             "details": {
-                                "name": "Transform"
+                                "name": "const Transform&"
                             }
                         }
                     ],
@@ -418,7 +431,7 @@
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>&"
                             }
                         }
                     ]
@@ -428,20 +441,21 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::AtUnchecked"
+                        "tooltip": "When signaled, this will invoke AtUnchecked"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::AtUnchecked is invoked"
+                        "tooltip": "Signaled after AtUnchecked is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::AtUnchecked"
+                        "name": "AZStd::vector<Transform, allocator>::AtUnchecked",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>*"
                             }
                         },
                         {
@@ -455,7 +469,7 @@
                         {
                             "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
                             "details": {
-                                "name": "Transform"
+                                "name": "Transform&"
                             }
                         }
                     ]
@@ -465,20 +479,21 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::clear"
+                        "tooltip": "When signaled, this will invoke clear"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::clear is invoked"
+                        "tooltip": "Signaled after clear is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::clear"
+                        "name": "AZStd::vector<Transform, allocator>::clear",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>*"
                             }
                         }
                     ]
@@ -488,20 +503,21 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::NotEmpty"
+                        "tooltip": "When signaled, this will invoke NotEmpty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::NotEmpty is invoked"
+                        "tooltip": "Signaled after NotEmpty is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::NotEmpty"
+                        "name": "AZStd::vector<Transform, allocator>::NotEmpty",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>&"
                             }
                         }
                     ],
@@ -519,20 +535,21 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::Erase_VM"
+                        "tooltip": "When signaled, this will invoke Erase_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::Erase_VM is invoked"
+                        "tooltip": "Signaled after Erase_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::Erase_VM"
+                        "name": "AZStd::vector<Transform, allocator>::Erase_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>&"
                             }
                         },
                         {
@@ -546,7 +563,7 @@
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>&"
                             }
                         }
                     ]
@@ -556,20 +573,21 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::EraseCheck_VM"
+                        "tooltip": "When signaled, this will invoke EraseCheck_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::EraseCheck_VM is invoked"
+                        "tooltip": "Signaled after EraseCheck_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::EraseCheck_VM"
+                        "name": "AZStd::vector<Transform, allocator>::EraseCheck_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>&"
                             }
                         },
                         {
@@ -593,20 +611,21 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::Capacity"
+                        "tooltip": "When signaled, this will invoke Capacity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::Capacity is invoked"
+                        "tooltip": "Signaled after Capacity is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::Capacity"
+                        "name": "AZStd::vector<Transform, allocator>::Capacity",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>*"
                             }
                         }
                     ],
@@ -624,20 +643,21 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::Clear"
+                        "tooltip": "When signaled, this will invoke Clear"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::Clear is invoked"
+                        "tooltip": "Signaled after Clear is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::Clear"
+                        "name": "AZStd::vector<Transform, allocator>::Clear",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>&"
                             }
                         }
                     ],
@@ -645,7 +665,7 @@
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>&"
                             }
                         }
                     ]
@@ -655,20 +675,21 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::AssignAt"
+                        "tooltip": "When signaled, this will invoke AssignAt"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::AssignAt is invoked"
+                        "tooltip": "Signaled after AssignAt is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::AssignAt"
+                        "name": "AZStd::vector<Transform, allocator>::AssignAt",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>&"
                             }
                         },
                         {
@@ -680,7 +701,7 @@
                         {
                             "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
                             "details": {
-                                "name": "Transform"
+                                "name": "Transform&"
                             }
                         }
                     ]
@@ -690,20 +711,21 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::GetSize"
+                        "tooltip": "When signaled, this will invoke GetSize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::GetSize is invoked"
+                        "tooltip": "Signaled after GetSize is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::GetSize"
+                        "name": "AZStd::vector<Transform, allocator>::GetSize",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>&"
                             }
                         }
                     ],
@@ -721,20 +743,21 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::Insert"
+                        "tooltip": "When signaled, this will invoke Insert"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::Insert is invoked"
+                        "tooltip": "Signaled after Insert is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::Insert"
+                        "name": "AZStd::vector<Transform, allocator>::Insert",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>&"
                             }
                         },
                         {
@@ -746,7 +769,7 @@
                         {
                             "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
                             "details": {
-                                "name": "Transform"
+                                "name": "const Transform&"
                             }
                         }
                     ],
@@ -754,7 +777,7 @@
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>&"
                             }
                         }
                     ]
@@ -764,26 +787,27 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::PushBack"
+                        "tooltip": "When signaled, this will invoke PushBack"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::PushBack is invoked"
+                        "tooltip": "Signaled after PushBack is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::PushBack"
+                        "name": "AZStd::vector<Transform, allocator>::PushBack",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>*"
                             }
                         },
                         {
                             "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
                             "details": {
-                                "name": "Transform"
+                                "name": "const Transform&"
                             }
                         }
                     ]
@@ -793,20 +817,21 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::Reserve"
+                        "tooltip": "When signaled, this will invoke Reserve"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::Reserve is invoked"
+                        "tooltip": "Signaled after Reserve is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::Reserve"
+                        "name": "AZStd::vector<Transform, allocator>::Reserve",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>*"
                             }
                         },
                         {
@@ -822,20 +847,21 @@
                     "context": "Array<Transform>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Transform, allocator>::Iterate_VM"
+                        "tooltip": "When signaled, this will invoke Iterate_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Transform, allocator>::Iterate_VM is invoked"
+                        "tooltip": "Signaled after Iterate_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Transform, allocator>::Iterate_VM"
+                        "name": "AZStd::vector<Transform, allocator>::Iterate_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{7FF36F26-644E-5051-84BB-AE54534C84D4}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Transform, allocator>&"
                             }
                         }
                     ],

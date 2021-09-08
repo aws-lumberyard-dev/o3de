@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "TypeExposition",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "TypeExposition"
@@ -13,20 +13,21 @@
                     "context": "TypeExposition",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke TypeExposition::Reflect_AZStd::array<AZ::Vector3, 2>"
+                        "tooltip": "When signaled, this will invoke Reflect_AZStd__array_AZ__Vector3_2"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after TypeExposition::Reflect_AZStd::array<AZ::Vector3, 2> is invoked"
+                        "tooltip": "Signaled after Reflect_AZStd__array_AZ__Vector3_2 is invoked"
                     },
                     "details": {
-                        "name": "TypeExposition::Reflect_AZStd::array<AZ::Vector3, 2>"
+                        "name": "TypeExposition::Reflect_AZStd::array<AZ::Vector3, 2>",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{E65D74A8-908B-51B4-94CC-7226AC363DD5}",
                             "details": {
-                                "name": "AZStd::array"
+                                "name": "AZStd::array<Vector3, 2>&"
                             }
                         }
                     ],
@@ -44,20 +45,21 @@
                     "context": "TypeExposition",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke TypeExposition::Reflect_AZ::Outcome<AZ::Vector3, void>"
+                        "tooltip": "When signaled, this will invoke Reflect_AZ__Outcome_AZ__Vector3_void"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after TypeExposition::Reflect_AZ::Outcome<AZ::Vector3, void> is invoked"
+                        "tooltip": "Signaled after Reflect_AZ__Outcome_AZ__Vector3_void is invoked"
                     },
                     "details": {
-                        "name": "TypeExposition::Reflect_AZ::Outcome<AZ::Vector3, void>"
+                        "name": "TypeExposition::Reflect_AZ::Outcome<AZ::Vector3, void>",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{D1FEE25B-F252-5625-863C-1312E1F822A0}",
                             "details": {
-                                "name": "AZ::Outcome"
+                                "name": "Outcome<Vector3, void>&"
                             }
                         }
                     ],

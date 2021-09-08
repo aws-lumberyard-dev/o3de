@@ -74,6 +74,7 @@ ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/tra
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/translations/qt_zh_CN.qm" "J:/Atom/lyfork/o3de/bin/release/translations")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/translations/qt_zh_TW.qm" "J:/Atom/lyfork/o3de/bin/release/translations")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin/Qt5Core.dll" "J:/Atom/lyfork/o3de/bin/release")
+ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin/Qt5Test.dll" "J:/Atom/lyfork/o3de/bin/release")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/plugins/iconengines/qsvgicon.dll" "J:/Atom/lyfork/o3de/bin/release/iconengines")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/plugins/imageformats/qgif.dll" "J:/Atom/lyfork/o3de/bin/release/imageformats")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/plugins/imageformats/qicns.dll" "J:/Atom/lyfork/o3de/bin/release/imageformats")
@@ -93,3 +94,5 @@ ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin/Qt5Xml.dll" "J:/Atom/lyfork/o3de/bin/release")
 ly_copy("J:/Atom/lyfork/o3de/bin/release/AzTestRunner.exe" "J:/Atom/lyfork/o3de/bin/release")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/release/Multiplayer.Builders.Tests_release.stamp)

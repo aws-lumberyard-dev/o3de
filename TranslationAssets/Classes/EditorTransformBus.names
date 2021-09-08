@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "EditorTransformBus",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "EditorTransformBus"

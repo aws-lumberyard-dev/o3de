@@ -5,7 +5,8 @@
             "context": "EBusHandler",
             "variant": "",
             "details": {
-                "name": "TickBus"
+                "name": "Tick",
+                "category": "Timing"
             },
             "methods": [
                 {
@@ -17,13 +18,15 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Delta",
+                                "tooltip": "The delta (in seconds) from the previous tick and the current time"
                             }
                         },
                         {
                             "typeid": "{4C0F6AD4-0D4F-4354-AD4A-0C01E948245C}",
                             "details": {
-                                "name": "ScriptTimePoint"
+                                "name": "Time",
+                                "tooltip": "The current time relatve to the epoch (January 1, 1970)"
                             }
                         }
                     ]
@@ -37,7 +40,8 @@
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Order",
+                                "tooltip": "A value specifying this handler's relative order"
                             }
                         }
                     ]

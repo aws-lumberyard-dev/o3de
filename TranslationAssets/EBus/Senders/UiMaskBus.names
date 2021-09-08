@@ -5,27 +5,30 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiMaskBus"
+                "name": "UI Mask",
+                "category": "UI"
             },
             "methods": [
                 {
                     "key": "SetDrawInFront",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetDrawInFront"
+                        "tooltip": "When signaled, this will invoke Set Draw In Front"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetDrawInFront is invoked"
+                        "tooltip": "Signaled after Set Draw In Front is invoked"
                     },
                     "details": {
-                        "name": "SetDrawInFront"
+                        "name": "Set Draw In Front",
+                        "tooltip": "Sets whether the mask should be drawn in front of the child elements"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Draw In Front",
+                                "tooltip": "Indicates whether the mask should be drawn in front of the child elements"
                             }
                         }
                     ]
@@ -34,14 +37,15 @@
                     "key": "GetUseRenderToTexture",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetUseRenderToTexture"
+                        "tooltip": "When signaled, this will invoke Get Use Render To Texture"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetUseRenderToTexture is invoked"
+                        "tooltip": "Signaled after Get Use Render To Texture is invoked"
                     },
                     "details": {
-                        "name": "GetUseRenderToTexture"
+                        "name": "Get Use Render To Texture",
+                        "tooltip": "Get the flag that indicates whether the mask should use render to texture which allows an alpha gradient for soft-edged masks"
                     },
                     "results": [
                         {
@@ -56,14 +60,15 @@
                     "key": "GetDrawInFront",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetDrawInFront"
+                        "tooltip": "When signaled, this will invoke Get Draw In Front"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetDrawInFront is invoked"
+                        "tooltip": "Signaled after Get Draw In Front is invoked"
                     },
                     "details": {
-                        "name": "GetDrawInFront"
+                        "name": "Get Draw In Front",
+                        "tooltip": "Returns whether the mask is drawn in front of the child elements"
                     },
                     "results": [
                         {
@@ -78,14 +83,15 @@
                     "key": "GetDrawBehind",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetDrawBehind"
+                        "tooltip": "When signaled, this will invoke Get Draw Behind"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetDrawBehind is invoked"
+                        "tooltip": "Signaled after Get Draw Behind is invoked"
                     },
                     "details": {
-                        "name": "GetDrawBehind"
+                        "name": "Get Draw Behind",
+                        "tooltip": "Returns whether the mask is drawn behind the child elements"
                     },
                     "results": [
                         {
@@ -100,14 +106,15 @@
                     "key": "GetIsInteractionMaskingEnabled",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetIsInteractionMaskingEnabled"
+                        "tooltip": "When signaled, this will invoke Is Interaction Masking Enabled"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetIsInteractionMaskingEnabled is invoked"
+                        "tooltip": "Signaled after Is Interaction Masking Enabled is invoked"
                     },
                     "details": {
-                        "name": "GetIsInteractionMaskingEnabled"
+                        "name": "Is Interaction Masking Enabled",
+                        "tooltip": "Returns whether children hidden by the mask are prevented from getting input events"
                     },
                     "results": [
                         {
@@ -122,14 +129,15 @@
                     "key": "GetUseAlphaTest",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetUseAlphaTest"
+                        "tooltip": "When signaled, this will invoke Get Use Alpha Test"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetUseAlphaTest is invoked"
+                        "tooltip": "Signaled after Get Use Alpha Test is invoked"
                     },
                     "details": {
-                        "name": "GetUseAlphaTest"
+                        "name": "Get Use Alpha Test",
+                        "tooltip": "Returns whether to use the alpha channel in the mask visual's texture to define the mask"
                     },
                     "results": [
                         {
@@ -144,20 +152,22 @@
                     "key": "SetIsMaskingEnabled",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetIsMaskingEnabled"
+                        "tooltip": "When signaled, this will invoke Set Is Masking Enabled"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetIsMaskingEnabled is invoked"
+                        "tooltip": "Signaled after Set Is Masking Enabled is invoked"
                     },
                     "details": {
-                        "name": "SetIsMaskingEnabled"
+                        "name": "Set Is Masking Enabled",
+                        "tooltip": "Sets whether masking should be enabled"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Enabled",
+                                "tooltip": "Indicates whether masking should be enabled"
                             }
                         }
                     ]
@@ -166,20 +176,22 @@
                     "key": "SetUseRenderToTexture",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetUseRenderToTexture"
+                        "tooltip": "When signaled, this will invoke Set Use Render To Texture"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetUseRenderToTexture is invoked"
+                        "tooltip": "Signaled after Set Use Render To Texture is invoked"
                     },
                     "details": {
-                        "name": "SetUseRenderToTexture"
+                        "name": "Set Use Render To Texture",
+                        "tooltip": "Set the flag that indicates whether the mask should use render to texture which allows an alpha gradient for soft-edged masks"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Use Render To Texture",
+                                "tooltip": "Whether the mask should use render to texture"
                             }
                         }
                     ]
@@ -188,14 +200,15 @@
                     "key": "GetIsMaskingEnabled",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetIsMaskingEnabled"
+                        "tooltip": "When signaled, this will invoke Is Masking Enabled"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetIsMaskingEnabled is invoked"
+                        "tooltip": "Signaled after Is Masking Enabled is invoked"
                     },
                     "details": {
-                        "name": "GetIsMaskingEnabled"
+                        "name": "Is Masking Enabled",
+                        "tooltip": "Returns whether masking is enabled"
                     },
                     "results": [
                         {
@@ -210,20 +223,22 @@
                     "key": "SetIsInteractionMaskingEnabled",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetIsInteractionMaskingEnabled"
+                        "tooltip": "When signaled, this will invoke Set Is Interaction Masking Enabled"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetIsInteractionMaskingEnabled is invoked"
+                        "tooltip": "Signaled after Set Is Interaction Masking Enabled is invoked"
                     },
                     "details": {
-                        "name": "SetIsInteractionMaskingEnabled"
+                        "name": "Set Is Interaction Masking Enabled",
+                        "tooltip": "Sets whether children hidden by the mask should be prevented from getting input events"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Interaction Masking",
+                                "tooltip": "Indicates whether children hidden by the mask should be prevented from getting input events"
                             }
                         }
                     ]
@@ -232,20 +247,22 @@
                     "key": "SetDrawBehind",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetDrawBehind"
+                        "tooltip": "When signaled, this will invoke Set Draw Behind"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetDrawBehind is invoked"
+                        "tooltip": "Signaled after Set Draw Behind is invoked"
                     },
                     "details": {
-                        "name": "SetDrawBehind"
+                        "name": "Set Draw Behind",
+                        "tooltip": "Sets whether the mask should be drawn behind the child elements"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Draw Behind",
+                                "tooltip": "Indicates whether the mask should be drawn behind the child elements"
                             }
                         }
                     ]
@@ -254,20 +271,22 @@
                     "key": "SetUseAlphaTest",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetUseAlphaTest"
+                        "tooltip": "When signaled, this will invoke Set Use Alpha Test"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetUseAlphaTest is invoked"
+                        "tooltip": "Signaled after Set Use Alpha Test is invoked"
                     },
                     "details": {
-                        "name": "SetUseAlphaTest"
+                        "name": "Set Use Alpha Test",
+                        "tooltip": "Sets whether to use the alpha channel in the mask visual's texture to define the mask"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Use Alpha Test",
+                                "tooltip": "Indicates whether to use the alpha channel in the mask visual's texture to define the mask"
                             }
                         }
                     ]

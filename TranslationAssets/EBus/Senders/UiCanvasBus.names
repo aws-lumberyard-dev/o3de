@@ -5,28 +5,30 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiCanvasBus"
+                "name": "UI Canvas",
+                "category": "UI"
             },
             "methods": [
                 {
                     "key": "ForceHoverInteractable",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke ForceHoverInteractable"
+                        "tooltip": "When signaled, this will invoke Force Hover Interactable"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after ForceHoverInteractable is invoked"
+                        "tooltip": "Signaled after Force Hover Interactable is invoked"
                     },
                     "details": {
-                        "name": "ForceHoverInteractable"
+                        "name": "Force Hover Interactable",
+                        "tooltip": "Forces the specified interactive element to receive the hover"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Hover EntityID",
+                                "tooltip": "The element to receive the hover"
                             }
                         }
                     ]
@@ -79,14 +81,15 @@
                     "key": "GetHoverInteractable",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetHoverInteractable"
+                        "tooltip": "When signaled, this will invoke Get Hover Interactable"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetHoverInteractable is invoked"
+                        "tooltip": "Signaled after Get Hover Interactable is invoked"
                     },
                     "details": {
-                        "name": "GetHoverInteractable"
+                        "name": "Get Hover Interactable",
+                        "tooltip": "Gets the interactive element that has the hover"
                     },
                     "results": [
                         {
@@ -124,20 +127,22 @@
                     "key": "SetIsConsumingAllInputEvents",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetIsConsumingAllInputEvents"
+                        "tooltip": "When signaled, this will invoke Set Is Consuming All Input Events"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetIsConsumingAllInputEvents is invoked"
+                        "tooltip": "Signaled after Set Is Consuming All Input Events is invoked"
                     },
                     "details": {
-                        "name": "SetIsConsumingAllInputEvents"
+                        "name": "Set Is Consuming All Input Events",
+                        "tooltip": "Sets whether all input events should be consumed by the canvas while it is enabled"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Consume",
+                                "tooltip": "Indicates whether all input events should be consumed by the canvas while it is enabled"
                             }
                         }
                     ]
@@ -146,20 +151,22 @@
                     "key": "SetDrawOrder",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetDrawOrder"
+                        "tooltip": "When signaled, this will invoke Set Draw Order"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetDrawOrder is invoked"
+                        "tooltip": "Signaled after Set Draw Order is invoked"
                     },
                     "details": {
-                        "name": "SetDrawOrder"
+                        "name": "Set Draw Order",
+                        "tooltip": "Sets the draw order of the canvas. Rendering is back-to-front, so higher numbers render in front of lower numbers"
                     },
                     "params": [
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Draw Order",
+                                "tooltip": "The draw order of the canvas"
                             }
                         }
                     ]
@@ -168,14 +175,15 @@
                     "key": "GetIsPositionalInputSupported",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetIsPositionalInputSupported"
+                        "tooltip": "When signaled, this will invoke Is Positional Input Supported"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetIsPositionalInputSupported is invoked"
+                        "tooltip": "Signaled after Is Positional Input Supported is invoked"
                     },
                     "details": {
-                        "name": "GetIsPositionalInputSupported"
+                        "name": "Is Positional Input Supported",
+                        "tooltip": "Returns whether the canvas automatically responds to positional input such as mouse movement, mouse button clicks, and touch screen input, as well as keyboard input when an interactive element is active"
                     },
                     "results": [
                         {
@@ -190,34 +198,37 @@
                     "key": "RecomputeChangedLayouts",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke RecomputeChangedLayouts"
+                        "tooltip": "When signaled, this will invoke Recompute Changed Layouts"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after RecomputeChangedLayouts is invoked"
+                        "tooltip": "Signaled after Recompute Changed Layouts is invoked"
                     },
                     "details": {
-                        "name": "RecomputeChangedLayouts"
+                        "name": "Recompute Changed Layouts",
+                        "tooltip": "Forces an immediate recalculation of all layouts on the canvas that have been flagged for recomputing"
                     }
                 },
                 {
                     "key": "SetRenderTargetName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetRenderTargetName"
+                        "tooltip": "When signaled, this will invoke Set Render Target Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetRenderTargetName is invoked"
+                        "tooltip": "Signaled after Set Render Target Name is invoked"
                     },
                     "details": {
-                        "name": "SetRenderTargetName"
+                        "name": "Set Render Target Name",
+                        "tooltip": "Sets the name of the render target"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Name",
+                                "tooltip": "The name of the render target"
                             }
                         }
                     ]
@@ -226,14 +237,15 @@
                     "key": "GetTooltipDisplayElement",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetTooltipDisplayElement"
+                        "tooltip": "When signaled, this will invoke Get Tooltip Display Element"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetTooltipDisplayElement is invoked"
+                        "tooltip": "Signaled after Get Tooltip Display Element is invoked"
                     },
                     "details": {
-                        "name": "GetTooltipDisplayElement"
+                        "name": "Get Tooltip Display Element",
+                        "tooltip": "Gets the element that defines the tooltip's display behavior. This element must have a TooltipDisplay component"
                     },
                     "results": [
                         {
@@ -249,14 +261,15 @@
                     "key": "GetIsNavigationSupported",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetIsNavigationSupported"
+                        "tooltip": "When signaled, this will invoke Is Navigation Supported"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetIsNavigationSupported is invoked"
+                        "tooltip": "Signaled after Is Navigation Supported is invoked"
                     },
                     "details": {
-                        "name": "GetIsNavigationSupported"
+                        "name": "Is Navigation Supported",
+                        "tooltip": "Returns whether the canvas automatically responds to navigation input"
                     },
                     "results": [
                         {
@@ -293,14 +306,15 @@
                     "key": "GetRenderTargetName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetRenderTargetName"
+                        "tooltip": "When signaled, this will invoke Get Render Target Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetRenderTargetName is invoked"
+                        "tooltip": "Signaled after Get Render Target Name is invoked"
                     },
                     "details": {
-                        "name": "GetRenderTargetName"
+                        "name": "Get Render Target Name",
+                        "tooltip": "Gets the name of the render target"
                     },
                     "results": [
                         {
@@ -315,20 +329,22 @@
                     "key": "FindElementByName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke FindElementByName"
+                        "tooltip": "When signaled, this will invoke Find Element By Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after FindElementByName is invoked"
+                        "tooltip": "Signaled after Find Element By Name is invoked"
                     },
                     "details": {
-                        "name": "FindElementByName"
+                        "name": "Find Element By Name",
+                        "tooltip": "Finds an element by its name"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Name",
+                                "tooltip": "The name of the element"
                             }
                         }
                     ],
@@ -337,7 +353,7 @@
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
                                 "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "tooltip": "The name of the element"
                             }
                         }
                     ]
@@ -346,21 +362,22 @@
                     "key": "SetTooltipDisplayElement",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetTooltipDisplayElement"
+                        "tooltip": "When signaled, this will invoke Set Tooltip Display Element"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetTooltipDisplayElement is invoked"
+                        "tooltip": "Signaled after Set Tooltip Display Element is invoked"
                     },
                     "details": {
-                        "name": "SetTooltipDisplayElement"
+                        "name": "Set Tooltip Display Element",
+                        "tooltip": "Sets the element that defines the tooltip's display behavior. This element must have a TooltipDisplay component"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Tooltip Display EntityID",
+                                "tooltip": "The element that defines the tooltip's display behavior. This element must have a TooltipDisplay component"
                             }
                         }
                     ]
@@ -369,20 +386,22 @@
                     "key": "GetChildElement",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetChildElement"
+                        "tooltip": "When signaled, this will invoke Get Child Element"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetChildElement is invoked"
+                        "tooltip": "Signaled after Get Child Element is invoked"
                     },
                     "details": {
-                        "name": "GetChildElement"
+                        "name": "Get Child Element",
+                        "tooltip": "Gets a child of the canvas by index"
                     },
                     "params": [
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Child Index",
+                                "tooltip": "The index of the child element"
                             }
                         }
                     ],
@@ -391,7 +410,7 @@
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
                                 "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "tooltip": "The index of the child element"
                             }
                         }
                     ]
@@ -400,14 +419,15 @@
                     "key": "GetKeepLoadedOnLevelUnload",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetKeepLoadedOnLevelUnload"
+                        "tooltip": "When signaled, this will invoke Get Keep Loaded On Level Unload"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetKeepLoadedOnLevelUnload is invoked"
+                        "tooltip": "Signaled after Get Keep Loaded On Level Unload is invoked"
                     },
                     "details": {
-                        "name": "GetKeepLoadedOnLevelUnload"
+                        "name": "Get Keep Loaded On Level Unload",
+                        "tooltip": "Returns whether the canvas should remain loaded when the level is unloaded"
                     },
                     "results": [
                         {
@@ -422,14 +442,15 @@
                     "key": "GetIsTextPixelAligned",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetIsTextPixelAligned"
+                        "tooltip": "When signaled, this will invoke Is Text Pixel Aligned"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetIsTextPixelAligned is invoked"
+                        "tooltip": "Signaled after Is Text Pixel Aligned is invoked"
                     },
                     "details": {
-                        "name": "GetIsTextPixelAligned"
+                        "name": "Is Text Pixel Aligned",
+                        "tooltip": "Returns whether the canvas pixel-aligns the corners of its text quads to the nearest pixel when they are rendered"
                     },
                     "results": [
                         {
@@ -444,14 +465,15 @@
                     "key": "GetIsConsumingAllInputEvents",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetIsConsumingAllInputEvents"
+                        "tooltip": "When signaled, this will invoke Is Consuming All Input Events"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetIsConsumingAllInputEvents is invoked"
+                        "tooltip": "Signaled after Is Consuming All Input Events is invoked"
                     },
                     "details": {
-                        "name": "GetIsConsumingAllInputEvents"
+                        "name": "Is Consuming All Input Events",
+                        "tooltip": "Returns whether all input events will be consumed by the canvas while it is enabled"
                     },
                     "results": [
                         {
@@ -488,20 +510,22 @@
                     "key": "SetKeepLoadedOnLevelUnload",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetKeepLoadedOnLevelUnload"
+                        "tooltip": "When signaled, this will invoke Set Keep Loaded On Level Unload"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetKeepLoadedOnLevelUnload is invoked"
+                        "tooltip": "Signaled after Set Keep Loaded On Level Unload is invoked"
                     },
                     "details": {
-                        "name": "SetKeepLoadedOnLevelUnload"
+                        "name": "Set Keep Loaded On Level Unload",
+                        "tooltip": "Sets whether the canvas should remain loaded when the level is unloaded"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Keep Loaded",
+                                "tooltip": "Indicates whether the canvas should remain loaded when the level is unloaded"
                             }
                         }
                     ]
@@ -510,20 +534,22 @@
                     "key": "SetIsMultiTouchSupported",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetIsMultiTouchSupported"
+                        "tooltip": "When signaled, this will invoke Set Is Multi-touch Supported"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetIsMultiTouchSupported is invoked"
+                        "tooltip": "Signaled after Set Is Multi-touch Supported is invoked"
                     },
                     "details": {
-                        "name": "SetIsMultiTouchSupported"
+                        "name": "Set Is Multi-touch Supported",
+                        "tooltip": "Sets whether multi-touch input will automatically be handled"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Multi-touch",
+                                "tooltip": "Indicates whether multi-touch input will automatically be handled"
                             }
                         }
                     ]
@@ -532,20 +558,22 @@
                     "key": "SetIsRenderToTexture",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetIsRenderToTexture"
+                        "tooltip": "When signaled, this will invoke Set Render To Texture"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetIsRenderToTexture is invoked"
+                        "tooltip": "Signaled after Set Render To Texture is invoked"
                     },
                     "details": {
-                        "name": "SetIsRenderToTexture"
+                        "name": "Set Render To Texture",
+                        "tooltip": "Sets whether the canvas should draw to a texture rather than to the screen"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Render to Texture",
+                                "tooltip": "Indicates whether the canvas should draw to a texture rather than to the screen"
                             }
                         }
                     ]
@@ -554,14 +582,15 @@
                     "key": "GetChildElements",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetChildElements"
+                        "tooltip": "When signaled, this will invoke Get Child Elements"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetChildElements is invoked"
+                        "tooltip": "Signaled after Get Child Elements is invoked"
                     },
                     "details": {
-                        "name": "GetChildElements"
+                        "name": "Get Child Elements",
+                        "tooltip": "Gets the children of the canvas"
                     },
                     "results": [
                         {
@@ -576,14 +605,15 @@
                     "key": "GetNumChildElements",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetNumChildElements"
+                        "tooltip": "When signaled, this will invoke Get Number Of Child Elements"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetNumChildElements is invoked"
+                        "tooltip": "Signaled after Get Number Of Child Elements is invoked"
                     },
                     "details": {
-                        "name": "GetNumChildElements"
+                        "name": "Get Number Of Child Elements",
+                        "tooltip": "Gets the number of children of the canvas"
                     },
                     "results": [
                         {
@@ -598,14 +628,15 @@
                     "key": "GetIsPixelAligned",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetIsPixelAligned"
+                        "tooltip": "When signaled, this will invoke Is Pixel Aligned"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetIsPixelAligned is invoked"
+                        "tooltip": "Signaled after Is Pixel Aligned is invoked"
                     },
                     "details": {
-                        "name": "GetIsPixelAligned"
+                        "name": "Is Pixel Aligned",
+                        "tooltip": "Returns whether the canvas pixel-aligns the corners of its elements to the nearest pixel when they are rendered"
                     },
                     "results": [
                         {
@@ -620,14 +651,15 @@
                     "key": "GetEnabled",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetEnabled"
+                        "tooltip": "When signaled, this will invoke Is Enabled"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetEnabled is invoked"
+                        "tooltip": "Signaled after Is Enabled is invoked"
                     },
                     "details": {
-                        "name": "GetEnabled"
+                        "name": "Is Enabled",
+                        "tooltip": "Returns whether the canvas is enabled"
                     },
                     "results": [
                         {
@@ -642,20 +674,22 @@
                     "key": "SetIsNavigationSupported",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetIsNavigationSupported"
+                        "tooltip": "When signaled, this will invoke Set Is Navigation Supported"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetIsNavigationSupported is invoked"
+                        "tooltip": "Signaled after Set Is Navigation Supported is invoked"
                     },
                     "details": {
-                        "name": "SetIsNavigationSupported"
+                        "name": "Set Is Navigation Supported",
+                        "tooltip": "Sets whether the canvas should automatically respond to navigation input"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Navigation",
+                                "tooltip": "Indicates whether the canvas should automatically respond to navigation input"
                             }
                         }
                     ]
@@ -664,14 +698,15 @@
                     "key": "GetDrawOrder",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetDrawOrder"
+                        "tooltip": "When signaled, this will invoke Get Draw Order"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetDrawOrder is invoked"
+                        "tooltip": "Signaled after Get Draw Order is invoked"
                     },
                     "details": {
-                        "name": "GetDrawOrder"
+                        "name": "Get Draw Order",
+                        "tooltip": "Gets the draw order of the canvas. Rendering is back-to-front, so higher numbers render in front of lower numbers"
                     },
                     "results": [
                         {
@@ -709,14 +744,15 @@
                     "key": "GetIsMultiTouchSupported",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetIsMultiTouchSupported"
+                        "tooltip": "When signaled, this will invoke Is Multi-touch Supported"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetIsMultiTouchSupported is invoked"
+                        "tooltip": "Signaled after Is Multi-touch Supported is invoked"
                     },
                     "details": {
-                        "name": "GetIsMultiTouchSupported"
+                        "name": "Is Multi-touch Supported",
+                        "tooltip": "Returns whether multi-touch input will automatically be handled"
                     },
                     "results": [
                         {
@@ -731,20 +767,22 @@
                     "key": "SetIsPixelAligned",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetIsPixelAligned"
+                        "tooltip": "When signaled, this will invoke Set Is Pixel Aligned"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetIsPixelAligned is invoked"
+                        "tooltip": "Signaled after Set Is Pixel Aligned is invoked"
                     },
                     "details": {
-                        "name": "SetIsPixelAligned"
+                        "name": "Set Is Pixel Aligned",
+                        "tooltip": "Sets whether the canvas should pixel-align the corners of its elements to the nearest pixel when they are rendered"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Pixel Aligned",
+                                "tooltip": "Indicates whether the canvas should pixel-align the corners of its elements to the nearest pixel when they are rendered"
                             }
                         }
                     ]
@@ -753,20 +791,22 @@
                     "key": "SetIsPositionalInputSupported",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetIsPositionalInputSupported"
+                        "tooltip": "When signaled, this will invoke Set Is Positional Input Supported"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetIsPositionalInputSupported is invoked"
+                        "tooltip": "Signaled after Set Is Positional Input Supported is invoked"
                     },
                     "details": {
-                        "name": "SetIsPositionalInputSupported"
+                        "name": "Set Is Positional Input Supported",
+                        "tooltip": "Sets whether the canvas should automatically respond to positional input such as mouse movement, mouse button clicks, and touch screen input, as well as keyboard input when an interactive element is active"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Positional Input",
+                                "tooltip": "Indicates whether the canvas should automatically respond to positional input such as mouse movement, mouse button clicks, and touch screen input, as well as keyboard input when an interactive element is active"
                             }
                         }
                     ]
@@ -775,35 +815,36 @@
                     "key": "CloneElement",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke CloneElement"
+                        "tooltip": "When signaled, this will invoke Clone Element"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after CloneElement is invoked"
+                        "tooltip": "Signaled after Clone Element is invoked"
                     },
                     "details": {
-                        "name": "CloneElement"
+                        "name": "Clone Element",
+                        "tooltip": "Clones an element"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "EntityID to Clone",
+                                "tooltip": "The element to clone"
                             }
                         },
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Parent EntityID",
+                                "tooltip": "The parent of the cloned element"
                             }
                         },
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Insert Before EntityID",
+                                "tooltip": "The element to insert the cloned element before"
                             }
                         }
                     ],
@@ -812,7 +853,7 @@
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
                                 "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "tooltip": "The element to clone"
                             }
                         }
                     ]
@@ -843,14 +884,15 @@
                     "key": "GetIsRenderToTexture",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetIsRenderToTexture"
+                        "tooltip": "When signaled, this will invoke Get Render To Texture"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetIsRenderToTexture is invoked"
+                        "tooltip": "Signaled after Get Render To Texture is invoked"
                     },
                     "details": {
-                        "name": "GetIsRenderToTexture"
+                        "name": "Get Render To Texture",
+                        "tooltip": "Returns whether the canvas draws to a texture rather than to the screen"
                     },
                     "results": [
                         {
@@ -865,20 +907,22 @@
                     "key": "SetEnabled",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetEnabled"
+                        "tooltip": "When signaled, this will invoke Set Is Enabled"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetEnabled is invoked"
+                        "tooltip": "Signaled after Set Is Enabled is invoked"
                     },
                     "details": {
-                        "name": "SetEnabled"
+                        "name": "Set Is Enabled",
+                        "tooltip": "Sets whether the canvas is enabled"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Enabled",
+                                "tooltip": "Indicates whether the canvas is enabled"
                             }
                         }
                     ]
@@ -887,20 +931,22 @@
                     "key": "SetIsTextPixelAligned",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetIsTextPixelAligned"
+                        "tooltip": "When signaled, this will invoke Set Is Text Pixel Aligned"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetIsTextPixelAligned is invoked"
+                        "tooltip": "Signaled after Set Is Text Pixel Aligned is invoked"
                     },
                     "details": {
-                        "name": "SetIsTextPixelAligned"
+                        "name": "Set Is Text Pixel Aligned",
+                        "tooltip": "Sets whether the canvas should pixel-align the corners of its text quads to the nearest pixel when they are rendered"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Pixel Aligned",
+                                "tooltip": "Indicates whether the canvas should pixel-align the corners of its text quads to the nearest pixel when they are rendered"
                             }
                         }
                     ]

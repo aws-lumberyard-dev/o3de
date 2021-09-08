@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "SurfaceAltitudeGradientRequestBus"
+                "name": "SURFACEALTITUDEGRADIENTREQUESTBUS_NAME",
+                "category": "SURFACEALTITUDEGRADIENTREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

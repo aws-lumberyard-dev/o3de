@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "UiImageSequenceComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "UiImageSequenceComponent"

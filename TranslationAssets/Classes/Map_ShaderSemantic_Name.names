@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Map<ShaderSemantic, Name>",
@@ -15,14 +15,15 @@
                     "context": "Map<ShaderSemantic, Name>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::contains"
+                        "tooltip": "When signaled, this will invoke contains"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::contains is invoked"
+                        "tooltip": "Signaled after contains is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::contains"
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::contains",
+                        "category": "Map"
                     },
                     "params": [
                         {
@@ -34,7 +35,7 @@
                         {
                             "typeid": "{C6FFF25F-FE52-4D08-8D96-D04C14048816}",
                             "details": {
-                                "name": "ShaderSemantic"
+                                "name": "ShaderSemantic&"
                             }
                         }
                     ],
@@ -52,14 +53,15 @@
                     "context": "Map<ShaderSemantic, Name>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Insert"
+                        "tooltip": "When signaled, this will invoke Insert"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Insert is invoked"
+                        "tooltip": "Signaled after Insert is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Insert"
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Insert",
+                        "category": "Map"
                     },
                     "params": [
                         {
@@ -71,13 +73,13 @@
                         {
                             "typeid": "{C6FFF25F-FE52-4D08-8D96-D04C14048816}",
                             "details": {
-                                "name": "ShaderSemantic"
+                                "name": "ShaderSemantic&"
                             }
                         },
                         {
                             "typeid": "{3D2B920C-9EFD-40D5-AAE0-DF131C3D4931}",
                             "details": {
-                                "name": "Name"
+                                "name": "Name&"
                             }
                         }
                     ],
@@ -95,14 +97,15 @@
                     "context": "Map<ShaderSemantic, Name>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Reserve"
+                        "tooltip": "When signaled, this will invoke Reserve"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Reserve is invoked"
+                        "tooltip": "Signaled after Reserve is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Reserve"
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Reserve",
+                        "category": "Map"
                     },
                     "params": [
                         {
@@ -124,14 +127,15 @@
                     "context": "Map<ShaderSemantic, Name>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::GetSize"
+                        "tooltip": "When signaled, this will invoke GetSize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::GetSize is invoked"
+                        "tooltip": "Signaled after GetSize is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::GetSize"
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::GetSize",
+                        "category": "Map"
                     },
                     "params": [
                         {
@@ -155,14 +159,15 @@
                     "context": "Map<ShaderSemantic, Name>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Iterate_VM"
+                        "tooltip": "When signaled, this will invoke Iterate_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Iterate_VM is invoked"
+                        "tooltip": "Signaled after Iterate_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Iterate_VM"
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Iterate_VM",
+                        "category": "Map"
                     },
                     "params": [
                         {
@@ -186,14 +191,15 @@
                     "context": "Map<ShaderSemantic, Name>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::GetKeys"
+                        "tooltip": "When signaled, this will invoke GetKeys"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::GetKeys is invoked"
+                        "tooltip": "Signaled after GetKeys is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::GetKeys"
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::GetKeys",
+                        "category": "Map"
                     },
                     "params": [
                         {
@@ -217,14 +223,15 @@
                     "context": "Map<ShaderSemantic, Name>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Size"
+                        "tooltip": "When signaled, this will invoke Size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Size is invoked"
+                        "tooltip": "Signaled after Size is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Size"
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Size",
+                        "category": "Map"
                     },
                     "params": [
                         {
@@ -248,14 +255,15 @@
                     "context": "Map<ShaderSemantic, Name>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Erase"
+                        "tooltip": "When signaled, this will invoke Erase"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Erase is invoked"
+                        "tooltip": "Signaled after Erase is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Erase"
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Erase",
+                        "category": "Map"
                     },
                     "params": [
                         {
@@ -267,7 +275,7 @@
                         {
                             "typeid": "{C6FFF25F-FE52-4D08-8D96-D04C14048816}",
                             "details": {
-                                "name": "ShaderSemantic"
+                                "name": "ShaderSemantic&"
                             }
                         }
                     ],
@@ -285,14 +293,15 @@
                     "context": "Map<ShaderSemantic, Name>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::EraseCheck_VM"
+                        "tooltip": "When signaled, this will invoke EraseCheck_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::EraseCheck_VM is invoked"
+                        "tooltip": "Signaled after EraseCheck_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::EraseCheck_VM"
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::EraseCheck_VM",
+                        "category": "Map"
                     },
                     "params": [
                         {
@@ -304,7 +313,7 @@
                         {
                             "typeid": "{C6FFF25F-FE52-4D08-8D96-D04C14048816}",
                             "details": {
-                                "name": "ShaderSemantic"
+                                "name": "ShaderSemantic&"
                             }
                         }
                     ],
@@ -322,14 +331,15 @@
                     "context": "Map<ShaderSemantic, Name>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Clear"
+                        "tooltip": "When signaled, this will invoke Clear"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Clear is invoked"
+                        "tooltip": "Signaled after Clear is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Clear"
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Clear",
+                        "category": "Map"
                     },
                     "params": [
                         {
@@ -353,14 +363,15 @@
                     "context": "Map<ShaderSemantic, Name>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::At"
+                        "tooltip": "When signaled, this will invoke At"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::At is invoked"
+                        "tooltip": "Signaled after At is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::At"
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::At",
+                        "category": "Map"
                     },
                     "params": [
                         {
@@ -372,7 +383,7 @@
                         {
                             "typeid": "{C6FFF25F-FE52-4D08-8D96-D04C14048816}",
                             "details": {
-                                "name": "ShaderSemantic"
+                                "name": "ShaderSemantic&"
                             }
                         }
                     ],
@@ -390,14 +401,15 @@
                     "context": "Map<ShaderSemantic, Name>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::BucketCount"
+                        "tooltip": "When signaled, this will invoke BucketCount"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::BucketCount is invoked"
+                        "tooltip": "Signaled after BucketCount is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::BucketCount"
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::BucketCount",
+                        "category": "Map"
                     },
                     "params": [
                         {
@@ -421,14 +433,15 @@
                     "context": "Map<ShaderSemantic, Name>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Empty"
+                        "tooltip": "When signaled, this will invoke Empty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Empty is invoked"
+                        "tooltip": "Signaled after Empty is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Empty"
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Empty",
+                        "category": "Map"
                     },
                     "params": [
                         {
@@ -452,14 +465,15 @@
                     "context": "Map<ShaderSemantic, Name>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Swap"
+                        "tooltip": "When signaled, this will invoke Swap"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Swap is invoked"
+                        "tooltip": "Signaled after Swap is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Swap"
+                        "name": "AZStd::unordered_map<ShaderSemantic, Name, AZStd::hash<ShaderSemantic>, AZStd::equal_to<ShaderSemantic>, allocator>::Swap",
+                        "category": "Map"
                     },
                     "params": [
                         {

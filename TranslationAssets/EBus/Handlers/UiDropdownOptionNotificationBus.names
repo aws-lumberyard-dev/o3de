@@ -5,7 +5,8 @@
             "context": "EBusHandler",
             "variant": "",
             "details": {
-                "name": "UiDropdownOptionNotificationBus"
+                "name": "UI Dropdown Option",
+                "category": "UI"
             },
             "methods": [
                 {

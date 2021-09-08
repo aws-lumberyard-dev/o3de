@@ -1,12 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryCommon.cpp" />
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IEntityRenderState_info.cpp" />
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IIndexedMesh_info.cpp" />
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryTypeInfo.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Common_TypeInfo.cpp" />
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryHeaders_info.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\LegacyAllocator.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryLibrary.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\platform_impl.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\WinBase.cpp" />
@@ -29,19 +25,15 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IMaterial.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IMiniLog.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IMovieSystem.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IPhysics.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IPostEffectGroup.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IProcess.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IReadWriteXMLSink.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IRenderAuxGeom.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IRenderer.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IRenderMesh.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\ISerialize.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IShader.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\ISplines.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IStatObj.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\StatObjBus.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IStereoRenderer.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\ISurfaceType.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\ISystem.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\ITexture.h" />
@@ -51,52 +43,37 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IWindowMessageHandler.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IXml.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\MicrophoneBus.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\physinterface.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\HMDBus.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\VRCommon.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\StereoRendererBus.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\HeightmapUpdateNotificationBus.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\INavigationSystem.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IMNM.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\SFunctor.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\FunctorBaseFunction.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\FunctorBaseMember.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\stridedptr.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Options.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\SerializationTypes.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryEndian.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryRandomInternal.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Random.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\LCGRandom.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\BaseTypes.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\MemoryAccess.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\AnimKey.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\BitFiddling.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryArray.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryAssert.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryCrc32.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryCustomTypes.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryFile.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryHeaders.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryListenerSet.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryLegacyAllocator.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryName.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryPath.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryPodArray.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CrySizer.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CrySystemBus.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryTypeInfo.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryVersion.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\FrameProfiler.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\HeapAllocator.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\LegacyAllocator.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\MetaUtils.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\MiniQueue.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\MultiThread_Containers.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\NullAudioSystem.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\PNoise3.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\PoolAllocator.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\primitives.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\ProjectDefines.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Range.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\ScopedVariableSetter.h" />
@@ -105,14 +82,9 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\smartptr.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\StlUtils.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Synchronization.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Tarray.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Timer.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\TimeValue.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\TimeValue_info.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\TypeInfo_decl.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\TypeInfo_impl.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\VectorMap.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\VectorSet.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\VertexFormats.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\XMLBinaryHeaders.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\RenderBus.h" />
@@ -120,21 +92,17 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_Matrix33.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_Matrix34.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_Matrix44.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_MatrixDiag.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_Vector4.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_Camera.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_Color.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_Geo.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_GeoDistance.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_GeoIntersect.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_GeoOverlap.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_Math.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_Quat.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_ValidNumber.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_Vector2.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_Vector3.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_XOptimise.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryHalf_info.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryHalf.inl" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\MathConversion.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_HWMatrix.h" />
@@ -438,6 +406,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows\crycommon_windows_files.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows\crycommon_windows.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Generated Files">
@@ -469,6 +443,12 @@
     </Filter>
     <Filter Include="Maestro\Types">
       <UniqueIdentifier>{5853E66A-24A5-39CF-A0A3-52DC5E46D6E2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{D4CCE8D3-A6C9-3C6A-9C86-8BF8F7D77D7F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{9B5BE819-E94D-379A-84DF-5559629D4548}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -994,6 +994,11 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <Natvis Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\Source\Platform\Common\VisualStudio\Natvis\shaderoptiongroup.natvis">
+      <Filter>Source\Platform\Windows\..\Common\VisualStudio\Natvis</Filter>
+    </Natvis>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_reflect_files.cmake" />
     <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Code\atom_rpi_public_files.cmake" />
     <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RPI\Assets\Shader\DecomposeMsImage.azsl">
@@ -1148,6 +1153,18 @@
     </Filter>
     <Filter Include="Source\Platform\Windows">
       <UniqueIdentifier>{6E009862-2333-3599-9B65-E8F840C182D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows\..">
+      <UniqueIdentifier>{6F36E22C-CF2D-3080-893E-B486004C5B99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows\..\Common">
+      <UniqueIdentifier>{B6307493-3CF3-3707-ACD9-A7277FA3FC28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows\..\Common\VisualStudio">
+      <UniqueIdentifier>{3C69EFCB-7166-3B8E-9682-0259FAB63CDC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Platform\Windows\..\Common\VisualStudio\Natvis">
+      <UniqueIdentifier>{44744FAA-D006-3C0E-9866-B7931F4570DB}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\RPI.Public">
       <UniqueIdentifier>{94A0E2C8-B28C-3F96-B8C6-117C9A4790E8}</UniqueIdentifier>

@@ -5,7 +5,8 @@
             "context": "EBusHandler",
             "variant": "",
             "details": {
-                "name": "UiSliderNotificationBus"
+                "name": "UI Slider",
+                "category": "UI"
             },
             "methods": [
                 {
@@ -17,7 +18,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Slider Value",
+                                "tooltip": "The new slider value"
                             }
                         }
                     ]
@@ -31,7 +33,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Slider Value",
+                                "tooltip": "The new slider value"
                             }
                         }
                     ]

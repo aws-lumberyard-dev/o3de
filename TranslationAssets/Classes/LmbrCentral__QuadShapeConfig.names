@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "LmbrCentral::QuadShapeConfig",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "LmbrCentral::QuadShapeConfig"

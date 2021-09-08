@@ -16,6 +16,18 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Debug\TraceRecorder.cpp">
       <Filter>Source\Debug</Filter>
     </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Document\AtomToolsDocument.cpp">
+      <Filter>Source\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Document\AtomToolsDocumentMainWindow.cpp">
+      <Filter>Source\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Document\AtomToolsDocumentSystemSettings.cpp">
+      <Filter>Source\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Document\AtomToolsDocumentSystemComponent.cpp">
+      <Filter>Source\Document</Filter>
+    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\DynamicProperty\DynamicProperty.cpp">
       <Filter>Source\DynamicProperty</Filter>
     </ClCompile>
@@ -75,6 +87,24 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Debug\TraceRecorder.h">
       <Filter>Include\AtomToolsFramework\Debug</Filter>
     </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Document\AtomToolsDocument.h">
+      <Filter>Include\AtomToolsFramework\Document</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Document\AtomToolsDocumentMainWindow.h">
+      <Filter>Include\AtomToolsFramework\Document</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Document\AtomToolsDocumentSystemSettings.h">
+      <Filter>Include\AtomToolsFramework\Document</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Document\AtomToolsDocumentSystemRequestBus.h">
+      <Filter>Include\AtomToolsFramework\Document</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Document\AtomToolsDocumentNotificationBus.h">
+      <Filter>Include\AtomToolsFramework\Document</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Document\AtomToolsDocumentRequestBus.h">
+      <Filter>Include\AtomToolsFramework\Document</Filter>
+    </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\DynamicProperty\DynamicProperty.h">
       <Filter>Include\AtomToolsFramework\DynamicProperty</Filter>
     </ClInclude>
@@ -126,6 +156,9 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Include\AtomToolsFramework\Window\AtomToolsMainWindowNotificationBus.h">
       <Filter>Include\AtomToolsFramework\Window</Filter>
     </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Document\AtomToolsDocumentSystemComponent.h">
+      <Filter>Source\Document</Filter>
+    </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\AtomToolsFramework\Code\Source\Window\AtomToolsMainWindowSystemComponent.h">
       <Filter>Source\Window</Filter>
     </ClInclude>
@@ -169,6 +202,9 @@
     <Filter Include="Include\AtomToolsFramework\Debug">
       <UniqueIdentifier>{E43A37CD-B0A6-399A-8EEA-5E92D3C77CEB}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Include\AtomToolsFramework\Document">
+      <UniqueIdentifier>{18CC7D47-F2DF-3C36-AD2C-DE866D4E6826}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Include\AtomToolsFramework\DynamicProperty">
       <UniqueIdentifier>{8C6FC694-8130-309B-AC9B-BD3E8AAAC576}</UniqueIdentifier>
     </Filter>
@@ -195,6 +231,9 @@
     </Filter>
     <Filter Include="Source\Debug">
       <UniqueIdentifier>{27D4B9A1-7884-3552-9BE4-613E87B073FC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Document">
+      <UniqueIdentifier>{279180B3-C7A3-3543-9796-BA448BFB135A}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\DynamicProperty">
       <UniqueIdentifier>{DAB776B5-3AF2-3B9D-B80E-E4DE8ABCCD18}</UniqueIdentifier>

@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "Iterator_VM<AZStd::vector<Vector4, allocator>>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Iterator_VM<AZStd::vector<Vector4, allocator>>"
@@ -13,14 +13,15 @@
                     "context": "Iterator_VM<AZStd::vector<Vector4, allocator>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<Vector4, allocator>>::IsNotAtEnd"
+                        "tooltip": "When signaled, this will invoke IsNotAtEnd"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<Vector4, allocator>>::IsNotAtEnd is invoked"
+                        "tooltip": "Signaled after IsNotAtEnd is invoked"
                     },
                     "details": {
-                        "name": "Iterator_VM<AZStd::vector<Vector4, allocator>>::IsNotAtEnd"
+                        "name": "Iterator_VM<AZStd::vector<Vector4, allocator>>::IsNotAtEnd",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -44,14 +45,15 @@
                     "context": "Iterator_VM<AZStd::vector<Vector4, allocator>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<Vector4, allocator>>::ModValueUnchecked"
+                        "tooltip": "When signaled, this will invoke ModValueUnchecked"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<Vector4, allocator>>::ModValueUnchecked is invoked"
+                        "tooltip": "Signaled after ModValueUnchecked is invoked"
                     },
                     "details": {
-                        "name": "Iterator_VM<AZStd::vector<Vector4, allocator>>::ModValueUnchecked"
+                        "name": "Iterator_VM<AZStd::vector<Vector4, allocator>>::ModValueUnchecked",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -65,7 +67,7 @@
                         {
                             "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
                             "details": {
-                                "name": "Vector4"
+                                "name": "Vector4&"
                             }
                         }
                     ]
@@ -75,14 +77,15 @@
                     "context": "Iterator_VM<AZStd::vector<Vector4, allocator>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<Vector4, allocator>>::Next"
+                        "tooltip": "When signaled, this will invoke Next"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<Vector4, allocator>>::Next is invoked"
+                        "tooltip": "Signaled after Next is invoked"
                     },
                     "details": {
-                        "name": "Iterator_VM<AZStd::vector<Vector4, allocator>>::Next"
+                        "name": "Iterator_VM<AZStd::vector<Vector4, allocator>>::Next",
+                        "category": "Other"
                     },
                     "params": [
                         {

@@ -94,3 +94,5 @@ ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/plu
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin/Qt5Network.dll" "J:/Atom/lyfork/o3de/bin/profile")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin/Qt5Svg.dll" "J:/Atom/lyfork/o3de/bin/profile")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/profile/GridHub_profile.stamp)

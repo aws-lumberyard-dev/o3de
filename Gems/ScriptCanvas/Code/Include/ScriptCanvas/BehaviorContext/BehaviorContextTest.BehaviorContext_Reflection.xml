@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<BehaviorContext Include="ScriptCanvas/BehaviorContext/BehaviorContextTest.h" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Class Name="BehaviorContextTest"
+      PreferredClassName="BC Test"
+      Category="Behavior Context Reflections">
+
+    <Method Name="MyMethod" Label="My Method">
+      <Parameter Name="AString" Type="AZStd::string" Label="A String" Default="Empty!"/>
+      <Parameter Name="AFloat" Type="float" Label="A Float" Default="0.f"/>
+    </Method>
+
+    <Method Name="MyMethod2" Label="My Method">
+      <Parameter Name="AFloat" Type="float" Label="A Float" Default="0.f"/>
+      <Parameter Name="AString" Type="AZStd::string" Label="A String" Default="Empty!"/>
+      <Parameter Name="ABool" Type="bool" Label="A Bool" Default="Empty!"/>
+    </Method>
+
+  </Class>
+</BehaviorContext>

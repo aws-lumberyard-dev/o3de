@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZ::RHI::Handle<unsigned int, ShaderInputImageUnboundedArrayDescriptor>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "AZ::RHI::Handle<unsigned int, ShaderInputImageUnboundedArrayDescriptor>"
@@ -13,20 +13,21 @@
                     "context": "AZ::RHI::Handle<unsigned int, ShaderInputImageUnboundedArrayDescriptor>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZ::RHI::Handle<unsigned int, ShaderInputImageUnboundedArrayDescriptor>::IsValid"
+                        "tooltip": "When signaled, this will invoke IsValid"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZ::RHI::Handle<unsigned int, ShaderInputImageUnboundedArrayDescriptor>::IsValid is invoked"
+                        "tooltip": "Signaled after IsValid is invoked"
                     },
                     "details": {
-                        "name": "AZ::RHI::Handle<unsigned int, ShaderInputImageUnboundedArrayDescriptor>::IsValid"
+                        "name": "AZ::RHI::Handle<unsigned int, ShaderInputImageUnboundedArrayDescriptor>::IsValid",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{D9C0BF74-6FE8-536F-9432-C964B82700BE}",
                             "details": {
-                                "name": "AZ::RHI::Handle<unsigned int, ShaderInputImageUnboundedArrayDescriptor>"
+                                "name": "AZ::RHI::Handle<unsigned int, ShaderInputImageUnboundedArrayDes"
                             }
                         }
                     ],

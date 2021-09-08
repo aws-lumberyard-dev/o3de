@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "PostFxLayerRequestBus"
+                "name": "POSTFXLAYERREQUESTBUS_NAME",
+                "category": "POSTFXLAYERREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "LookModificationRequestBus"
+                "name": "LOOKMODIFICATIONREQUESTBUS_NAME",
+                "category": "LOOKMODIFICATIONREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {
@@ -22,6 +23,72 @@
                         "name": "SetColorGradingLutOverride"
                     },
                     "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetCustomMaxExposure",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetCustomMaxExposure"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetCustomMaxExposure is invoked"
+                    },
+                    "details": {
+                        "name": "SetCustomMaxExposure"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "SetCustomMinExposure",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke SetCustomMinExposure"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after SetCustomMinExposure is invoked"
+                    },
+                    "details": {
+                        "name": "SetCustomMinExposure"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetCustomMinExposure",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetCustomMinExposure"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetCustomMinExposure is invoked"
+                    },
+                    "details": {
+                        "name": "GetCustomMinExposure"
+                    },
+                    "results": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
@@ -224,6 +291,28 @@
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
                                 "name": "int"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GetCustomMaxExposure",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GetCustomMaxExposure"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GetCustomMaxExposure is invoked"
+                    },
+                    "details": {
+                        "name": "GetCustomMaxExposure"
+                    },
+                    "results": [
+                        {
+                            "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
+                            "details": {
+                                "name": "float"
                             }
                         }
                     ]

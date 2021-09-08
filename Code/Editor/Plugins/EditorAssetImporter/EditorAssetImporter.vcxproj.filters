@@ -35,6 +35,9 @@
   <ItemGroup>
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\AssetImporterWindow.ui" />
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\ImporterRootDisplay.ui" />
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\EditorAssetImporter_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\CMakeLists.txt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -42,6 +45,15 @@
   <ItemGroup>
     <None Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\AssetImporter.qrc" />
     <None Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\EditorAssetImporter\editorassetimporter_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\EditorAssetImporter_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\EditorAssetImporter_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\EditorAssetImporter_release.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Generated Files">

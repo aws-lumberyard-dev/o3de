@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "DepthOfFieldRequestBus"
+                "name": "DEPTHOFFIELDREQUESTBUS_NAME",
+                "category": "DEPTHOFFIELDREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

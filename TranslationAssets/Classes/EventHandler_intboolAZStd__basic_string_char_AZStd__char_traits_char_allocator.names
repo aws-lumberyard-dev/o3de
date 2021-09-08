@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "EventHandler<int bool AZStd::basic_string<char, AZStd::char_traits<char>, allocator> >",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "EventHandler<int bool AZStd::basic_string<char, AZStd::char_traits<char>, allocator> >"
@@ -13,14 +13,15 @@
                     "context": "EventHandler<int bool AZStd::basic_string<char, AZStd::char_traits<char>, allocator> >",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke EventHandler<int bool AZStd::basic_string<char, AZStd::char_traits<char>, allocator> >::Disconnect"
+                        "tooltip": "When signaled, this will invoke Disconnect"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after EventHandler<int bool AZStd::basic_string<char, AZStd::char_traits<char>, allocator> >::Disconnect is invoked"
+                        "tooltip": "Signaled after Disconnect is invoked"
                     },
                     "details": {
-                        "name": "EventHandler<int bool AZStd::basic_string<char, AZStd::char_traits<char>, allocator> >::Disconnect"
+                        "name": "EventHandler<int bool AZStd::basic_string<char, AZStd::char_traits<char>, allocator> >::Disconnect",
+                        "category": "Other"
                     },
                     "params": [
                         {

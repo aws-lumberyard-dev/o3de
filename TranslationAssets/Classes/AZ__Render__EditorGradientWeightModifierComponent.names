@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZ::Render::EditorGradientWeightModifierComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "AZ::Render::EditorGradientWeightModifierComponent"

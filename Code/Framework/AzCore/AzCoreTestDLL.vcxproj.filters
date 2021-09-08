@@ -6,6 +6,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\AzCoreTestDLL_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\CMakeLists.txt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -13,6 +16,15 @@
   <ItemGroup>
     <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\azcoretestdll_files.cmake">
       <Filter>Tests</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\AzCoreTestDLL_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\AzCoreTestDLL_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\AzCoreTestDLL_release.stamp">
+      <Filter>Generated Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "MeshVertexColorData",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "MeshVertexColorData"
@@ -13,20 +13,21 @@
                     "context": "MeshVertexColorData",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MeshVertexColorData::GetCustomName"
+                        "tooltip": "When signaled, this will invoke GetCustomName"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MeshVertexColorData::GetCustomName is invoked"
+                        "tooltip": "Signaled after GetCustomName is invoked"
                     },
                     "details": {
-                        "name": "MeshVertexColorData::GetCustomName"
+                        "name": "MeshVertexColorData::GetCustomName",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{17477B86-B163-4574-8FB2-4916BC218B3D}",
                             "details": {
-                                "name": "MeshVertexColorData"
+                                "name": "const MeshVertexColorData&"
                             }
                         }
                     ],
@@ -34,7 +35,7 @@
                         {
                             "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
                             "details": {
-                                "name": "char"
+                                "name": "const char*"
                             }
                         }
                     ]
@@ -44,20 +45,21 @@
                     "context": "MeshVertexColorData",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MeshVertexColorData::GetCount"
+                        "tooltip": "When signaled, this will invoke GetCount"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MeshVertexColorData::GetCount is invoked"
+                        "tooltip": "Signaled after GetCount is invoked"
                     },
                     "details": {
-                        "name": "MeshVertexColorData::GetCount"
+                        "name": "MeshVertexColorData::GetCount",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{17477B86-B163-4574-8FB2-4916BC218B3D}",
                             "details": {
-                                "name": "MeshVertexColorData"
+                                "name": "MeshVertexColorData*"
                             }
                         }
                     ],
@@ -75,20 +77,21 @@
                     "context": "MeshVertexColorData",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MeshVertexColorData::GetColor"
+                        "tooltip": "When signaled, this will invoke GetColor"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MeshVertexColorData::GetColor is invoked"
+                        "tooltip": "Signaled after GetColor is invoked"
                     },
                     "details": {
-                        "name": "MeshVertexColorData::GetColor"
+                        "name": "MeshVertexColorData::GetColor",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{17477B86-B163-4574-8FB2-4916BC218B3D}",
                             "details": {
-                                "name": "MeshVertexColorData"
+                                "name": "MeshVertexColorData*"
                             }
                         },
                         {

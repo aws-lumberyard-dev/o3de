@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "MathVector3_VM",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "MathVector3_VM"
@@ -13,14 +13,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::Reciprocal"
+                        "tooltip": "When signaled, this will invoke Reciprocal"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::Reciprocal is invoked"
+                        "tooltip": "Signaled after Reciprocal is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::Reciprocal"
+                        "name": "MathVector3_VM::Reciprocal",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -44,26 +45,27 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::Subtract"
+                        "tooltip": "When signaled, this will invoke Subtract"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::Subtract is invoked"
+                        "tooltip": "Signaled after Subtract is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::Subtract"
+                        "name": "MathVector3_VM::Subtract",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
                             "details": {
-                                "name": "Vector3"
+                                "name": "const Vector3&"
                             }
                         },
                         {
                             "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
                             "details": {
-                                "name": "Vector3"
+                                "name": "const Vector3&"
                             }
                         }
                     ],
@@ -81,14 +83,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::Project"
+                        "tooltip": "When signaled, this will invoke Project"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::Project is invoked"
+                        "tooltip": "Signaled after Project is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::Project"
+                        "name": "MathVector3_VM::Project",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -118,14 +121,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::Normalize"
+                        "tooltip": "When signaled, this will invoke Normalize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::Normalize is invoked"
+                        "tooltip": "Signaled after Normalize is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::Normalize"
+                        "name": "MathVector3_VM::Normalize",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -149,14 +153,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::Distance"
+                        "tooltip": "When signaled, this will invoke Distance"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::Distance is invoked"
+                        "tooltip": "Signaled after Distance is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::Distance"
+                        "name": "MathVector3_VM::Distance",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -186,14 +191,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::SetZ"
+                        "tooltip": "When signaled, this will invoke SetZ"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::SetZ is invoked"
+                        "tooltip": "Signaled after SetZ is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::SetZ"
+                        "name": "MathVector3_VM::SetZ",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -223,14 +229,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::Max"
+                        "tooltip": "When signaled, this will invoke Max"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::Max is invoked"
+                        "tooltip": "Signaled after Max is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::Max"
+                        "name": "MathVector3_VM::Max",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -260,14 +267,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::GetElement"
+                        "tooltip": "When signaled, this will invoke GetElement"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::GetElement is invoked"
+                        "tooltip": "Signaled after GetElement is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::GetElement"
+                        "name": "MathVector3_VM::GetElement",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -297,14 +305,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::Absolute"
+                        "tooltip": "When signaled, this will invoke Absolute"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::Absolute is invoked"
+                        "tooltip": "Signaled after Absolute is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::Absolute"
+                        "name": "MathVector3_VM::Absolute",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -328,14 +337,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::BuildTangentBasis"
+                        "tooltip": "When signaled, this will invoke BuildTangentBasis"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::BuildTangentBasis is invoked"
+                        "tooltip": "Signaled after BuildTangentBasis is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::BuildTangentBasis"
+                        "name": "MathVector3_VM::BuildTangentBasis",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -359,14 +369,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::Clamp"
+                        "tooltip": "When signaled, this will invoke Clamp"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::Clamp is invoked"
+                        "tooltip": "Signaled after Clamp is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::Clamp"
+                        "name": "MathVector3_VM::Clamp",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -402,14 +413,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::MultiplyByNumber"
+                        "tooltip": "When signaled, this will invoke MultiplyByNumber"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::MultiplyByNumber is invoked"
+                        "tooltip": "Signaled after MultiplyByNumber is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::MultiplyByNumber"
+                        "name": "MathVector3_VM::MultiplyByNumber",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -439,14 +451,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::Slerp"
+                        "tooltip": "When signaled, this will invoke Slerp"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::Slerp is invoked"
+                        "tooltip": "Signaled after Slerp is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::Slerp"
+                        "name": "MathVector3_VM::Slerp",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -482,14 +495,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::IsZero"
+                        "tooltip": "When signaled, this will invoke IsZero"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::IsZero is invoked"
+                        "tooltip": "Signaled after IsZero is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::IsZero"
+                        "name": "MathVector3_VM::IsZero",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -519,14 +533,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::SetY"
+                        "tooltip": "When signaled, this will invoke SetY"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::SetY is invoked"
+                        "tooltip": "Signaled after SetY is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::SetY"
+                        "name": "MathVector3_VM::SetY",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -556,14 +571,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::IsClose"
+                        "tooltip": "When signaled, this will invoke IsClose"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::IsClose is invoked"
+                        "tooltip": "Signaled after IsClose is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::IsClose"
+                        "name": "MathVector3_VM::IsClose",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -599,14 +615,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::Cross"
+                        "tooltip": "When signaled, this will invoke Cross"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::Cross is invoked"
+                        "tooltip": "Signaled after Cross is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::Cross"
+                        "name": "MathVector3_VM::Cross",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -636,14 +653,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::DirectionTo"
+                        "tooltip": "When signaled, this will invoke DirectionTo"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::DirectionTo is invoked"
+                        "tooltip": "Signaled after DirectionTo is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::DirectionTo"
+                        "name": "MathVector3_VM::DirectionTo",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -679,14 +697,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::MultiplyByVector"
+                        "tooltip": "When signaled, this will invoke MultiplyByVector"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::MultiplyByVector is invoked"
+                        "tooltip": "Signaled after MultiplyByVector is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::MultiplyByVector"
+                        "name": "MathVector3_VM::MultiplyByVector",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -716,14 +735,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::Negate"
+                        "tooltip": "When signaled, this will invoke Negate"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::Negate is invoked"
+                        "tooltip": "Signaled after Negate is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::Negate"
+                        "name": "MathVector3_VM::Negate",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -747,14 +767,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::Add"
+                        "tooltip": "When signaled, this will invoke Add"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::Add is invoked"
+                        "tooltip": "Signaled after Add is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::Add"
+                        "name": "MathVector3_VM::Add",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -784,14 +805,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::IsPerpendicular"
+                        "tooltip": "When signaled, this will invoke IsPerpendicular"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::IsPerpendicular is invoked"
+                        "tooltip": "Signaled after IsPerpendicular is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::IsPerpendicular"
+                        "name": "MathVector3_VM::IsPerpendicular",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -827,14 +849,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::IsFinite"
+                        "tooltip": "When signaled, this will invoke IsFinite"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::IsFinite is invoked"
+                        "tooltip": "Signaled after IsFinite is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::IsFinite"
+                        "name": "MathVector3_VM::IsFinite",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -858,14 +881,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::DivideByNumber"
+                        "tooltip": "When signaled, this will invoke DivideByNumber"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::DivideByNumber is invoked"
+                        "tooltip": "Signaled after DivideByNumber is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::DivideByNumber"
+                        "name": "MathVector3_VM::DivideByNumber",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -895,14 +919,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::IsNormalized"
+                        "tooltip": "When signaled, this will invoke IsNormalized"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::IsNormalized is invoked"
+                        "tooltip": "Signaled after IsNormalized is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::IsNormalized"
+                        "name": "MathVector3_VM::IsNormalized",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -932,14 +957,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::LengthSquared"
+                        "tooltip": "When signaled, this will invoke LengthSquared"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::LengthSquared is invoked"
+                        "tooltip": "Signaled after LengthSquared is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::LengthSquared"
+                        "name": "MathVector3_VM::LengthSquared",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -963,14 +989,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::FromValues"
+                        "tooltip": "When signaled, this will invoke FromValues"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::FromValues is invoked"
+                        "tooltip": "Signaled after FromValues is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::FromValues"
+                        "name": "MathVector3_VM::FromValues",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -1006,14 +1033,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::Dot"
+                        "tooltip": "When signaled, this will invoke Dot"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::Dot is invoked"
+                        "tooltip": "Signaled after Dot is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::Dot"
+                        "name": "MathVector3_VM::Dot",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -1043,14 +1071,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::SetX"
+                        "tooltip": "When signaled, this will invoke SetX"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::SetX is invoked"
+                        "tooltip": "Signaled after SetX is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::SetX"
+                        "name": "MathVector3_VM::SetX",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -1080,14 +1109,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::LengthReciprocal"
+                        "tooltip": "When signaled, this will invoke LengthReciprocal"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::LengthReciprocal is invoked"
+                        "tooltip": "Signaled after LengthReciprocal is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::LengthReciprocal"
+                        "name": "MathVector3_VM::LengthReciprocal",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -1111,14 +1141,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::Min"
+                        "tooltip": "When signaled, this will invoke Min"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::Min is invoked"
+                        "tooltip": "Signaled after Min is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::Min"
+                        "name": "MathVector3_VM::Min",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -1148,14 +1179,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::DistanceSquared"
+                        "tooltip": "When signaled, this will invoke DistanceSquared"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::DistanceSquared is invoked"
+                        "tooltip": "Signaled after DistanceSquared is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::DistanceSquared"
+                        "name": "MathVector3_VM::DistanceSquared",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -1185,14 +1217,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::Length"
+                        "tooltip": "When signaled, this will invoke Length"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::Length is invoked"
+                        "tooltip": "Signaled after Length is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::Length"
+                        "name": "MathVector3_VM::Length",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -1216,14 +1249,15 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::DivideByVector"
+                        "tooltip": "When signaled, this will invoke DivideByVector"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::DivideByVector is invoked"
+                        "tooltip": "Signaled after DivideByVector is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::DivideByVector"
+                        "name": "MathVector3_VM::DivideByVector",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -1253,26 +1287,27 @@
                     "context": "MathVector3_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector3_VM::Lerp"
+                        "tooltip": "When signaled, this will invoke Lerp"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector3_VM::Lerp is invoked"
+                        "tooltip": "Signaled after Lerp is invoked"
                     },
                     "details": {
-                        "name": "MathVector3_VM::Lerp"
+                        "name": "MathVector3_VM::Lerp",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
                             "details": {
-                                "name": "Vector3"
+                                "name": "const Vector3&"
                             }
                         },
                         {
                             "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
                             "details": {
-                                "name": "Vector3"
+                                "name": "const Vector3&"
                             }
                         },
                         {

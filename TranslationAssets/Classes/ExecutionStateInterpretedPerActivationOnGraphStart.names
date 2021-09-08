@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "ExecutionStateInterpretedPerActivationOnGraphStart",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "ExecutionStateInterpretedPerActivationOnGraphStart"

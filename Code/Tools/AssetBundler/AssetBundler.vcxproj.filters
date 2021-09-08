@@ -215,6 +215,9 @@
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\source\ui\SeedTabWidget.ui">
       <Filter>source\ui</Filter>
     </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\AssetBundler_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\7a5c60a813038dd965bbffbcec4f3ce6\qrc_AssetBundler.cpp.rule">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -239,6 +242,15 @@
     <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\assetbundler_exe_files.cmake" />
     <None Include="J:\Atom\lyfork\o3de\Code\Tools\AssetBundler\Platform\Windows\assetbundlergui_windows_files.cmake">
       <Filter>Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\AssetBundler_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\AssetBundler_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\AssetBundler_release.stamp">
+      <Filter>Generated Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

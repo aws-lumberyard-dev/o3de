@@ -91,7 +91,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\bootstrap_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\bootstrap_headers_files.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\Source\Platform\Windows\bootstrap_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\bootstrap_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\bootstrap_headers_files.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\External\Atom-538099b6\Bootstrap\Code\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/Atom/Bootstrap/Code/CMakeLists.txt</Message>
@@ -104,7 +104,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\bootstrap_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\bootstrap_headers_files.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\Source\Platform\Windows\bootstrap_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\bootstrap_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\bootstrap_headers_files.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\External\Atom-538099b6\Bootstrap\Code\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Gems/Atom/Bootstrap/Code/CMakeLists.txt</Message>
@@ -117,7 +117,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\bootstrap_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\bootstrap_headers_files.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\Source\Platform\Windows\bootstrap_windows_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\bootstrap_files.cmake;J:\Atom\lyfork\o3de\Gems\Atom\Bootstrap\Code\bootstrap_headers_files.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\External\Atom-538099b6\Bootstrap\Code\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
     </CustomBuild>

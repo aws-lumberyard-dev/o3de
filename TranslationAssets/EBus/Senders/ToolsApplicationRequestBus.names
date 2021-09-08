@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "ToolsApplicationRequestBus"
+                "name": "TOOLSAPPLICATIONREQUESTBUS_NAME",
+                "category": "TOOLSAPPLICATIONREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

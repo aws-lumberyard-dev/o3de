@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "Multi-Position Audio Requests"
+                "name": "MULTI-POSITION AUDIO REQUESTS_NAME",
+                "category": "MULTI-POSITION AUDIO REQUESTS_CATEGORY"
             },
             "methods": [
                 {

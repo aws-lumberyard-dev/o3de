@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "SsaoRequestBus"
+                "name": "SSAOREQUESTBUS_NAME",
+                "category": "SSAOREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

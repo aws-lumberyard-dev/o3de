@@ -5,21 +5,23 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiDropdownBus"
+                "name": "UI Dropdown",
+                "category": "UI"
             },
             "methods": [
                 {
                     "key": "GetOptionSelectedActionName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetOptionSelectedActionName"
+                        "tooltip": "When signaled, this will invoke Get Option Selected Action Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetOptionSelectedActionName is invoked"
+                        "tooltip": "Signaled after Get Option Selected Action Name is invoked"
                     },
                     "details": {
-                        "name": "GetOptionSelectedActionName"
+                        "name": "Get Option Selected Action Name",
+                        "tooltip": "Gets the name of the action triggered when an option is selected"
                     },
                     "results": [
                         {
@@ -34,14 +36,15 @@
                     "key": "GetWaitTime",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetWaitTime"
+                        "tooltip": "When signaled, this will invoke Get Wait Time"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetWaitTime is invoked"
+                        "tooltip": "Signaled after Get Wait Time is invoked"
                     },
                     "details": {
-                        "name": "GetWaitTime"
+                        "name": "Get Wait Time",
+                        "tooltip": "Gets how long to wait before expanding upon hover and collapsing upon exit"
                     },
                     "results": [
                         {
@@ -56,20 +59,22 @@
                     "key": "SetCollapseOnOutsideClick",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetCollapseOnOutsideClick"
+                        "tooltip": "When signaled, this will invoke Set Collapse On Outside Click"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetCollapseOnOutsideClick is invoked"
+                        "tooltip": "Signaled after Set Collapse On Outside Click is invoked"
                     },
                     "details": {
-                        "name": "SetCollapseOnOutsideClick"
+                        "name": "Set Collapse On Outside Click",
+                        "tooltip": "Sets whether the dropdown should collapse when the user clicks outside the dropdown"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Collapse",
+                                "tooltip": "Indicates whether the dropdown should collapse when the user clicks outside the dropdown"
                             }
                         }
                     ]
@@ -78,20 +83,22 @@
                     "key": "SetExpandOnHover",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetExpandOnHover"
+                        "tooltip": "When signaled, this will invoke Set Expand On Hover"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetExpandOnHover is invoked"
+                        "tooltip": "Signaled after Set Expand On Hover is invoked"
                     },
                     "details": {
-                        "name": "SetExpandOnHover"
+                        "name": "Set Expand On Hover",
+                        "tooltip": "Sets whether the dropdown should expand automatically on hover"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Expand",
+                                "tooltip": "Indicates whether the dropdown should expand automatically on hover"
                             }
                         }
                     ]
@@ -107,7 +114,8 @@
                         "tooltip": "Signaled after Expand is invoked"
                     },
                     "details": {
-                        "name": "Expand"
+                        "name": "Expand",
+                        "tooltip": "Expands the dropdown menu"
                     }
                 },
                 {
@@ -121,27 +129,30 @@
                         "tooltip": "Signaled after Collapse is invoked"
                     },
                     "details": {
-                        "name": "Collapse"
+                        "name": "Collapse",
+                        "tooltip": "Collapses the dropdown menu"
                     }
                 },
                 {
                     "key": "SetCollapsedActionName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetCollapsedActionName"
+                        "tooltip": "When signaled, this will invoke Set Collapsed Action Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetCollapsedActionName is invoked"
+                        "tooltip": "Signaled after Set Collapsed Action Name is invoked"
                     },
                     "details": {
-                        "name": "SetCollapsedActionName"
+                        "name": "Set Collapsed Action Name",
+                        "tooltip": "Sets the name of the action triggered when the dropdown is collapsed"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Name",
+                                "tooltip": "The name of the action triggered when the dropdown is collapsed"
                             }
                         }
                     ]
@@ -150,14 +161,15 @@
                     "key": "GetExpandOnHover",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetExpandOnHover"
+                        "tooltip": "When signaled, this will invoke Get Expand On Hover"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetExpandOnHover is invoked"
+                        "tooltip": "Signaled after Get Expand On Hover is invoked"
                     },
                     "details": {
-                        "name": "GetExpandOnHover"
+                        "name": "Get Expand On Hover",
+                        "tooltip": "Returns whether the dropdown expands automatically on hover"
                     },
                     "results": [
                         {
@@ -172,20 +184,22 @@
                     "key": "SetWaitTime",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetWaitTime"
+                        "tooltip": "When signaled, this will invoke Set Wait Time"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetWaitTime is invoked"
+                        "tooltip": "Signaled after Set Wait Time is invoked"
                     },
                     "details": {
-                        "name": "SetWaitTime"
+                        "name": "Set Wait Time",
+                        "tooltip": "Sets how long to wait before expanding upon hover and collapsing upon exit"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Time",
+                                "tooltip": "How long to wait before expanding upon hover and collapsing upon exit"
                             }
                         }
                     ]
@@ -194,14 +208,15 @@
                     "key": "GetCollapseOnOutsideClick",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetCollapseOnOutsideClick"
+                        "tooltip": "When signaled, this will invoke Get Collapse On Outside Click"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetCollapseOnOutsideClick is invoked"
+                        "tooltip": "Signaled after Get Collapse On Outside Click is invoked"
                     },
                     "details": {
-                        "name": "GetCollapseOnOutsideClick"
+                        "name": "Get Collapse On Outside Click",
+                        "tooltip": "Returns whether the dropdown collapses when the user clicks outside the dropdown"
                     },
                     "results": [
                         {
@@ -216,14 +231,15 @@
                     "key": "GetExpandedParentId",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetExpandedParentId"
+                        "tooltip": "When signaled, this will invoke Get Expanded Parent"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetExpandedParentId is invoked"
+                        "tooltip": "Signaled after Get Expanded Parent is invoked"
                     },
                     "details": {
-                        "name": "GetExpandedParentId"
+                        "name": "Get Expanded Parent",
+                        "tooltip": "Gets the element that the dropdown content parents to when expanded (the root element by default)"
                     },
                     "results": [
                         {
@@ -239,14 +255,15 @@
                     "key": "GetTextElement",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetTextElement"
+                        "tooltip": "When signaled, this will invoke Get Text Element"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetTextElement is invoked"
+                        "tooltip": "Signaled after Get Text Element is invoked"
                     },
                     "details": {
-                        "name": "GetTextElement"
+                        "name": "Get Text Element",
+                        "tooltip": "Gets the text element that displays the text of the currently selected option"
                     },
                     "results": [
                         {
@@ -262,14 +279,15 @@
                     "key": "GetIconElement",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetIconElement"
+                        "tooltip": "When signaled, this will invoke Get Icon Element"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetIconElement is invoked"
+                        "tooltip": "Signaled after Get Icon Element is invoked"
                     },
                     "details": {
-                        "name": "GetIconElement"
+                        "name": "Get Icon Element",
+                        "tooltip": "Gets the icon element that displays the icon of the currently selected option"
                     },
                     "results": [
                         {
@@ -285,21 +303,22 @@
                     "key": "SetIconElement",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetIconElement"
+                        "tooltip": "When signaled, this will invoke Set Icon Element"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetIconElement is invoked"
+                        "tooltip": "Signaled after Set Icon Element is invoked"
                     },
                     "details": {
-                        "name": "SetIconElement"
+                        "name": "Set Icon Element",
+                        "tooltip": "Sets the icon element that displays the icon of the currently selected option"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Icon EntityID",
+                                "tooltip": "The icon element that displays the icon of the currently selected option"
                             }
                         }
                     ]
@@ -308,20 +327,22 @@
                     "key": "SetExpandedActionName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetExpandedActionName"
+                        "tooltip": "When signaled, this will invoke Set Expanded Action Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetExpandedActionName is invoked"
+                        "tooltip": "Signaled after Set Expanded Action Name is invoked"
                     },
                     "details": {
-                        "name": "SetExpandedActionName"
+                        "name": "Set Expanded Action Name",
+                        "tooltip": "Sets the name of the action triggered when the dropdown is expanded"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Name",
+                                "tooltip": "The name of the action triggered when the dropdown is expanded"
                             }
                         }
                     ]
@@ -330,21 +351,22 @@
                     "key": "SetContent",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetContent"
+                        "tooltip": "When signaled, this will invoke Set Content"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetContent is invoked"
+                        "tooltip": "Signaled after Set Content is invoked"
                     },
                     "details": {
-                        "name": "SetContent"
+                        "name": "Set Content",
+                        "tooltip": "Sets the content element that the dropdown expands"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Content EntityID",
+                                "tooltip": "The content element that the dropdown expands"
                             }
                         }
                     ]
@@ -353,21 +375,22 @@
                     "key": "SetTextElement",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetTextElement"
+                        "tooltip": "When signaled, this will invoke Set Text Element"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetTextElement is invoked"
+                        "tooltip": "Signaled after Set Text Element is invoked"
                     },
                     "details": {
-                        "name": "SetTextElement"
+                        "name": "Set Text Element",
+                        "tooltip": "Sets the text element that displays the text of the currently selected option"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Text EntityID",
+                                "tooltip": "The text element that displays the text of the currently selected option"
                             }
                         }
                     ]
@@ -376,21 +399,22 @@
                     "key": "SetValue",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetValue"
+                        "tooltip": "When signaled, this will invoke Set Value"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetValue is invoked"
+                        "tooltip": "Signaled after Set Value is invoked"
                     },
                     "details": {
-                        "name": "SetValue"
+                        "name": "Set Value",
+                        "tooltip": "Sets the currently selected option of the dropdown manually"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Option EntityID",
+                                "tooltip": "The currently selected option of the dropdown"
                             }
                         }
                     ]
@@ -399,14 +423,15 @@
                     "key": "GetContent",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetContent"
+                        "tooltip": "When signaled, this will invoke Get Content"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetContent is invoked"
+                        "tooltip": "Signaled after Get Content is invoked"
                     },
                     "details": {
-                        "name": "GetContent"
+                        "name": "Get Content",
+                        "tooltip": "Gets the content element the dropdown will expand"
                     },
                     "results": [
                         {
@@ -422,14 +447,15 @@
                     "key": "GetExpandedActionName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetExpandedActionName"
+                        "tooltip": "When signaled, this will invoke Get Expanded Action Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetExpandedActionName is invoked"
+                        "tooltip": "Signaled after Get Expanded Action Name is invoked"
                     },
                     "details": {
-                        "name": "GetExpandedActionName"
+                        "name": "Get Expanded Action Name",
+                        "tooltip": "Gets the name of the action triggered when the dropdown is expanded"
                     },
                     "results": [
                         {
@@ -444,14 +470,15 @@
                     "key": "GetCollapsedActionName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetCollapsedActionName"
+                        "tooltip": "When signaled, this will invoke Get Collapsed Action Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetCollapsedActionName is invoked"
+                        "tooltip": "Signaled after Get Collapsed Action Name is invoked"
                     },
                     "details": {
-                        "name": "GetCollapsedActionName"
+                        "name": "Get Collapsed Action Name",
+                        "tooltip": "Gets the name of the action triggered when the dropdown is collapsed"
                     },
                     "results": [
                         {
@@ -466,14 +493,15 @@
                     "key": "GetValue",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetValue"
+                        "tooltip": "When signaled, this will invoke Get Value"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetValue is invoked"
+                        "tooltip": "Signaled after Get Value is invoked"
                     },
                     "details": {
-                        "name": "GetValue"
+                        "name": "Get Value",
+                        "tooltip": "Gets the currently selected option"
                     },
                     "results": [
                         {
@@ -489,21 +517,22 @@
                     "key": "SetExpandedParentId",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetExpandedParentId"
+                        "tooltip": "When signaled, this will invoke Set Expanded Parent"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetExpandedParentId is invoked"
+                        "tooltip": "Signaled after Set Expanded Parent is invoked"
                     },
                     "details": {
-                        "name": "SetExpandedParentId"
+                        "name": "Set Expanded Parent",
+                        "tooltip": "Sets the element that the dropdown content parents to when expanded"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Expanded EntityID",
+                                "tooltip": "The element that the dropdown content parents to when expanded"
                             }
                         }
                     ]
@@ -512,20 +541,22 @@
                     "key": "SetOptionSelectedActionName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetOptionSelectedActionName"
+                        "tooltip": "When signaled, this will invoke Set Option Selected Action Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetOptionSelectedActionName is invoked"
+                        "tooltip": "Signaled after Set Option Selected Action Name is invoked"
                     },
                     "details": {
-                        "name": "SetOptionSelectedActionName"
+                        "name": "Set Option Selected Action Name",
+                        "tooltip": "Sets the name of the action triggered when an option is selected"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Name",
+                                "tooltip": "The name of the action triggered when an option is selected"
                             }
                         }
                     ]

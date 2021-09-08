@@ -37,3 +37,23 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("J:/Atom/lyfork/o3de/scripts/o3de/tests/cmake_install.cmake")
 endif()
 
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xCorex" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/scripts" TYPE PROGRAM MESSAGE_NEVER FILES "J:/Atom/lyfork/o3de/scripts/o3de/../o3de.bat")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xCorex" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/scripts" TYPE FILE MESSAGE_NEVER FILES "J:/Atom/lyfork/o3de/scripts/o3de/../o3de.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xCorex" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/scripts/o3de" TYPE PROGRAM MESSAGE_NEVER FILES "J:/Atom/lyfork/o3de/scripts/o3de/setup.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xCorex" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/scripts/o3de" TYPE FILE MESSAGE_NEVER FILES "J:/Atom/lyfork/o3de/scripts/o3de/README.txt")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xCorex" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/scripts/o3de" TYPE DIRECTORY MESSAGE_NEVER FILES "J:/Atom/lyfork/o3de/scripts/o3de/." REGEX "/tests$" EXCLUDE REGEX "/platform$" EXCLUDE REGEX "/cmakelists\\.txt$" EXCLUDE REGEX "/[^/]*\\.cmake$" EXCLUDE REGEX "/\\_\\_pycache\\_\\_$" EXCLUDE REGEX "/[^/]*\\.egg\\-info$" EXCLUDE)
+endif()
+

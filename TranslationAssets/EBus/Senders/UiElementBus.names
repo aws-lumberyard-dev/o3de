@@ -5,27 +5,30 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiElementBus"
+                "name": "UI Element",
+                "category": "UI"
             },
             "methods": [
                 {
                     "key": "FindChildByName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke FindChildByName"
+                        "tooltip": "When signaled, this will invoke Find Child By Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after FindChildByName is invoked"
+                        "tooltip": "Signaled after Find Child By Name is invoked"
                     },
                     "details": {
-                        "name": "FindChildByName"
+                        "name": "Find Child By Name",
+                        "tooltip": "Returns the first immediate child with the specified name"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Name",
+                                "tooltip": "The name of the child"
                             }
                         }
                     ],
@@ -34,7 +37,7 @@
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
                                 "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "tooltip": "The name of the child"
                             }
                         }
                     ]
@@ -43,20 +46,22 @@
                     "key": "GetChild",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetChild"
+                        "tooltip": "When signaled, this will invoke Get Child"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetChild is invoked"
+                        "tooltip": "Signaled after Get Child is invoked"
                     },
                     "details": {
-                        "name": "GetChild"
+                        "name": "Get Child",
+                        "tooltip": "Gets a child by index"
                     },
                     "params": [
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Child Index",
+                                "tooltip": "The index of the child"
                             }
                         }
                     ],
@@ -65,7 +70,7 @@
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
                                 "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "tooltip": "The index of the child"
                             }
                         }
                     ]
@@ -74,14 +79,15 @@
                     "key": "GetNumChildElements",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetNumChildElements"
+                        "tooltip": "When signaled, this will invoke Get Number Of Child Elements"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetNumChildElements is invoked"
+                        "tooltip": "Signaled after Get Number Of Child Elements is invoked"
                     },
                     "details": {
-                        "name": "GetNumChildElements"
+                        "name": "Get Number Of Child Elements",
+                        "tooltip": "Gets the number of children of the element"
                     },
                     "results": [
                         {
@@ -96,14 +102,15 @@
                     "key": "GetChildren",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetChildren"
+                        "tooltip": "When signaled, this will invoke Get Children"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetChildren is invoked"
+                        "tooltip": "Signaled after Get Children is invoked"
                     },
                     "details": {
-                        "name": "GetChildren"
+                        "name": "Get Children",
+                        "tooltip": "Gets the children of the element"
                     },
                     "results": [
                         {
@@ -118,35 +125,37 @@
                     "key": "DestroyElement",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke DestroyElement"
+                        "tooltip": "When signaled, this will invoke Destroy Element"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after DestroyElement is invoked"
+                        "tooltip": "Signaled after Destroy Element is invoked"
                     },
                     "details": {
-                        "name": "DestroyElement"
+                        "name": "Destroy Element",
+                        "tooltip": "Destroys the element"
                     }
                 },
                 {
                     "key": "IsAncestor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke IsAncestor"
+                        "tooltip": "When signaled, this will invoke Is Ancestor"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after IsAncestor is invoked"
+                        "tooltip": "Signaled after Is Ancestor is invoked"
                     },
                     "details": {
-                        "name": "IsAncestor"
+                        "name": "Is Ancestor",
+                        "tooltip": "Return whether a given element is an ancestor of the element"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Ancestor EntityID",
+                                "tooltip": "The element to check whether it's an ancestor of the element"
                             }
                         }
                     ],
@@ -154,7 +163,8 @@
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "bool",
+                                "tooltip": "The element to check whether it's an ancestor of the element"
                             }
                         }
                     ]
@@ -163,14 +173,15 @@
                     "key": "GetParent",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetParent"
+                        "tooltip": "When signaled, this will invoke Get Parent"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetParent is invoked"
+                        "tooltip": "Signaled after Get Parent is invoked"
                     },
                     "details": {
-                        "name": "GetParent"
+                        "name": "Get Parent",
+                        "tooltip": "Gets the parent of the element"
                     },
                     "results": [
                         {
@@ -186,20 +197,22 @@
                     "key": "FindDescendantByName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke FindDescendantByName"
+                        "tooltip": "When signaled, this will invoke Find Descendant By Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after FindDescendantByName is invoked"
+                        "tooltip": "Signaled after Find Descendant By Name is invoked"
                     },
                     "details": {
-                        "name": "FindDescendantByName"
+                        "name": "Find Descendant By Name",
+                        "tooltip": "Returns the first descendant element with the specified name"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Name",
+                                "tooltip": "The name of the descendant"
                             }
                         }
                     ],
@@ -208,7 +221,7 @@
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
                                 "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "tooltip": "The name of the descendant"
                             }
                         }
                     ]
@@ -217,14 +230,15 @@
                     "key": "IsEnabled",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke IsEnabled"
+                        "tooltip": "When signaled, this will invoke Is Enabled"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after IsEnabled is invoked"
+                        "tooltip": "Signaled after Is Enabled is invoked"
                     },
                     "details": {
-                        "name": "IsEnabled"
+                        "name": "Is Enabled",
+                        "tooltip": "Returns whether the element is enabled"
                     },
                     "results": [
                         {
@@ -239,14 +253,15 @@
                     "key": "GetCanvas",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetCanvas"
+                        "tooltip": "When signaled, this will invoke Get Canvas"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetCanvas is invoked"
+                        "tooltip": "Signaled after Get Canvas is invoked"
                     },
                     "details": {
-                        "name": "GetCanvas"
+                        "name": "Get Canvas",
+                        "tooltip": "Gets the canvas that contains the element"
                     },
                     "results": [
                         {
@@ -269,21 +284,22 @@
                         "tooltip": "Signaled after Reparent is invoked"
                     },
                     "details": {
-                        "name": "Reparent"
+                        "name": "Reparent",
+                        "tooltip": "Changes the element to be the child of a new parent.\n\nThe element is removed from its current parent and added as a child of the new parent. If the new parent  is invalid, the element becomes a top-level element\n\n If an \"insert before\" element is specified, then the element is inserted before that element if the \"insert before\" element is a child of the new parent"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Parent EntityID",
+                                "tooltip": "The new parent"
                             }
                         },
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Insert Before EntityID",
+                                "tooltip": "The element to insert before"
                             }
                         }
                     ]
@@ -292,14 +308,15 @@
                     "key": "GetName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetName"
+                        "tooltip": "When signaled, this will invoke Get Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetName is invoked"
+                        "tooltip": "Signaled after Get Name is invoked"
                     },
                     "details": {
-                        "name": "GetName"
+                        "name": "Get Name",
+                        "tooltip": "Gets the name of the element"
                     },
                     "results": [
                         {
@@ -314,21 +331,22 @@
                     "key": "GetIndexOfChildByEntityId",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetIndexOfChildByEntityId"
+                        "tooltip": "When signaled, this will invoke Get Index Of Child By EntityID"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetIndexOfChildByEntityId is invoked"
+                        "tooltip": "Signaled after Get Index Of Child By EntityID is invoked"
                     },
                     "details": {
-                        "name": "GetIndexOfChildByEntityId"
+                        "name": "Get Index Of Child By EntityID",
+                        "tooltip": "Gets the index of the specified child"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Child EntityID",
+                                "tooltip": "The child"
                             }
                         }
                     ],
@@ -336,7 +354,8 @@
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "int",
+                                "tooltip": "The child"
                             }
                         }
                     ]
@@ -345,20 +364,22 @@
                     "key": "SetIsEnabled",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetIsEnabled"
+                        "tooltip": "When signaled, this will invoke Set Is Enabled"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetIsEnabled is invoked"
+                        "tooltip": "Signaled after Set Is Enabled is invoked"
                     },
                     "details": {
-                        "name": "SetIsEnabled"
+                        "name": "Set Is Enabled",
+                        "tooltip": "Sets whether the element is enabled"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Enabled",
+                                "tooltip": "Indicates whether the element is enabled"
                             }
                         }
                     ]

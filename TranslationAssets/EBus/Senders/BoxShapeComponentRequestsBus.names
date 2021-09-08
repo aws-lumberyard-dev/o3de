@@ -5,21 +5,23 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "BoxShapeComponentRequestsBus"
+                "name": "Box Shape",
+                "category": "Shape"
             },
             "methods": [
                 {
                     "key": "GetBoxConfiguration",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetBoxConfiguration"
+                        "tooltip": "When signaled, this will invoke Get Configuration"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetBoxConfiguration is invoked"
+                        "tooltip": "Signaled after Get Configuration is invoked"
                     },
                     "details": {
-                        "name": "GetBoxConfiguration"
+                        "name": "Get Configuration",
+                        "tooltip": "Returns the box configuration of a source entity"
                     },
                     "results": [
                         {
@@ -35,14 +37,15 @@
                     "key": "GetBoxDimensions",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetBoxDimensions"
+                        "tooltip": "When signaled, this will invoke Get Dimensions"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetBoxDimensions is invoked"
+                        "tooltip": "Signaled after Get Dimensions is invoked"
                     },
                     "details": {
-                        "name": "GetBoxDimensions"
+                        "name": "Get Dimensions",
+                        "tooltip": "Returns the box dimentions of a source entity as x,y,z"
                     },
                     "results": [
                         {
@@ -57,20 +60,22 @@
                     "key": "SetBoxDimensions",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetBoxDimensions"
+                        "tooltip": "When signaled, this will invoke Set Dimensions"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetBoxDimensions is invoked"
+                        "tooltip": "Signaled after Set Dimensions is invoked"
                     },
                     "details": {
-                        "name": "SetBoxDimensions"
+                        "name": "Set Dimensions",
+                        "tooltip": "Sets the box dimentions of a source entity as x,y,z"
                     },
                     "params": [
                         {
                             "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
                             "details": {
-                                "name": "Vector3"
+                                "name": "Dimensions",
+                                "tooltip": "Box dimentions as x,y,z"
                             }
                         }
                     ]

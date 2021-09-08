@@ -25,3 +25,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/release/ImGui.imguilib.dll" "J:/Atom/lyfork/o3d
 ly_copy("J:/Atom/lyfork/o3de/bin/release/LmbrCentral.dll" "J:/Atom/lyfork/o3de/bin/release")
 ly_copy("J:/Atom/lyfork/o3de/bin/release/ImGui.dll" "J:/Atom/lyfork/o3de/bin/release")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/release/AssetMemoryAnalyzer_release.stamp)

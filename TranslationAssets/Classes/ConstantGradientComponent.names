@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "ConstantGradientComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "ConstantGradientComponent"

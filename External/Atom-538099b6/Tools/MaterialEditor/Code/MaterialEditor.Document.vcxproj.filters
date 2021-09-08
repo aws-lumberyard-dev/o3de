@@ -27,12 +27,6 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Include\Atom\Document\MaterialDocumentModule.h">
       <Filter>Include\Atom\Document</Filter>
     </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Include\Atom\Document\MaterialDocumentSystemRequestBus.h">
-      <Filter>Include\Atom\Document</Filter>
-    </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Include\Atom\Document\MaterialDocumentNotificationBus.h">
-      <Filter>Include\Atom\Document</Filter>
-    </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\MaterialEditor\Code\Include\Atom\Document\MaterialDocumentRequestBus.h">
       <Filter>Include\Atom\Document</Filter>
     </ClInclude>

@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZStd::vector<BehaviorComponentId, allocator>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Array<ComponentId>",
@@ -15,20 +15,21 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::Size"
+                        "tooltip": "When signaled, this will invoke Size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::Size is invoked"
+                        "tooltip": "Signaled after Size is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Size"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Size",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>&"
                             }
                         }
                     ],
@@ -46,20 +47,21 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::Front"
+                        "tooltip": "When signaled, this will invoke Front"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::Front is invoked"
+                        "tooltip": "Signaled after Front is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Front"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Front",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>*"
                             }
                         }
                     ],
@@ -67,7 +69,7 @@
                         {
                             "typeid": "{60A9A069-9C3D-465A-B7AD-0D6CC803990A}",
                             "details": {
-                                "name": "BehaviorComponentId"
+                                "name": "BehaviorComponentId&"
                             }
                         }
                     ]
@@ -77,20 +79,21 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::Has Key"
+                        "tooltip": "When signaled, this will invoke HasKey"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::Has Key is invoked"
+                        "tooltip": "Signaled after HasKey is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Has Key"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Has Key",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>&"
                             }
                         },
                         {
@@ -114,20 +117,21 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::Resize"
+                        "tooltip": "When signaled, this will invoke Resize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::Resize is invoked"
+                        "tooltip": "Signaled after Resize is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Resize"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Resize",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>*"
                             }
                         },
                         {
@@ -143,20 +147,21 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::at"
+                        "tooltip": "When signaled, this will invoke at"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::at is invoked"
+                        "tooltip": "Signaled after at is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::at"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::at",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>*"
                             }
                         },
                         {
@@ -170,7 +175,7 @@
                         {
                             "typeid": "{60A9A069-9C3D-465A-B7AD-0D6CC803990A}",
                             "details": {
-                                "name": "BehaviorComponentId"
+                                "name": "BehaviorComponentId&"
                             }
                         }
                     ]
@@ -180,20 +185,21 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::Back"
+                        "tooltip": "When signaled, this will invoke Back"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::Back is invoked"
+                        "tooltip": "Signaled after Back is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Back"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Back",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>*"
                             }
                         }
                     ],
@@ -201,7 +207,7 @@
                         {
                             "typeid": "{60A9A069-9C3D-465A-B7AD-0D6CC803990A}",
                             "details": {
-                                "name": "BehaviorComponentId"
+                                "name": "BehaviorComponentId&"
                             }
                         }
                     ]
@@ -211,20 +217,21 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::pop_back"
+                        "tooltip": "When signaled, this will invoke pop_back"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::pop_back is invoked"
+                        "tooltip": "Signaled after pop_back is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::pop_back"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::pop_back",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>*"
                             }
                         }
                     ]
@@ -234,20 +241,21 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::size"
+                        "tooltip": "When signaled, this will invoke size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::size is invoked"
+                        "tooltip": "Signaled after size is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::size"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::size",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>&"
                             }
                         }
                     ],
@@ -265,20 +273,21 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::At"
+                        "tooltip": "When signaled, this will invoke At"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::At is invoked"
+                        "tooltip": "Signaled after At is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::At"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::At",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>*"
                             }
                         },
                         {
@@ -292,7 +301,7 @@
                         {
                             "typeid": "{60A9A069-9C3D-465A-B7AD-0D6CC803990A}",
                             "details": {
-                                "name": "BehaviorComponentId"
+                                "name": "BehaviorComponentId&"
                             }
                         }
                     ]
@@ -302,20 +311,21 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::Empty"
+                        "tooltip": "When signaled, this will invoke Empty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::Empty is invoked"
+                        "tooltip": "Signaled after Empty is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Empty"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Empty",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>*"
                             }
                         }
                     ],
@@ -333,26 +343,27 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::Swap"
+                        "tooltip": "When signaled, this will invoke Swap"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::Swap is invoked"
+                        "tooltip": "Signaled after Swap is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Swap"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Swap",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>*"
                             }
                         },
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>&"
                             }
                         }
                     ]
@@ -362,26 +373,27 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::push_back"
+                        "tooltip": "When signaled, this will invoke push_back"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::push_back is invoked"
+                        "tooltip": "Signaled after push_back is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::push_back"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::push_back",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>*"
                             }
                         },
                         {
                             "typeid": "{60A9A069-9C3D-465A-B7AD-0D6CC803990A}",
                             "details": {
-                                "name": "BehaviorComponentId"
+                                "name": "const BehaviorComponentId&"
                             }
                         }
                     ]
@@ -391,26 +403,27 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::PushBack_VM"
+                        "tooltip": "When signaled, this will invoke PushBack_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::PushBack_VM is invoked"
+                        "tooltip": "Signaled after PushBack_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::PushBack_VM"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::PushBack_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>&"
                             }
                         },
                         {
                             "typeid": "{60A9A069-9C3D-465A-B7AD-0D6CC803990A}",
                             "details": {
-                                "name": "BehaviorComponentId"
+                                "name": "const BehaviorComponentId&"
                             }
                         }
                     ],
@@ -418,7 +431,7 @@
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>&"
                             }
                         }
                     ]
@@ -428,20 +441,21 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::AtUnchecked"
+                        "tooltip": "When signaled, this will invoke AtUnchecked"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::AtUnchecked is invoked"
+                        "tooltip": "Signaled after AtUnchecked is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::AtUnchecked"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::AtUnchecked",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>*"
                             }
                         },
                         {
@@ -455,7 +469,7 @@
                         {
                             "typeid": "{60A9A069-9C3D-465A-B7AD-0D6CC803990A}",
                             "details": {
-                                "name": "BehaviorComponentId"
+                                "name": "BehaviorComponentId&"
                             }
                         }
                     ]
@@ -465,20 +479,21 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::clear"
+                        "tooltip": "When signaled, this will invoke clear"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::clear is invoked"
+                        "tooltip": "Signaled after clear is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::clear"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::clear",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>*"
                             }
                         }
                     ]
@@ -488,20 +503,21 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::NotEmpty"
+                        "tooltip": "When signaled, this will invoke NotEmpty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::NotEmpty is invoked"
+                        "tooltip": "Signaled after NotEmpty is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::NotEmpty"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::NotEmpty",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>&"
                             }
                         }
                     ],
@@ -519,20 +535,21 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::Erase_VM"
+                        "tooltip": "When signaled, this will invoke Erase_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::Erase_VM is invoked"
+                        "tooltip": "Signaled after Erase_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Erase_VM"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Erase_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>&"
                             }
                         },
                         {
@@ -546,7 +563,7 @@
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>&"
                             }
                         }
                     ]
@@ -556,20 +573,21 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::EraseCheck_VM"
+                        "tooltip": "When signaled, this will invoke EraseCheck_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::EraseCheck_VM is invoked"
+                        "tooltip": "Signaled after EraseCheck_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::EraseCheck_VM"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::EraseCheck_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>&"
                             }
                         },
                         {
@@ -593,20 +611,21 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::Capacity"
+                        "tooltip": "When signaled, this will invoke Capacity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::Capacity is invoked"
+                        "tooltip": "Signaled after Capacity is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Capacity"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Capacity",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>*"
                             }
                         }
                     ],
@@ -624,20 +643,21 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::Clear"
+                        "tooltip": "When signaled, this will invoke Clear"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::Clear is invoked"
+                        "tooltip": "Signaled after Clear is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Clear"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Clear",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>&"
                             }
                         }
                     ],
@@ -645,7 +665,7 @@
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>&"
                             }
                         }
                     ]
@@ -655,20 +675,21 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::AssignAt"
+                        "tooltip": "When signaled, this will invoke AssignAt"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::AssignAt is invoked"
+                        "tooltip": "Signaled after AssignAt is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::AssignAt"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::AssignAt",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>&"
                             }
                         },
                         {
@@ -680,7 +701,7 @@
                         {
                             "typeid": "{60A9A069-9C3D-465A-B7AD-0D6CC803990A}",
                             "details": {
-                                "name": "BehaviorComponentId"
+                                "name": "BehaviorComponentId&"
                             }
                         }
                     ]
@@ -690,20 +711,21 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::GetSize"
+                        "tooltip": "When signaled, this will invoke GetSize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::GetSize is invoked"
+                        "tooltip": "Signaled after GetSize is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::GetSize"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::GetSize",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>&"
                             }
                         }
                     ],
@@ -721,20 +743,21 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::Insert"
+                        "tooltip": "When signaled, this will invoke Insert"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::Insert is invoked"
+                        "tooltip": "Signaled after Insert is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Insert"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Insert",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>&"
                             }
                         },
                         {
@@ -746,7 +769,7 @@
                         {
                             "typeid": "{60A9A069-9C3D-465A-B7AD-0D6CC803990A}",
                             "details": {
-                                "name": "BehaviorComponentId"
+                                "name": "const BehaviorComponentId&"
                             }
                         }
                     ],
@@ -754,7 +777,7 @@
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>&"
                             }
                         }
                     ]
@@ -764,26 +787,27 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::PushBack"
+                        "tooltip": "When signaled, this will invoke PushBack"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::PushBack is invoked"
+                        "tooltip": "Signaled after PushBack is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::PushBack"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::PushBack",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>*"
                             }
                         },
                         {
                             "typeid": "{60A9A069-9C3D-465A-B7AD-0D6CC803990A}",
                             "details": {
-                                "name": "BehaviorComponentId"
+                                "name": "const BehaviorComponentId&"
                             }
                         }
                     ]
@@ -793,20 +817,21 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::Reserve"
+                        "tooltip": "When signaled, this will invoke Reserve"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::Reserve is invoked"
+                        "tooltip": "Signaled after Reserve is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Reserve"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Reserve",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>*"
                             }
                         },
                         {
@@ -822,20 +847,21 @@
                     "context": "Array<ComponentId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<BehaviorComponentId, allocator>::Iterate_VM"
+                        "tooltip": "When signaled, this will invoke Iterate_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<BehaviorComponentId, allocator>::Iterate_VM is invoked"
+                        "tooltip": "Signaled after Iterate_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Iterate_VM"
+                        "name": "AZStd::vector<BehaviorComponentId, allocator>::Iterate_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<BehaviorComponentId, allocator>&"
                             }
                         }
                     ],

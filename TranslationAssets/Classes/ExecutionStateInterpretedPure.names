@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "ExecutionStateInterpretedPure",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "ExecutionStateInterpretedPure"

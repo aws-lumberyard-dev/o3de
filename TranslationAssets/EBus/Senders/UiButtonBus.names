@@ -5,21 +5,23 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiButtonBus"
+                "name": "UI Button",
+                "category": "UI"
             },
             "methods": [
                 {
                     "key": "GetOnClickActionName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetOnClickActionName"
+                        "tooltip": "When signaled, this will invoke Get On Click Action Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetOnClickActionName is invoked"
+                        "tooltip": "Signaled after Get On Click Action Name is invoked"
                     },
                     "details": {
-                        "name": "GetOnClickActionName"
+                        "name": "Get On Click Action Name",
+                        "tooltip": "Gets the name of the action triggered when the button is released"
                     },
                     "results": [
                         {
@@ -34,20 +36,22 @@
                     "key": "SetOnClickActionName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetOnClickActionName"
+                        "tooltip": "When signaled, this will invoke Set On Click Action Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetOnClickActionName is invoked"
+                        "tooltip": "Signaled after Set On Click Action Name is invoked"
                     },
                     "details": {
-                        "name": "SetOnClickActionName"
+                        "name": "Set On Click Action Name",
+                        "tooltip": "Sets the name of the action triggered when the button is released"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Name",
+                                "tooltip": "The name of the action triggered when the button is released"
                             }
                         }
                     ]

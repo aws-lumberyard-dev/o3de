@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "ShaderOptionGroup",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "ShaderOptionGroup"
@@ -13,14 +13,15 @@
                     "context": "ShaderOptionGroup",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke ShaderOptionGroup::GetValueByOptionName"
+                        "tooltip": "When signaled, this will invoke GetValueByOptionName"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after ShaderOptionGroup::GetValueByOptionName is invoked"
+                        "tooltip": "Signaled after GetValueByOptionName is invoked"
                     },
                     "details": {
-                        "name": "ShaderOptionGroup::GetValueByOptionName"
+                        "name": "ShaderOptionGroup::GetValueByOptionName",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -32,7 +33,7 @@
                         {
                             "typeid": "{3D2B920C-9EFD-40D5-AAE0-DF131C3D4931}",
                             "details": {
-                                "name": "Name"
+                                "name": "const Name&"
                             }
                         }
                     ],
@@ -50,14 +51,15 @@
                     "context": "ShaderOptionGroup",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke ShaderOptionGroup::GetShaderOptionDescriptors"
+                        "tooltip": "When signaled, this will invoke GetShaderOptionDescriptors"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after ShaderOptionGroup::GetShaderOptionDescriptors is invoked"
+                        "tooltip": "Signaled after GetShaderOptionDescriptors is invoked"
                     },
                     "details": {
-                        "name": "ShaderOptionGroup::GetShaderOptionDescriptors"
+                        "name": "ShaderOptionGroup::GetShaderOptionDescriptors",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -71,7 +73,7 @@
                         {
                             "typeid": "{13D041F6-75FA-5093-AD85-827A2CEA1646}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "const AZStd::vector<AZ::RPI::ShaderOptionDescriptor, allocator>"
                             }
                         }
                     ]
@@ -81,14 +83,15 @@
                     "context": "ShaderOptionGroup",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke ShaderOptionGroup::GetShaderVariantId"
+                        "tooltip": "When signaled, this will invoke GetShaderVariantId"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after ShaderOptionGroup::GetShaderVariantId is invoked"
+                        "tooltip": "Signaled after GetShaderVariantId is invoked"
                     },
                     "details": {
-                        "name": "ShaderOptionGroup::GetShaderVariantId"
+                        "name": "ShaderOptionGroup::GetShaderVariantId",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -102,7 +105,7 @@
                         {
                             "typeid": "{27B1FEC2-8C8A-47D7-A034-6609FA092B34}",
                             "details": {
-                                "name": "ShaderVariantId"
+                                "name": "const ShaderVariantId&"
                             }
                         }
                     ]

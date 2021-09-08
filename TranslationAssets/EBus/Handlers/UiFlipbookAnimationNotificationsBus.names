@@ -5,7 +5,8 @@
             "context": "EBusHandler",
             "variant": "",
             "details": {
-                "name": "UiFlipbookAnimationNotificationsBus"
+                "name": "UI Flipbook Animation",
+                "category": "UI"
             },
             "methods": [
                 {

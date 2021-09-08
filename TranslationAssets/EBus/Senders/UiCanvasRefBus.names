@@ -5,21 +5,23 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiCanvasRefBus"
+                "name": "UI Canvas Ref",
+                "category": "UI"
             },
             "methods": [
                 {
                     "key": "GetCanvas",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetCanvas"
+                        "tooltip": "When signaled, this will invoke Get Canvas"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetCanvas is invoked"
+                        "tooltip": "Signaled after Get Canvas is invoked"
                     },
                     "details": {
-                        "name": "GetCanvas"
+                        "name": "Get Canvas",
+                        "tooltip": "Gets the canvas"
                     },
                     "results": [
                         {

@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "GraphManagerRequestBus"
+                "name": "GRAPHMANAGERREQUESTBUS_NAME",
+                "category": "GRAPHMANAGERREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {
@@ -34,7 +35,7 @@
                         {
                             "typeid": "{E51F56F8-D4E9-5C9F-AE6F-3F9C5D28F4C6}",
                             "details": {
-                                "name": "A"
+                                "name": ""
                             }
                         }
                     ]

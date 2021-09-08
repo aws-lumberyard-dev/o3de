@@ -82,9 +82,14 @@
                 "Modules":["Camera.Editor.dll"],
                 "SourcePaths":["Gems/Camera"]
             },
-            "PrefabBuilder":
+            "Maestro.Editor":
             {
-                "Modules":["PrefabBuilder.dll"],
+                "Modules":["Maestro.Editor.dll"],
+                "SourcePaths":["Gems/Maestro"]
+            },
+            "PrefabBuilder.Builders":
+            {
+                "Modules":["PrefabBuilder.Builders.dll"],
                 "SourcePaths":["Gems/Prefab/PrefabBuilder"]
             },
             "SceneProcessing.Editor":

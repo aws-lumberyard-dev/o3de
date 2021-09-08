@@ -30,6 +30,12 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Source\ExpressionEvaluationSystemComponent.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Source\ExpressionPrimitivesSerializers.inl">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Source\ElementInformationSerializer.inl">
+      <Filter>Source</Filter>
+    </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ExpressionEvaluation\Code\Source\ExpressionEngine\ExpressionElementParser.h">
       <Filter>Source\ExpressionEngine</Filter>
     </ClInclude>

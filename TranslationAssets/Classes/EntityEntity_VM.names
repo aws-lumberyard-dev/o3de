@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "EntityEntity_VM",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "EntityEntity_VM"
@@ -13,20 +13,21 @@
                     "context": "EntityEntity_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke EntityEntity_VM::ToString"
+                        "tooltip": "When signaled, this will invoke ToString"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after EntityEntity_VM::ToString is invoked"
+                        "tooltip": "Signaled after ToString is invoked"
                     },
                     "details": {
-                        "name": "EntityEntity_VM::ToString"
+                        "name": "EntityEntity_VM::ToString",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
+                                "name": "const EntityId&",
                                 "tooltip": "Entity Unique Id"
                             }
                         }
@@ -35,7 +36,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "AZStd::basic_string<char, AZStd::char_traits<char>, allocator>"
                             }
                         }
                     ]
@@ -45,20 +46,21 @@
                     "context": "EntityEntity_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke EntityEntity_VM::IsValid"
+                        "tooltip": "When signaled, this will invoke IsValid"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after EntityEntity_VM::IsValid is invoked"
+                        "tooltip": "Signaled after IsValid is invoked"
                     },
                     "details": {
-                        "name": "EntityEntity_VM::IsValid"
+                        "name": "EntityEntity_VM::IsValid",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
+                                "name": "const EntityId&",
                                 "tooltip": "Entity Unique Id"
                             }
                         }
@@ -77,14 +79,15 @@
                     "context": "EntityEntity_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke EntityEntity_VM::GetEntityForward"
+                        "tooltip": "When signaled, this will invoke GetEntityForward"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after EntityEntity_VM::GetEntityForward is invoked"
+                        "tooltip": "Signaled after GetEntityForward is invoked"
                     },
                     "details": {
-                        "name": "EntityEntity_VM::GetEntityForward"
+                        "name": "EntityEntity_VM::GetEntityForward",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -115,20 +118,21 @@
                     "context": "EntityEntity_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke EntityEntity_VM::IsActive"
+                        "tooltip": "When signaled, this will invoke IsActive"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after EntityEntity_VM::IsActive is invoked"
+                        "tooltip": "Signaled after IsActive is invoked"
                     },
                     "details": {
-                        "name": "EntityEntity_VM::IsActive"
+                        "name": "EntityEntity_VM::IsActive",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
+                                "name": "const EntityId&",
                                 "tooltip": "Entity Unique Id"
                             }
                         }
@@ -147,14 +151,15 @@
                     "context": "EntityEntity_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke EntityEntity_VM::GetEntityRight"
+                        "tooltip": "When signaled, this will invoke GetEntityRight"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after EntityEntity_VM::GetEntityRight is invoked"
+                        "tooltip": "Signaled after GetEntityRight is invoked"
                     },
                     "details": {
-                        "name": "EntityEntity_VM::GetEntityRight"
+                        "name": "EntityEntity_VM::GetEntityRight",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -185,14 +190,15 @@
                     "context": "EntityEntity_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke EntityEntity_VM::GetEntityUp"
+                        "tooltip": "When signaled, this will invoke GetEntityUp"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after EntityEntity_VM::GetEntityUp is invoked"
+                        "tooltip": "Signaled after GetEntityUp is invoked"
                     },
                     "details": {
-                        "name": "EntityEntity_VM::GetEntityUp"
+                        "name": "EntityEntity_VM::GetEntityUp",
+                        "category": "Other"
                     },
                     "params": [
                         {

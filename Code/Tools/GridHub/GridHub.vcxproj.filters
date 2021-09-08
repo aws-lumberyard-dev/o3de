@@ -32,6 +32,9 @@
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\GridHub\GridHub\GridHub.ui">
       <Filter>GridHub</Filter>
     </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\GridHub_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\ffe19ece1115f7af56e503d27608c43b\qrc_GridHub.cpp.rule">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -49,6 +52,15 @@
     </None>
     <None Include="J:\Atom\lyfork\o3de\Code\Tools\GridHub\Platform\Windows\platform_windows.cmake">
       <Filter>Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\GridHub_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\GridHub_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\GridHub_release.stamp">
+      <Filter>Generated Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

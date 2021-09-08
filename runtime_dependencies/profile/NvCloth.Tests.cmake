@@ -25,3 +25,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/profile/AzTestRunner.exe" "J:/Atom/lyfork/o3de/
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/LmbrCentral.dll" "J:/Atom/lyfork/o3de/bin/profile")
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/EMotionFX.dll" "J:/Atom/lyfork/o3de/bin/profile")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/profile/NvCloth.Tests_profile.stamp)

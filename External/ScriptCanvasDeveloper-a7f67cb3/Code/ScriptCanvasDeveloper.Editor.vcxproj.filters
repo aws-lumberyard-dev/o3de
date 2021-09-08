@@ -34,6 +34,9 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\XMLDoc.cpp">
       <Filter>Editor\Source</Filter>
     </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\Tools\TranslationBrowser\TranslationBrowser.cpp">
+      <Filter>Editor\Source\Tools\TranslationBrowser</Filter>
+    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\AutomationActions\DynamicSlotFullCreation.cpp">
       <Filter>Editor\Source\AutomationActions</Filter>
     </ClCompile>
@@ -216,6 +219,9 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\XMLDoc.h">
       <Filter>Editor\Source</Filter>
     </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\Tools\TranslationBrowser\TranslationBrowser.h">
+      <Filter>Editor\Source\Tools\TranslationBrowser</Filter>
+    </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomationTests\EditorAutomationTests.h">
       <Filter>Editor\Source\EditorAutomationTests</Filter>
     </ClInclude>
@@ -234,14 +240,32 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\EditorAutomationTests\VariableTests.h">
       <Filter>Editor\Source\EditorAutomationTests</Filter>
     </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\External\ScriptCanvasDeveloper-a7f67cb3\Code\ScriptCanvasDeveloper.Editor_autogen\include\Editor\Source\Tools\TranslationBrowser\ui_TranslationBrowser.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\Editor\Source\Tools\TranslationBrowser\TranslationBrowser.ui">
+      <Filter>Editor\Source\Tools\TranslationBrowser</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\ScriptCanvasDeveloper.Editor_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\CMakeLists.txt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasDeveloper\Code\scriptcanvasdeveloper_gem_editor_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\ScriptCanvasDeveloper.Editor_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\ScriptCanvasDeveloper.Editor_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\ScriptCanvasDeveloper.Editor_release.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Editor">
@@ -288,6 +312,12 @@
     </Filter>
     <Filter Include="Editor\Source\EditorAutomation\EditorAutomationStates">
       <UniqueIdentifier>{A5C90F54-1B15-3744-8F0F-420312253AB7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Source\Tools">
+      <UniqueIdentifier>{DD8A0717-D34C-38A1-8A38-9063FF55CA6A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Source\Tools\TranslationBrowser">
+      <UniqueIdentifier>{B772AFC4-3C42-322B-9FCD-8894758CED11}</UniqueIdentifier>
     </Filter>
     <Filter Include="Generated Files">
       <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>

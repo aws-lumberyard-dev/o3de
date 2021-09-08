@@ -5,7 +5,8 @@
             "context": "EBusHandler",
             "variant": "",
             "details": {
-                "name": "TagGlobalNotificationBus"
+                "name": "Tag",
+                "category": "Gameplay"
             },
             "methods": [
                 {
@@ -17,8 +18,8 @@
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Entity",
+                                "tooltip": "The ID of the entity that the tag was added to"
                             }
                         }
                     ]
@@ -32,8 +33,8 @@
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Entity",
+                                "tooltip": "The ID of the entity that the tag was removed from"
                             }
                         }
                     ]

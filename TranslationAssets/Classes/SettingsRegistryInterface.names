@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "SettingsRegistryInterface",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "SettingsRegistryInterface"
@@ -13,14 +13,15 @@
                     "context": "SettingsRegistryInterface",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SettingsRegistryInterface::GetFloat"
+                        "tooltip": "When signaled, this will invoke GetFloat"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SettingsRegistryInterface::GetFloat is invoked"
+                        "tooltip": "Signaled after GetFloat is invoked"
                     },
                     "details": {
-                        "name": "SettingsRegistryInterface::GetFloat"
+                        "name": "SettingsRegistryInterface::GetFloat",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -50,14 +51,15 @@
                     "context": "SettingsRegistryInterface",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SettingsRegistryInterface::SetFloat"
+                        "tooltip": "When signaled, this will invoke SetFloat"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SettingsRegistryInterface::SetFloat is invoked"
+                        "tooltip": "Signaled after SetFloat is invoked"
                     },
                     "details": {
-                        "name": "SettingsRegistryInterface::SetFloat"
+                        "name": "SettingsRegistryInterface::SetFloat",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -93,14 +95,15 @@
                     "context": "SettingsRegistryInterface",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SettingsRegistryInterface::RemoveKey"
+                        "tooltip": "When signaled, this will invoke RemoveKey"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SettingsRegistryInterface::RemoveKey is invoked"
+                        "tooltip": "Signaled after RemoveKey is invoked"
                     },
                     "details": {
-                        "name": "SettingsRegistryInterface::RemoveKey"
+                        "name": "SettingsRegistryInterface::RemoveKey",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -130,14 +133,15 @@
                     "context": "SettingsRegistryInterface",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SettingsRegistryInterface::SetInt"
+                        "tooltip": "When signaled, this will invoke SetInt"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SettingsRegistryInterface::SetInt is invoked"
+                        "tooltip": "Signaled after SetInt is invoked"
                     },
                     "details": {
-                        "name": "SettingsRegistryInterface::SetInt"
+                        "name": "SettingsRegistryInterface::SetInt",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -173,14 +177,15 @@
                     "context": "SettingsRegistryInterface",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SettingsRegistryInterface::SetUInt"
+                        "tooltip": "When signaled, this will invoke SetUInt"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SettingsRegistryInterface::SetUInt is invoked"
+                        "tooltip": "Signaled after SetUInt is invoked"
                     },
                     "details": {
-                        "name": "SettingsRegistryInterface::SetUInt"
+                        "name": "SettingsRegistryInterface::SetUInt",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -216,14 +221,15 @@
                     "context": "SettingsRegistryInterface",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SettingsRegistryInterface::GetBool"
+                        "tooltip": "When signaled, this will invoke GetBool"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SettingsRegistryInterface::GetBool is invoked"
+                        "tooltip": "Signaled after GetBool is invoked"
                     },
                     "details": {
-                        "name": "SettingsRegistryInterface::GetBool"
+                        "name": "SettingsRegistryInterface::GetBool",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -243,7 +249,7 @@
                         {
                             "typeid": "{0170062C-2E7E-5CEB-BAB8-F7663BEF7B3E}",
                             "details": {
-                                "name": "AZStd::optional"
+                                "name": "AZStd::optional<bool>"
                             }
                         }
                     ]
@@ -253,14 +259,15 @@
                     "context": "SettingsRegistryInterface",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SettingsRegistryInterface::GetInt"
+                        "tooltip": "When signaled, this will invoke GetInt"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SettingsRegistryInterface::GetInt is invoked"
+                        "tooltip": "Signaled after GetInt is invoked"
                     },
                     "details": {
-                        "name": "SettingsRegistryInterface::GetInt"
+                        "name": "SettingsRegistryInterface::GetInt",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -290,14 +297,15 @@
                     "context": "SettingsRegistryInterface",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SettingsRegistryInterface::GetUInt"
+                        "tooltip": "When signaled, this will invoke GetUInt"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SettingsRegistryInterface::GetUInt is invoked"
+                        "tooltip": "Signaled after GetUInt is invoked"
                     },
                     "details": {
-                        "name": "SettingsRegistryInterface::GetUInt"
+                        "name": "SettingsRegistryInterface::GetUInt",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -317,7 +325,7 @@
                         {
                             "typeid": "{858A22B8-1B5E-5016-BF33-B2469DD9CAD3}",
                             "details": {
-                                "name": "AZStd::optional"
+                                "name": "AZStd::optional<AZ::u64>"
                             }
                         }
                     ]
@@ -327,14 +335,15 @@
                     "context": "SettingsRegistryInterface",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SettingsRegistryInterface::GetNotifyEvent"
+                        "tooltip": "When signaled, this will invoke GetNotifyEvent"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SettingsRegistryInterface::GetNotifyEvent is invoked"
+                        "tooltip": "Signaled after GetNotifyEvent is invoked"
                     },
                     "details": {
-                        "name": "SettingsRegistryInterface::GetNotifyEvent"
+                        "name": "SettingsRegistryInterface::GetNotifyEvent",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -358,14 +367,15 @@
                     "context": "SettingsRegistryInterface",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SettingsRegistryInterface::MergeSettings"
+                        "tooltip": "When signaled, this will invoke MergeSettings"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SettingsRegistryInterface::MergeSettings is invoked"
+                        "tooltip": "Signaled after MergeSettings is invoked"
                     },
                     "details": {
-                        "name": "SettingsRegistryInterface::MergeSettings"
+                        "name": "SettingsRegistryInterface::MergeSettings",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -401,14 +411,15 @@
                     "context": "SettingsRegistryInterface",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SettingsRegistryInterface::MergeSettingsFile"
+                        "tooltip": "When signaled, this will invoke MergeSettingsFile"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SettingsRegistryInterface::MergeSettingsFile is invoked"
+                        "tooltip": "Signaled after MergeSettingsFile is invoked"
                     },
                     "details": {
-                        "name": "SettingsRegistryInterface::MergeSettingsFile"
+                        "name": "SettingsRegistryInterface::MergeSettingsFile",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -450,14 +461,15 @@
                     "context": "SettingsRegistryInterface",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SettingsRegistryInterface::GetString"
+                        "tooltip": "When signaled, this will invoke GetString"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SettingsRegistryInterface::GetString is invoked"
+                        "tooltip": "Signaled after GetString is invoked"
                     },
                     "details": {
-                        "name": "SettingsRegistryInterface::GetString"
+                        "name": "SettingsRegistryInterface::GetString",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -477,7 +489,7 @@
                         {
                             "typeid": "{B0D91084-263A-54B9-A4F3-7C5F4240E248}",
                             "details": {
-                                "name": "AZStd::optional"
+                                "name": "AZStd::optional<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>>"
                             }
                         }
                     ]
@@ -487,14 +499,15 @@
                     "context": "SettingsRegistryInterface",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SettingsRegistryInterface::IsValid"
+                        "tooltip": "When signaled, this will invoke IsValid"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SettingsRegistryInterface::IsValid is invoked"
+                        "tooltip": "Signaled after IsValid is invoked"
                     },
                     "details": {
-                        "name": "SettingsRegistryInterface::IsValid"
+                        "name": "SettingsRegistryInterface::IsValid",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -518,14 +531,15 @@
                     "context": "SettingsRegistryInterface",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SettingsRegistryInterface::MergeSettingsFolder"
+                        "tooltip": "When signaled, this will invoke MergeSettingsFolder"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SettingsRegistryInterface::MergeSettingsFolder is invoked"
+                        "tooltip": "Signaled after MergeSettingsFolder is invoked"
                     },
                     "details": {
-                        "name": "SettingsRegistryInterface::MergeSettingsFolder"
+                        "name": "SettingsRegistryInterface::MergeSettingsFolder",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -567,14 +581,15 @@
                     "context": "SettingsRegistryInterface",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SettingsRegistryInterface::SetBool"
+                        "tooltip": "When signaled, this will invoke SetBool"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SettingsRegistryInterface::SetBool is invoked"
+                        "tooltip": "Signaled after SetBool is invoked"
                     },
                     "details": {
-                        "name": "SettingsRegistryInterface::SetBool"
+                        "name": "SettingsRegistryInterface::SetBool",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -610,14 +625,15 @@
                     "context": "SettingsRegistryInterface",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SettingsRegistryInterface::SetString"
+                        "tooltip": "When signaled, this will invoke SetString"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SettingsRegistryInterface::SetString is invoked"
+                        "tooltip": "Signaled after SetString is invoked"
                     },
                     "details": {
-                        "name": "SettingsRegistryInterface::SetString"
+                        "name": "SettingsRegistryInterface::SetString",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -653,14 +669,15 @@
                     "context": "SettingsRegistryInterface",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SettingsRegistryInterface::DumpSettings"
+                        "tooltip": "When signaled, this will invoke DumpSettings"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SettingsRegistryInterface::DumpSettings is invoked"
+                        "tooltip": "Signaled after DumpSettings is invoked"
                     },
                     "details": {
-                        "name": "SettingsRegistryInterface::DumpSettings"
+                        "name": "SettingsRegistryInterface::DumpSettings",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -680,7 +697,7 @@
                         {
                             "typeid": "{B0D91084-263A-54B9-A4F3-7C5F4240E248}",
                             "details": {
-                                "name": "AZStd::optional"
+                                "name": "AZStd::optional<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>>"
                             }
                         }
                     ]

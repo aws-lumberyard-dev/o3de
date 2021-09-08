@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "AssetEditorRequestBus"
+                "name": "ASSETEDITORREQUESTBUS_NAME",
+                "category": "ASSETEDITORREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZ::Render::EditorPostFxLayerComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "AZ::Render::EditorPostFxLayerComponent"

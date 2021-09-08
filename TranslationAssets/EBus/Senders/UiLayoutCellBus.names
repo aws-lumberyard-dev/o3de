@@ -5,27 +5,30 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiLayoutCellBus"
+                "name": "UI Layout Cell",
+                "category": "UI"
             },
             "methods": [
                 {
                     "key": "SetExtraHeightRatio",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetExtraHeightRatio"
+                        "tooltip": "When signaled, this will invoke Set Extra Height Ratio"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetExtraHeightRatio is invoked"
+                        "tooltip": "Signaled after Set Extra Height Ratio is invoked"
                     },
                     "details": {
-                        "name": "SetExtraHeightRatio"
+                        "name": "Set Extra Height Ratio",
+                        "tooltip": "Sets the overridden extra height ratio for the element"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Extra Height Ratio",
+                                "tooltip": "The overridden extra height ratio for the element. A value of –1 means don’t override"
                             }
                         }
                     ]
@@ -34,14 +37,15 @@
                     "key": "GetExtraWidthRatio",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetExtraWidthRatio"
+                        "tooltip": "When signaled, this will invoke Get Extra Width Ratio"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetExtraWidthRatio is invoked"
+                        "tooltip": "Signaled after Get Extra Width Ratio is invoked"
                     },
                     "details": {
-                        "name": "GetExtraWidthRatio"
+                        "name": "Get Extra Width Ratio",
+                        "tooltip": "Gets the overridden extra width ratio for the element"
                     },
                     "results": [
                         {
@@ -56,20 +60,22 @@
                     "key": "SetExtraWidthRatio",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetExtraWidthRatio"
+                        "tooltip": "When signaled, this will invoke Set Extra Width Ratio"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetExtraWidthRatio is invoked"
+                        "tooltip": "Signaled after Set Extra Width Ratio is invoked"
                     },
                     "details": {
-                        "name": "SetExtraWidthRatio"
+                        "name": "Set Extra Width Ratio",
+                        "tooltip": "Sets the overridden extra width ratio for the element"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Extra Width Ratio",
+                                "tooltip": "The overridden extra width ratio for the element. A value of –1 means don’t override"
                             }
                         }
                     ]
@@ -166,14 +172,15 @@
                     "key": "GetExtraHeightRatio",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetExtraHeightRatio"
+                        "tooltip": "When signaled, this will invoke Get Extra Height Ratio"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetExtraHeightRatio is invoked"
+                        "tooltip": "Signaled after Get Extra Height Ratio is invoked"
                     },
                     "details": {
-                        "name": "GetExtraHeightRatio"
+                        "name": "Get Extra Height Ratio",
+                        "tooltip": "Gets the overridden extra height ratio for the element"
                     },
                     "results": [
                         {
@@ -188,14 +195,15 @@
                     "key": "GetTargetHeight",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetTargetHeight"
+                        "tooltip": "When signaled, this will invoke Get Target Height"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetTargetHeight is invoked"
+                        "tooltip": "Signaled after Get Target Height is invoked"
                     },
                     "details": {
-                        "name": "GetTargetHeight"
+                        "name": "Get Target Height",
+                        "tooltip": "Gets the overridden target height for the element"
                     },
                     "results": [
                         {
@@ -210,20 +218,22 @@
                     "key": "SetMinWidth",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetMinWidth"
+                        "tooltip": "When signaled, this will invoke Set Min Width"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetMinWidth is invoked"
+                        "tooltip": "Signaled after Set Min Width is invoked"
                     },
                     "details": {
-                        "name": "SetMinWidth"
+                        "name": "Set Min Width",
+                        "tooltip": "Sets the overridden minimum width for the element"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Min Width",
+                                "tooltip": "The overridden minimum width for the element. A value of –1 means don’t override"
                             }
                         }
                     ]
@@ -232,20 +242,22 @@
                     "key": "SetMinHeight",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetMinHeight"
+                        "tooltip": "When signaled, this will invoke Set Min Height"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetMinHeight is invoked"
+                        "tooltip": "Signaled after Set Min Height is invoked"
                     },
                     "details": {
-                        "name": "SetMinHeight"
+                        "name": "Set Min Height",
+                        "tooltip": "Sets the overridden minimum height for the element"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Min Height",
+                                "tooltip": "The overridden minimum height for the element. A value of –1 means don’t override"
                             }
                         }
                     ]
@@ -254,14 +266,15 @@
                     "key": "GetMinWidth",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetMinWidth"
+                        "tooltip": "When signaled, this will invoke Get Min Width"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetMinWidth is invoked"
+                        "tooltip": "Signaled after Get Min Width is invoked"
                     },
                     "details": {
-                        "name": "GetMinWidth"
+                        "name": "Get Min Width",
+                        "tooltip": "Gets the overridden minimum width for the element"
                     },
                     "results": [
                         {
@@ -276,14 +289,15 @@
                     "key": "GetMinHeight",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetMinHeight"
+                        "tooltip": "When signaled, this will invoke Get Min Height"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetMinHeight is invoked"
+                        "tooltip": "Signaled after Get Min Height is invoked"
                     },
                     "details": {
-                        "name": "GetMinHeight"
+                        "name": "Get Min Height",
+                        "tooltip": "Gets the overridden minimum height for the element"
                     },
                     "results": [
                         {
@@ -298,14 +312,15 @@
                     "key": "GetTargetWidth",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetTargetWidth"
+                        "tooltip": "When signaled, this will invoke Get Target Width"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetTargetWidth is invoked"
+                        "tooltip": "Signaled after Get Target Width is invoked"
                     },
                     "details": {
-                        "name": "GetTargetWidth"
+                        "name": "Get Target Width",
+                        "tooltip": "Gets the overridden target width for the element"
                     },
                     "results": [
                         {
@@ -320,20 +335,22 @@
                     "key": "SetTargetWidth",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetTargetWidth"
+                        "tooltip": "When signaled, this will invoke Set Target Width"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetTargetWidth is invoked"
+                        "tooltip": "Signaled after Set Target Width is invoked"
                     },
                     "details": {
-                        "name": "SetTargetWidth"
+                        "name": "Set Target Width",
+                        "tooltip": "Sets the overridden target width for the element"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Target Width",
+                                "tooltip": "The overridden target width for the element. A value of –1 means don’t override"
                             }
                         }
                     ]
@@ -342,20 +359,22 @@
                     "key": "SetTargetHeight",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetTargetHeight"
+                        "tooltip": "When signaled, this will invoke Set Target Height"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetTargetHeight is invoked"
+                        "tooltip": "Signaled after Set Target Height is invoked"
                     },
                     "details": {
-                        "name": "SetTargetHeight"
+                        "name": "Set Target Height",
+                        "tooltip": "Sets the overridden target height for the element"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Target Height",
+                                "tooltip": "The overridden target height for the element. A value of –1 means don’t override"
                             }
                         }
                     ]

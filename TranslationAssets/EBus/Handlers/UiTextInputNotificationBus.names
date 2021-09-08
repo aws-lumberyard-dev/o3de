@@ -5,7 +5,8 @@
             "context": "EBusHandler",
             "variant": "",
             "details": {
-                "name": "UiTextInputNotificationBus"
+                "name": "UI Text Input",
+                "category": "UI"
             },
             "methods": [
                 {
@@ -17,7 +18,8 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Text",
+                                "tooltip": "The new text string"
                             }
                         }
                     ]
@@ -31,7 +33,8 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Text",
+                                "tooltip": "The text string"
                             }
                         }
                     ]
@@ -45,7 +48,8 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Text",
+                                "tooltip": "The text string"
                             }
                         }
                     ]

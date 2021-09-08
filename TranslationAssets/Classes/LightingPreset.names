@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "LightingPreset",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "LightingPreset"

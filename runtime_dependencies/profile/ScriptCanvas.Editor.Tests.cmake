@@ -96,3 +96,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/profile/ScriptEvents.dll" "J:/Atom/lyfork/o3de/
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/ScriptCanvas.dll" "J:/Atom/lyfork/o3de/bin/profile")
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/AzTestRunner.exe" "J:/Atom/lyfork/o3de/bin/profile")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/profile/ScriptCanvas.Editor.Tests_profile.stamp)

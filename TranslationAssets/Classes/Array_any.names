@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZStd::vector<any, allocator>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Array<any>",
@@ -15,20 +15,21 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::Size"
+                        "tooltip": "When signaled, this will invoke Size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::Size is invoked"
+                        "tooltip": "Signaled after Size is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::Size"
+                        "name": "AZStd::vector<any, allocator>::Size",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>&"
                             }
                         }
                     ],
@@ -46,20 +47,21 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::Front"
+                        "tooltip": "When signaled, this will invoke Front"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::Front is invoked"
+                        "tooltip": "Signaled after Front is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::Front"
+                        "name": "AZStd::vector<any, allocator>::Front",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>*"
                             }
                         }
                     ],
@@ -67,7 +69,7 @@
                         {
                             "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
                             "details": {
-                                "name": "any"
+                                "name": "any&"
                             }
                         }
                     ]
@@ -77,20 +79,21 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::Has Key"
+                        "tooltip": "When signaled, this will invoke HasKey"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::Has Key is invoked"
+                        "tooltip": "Signaled after HasKey is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::Has Key"
+                        "name": "AZStd::vector<any, allocator>::Has Key",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>&"
                             }
                         },
                         {
@@ -114,20 +117,21 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::Resize"
+                        "tooltip": "When signaled, this will invoke Resize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::Resize is invoked"
+                        "tooltip": "Signaled after Resize is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::Resize"
+                        "name": "AZStd::vector<any, allocator>::Resize",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>*"
                             }
                         },
                         {
@@ -143,20 +147,21 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::at"
+                        "tooltip": "When signaled, this will invoke at"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::at is invoked"
+                        "tooltip": "Signaled after at is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::at"
+                        "name": "AZStd::vector<any, allocator>::at",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>*"
                             }
                         },
                         {
@@ -170,7 +175,7 @@
                         {
                             "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
                             "details": {
-                                "name": "any"
+                                "name": "any&"
                             }
                         }
                     ]
@@ -180,20 +185,21 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::Back"
+                        "tooltip": "When signaled, this will invoke Back"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::Back is invoked"
+                        "tooltip": "Signaled after Back is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::Back"
+                        "name": "AZStd::vector<any, allocator>::Back",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>*"
                             }
                         }
                     ],
@@ -201,7 +207,7 @@
                         {
                             "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
                             "details": {
-                                "name": "any"
+                                "name": "any&"
                             }
                         }
                     ]
@@ -211,20 +217,21 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::pop_back"
+                        "tooltip": "When signaled, this will invoke pop_back"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::pop_back is invoked"
+                        "tooltip": "Signaled after pop_back is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::pop_back"
+                        "name": "AZStd::vector<any, allocator>::pop_back",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>*"
                             }
                         }
                     ]
@@ -234,20 +241,21 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::size"
+                        "tooltip": "When signaled, this will invoke size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::size is invoked"
+                        "tooltip": "Signaled after size is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::size"
+                        "name": "AZStd::vector<any, allocator>::size",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>&"
                             }
                         }
                     ],
@@ -265,20 +273,21 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::At"
+                        "tooltip": "When signaled, this will invoke At"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::At is invoked"
+                        "tooltip": "Signaled after At is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::At"
+                        "name": "AZStd::vector<any, allocator>::At",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>*"
                             }
                         },
                         {
@@ -292,7 +301,7 @@
                         {
                             "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
                             "details": {
-                                "name": "any"
+                                "name": "any&"
                             }
                         }
                     ]
@@ -302,20 +311,21 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::Empty"
+                        "tooltip": "When signaled, this will invoke Empty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::Empty is invoked"
+                        "tooltip": "Signaled after Empty is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::Empty"
+                        "name": "AZStd::vector<any, allocator>::Empty",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>*"
                             }
                         }
                     ],
@@ -333,26 +343,27 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::Swap"
+                        "tooltip": "When signaled, this will invoke Swap"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::Swap is invoked"
+                        "tooltip": "Signaled after Swap is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::Swap"
+                        "name": "AZStd::vector<any, allocator>::Swap",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>*"
                             }
                         },
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>&"
                             }
                         }
                     ]
@@ -362,26 +373,27 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::push_back"
+                        "tooltip": "When signaled, this will invoke push_back"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::push_back is invoked"
+                        "tooltip": "Signaled after push_back is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::push_back"
+                        "name": "AZStd::vector<any, allocator>::push_back",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>*"
                             }
                         },
                         {
                             "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
                             "details": {
-                                "name": "any"
+                                "name": "const any&"
                             }
                         }
                     ]
@@ -391,26 +403,27 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::PushBack_VM"
+                        "tooltip": "When signaled, this will invoke PushBack_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::PushBack_VM is invoked"
+                        "tooltip": "Signaled after PushBack_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::PushBack_VM"
+                        "name": "AZStd::vector<any, allocator>::PushBack_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>&"
                             }
                         },
                         {
                             "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
                             "details": {
-                                "name": "any"
+                                "name": "const any&"
                             }
                         }
                     ],
@@ -418,7 +431,7 @@
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>&"
                             }
                         }
                     ]
@@ -428,20 +441,21 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::AtUnchecked"
+                        "tooltip": "When signaled, this will invoke AtUnchecked"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::AtUnchecked is invoked"
+                        "tooltip": "Signaled after AtUnchecked is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::AtUnchecked"
+                        "name": "AZStd::vector<any, allocator>::AtUnchecked",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>*"
                             }
                         },
                         {
@@ -455,7 +469,7 @@
                         {
                             "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
                             "details": {
-                                "name": "any"
+                                "name": "any&"
                             }
                         }
                     ]
@@ -465,20 +479,21 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::clear"
+                        "tooltip": "When signaled, this will invoke clear"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::clear is invoked"
+                        "tooltip": "Signaled after clear is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::clear"
+                        "name": "AZStd::vector<any, allocator>::clear",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>*"
                             }
                         }
                     ]
@@ -488,20 +503,21 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::NotEmpty"
+                        "tooltip": "When signaled, this will invoke NotEmpty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::NotEmpty is invoked"
+                        "tooltip": "Signaled after NotEmpty is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::NotEmpty"
+                        "name": "AZStd::vector<any, allocator>::NotEmpty",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>&"
                             }
                         }
                     ],
@@ -519,20 +535,21 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::Erase_VM"
+                        "tooltip": "When signaled, this will invoke Erase_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::Erase_VM is invoked"
+                        "tooltip": "Signaled after Erase_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::Erase_VM"
+                        "name": "AZStd::vector<any, allocator>::Erase_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>&"
                             }
                         },
                         {
@@ -546,7 +563,7 @@
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>&"
                             }
                         }
                     ]
@@ -556,20 +573,21 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::EraseCheck_VM"
+                        "tooltip": "When signaled, this will invoke EraseCheck_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::EraseCheck_VM is invoked"
+                        "tooltip": "Signaled after EraseCheck_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::EraseCheck_VM"
+                        "name": "AZStd::vector<any, allocator>::EraseCheck_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>&"
                             }
                         },
                         {
@@ -593,20 +611,21 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::Capacity"
+                        "tooltip": "When signaled, this will invoke Capacity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::Capacity is invoked"
+                        "tooltip": "Signaled after Capacity is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::Capacity"
+                        "name": "AZStd::vector<any, allocator>::Capacity",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>*"
                             }
                         }
                     ],
@@ -624,20 +643,21 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::Clear"
+                        "tooltip": "When signaled, this will invoke Clear"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::Clear is invoked"
+                        "tooltip": "Signaled after Clear is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::Clear"
+                        "name": "AZStd::vector<any, allocator>::Clear",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>&"
                             }
                         }
                     ],
@@ -645,7 +665,7 @@
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>&"
                             }
                         }
                     ]
@@ -655,20 +675,21 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::AssignAt"
+                        "tooltip": "When signaled, this will invoke AssignAt"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::AssignAt is invoked"
+                        "tooltip": "Signaled after AssignAt is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::AssignAt"
+                        "name": "AZStd::vector<any, allocator>::AssignAt",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>&"
                             }
                         },
                         {
@@ -680,7 +701,7 @@
                         {
                             "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
                             "details": {
-                                "name": "any"
+                                "name": "any&"
                             }
                         }
                     ]
@@ -690,20 +711,21 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::GetSize"
+                        "tooltip": "When signaled, this will invoke GetSize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::GetSize is invoked"
+                        "tooltip": "Signaled after GetSize is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::GetSize"
+                        "name": "AZStd::vector<any, allocator>::GetSize",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>&"
                             }
                         }
                     ],
@@ -721,20 +743,21 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::Insert"
+                        "tooltip": "When signaled, this will invoke Insert"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::Insert is invoked"
+                        "tooltip": "Signaled after Insert is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::Insert"
+                        "name": "AZStd::vector<any, allocator>::Insert",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>&"
                             }
                         },
                         {
@@ -746,7 +769,7 @@
                         {
                             "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
                             "details": {
-                                "name": "any"
+                                "name": "const any&"
                             }
                         }
                     ],
@@ -754,7 +777,7 @@
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>&"
                             }
                         }
                     ]
@@ -764,26 +787,27 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::PushBack"
+                        "tooltip": "When signaled, this will invoke PushBack"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::PushBack is invoked"
+                        "tooltip": "Signaled after PushBack is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::PushBack"
+                        "name": "AZStd::vector<any, allocator>::PushBack",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>*"
                             }
                         },
                         {
                             "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
                             "details": {
-                                "name": "any"
+                                "name": "const any&"
                             }
                         }
                     ]
@@ -793,20 +817,21 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::Reserve"
+                        "tooltip": "When signaled, this will invoke Reserve"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::Reserve is invoked"
+                        "tooltip": "Signaled after Reserve is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::Reserve"
+                        "name": "AZStd::vector<any, allocator>::Reserve",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>*"
                             }
                         },
                         {
@@ -822,20 +847,21 @@
                     "context": "Array<any>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<any, allocator>::Iterate_VM"
+                        "tooltip": "When signaled, this will invoke Iterate_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<any, allocator>::Iterate_VM is invoked"
+                        "tooltip": "Signaled after Iterate_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<any, allocator>::Iterate_VM"
+                        "name": "AZStd::vector<any, allocator>::Iterate_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{FA815A11-0F6B-5BB9-8C9F-71669EB6D4B0}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<any, allocator>&"
                             }
                         }
                     ],

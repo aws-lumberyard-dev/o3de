@@ -5,28 +5,30 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "AudioListenerComponentRequestBus"
+                "name": "Audio Listener",
+                "category": "Audio"
             },
             "methods": [
                 {
                     "key": "SetRotationEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetRotationEntity"
+                        "tooltip": "When signaled, this will invoke Set Rotation Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetRotationEntity is invoked"
+                        "tooltip": "Signaled after Set Rotation Entity is invoked"
                     },
                     "details": {
-                        "name": "SetRotationEntity"
+                        "name": "Set Rotation Entity",
+                        "tooltip": "Specify the entity with the rotational part of the transform that the audio listener will adopt."
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "EntityID",
+                                "tooltip": "The entity to use for the rotational part of the transform"
                             }
                         }
                     ]
@@ -35,21 +37,22 @@
                     "key": "SetPositionEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetPositionEntity"
+                        "tooltip": "When signaled, this will invoke Set Position Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetPositionEntity is invoked"
+                        "tooltip": "Signaled after Set Position Entity is invoked"
                     },
                     "details": {
-                        "name": "SetPositionEntity"
+                        "name": "Set Position Entity",
+                        "tooltip": "Specify the entity with the positional part of the transform that the audio listener will adopt."
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "EntityID",
+                                "tooltip": "The entity to use for the positional part of the transform"
                             }
                         }
                     ]
@@ -58,21 +61,22 @@
                     "key": "SetFullTransformEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetFullTransformEntity"
+                        "tooltip": "When signaled, this will invoke Set Full Transform Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetFullTransformEntity is invoked"
+                        "tooltip": "Signaled after Set Full Transform Entity is invoked"
                     },
                     "details": {
-                        "name": "SetFullTransformEntity"
+                        "name": "Set Full Transform Entity",
+                        "tooltip": "Specify the entity with the full transform that the audio listener will adopt"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "EntityID",
+                                "tooltip": "Entity to use for the transform"
                             }
                         }
                     ]

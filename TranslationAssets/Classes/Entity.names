@@ -2,10 +2,11 @@
     "entries": [
         {
             "key": "Entity",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
-                "name": "Entity"
+                "name": "Entity",
+                "category": "Entity"
             },
             "methods": [
                 {
@@ -13,20 +14,21 @@
                     "context": "Entity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Entity::GetComponentName"
+                        "tooltip": "When signaled, this will invoke GetComponentName"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Entity::GetComponentName is invoked"
+                        "tooltip": "Signaled after GetComponentName is invoked"
                     },
                     "details": {
-                        "name": "Entity::GetComponentName"
+                        "name": "Entity::GetComponentName",
+                        "category": "Entity"
                     },
                     "params": [
                         {
                             "typeid": "{41CC88A4-FE07-48E6-943D-998DE68AFF5C}",
                             "details": {
-                                "name": "Entity",
+                                "name": "BehaviorEntity*",
                                 "tooltip": "Entity"
                             }
                         },
@@ -41,7 +43,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "AZStd::vector<AZ::u64, allocator>"
                             }
                         }
                     ]
@@ -51,20 +53,21 @@
                     "context": "Entity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Entity::GetComponentType"
+                        "tooltip": "When signaled, this will invoke GetComponentType"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Entity::GetComponentType is invoked"
+                        "tooltip": "Signaled after GetComponentType is invoked"
                     },
                     "details": {
-                        "name": "Entity::GetComponentType"
+                        "name": "Entity::GetComponentType",
+                        "category": "Entity"
                     },
                     "params": [
                         {
                             "typeid": "{41CC88A4-FE07-48E6-943D-998DE68AFF5C}",
                             "details": {
-                                "name": "Entity",
+                                "name": "BehaviorEntity*",
                                 "tooltip": "Entity"
                             }
                         },
@@ -79,7 +82,7 @@
                         {
                             "typeid": "{E152C105-A133-4D03-BBF8-3D4B2FBA3E2A}",
                             "details": {
-                                "name": "AZ::Uuid"
+                                "name": "Uuid"
                             }
                         }
                     ]
@@ -89,33 +92,34 @@
                     "context": "Entity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Entity::CreateComponent"
+                        "tooltip": "When signaled, this will invoke CreateComponent"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Entity::CreateComponent is invoked"
+                        "tooltip": "Signaled after CreateComponent is invoked"
                     },
                     "details": {
-                        "name": "Entity::CreateComponent"
+                        "name": "Entity::CreateComponent",
+                        "category": "Entity"
                     },
                     "params": [
                         {
                             "typeid": "{41CC88A4-FE07-48E6-943D-998DE68AFF5C}",
                             "details": {
-                                "name": "Entity",
+                                "name": "BehaviorEntity*",
                                 "tooltip": "Entity"
                             }
                         },
                         {
                             "typeid": "{E152C105-A133-4D03-BBF8-3D4B2FBA3E2A}",
                             "details": {
-                                "name": "AZ::Uuid"
+                                "name": "const AZ::Uuid&"
                             }
                         },
                         {
                             "typeid": "{0A7929DF-2932-40EA-B2B3-79BC1C3490D0}",
                             "details": {
-                                "name": "ComponentConfig"
+                                "name": "const ComponentConfig*"
                             }
                         }
                     ],
@@ -123,7 +127,7 @@
                         {
                             "typeid": "{60A9A069-9C3D-465A-B7AD-0D6CC803990A}",
                             "details": {
-                                "name": "BehaviorComponentId"
+                                "name": "Number"
                             }
                         }
                     ]
@@ -133,20 +137,21 @@
                     "context": "Entity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Entity::DestroyComponent"
+                        "tooltip": "When signaled, this will invoke DestroyComponent"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Entity::DestroyComponent is invoked"
+                        "tooltip": "Signaled after DestroyComponent is invoked"
                     },
                     "details": {
-                        "name": "Entity::DestroyComponent"
+                        "name": "Entity::DestroyComponent",
+                        "category": "Entity"
                     },
                     "params": [
                         {
                             "typeid": "{41CC88A4-FE07-48E6-943D-998DE68AFF5C}",
                             "details": {
-                                "name": "Entity",
+                                "name": "BehaviorEntity*",
                                 "tooltip": "Entity"
                             }
                         },
@@ -161,7 +166,7 @@
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Boolean"
                             }
                         }
                     ]
@@ -171,27 +176,28 @@
                     "context": "Entity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Entity::FindComponentOfType"
+                        "tooltip": "When signaled, this will invoke FindComponentOfType"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Entity::FindComponentOfType is invoked"
+                        "tooltip": "Signaled after FindComponentOfType is invoked"
                     },
                     "details": {
-                        "name": "Entity::FindComponentOfType"
+                        "name": "Entity::FindComponentOfType",
+                        "category": "Entity"
                     },
                     "params": [
                         {
                             "typeid": "{41CC88A4-FE07-48E6-943D-998DE68AFF5C}",
                             "details": {
-                                "name": "Entity",
+                                "name": "BehaviorEntity*",
                                 "tooltip": "Entity"
                             }
                         },
                         {
                             "typeid": "{E152C105-A133-4D03-BBF8-3D4B2FBA3E2A}",
                             "details": {
-                                "name": "AZ::Uuid"
+                                "name": "const AZ::Uuid&"
                             }
                         }
                     ],
@@ -199,7 +205,7 @@
                         {
                             "typeid": "{60A9A069-9C3D-465A-B7AD-0D6CC803990A}",
                             "details": {
-                                "name": "BehaviorComponentId"
+                                "name": "Component ID"
                             }
                         }
                     ]
@@ -209,20 +215,21 @@
                     "context": "Entity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Entity::SetComponentConfiguration"
+                        "tooltip": "When signaled, this will invoke SetComponentConfiguration"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Entity::SetComponentConfiguration is invoked"
+                        "tooltip": "Signaled after SetComponentConfiguration is invoked"
                     },
                     "details": {
-                        "name": "Entity::SetComponentConfiguration"
+                        "name": "Entity::SetComponentConfiguration",
+                        "category": "Entity"
                     },
                     "params": [
                         {
                             "typeid": "{41CC88A4-FE07-48E6-943D-998DE68AFF5C}",
                             "details": {
-                                "name": "Entity",
+                                "name": "BehaviorEntity*",
                                 "tooltip": "Entity"
                             }
                         },
@@ -235,7 +242,7 @@
                         {
                             "typeid": "{0A7929DF-2932-40EA-B2B3-79BC1C3490D0}",
                             "details": {
-                                "name": "ComponentConfig"
+                                "name": "const ComponentConfig&"
                             }
                         }
                     ],
@@ -243,7 +250,7 @@
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Boolean"
                             }
                         }
                     ]
@@ -253,20 +260,21 @@
                     "context": "Entity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Entity::IsValid"
+                        "tooltip": "When signaled, this will invoke IsValid"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Entity::IsValid is invoked"
+                        "tooltip": "Signaled after IsValid is invoked"
                     },
                     "details": {
-                        "name": "Entity::IsValid"
+                        "name": "Entity::IsValid",
+                        "category": "Entity/Game Entity"
                     },
                     "params": [
                         {
                             "typeid": "{41CC88A4-FE07-48E6-943D-998DE68AFF5C}",
                             "details": {
-                                "name": "Entity",
+                                "name": "EntityID",
                                 "tooltip": "Entity"
                             }
                         }
@@ -275,7 +283,7 @@
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Boolean"
                             }
                         }
                     ]
@@ -285,20 +293,21 @@
                     "context": "Entity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Entity::GetId"
+                        "tooltip": "When signaled, this will invoke GetId"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Entity::GetId is invoked"
+                        "tooltip": "Signaled after GetId is invoked"
                     },
                     "details": {
-                        "name": "Entity::GetId"
+                        "name": "Entity::GetId",
+                        "category": "Entity"
                     },
                     "params": [
                         {
                             "typeid": "{41CC88A4-FE07-48E6-943D-998DE68AFF5C}",
                             "details": {
-                                "name": "Entity",
+                                "name": "BehaviorEntity*",
                                 "tooltip": "Entity"
                             }
                         }
@@ -307,7 +316,7 @@
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
+                                "name": "EntityID",
                                 "tooltip": "Entity Unique Id"
                             }
                         }
@@ -318,20 +327,21 @@
                     "context": "Entity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Entity::GetOwningContextId"
+                        "tooltip": "When signaled, this will invoke GetOwningContextId"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Entity::GetOwningContextId is invoked"
+                        "tooltip": "Signaled after GetOwningContextId is invoked"
                     },
                     "details": {
-                        "name": "Entity::GetOwningContextId"
+                        "name": "Entity::GetOwningContextId",
+                        "category": "Entity"
                     },
                     "params": [
                         {
                             "typeid": "{41CC88A4-FE07-48E6-943D-998DE68AFF5C}",
                             "details": {
-                                "name": "Entity",
+                                "name": "BehaviorEntity*",
                                 "tooltip": "Entity"
                             }
                         }
@@ -340,7 +350,7 @@
                         {
                             "typeid": "{E152C105-A133-4D03-BBF8-3D4B2FBA3E2A}",
                             "details": {
-                                "name": "AZ::Uuid"
+                                "name": "Uuid"
                             }
                         }
                     ]
@@ -350,20 +360,21 @@
                     "context": "Entity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Entity::GetComponents"
+                        "tooltip": "When signaled, this will invoke GetComponents"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Entity::GetComponents is invoked"
+                        "tooltip": "Signaled after GetComponents is invoked"
                     },
                     "details": {
-                        "name": "Entity::GetComponents"
+                        "name": "Entity::GetComponents",
+                        "category": "Entity"
                     },
                     "params": [
                         {
                             "typeid": "{41CC88A4-FE07-48E6-943D-998DE68AFF5C}",
                             "details": {
-                                "name": "Entity",
+                                "name": "BehaviorEntity*",
                                 "tooltip": "Entity"
                             }
                         }
@@ -372,7 +383,7 @@
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "Components"
                             }
                         }
                     ]
@@ -382,27 +393,28 @@
                     "context": "Entity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Entity::FindAllComponentsOfType"
+                        "tooltip": "When signaled, this will invoke FindAllComponentsOfType"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Entity::FindAllComponentsOfType is invoked"
+                        "tooltip": "Signaled after FindAllComponentsOfType is invoked"
                     },
                     "details": {
-                        "name": "Entity::FindAllComponentsOfType"
+                        "name": "Entity::FindAllComponentsOfType",
+                        "category": "Entity"
                     },
                     "params": [
                         {
                             "typeid": "{41CC88A4-FE07-48E6-943D-998DE68AFF5C}",
                             "details": {
-                                "name": "Entity",
+                                "name": "BehaviorEntity*",
                                 "tooltip": "Entity"
                             }
                         },
                         {
                             "typeid": "{E152C105-A133-4D03-BBF8-3D4B2FBA3E2A}",
                             "details": {
-                                "name": "AZ::Uuid"
+                                "name": "const AZ::Uuid&"
                             }
                         }
                     ],
@@ -410,7 +422,7 @@
                         {
                             "typeid": "{8293031B-ABC3-5CD2-A1CB-1DB6792ADD5C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::u64, allocator>"
                             }
                         }
                     ]
@@ -420,20 +432,21 @@
                     "context": "Entity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Entity::GetComponentConfiguration"
+                        "tooltip": "When signaled, this will invoke GetComponentConfiguration"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Entity::GetComponentConfiguration is invoked"
+                        "tooltip": "Signaled after GetComponentConfiguration is invoked"
                     },
                     "details": {
-                        "name": "Entity::GetComponentConfiguration"
+                        "name": "Entity::GetComponentConfiguration",
+                        "category": "Entity"
                     },
                     "params": [
                         {
                             "typeid": "{41CC88A4-FE07-48E6-943D-998DE68AFF5C}",
                             "details": {
-                                "name": "Entity",
+                                "name": "BehaviorEntity*",
                                 "tooltip": "Entity"
                             }
                         },
@@ -446,7 +459,7 @@
                         {
                             "typeid": "{0A7929DF-2932-40EA-B2B3-79BC1C3490D0}",
                             "details": {
-                                "name": "ComponentConfig"
+                                "name": "ComponentConfig&"
                             }
                         }
                     ],
@@ -454,7 +467,7 @@
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Boolean"
                             }
                         }
                     ]
@@ -464,27 +477,28 @@
                     "context": "Entity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Entity::SetName"
+                        "tooltip": "When signaled, this will invoke SetName"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Entity::SetName is invoked"
+                        "tooltip": "Signaled after SetName is invoked"
                     },
                     "details": {
-                        "name": "Entity::SetName"
+                        "name": "Entity::SetName",
+                        "category": "Entity"
                     },
                     "params": [
                         {
                             "typeid": "{41CC88A4-FE07-48E6-943D-998DE68AFF5C}",
                             "details": {
-                                "name": "Entity",
+                                "name": "BehaviorEntity*",
                                 "tooltip": "Entity"
                             }
                         },
                         {
                             "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
                             "details": {
-                                "name": "char"
+                                "name": "const char*"
                             }
                         }
                     ]
@@ -494,20 +508,21 @@
                     "context": "Entity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Entity::IsActivated"
+                        "tooltip": "When signaled, this will invoke IsActivated"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Entity::IsActivated is invoked"
+                        "tooltip": "Signaled after IsActivated is invoked"
                     },
                     "details": {
-                        "name": "Entity::IsActivated"
+                        "name": "Entity::IsActivated",
+                        "category": "Entity"
                     },
                     "params": [
                         {
                             "typeid": "{41CC88A4-FE07-48E6-943D-998DE68AFF5C}",
                             "details": {
-                                "name": "Entity",
+                                "name": "BehaviorEntity*",
                                 "tooltip": "Entity"
                             }
                         }
@@ -516,7 +531,7 @@
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Boolean"
                             }
                         }
                     ]
@@ -526,20 +541,21 @@
                     "context": "Entity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Entity::Activate"
+                        "tooltip": "When signaled, this will invoke Activate"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Entity::Activate is invoked"
+                        "tooltip": "Signaled after Activate is invoked"
                     },
                     "details": {
-                        "name": "Entity::Activate"
+                        "name": "Entity::Activate",
+                        "category": "Entity"
                     },
                     "params": [
                         {
                             "typeid": "{41CC88A4-FE07-48E6-943D-998DE68AFF5C}",
                             "details": {
-                                "name": "Entity",
+                                "name": "BehaviorEntity*",
                                 "tooltip": "Entity"
                             }
                         }
@@ -550,20 +566,21 @@
                     "context": "Entity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Entity::Deactivate"
+                        "tooltip": "When signaled, this will invoke Deactivate"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Entity::Deactivate is invoked"
+                        "tooltip": "Signaled after Deactivate is invoked"
                     },
                     "details": {
-                        "name": "Entity::Deactivate"
+                        "name": "Entity::Deactivate",
+                        "category": "Entity"
                     },
                     "params": [
                         {
                             "typeid": "{41CC88A4-FE07-48E6-943D-998DE68AFF5C}",
                             "details": {
-                                "name": "Entity",
+                                "name": "BehaviorEntity*",
                                 "tooltip": "Entity"
                             }
                         }
@@ -574,20 +591,21 @@
                     "context": "Entity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Entity::GetName"
+                        "tooltip": "When signaled, this will invoke GetName"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Entity::GetName is invoked"
+                        "tooltip": "Signaled after GetName is invoked"
                     },
                     "details": {
-                        "name": "Entity::GetName"
+                        "name": "Entity::GetName",
+                        "category": "Entity"
                     },
                     "params": [
                         {
                             "typeid": "{41CC88A4-FE07-48E6-943D-998DE68AFF5C}",
                             "details": {
-                                "name": "Entity",
+                                "name": "BehaviorEntity*",
                                 "tooltip": "Entity"
                             }
                         }
@@ -596,7 +614,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "String"
                             }
                         }
                     ]
@@ -606,20 +624,21 @@
                     "context": "Entity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Entity::Exists"
+                        "tooltip": "When signaled, this will invoke Exists"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Entity::Exists is invoked"
+                        "tooltip": "Signaled after Exists is invoked"
                     },
                     "details": {
-                        "name": "Entity::Exists"
+                        "name": "Entity::Exists",
+                        "category": "Entity"
                     },
                     "params": [
                         {
                             "typeid": "{41CC88A4-FE07-48E6-943D-998DE68AFF5C}",
                             "details": {
-                                "name": "Entity",
+                                "name": "BehaviorEntity*",
                                 "tooltip": "Entity"
                             }
                         }
@@ -628,7 +647,7 @@
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Boolean"
                             }
                         }
                     ]

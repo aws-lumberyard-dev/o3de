@@ -135,3 +135,5 @@ ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/openimageio-2.1.16.0-rev2-win
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/SceneCore.dll" "J:/Atom/lyfork/o3de/bin/profile")
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/PhysX.Editor.Gem.dll" "J:/Atom/lyfork/o3de/bin/profile")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/profile/PhysXDebug.Editor_profile.stamp)

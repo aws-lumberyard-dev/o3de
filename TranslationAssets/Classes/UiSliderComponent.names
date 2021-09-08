@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "UiSliderComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "UiSliderComponent"

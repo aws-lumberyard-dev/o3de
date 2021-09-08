@@ -36,3 +36,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/debug/AWSCore.dll" "J:/Atom/lyfork/o3de/bin/deb
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/HttpRequestor.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/AzTestRunner.exe" "J:/Atom/lyfork/o3de/bin/debug")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/debug/AWSClientAuth.Tests_debug.stamp)

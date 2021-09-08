@@ -94,10 +94,14 @@ ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin
 ly_copy("J:/Atom/lyfork/o3de/bin/release/AzQtComponents.dll" "J:/Atom/lyfork/o3de/bin/release")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/plugins/bearer/qgenericbearer.dll" "J:/Atom/lyfork/o3de/bin/release/bearer")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin/Qt5Network.dll" "J:/Atom/lyfork/o3de/bin/release")
-ly_copy("J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev1-windows/python/python37.dll" "J:/Atom/lyfork/o3de/bin/release")
-ly_copy("J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev1-windows/python/python3.dll" "J:/Atom/lyfork/o3de/bin/release")
+ly_copy("J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev2-windows/python/python37.dll" "J:/Atom/lyfork/o3de/bin/release")
+ly_copy("J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev2-windows/python/python3.dll" "J:/Atom/lyfork/o3de/bin/release")
+ly_copy("J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev2-windows/python/python37.pdb" "J:/Atom/lyfork/o3de/bin/release")
+ly_copy("J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev2-windows/python/python3.pdb" "J:/Atom/lyfork/o3de/bin/release")
 ly_copy("J:/Atom/lyfork/o3de/bin/release/TextureAtlas.Editor.dll" "J:/Atom/lyfork/o3de/bin/release")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin/lrelease.exe" "J:/Atom/lyfork/o3de/bin/release")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin/Qt5Core.dll" "J:/Atom/lyfork/o3de/bin/release")
 ly_copy("J:/Atom/lyfork/o3de/bin/release/LmbrCentral.Editor.dll" "J:/Atom/lyfork/o3de/bin/release")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/release/LyShine.Editor_release.stamp)

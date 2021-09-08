@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZStd::vector<Plane, allocator>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Array<Plane>",
@@ -15,20 +15,21 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::Size"
+                        "tooltip": "When signaled, this will invoke Size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::Size is invoked"
+                        "tooltip": "Signaled after Size is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::Size"
+                        "name": "AZStd::vector<Plane, allocator>::Size",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>&"
                             }
                         }
                     ],
@@ -46,20 +47,21 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::Front"
+                        "tooltip": "When signaled, this will invoke Front"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::Front is invoked"
+                        "tooltip": "Signaled after Front is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::Front"
+                        "name": "AZStd::vector<Plane, allocator>::Front",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>*"
                             }
                         }
                     ],
@@ -67,7 +69,7 @@
                         {
                             "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
                             "details": {
-                                "name": "Plane"
+                                "name": "Plane&"
                             }
                         }
                     ]
@@ -77,20 +79,21 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::Has Key"
+                        "tooltip": "When signaled, this will invoke HasKey"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::Has Key is invoked"
+                        "tooltip": "Signaled after HasKey is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::Has Key"
+                        "name": "AZStd::vector<Plane, allocator>::Has Key",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>&"
                             }
                         },
                         {
@@ -114,20 +117,21 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::Resize"
+                        "tooltip": "When signaled, this will invoke Resize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::Resize is invoked"
+                        "tooltip": "Signaled after Resize is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::Resize"
+                        "name": "AZStd::vector<Plane, allocator>::Resize",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>*"
                             }
                         },
                         {
@@ -143,20 +147,21 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::at"
+                        "tooltip": "When signaled, this will invoke at"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::at is invoked"
+                        "tooltip": "Signaled after at is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::at"
+                        "name": "AZStd::vector<Plane, allocator>::at",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>*"
                             }
                         },
                         {
@@ -170,7 +175,7 @@
                         {
                             "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
                             "details": {
-                                "name": "Plane"
+                                "name": "Plane&"
                             }
                         }
                     ]
@@ -180,20 +185,21 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::Back"
+                        "tooltip": "When signaled, this will invoke Back"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::Back is invoked"
+                        "tooltip": "Signaled after Back is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::Back"
+                        "name": "AZStd::vector<Plane, allocator>::Back",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>*"
                             }
                         }
                     ],
@@ -201,7 +207,7 @@
                         {
                             "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
                             "details": {
-                                "name": "Plane"
+                                "name": "Plane&"
                             }
                         }
                     ]
@@ -211,20 +217,21 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::pop_back"
+                        "tooltip": "When signaled, this will invoke pop_back"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::pop_back is invoked"
+                        "tooltip": "Signaled after pop_back is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::pop_back"
+                        "name": "AZStd::vector<Plane, allocator>::pop_back",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>*"
                             }
                         }
                     ]
@@ -234,20 +241,21 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::size"
+                        "tooltip": "When signaled, this will invoke size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::size is invoked"
+                        "tooltip": "Signaled after size is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::size"
+                        "name": "AZStd::vector<Plane, allocator>::size",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>&"
                             }
                         }
                     ],
@@ -265,20 +273,21 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::At"
+                        "tooltip": "When signaled, this will invoke At"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::At is invoked"
+                        "tooltip": "Signaled after At is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::At"
+                        "name": "AZStd::vector<Plane, allocator>::At",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>*"
                             }
                         },
                         {
@@ -292,7 +301,7 @@
                         {
                             "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
                             "details": {
-                                "name": "Plane"
+                                "name": "Plane&"
                             }
                         }
                     ]
@@ -302,20 +311,21 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::Empty"
+                        "tooltip": "When signaled, this will invoke Empty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::Empty is invoked"
+                        "tooltip": "Signaled after Empty is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::Empty"
+                        "name": "AZStd::vector<Plane, allocator>::Empty",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>*"
                             }
                         }
                     ],
@@ -333,26 +343,27 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::Swap"
+                        "tooltip": "When signaled, this will invoke Swap"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::Swap is invoked"
+                        "tooltip": "Signaled after Swap is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::Swap"
+                        "name": "AZStd::vector<Plane, allocator>::Swap",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>*"
                             }
                         },
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>&"
                             }
                         }
                     ]
@@ -362,26 +373,27 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::push_back"
+                        "tooltip": "When signaled, this will invoke push_back"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::push_back is invoked"
+                        "tooltip": "Signaled after push_back is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::push_back"
+                        "name": "AZStd::vector<Plane, allocator>::push_back",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>*"
                             }
                         },
                         {
                             "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
                             "details": {
-                                "name": "Plane"
+                                "name": "const Plane&"
                             }
                         }
                     ]
@@ -391,26 +403,27 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::PushBack_VM"
+                        "tooltip": "When signaled, this will invoke PushBack_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::PushBack_VM is invoked"
+                        "tooltip": "Signaled after PushBack_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::PushBack_VM"
+                        "name": "AZStd::vector<Plane, allocator>::PushBack_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>&"
                             }
                         },
                         {
                             "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
                             "details": {
-                                "name": "Plane"
+                                "name": "const Plane&"
                             }
                         }
                     ],
@@ -418,7 +431,7 @@
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>&"
                             }
                         }
                     ]
@@ -428,20 +441,21 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::AtUnchecked"
+                        "tooltip": "When signaled, this will invoke AtUnchecked"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::AtUnchecked is invoked"
+                        "tooltip": "Signaled after AtUnchecked is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::AtUnchecked"
+                        "name": "AZStd::vector<Plane, allocator>::AtUnchecked",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>*"
                             }
                         },
                         {
@@ -455,7 +469,7 @@
                         {
                             "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
                             "details": {
-                                "name": "Plane"
+                                "name": "Plane&"
                             }
                         }
                     ]
@@ -465,20 +479,21 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::clear"
+                        "tooltip": "When signaled, this will invoke clear"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::clear is invoked"
+                        "tooltip": "Signaled after clear is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::clear"
+                        "name": "AZStd::vector<Plane, allocator>::clear",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>*"
                             }
                         }
                     ]
@@ -488,20 +503,21 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::NotEmpty"
+                        "tooltip": "When signaled, this will invoke NotEmpty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::NotEmpty is invoked"
+                        "tooltip": "Signaled after NotEmpty is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::NotEmpty"
+                        "name": "AZStd::vector<Plane, allocator>::NotEmpty",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>&"
                             }
                         }
                     ],
@@ -519,20 +535,21 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::Erase_VM"
+                        "tooltip": "When signaled, this will invoke Erase_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::Erase_VM is invoked"
+                        "tooltip": "Signaled after Erase_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::Erase_VM"
+                        "name": "AZStd::vector<Plane, allocator>::Erase_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>&"
                             }
                         },
                         {
@@ -546,7 +563,7 @@
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>&"
                             }
                         }
                     ]
@@ -556,20 +573,21 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::EraseCheck_VM"
+                        "tooltip": "When signaled, this will invoke EraseCheck_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::EraseCheck_VM is invoked"
+                        "tooltip": "Signaled after EraseCheck_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::EraseCheck_VM"
+                        "name": "AZStd::vector<Plane, allocator>::EraseCheck_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>&"
                             }
                         },
                         {
@@ -593,20 +611,21 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::Capacity"
+                        "tooltip": "When signaled, this will invoke Capacity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::Capacity is invoked"
+                        "tooltip": "Signaled after Capacity is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::Capacity"
+                        "name": "AZStd::vector<Plane, allocator>::Capacity",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>*"
                             }
                         }
                     ],
@@ -624,20 +643,21 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::Clear"
+                        "tooltip": "When signaled, this will invoke Clear"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::Clear is invoked"
+                        "tooltip": "Signaled after Clear is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::Clear"
+                        "name": "AZStd::vector<Plane, allocator>::Clear",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>&"
                             }
                         }
                     ],
@@ -645,7 +665,7 @@
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>&"
                             }
                         }
                     ]
@@ -655,20 +675,21 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::AssignAt"
+                        "tooltip": "When signaled, this will invoke AssignAt"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::AssignAt is invoked"
+                        "tooltip": "Signaled after AssignAt is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::AssignAt"
+                        "name": "AZStd::vector<Plane, allocator>::AssignAt",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>&"
                             }
                         },
                         {
@@ -680,7 +701,7 @@
                         {
                             "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
                             "details": {
-                                "name": "Plane"
+                                "name": "Plane&"
                             }
                         }
                     ]
@@ -690,20 +711,21 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::GetSize"
+                        "tooltip": "When signaled, this will invoke GetSize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::GetSize is invoked"
+                        "tooltip": "Signaled after GetSize is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::GetSize"
+                        "name": "AZStd::vector<Plane, allocator>::GetSize",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>&"
                             }
                         }
                     ],
@@ -721,20 +743,21 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::Insert"
+                        "tooltip": "When signaled, this will invoke Insert"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::Insert is invoked"
+                        "tooltip": "Signaled after Insert is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::Insert"
+                        "name": "AZStd::vector<Plane, allocator>::Insert",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>&"
                             }
                         },
                         {
@@ -746,7 +769,7 @@
                         {
                             "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
                             "details": {
-                                "name": "Plane"
+                                "name": "const Plane&"
                             }
                         }
                     ],
@@ -754,7 +777,7 @@
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>&"
                             }
                         }
                     ]
@@ -764,26 +787,27 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::PushBack"
+                        "tooltip": "When signaled, this will invoke PushBack"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::PushBack is invoked"
+                        "tooltip": "Signaled after PushBack is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::PushBack"
+                        "name": "AZStd::vector<Plane, allocator>::PushBack",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>*"
                             }
                         },
                         {
                             "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
                             "details": {
-                                "name": "Plane"
+                                "name": "const Plane&"
                             }
                         }
                     ]
@@ -793,20 +817,21 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::Reserve"
+                        "tooltip": "When signaled, this will invoke Reserve"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::Reserve is invoked"
+                        "tooltip": "Signaled after Reserve is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::Reserve"
+                        "name": "AZStd::vector<Plane, allocator>::Reserve",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>*"
                             }
                         },
                         {
@@ -822,20 +847,21 @@
                     "context": "Array<Plane>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<Plane, allocator>::Iterate_VM"
+                        "tooltip": "When signaled, this will invoke Iterate_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<Plane, allocator>::Iterate_VM is invoked"
+                        "tooltip": "Signaled after Iterate_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<Plane, allocator>::Iterate_VM"
+                        "name": "AZStd::vector<Plane, allocator>::Iterate_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E8EDFF6E-951E-584D-9D47-33F43F77D859}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Plane, allocator>&"
                             }
                         }
                     ],

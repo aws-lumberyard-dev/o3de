@@ -5,21 +5,23 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiScrollerBus"
+                "name": "UI Scroller",
+                "category": "UI"
             },
             "methods": [
                 {
                     "key": "GetValueChangedActionName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetValueChangedActionName"
+                        "tooltip": "When signaled, this will invoke Get Value Changed Action Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetValueChangedActionName is invoked"
+                        "tooltip": "Signaled after Get Value Changed Action Name is invoked"
                     },
                     "details": {
-                        "name": "GetValueChangedActionName"
+                        "name": "Get Value Changed Action Name",
+                        "tooltip": "Gets the name of the action triggered when the value has changed"
                     },
                     "results": [
                         {
@@ -34,20 +36,22 @@
                     "key": "SetOrientation",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetOrientation"
+                        "tooltip": "When signaled, this will invoke Set Orientation"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetOrientation is invoked"
+                        "tooltip": "Signaled after Set Orientation is invoked"
                     },
                     "details": {
-                        "name": "SetOrientation"
+                        "name": "Set Orientation",
+                        "tooltip": "Sets the orientation of the scroller"
                     },
                     "params": [
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Orientation",
+                                "tooltip": "The orientation of the scroller (0=Horizontal, 1=Vertical)"
                             }
                         }
                     ]
@@ -56,14 +60,15 @@
                     "key": "GetOrientation",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetOrientation"
+                        "tooltip": "When signaled, this will invoke Get Orientation"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetOrientation is invoked"
+                        "tooltip": "Signaled after Get Orientation is invoked"
                     },
                     "details": {
-                        "name": "GetOrientation"
+                        "name": "Get Orientation",
+                        "tooltip": "Gets the orientation of the scroller"
                     },
                     "results": [
                         {
@@ -78,14 +83,15 @@
                     "key": "GetValueChangingActionName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetValueChangingActionName"
+                        "tooltip": "When signaled, this will invoke Get Value Changing Action Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetValueChangingActionName is invoked"
+                        "tooltip": "Signaled after Get Value Changing Action Name is invoked"
                     },
                     "details": {
-                        "name": "GetValueChangingActionName"
+                        "name": "Get Value Changing Action Name",
+                        "tooltip": "Gets the name of the action triggered while the value is changing"
                     },
                     "results": [
                         {
@@ -100,20 +106,22 @@
                     "key": "SetValueChangingActionName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetValueChangingActionName"
+                        "tooltip": "When signaled, this will invoke Set Value Changing Action Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetValueChangingActionName is invoked"
+                        "tooltip": "Signaled after Set Value Changing Action Name is invoked"
                     },
                     "details": {
-                        "name": "SetValueChangingActionName"
+                        "name": "Set Value Changing Action Name",
+                        "tooltip": "Sets the name of the action triggered while the value is changing"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Name",
+                                "tooltip": "The name of the action triggered while the value is changing"
                             }
                         }
                     ]
@@ -122,20 +130,22 @@
                     "key": "SetValue",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetValue"
+                        "tooltip": "When signaled, this will invoke Set Value"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetValue is invoked"
+                        "tooltip": "Signaled after Set Value is invoked"
                     },
                     "details": {
-                        "name": "SetValue"
+                        "name": "Set Value",
+                        "tooltip": "Sets the value of the scroller"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Value",
+                                "tooltip": "The value of the scroller [0-1]"
                             }
                         }
                     ]
@@ -144,14 +154,15 @@
                     "key": "GetValue",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetValue"
+                        "tooltip": "When signaled, this will invoke Get Value"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetValue is invoked"
+                        "tooltip": "Signaled after Get Value is invoked"
                     },
                     "details": {
-                        "name": "GetValue"
+                        "name": "Get Value",
+                        "tooltip": "Gets the value of the scroller"
                     },
                     "results": [
                         {
@@ -166,20 +177,22 @@
                     "key": "SetValueChangedActionName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetValueChangedActionName"
+                        "tooltip": "When signaled, this will invoke Set Value Changed Action Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetValueChangedActionName is invoked"
+                        "tooltip": "Signaled after Set Value Changed Action Name is invoked"
                     },
                     "details": {
-                        "name": "SetValueChangedActionName"
+                        "name": "Set Value Changed Action Name",
+                        "tooltip": "Sets the name of the action triggered when the value has changed"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Name",
+                                "tooltip": "The name of the action triggered when the value has changed"
                             }
                         }
                     ]

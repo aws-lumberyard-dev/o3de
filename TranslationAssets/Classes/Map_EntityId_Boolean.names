@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Map<EntityId, Boolean>",
@@ -15,26 +15,27 @@
                     "context": "Map<EntityId, Boolean>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::contains"
+                        "tooltip": "When signaled, this will invoke contains"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::contains is invoked"
+                        "tooltip": "Signaled after contains is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::contains"
+                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::contains",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{6965E71B-A623-5D36-98D9-3758EF2E8045}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "const AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId"
                             }
                         },
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
+                                "name": "EntityId&",
                                 "tooltip": "Entity Unique Id"
                             }
                         }
@@ -53,33 +54,34 @@
                     "context": "Map<EntityId, Boolean>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Insert"
+                        "tooltip": "When signaled, this will invoke Insert"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Insert is invoked"
+                        "tooltip": "Signaled after Insert is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Insert"
+                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Insert",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{6965E71B-A623-5D36-98D9-3758EF2E8045}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZS"
                             }
                         },
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
+                                "name": "EntityId&",
                                 "tooltip": "Entity Unique Id"
                             }
                         },
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "bool&"
                             }
                         }
                     ],
@@ -87,7 +89,7 @@
                         {
                             "typeid": "{6965E71B-A623-5D36-98D9-3758EF2E8045}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZS"
                             }
                         }
                     ]
@@ -97,20 +99,21 @@
                     "context": "Map<EntityId, Boolean>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Reserve"
+                        "tooltip": "When signaled, this will invoke Reserve"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Reserve is invoked"
+                        "tooltip": "Signaled after Reserve is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Reserve"
+                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Reserve",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{6965E71B-A623-5D36-98D9-3758EF2E8045}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZS"
                             }
                         },
                         {
@@ -126,20 +129,21 @@
                     "context": "Map<EntityId, Boolean>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::GetSize"
+                        "tooltip": "When signaled, this will invoke GetSize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::GetSize is invoked"
+                        "tooltip": "Signaled after GetSize is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::GetSize"
+                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::GetSize",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{6965E71B-A623-5D36-98D9-3758EF2E8045}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZS"
                             }
                         }
                     ],
@@ -157,20 +161,21 @@
                     "context": "Map<EntityId, Boolean>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Iterate_VM"
+                        "tooltip": "When signaled, this will invoke Iterate_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Iterate_VM is invoked"
+                        "tooltip": "Signaled after Iterate_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Iterate_VM"
+                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Iterate_VM",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{6965E71B-A623-5D36-98D9-3758EF2E8045}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZS"
                             }
                         }
                     ],
@@ -188,20 +193,21 @@
                     "context": "Map<EntityId, Boolean>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::GetKeys"
+                        "tooltip": "When signaled, this will invoke GetKeys"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::GetKeys is invoked"
+                        "tooltip": "Signaled after GetKeys is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::GetKeys"
+                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::GetKeys",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{6965E71B-A623-5D36-98D9-3758EF2E8045}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZS"
                             }
                         }
                     ],
@@ -209,7 +215,7 @@
                         {
                             "typeid": "{4841CFF0-7A5C-519C-BD16-D3625E99605E}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<EntityId, allocator>"
                             }
                         }
                     ]
@@ -219,20 +225,21 @@
                     "context": "Map<EntityId, Boolean>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Size"
+                        "tooltip": "When signaled, this will invoke Size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Size is invoked"
+                        "tooltip": "Signaled after Size is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Size"
+                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Size",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{6965E71B-A623-5D36-98D9-3758EF2E8045}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZS"
                             }
                         }
                     ],
@@ -250,26 +257,27 @@
                     "context": "Map<EntityId, Boolean>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Erase"
+                        "tooltip": "When signaled, this will invoke Erase"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Erase is invoked"
+                        "tooltip": "Signaled after Erase is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Erase"
+                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Erase",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{6965E71B-A623-5D36-98D9-3758EF2E8045}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZS"
                             }
                         },
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
+                                "name": "EntityId&",
                                 "tooltip": "Entity Unique Id"
                             }
                         }
@@ -278,7 +286,7 @@
                         {
                             "typeid": "{6965E71B-A623-5D36-98D9-3758EF2E8045}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZS"
                             }
                         }
                     ]
@@ -288,26 +296,27 @@
                     "context": "Map<EntityId, Boolean>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::EraseCheck_VM"
+                        "tooltip": "When signaled, this will invoke EraseCheck_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::EraseCheck_VM is invoked"
+                        "tooltip": "Signaled after EraseCheck_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::EraseCheck_VM"
+                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::EraseCheck_VM",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{6965E71B-A623-5D36-98D9-3758EF2E8045}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZS"
                             }
                         },
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
+                                "name": "EntityId&",
                                 "tooltip": "Entity Unique Id"
                             }
                         }
@@ -326,20 +335,21 @@
                     "context": "Map<EntityId, Boolean>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Clear"
+                        "tooltip": "When signaled, this will invoke Clear"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Clear is invoked"
+                        "tooltip": "Signaled after Clear is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Clear"
+                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Clear",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{6965E71B-A623-5D36-98D9-3758EF2E8045}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZS"
                             }
                         }
                     ],
@@ -347,7 +357,7 @@
                         {
                             "typeid": "{6965E71B-A623-5D36-98D9-3758EF2E8045}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZS"
                             }
                         }
                     ]
@@ -357,26 +367,27 @@
                     "context": "Map<EntityId, Boolean>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::At"
+                        "tooltip": "When signaled, this will invoke At"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::At is invoked"
+                        "tooltip": "Signaled after At is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::At"
+                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::At",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{6965E71B-A623-5D36-98D9-3758EF2E8045}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZS"
                             }
                         },
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
+                                "name": "EntityId&",
                                 "tooltip": "Entity Unique Id"
                             }
                         }
@@ -395,20 +406,21 @@
                     "context": "Map<EntityId, Boolean>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::BucketCount"
+                        "tooltip": "When signaled, this will invoke BucketCount"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::BucketCount is invoked"
+                        "tooltip": "Signaled after BucketCount is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::BucketCount"
+                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::BucketCount",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{6965E71B-A623-5D36-98D9-3758EF2E8045}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZS"
                             }
                         }
                     ],
@@ -426,20 +438,21 @@
                     "context": "Map<EntityId, Boolean>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Empty"
+                        "tooltip": "When signaled, this will invoke Empty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Empty is invoked"
+                        "tooltip": "Signaled after Empty is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Empty"
+                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Empty",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{6965E71B-A623-5D36-98D9-3758EF2E8045}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZS"
                             }
                         }
                     ],
@@ -457,26 +470,27 @@
                     "context": "Map<EntityId, Boolean>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Swap"
+                        "tooltip": "When signaled, this will invoke Swap"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Swap is invoked"
+                        "tooltip": "Signaled after Swap is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Swap"
+                        "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZStd::equal_to<EntityId>, allocator>::Swap",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{6965E71B-A623-5D36-98D9-3758EF2E8045}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZS"
                             }
                         },
                         {
                             "typeid": "{6965E71B-A623-5D36-98D9-3758EF2E8045}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<EntityId, bool, AZStd::hash<EntityId>, AZS"
                             }
                         }
                     ]

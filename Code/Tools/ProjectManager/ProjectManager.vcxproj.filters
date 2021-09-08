@@ -9,6 +9,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\ProjectManager_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\75ba0d17d7b09ced0d8ca047f97faa4d\qrc_ProjectManager.cpp.rule">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -24,6 +27,15 @@
       <Filter>Resources</Filter>
     </None>
     <None Include="J:\Atom\lyfork\o3de\Code\Tools\ProjectManager\project_manager_app_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\ProjectManager_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\ProjectManager_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\ProjectManager_release.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="J:\Atom\lyfork\o3de\Code\Tools\ProjectManager\Resources\ProjectManager.rc">

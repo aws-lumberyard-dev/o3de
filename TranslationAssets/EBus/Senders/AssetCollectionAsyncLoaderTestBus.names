@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "AssetCollectionAsyncLoaderTestBus"
+                "name": "ASSETCOLLECTIONASYNCLOADERTESTBUS_NAME",
+                "category": "ASSETCOLLECTIONASYNCLOADERTESTBUS_CATEGORY"
             },
             "methods": [
                 {

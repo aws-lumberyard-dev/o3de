@@ -5,21 +5,23 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "CylinderShapeComponentRequestsBus"
+                "name": "Cylinder Shape",
+                "category": "Shape"
             },
             "methods": [
                 {
                     "key": "GetCylinderConfiguration",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetCylinderConfiguration"
+                        "tooltip": "When signaled, this will invoke Get Configuration"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetCylinderConfiguration is invoked"
+                        "tooltip": "Signaled after Get Configuration is invoked"
                     },
                     "details": {
-                        "name": "GetCylinderConfiguration"
+                        "name": "Get Configuration",
+                        "tooltip": "Returns the cylinder configuration of a source entity"
                     },
                     "results": [
                         {
@@ -35,20 +37,22 @@
                     "key": "SetHeight",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetHeight"
+                        "tooltip": "When signaled, this will invoke Set Height"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetHeight is invoked"
+                        "tooltip": "Signaled after Set Height is invoked"
                     },
                     "details": {
-                        "name": "SetHeight"
+                        "name": "Set Height",
+                        "tooltip": "Sets the cylinder height"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Height",
+                                "tooltip": "Height in meters"
                             }
                         }
                     ]
@@ -57,20 +61,22 @@
                     "key": "SetRadius",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetRadius"
+                        "tooltip": "When signaled, this will invoke Set Radius"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetRadius is invoked"
+                        "tooltip": "Signaled after Set Radius is invoked"
                     },
                     "details": {
-                        "name": "SetRadius"
+                        "name": "Set Radius",
+                        "tooltip": "Sets the cylinder radius"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Radius",
+                                "tooltip": "Radius in radians"
                             }
                         }
                     ]

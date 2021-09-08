@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "UiScrollBarComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "UiScrollBarComponent"

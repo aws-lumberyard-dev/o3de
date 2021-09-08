@@ -5,7 +5,8 @@
             "context": "EBusHandler",
             "variant": "",
             "details": {
-                "name": "UiButtonNotificationBus"
+                "name": "UI Button",
+                "category": "UI"
             },
             "methods": [
                 {

@@ -52,9 +52,6 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\DLL.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Driller.cpp">
-      <Filter>Tests</Filter>
-    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\EBus.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
@@ -133,9 +130,6 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\State.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\StatisticalProfiler.cpp">
-      <Filter>Tests</Filter>
-    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Statistics.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
@@ -152,9 +146,6 @@
       <Filter>Tests</Filter>
     </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\TickBusTest.cpp">
-      <Filter>Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\TimeDataStatistics.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\UUIDTests.cpp">
@@ -248,6 +239,9 @@
       <Filter>Tests\Serialization\Json</Filter>
     </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Serialization\Json\JsonSerializationTests.cpp">
+      <Filter>Tests\Serialization\Json</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Serialization\Json\JsonSerializationUtilsTests.cpp">
       <Filter>Tests\Serialization\Json</Filter>
     </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Serialization\Json\MapSerializerTests.cpp">
@@ -620,6 +614,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\AzCore.Tests_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\CMakeLists.txt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -633,6 +630,15 @@
     </None>
     <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzCore\Tests\Platform\Windows\platform_windows.cmake">
       <Filter>Tests\Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\AzCore.Tests_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\AzCore.Tests_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\AzCore.Tests_release.stamp">
+      <Filter>Generated Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

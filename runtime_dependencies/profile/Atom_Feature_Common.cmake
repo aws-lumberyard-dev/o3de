@@ -55,3 +55,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/profile/Atom_RHI_DX12.Private.dll" "J:/Atom/lyf
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/Atom_RHI_Null.Private.dll" "J:/Atom/lyfork/o3de/bin/profile")
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/Atom_RHI_Vulkan.Private.dll" "J:/Atom/lyfork/o3de/bin/profile")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/profile/Atom_Feature_Common_profile.stamp)

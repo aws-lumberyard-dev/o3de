@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZ::RPI::ShaderOptionDescriptor",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "AZ::RPI::ShaderOptionDescriptor"
@@ -13,20 +13,21 @@
                     "context": "AZ::RPI::ShaderOptionDescriptor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZ::RPI::ShaderOptionDescriptor::GetName"
+                        "tooltip": "When signaled, this will invoke GetName"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZ::RPI::ShaderOptionDescriptor::GetName is invoked"
+                        "tooltip": "Signaled after GetName is invoked"
                     },
                     "details": {
-                        "name": "AZ::RPI::ShaderOptionDescriptor::GetName"
+                        "name": "AZ::RPI::ShaderOptionDescriptor::GetName",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{07B9E2F7-5408-49E9-904D-CC1A9C33230E}",
                             "details": {
-                                "name": "AZ::RPI::ShaderOptionDescriptor"
+                                "name": "AZ::RPI::ShaderOptionDescriptor*"
                             }
                         }
                     ],
@@ -34,7 +35,7 @@
                         {
                             "typeid": "{3D2B920C-9EFD-40D5-AAE0-DF131C3D4931}",
                             "details": {
-                                "name": "Name"
+                                "name": "const Name&"
                             }
                         }
                     ]
@@ -44,20 +45,21 @@
                     "context": "AZ::RPI::ShaderOptionDescriptor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZ::RPI::ShaderOptionDescriptor::GetDefaultValue"
+                        "tooltip": "When signaled, this will invoke GetDefaultValue"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZ::RPI::ShaderOptionDescriptor::GetDefaultValue is invoked"
+                        "tooltip": "Signaled after GetDefaultValue is invoked"
                     },
                     "details": {
-                        "name": "AZ::RPI::ShaderOptionDescriptor::GetDefaultValue"
+                        "name": "AZ::RPI::ShaderOptionDescriptor::GetDefaultValue",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{07B9E2F7-5408-49E9-904D-CC1A9C33230E}",
                             "details": {
-                                "name": "AZ::RPI::ShaderOptionDescriptor"
+                                "name": "AZ::RPI::ShaderOptionDescriptor*"
                             }
                         }
                     ],
@@ -65,7 +67,7 @@
                         {
                             "typeid": "{3D2B920C-9EFD-40D5-AAE0-DF131C3D4931}",
                             "details": {
-                                "name": "Name"
+                                "name": "const Name&"
                             }
                         }
                     ]
@@ -75,20 +77,21 @@
                     "context": "AZ::RPI::ShaderOptionDescriptor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZ::RPI::ShaderOptionDescriptor::GetValueName"
+                        "tooltip": "When signaled, this will invoke GetValueName"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZ::RPI::ShaderOptionDescriptor::GetValueName is invoked"
+                        "tooltip": "Signaled after GetValueName is invoked"
                     },
                     "details": {
-                        "name": "AZ::RPI::ShaderOptionDescriptor::GetValueName"
+                        "name": "AZ::RPI::ShaderOptionDescriptor::GetValueName",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{07B9E2F7-5408-49E9-904D-CC1A9C33230E}",
                             "details": {
-                                "name": "AZ::RPI::ShaderOptionDescriptor"
+                                "name": "AZ::RPI::ShaderOptionDescriptor*"
                             }
                         },
                         {
@@ -112,26 +115,27 @@
                     "context": "AZ::RPI::ShaderOptionDescriptor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZ::RPI::ShaderOptionDescriptor::FindValue"
+                        "tooltip": "When signaled, this will invoke FindValue"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZ::RPI::ShaderOptionDescriptor::FindValue is invoked"
+                        "tooltip": "Signaled after FindValue is invoked"
                     },
                     "details": {
-                        "name": "AZ::RPI::ShaderOptionDescriptor::FindValue"
+                        "name": "AZ::RPI::ShaderOptionDescriptor::FindValue",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{07B9E2F7-5408-49E9-904D-CC1A9C33230E}",
                             "details": {
-                                "name": "AZ::RPI::ShaderOptionDescriptor"
+                                "name": "AZ::RPI::ShaderOptionDescriptor*"
                             }
                         },
                         {
                             "typeid": "{3D2B920C-9EFD-40D5-AAE0-DF131C3D4931}",
                             "details": {
-                                "name": "Name"
+                                "name": "const Name&"
                             }
                         }
                     ],

@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZ::Render::EditorDeferredFogComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "AZ::Render::EditorDeferredFogComponent"

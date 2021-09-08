@@ -5,21 +5,22 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "SequenceComponentRequestBus"
+                "name": "Sequence",
+                "category": "Animation"
             },
             "methods": [
                 {
                     "key": "GetPlaySpeed",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetPlaySpeed"
+                        "tooltip": "When signaled, this will invoke Get Play Speed"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetPlaySpeed is invoked"
+                        "tooltip": "Signaled after Get Play Speed is invoked"
                     },
                     "details": {
-                        "name": "GetPlaySpeed"
+                        "name": "Get Play Speed"
                     },
                     "results": [
                         {
@@ -34,14 +35,14 @@
                     "key": "JumpToTime",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke JumpToTime"
+                        "tooltip": "When signaled, this will invoke Jump To Time"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after JumpToTime is invoked"
+                        "tooltip": "Signaled after Jump To Time is invoked"
                     },
                     "details": {
-                        "name": "JumpToTime"
+                        "name": "Jump To Time"
                     },
                     "params": [
                         {
@@ -70,28 +71,28 @@
                     "key": "JumpToEnd",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke JumpToEnd"
+                        "tooltip": "When signaled, this will invoke Jump To End"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after JumpToEnd is invoked"
+                        "tooltip": "Signaled after Jump To End is invoked"
                     },
                     "details": {
-                        "name": "JumpToEnd"
+                        "name": "Jump To End"
                     }
                 },
                 {
                     "key": "GetCurrentPlayTime",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetCurrentPlayTime"
+                        "tooltip": "When signaled, this will invoke Get Current Play Time"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetCurrentPlayTime is invoked"
+                        "tooltip": "Signaled after Get Current Play Time is invoked"
                     },
                     "details": {
-                        "name": "GetCurrentPlayTime"
+                        "name": "Get Current Play Time"
                     },
                     "results": [
                         {
@@ -120,14 +121,14 @@
                     "key": "PlayBetweenTimes",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke PlayBetweenTimes"
+                        "tooltip": "When signaled, this will invoke Play Between Times"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after PlayBetweenTimes is invoked"
+                        "tooltip": "Signaled after Play Between Times is invoked"
                     },
                     "details": {
-                        "name": "PlayBetweenTimes"
+                        "name": "Play Between Times"
                     },
                     "params": [
                         {
@@ -162,14 +163,14 @@
                     "key": "JumpToBeginning",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke JumpToBeginning"
+                        "tooltip": "When signaled, this will invoke Jump To Beginning"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after JumpToBeginning is invoked"
+                        "tooltip": "Signaled after Jump To Beginning is invoked"
                     },
                     "details": {
-                        "name": "JumpToBeginning"
+                        "name": "Jump To Beginning"
                     }
                 },
                 {
@@ -190,14 +191,14 @@
                     "key": "SetPlaySpeed",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetPlaySpeed"
+                        "tooltip": "When signaled, this will invoke Set Play Speed"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetPlaySpeed is invoked"
+                        "tooltip": "Signaled after Set Play Speed is invoked"
                     },
                     "details": {
-                        "name": "SetPlaySpeed"
+                        "name": "Set Play Speed"
                     },
                     "params": [
                         {

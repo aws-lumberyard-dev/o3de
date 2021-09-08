@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "ShapeAreaFalloffGradientRequestBus"
+                "name": "SHAPEAREAFALLOFFGRADIENTREQUESTBUS_NAME",
+                "category": "SHAPEAREAFALLOFFGRADIENTREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

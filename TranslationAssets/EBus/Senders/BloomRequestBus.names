@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "BloomRequestBus"
+                "name": "BLOOMREQUESTBUS_NAME",
+                "category": "BLOOMREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

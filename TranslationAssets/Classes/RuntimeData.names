@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "RuntimeData",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "RuntimeData"
@@ -13,20 +13,21 @@
                     "context": "RuntimeData",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke RuntimeData::GetRequiredAssets"
+                        "tooltip": "When signaled, this will invoke GetRequiredAssets"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after RuntimeData::GetRequiredAssets is invoked"
+                        "tooltip": "Signaled after GetRequiredAssets is invoked"
                     },
                     "details": {
-                        "name": "RuntimeData::GetRequiredAssets"
+                        "name": "RuntimeData::GetRequiredAssets",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{A935EBBC-D167-4C59-927C-5D98C6337B9C}",
                             "details": {
-                                "name": "RuntimeData"
+                                "name": "const RuntimeData&"
                             }
                         }
                     ],
@@ -34,7 +35,7 @@
                         {
                             "typeid": "{5600E444-1E66-5CB4-81A9-053AD1F4453E}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Asset<RuntimeAsset>, allocator>"
                             }
                         }
                     ]

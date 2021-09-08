@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "SurfaceAltitudeGradientComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "SurfaceAltitudeGradientComponent"

@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "Math_VM",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Math_VM"
@@ -13,32 +13,33 @@
                     "context": "Math_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math_VM::ThreeGeneric"
+                        "tooltip": "When signaled, this will invoke ThreeGeneric"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math_VM::ThreeGeneric is invoked"
+                        "tooltip": "Signaled after ThreeGeneric is invoked"
                     },
                     "details": {
-                        "name": "Math_VM::ThreeGeneric"
+                        "name": "Math_VM::ThreeGeneric",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
                             "details": {
-                                "name": "Vector3"
+                                "name": "const Vector3&"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "const AZStd::basic_string<char, AZStd::char_traits<char>, alloc"
                             }
                         },
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "const bool&"
                             }
                         }
                     ],
@@ -56,14 +57,15 @@
                     "context": "Math_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math_VM::MultiplyAndAdd"
+                        "tooltip": "When signaled, this will invoke MultiplyAndAdd"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math_VM::MultiplyAndAdd is invoked"
+                        "tooltip": "Signaled after MultiplyAndAdd is invoked"
                     },
                     "details": {
-                        "name": "Math_VM::MultiplyAndAdd"
+                        "name": "Math_VM::MultiplyAndAdd",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -99,20 +101,21 @@
                     "context": "Math_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Math_VM::StringToNumber"
+                        "tooltip": "When signaled, this will invoke StringToNumber"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Math_VM::StringToNumber is invoked"
+                        "tooltip": "Signaled after StringToNumber is invoked"
                     },
                     "details": {
-                        "name": "Math_VM::StringToNumber"
+                        "name": "Math_VM::StringToNumber",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "const AZStd::basic_string<char, AZStd::char_traits<char>, alloc"
                             }
                         }
                     ],

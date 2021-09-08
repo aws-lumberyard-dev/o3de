@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "MathQuaternion_VM",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "MathQuaternion_VM"
@@ -13,14 +13,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::Subtract"
+                        "tooltip": "When signaled, this will invoke Subtract"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::Subtract is invoked"
+                        "tooltip": "Signaled after Subtract is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::Subtract"
+                        "name": "MathQuaternion_VM::Subtract",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -50,14 +51,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::RotationYDegrees"
+                        "tooltip": "When signaled, this will invoke RotationYDegrees"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::RotationYDegrees is invoked"
+                        "tooltip": "Signaled after RotationYDegrees is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::RotationYDegrees"
+                        "name": "MathQuaternion_VM::RotationYDegrees",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -81,14 +83,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::Normalize"
+                        "tooltip": "When signaled, this will invoke Normalize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::Normalize is invoked"
+                        "tooltip": "Signaled after Normalize is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::Normalize"
+                        "name": "MathQuaternion_VM::Normalize",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -112,14 +115,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::LengthReciprocal"
+                        "tooltip": "When signaled, this will invoke LengthReciprocal"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::LengthReciprocal is invoked"
+                        "tooltip": "Signaled after LengthReciprocal is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::LengthReciprocal"
+                        "name": "MathQuaternion_VM::LengthReciprocal",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -143,14 +147,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::CreateFromEulerAngles"
+                        "tooltip": "When signaled, this will invoke CreateFromEulerAngles"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::CreateFromEulerAngles is invoked"
+                        "tooltip": "Signaled after CreateFromEulerAngles is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::CreateFromEulerAngles"
+                        "name": "MathQuaternion_VM::CreateFromEulerAngles",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -186,14 +191,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::IsIdentity"
+                        "tooltip": "When signaled, this will invoke IsIdentity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::IsIdentity is invoked"
+                        "tooltip": "Signaled after IsIdentity is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::IsIdentity"
+                        "name": "MathQuaternion_VM::IsIdentity",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -223,20 +229,21 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::FromTransform"
+                        "tooltip": "When signaled, this will invoke FromTransform"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::FromTransform is invoked"
+                        "tooltip": "Signaled after FromTransform is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::FromTransform"
+                        "name": "MathQuaternion_VM::FromTransform",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
                             "details": {
-                                "name": "Transform"
+                                "name": "const Transform&"
                             }
                         }
                     ],
@@ -254,14 +261,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::Lerp"
+                        "tooltip": "When signaled, this will invoke Lerp"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::Lerp is invoked"
+                        "tooltip": "Signaled after Lerp is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::Lerp"
+                        "name": "MathQuaternion_VM::Lerp",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -297,14 +305,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::RotationZDegrees"
+                        "tooltip": "When signaled, this will invoke RotationZDegrees"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::RotationZDegrees is invoked"
+                        "tooltip": "Signaled after RotationZDegrees is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::RotationZDegrees"
+                        "name": "MathQuaternion_VM::RotationZDegrees",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -328,20 +337,21 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::ConvertTransformToRotation"
+                        "tooltip": "When signaled, this will invoke ConvertTransformToRotation"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::ConvertTransformToRotation is invoked"
+                        "tooltip": "Signaled after ConvertTransformToRotation is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::ConvertTransformToRotation"
+                        "name": "MathQuaternion_VM::ConvertTransformToRotation",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
                             "details": {
-                                "name": "Transform"
+                                "name": "const Transform&"
                             }
                         }
                     ],
@@ -359,14 +369,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::ShortestArc"
+                        "tooltip": "When signaled, this will invoke ShortestArc"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::ShortestArc is invoked"
+                        "tooltip": "Signaled after ShortestArc is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::ShortestArc"
+                        "name": "MathQuaternion_VM::ShortestArc",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -396,14 +407,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::RotationXDegrees"
+                        "tooltip": "When signaled, this will invoke RotationXDegrees"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::RotationXDegrees is invoked"
+                        "tooltip": "Signaled after RotationXDegrees is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::RotationXDegrees"
+                        "name": "MathQuaternion_VM::RotationXDegrees",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -427,14 +439,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::IsZero"
+                        "tooltip": "When signaled, this will invoke IsZero"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::IsZero is invoked"
+                        "tooltip": "Signaled after IsZero is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::IsZero"
+                        "name": "MathQuaternion_VM::IsZero",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -464,14 +477,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::IsClose"
+                        "tooltip": "When signaled, this will invoke IsClose"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::IsClose is invoked"
+                        "tooltip": "Signaled after IsClose is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::IsClose"
+                        "name": "MathQuaternion_VM::IsClose",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -507,14 +521,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::Length"
+                        "tooltip": "When signaled, this will invoke Length"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::Length is invoked"
+                        "tooltip": "Signaled after Length is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::Length"
+                        "name": "MathQuaternion_VM::Length",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -538,14 +553,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::Conjugate"
+                        "tooltip": "When signaled, this will invoke Conjugate"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::Conjugate is invoked"
+                        "tooltip": "Signaled after Conjugate is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::Conjugate"
+                        "name": "MathQuaternion_VM::Conjugate",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -569,14 +585,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::ToAngleDegrees"
+                        "tooltip": "When signaled, this will invoke ToAngleDegrees"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::ToAngleDegrees is invoked"
+                        "tooltip": "Signaled after ToAngleDegrees is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::ToAngleDegrees"
+                        "name": "MathQuaternion_VM::ToAngleDegrees",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -600,14 +617,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::Dot"
+                        "tooltip": "When signaled, this will invoke Dot"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::Dot is invoked"
+                        "tooltip": "Signaled after Dot is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::Dot"
+                        "name": "MathQuaternion_VM::Dot",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -637,14 +655,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::Negate"
+                        "tooltip": "When signaled, this will invoke Negate"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::Negate is invoked"
+                        "tooltip": "Signaled after Negate is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::Negate"
+                        "name": "MathQuaternion_VM::Negate",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -668,14 +687,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::Add"
+                        "tooltip": "When signaled, this will invoke Add"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::Add is invoked"
+                        "tooltip": "Signaled after Add is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::Add"
+                        "name": "MathQuaternion_VM::Add",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -705,14 +725,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::MultiplyByNumber"
+                        "tooltip": "When signaled, this will invoke MultiplyByNumber"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::MultiplyByNumber is invoked"
+                        "tooltip": "Signaled after MultiplyByNumber is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::MultiplyByNumber"
+                        "name": "MathQuaternion_VM::MultiplyByNumber",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -742,14 +763,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::Slerp"
+                        "tooltip": "When signaled, this will invoke Slerp"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::Slerp is invoked"
+                        "tooltip": "Signaled after Slerp is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::Slerp"
+                        "name": "MathQuaternion_VM::Slerp",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -785,14 +807,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::InvertFull"
+                        "tooltip": "When signaled, this will invoke InvertFull"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::InvertFull is invoked"
+                        "tooltip": "Signaled after InvertFull is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::InvertFull"
+                        "name": "MathQuaternion_VM::InvertFull",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -816,20 +839,21 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::FromMatrix4x4"
+                        "tooltip": "When signaled, this will invoke FromMatrix4x4"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::FromMatrix4x4 is invoked"
+                        "tooltip": "Signaled after FromMatrix4x4 is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::FromMatrix4x4"
+                        "name": "MathQuaternion_VM::FromMatrix4x4",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{157193C7-B673-4A2B-8B43-5681DCC3DEC3}",
                             "details": {
-                                "name": "Matrix4x4"
+                                "name": "const Matrix4x4&"
                             }
                         }
                     ],
@@ -847,14 +871,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::RotateVector3"
+                        "tooltip": "When signaled, this will invoke RotateVector3"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::RotateVector3 is invoked"
+                        "tooltip": "Signaled after RotateVector3 is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::RotateVector3"
+                        "name": "MathQuaternion_VM::RotateVector3",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -884,20 +909,21 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::FromMatrix3x3"
+                        "tooltip": "When signaled, this will invoke FromMatrix3x3"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::FromMatrix3x3 is invoked"
+                        "tooltip": "Signaled after FromMatrix3x3 is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::FromMatrix3x3"
+                        "name": "MathQuaternion_VM::FromMatrix3x3",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{15A4332F-7C3F-4A58-AC35-50E1CE53FB9C}",
                             "details": {
-                                "name": "Matrix3x3"
+                                "name": "const Matrix3x3&"
                             }
                         }
                     ],
@@ -915,14 +941,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::Squad"
+                        "tooltip": "When signaled, this will invoke Squad"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::Squad is invoked"
+                        "tooltip": "Signaled after Squad is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::Squad"
+                        "name": "MathQuaternion_VM::Squad",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -970,14 +997,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::FromAxisAngleDegrees"
+                        "tooltip": "When signaled, this will invoke FromAxisAngleDegrees"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::FromAxisAngleDegrees is invoked"
+                        "tooltip": "Signaled after FromAxisAngleDegrees is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::FromAxisAngleDegrees"
+                        "name": "MathQuaternion_VM::FromAxisAngleDegrees",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -1007,14 +1035,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::LengthSquared"
+                        "tooltip": "When signaled, this will invoke LengthSquared"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::LengthSquared is invoked"
+                        "tooltip": "Signaled after LengthSquared is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::LengthSquared"
+                        "name": "MathQuaternion_VM::LengthSquared",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -1038,14 +1067,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::IsFinite"
+                        "tooltip": "When signaled, this will invoke IsFinite"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::IsFinite is invoked"
+                        "tooltip": "Signaled after IsFinite is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::IsFinite"
+                        "name": "MathQuaternion_VM::IsFinite",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -1069,14 +1099,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::DivideByNumber"
+                        "tooltip": "When signaled, this will invoke DivideByNumber"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::DivideByNumber is invoked"
+                        "tooltip": "Signaled after DivideByNumber is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::DivideByNumber"
+                        "name": "MathQuaternion_VM::DivideByNumber",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -1106,14 +1137,15 @@
                     "context": "MathQuaternion_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathQuaternion_VM::MultiplyByRotation"
+                        "tooltip": "When signaled, this will invoke MultiplyByRotation"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathQuaternion_VM::MultiplyByRotation is invoked"
+                        "tooltip": "Signaled after MultiplyByRotation is invoked"
                     },
                     "details": {
-                        "name": "MathQuaternion_VM::MultiplyByRotation"
+                        "name": "MathQuaternion_VM::MultiplyByRotation",
+                        "category": "Other"
                     },
                     "params": [
                         {

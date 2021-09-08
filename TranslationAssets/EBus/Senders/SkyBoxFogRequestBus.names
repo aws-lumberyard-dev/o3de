@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "SkyBoxFogRequestBus"
+                "name": "SKYBOXFOGREQUESTBUS_NAME",
+                "category": "SKYBOXFOGREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

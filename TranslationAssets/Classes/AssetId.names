@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AssetId",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "AssetId"
@@ -13,14 +13,15 @@
                     "context": "AssetId",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AssetId::CreateString"
+                        "tooltip": "When signaled, this will invoke CreateString"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AssetId::CreateString is invoked"
+                        "tooltip": "Signaled after CreateString is invoked"
                     },
                     "details": {
-                        "name": "AssetId::CreateString"
+                        "name": "AssetId::CreateString",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -44,20 +45,21 @@
                     "context": "AssetId",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AssetId::IsValid"
+                        "tooltip": "When signaled, this will invoke IsValid"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AssetId::IsValid is invoked"
+                        "tooltip": "Signaled after IsValid is invoked"
                     },
                     "details": {
-                        "name": "AssetId::IsValid"
+                        "name": "AssetId::IsValid",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
                             "details": {
-                                "name": "AssetId"
+                                "name": "AssetId*"
                             }
                         }
                     ],
@@ -75,20 +77,21 @@
                     "context": "AssetId",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AssetId::ToString"
+                        "tooltip": "When signaled, this will invoke ToString"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AssetId::ToString is invoked"
+                        "tooltip": "Signaled after ToString is invoked"
                     },
                     "details": {
-                        "name": "AssetId::ToString"
+                        "name": "AssetId::ToString",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
                             "details": {
-                                "name": "AssetId"
+                                "name": "const AssetId*"
                             }
                         }
                     ],
@@ -96,7 +99,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "AZStd::basic_string<char, AZStd::char_traits<char>, allocator>"
                             }
                         }
                     ]
@@ -106,26 +109,27 @@
                     "context": "AssetId",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AssetId::IsEqual"
+                        "tooltip": "When signaled, this will invoke IsEqual"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AssetId::IsEqual is invoked"
+                        "tooltip": "Signaled after IsEqual is invoked"
                     },
                     "details": {
-                        "name": "AssetId::IsEqual"
+                        "name": "AssetId::IsEqual",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
                             "details": {
-                                "name": "AssetId"
+                                "name": "const AssetId&"
                             }
                         },
                         {
                             "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
                             "details": {
-                                "name": "AssetId"
+                                "name": "const AssetId&"
                             }
                         }
                     ],

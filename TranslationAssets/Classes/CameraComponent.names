@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "CameraComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "CameraComponent"

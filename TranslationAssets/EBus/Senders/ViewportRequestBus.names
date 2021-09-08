@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "ViewportRequestBus"
+                "name": "VIEWPORTREQUESTBUS_NAME",
+                "category": "VIEWPORTREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

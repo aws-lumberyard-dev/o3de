@@ -91,7 +91,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_files.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_testing_files.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows\crycommon_windows.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows\crycommon_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_files.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_testing_files.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Legacy/CryCommon/CMakeLists.txt</Message>
@@ -104,7 +104,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_files.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_testing_files.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows\crycommon_windows.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows\crycommon_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_files.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_testing_files.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Legacy/CryCommon/CMakeLists.txt</Message>
@@ -117,7 +117,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_files.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_testing_files.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows\crycommon_windows.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows\crycommon_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_files.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_testing_files.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
     </CustomBuild>
@@ -136,8 +136,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <None Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Mocks\ITimerMock.h">
     </None>
     <None Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Mocks\ICVarMock.h">
-    </None>
-    <None Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Mocks\IRendererMock.h">
     </None>
     <None Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Mocks\ITextureMock.h">
     </None>

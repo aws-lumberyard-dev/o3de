@@ -5,7 +5,8 @@
             "context": "EBusHandler",
             "variant": "",
             "details": {
-                "name": "UiScrollBoxNotificationBus"
+                "name": "UI Scroll Box",
+                "category": "UI"
             },
             "methods": [
                 {
@@ -17,7 +18,8 @@
                         {
                             "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
                             "details": {
-                                "name": "Vector2"
+                                "name": "Scroll Offset",
+                                "tooltip": "The new scroll offset"
                             }
                         }
                     ]
@@ -31,7 +33,8 @@
                         {
                             "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
                             "details": {
-                                "name": "Vector2"
+                                "name": "Scroll Offset",
+                                "tooltip": "The new scroll offset"
                             }
                         }
                     ]

@@ -103,3 +103,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/profile/GraphCanvas.Editor.dll" "J:/Atom/lyfork
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/ScriptEvents.Editor.dll" "J:/Atom/lyfork/o3de/bin/profile")
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/EditorCore.dll" "J:/Atom/lyfork/o3de/bin/profile")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/profile/ScriptCanvas.Editor_profile.stamp)

@@ -136,6 +136,9 @@
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\UI\Outliner\OutlinerWidget.ui">
       <Filter>UI\Outliner</Filter>
     </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\ComponentEntityEditorPlugin_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\a40c1dde84d169ab215ed73925a6d575\qrc_resources.cpp.rule">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -151,6 +154,15 @@
       <Filter>UI\Outliner</Filter>
     </None>
     <None Include="J:\Atom\lyfork\o3de\Code\Editor\Plugins\ComponentEntityEditorPlugin\componententityeditorplugin_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\ComponentEntityEditorPlugin_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\ComponentEntityEditorPlugin_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\ComponentEntityEditorPlugin_release.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Generated Files">

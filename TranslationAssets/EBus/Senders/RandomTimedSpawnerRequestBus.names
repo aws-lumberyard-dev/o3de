@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "RandomTimedSpawnerRequestBus"
+                "name": "RANDOMTIMEDSPAWNERREQUESTBUS_NAME",
+                "category": "RANDOMTIMEDSPAWNERREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

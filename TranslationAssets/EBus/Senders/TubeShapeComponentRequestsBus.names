@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "TubeShapeComponentRequestsBus"
+                "name": "TUBESHAPECOMPONENTREQUESTSBUS_NAME",
+                "category": "TUBESHAPECOMPONENTREQUESTSBUS_CATEGORY"
             },
             "methods": [
                 {

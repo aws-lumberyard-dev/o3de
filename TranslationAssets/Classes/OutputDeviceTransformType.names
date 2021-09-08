@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "OutputDeviceTransformType",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "OutputDeviceTransformType"

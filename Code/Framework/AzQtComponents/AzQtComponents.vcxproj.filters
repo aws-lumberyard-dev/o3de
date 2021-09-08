@@ -169,6 +169,9 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\Eyedropper.cpp">
       <Filter>AzQtComponents\Components\Widgets</Filter>
     </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\FileDialog.cpp">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\GradientSlider.cpp">
       <Filter>AzQtComponents\Components\Widgets</Filter>
     </ClCompile>
@@ -543,6 +546,9 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\Eyedropper.h">
       <Filter>AzQtComponents\Components\Widgets</Filter>
     </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\FileDialog.h">
+      <Filter>AzQtComponents\Components\Widgets</Filter>
+    </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\GradientSlider.h">
       <Filter>AzQtComponents\Components\Widgets</Filter>
     </ClInclude>
@@ -724,6 +730,9 @@
     </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\AzQtComponents\Components\Widgets\Internal\OverlayWidgetLayer.ui">
       <Filter>AzQtComponents\Components\Widgets\Internal</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\AzQtComponents_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
     </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\4821ed08314951a93728ddce36cca782\qrc_resources.cpp.rule">
       <Filter>Generated Files</Filter>
@@ -926,6 +935,15 @@
     </None>
     <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzQtComponents\Platform\Windows\platform_windows.cmake">
       <Filter>Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\AzQtComponents_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\AzQtComponents_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\AzQtComponents_release.stamp">
+      <Filter>Generated Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

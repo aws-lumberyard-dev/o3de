@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "AudioTriggerComponentRequestBus"
+                "name": "Audio Trigger",
+                "category": "Audio"
             },
             "methods": [
                 {
@@ -34,34 +35,37 @@
                     "key": "KillAllTriggers",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke KillAllTriggers"
+                        "tooltip": "When signaled, this will invoke Kill All Triggers"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after KillAllTriggers is invoked"
+                        "tooltip": "Signaled after Kill All Triggers is invoked"
                     },
                     "details": {
-                        "name": "KillAllTriggers"
+                        "name": "Kill All Triggers",
+                        "tooltip": "Cancels all audio triggers that are active on an entity"
                     }
                 },
                 {
                     "key": "ExecuteTrigger",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke ExecuteTrigger"
+                        "tooltip": "When signaled, this will invoke Execute Trigger"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after ExecuteTrigger is invoked"
+                        "tooltip": "Signaled after Execute Trigger is invoked"
                     },
                     "details": {
-                        "name": "ExecuteTrigger"
+                        "name": "Execute Trigger",
+                        "tooltip": "Runs the specified audio trigger"
                     },
                     "params": [
                         {
                             "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
                             "details": {
-                                "name": "char"
+                                "name": "Trigger Name",
+                                "tooltip": "Name of the audio trigger to run"
                             }
                         }
                     ]
@@ -70,20 +74,22 @@
                     "key": "SetMovesWithEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetMovesWithEntity"
+                        "tooltip": "When signaled, this will invoke Set Moves With Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetMovesWithEntity is invoked"
+                        "tooltip": "Signaled after Set Moves With Entity is invoked"
                     },
                     "details": {
-                        "name": "SetMovesWithEntity"
+                        "name": "Set Moves With Entity",
+                        "tooltip": "Specifies whether triggers should update position as the entity moves"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Track Entity",
+                                "tooltip": "Set whether triggers should track the entity's position (1 is Track, 0 is Don't Track)"
                             }
                         }
                     ]
@@ -99,7 +105,8 @@
                         "tooltip": "Signaled after Stop is invoked"
                     },
                     "details": {
-                        "name": "Stop"
+                        "name": "Stop",
+                        "tooltip": "Runs the default 'stop' trigger, if set. If no 'stop' trigger is set, kills the default 'play' trigger."
                     }
                 },
                 {
@@ -113,27 +120,30 @@
                         "tooltip": "Signaled after Play is invoked"
                     },
                     "details": {
-                        "name": "Play"
+                        "name": "Play",
+                        "tooltip": "Runs the default 'play' trigger, if set."
                     }
                 },
                 {
                     "key": "KillTrigger",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke KillTrigger"
+                        "tooltip": "When signaled, this will invoke Kill Trigger"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after KillTrigger is invoked"
+                        "tooltip": "Signaled after Kill Trigger is invoked"
                     },
                     "details": {
-                        "name": "KillTrigger"
+                        "name": "Kill Trigger",
+                        "tooltip": "Cancels the specified audio trigger"
                     },
                     "params": [
                         {
                             "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
                             "details": {
-                                "name": "char"
+                                "name": "Trigger Name",
+                                "tooltip": "Name of the audio trigger to cancel"
                             }
                         }
                     ]

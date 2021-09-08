@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "ViewPaneOptions",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "ViewPaneOptions"

@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "Asset<ModelAsset>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Asset<ModelAsset>"
@@ -13,20 +13,21 @@
                     "context": "Asset<ModelAsset>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Asset<ModelAsset>::IsLoading"
+                        "tooltip": "When signaled, this will invoke IsLoading"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Asset<ModelAsset>::IsLoading is invoked"
+                        "tooltip": "Signaled after IsLoading is invoked"
                     },
                     "details": {
-                        "name": "Asset<ModelAsset>::IsLoading"
+                        "name": "Asset<ModelAsset>::IsLoading",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{A1F6761B-B5CA-59E6-89FF-EB0ABDF6BD68}",
                             "details": {
-                                "name": "Asset"
+                                "name": "Asset<ModelAsset>*"
                             }
                         }
                     ],
@@ -44,20 +45,21 @@
                     "context": "Asset<ModelAsset>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Asset<ModelAsset>::GetType"
+                        "tooltip": "When signaled, this will invoke GetType"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Asset<ModelAsset>::GetType is invoked"
+                        "tooltip": "Signaled after GetType is invoked"
                     },
                     "details": {
-                        "name": "Asset<ModelAsset>::GetType"
+                        "name": "Asset<ModelAsset>::GetType",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{A1F6761B-B5CA-59E6-89FF-EB0ABDF6BD68}",
                             "details": {
-                                "name": "Asset"
+                                "name": "Asset<ModelAsset>*"
                             }
                         }
                     ],
@@ -65,7 +67,7 @@
                         {
                             "typeid": "{E152C105-A133-4D03-BBF8-3D4B2FBA3E2A}",
                             "details": {
-                                "name": "AZ::Uuid"
+                                "name": "const AZ::Uuid&"
                             }
                         }
                     ]
@@ -75,20 +77,21 @@
                     "context": "Asset<ModelAsset>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Asset<ModelAsset>::IsError"
+                        "tooltip": "When signaled, this will invoke IsError"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Asset<ModelAsset>::IsError is invoked"
+                        "tooltip": "Signaled after IsError is invoked"
                     },
                     "details": {
-                        "name": "Asset<ModelAsset>::IsError"
+                        "name": "Asset<ModelAsset>::IsError",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{A1F6761B-B5CA-59E6-89FF-EB0ABDF6BD68}",
                             "details": {
-                                "name": "Asset"
+                                "name": "Asset<ModelAsset>*"
                             }
                         }
                     ],
@@ -106,20 +109,21 @@
                     "context": "Asset<ModelAsset>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Asset<ModelAsset>::GetHint"
+                        "tooltip": "When signaled, this will invoke GetHint"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Asset<ModelAsset>::GetHint is invoked"
+                        "tooltip": "Signaled after GetHint is invoked"
                     },
                     "details": {
-                        "name": "Asset<ModelAsset>::GetHint"
+                        "name": "Asset<ModelAsset>::GetHint",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{A1F6761B-B5CA-59E6-89FF-EB0ABDF6BD68}",
                             "details": {
-                                "name": "Asset"
+                                "name": "Asset<ModelAsset>*"
                             }
                         }
                     ],
@@ -127,7 +131,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "const AZStd::basic_string<char, AZStd::char_traits<char>, alloc"
                             }
                         }
                     ]
@@ -137,20 +141,21 @@
                     "context": "Asset<ModelAsset>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Asset<ModelAsset>::GetData"
+                        "tooltip": "When signaled, this will invoke GetData"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Asset<ModelAsset>::GetData is invoked"
+                        "tooltip": "Signaled after GetData is invoked"
                     },
                     "details": {
-                        "name": "Asset<ModelAsset>::GetData"
+                        "name": "Asset<ModelAsset>::GetData",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{A1F6761B-B5CA-59E6-89FF-EB0ABDF6BD68}",
                             "details": {
-                                "name": "Asset"
+                                "name": "Asset<ModelAsset>*"
                             }
                         }
                     ],
@@ -158,7 +163,7 @@
                         {
                             "typeid": "{AF3F7D32-1536-422A-89F3-A11E1F5B5A9C}",
                             "details": {
-                                "name": "AssetData"
+                                "name": "AssetData*"
                             }
                         }
                     ]
@@ -168,20 +173,21 @@
                     "context": "Asset<ModelAsset>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Asset<ModelAsset>::IsReady"
+                        "tooltip": "When signaled, this will invoke IsReady"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Asset<ModelAsset>::IsReady is invoked"
+                        "tooltip": "Signaled after IsReady is invoked"
                     },
                     "details": {
-                        "name": "Asset<ModelAsset>::IsReady"
+                        "name": "Asset<ModelAsset>::IsReady",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{A1F6761B-B5CA-59E6-89FF-EB0ABDF6BD68}",
                             "details": {
-                                "name": "Asset"
+                                "name": "Asset<ModelAsset>*"
                             }
                         }
                     ],
@@ -199,20 +205,21 @@
                     "context": "Asset<ModelAsset>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Asset<ModelAsset>::GetStatus"
+                        "tooltip": "When signaled, this will invoke GetStatus"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Asset<ModelAsset>::GetStatus is invoked"
+                        "tooltip": "Signaled after GetStatus is invoked"
                     },
                     "details": {
-                        "name": "Asset<ModelAsset>::GetStatus"
+                        "name": "Asset<ModelAsset>::GetStatus",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{A1F6761B-B5CA-59E6-89FF-EB0ABDF6BD68}",
                             "details": {
-                                "name": "Asset"
+                                "name": "Asset<ModelAsset>*"
                             }
                         }
                     ],
@@ -230,20 +237,21 @@
                     "context": "Asset<ModelAsset>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Asset<ModelAsset>::GetId"
+                        "tooltip": "When signaled, this will invoke GetId"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Asset<ModelAsset>::GetId is invoked"
+                        "tooltip": "Signaled after GetId is invoked"
                     },
                     "details": {
-                        "name": "Asset<ModelAsset>::GetId"
+                        "name": "Asset<ModelAsset>::GetId",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{A1F6761B-B5CA-59E6-89FF-EB0ABDF6BD68}",
                             "details": {
-                                "name": "Asset"
+                                "name": "Asset<ModelAsset>*"
                             }
                         }
                     ],
@@ -251,7 +259,7 @@
                         {
                             "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
                             "details": {
-                                "name": "AssetId"
+                                "name": "const AssetId&"
                             }
                         }
                     ]

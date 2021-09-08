@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "QuadShapeComponentRequestsBus"
+                "name": "QUADSHAPECOMPONENTREQUESTSBUS_NAME",
+                "category": "QUADSHAPECOMPONENTREQUESTSBUS_CATEGORY"
             },
             "methods": [
                 {

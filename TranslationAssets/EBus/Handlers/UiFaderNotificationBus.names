@@ -5,7 +5,8 @@
             "context": "EBusHandler",
             "variant": "",
             "details": {
-                "name": "UiFaderNotificationBus"
+                "name": "UI Fader",
+                "category": "UI"
             },
             "methods": [
                 {

@@ -44,6 +44,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\LyShine.Tests_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\CMakeLists.txt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -51,6 +54,15 @@
   <ItemGroup>
     <None Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\lyshine_common_module_files.cmake" />
     <None Include="J:\Atom\lyfork\o3de\Gems\LyShine\Code\lyshine_tests_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\LyShine.Tests_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\LyShine.Tests_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\LyShine.Tests_release.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Generated Files">

@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "Event<tuple<Crc32 int > const CollisionEvent& >",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Event<tuple<Crc32 int > const CollisionEvent& >"
@@ -13,14 +13,15 @@
                     "context": "Event<tuple<Crc32 int > const CollisionEvent& >",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Event<tuple<Crc32 int > const CollisionEvent& >::HasHandlerConnected"
+                        "tooltip": "When signaled, this will invoke HasHandlerConnected"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Event<tuple<Crc32 int > const CollisionEvent& >::HasHandlerConnected is invoked"
+                        "tooltip": "Signaled after HasHandlerConnected is invoked"
                     },
                     "details": {
-                        "name": "Event<tuple<Crc32 int > const CollisionEvent& >::HasHandlerConnected"
+                        "name": "Event<tuple<Crc32 int > const CollisionEvent& >::HasHandlerConnected",
+                        "category": "Other"
                     },
                     "params": [
                         {

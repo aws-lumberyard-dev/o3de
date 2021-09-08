@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZ::RHI::Handle<unsigned int, IndirectCommandDescriptor>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "AZ::RHI::Handle<unsigned int, IndirectCommandDescriptor>"
@@ -13,20 +13,21 @@
                     "context": "AZ::RHI::Handle<unsigned int, IndirectCommandDescriptor>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZ::RHI::Handle<unsigned int, IndirectCommandDescriptor>::IsValid"
+                        "tooltip": "When signaled, this will invoke IsValid"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZ::RHI::Handle<unsigned int, IndirectCommandDescriptor>::IsValid is invoked"
+                        "tooltip": "Signaled after IsValid is invoked"
                     },
                     "details": {
-                        "name": "AZ::RHI::Handle<unsigned int, IndirectCommandDescriptor>::IsValid"
+                        "name": "AZ::RHI::Handle<unsigned int, IndirectCommandDescriptor>::IsValid",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{6B17F9C6-DB72-52CA-80ED-EFDFDF2DF9ED}",
                             "details": {
-                                "name": "AZ::RHI::Handle<unsigned int, IndirectCommandDescriptor>"
+                                "name": "AZ::RHI::Handle<unsigned int, IndirectCommandDescriptor>*"
                             }
                         }
                     ],

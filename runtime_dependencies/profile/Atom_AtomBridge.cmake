@@ -69,3 +69,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/profile/EMotionFX.dll" "J:/Atom/lyfork/o3de/bin
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/EMotionFX_Atom.dll" "J:/Atom/lyfork/o3de/bin/profile")
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/ImguiAtom.dll" "J:/Atom/lyfork/o3de/bin/profile")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/profile/Atom_AtomBridge_profile.stamp)

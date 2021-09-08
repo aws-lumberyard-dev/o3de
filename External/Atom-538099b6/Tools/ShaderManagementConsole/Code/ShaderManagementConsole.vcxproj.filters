@@ -7,9 +7,6 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\Source\ShaderManagementConsoleApplication.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\Source\Document\ShaderManagementConsoleDocumentModule.cpp">
-      <Filter>Source\Document</Filter>
-    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\Source\Platform\Windows\ShaderManagementConsole_Windows.cpp">
       <Filter>Source\Platform\Windows</Filter>
     </ClCompile>
@@ -17,9 +14,6 @@
   <ItemGroup>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\Source\ShaderManagementConsoleApplication.h">
       <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\Include\Atom\Document\ShaderManagementConsoleDocumentModule.h">
-      <Filter>Include\Atom\Document</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\Source\Platform\Windows\ShaderManagementConsole_Traits_Platform.h">
       <Filter>Source\Platform\Windows</Filter>
@@ -29,6 +23,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\ShaderManagementConsole_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\CMakeLists.txt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -40,6 +37,15 @@
     <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\shadermanagementconsole_files.cmake" />
     <None Include="J:\Atom\lyfork\o3de\Gems\Atom\Tools\ShaderManagementConsole\Code\Source\Platform\Windows\platform_windows_files.cmake">
       <Filter>Source\Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\ShaderManagementConsole_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\ShaderManagementConsole_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\ShaderManagementConsole_release.stamp">
+      <Filter>Generated Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -57,20 +63,8 @@
     <Filter Include="Generated Files">
       <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Include">
-      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Include\Atom">
-      <UniqueIdentifier>{E66A19AE-451A-3F1F-B698-7608D533AFDF}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Include\Atom\Document">
-      <UniqueIdentifier>{F66268B1-61B7-3547-AAC5-5DC1D34C0401}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source">
       <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Document">
-      <UniqueIdentifier>{279180B3-C7A3-3543-9796-BA448BFB135A}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Platform">
       <UniqueIdentifier>{619E1779-1529-36CF-BFB6-452991664BCE}</UniqueIdentifier>

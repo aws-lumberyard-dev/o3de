@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "Event<AZStd::basic_string_view<char, AZStd::char_traits<char>> >",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Event<AZStd::basic_string_view<char, AZStd::char_traits<char>> >"
@@ -13,14 +13,15 @@
                     "context": "Event<AZStd::basic_string_view<char, AZStd::char_traits<char>> >",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Event<AZStd::basic_string_view<char, AZStd::char_traits<char>> >::HasHandlerConnected"
+                        "tooltip": "When signaled, this will invoke HasHandlerConnected"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Event<AZStd::basic_string_view<char, AZStd::char_traits<char>> >::HasHandlerConnected is invoked"
+                        "tooltip": "Signaled after HasHandlerConnected is invoked"
                     },
                     "details": {
-                        "name": "Event<AZStd::basic_string_view<char, AZStd::char_traits<char>> >::HasHandlerConnected"
+                        "name": "Event<AZStd::basic_string_view<char, AZStd::char_traits<char>> >::HasHandlerConnected",
+                        "category": "Other"
                     },
                     "params": [
                         {

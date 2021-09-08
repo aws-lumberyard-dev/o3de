@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "Name",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Name"
@@ -13,20 +13,21 @@
                     "context": "Name",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Name::ToString"
+                        "tooltip": "When signaled, this will invoke ToString"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Name::ToString is invoked"
+                        "tooltip": "Signaled after ToString is invoked"
                     },
                     "details": {
-                        "name": "Name::ToString"
+                        "name": "Name::ToString",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{3D2B920C-9EFD-40D5-AAE0-DF131C3D4931}",
                             "details": {
-                                "name": "Name"
+                                "name": "Name*"
                             }
                         }
                     ],
@@ -34,7 +35,7 @@
                         {
                             "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
                             "details": {
-                                "name": "char"
+                                "name": "const char*"
                             }
                         }
                     ]
@@ -44,20 +45,21 @@
                     "context": "Name",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Name::Set"
+                        "tooltip": "When signaled, this will invoke Set"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Name::Set is invoked"
+                        "tooltip": "Signaled after Set is invoked"
                     },
                     "details": {
-                        "name": "Name::Set"
+                        "name": "Name::Set",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{3D2B920C-9EFD-40D5-AAE0-DF131C3D4931}",
                             "details": {
-                                "name": "Name"
+                                "name": "Name*"
                             }
                         },
                         {
@@ -73,20 +75,21 @@
                     "context": "Name",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Name::IsEmpty"
+                        "tooltip": "When signaled, this will invoke IsEmpty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Name::IsEmpty is invoked"
+                        "tooltip": "Signaled after IsEmpty is invoked"
                     },
                     "details": {
-                        "name": "Name::IsEmpty"
+                        "name": "Name::IsEmpty",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{3D2B920C-9EFD-40D5-AAE0-DF131C3D4931}",
                             "details": {
-                                "name": "Name"
+                                "name": "Name*"
                             }
                         }
                     ],
@@ -104,26 +107,27 @@
                     "context": "Name",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Name::Equal"
+                        "tooltip": "When signaled, this will invoke Equal"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Name::Equal is invoked"
+                        "tooltip": "Signaled after Equal is invoked"
                     },
                     "details": {
-                        "name": "Name::Equal"
+                        "name": "Name::Equal",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{3D2B920C-9EFD-40D5-AAE0-DF131C3D4931}",
                             "details": {
-                                "name": "Name"
+                                "name": "Name*"
                             }
                         },
                         {
                             "typeid": "{3D2B920C-9EFD-40D5-AAE0-DF131C3D4931}",
                             "details": {
-                                "name": "Name"
+                                "name": "const Name&"
                             }
                         }
                     ],

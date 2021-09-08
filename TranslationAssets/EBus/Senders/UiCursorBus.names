@@ -5,21 +5,23 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiCursorBus"
+                "name": "UI Cursor",
+                "category": "UI"
             },
             "methods": [
                 {
                     "key": "GetUiCursorPosition",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetUiCursorPosition"
+                        "tooltip": "When signaled, this will invoke Get Position"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetUiCursorPosition is invoked"
+                        "tooltip": "Signaled after Get Position is invoked"
                     },
                     "details": {
-                        "name": "GetUiCursorPosition"
+                        "name": "Get Position",
+                        "tooltip": "Gets the cursor position relative to the top left corner of the UI overlay viewport"
                     },
                     "results": [
                         {
@@ -34,14 +36,15 @@
                     "key": "IsUiCursorVisible",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke IsUiCursorVisible"
+                        "tooltip": "When signaled, this will invoke Is Visible"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after IsUiCursorVisible is invoked"
+                        "tooltip": "Signaled after Is Visible is invoked"
                     },
                     "details": {
-                        "name": "IsUiCursorVisible"
+                        "name": "Is Visible",
+                        "tooltip": "Returns whether the cursor is visible"
                     },
                     "results": [
                         {
@@ -56,48 +59,52 @@
                     "key": "DecrementVisibleCounter",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke DecrementVisibleCounter"
+                        "tooltip": "When signaled, this will invoke Decrement Visible Counter"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after DecrementVisibleCounter is invoked"
+                        "tooltip": "Signaled after Decrement Visible Counter is invoked"
                     },
                     "details": {
-                        "name": "DecrementVisibleCounter"
+                        "name": "Decrement Visible Counter",
+                        "tooltip": "Decrements the cursor visible counter. Should be paired with a call to \"Increment Visible Counter\""
                     }
                 },
                 {
                     "key": "IncrementVisibleCounter",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke IncrementVisibleCounter"
+                        "tooltip": "When signaled, this will invoke Increment Visible Counter"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after IncrementVisibleCounter is invoked"
+                        "tooltip": "Signaled after Increment Visible Counter is invoked"
                     },
                     "details": {
-                        "name": "IncrementVisibleCounter"
+                        "name": "Increment Visible Counter",
+                        "tooltip": "Increments the cursor visible counter. Should be paired with a call to \"Decrement Visible Counter\""
                     }
                 },
                 {
                     "key": "SetUiCursor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetUiCursor"
+                        "tooltip": "When signaled, this will invoke Set Cursor"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetUiCursor is invoked"
+                        "tooltip": "Signaled after Set Cursor is invoked"
                     },
                     "details": {
-                        "name": "SetUiCursor"
+                        "name": "Set Cursor",
+                        "tooltip": "Sets the cursor image"
                     },
                     "params": [
                         {
                             "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
                             "details": {
-                                "name": "char"
+                                "name": "Pathname",
+                                "tooltip": "The pathname to the cursor image"
                             }
                         }
                     ]

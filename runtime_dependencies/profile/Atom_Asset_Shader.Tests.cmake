@@ -94,3 +94,5 @@ ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/mcpp-2.7.2_az.1-rev1-windows/mcpp/lib/mcpp0.dll" "J:/Atom/lyfork/o3de/bin/profile")
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/AzTestRunner.exe" "J:/Atom/lyfork/o3de/bin/profile")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/profile/Atom_Asset_Shader.Tests_profile.stamp)

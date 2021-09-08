@@ -5,21 +5,23 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiImageSequenceBus"
+                "name": "UI Image Sequence",
+                "category": "UI"
             },
             "methods": [
                 {
                     "key": "GetImageType",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetImageType"
+                        "tooltip": "When signaled, this will invoke Get Image Type"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetImageType is invoked"
+                        "tooltip": "Signaled after Get Image Type is invoked"
                     },
                     "details": {
-                        "name": "GetImageType"
+                        "name": "Get Image Type",
+                        "tooltip": "Gets the image type of the image sequence"
                     },
                     "results": [
                         {
@@ -34,20 +36,22 @@
                     "key": "SetImageType",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetImageType"
+                        "tooltip": "When signaled, this will invoke Set Image Type"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetImageType is invoked"
+                        "tooltip": "Signaled after Set Image Type is invoked"
                     },
                     "details": {
-                        "name": "SetImageType"
+                        "name": "Set Image Type",
+                        "tooltip": "Sets the image type of the image sequence"
                     },
                     "params": [
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Image Type",
+                                "tooltip": "The image type (0 = Stretched, 1 = Fixed, 2 = Stretched To Fit, 3 = Stretched To Fill)"
                             }
                         }
                     ]

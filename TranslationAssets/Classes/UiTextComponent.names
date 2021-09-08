@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "UiTextComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "UiTextComponent"

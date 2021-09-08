@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "SmoothStepRequestBus"
+                "name": "SMOOTHSTEPREQUESTBUS_NAME",
+                "category": "SMOOTHSTEPREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

@@ -91,6 +91,7 @@ ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/plu
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin/Qt5Widgetsd.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin/Qt5Svgd.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin/Qt5Xmld.dll" "J:/Atom/lyfork/o3de/bin/debug")
+ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin/Qt5Testd.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/AzQtComponents.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/lux_core-2.2-rev5-multiplatform/LuxCore2.2/win64/dll/embree3.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/lux_core-2.2-rev5-multiplatform/LuxCore2.2/win64/dll/luxcore.dll" "J:/Atom/lyfork/o3de/bin/debug")
@@ -124,3 +125,5 @@ ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/openimageio-2.1.16.0-rev2-win
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/openimageio-2.1.16.0-rev2-windows/OpenImageIO/2.1.16.0/win_x64/bin/oiiotool.exe" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/AzTestRunner.exe" "J:/Atom/lyfork/o3de/bin/debug")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/debug/WhiteBox.Editor.Tests_debug.stamp)

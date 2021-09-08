@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "IBlendShapeAnimationData",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "IBlendShapeAnimationData"
@@ -13,14 +13,15 @@
                     "context": "IBlendShapeAnimationData",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke IBlendShapeAnimationData::GetBlendShapeName"
+                        "tooltip": "When signaled, this will invoke GetBlendShapeName"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after IBlendShapeAnimationData::GetBlendShapeName is invoked"
+                        "tooltip": "Signaled after GetBlendShapeName is invoked"
                     },
                     "details": {
-                        "name": "IBlendShapeAnimationData::GetBlendShapeName"
+                        "name": "IBlendShapeAnimationData::GetBlendShapeName",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -34,7 +35,7 @@
                         {
                             "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
                             "details": {
-                                "name": "char"
+                                "name": "const char*"
                             }
                         }
                     ]
@@ -44,14 +45,15 @@
                     "context": "IBlendShapeAnimationData",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke IBlendShapeAnimationData::GetKeyFrameCount"
+                        "tooltip": "When signaled, this will invoke GetKeyFrameCount"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after IBlendShapeAnimationData::GetKeyFrameCount is invoked"
+                        "tooltip": "Signaled after GetKeyFrameCount is invoked"
                     },
                     "details": {
-                        "name": "IBlendShapeAnimationData::GetKeyFrameCount"
+                        "name": "IBlendShapeAnimationData::GetKeyFrameCount",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -75,14 +77,15 @@
                     "context": "IBlendShapeAnimationData",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke IBlendShapeAnimationData::GetKeyFrame"
+                        "tooltip": "When signaled, this will invoke GetKeyFrame"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after IBlendShapeAnimationData::GetKeyFrame is invoked"
+                        "tooltip": "Signaled after GetKeyFrame is invoked"
                     },
                     "details": {
-                        "name": "IBlendShapeAnimationData::GetKeyFrame"
+                        "name": "IBlendShapeAnimationData::GetKeyFrame",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -112,14 +115,15 @@
                     "context": "IBlendShapeAnimationData",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke IBlendShapeAnimationData::GetTimeStepBetweenFrames"
+                        "tooltip": "When signaled, this will invoke GetTimeStepBetweenFrames"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after IBlendShapeAnimationData::GetTimeStepBetweenFrames is invoked"
+                        "tooltip": "Signaled after GetTimeStepBetweenFrames is invoked"
                     },
                     "details": {
-                        "name": "IBlendShapeAnimationData::GetTimeStepBetweenFrames"
+                        "name": "IBlendShapeAnimationData::GetTimeStepBetweenFrames",
+                        "category": "Other"
                     },
                     "params": [
                         {

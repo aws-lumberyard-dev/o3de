@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZ::Render::EditorPhysicalSkyComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "AZ::Render::EditorPhysicalSkyComponent"

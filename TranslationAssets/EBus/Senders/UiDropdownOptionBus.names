@@ -5,21 +5,23 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiDropdownOptionBus"
+                "name": "UI Dropdown Option",
+                "category": "UI"
             },
             "methods": [
                 {
                     "key": "GetTextElement",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetTextElement"
+                        "tooltip": "When signaled, this will invoke Get Text Element"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetTextElement is invoked"
+                        "tooltip": "Signaled after Get Text Element is invoked"
                     },
                     "details": {
-                        "name": "GetTextElement"
+                        "name": "Get Text Element",
+                        "tooltip": "Gets the text element that is used to display the dropdown option’s text"
                     },
                     "results": [
                         {
@@ -35,14 +37,15 @@
                     "key": "GetIconElement",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetIconElement"
+                        "tooltip": "When signaled, this will invoke Get Icon Element"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetIconElement is invoked"
+                        "tooltip": "Signaled after Get Icon Element is invoked"
                     },
                     "details": {
-                        "name": "GetIconElement"
+                        "name": "Get Icon Element",
+                        "tooltip": "Gets the icon element that is used to display the dropdown option’s icon"
                     },
                     "results": [
                         {
@@ -58,21 +61,22 @@
                     "key": "SetIconElement",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetIconElement"
+                        "tooltip": "When signaled, this will invoke Set Icon Element"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetIconElement is invoked"
+                        "tooltip": "Signaled after Set Icon Element is invoked"
                     },
                     "details": {
-                        "name": "SetIconElement"
+                        "name": "Set Icon Element",
+                        "tooltip": "Sets the icon element that is used to display the dropdown option’s icon"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Icon EntityID",
+                                "tooltip": "The icon element that is used to display the dropdown option’s icon"
                             }
                         }
                     ]
@@ -81,21 +85,22 @@
                     "key": "SetOwningDropdown",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetOwningDropdown"
+                        "tooltip": "When signaled, this will invoke Set Owning Dropdown"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetOwningDropdown is invoked"
+                        "tooltip": "Signaled after Set Owning Dropdown is invoked"
                     },
                     "details": {
-                        "name": "SetOwningDropdown"
+                        "name": "Set Owning Dropdown",
+                        "tooltip": "Sets the owning dropdown to be modified when the dropdown option is selected"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Dropdown EntityID",
+                                "tooltip": "The owning dropdown to be modified when the dropdown option is selected"
                             }
                         }
                     ]
@@ -104,21 +109,22 @@
                     "key": "SetTextElement",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetTextElement"
+                        "tooltip": "When signaled, this will invoke Set Text Element"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetTextElement is invoked"
+                        "tooltip": "Signaled after Set Text Element is invoked"
                     },
                     "details": {
-                        "name": "SetTextElement"
+                        "name": "Set Text Element",
+                        "tooltip": "Sets the text element that is used to display the dropdown option’s text"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Text EntityID",
+                                "tooltip": "The text element that is used to display the dropdown option’s text"
                             }
                         }
                     ]
@@ -127,14 +133,15 @@
                     "key": "GetOwningDropdown",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetOwningDropdown"
+                        "tooltip": "When signaled, this will invoke Get Owning Dropdown"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetOwningDropdown is invoked"
+                        "tooltip": "Signaled after Get Owning Dropdown is invoked"
                     },
                     "details": {
-                        "name": "GetOwningDropdown"
+                        "name": "Get Owning Dropdown",
+                        "tooltip": "Gets the owning dropdown to be modified when the dropdown option is selected"
                     },
                     "results": [
                         {

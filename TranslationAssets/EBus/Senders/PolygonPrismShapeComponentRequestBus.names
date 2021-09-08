@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "PolygonPrismShapeComponentRequestBus"
+                "name": "POLYGONPRISMSHAPECOMPONENTREQUESTBUS_NAME",
+                "category": "POLYGONPRISMSHAPECOMPONENTREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

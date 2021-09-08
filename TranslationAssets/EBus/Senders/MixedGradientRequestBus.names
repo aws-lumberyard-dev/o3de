@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "MixedGradientRequestBus"
+                "name": "MIXEDGRADIENTREQUESTBUS_NAME",
+                "category": "MIXEDGRADIENTREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

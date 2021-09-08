@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Map<AssetId, EntityId>",
@@ -15,26 +15,27 @@
                     "context": "Map<AssetId, EntityId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::contains"
+                        "tooltip": "When signaled, this will invoke contains"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::contains is invoked"
+                        "tooltip": "Signaled after contains is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::contains"
+                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::contains",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{805FA2E4-1874-5919-A853-4EF984E5A82A}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "const AZStd::unordered_map<AssetId, EntityId, AZStd::hash<Asset"
                             }
                         },
                         {
                             "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
                             "details": {
-                                "name": "AssetId"
+                                "name": "AssetId&"
                             }
                         }
                     ],
@@ -52,32 +53,33 @@
                     "context": "Map<AssetId, EntityId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Insert"
+                        "tooltip": "When signaled, this will invoke Insert"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Insert is invoked"
+                        "tooltip": "Signaled after Insert is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Insert"
+                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Insert",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{805FA2E4-1874-5919-A853-4EF984E5A82A}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, A"
                             }
                         },
                         {
                             "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
                             "details": {
-                                "name": "AssetId"
+                                "name": "AssetId&"
                             }
                         },
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
+                                "name": "EntityId&",
                                 "tooltip": "Entity Unique Id"
                             }
                         }
@@ -86,7 +88,7 @@
                         {
                             "typeid": "{805FA2E4-1874-5919-A853-4EF984E5A82A}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, A"
                             }
                         }
                     ]
@@ -96,20 +98,21 @@
                     "context": "Map<AssetId, EntityId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Reserve"
+                        "tooltip": "When signaled, this will invoke Reserve"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Reserve is invoked"
+                        "tooltip": "Signaled after Reserve is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Reserve"
+                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Reserve",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{805FA2E4-1874-5919-A853-4EF984E5A82A}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, A"
                             }
                         },
                         {
@@ -125,20 +128,21 @@
                     "context": "Map<AssetId, EntityId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::GetSize"
+                        "tooltip": "When signaled, this will invoke GetSize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::GetSize is invoked"
+                        "tooltip": "Signaled after GetSize is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::GetSize"
+                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::GetSize",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{805FA2E4-1874-5919-A853-4EF984E5A82A}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, A"
                             }
                         }
                     ],
@@ -156,20 +160,21 @@
                     "context": "Map<AssetId, EntityId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Iterate_VM"
+                        "tooltip": "When signaled, this will invoke Iterate_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Iterate_VM is invoked"
+                        "tooltip": "Signaled after Iterate_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Iterate_VM"
+                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Iterate_VM",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{805FA2E4-1874-5919-A853-4EF984E5A82A}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, A"
                             }
                         }
                     ],
@@ -187,20 +192,21 @@
                     "context": "Map<AssetId, EntityId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::GetKeys"
+                        "tooltip": "When signaled, this will invoke GetKeys"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::GetKeys is invoked"
+                        "tooltip": "Signaled after GetKeys is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::GetKeys"
+                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::GetKeys",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{805FA2E4-1874-5919-A853-4EF984E5A82A}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, A"
                             }
                         }
                     ],
@@ -208,7 +214,7 @@
                         {
                             "typeid": "{877C4A33-39B5-51D7-948D-F97DB81372A1}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AssetId, allocator>"
                             }
                         }
                     ]
@@ -218,20 +224,21 @@
                     "context": "Map<AssetId, EntityId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Size"
+                        "tooltip": "When signaled, this will invoke Size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Size is invoked"
+                        "tooltip": "Signaled after Size is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Size"
+                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Size",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{805FA2E4-1874-5919-A853-4EF984E5A82A}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, A"
                             }
                         }
                     ],
@@ -249,26 +256,27 @@
                     "context": "Map<AssetId, EntityId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Erase"
+                        "tooltip": "When signaled, this will invoke Erase"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Erase is invoked"
+                        "tooltip": "Signaled after Erase is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Erase"
+                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Erase",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{805FA2E4-1874-5919-A853-4EF984E5A82A}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, A"
                             }
                         },
                         {
                             "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
                             "details": {
-                                "name": "AssetId"
+                                "name": "AssetId&"
                             }
                         }
                     ],
@@ -276,7 +284,7 @@
                         {
                             "typeid": "{805FA2E4-1874-5919-A853-4EF984E5A82A}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, A"
                             }
                         }
                     ]
@@ -286,26 +294,27 @@
                     "context": "Map<AssetId, EntityId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::EraseCheck_VM"
+                        "tooltip": "When signaled, this will invoke EraseCheck_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::EraseCheck_VM is invoked"
+                        "tooltip": "Signaled after EraseCheck_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::EraseCheck_VM"
+                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::EraseCheck_VM",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{805FA2E4-1874-5919-A853-4EF984E5A82A}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, A"
                             }
                         },
                         {
                             "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
                             "details": {
-                                "name": "AssetId"
+                                "name": "AssetId&"
                             }
                         }
                     ],
@@ -323,20 +332,21 @@
                     "context": "Map<AssetId, EntityId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Clear"
+                        "tooltip": "When signaled, this will invoke Clear"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Clear is invoked"
+                        "tooltip": "Signaled after Clear is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Clear"
+                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Clear",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{805FA2E4-1874-5919-A853-4EF984E5A82A}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, A"
                             }
                         }
                     ],
@@ -344,7 +354,7 @@
                         {
                             "typeid": "{805FA2E4-1874-5919-A853-4EF984E5A82A}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, A"
                             }
                         }
                     ]
@@ -354,26 +364,27 @@
                     "context": "Map<AssetId, EntityId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::At"
+                        "tooltip": "When signaled, this will invoke At"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::At is invoked"
+                        "tooltip": "Signaled after At is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::At"
+                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::At",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{805FA2E4-1874-5919-A853-4EF984E5A82A}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, A"
                             }
                         },
                         {
                             "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
                             "details": {
-                                "name": "AssetId"
+                                "name": "AssetId&"
                             }
                         }
                     ],
@@ -392,20 +403,21 @@
                     "context": "Map<AssetId, EntityId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::BucketCount"
+                        "tooltip": "When signaled, this will invoke BucketCount"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::BucketCount is invoked"
+                        "tooltip": "Signaled after BucketCount is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::BucketCount"
+                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::BucketCount",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{805FA2E4-1874-5919-A853-4EF984E5A82A}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, A"
                             }
                         }
                     ],
@@ -423,20 +435,21 @@
                     "context": "Map<AssetId, EntityId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Empty"
+                        "tooltip": "When signaled, this will invoke Empty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Empty is invoked"
+                        "tooltip": "Signaled after Empty is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Empty"
+                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Empty",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{805FA2E4-1874-5919-A853-4EF984E5A82A}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, A"
                             }
                         }
                     ],
@@ -454,26 +467,27 @@
                     "context": "Map<AssetId, EntityId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Swap"
+                        "tooltip": "When signaled, this will invoke Swap"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Swap is invoked"
+                        "tooltip": "Signaled after Swap is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Swap"
+                        "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Swap",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{805FA2E4-1874-5919-A853-4EF984E5A82A}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, A"
                             }
                         },
                         {
                             "typeid": "{805FA2E4-1874-5919-A853-4EF984E5A82A}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AssetId, EntityId, AZStd::hash<AssetId>, A"
                             }
                         }
                     ]

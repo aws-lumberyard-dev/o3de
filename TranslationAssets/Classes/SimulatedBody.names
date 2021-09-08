@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "SimulatedBody",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "SimulatedBody"
@@ -13,14 +13,15 @@
                     "context": "SimulatedBody",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SimulatedBody::GetOnCollisionEndEvent"
+                        "tooltip": "When signaled, this will invoke GetOnCollisionEndEvent"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SimulatedBody::GetOnCollisionEndEvent is invoked"
+                        "tooltip": "Signaled after GetOnCollisionEndEvent is invoked"
                     },
                     "details": {
-                        "name": "SimulatedBody::GetOnCollisionEndEvent"
+                        "name": "SimulatedBody::GetOnCollisionEndEvent",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -45,14 +46,15 @@
                     "context": "SimulatedBody",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SimulatedBody::GetOnCollisionPersistEvent"
+                        "tooltip": "When signaled, this will invoke GetOnCollisionPersistEvent"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SimulatedBody::GetOnCollisionPersistEvent is invoked"
+                        "tooltip": "Signaled after GetOnCollisionPersistEvent is invoked"
                     },
                     "details": {
-                        "name": "SimulatedBody::GetOnCollisionPersistEvent"
+                        "name": "SimulatedBody::GetOnCollisionPersistEvent",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -77,14 +79,15 @@
                     "context": "SimulatedBody",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SimulatedBody::GetOnTriggerEnterEvent"
+                        "tooltip": "When signaled, this will invoke GetOnTriggerEnterEvent"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SimulatedBody::GetOnTriggerEnterEvent is invoked"
+                        "tooltip": "Signaled after GetOnTriggerEnterEvent is invoked"
                     },
                     "details": {
-                        "name": "SimulatedBody::GetOnTriggerEnterEvent"
+                        "name": "SimulatedBody::GetOnTriggerEnterEvent",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -109,14 +112,15 @@
                     "context": "SimulatedBody",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SimulatedBody::GetOnCollisionBeginEvent"
+                        "tooltip": "When signaled, this will invoke GetOnCollisionBeginEvent"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SimulatedBody::GetOnCollisionBeginEvent is invoked"
+                        "tooltip": "Signaled after GetOnCollisionBeginEvent is invoked"
                     },
                     "details": {
-                        "name": "SimulatedBody::GetOnCollisionBeginEvent"
+                        "name": "SimulatedBody::GetOnCollisionBeginEvent",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -141,14 +145,15 @@
                     "context": "SimulatedBody",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SimulatedBody::GetOnTriggerExitEvent"
+                        "tooltip": "When signaled, this will invoke GetOnTriggerExitEvent"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SimulatedBody::GetOnTriggerExitEvent is invoked"
+                        "tooltip": "Signaled after GetOnTriggerExitEvent is invoked"
                     },
                     "details": {
-                        "name": "SimulatedBody::GetOnTriggerExitEvent"
+                        "name": "SimulatedBody::GetOnTriggerExitEvent",
+                        "category": "Other"
                     },
                     "params": [
                         {

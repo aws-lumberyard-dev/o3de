@@ -26,3 +26,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/debug/ExpressionEvaluation.dll" "J:/Atom/lyfork
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/ScriptEvents.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/ScriptCanvas.dll" "J:/Atom/lyfork/o3de/bin/debug")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/debug/ScriptCanvas.Tests_debug.stamp)

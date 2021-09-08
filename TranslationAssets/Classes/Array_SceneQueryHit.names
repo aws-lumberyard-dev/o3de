@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZStd::vector<SceneQueryHit, allocator>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Array<SceneQueryHit>",
@@ -15,20 +15,21 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::Size"
+                        "tooltip": "When signaled, this will invoke Size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::Size is invoked"
+                        "tooltip": "Signaled after Size is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::Size"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::Size",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>&"
                             }
                         }
                     ],
@@ -46,20 +47,21 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::Front"
+                        "tooltip": "When signaled, this will invoke Front"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::Front is invoked"
+                        "tooltip": "Signaled after Front is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::Front"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::Front",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>*"
                             }
                         }
                     ],
@@ -67,7 +69,7 @@
                         {
                             "typeid": "{7A7201B9-67B5-438B-B4EB-F3EEBB78C617}",
                             "details": {
-                                "name": "SceneQueryHit"
+                                "name": "SceneQueryHit&"
                             }
                         }
                     ]
@@ -77,20 +79,21 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::Has Key"
+                        "tooltip": "When signaled, this will invoke HasKey"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::Has Key is invoked"
+                        "tooltip": "Signaled after HasKey is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::Has Key"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::Has Key",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>&"
                             }
                         },
                         {
@@ -114,20 +117,21 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::Resize"
+                        "tooltip": "When signaled, this will invoke Resize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::Resize is invoked"
+                        "tooltip": "Signaled after Resize is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::Resize"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::Resize",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>*"
                             }
                         },
                         {
@@ -143,20 +147,21 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::at"
+                        "tooltip": "When signaled, this will invoke at"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::at is invoked"
+                        "tooltip": "Signaled after at is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::at"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::at",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>*"
                             }
                         },
                         {
@@ -170,7 +175,7 @@
                         {
                             "typeid": "{7A7201B9-67B5-438B-B4EB-F3EEBB78C617}",
                             "details": {
-                                "name": "SceneQueryHit"
+                                "name": "SceneQueryHit&"
                             }
                         }
                     ]
@@ -180,20 +185,21 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::Back"
+                        "tooltip": "When signaled, this will invoke Back"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::Back is invoked"
+                        "tooltip": "Signaled after Back is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::Back"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::Back",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>*"
                             }
                         }
                     ],
@@ -201,7 +207,7 @@
                         {
                             "typeid": "{7A7201B9-67B5-438B-B4EB-F3EEBB78C617}",
                             "details": {
-                                "name": "SceneQueryHit"
+                                "name": "SceneQueryHit&"
                             }
                         }
                     ]
@@ -211,20 +217,21 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::pop_back"
+                        "tooltip": "When signaled, this will invoke pop_back"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::pop_back is invoked"
+                        "tooltip": "Signaled after pop_back is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::pop_back"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::pop_back",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>*"
                             }
                         }
                     ]
@@ -234,20 +241,21 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::size"
+                        "tooltip": "When signaled, this will invoke size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::size is invoked"
+                        "tooltip": "Signaled after size is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::size"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::size",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>&"
                             }
                         }
                     ],
@@ -265,20 +273,21 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::At"
+                        "tooltip": "When signaled, this will invoke At"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::At is invoked"
+                        "tooltip": "Signaled after At is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::At"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::At",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>*"
                             }
                         },
                         {
@@ -292,7 +301,7 @@
                         {
                             "typeid": "{7A7201B9-67B5-438B-B4EB-F3EEBB78C617}",
                             "details": {
-                                "name": "SceneQueryHit"
+                                "name": "SceneQueryHit&"
                             }
                         }
                     ]
@@ -302,20 +311,21 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::Empty"
+                        "tooltip": "When signaled, this will invoke Empty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::Empty is invoked"
+                        "tooltip": "Signaled after Empty is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::Empty"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::Empty",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>*"
                             }
                         }
                     ],
@@ -333,26 +343,27 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::Swap"
+                        "tooltip": "When signaled, this will invoke Swap"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::Swap is invoked"
+                        "tooltip": "Signaled after Swap is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::Swap"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::Swap",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>*"
                             }
                         },
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>&"
                             }
                         }
                     ]
@@ -362,26 +373,27 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::push_back"
+                        "tooltip": "When signaled, this will invoke push_back"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::push_back is invoked"
+                        "tooltip": "Signaled after push_back is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::push_back"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::push_back",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>*"
                             }
                         },
                         {
                             "typeid": "{7A7201B9-67B5-438B-B4EB-F3EEBB78C617}",
                             "details": {
-                                "name": "SceneQueryHit"
+                                "name": "const SceneQueryHit&"
                             }
                         }
                     ]
@@ -391,26 +403,27 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::PushBack_VM"
+                        "tooltip": "When signaled, this will invoke PushBack_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::PushBack_VM is invoked"
+                        "tooltip": "Signaled after PushBack_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::PushBack_VM"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::PushBack_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>&"
                             }
                         },
                         {
                             "typeid": "{7A7201B9-67B5-438B-B4EB-F3EEBB78C617}",
                             "details": {
-                                "name": "SceneQueryHit"
+                                "name": "const SceneQueryHit&"
                             }
                         }
                     ],
@@ -418,7 +431,7 @@
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>&"
                             }
                         }
                     ]
@@ -428,20 +441,21 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::AtUnchecked"
+                        "tooltip": "When signaled, this will invoke AtUnchecked"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::AtUnchecked is invoked"
+                        "tooltip": "Signaled after AtUnchecked is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::AtUnchecked"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::AtUnchecked",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>*"
                             }
                         },
                         {
@@ -455,7 +469,7 @@
                         {
                             "typeid": "{7A7201B9-67B5-438B-B4EB-F3EEBB78C617}",
                             "details": {
-                                "name": "SceneQueryHit"
+                                "name": "SceneQueryHit&"
                             }
                         }
                     ]
@@ -465,20 +479,21 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::clear"
+                        "tooltip": "When signaled, this will invoke clear"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::clear is invoked"
+                        "tooltip": "Signaled after clear is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::clear"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::clear",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>*"
                             }
                         }
                     ]
@@ -488,20 +503,21 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::NotEmpty"
+                        "tooltip": "When signaled, this will invoke NotEmpty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::NotEmpty is invoked"
+                        "tooltip": "Signaled after NotEmpty is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::NotEmpty"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::NotEmpty",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>&"
                             }
                         }
                     ],
@@ -519,20 +535,21 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::Erase_VM"
+                        "tooltip": "When signaled, this will invoke Erase_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::Erase_VM is invoked"
+                        "tooltip": "Signaled after Erase_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::Erase_VM"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::Erase_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>&"
                             }
                         },
                         {
@@ -546,7 +563,7 @@
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>&"
                             }
                         }
                     ]
@@ -556,20 +573,21 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::EraseCheck_VM"
+                        "tooltip": "When signaled, this will invoke EraseCheck_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::EraseCheck_VM is invoked"
+                        "tooltip": "Signaled after EraseCheck_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::EraseCheck_VM"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::EraseCheck_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>&"
                             }
                         },
                         {
@@ -593,20 +611,21 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::Capacity"
+                        "tooltip": "When signaled, this will invoke Capacity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::Capacity is invoked"
+                        "tooltip": "Signaled after Capacity is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::Capacity"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::Capacity",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>*"
                             }
                         }
                     ],
@@ -624,20 +643,21 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::Clear"
+                        "tooltip": "When signaled, this will invoke Clear"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::Clear is invoked"
+                        "tooltip": "Signaled after Clear is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::Clear"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::Clear",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>&"
                             }
                         }
                     ],
@@ -645,7 +665,7 @@
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>&"
                             }
                         }
                     ]
@@ -655,20 +675,21 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::AssignAt"
+                        "tooltip": "When signaled, this will invoke AssignAt"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::AssignAt is invoked"
+                        "tooltip": "Signaled after AssignAt is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::AssignAt"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::AssignAt",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>&"
                             }
                         },
                         {
@@ -680,7 +701,7 @@
                         {
                             "typeid": "{7A7201B9-67B5-438B-B4EB-F3EEBB78C617}",
                             "details": {
-                                "name": "SceneQueryHit"
+                                "name": "SceneQueryHit&"
                             }
                         }
                     ]
@@ -690,20 +711,21 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::GetSize"
+                        "tooltip": "When signaled, this will invoke GetSize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::GetSize is invoked"
+                        "tooltip": "Signaled after GetSize is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::GetSize"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::GetSize",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>&"
                             }
                         }
                     ],
@@ -721,20 +743,21 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::Insert"
+                        "tooltip": "When signaled, this will invoke Insert"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::Insert is invoked"
+                        "tooltip": "Signaled after Insert is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::Insert"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::Insert",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>&"
                             }
                         },
                         {
@@ -746,7 +769,7 @@
                         {
                             "typeid": "{7A7201B9-67B5-438B-B4EB-F3EEBB78C617}",
                             "details": {
-                                "name": "SceneQueryHit"
+                                "name": "const SceneQueryHit&"
                             }
                         }
                     ],
@@ -754,7 +777,7 @@
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>&"
                             }
                         }
                     ]
@@ -764,26 +787,27 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::PushBack"
+                        "tooltip": "When signaled, this will invoke PushBack"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::PushBack is invoked"
+                        "tooltip": "Signaled after PushBack is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::PushBack"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::PushBack",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>*"
                             }
                         },
                         {
                             "typeid": "{7A7201B9-67B5-438B-B4EB-F3EEBB78C617}",
                             "details": {
-                                "name": "SceneQueryHit"
+                                "name": "const SceneQueryHit&"
                             }
                         }
                     ]
@@ -793,20 +817,21 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::Reserve"
+                        "tooltip": "When signaled, this will invoke Reserve"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::Reserve is invoked"
+                        "tooltip": "Signaled after Reserve is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::Reserve"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::Reserve",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>*"
                             }
                         },
                         {
@@ -822,20 +847,21 @@
                     "context": "Array<SceneQueryHit>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<SceneQueryHit, allocator>::Iterate_VM"
+                        "tooltip": "When signaled, this will invoke Iterate_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<SceneQueryHit, allocator>::Iterate_VM is invoked"
+                        "tooltip": "Signaled after Iterate_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<SceneQueryHit, allocator>::Iterate_VM"
+                        "name": "AZStd::vector<SceneQueryHit, allocator>::Iterate_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{E3B6686C-306E-5C7F-9274-196CC18E1284}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<SceneQueryHit, allocator>&"
                             }
                         }
                     ],

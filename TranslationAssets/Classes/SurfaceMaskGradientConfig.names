@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "SurfaceMaskGradientConfig",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "SurfaceMaskGradientConfig"
@@ -13,20 +13,21 @@
                     "context": "SurfaceMaskGradientConfig",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SurfaceMaskGradientConfig::GetNumTags"
+                        "tooltip": "When signaled, this will invoke GetNumTags"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SurfaceMaskGradientConfig::GetNumTags is invoked"
+                        "tooltip": "Signaled after GetNumTags is invoked"
                     },
                     "details": {
-                        "name": "SurfaceMaskGradientConfig::GetNumTags"
+                        "name": "SurfaceMaskGradientConfig::GetNumTags",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{E59D0A4C-BA3D-4288-B409-A00B7D5566AA}",
                             "details": {
-                                "name": "Surface Mask Gradient"
+                                "name": "SurfaceMaskGradientConfig*"
                             }
                         }
                     ],
@@ -44,20 +45,21 @@
                     "context": "SurfaceMaskGradientConfig",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SurfaceMaskGradientConfig::GetTag"
+                        "tooltip": "When signaled, this will invoke GetTag"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SurfaceMaskGradientConfig::GetTag is invoked"
+                        "tooltip": "Signaled after GetTag is invoked"
                     },
                     "details": {
-                        "name": "SurfaceMaskGradientConfig::GetTag"
+                        "name": "SurfaceMaskGradientConfig::GetTag",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{E59D0A4C-BA3D-4288-B409-A00B7D5566AA}",
                             "details": {
-                                "name": "Surface Mask Gradient"
+                                "name": "SurfaceMaskGradientConfig*"
                             }
                         },
                         {
@@ -81,20 +83,21 @@
                     "context": "SurfaceMaskGradientConfig",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SurfaceMaskGradientConfig::RemoveTag"
+                        "tooltip": "When signaled, this will invoke RemoveTag"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SurfaceMaskGradientConfig::RemoveTag is invoked"
+                        "tooltip": "Signaled after RemoveTag is invoked"
                     },
                     "details": {
-                        "name": "SurfaceMaskGradientConfig::RemoveTag"
+                        "name": "SurfaceMaskGradientConfig::RemoveTag",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{E59D0A4C-BA3D-4288-B409-A00B7D5566AA}",
                             "details": {
-                                "name": "Surface Mask Gradient"
+                                "name": "SurfaceMaskGradientConfig*"
                             }
                         },
                         {
@@ -110,26 +113,27 @@
                     "context": "SurfaceMaskGradientConfig",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SurfaceMaskGradientConfig::AddTag"
+                        "tooltip": "When signaled, this will invoke AddTag"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SurfaceMaskGradientConfig::AddTag is invoked"
+                        "tooltip": "Signaled after AddTag is invoked"
                     },
                     "details": {
-                        "name": "SurfaceMaskGradientConfig::AddTag"
+                        "name": "SurfaceMaskGradientConfig::AddTag",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{E59D0A4C-BA3D-4288-B409-A00B7D5566AA}",
                             "details": {
-                                "name": "Surface Mask Gradient"
+                                "name": "SurfaceMaskGradientConfig*"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "AZStd::basic_string<char, AZStd::char_traits<char>, allocator>"
                             }
                         }
                     ]

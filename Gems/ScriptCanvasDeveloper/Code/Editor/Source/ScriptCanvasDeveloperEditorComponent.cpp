@@ -102,7 +102,7 @@ namespace ScriptCanvasDeveloperEditor
 
         developerMenu->addSeparator();
 
-        TranslationGenerator::TranslationDatabaseFileAction(developerMenu);
+        TranslationGenerator::TranslationDatabaseFileAction(developerMenu, mainWindow);
 
         QAction* action = developerMenu->addAction("Open Menu Test");
 

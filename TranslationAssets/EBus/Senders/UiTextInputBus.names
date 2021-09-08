@@ -5,27 +5,30 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiTextInputBus"
+                "name": "UI Text Input",
+                "category": "UI"
             },
             "methods": [
                 {
                     "key": "SetChangeAction",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetChangeAction"
+                        "tooltip": "When signaled, this will invoke Set Change Action"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetChangeAction is invoked"
+                        "tooltip": "Signaled after Set Change Action is invoked"
                     },
                     "details": {
-                        "name": "SetChangeAction"
+                        "name": "Set Change Action",
+                        "tooltip": "Sets the name of the action triggered when the text is changed"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Name",
+                                "tooltip": "The name of the action triggered when the text is changed"
                             }
                         }
                     ]
@@ -34,14 +37,15 @@
                     "key": "GetEndEditAction",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetEndEditAction"
+                        "tooltip": "When signaled, this will invoke Get End Edit Action"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetEndEditAction is invoked"
+                        "tooltip": "Signaled after Get End Edit Action is invoked"
                     },
                     "details": {
-                        "name": "GetEndEditAction"
+                        "name": "Get End Edit Action",
+                        "tooltip": "Gets the name of the action triggered when the editing of text is finished"
                     },
                     "results": [
                         {
@@ -56,20 +60,22 @@
                     "key": "SetEndEditAction",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetEndEditAction"
+                        "tooltip": "When signaled, this will invoke Set End Edit Action"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetEndEditAction is invoked"
+                        "tooltip": "Signaled after Set End Edit Action is invoked"
                     },
                     "details": {
-                        "name": "SetEndEditAction"
+                        "name": "Set End Edit Action",
+                        "tooltip": "Sets the name of the action triggered when the editing of text is finished"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Name",
+                                "tooltip": "Sets the name of the action triggered when the editing of text is finished"
                             }
                         }
                     ]
@@ -78,14 +84,15 @@
                     "key": "GetPlaceHolderTextEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetPlaceHolderTextEntity"
+                        "tooltip": "When signaled, this will invoke Get Placeholder Text Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetPlaceHolderTextEntity is invoked"
+                        "tooltip": "Signaled after Get Placeholder Text Entity is invoked"
                     },
                     "details": {
-                        "name": "GetPlaceHolderTextEntity"
+                        "name": "Get Placeholder Text Entity",
+                        "tooltip": "Gets the placeholder text element"
                     },
                     "results": [
                         {
@@ -101,14 +108,15 @@
                     "key": "GetIsPasswordField",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetIsPasswordField"
+                        "tooltip": "When signaled, this will invoke Is Password Field"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetIsPasswordField is invoked"
+                        "tooltip": "Signaled after Is Password Field is invoked"
                     },
                     "details": {
-                        "name": "GetIsPasswordField"
+                        "name": "Is Password Field",
+                        "tooltip": "Returns whether the text input is configured as a password field"
                     },
                     "results": [
                         {
@@ -123,14 +131,15 @@
                     "key": "GetChangeAction",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetChangeAction"
+                        "tooltip": "When signaled, this will invoke Get Change Action"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetChangeAction is invoked"
+                        "tooltip": "Signaled after Get Change Action is invoked"
                     },
                     "details": {
-                        "name": "GetChangeAction"
+                        "name": "Get Change Action",
+                        "tooltip": "Gets the name of the action triggered when the text is changed"
                     },
                     "results": [
                         {
@@ -145,20 +154,22 @@
                     "key": "SetEnterAction",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetEnterAction"
+                        "tooltip": "When signaled, this will invoke Set Enter Action"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetEnterAction is invoked"
+                        "tooltip": "Signaled after Set Enter Action is invoked"
                     },
                     "details": {
-                        "name": "SetEnterAction"
+                        "name": "Set Enter Action",
+                        "tooltip": "Sets the name of the action triggered when enter is pressed"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Name",
+                                "tooltip": "The name of the action triggered when enter is pressed"
                             }
                         }
                     ]
@@ -167,20 +178,22 @@
                     "key": "SetText",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetText"
+                        "tooltip": "When signaled, this will invoke Set Text"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetText is invoked"
+                        "tooltip": "Signaled after Set Text is invoked"
                     },
                     "details": {
-                        "name": "SetText"
+                        "name": "Set Text",
+                        "tooltip": "Sets the text string being displayed or edited by the element"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Text",
+                                "tooltip": "The text string being displayed or edited by the element"
                             }
                         }
                     ]
@@ -211,20 +224,22 @@
                     "key": "SetMaxStringLength",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetMaxStringLength"
+                        "tooltip": "When signaled, this will invoke Set Max String Length"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetMaxStringLength is invoked"
+                        "tooltip": "Signaled after Set Max String Length is invoked"
                     },
                     "details": {
-                        "name": "SetMaxStringLength"
+                        "name": "Set Max String Length",
+                        "tooltip": "Sets the maximum number of characters that can be entered"
                     },
                     "params": [
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Max Length",
+                                "tooltip": "The maximum number of characters that can be entered"
                             }
                         }
                     ]
@@ -233,14 +248,15 @@
                     "key": "GetEnterAction",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetEnterAction"
+                        "tooltip": "When signaled, this will invoke Get Enter Action"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetEnterAction is invoked"
+                        "tooltip": "Signaled after Get Enter Action is invoked"
                     },
                     "details": {
-                        "name": "GetEnterAction"
+                        "name": "Get Enter Action",
+                        "tooltip": "Gets the name of the action triggered when enter is pressed"
                     },
                     "results": [
                         {
@@ -255,14 +271,15 @@
                     "key": "GetText",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetText"
+                        "tooltip": "When signaled, this will invoke Get Text"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetText is invoked"
+                        "tooltip": "Signaled after Get Text is invoked"
                     },
                     "details": {
-                        "name": "GetText"
+                        "name": "Get Text",
+                        "tooltip": "Gets the text string being displayed or edited by the element"
                     },
                     "results": [
                         {
@@ -277,14 +294,15 @@
                     "key": "GetCursorBlinkInterval",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetCursorBlinkInterval"
+                        "tooltip": "When signaled, this will invoke Get Cursor Blink Interval"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetCursorBlinkInterval is invoked"
+                        "tooltip": "Signaled after Get Cursor Blink Interval is invoked"
                     },
                     "details": {
-                        "name": "GetCursorBlinkInterval"
+                        "name": "Get Cursor Blink Interval",
+                        "tooltip": "Gets the cursor blink interval of the text input"
                     },
                     "results": [
                         {
@@ -299,14 +317,15 @@
                     "key": "GetMaxStringLength",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetMaxStringLength"
+                        "tooltip": "When signaled, this will invoke Get Max String Length"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetMaxStringLength is invoked"
+                        "tooltip": "Signaled after Get Max String Length is invoked"
                     },
                     "details": {
-                        "name": "GetMaxStringLength"
+                        "name": "Get Max String Length",
+                        "tooltip": "Gets the maximum number of characters that can be entered"
                     },
                     "results": [
                         {
@@ -321,20 +340,22 @@
                     "key": "SetIsPasswordField",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetIsPasswordField"
+                        "tooltip": "When signaled, this will invoke Set Is Password Field"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetIsPasswordField is invoked"
+                        "tooltip": "Signaled after Set Is Password Field is invoked"
                     },
                     "details": {
-                        "name": "SetIsPasswordField"
+                        "name": "Set Is Password Field",
+                        "tooltip": "Sets whether the text input is configured as a password field"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Password Field",
+                                "tooltip": "Indicates whether the text input is configured as a password field"
                             }
                         }
                     ]
@@ -343,14 +364,15 @@
                     "key": "GetTextCursorColor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetTextCursorColor"
+                        "tooltip": "When signaled, this will invoke Get Text Cursor Color"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetTextCursorColor is invoked"
+                        "tooltip": "Signaled after Get Text Cursor Color is invoked"
                     },
                     "details": {
-                        "name": "GetTextCursorColor"
+                        "name": "Get Text Cursor Color",
+                        "tooltip": "Gets the color to be used for the text cursor"
                     },
                     "results": [
                         {
@@ -365,21 +387,22 @@
                     "key": "SetTextEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetTextEntity"
+                        "tooltip": "When signaled, this will invoke Set Text Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetTextEntity is invoked"
+                        "tooltip": "Signaled after Set Text Entity is invoked"
                     },
                     "details": {
-                        "name": "SetTextEntity"
+                        "name": "Set Text Entity",
+                        "tooltip": "Sets the text element"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Text EntityID",
+                                "tooltip": "The text element"
                             }
                         }
                     ]
@@ -388,20 +411,22 @@
                     "key": "SetTextSelectionColor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetTextSelectionColor"
+                        "tooltip": "When signaled, this will invoke Set Text Selection Color"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetTextSelectionColor is invoked"
+                        "tooltip": "Signaled after Set Text Selection Color is invoked"
                     },
                     "details": {
-                        "name": "SetTextSelectionColor"
+                        "name": "Set Text Selection Color",
+                        "tooltip": "Sets the color to be used for the text background when it is selected"
                     },
                     "params": [
                         {
                             "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
                             "details": {
-                                "name": "Color"
+                                "name": "Selection Color",
+                                "tooltip": "The color to be used for the text background when it is selected"
                             }
                         }
                     ]
@@ -410,20 +435,22 @@
                     "key": "SetTextCursorColor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetTextCursorColor"
+                        "tooltip": "When signaled, this will invoke Set Text Cursor Color"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetTextCursorColor is invoked"
+                        "tooltip": "Signaled after Set Text Cursor Color is invoked"
                     },
                     "details": {
-                        "name": "SetTextCursorColor"
+                        "name": "Set Text Cursor Color",
+                        "tooltip": "Sets the color to be used for the text cursor"
                     },
                     "params": [
                         {
                             "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
                             "details": {
-                                "name": "Color"
+                                "name": "Cursor Color",
+                                "tooltip": "The color to be used for the text cursor"
                             }
                         }
                     ]
@@ -432,20 +459,22 @@
                     "key": "SetCursorBlinkInterval",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetCursorBlinkInterval"
+                        "tooltip": "When signaled, this will invoke Set Cursor Blink Interval"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetCursorBlinkInterval is invoked"
+                        "tooltip": "Signaled after Set Cursor Blink Interval is invoked"
                     },
                     "details": {
-                        "name": "SetCursorBlinkInterval"
+                        "name": "Set Cursor Blink Interval",
+                        "tooltip": "Sets the cursor blink interval of the text input"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Interval",
+                                "tooltip": "The cursor blink interval of the text input in seconds"
                             }
                         }
                     ]
@@ -454,14 +483,15 @@
                     "key": "GetTextEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetTextEntity"
+                        "tooltip": "When signaled, this will invoke Get Text Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetTextEntity is invoked"
+                        "tooltip": "Signaled after Get Text Entity is invoked"
                     },
                     "details": {
-                        "name": "GetTextEntity"
+                        "name": "Get Text Entity",
+                        "tooltip": "Gets the text element"
                     },
                     "results": [
                         {
@@ -477,21 +507,22 @@
                     "key": "SetPlaceHolderTextEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetPlaceHolderTextEntity"
+                        "tooltip": "When signaled, this will invoke Set Placeholder Text Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetPlaceHolderTextEntity is invoked"
+                        "tooltip": "Signaled after Set Placeholder Text Entity is invoked"
                     },
                     "details": {
-                        "name": "SetPlaceHolderTextEntity"
+                        "name": "Set Placeholder Text Entity",
+                        "tooltip": "Sets the placeholder text element"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Placeholder EntityID",
+                                "tooltip": "The placeholder text element"
                             }
                         }
                     ]
@@ -500,14 +531,15 @@
                     "key": "GetReplacementCharacter",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetReplacementCharacter"
+                        "tooltip": "When signaled, this will invoke Get Replacement Character"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetReplacementCharacter is invoked"
+                        "tooltip": "Signaled after Get Replacement Character is invoked"
                     },
                     "details": {
-                        "name": "GetReplacementCharacter"
+                        "name": "Get Replacement Character",
+                        "tooltip": "Gets the replacement character used to hide password text"
                     },
                     "results": [
                         {
@@ -544,14 +576,15 @@
                     "key": "GetTextSelectionColor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetTextSelectionColor"
+                        "tooltip": "When signaled, this will invoke Get Text Selection Color"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetTextSelectionColor is invoked"
+                        "tooltip": "Signaled after Get Text Selection Color is invoked"
                     },
                     "details": {
-                        "name": "GetTextSelectionColor"
+                        "name": "Get Text Selection Color",
+                        "tooltip": "Gets the color to be used for the text background when it is selected"
                     },
                     "results": [
                         {
@@ -566,20 +599,22 @@
                     "key": "SetReplacementCharacter",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetReplacementCharacter"
+                        "tooltip": "When signaled, this will invoke Set Replacement Character"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetReplacementCharacter is invoked"
+                        "tooltip": "Signaled after Set Replacement Character is invoked"
                     },
                     "details": {
-                        "name": "SetReplacementCharacter"
+                        "name": "Set Replacement Character",
+                        "tooltip": "Sets the replacement character used to hide password text"
                     },
                     "params": [
                         {
                             "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
                             "details": {
-                                "name": "unsigned int"
+                                "name": "Replacement Character",
+                                "tooltip": "The decimal code point of the replacement character used to hide password text"
                             }
                         }
                     ]

@@ -26,3 +26,5 @@ ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/AWSNativeSDK-1.7.167-rev3-win
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/AWSNativeSDK-1.7.167-rev3-windows/AWSNativeSDK/bin/Debug/aws-c-event-stream.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/AWSNativeSDK-1.7.167-rev3-windows/AWSNativeSDK/bin/Debug/aws-cpp-sdk-core.dll" "J:/Atom/lyfork/o3de/bin/debug")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/debug/HttpRequestor_debug.stamp)

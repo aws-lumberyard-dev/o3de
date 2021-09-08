@@ -25,3 +25,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/debug/GameState.dll" "J:/Atom/lyfork/o3de/bin/d
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/LmbrCentral.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/LocalUser.dll" "J:/Atom/lyfork/o3de/bin/debug")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/debug/GameStateSamples_debug.stamp)

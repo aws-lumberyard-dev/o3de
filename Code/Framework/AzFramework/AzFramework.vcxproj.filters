@@ -133,12 +133,6 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Entity\PrefabEntityOwnershipService.cpp">
       <Filter>AzFramework\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Driller\RemoteDrillerInterface.cpp">
-      <Filter>AzFramework\Driller</Filter>
-    </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Driller\DrillToFileComponent.cpp">
-      <Filter>AzFramework\Driller</Filter>
-    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Components\TransformComponent.cpp">
       <Filter>AzFramework\Components</Filter>
     </ClCompile>
@@ -731,15 +725,6 @@
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Entity\PrefabEntityOwnershipService.h">
       <Filter>AzFramework\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Driller\RemoteDrillerInterface.h">
-      <Filter>AzFramework\Driller</Filter>
-    </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Driller\DrillerConsoleAPI.h">
-      <Filter>AzFramework\Driller</Filter>
-    </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Driller\DrillToFileComponent.h">
-      <Filter>AzFramework\Driller</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AzFramework\AzFramework\Components\ComponentAdapter.h">
       <Filter>AzFramework\Components</Filter>
@@ -1349,9 +1334,6 @@
     </Filter>
     <Filter Include="AzFramework\Dependency">
       <UniqueIdentifier>{37B1B852-ABC1-3457-BD29-CB911C3D0247}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="AzFramework\Driller">
-      <UniqueIdentifier>{41D81C97-7B8F-3391-B48B-62A8A09A89DA}</UniqueIdentifier>
     </Filter>
     <Filter Include="AzFramework\Entity">
       <UniqueIdentifier>{1CDD8B19-BD8B-3379-B87D-27232E12B564}</UniqueIdentifier>

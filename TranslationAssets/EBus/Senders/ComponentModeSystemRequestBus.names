@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "ComponentModeSystemRequestBus"
+                "name": "COMPONENTMODESYSTEMREQUESTBUS_NAME",
+                "category": "COMPONENTMODESYSTEMREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

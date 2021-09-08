@@ -54,3 +54,5 @@ ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/openimageio-2.1.16.0-rev2-win
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/LmbrCentral.dll" "J:/Atom/lyfork/o3de/bin/profile")
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/EMotionFX.dll" "J:/Atom/lyfork/o3de/bin/profile")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/profile/EMotionFX_Atom_profile.stamp)

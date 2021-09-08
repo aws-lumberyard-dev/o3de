@@ -5,7 +5,8 @@
             "context": "EBusHandler",
             "variant": "",
             "details": {
-                "name": "SimpleStateComponentNotificationBus"
+                "name": "Simple State",
+                "category": "Gameplay"
             },
             "methods": [
                 {
@@ -17,13 +18,15 @@
                         {
                             "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
                             "details": {
-                                "name": "char"
+                                "name": "Old State",
+                                "tooltip": "Name of the old state"
                             }
                         },
                         {
                             "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
                             "details": {
-                                "name": "char"
+                                "name": "New State",
+                                "tooltip": "Name of the new state"
                             }
                         }
                     ]

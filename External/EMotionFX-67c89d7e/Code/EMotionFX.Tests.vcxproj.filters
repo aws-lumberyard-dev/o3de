@@ -467,6 +467,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\EMotionFX.Tests_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\CMakeLists.txt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -475,6 +478,15 @@
     <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\emotionfx_tests_files.cmake" />
     <None Include="J:\Atom\lyfork\o3de\Gems\EMotionFX\Code\Source\Integration\System\emotionfx_module_files.cmake">
       <Filter>Source\Integration\System</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\EMotionFX.Tests_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\EMotionFX.Tests_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\EMotionFX.Tests_release.stamp">
+      <Filter>Generated Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

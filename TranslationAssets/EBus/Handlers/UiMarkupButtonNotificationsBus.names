@@ -5,7 +5,8 @@
             "context": "EBusHandler",
             "variant": "",
             "details": {
-                "name": "UiMarkupButtonNotificationsBus"
+                "name": "UI Markup Button",
+                "category": "UI"
             },
             "methods": [
                 {
@@ -17,19 +18,22 @@
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "ID",
+                                "tooltip": "The markup ID of the clickable text"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Action",
+                                "tooltip": "The action string of the clickable text"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Data",
+                                "tooltip": "The data string of the clickable text"
                             }
                         }
                     ]
@@ -43,19 +47,22 @@
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "ID",
+                                "tooltip": "The markup ID of the clickable text"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Action",
+                                "tooltip": "The action string of the clickable text"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Data",
+                                "tooltip": "The data string of the clickable text"
                             }
                         }
                     ]
@@ -69,19 +76,22 @@
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "ID",
+                                "tooltip": "The markup ID of the clickable text"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Action",
+                                "tooltip": "The action string of the clickable text"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Data",
+                                "tooltip": "The data string of the clickable text"
                             }
                         }
                     ]
@@ -95,19 +105,22 @@
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "ID",
+                                "tooltip": "The markup ID of the clickable text"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Action",
+                                "tooltip": "The action string of the clickable text"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Data",
+                                "tooltip": "The data string of the clickable text"
                             }
                         }
                     ]
@@ -121,19 +134,22 @@
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "ID",
+                                "tooltip": "The markup ID of the clickable text"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Action",
+                                "tooltip": "The action string of the clickable text"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Data",
+                                "tooltip": "The data string of the clickable text"
                             }
                         }
                     ]

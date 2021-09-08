@@ -128,3 +128,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/debug/Atom_RHI_Metal.Private.dll" "J:/Atom/lyfo
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/Atom_RHI_Vulkan.Builders.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/Atom_RHI_Vulkan.Private.dll" "J:/Atom/lyfork/o3de/bin/debug")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/debug/Atom_Feature_Common.Editor_debug.stamp)

@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZStd::vector<AZ::Render::LightConfig, allocator>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Array<LightConfig>",
@@ -15,20 +15,21 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::Size"
+                        "tooltip": "When signaled, this will invoke Size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::Size is invoked"
+                        "tooltip": "Signaled after Size is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Size"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Size",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>&"
                             }
                         }
                     ],
@@ -46,20 +47,21 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::Front"
+                        "tooltip": "When signaled, this will invoke Front"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::Front is invoked"
+                        "tooltip": "Signaled after Front is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Front"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Front",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>*"
                             }
                         }
                     ],
@@ -67,7 +69,7 @@
                         {
                             "typeid": "{02644F52-9483-47A8-9028-37671695C34E}",
                             "details": {
-                                "name": "LightConfig"
+                                "name": "AZ::Render::LightConfig&"
                             }
                         }
                     ]
@@ -77,20 +79,21 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::Has Key"
+                        "tooltip": "When signaled, this will invoke HasKey"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::Has Key is invoked"
+                        "tooltip": "Signaled after HasKey is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Has Key"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Has Key",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>&"
                             }
                         },
                         {
@@ -114,20 +117,21 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::Resize"
+                        "tooltip": "When signaled, this will invoke Resize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::Resize is invoked"
+                        "tooltip": "Signaled after Resize is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Resize"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Resize",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>*"
                             }
                         },
                         {
@@ -143,20 +147,21 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::at"
+                        "tooltip": "When signaled, this will invoke at"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::at is invoked"
+                        "tooltip": "Signaled after at is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::at"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::at",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>*"
                             }
                         },
                         {
@@ -170,7 +175,7 @@
                         {
                             "typeid": "{02644F52-9483-47A8-9028-37671695C34E}",
                             "details": {
-                                "name": "LightConfig"
+                                "name": "AZ::Render::LightConfig&"
                             }
                         }
                     ]
@@ -180,20 +185,21 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::Back"
+                        "tooltip": "When signaled, this will invoke Back"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::Back is invoked"
+                        "tooltip": "Signaled after Back is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Back"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Back",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>*"
                             }
                         }
                     ],
@@ -201,7 +207,7 @@
                         {
                             "typeid": "{02644F52-9483-47A8-9028-37671695C34E}",
                             "details": {
-                                "name": "LightConfig"
+                                "name": "AZ::Render::LightConfig&"
                             }
                         }
                     ]
@@ -211,20 +217,21 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::pop_back"
+                        "tooltip": "When signaled, this will invoke pop_back"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::pop_back is invoked"
+                        "tooltip": "Signaled after pop_back is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::pop_back"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::pop_back",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>*"
                             }
                         }
                     ]
@@ -234,20 +241,21 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::size"
+                        "tooltip": "When signaled, this will invoke size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::size is invoked"
+                        "tooltip": "Signaled after size is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::size"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::size",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>&"
                             }
                         }
                     ],
@@ -265,20 +273,21 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::At"
+                        "tooltip": "When signaled, this will invoke At"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::At is invoked"
+                        "tooltip": "Signaled after At is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::At"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::At",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>*"
                             }
                         },
                         {
@@ -292,7 +301,7 @@
                         {
                             "typeid": "{02644F52-9483-47A8-9028-37671695C34E}",
                             "details": {
-                                "name": "LightConfig"
+                                "name": "AZ::Render::LightConfig&"
                             }
                         }
                     ]
@@ -302,20 +311,21 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::Empty"
+                        "tooltip": "When signaled, this will invoke Empty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::Empty is invoked"
+                        "tooltip": "Signaled after Empty is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Empty"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Empty",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>*"
                             }
                         }
                     ],
@@ -333,26 +343,27 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::Swap"
+                        "tooltip": "When signaled, this will invoke Swap"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::Swap is invoked"
+                        "tooltip": "Signaled after Swap is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Swap"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Swap",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>*"
                             }
                         },
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>&"
                             }
                         }
                     ]
@@ -362,26 +373,27 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::push_back"
+                        "tooltip": "When signaled, this will invoke push_back"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::push_back is invoked"
+                        "tooltip": "Signaled after push_back is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::push_back"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::push_back",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>*"
                             }
                         },
                         {
                             "typeid": "{02644F52-9483-47A8-9028-37671695C34E}",
                             "details": {
-                                "name": "LightConfig"
+                                "name": "const AZ::Render::LightConfig&"
                             }
                         }
                     ]
@@ -391,26 +403,27 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::PushBack_VM"
+                        "tooltip": "When signaled, this will invoke PushBack_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::PushBack_VM is invoked"
+                        "tooltip": "Signaled after PushBack_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::PushBack_VM"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::PushBack_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>&"
                             }
                         },
                         {
                             "typeid": "{02644F52-9483-47A8-9028-37671695C34E}",
                             "details": {
-                                "name": "LightConfig"
+                                "name": "const AZ::Render::LightConfig&"
                             }
                         }
                     ],
@@ -418,7 +431,7 @@
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>&"
                             }
                         }
                     ]
@@ -428,20 +441,21 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::AtUnchecked"
+                        "tooltip": "When signaled, this will invoke AtUnchecked"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::AtUnchecked is invoked"
+                        "tooltip": "Signaled after AtUnchecked is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::AtUnchecked"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::AtUnchecked",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>*"
                             }
                         },
                         {
@@ -455,7 +469,7 @@
                         {
                             "typeid": "{02644F52-9483-47A8-9028-37671695C34E}",
                             "details": {
-                                "name": "LightConfig"
+                                "name": "AZ::Render::LightConfig&"
                             }
                         }
                     ]
@@ -465,20 +479,21 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::clear"
+                        "tooltip": "When signaled, this will invoke clear"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::clear is invoked"
+                        "tooltip": "Signaled after clear is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::clear"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::clear",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>*"
                             }
                         }
                     ]
@@ -488,20 +503,21 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::NotEmpty"
+                        "tooltip": "When signaled, this will invoke NotEmpty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::NotEmpty is invoked"
+                        "tooltip": "Signaled after NotEmpty is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::NotEmpty"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::NotEmpty",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>&"
                             }
                         }
                     ],
@@ -519,20 +535,21 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::Erase_VM"
+                        "tooltip": "When signaled, this will invoke Erase_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::Erase_VM is invoked"
+                        "tooltip": "Signaled after Erase_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Erase_VM"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Erase_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>&"
                             }
                         },
                         {
@@ -546,7 +563,7 @@
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>&"
                             }
                         }
                     ]
@@ -556,20 +573,21 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::EraseCheck_VM"
+                        "tooltip": "When signaled, this will invoke EraseCheck_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::EraseCheck_VM is invoked"
+                        "tooltip": "Signaled after EraseCheck_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::EraseCheck_VM"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::EraseCheck_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>&"
                             }
                         },
                         {
@@ -593,20 +611,21 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::Capacity"
+                        "tooltip": "When signaled, this will invoke Capacity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::Capacity is invoked"
+                        "tooltip": "Signaled after Capacity is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Capacity"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Capacity",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>*"
                             }
                         }
                     ],
@@ -624,20 +643,21 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::Clear"
+                        "tooltip": "When signaled, this will invoke Clear"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::Clear is invoked"
+                        "tooltip": "Signaled after Clear is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Clear"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Clear",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>&"
                             }
                         }
                     ],
@@ -645,7 +665,7 @@
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>&"
                             }
                         }
                     ]
@@ -655,20 +675,21 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::AssignAt"
+                        "tooltip": "When signaled, this will invoke AssignAt"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::AssignAt is invoked"
+                        "tooltip": "Signaled after AssignAt is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::AssignAt"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::AssignAt",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>&"
                             }
                         },
                         {
@@ -680,7 +701,7 @@
                         {
                             "typeid": "{02644F52-9483-47A8-9028-37671695C34E}",
                             "details": {
-                                "name": "LightConfig"
+                                "name": "AZ::Render::LightConfig&"
                             }
                         }
                     ]
@@ -690,20 +711,21 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::GetSize"
+                        "tooltip": "When signaled, this will invoke GetSize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::GetSize is invoked"
+                        "tooltip": "Signaled after GetSize is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::GetSize"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::GetSize",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>&"
                             }
                         }
                     ],
@@ -721,20 +743,21 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::Insert"
+                        "tooltip": "When signaled, this will invoke Insert"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::Insert is invoked"
+                        "tooltip": "Signaled after Insert is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Insert"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Insert",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>&"
                             }
                         },
                         {
@@ -746,7 +769,7 @@
                         {
                             "typeid": "{02644F52-9483-47A8-9028-37671695C34E}",
                             "details": {
-                                "name": "LightConfig"
+                                "name": "const AZ::Render::LightConfig&"
                             }
                         }
                     ],
@@ -754,7 +777,7 @@
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>&"
                             }
                         }
                     ]
@@ -764,26 +787,27 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::PushBack"
+                        "tooltip": "When signaled, this will invoke PushBack"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::PushBack is invoked"
+                        "tooltip": "Signaled after PushBack is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::PushBack"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::PushBack",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>*"
                             }
                         },
                         {
                             "typeid": "{02644F52-9483-47A8-9028-37671695C34E}",
                             "details": {
-                                "name": "LightConfig"
+                                "name": "const AZ::Render::LightConfig&"
                             }
                         }
                     ]
@@ -793,20 +817,21 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::Reserve"
+                        "tooltip": "When signaled, this will invoke Reserve"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::Reserve is invoked"
+                        "tooltip": "Signaled after Reserve is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Reserve"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Reserve",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>*"
                             }
                         },
                         {
@@ -822,20 +847,21 @@
                     "context": "Array<LightConfig>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::vector<AZ::Render::LightConfig, allocator>::Iterate_VM"
+                        "tooltip": "When signaled, this will invoke Iterate_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::vector<AZ::Render::LightConfig, allocator>::Iterate_VM is invoked"
+                        "tooltip": "Signaled after Iterate_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Iterate_VM"
+                        "name": "AZStd::vector<AZ::Render::LightConfig, allocator>::Iterate_VM",
+                        "category": "Array"
                     },
                     "params": [
                         {
                             "typeid": "{33492660-D9A8-5E84-9CFB-03CBCD87919F}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Render::LightConfig, allocator>&"
                             }
                         }
                     ],

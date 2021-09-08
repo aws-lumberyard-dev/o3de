@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "PosterizeGradientRequestBus"
+                "name": "POSTERIZEGRADIENTREQUESTBUS_NAME",
+                "category": "POSTERIZEGRADIENTREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

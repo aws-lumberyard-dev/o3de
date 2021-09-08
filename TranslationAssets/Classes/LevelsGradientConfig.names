@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "LevelsGradientConfig",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "LevelsGradientConfig"

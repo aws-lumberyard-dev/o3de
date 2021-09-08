@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "EditorRequestBus"
+                "name": "EDITORREQUESTBUS_NAME",
+                "category": "EDITORREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {
@@ -37,7 +38,7 @@
                         {
                             "typeid": "{E9FB803A-2A47-4BCF-8A50-AB4C9D73AED2}",
                             "details": {
-                                "name": "const ViewPaneOptions&"
+                                "name": ""
                             }
                         }
                     ]

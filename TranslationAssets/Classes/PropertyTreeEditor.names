@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "PropertyTreeEditor",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "PropertyTreeEditor"
@@ -13,14 +13,15 @@
                     "context": "PropertyTreeEditor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::ResetContainer"
+                        "tooltip": "When signaled, this will invoke ResetContainer"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after PropertyTreeEditor::ResetContainer is invoked"
+                        "tooltip": "Signaled after ResetContainer is invoked"
                     },
                     "details": {
-                        "name": "PropertyTreeEditor::ResetContainer"
+                        "name": "PropertyTreeEditor::ResetContainer",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -50,14 +51,15 @@
                     "context": "PropertyTreeEditor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::CompareProperty"
+                        "tooltip": "When signaled, this will invoke CompareProperty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after PropertyTreeEditor::CompareProperty is invoked"
+                        "tooltip": "Signaled after CompareProperty is invoked"
                     },
                     "details": {
-                        "name": "PropertyTreeEditor::CompareProperty"
+                        "name": "PropertyTreeEditor::CompareProperty",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -75,7 +77,7 @@
                         {
                             "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
                             "details": {
-                                "name": "any"
+                                "name": "const any&"
                             }
                         }
                     ],
@@ -93,14 +95,15 @@
                     "context": "PropertyTreeEditor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::IsContainer"
+                        "tooltip": "When signaled, this will invoke IsContainer"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after PropertyTreeEditor::IsContainer is invoked"
+                        "tooltip": "Signaled after IsContainer is invoked"
                     },
                     "details": {
-                        "name": "PropertyTreeEditor::IsContainer"
+                        "name": "PropertyTreeEditor::IsContainer",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -130,14 +133,15 @@
                     "context": "PropertyTreeEditor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::GetContainerCount"
+                        "tooltip": "When signaled, this will invoke GetContainerCount"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after PropertyTreeEditor::GetContainerCount is invoked"
+                        "tooltip": "Signaled after GetContainerCount is invoked"
                     },
                     "details": {
-                        "name": "PropertyTreeEditor::GetContainerCount"
+                        "name": "PropertyTreeEditor::GetContainerCount",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -167,14 +171,15 @@
                     "context": "PropertyTreeEditor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::SetProperty"
+                        "tooltip": "When signaled, this will invoke SetProperty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after PropertyTreeEditor::SetProperty is invoked"
+                        "tooltip": "Signaled after SetProperty is invoked"
                     },
                     "details": {
-                        "name": "PropertyTreeEditor::SetProperty"
+                        "name": "PropertyTreeEditor::SetProperty",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -192,7 +197,7 @@
                         {
                             "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
                             "details": {
-                                "name": "any"
+                                "name": "const any&"
                             }
                         }
                     ],
@@ -210,14 +215,15 @@
                     "context": "PropertyTreeEditor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::AppendContainerItem"
+                        "tooltip": "When signaled, this will invoke AppendContainerItem"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after PropertyTreeEditor::AppendContainerItem is invoked"
+                        "tooltip": "Signaled after AppendContainerItem is invoked"
                     },
                     "details": {
-                        "name": "PropertyTreeEditor::AppendContainerItem"
+                        "name": "PropertyTreeEditor::AppendContainerItem",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -235,7 +241,7 @@
                         {
                             "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
                             "details": {
-                                "name": "any"
+                                "name": "const any&"
                             }
                         }
                     ],
@@ -253,14 +259,15 @@
                     "context": "PropertyTreeEditor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::GetProperty"
+                        "tooltip": "When signaled, this will invoke GetProperty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after PropertyTreeEditor::GetProperty is invoked"
+                        "tooltip": "Signaled after GetProperty is invoked"
                     },
                     "details": {
-                        "name": "PropertyTreeEditor::GetProperty"
+                        "name": "PropertyTreeEditor::GetProperty",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -290,14 +297,15 @@
                     "context": "PropertyTreeEditor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::AddContainerItem"
+                        "tooltip": "When signaled, this will invoke AddContainerItem"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after PropertyTreeEditor::AddContainerItem is invoked"
+                        "tooltip": "Signaled after AddContainerItem is invoked"
                     },
                     "details": {
-                        "name": "PropertyTreeEditor::AddContainerItem"
+                        "name": "PropertyTreeEditor::AddContainerItem",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -315,13 +323,13 @@
                         {
                             "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
                             "details": {
-                                "name": "any"
+                                "name": "const any&"
                             }
                         },
                         {
                             "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
                             "details": {
-                                "name": "any"
+                                "name": "const any&"
                             }
                         }
                     ],
@@ -339,14 +347,15 @@
                     "context": "PropertyTreeEditor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::RemoveContainerItem"
+                        "tooltip": "When signaled, this will invoke RemoveContainerItem"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after PropertyTreeEditor::RemoveContainerItem is invoked"
+                        "tooltip": "Signaled after RemoveContainerItem is invoked"
                     },
                     "details": {
-                        "name": "PropertyTreeEditor::RemoveContainerItem"
+                        "name": "PropertyTreeEditor::RemoveContainerItem",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -364,7 +373,7 @@
                         {
                             "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
                             "details": {
-                                "name": "any"
+                                "name": "const any&"
                             }
                         }
                     ],
@@ -382,14 +391,15 @@
                     "context": "PropertyTreeEditor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::BuildPathsListWithTypes"
+                        "tooltip": "When signaled, this will invoke BuildPathsListWithTypes"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after PropertyTreeEditor::BuildPathsListWithTypes is invoked"
+                        "tooltip": "Signaled after BuildPathsListWithTypes is invoked"
                     },
                     "details": {
-                        "name": "PropertyTreeEditor::BuildPathsListWithTypes"
+                        "name": "PropertyTreeEditor::BuildPathsListWithTypes",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -403,7 +413,7 @@
                         {
                             "typeid": "{99DAD0BC-740E-5E82-826B-8FC7968CC02C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "const AZStd::vector<AZStd::basic_string<char, AZStd::char_trait"
                             }
                         }
                     ]
@@ -413,14 +423,15 @@
                     "context": "PropertyTreeEditor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::HasAttribute"
+                        "tooltip": "When signaled, this will invoke HasAttribute"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after PropertyTreeEditor::HasAttribute is invoked"
+                        "tooltip": "Signaled after HasAttribute is invoked"
                     },
                     "details": {
-                        "name": "PropertyTreeEditor::HasAttribute"
+                        "name": "PropertyTreeEditor::HasAttribute",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -456,14 +467,15 @@
                     "context": "PropertyTreeEditor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::BuildPathsList"
+                        "tooltip": "When signaled, this will invoke BuildPathsList"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after PropertyTreeEditor::BuildPathsList is invoked"
+                        "tooltip": "Signaled after BuildPathsList is invoked"
                     },
                     "details": {
-                        "name": "PropertyTreeEditor::BuildPathsList"
+                        "name": "PropertyTreeEditor::BuildPathsList",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -477,7 +489,7 @@
                         {
                             "typeid": "{99DAD0BC-740E-5E82-826B-8FC7968CC02C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "const AZStd::vector<AZStd::basic_string<char, AZStd::char_trait"
                             }
                         }
                     ]
@@ -487,14 +499,15 @@
                     "context": "PropertyTreeEditor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::SetVisibleEnforcement"
+                        "tooltip": "When signaled, this will invoke SetVisibleEnforcement"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after PropertyTreeEditor::SetVisibleEnforcement is invoked"
+                        "tooltip": "Signaled after SetVisibleEnforcement is invoked"
                     },
                     "details": {
-                        "name": "PropertyTreeEditor::SetVisibleEnforcement"
+                        "name": "PropertyTreeEditor::SetVisibleEnforcement",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -516,14 +529,15 @@
                     "context": "PropertyTreeEditor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::UpdateContainerItem"
+                        "tooltip": "When signaled, this will invoke UpdateContainerItem"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after PropertyTreeEditor::UpdateContainerItem is invoked"
+                        "tooltip": "Signaled after UpdateContainerItem is invoked"
                     },
                     "details": {
-                        "name": "PropertyTreeEditor::UpdateContainerItem"
+                        "name": "PropertyTreeEditor::UpdateContainerItem",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -541,13 +555,13 @@
                         {
                             "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
                             "details": {
-                                "name": "any"
+                                "name": "const any&"
                             }
                         },
                         {
                             "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
                             "details": {
-                                "name": "any"
+                                "name": "const any&"
                             }
                         }
                     ],
@@ -565,14 +579,15 @@
                     "context": "PropertyTreeEditor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke PropertyTreeEditor::GetContainerItem"
+                        "tooltip": "When signaled, this will invoke GetContainerItem"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after PropertyTreeEditor::GetContainerItem is invoked"
+                        "tooltip": "Signaled after GetContainerItem is invoked"
                     },
                     "details": {
-                        "name": "PropertyTreeEditor::GetContainerItem"
+                        "name": "PropertyTreeEditor::GetContainerItem",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -590,7 +605,7 @@
                         {
                             "typeid": "{03924488-C7F4-4D6D-948B-ABC2D1AE2FD3}",
                             "details": {
-                                "name": "any"
+                                "name": "const any&"
                             }
                         }
                     ],

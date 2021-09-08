@@ -11,7 +11,6 @@ J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/AzToolsFramework/aztoolsfram
 J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/AzToolsFramework/aztoolsframework_windows_files.cmake
 J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/AzToolsFramework/aztoolsframeworktestcommon_files.cmake
 J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/CMakeLists.txt
-J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/Platform/Common/MSVC/aztoolsframework_msvc.cmake
 J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/Platform/Windows/platform_windows_files.cmake
 J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/Tests/aztoolsframeworktests_files.cmake
 J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake

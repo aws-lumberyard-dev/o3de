@@ -10,9 +10,6 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\Tests\InstanceDatabase.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\Tests\JsonSerializationUtilsTests.cpp">
-      <Filter>Tests</Filter>
-    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\Tests\lru_cache.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
@@ -24,6 +21,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\AtomCore.Tests_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\CMakeLists.txt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -31,6 +31,15 @@
   <ItemGroup>
     <None Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\Tests\atomcore_tests_files.cmake">
       <Filter>Tests</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\AtomCore.Tests_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\AtomCore.Tests_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\AtomCore.Tests_release.stamp">
+      <Filter>Generated Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

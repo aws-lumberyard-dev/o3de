@@ -59,3 +59,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/profile/Atom_RHI.Private.dll" "J:/Atom/lyfork/o
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/Atom_RPI.Private.dll" "J:/Atom/lyfork/o3de/bin/profile")
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/AtomLyIntegration_CommonFeatures.dll" "J:/Atom/lyfork/o3de/bin/profile")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/profile/NvCloth_profile.stamp)

@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "ArcBallControllerRequestBus"
+                "name": "ARCBALLCONTROLLERREQUESTBUS_NAME",
+                "category": "ARCBALLCONTROLLERREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

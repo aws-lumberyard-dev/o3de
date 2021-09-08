@@ -5,21 +5,23 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiFlipbookAnimationBus"
+                "name": "UI Flipbook Animation",
+                "category": "UI"
             },
             "methods": [
                 {
                     "key": "GetLoopType",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetLoopType"
+                        "tooltip": "When signaled, this will invoke Get Loop Type"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetLoopType is invoked"
+                        "tooltip": "Signaled after Get Loop Type is invoked"
                     },
                     "details": {
-                        "name": "GetLoopType"
+                        "name": "Get Loop Type",
+                        "tooltip": "Gets the type of looping behavior for the animation"
                     },
                     "results": [
                         {
@@ -34,14 +36,15 @@
                     "key": "GetReverseDelay",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetReverseDelay"
+                        "tooltip": "When signaled, this will invoke Get Reverse Delay"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetReverseDelay is invoked"
+                        "tooltip": "Signaled after Get Reverse Delay is invoked"
                     },
                     "details": {
-                        "name": "GetReverseDelay"
+                        "name": "Get Reverse Delay",
+                        "tooltip": "Gets the delay (in seconds) before playing the reverse loop sequence (PingPong loop types only)"
                     },
                     "results": [
                         {
@@ -56,20 +59,22 @@
                     "key": "SetIsAutoPlay",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetIsAutoPlay"
+                        "tooltip": "When signaled, this will invoke Set Is Auto Play Enabled"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetIsAutoPlay is invoked"
+                        "tooltip": "Signaled after Set Is Auto Play Enabled is invoked"
                     },
                     "details": {
-                        "name": "SetIsAutoPlay"
+                        "name": "Set Is Auto Play Enabled",
+                        "tooltip": "Sets whether the animation will begin playing as soon as the element is activated"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Auto Play",
+                                "tooltip": "Indicates whether the animation will begin playing as soon as the element is activated"
                             }
                         }
                     ]
@@ -78,20 +83,22 @@
                     "key": "SetCurrentFrame",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetCurrentFrame"
+                        "tooltip": "When signaled, this will invoke Set Current Frame"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetCurrentFrame is invoked"
+                        "tooltip": "Signaled after Set Current Frame is invoked"
                     },
                     "details": {
-                        "name": "SetCurrentFrame"
+                        "name": "Set Current Frame",
+                        "tooltip": "Sets the frame to immediately display for the animation"
                     },
                     "params": [
                         {
                             "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
                             "details": {
-                                "name": "unsigned int"
+                                "name": "Frame",
+                                "tooltip": "The frame to immediately display for the animation"
                             }
                         }
                     ]
@@ -100,14 +107,15 @@
                     "key": "GetLoopStartFrame",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetLoopStartFrame"
+                        "tooltip": "When signaled, this will invoke Get Loop Start Frame"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetLoopStartFrame is invoked"
+                        "tooltip": "Signaled after Get Loop Start Frame is invoked"
                     },
                     "details": {
-                        "name": "GetLoopStartFrame"
+                        "name": "Get Loop Start Frame",
+                        "tooltip": "Gets the first frame that is displayed within an animation loop. Applicable only when the \"Loop Type\" is set to anything other than \"None\""
                     },
                     "results": [
                         {
@@ -122,20 +130,22 @@
                     "key": "SetLoopType",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetLoopType"
+                        "tooltip": "When signaled, this will invoke Set Loop Type"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetLoopType is invoked"
+                        "tooltip": "Signaled after Set Loop Type is invoked"
                     },
                     "details": {
-                        "name": "SetLoopType"
+                        "name": "Set Loop Type",
+                        "tooltip": "Sets the type of looping behavior for this animation"
                     },
                     "params": [
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Loop Type",
+                                "tooltip": "The looping behavior for the animation (0=None, 1=Linear, 2=Ping Pong)"
                             }
                         }
                     ]
@@ -144,14 +154,15 @@
                     "key": "GetStartDelay",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetStartDelay"
+                        "tooltip": "When signaled, this will invoke Get Start Delay"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetStartDelay is invoked"
+                        "tooltip": "Signaled after Get Start Delay is invoked"
                     },
                     "details": {
-                        "name": "GetStartDelay"
+                        "name": "Get Start Delay",
+                        "tooltip": "Gets the delay (in seconds) before playing the flipbook (applied only once during playback)"
                     },
                     "results": [
                         {
@@ -166,20 +177,22 @@
                     "key": "SetStartDelay",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetStartDelay"
+                        "tooltip": "When signaled, this will invoke Set Start Delay"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetStartDelay is invoked"
+                        "tooltip": "Signaled after Set Start Delay is invoked"
                     },
                     "details": {
-                        "name": "SetStartDelay"
+                        "name": "Set Start Delay",
+                        "tooltip": "Sets the delay (in seconds) before playing the flipbook (applied only once during playback)"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Start Delay",
+                                "tooltip": "The delay (in seconds) before playing the flipbook"
                             }
                         }
                     ]
@@ -188,14 +201,15 @@
                     "key": "GetCurrentFrame",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetCurrentFrame"
+                        "tooltip": "When signaled, this will invoke Get Current Frame"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetCurrentFrame is invoked"
+                        "tooltip": "Signaled after Get Current Frame is invoked"
                     },
                     "details": {
-                        "name": "GetCurrentFrame"
+                        "name": "Get Current Frame",
+                        "tooltip": "Gets the frame of the animation currently displayed"
                     },
                     "results": [
                         {
@@ -210,14 +224,15 @@
                     "key": "GetFramerate",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetFramerate"
+                        "tooltip": "When signaled, this will invoke Get Framerate"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetFramerate is invoked"
+                        "tooltip": "Signaled after Get Framerate is invoked"
                     },
                     "details": {
-                        "name": "GetFramerate"
+                        "name": "Get Framerate",
+                        "tooltip": "Gets the speed used to determine when to transition to the next frame. Framerate is defined relative to unit of time, specified by FramerateUnits"
                     },
                     "results": [
                         {
@@ -232,20 +247,22 @@
                     "key": "SetLoopDelay",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetLoopDelay"
+                        "tooltip": "When signaled, this will invoke Set Loop Delay"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetLoopDelay is invoked"
+                        "tooltip": "Signaled after Set Loop Delay is invoked"
                     },
                     "details": {
-                        "name": "SetLoopDelay"
+                        "name": "Set Loop Delay",
+                        "tooltip": "Sets the delay (in seconds) before playing the loop sequence"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Loop Delay",
+                                "tooltip": "The delay (in seconds) before playing the loop sequence"
                             }
                         }
                     ]
@@ -254,14 +271,15 @@
                     "key": "GetStartFrame",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetStartFrame"
+                        "tooltip": "When signaled, this will invoke Get Start Frame"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetStartFrame is invoked"
+                        "tooltip": "Signaled after Get Start Frame is invoked"
                     },
                     "details": {
-                        "name": "GetStartFrame"
+                        "name": "Get Start Frame",
+                        "tooltip": "Gets the first frame to display when starting the animation"
                     },
                     "results": [
                         {
@@ -276,20 +294,22 @@
                     "key": "SetFramerateUnit",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetFramerateUnit"
+                        "tooltip": "When signaled, this will invoke Set Framerate Unit"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetFramerateUnit is invoked"
+                        "tooltip": "Signaled after Set Framerate Unit is invoked"
                     },
                     "details": {
-                        "name": "SetFramerateUnit"
+                        "name": "Set Framerate Unit",
+                        "tooltip": "Sets the framerate unit (0 = Frames per second, 1 = Seconds per frame)"
                     },
                     "params": [
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Framerate Unit",
+                                "tooltip": "The framerate unit (0 = Frames per second, 1 = Seconds per frame)"
                             }
                         }
                     ]
@@ -298,14 +318,15 @@
                     "key": "IsPlaying",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke IsPlaying"
+                        "tooltip": "When signaled, this will invoke Is Playing"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after IsPlaying is invoked"
+                        "tooltip": "Signaled after Is Playing is invoked"
                     },
                     "details": {
-                        "name": "IsPlaying"
+                        "name": "Is Playing",
+                        "tooltip": "Returns whether the animation is currently playing"
                     },
                     "results": [
                         {
@@ -320,20 +341,22 @@
                     "key": "SetEndFrame",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetEndFrame"
+                        "tooltip": "When signaled, this will invoke Set End Frame"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetEndFrame is invoked"
+                        "tooltip": "Signaled after Set End Frame is invoked"
                     },
                     "details": {
-                        "name": "SetEndFrame"
+                        "name": "Set End Frame",
+                        "tooltip": "Sets the last frame to display for the animation"
                     },
                     "params": [
                         {
                             "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
                             "details": {
-                                "name": "unsigned int"
+                                "name": "Frame",
+                                "tooltip": "The last frame to display for the animation"
                             }
                         }
                     ]
@@ -342,20 +365,22 @@
                     "key": "SetLoopStartFrame",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetLoopStartFrame"
+                        "tooltip": "When signaled, this will invoke Set Loop Start Frame"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetLoopStartFrame is invoked"
+                        "tooltip": "Signaled after Set Loop Start Frame is invoked"
                     },
                     "details": {
-                        "name": "SetLoopStartFrame"
+                        "name": "Set Loop Start Frame",
+                        "tooltip": "Sets the first frame that is displayed within an animation loop. Applicable only when the \"Loop Type\" is set to anything other than \"None\""
                     },
                     "params": [
                         {
                             "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
                             "details": {
-                                "name": "unsigned int"
+                                "name": "Frame",
+                                "tooltip": "The first frame that is displayed within an animation loop"
                             }
                         }
                     ]
@@ -364,20 +389,22 @@
                     "key": "SetReverseDelay",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetReverseDelay"
+                        "tooltip": "When signaled, this will invoke Set Reverse Delay"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetReverseDelay is invoked"
+                        "tooltip": "Signaled after Set Reverse Delay is invoked"
                     },
                     "details": {
-                        "name": "SetReverseDelay"
+                        "name": "Set Reverse Delay",
+                        "tooltip": "Sets the delay (in seconds) before playing the reverse loop sequence (PingPong loop types only)"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Reverse Delay",
+                                "tooltip": "The delay (in seconds) before playing the reverse loop sequence"
                             }
                         }
                     ]
@@ -393,27 +420,30 @@
                         "tooltip": "Signaled after Stop is invoked"
                     },
                     "details": {
-                        "name": "Stop"
+                        "name": "Stop",
+                        "tooltip": "Ends the animation"
                     }
                 },
                 {
                     "key": "SetFramerate",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetFramerate"
+                        "tooltip": "When signaled, this will invoke Set Framerate"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetFramerate is invoked"
+                        "tooltip": "Signaled after Set Framerate is invoked"
                     },
                     "details": {
-                        "name": "SetFramerate"
+                        "name": "Set Framerate",
+                        "tooltip": "Sets the speed used to determine when to transition to the next frame. Framerate is defined relative to unit of time, specified by FramerateUnits"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Framerate",
+                                "tooltip": "The framerate in whatever units are specified by Set Framerate Unit"
                             }
                         }
                     ]
@@ -422,14 +452,15 @@
                     "key": "GetIsAutoPlay",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetIsAutoPlay"
+                        "tooltip": "When signaled, this will invoke Is Auto Play Enabled"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetIsAutoPlay is invoked"
+                        "tooltip": "Signaled after Is Auto Play Enabled is invoked"
                     },
                     "details": {
-                        "name": "GetIsAutoPlay"
+                        "name": "Is Auto Play Enabled",
+                        "tooltip": "Returns whether the animation will begin playing as soon as the element is activated"
                     },
                     "results": [
                         {
@@ -451,27 +482,30 @@
                         "tooltip": "Signaled after Start is invoked"
                     },
                     "details": {
-                        "name": "Start"
+                        "name": "Start",
+                        "tooltip": "Begins playing the flipbook animation"
                     }
                 },
                 {
                     "key": "SetStartFrame",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetStartFrame"
+                        "tooltip": "When signaled, this will invoke Set Start Frame"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetStartFrame is invoked"
+                        "tooltip": "Signaled after Set Start Frame is invoked"
                     },
                     "details": {
-                        "name": "SetStartFrame"
+                        "name": "Set Start Frame",
+                        "tooltip": "Sets the first frame to display when starting the animation"
                     },
                     "params": [
                         {
                             "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
                             "details": {
-                                "name": "unsigned int"
+                                "name": "Frame",
+                                "tooltip": "The first frame to display when starting the animation"
                             }
                         }
                     ]
@@ -480,14 +514,15 @@
                     "key": "GetEndFrame",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetEndFrame"
+                        "tooltip": "When signaled, this will invoke Get End Frame"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetEndFrame is invoked"
+                        "tooltip": "Signaled after Get End Frame is invoked"
                     },
                     "details": {
-                        "name": "GetEndFrame"
+                        "name": "Get End Frame",
+                        "tooltip": "Gets the last frame to display for the animation"
                     },
                     "results": [
                         {
@@ -502,14 +537,15 @@
                     "key": "GetFramerateUnit",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetFramerateUnit"
+                        "tooltip": "When signaled, this will invoke Get Framerate Unit"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetFramerateUnit is invoked"
+                        "tooltip": "Signaled after Get Framerate Unit is invoked"
                     },
                     "details": {
-                        "name": "GetFramerateUnit"
+                        "name": "Get Framerate Unit",
+                        "tooltip": "Gets the framerate unit (0 = Frames per second, 1 = Seconds per frame)"
                     },
                     "results": [
                         {
@@ -524,14 +560,15 @@
                     "key": "GetLoopDelay",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetLoopDelay"
+                        "tooltip": "When signaled, this will invoke Get Loop Delay"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetLoopDelay is invoked"
+                        "tooltip": "Signaled after Get Loop Delay is invoked"
                     },
                     "details": {
-                        "name": "GetLoopDelay"
+                        "name": "Get Loop Delay",
+                        "tooltip": "Gets the delay (in seconds) before playing the loop sequence"
                     },
                     "results": [
                         {

@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "InvertGradientConfig",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "InvertGradientConfig"

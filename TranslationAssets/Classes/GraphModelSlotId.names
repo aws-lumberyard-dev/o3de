@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "GraphModelSlotId",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "GraphModelSlotId"

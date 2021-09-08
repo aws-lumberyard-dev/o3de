@@ -5,21 +5,23 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiTransform2dBus"
+                "name": "UI Transform 2D",
+                "category": "UI"
             },
             "methods": [
                 {
                     "key": "GetLocalHeight",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetLocalHeight"
+                        "tooltip": "When signaled, this will invoke Get Local Height"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetLocalHeight is invoked"
+                        "tooltip": "Signaled after Get Local Height is invoked"
                     },
                     "details": {
-                        "name": "GetLocalHeight"
+                        "name": "Get Local Height",
+                        "tooltip": "Gets the height of the element based off its offsets"
                     },
                     "results": [
                         {
@@ -34,20 +36,22 @@
                     "key": "SetLocalHeight",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetLocalHeight"
+                        "tooltip": "When signaled, this will invoke Set Local Height"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetLocalHeight is invoked"
+                        "tooltip": "Signaled after Set Local Height is invoked"
                     },
                     "details": {
-                        "name": "SetLocalHeight"
+                        "name": "Set Local Height",
+                        "tooltip": "Modifes the top and bottom offsets relative to the element's anchors"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Local Height",
+                                "tooltip": "The height of the element based off its offsets"
                             }
                         }
                     ]
@@ -56,14 +60,15 @@
                     "key": "GetLocalWidth",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetLocalWidth"
+                        "tooltip": "When signaled, this will invoke Get Local Width"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetLocalWidth is invoked"
+                        "tooltip": "Signaled after Get Local Width is invoked"
                     },
                     "details": {
-                        "name": "GetLocalWidth"
+                        "name": "Get Local Width",
+                        "tooltip": "Gets the width of the element based off its offsets"
                     },
                     "results": [
                         {
@@ -78,20 +83,22 @@
                     "key": "SetPivotAndAdjustOffsets",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetPivotAndAdjustOffsets"
+                        "tooltip": "When signaled, this will invoke Set Pivot And Adjust Offsets"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetPivotAndAdjustOffsets is invoked"
+                        "tooltip": "Signaled after Set Pivot And Adjust Offsets is invoked"
                     },
                     "details": {
-                        "name": "SetPivotAndAdjustOffsets"
+                        "name": "Set Pivot And Adjust Offsets",
+                        "tooltip": "Sets the pivot and adjusts the offsets so that the element stays in the same place"
                     },
                     "params": [
                         {
                             "typeid": "{3D80F623-C85C-4741-90D0-E4E66164E6BF}",
                             "details": {
-                                "name": "Vector2"
+                                "name": "Pivot",
+                                "tooltip": "The pivot"
                             }
                         }
                     ]
@@ -100,20 +107,22 @@
                     "key": "SetLocalWidth",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetLocalWidth"
+                        "tooltip": "When signaled, this will invoke Set Local Width"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetLocalWidth is invoked"
+                        "tooltip": "Signaled after Set Local Width is invoked"
                     },
                     "details": {
-                        "name": "SetLocalWidth"
+                        "name": "Set Local Width",
+                        "tooltip": "Modifies the left and right offsets relative to the element's anchors"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Local Width",
+                                "tooltip": "The width of the element based off its offsets"
                             }
                         }
                     ]
@@ -122,14 +131,15 @@
                     "key": "GetOffsets",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetOffsets"
+                        "tooltip": "When signaled, this will invoke Get Offsets"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetOffsets is invoked"
+                        "tooltip": "Signaled after Get Offsets is invoked"
                     },
                     "details": {
-                        "name": "GetOffsets"
+                        "name": "Get Offsets",
+                        "tooltip": "Gets the offsets"
                     },
                     "results": [
                         {
@@ -144,32 +154,36 @@
                     "key": "SetAnchors",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetAnchors"
+                        "tooltip": "When signaled, this will invoke Set Anchors"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetAnchors is invoked"
+                        "tooltip": "Signaled after Set Anchors is invoked"
                     },
                     "details": {
-                        "name": "SetAnchors"
+                        "name": "Set Anchors",
+                        "tooltip": "Sets the anchors"
                     },
                     "params": [
                         {
                             "typeid": "{65D4346C-FB16-4CB0-9BDC-1185B122C4A9}",
                             "details": {
-                                "name": "Anchors"
+                                "name": "Anchors",
+                                "tooltip": "The anchors"
                             }
                         },
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Adjust Offsets",
+                                "tooltip": "Indicates whether the offsets are adjusted to keep the rectangle in the same position"
                             }
                         },
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Allow Push",
+                                "tooltip": "Only takes effect if the anchors are invalid. If true, when an anchor is changed to overlap the anchor opposite it, the opposite anchor moves"
                             }
                         }
                     ]
@@ -178,14 +192,15 @@
                     "key": "GetAnchors",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetAnchors"
+                        "tooltip": "When signaled, this will invoke Get Anchors"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetAnchors is invoked"
+                        "tooltip": "Signaled after Get Anchors is invoked"
                     },
                     "details": {
-                        "name": "GetAnchors"
+                        "name": "Get Anchors",
+                        "tooltip": "Gets the anchors"
                     },
                     "results": [
                         {
@@ -200,20 +215,22 @@
                     "key": "SetOffsets",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetOffsets"
+                        "tooltip": "When signaled, this will invoke Set Offsets"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetOffsets is invoked"
+                        "tooltip": "Signaled after Set Offsets is invoked"
                     },
                     "details": {
-                        "name": "SetOffsets"
+                        "name": "Set Offsets",
+                        "tooltip": "Sets the offsets"
                     },
                     "params": [
                         {
                             "typeid": "{F681BA9D-245C-4630-B20E-05DD752FAD57}",
                             "details": {
-                                "name": "Offsets"
+                                "name": "Offsets",
+                                "tooltip": "The offsets"
                             }
                         }
                     ]

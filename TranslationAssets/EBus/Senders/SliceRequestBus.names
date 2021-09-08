@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "SliceRequestBus"
+                "name": "SLICEREQUESTBUS_NAME",
+                "category": "SLICEREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

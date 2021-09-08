@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "ConstantGradientRequestBus"
+                "name": "CONSTANTGRADIENTREQUESTBUS_NAME",
+                "category": "CONSTANTGRADIENTREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

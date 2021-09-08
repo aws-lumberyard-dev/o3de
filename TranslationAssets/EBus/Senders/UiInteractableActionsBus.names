@@ -5,27 +5,30 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiInteractableActionsBus"
+                "name": "UI Interactable Actions",
+                "category": "UI"
             },
             "methods": [
                 {
                     "key": "SetPressedActionName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetPressedActionName"
+                        "tooltip": "When signaled, this will invoke Set Pressed Action Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetPressedActionName is invoked"
+                        "tooltip": "Signaled after Set Pressed Action Name is invoked"
                     },
                     "details": {
-                        "name": "SetPressedActionName"
+                        "name": "Set Pressed Action Name",
+                        "tooltip": "Sets the name of the action triggered when the interactive element is pressed"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Name",
+                                "tooltip": "The name of the action triggered when the interactive element is pressed"
                             }
                         }
                     ]
@@ -34,14 +37,15 @@
                     "key": "GetPressedActionName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetPressedActionName"
+                        "tooltip": "When signaled, this will invoke Get Pressed Action Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetPressedActionName is invoked"
+                        "tooltip": "Signaled after Get Pressed Action Name is invoked"
                     },
                     "details": {
-                        "name": "GetPressedActionName"
+                        "name": "Get Pressed Action Name",
+                        "tooltip": "Gets the name of the action triggered when the interactive element is pressed"
                     },
                     "results": [
                         {
@@ -56,14 +60,15 @@
                     "key": "GetHoverEndActionName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetHoverEndActionName"
+                        "tooltip": "When signaled, this will invoke Get Hover End Action Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetHoverEndActionName is invoked"
+                        "tooltip": "Signaled after Get Hover End Action Name is invoked"
                     },
                     "details": {
-                        "name": "GetHoverEndActionName"
+                        "name": "Get Hover End Action Name",
+                        "tooltip": "Gets the name of the action triggered when the interactive element is done being hovered over"
                     },
                     "results": [
                         {
@@ -78,20 +83,22 @@
                     "key": "SetHoverStartActionName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetHoverStartActionName"
+                        "tooltip": "When signaled, this will invoke Set Hover Start Action Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetHoverStartActionName is invoked"
+                        "tooltip": "Signaled after Set Hover Start Action Name is invoked"
                     },
                     "details": {
-                        "name": "SetHoverStartActionName"
+                        "name": "Set Hover Start Action Name",
+                        "tooltip": "Sets the name of the action triggered when the interactive element starts being hovered over"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Name",
+                                "tooltip": "The name of the action triggered when the interactive element starts being hovered over"
                             }
                         }
                     ]
@@ -100,14 +107,15 @@
                     "key": "GetHoverStartActionName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetHoverStartActionName"
+                        "tooltip": "When signaled, this will invoke Get Hover Start Action Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetHoverStartActionName is invoked"
+                        "tooltip": "Signaled after Get Hover Start Action Name is invoked"
                     },
                     "details": {
-                        "name": "GetHoverStartActionName"
+                        "name": "Get Hover Start Action Name",
+                        "tooltip": "Gets the name of the action triggered when the interactive element starts being hovered over"
                     },
                     "results": [
                         {
@@ -122,20 +130,22 @@
                     "key": "SetHoverEndActionName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetHoverEndActionName"
+                        "tooltip": "When signaled, this will invoke Set Hover End Action Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetHoverEndActionName is invoked"
+                        "tooltip": "Signaled after Set Hover End Action Name is invoked"
                     },
                     "details": {
-                        "name": "SetHoverEndActionName"
+                        "name": "Set Hover End Action Name",
+                        "tooltip": "Sets the name of the action triggered when the interactive element is done being hovered over"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Name",
+                                "tooltip": "The name of the action triggered when the interactive element is done being hovered over"
                             }
                         }
                     ]
@@ -144,14 +154,15 @@
                     "key": "GetReleasedActionName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetReleasedActionName"
+                        "tooltip": "When signaled, this will invoke Get Released Action Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetReleasedActionName is invoked"
+                        "tooltip": "Signaled after Get Released Action Name is invoked"
                     },
                     "details": {
-                        "name": "GetReleasedActionName"
+                        "name": "Get Released Action Name",
+                        "tooltip": "Gets the name of the action triggered when the interactive element is released"
                     },
                     "results": [
                         {
@@ -166,20 +177,22 @@
                     "key": "SetReleasedActionName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetReleasedActionName"
+                        "tooltip": "When signaled, this will invoke Set Released Action Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetReleasedActionName is invoked"
+                        "tooltip": "Signaled after Set Released Action Name is invoked"
                     },
                     "details": {
-                        "name": "SetReleasedActionName"
+                        "name": "Set Released Action Name",
+                        "tooltip": "Sets the name of the action triggered when the interactive element is released"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Name",
+                                "tooltip": "The name of the action triggered when the interactive element is released"
                             }
                         }
                     ]

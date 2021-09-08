@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "SmoothStepGradientRequestBus"
+                "name": "SMOOTHSTEPGRADIENTREQUESTBUS_NAME",
+                "category": "SMOOTHSTEPGRADIENTREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

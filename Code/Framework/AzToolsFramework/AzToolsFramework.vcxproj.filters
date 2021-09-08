@@ -2368,9 +2368,6 @@
     <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Windows\platform_windows_files.cmake">
       <Filter>Platform\Windows</Filter>
     </None>
-    <None Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\Platform\Common\MSVC\aztoolsframework_msvc.cmake">
-      <Filter>Platform\Common\MSVC</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="AzToolsFramework">
@@ -2588,12 +2585,6 @@
     </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{D4CCE8D3-A6C9-3C6A-9C86-8BF8F7D77D7F}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Platform\Common">
-      <UniqueIdentifier>{C3B9BA79-B7DE-3656-9F2E-A2DB09E250B2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Platform\Common\MSVC">
-      <UniqueIdentifier>{B169EB5F-F635-3041-87FE-B6117DDAC99B}</UniqueIdentifier>
     </Filter>
     <Filter Include="Platform\Windows">
       <UniqueIdentifier>{9B5BE819-E94D-379A-84DF-5559629D4548}</UniqueIdentifier>

@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "EventHandler<>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "EventHandler<>"
@@ -13,14 +13,15 @@
                     "context": "EventHandler<>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke EventHandler<>::Disconnect"
+                        "tooltip": "When signaled, this will invoke Disconnect"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after EventHandler<>::Disconnect is invoked"
+                        "tooltip": "Signaled after Disconnect is invoked"
                     },
                     "details": {
-                        "name": "EventHandler<>::Disconnect"
+                        "name": "EventHandler<>::Disconnect",
+                        "category": "Other"
                     },
                     "params": [
                         {

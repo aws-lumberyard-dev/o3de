@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZ::RHI::Handle<unsigned int, RPI::ShaderOptionValueNamespace>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "AZ::RHI::Handle<unsigned int, RPI::ShaderOptionValueNamespace>"
@@ -13,20 +13,21 @@
                     "context": "AZ::RHI::Handle<unsigned int, RPI::ShaderOptionValueNamespace>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZ::RHI::Handle<unsigned int, RPI::ShaderOptionValueNamespace>::IsValid"
+                        "tooltip": "When signaled, this will invoke IsValid"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZ::RHI::Handle<unsigned int, RPI::ShaderOptionValueNamespace>::IsValid is invoked"
+                        "tooltip": "Signaled after IsValid is invoked"
                     },
                     "details": {
-                        "name": "AZ::RHI::Handle<unsigned int, RPI::ShaderOptionValueNamespace>::IsValid"
+                        "name": "AZ::RHI::Handle<unsigned int, RPI::ShaderOptionValueNamespace>::IsValid",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{C10E7B12-BCB6-5872-810D-D597F123DB61}",
                             "details": {
-                                "name": "AZ::RHI::Handle<unsigned int, RPI::ShaderOptionValueNamespace>"
+                                "name": "AZ::RHI::Handle<unsigned int, RPI::ShaderOptionValueNamespace>*"
                             }
                         }
                     ],

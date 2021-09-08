@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "CameraRequestBus"
+                "name": "Camera",
+                "category": "Camera"
             },
             "methods": [
                 {
@@ -34,14 +35,15 @@
                     "key": "GetFov",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetFov"
+                        "tooltip": "When signaled, this will invoke Get FOV"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetFov is invoked"
+                        "tooltip": "Signaled after Get FOV is invoked"
                     },
                     "details": {
-                        "name": "GetFov"
+                        "name": "Get FOV",
+                        "tooltip": "Returns the field of view of the camera"
                     },
                     "results": [
                         {
@@ -78,20 +80,22 @@
                     "key": "SetNearClipDistance",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetNearClipDistance"
+                        "tooltip": "When signaled, this will invoke Set Near Clip Distance"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetNearClipDistance is invoked"
+                        "tooltip": "Signaled after Set Near Clip Distance is invoked"
                     },
                     "details": {
-                        "name": "SetNearClipDistance"
+                        "name": "Set Near Clip Distance",
+                        "tooltip": "Sets the near clip distance of the camera"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Distance",
+                                "tooltip": "Set the near clip distance of the camera"
                             }
                         }
                     ]
@@ -166,20 +170,22 @@
                     "key": "SetFov",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetFov"
+                        "tooltip": "When signaled, this will invoke Set FOV"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetFov is invoked"
+                        "tooltip": "Signaled after Set FOV is invoked"
                     },
                     "details": {
-                        "name": "SetFov"
+                        "name": "Set FOV",
+                        "tooltip": "Set the field of view of the camera"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "FOV",
+                                "tooltip": "The field of view of the camera"
                             }
                         }
                     ]
@@ -188,28 +194,30 @@
                     "key": "MakeActiveView",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MakeActiveView"
+                        "tooltip": "When signaled, this will invoke Make Active View"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MakeActiveView is invoked"
+                        "tooltip": "Signaled after Make Active View is invoked"
                     },
                     "details": {
-                        "name": "MakeActiveView"
+                        "name": "Make Active View",
+                        "tooltip": "Sets the camera on the specified entity to the active view"
                     }
                 },
                 {
                     "key": "GetFarClipDistance",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetFarClipDistance"
+                        "tooltip": "When signaled, this will invoke Get Far Clip Distance"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetFarClipDistance is invoked"
+                        "tooltip": "Signaled after Get Far Clip Distance is invoked"
                     },
                     "details": {
-                        "name": "GetFarClipDistance"
+                        "name": "Get Far Clip Distance",
+                        "tooltip": "Returns the far clip distance of the camera"
                     },
                     "results": [
                         {
@@ -290,14 +298,15 @@
                     "key": "GetNearClipDistance",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetNearClipDistance"
+                        "tooltip": "When signaled, this will invoke Get Near Clip Distance"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetNearClipDistance is invoked"
+                        "tooltip": "Signaled after Get Near Clip Distance is invoked"
                     },
                     "details": {
-                        "name": "GetNearClipDistance"
+                        "name": "Get Near Clip Distance",
+                        "tooltip": "Returns the near clip distance of the camera"
                     },
                     "results": [
                         {
@@ -312,20 +321,22 @@
                     "key": "SetFarClipDistance",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetFarClipDistance"
+                        "tooltip": "When signaled, this will invoke Set Far Clip Distance"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetFarClipDistance is invoked"
+                        "tooltip": "Signaled after Set Far Clip Distance is invoked"
                     },
                     "details": {
-                        "name": "SetFarClipDistance"
+                        "name": "Set Far Clip Distance",
+                        "tooltip": "Sets the far clip distance of the camera"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Distance",
+                                "tooltip": "The far clip distance of the camera"
                             }
                         }
                     ]

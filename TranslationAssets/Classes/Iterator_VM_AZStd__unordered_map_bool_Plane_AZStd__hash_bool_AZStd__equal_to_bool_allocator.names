@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "Iterator_VM<AZStd::unordered_map<bool, Plane, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Iterator_VM<AZStd::unordered_map<bool, Plane, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>"
@@ -13,14 +13,15 @@
                     "context": "Iterator_VM<AZStd::unordered_map<bool, Plane, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<bool, Plane, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::GetKeyUnchecked"
+                        "tooltip": "When signaled, this will invoke GetKeyUnchecked"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<bool, Plane, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::GetKeyUnchecked is invoked"
+                        "tooltip": "Signaled after GetKeyUnchecked is invoked"
                     },
                     "details": {
-                        "name": "Iterator_VM<AZStd::unordered_map<bool, Plane, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::GetKeyUnchecked"
+                        "name": "Iterator_VM<AZStd::unordered_map<bool, Plane, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::GetKeyUnchecked",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -34,7 +35,7 @@
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "const bool&"
                             }
                         }
                     ]
@@ -44,14 +45,15 @@
                     "context": "Iterator_VM<AZStd::unordered_map<bool, Plane, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<bool, Plane, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::ModValueUnchecked"
+                        "tooltip": "When signaled, this will invoke ModValueUnchecked"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<bool, Plane, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::ModValueUnchecked is invoked"
+                        "tooltip": "Signaled after ModValueUnchecked is invoked"
                     },
                     "details": {
-                        "name": "Iterator_VM<AZStd::unordered_map<bool, Plane, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::ModValueUnchecked"
+                        "name": "Iterator_VM<AZStd::unordered_map<bool, Plane, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::ModValueUnchecked",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -65,7 +67,7 @@
                         {
                             "typeid": "{847DD984-9DBF-4789-8E25-E0334402E8AD}",
                             "details": {
-                                "name": "Plane"
+                                "name": "Plane&"
                             }
                         }
                     ]
@@ -75,14 +77,15 @@
                     "context": "Iterator_VM<AZStd::unordered_map<bool, Plane, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<bool, Plane, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::IsNotAtEnd"
+                        "tooltip": "When signaled, this will invoke IsNotAtEnd"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<bool, Plane, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::IsNotAtEnd is invoked"
+                        "tooltip": "Signaled after IsNotAtEnd is invoked"
                     },
                     "details": {
-                        "name": "Iterator_VM<AZStd::unordered_map<bool, Plane, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::IsNotAtEnd"
+                        "name": "Iterator_VM<AZStd::unordered_map<bool, Plane, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::IsNotAtEnd",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -106,14 +109,15 @@
                     "context": "Iterator_VM<AZStd::unordered_map<bool, Plane, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<bool, Plane, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::Next"
+                        "tooltip": "When signaled, this will invoke Next"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<bool, Plane, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::Next is invoked"
+                        "tooltip": "Signaled after Next is invoked"
                     },
                     "details": {
-                        "name": "Iterator_VM<AZStd::unordered_map<bool, Plane, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::Next"
+                        "name": "Iterator_VM<AZStd::unordered_map<bool, Plane, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>>::Next",
+                        "category": "Other"
                     },
                     "params": [
                         {

@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "ImageBasedLightComponentRequestBus"
+                "name": "IMAGEBASEDLIGHTCOMPONENTREQUESTBUS_NAME",
+                "category": "IMAGEBASEDLIGHTCOMPONENTREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

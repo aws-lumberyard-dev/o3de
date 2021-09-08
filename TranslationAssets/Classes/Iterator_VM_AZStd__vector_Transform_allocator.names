@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "Iterator_VM<AZStd::vector<Transform, allocator>>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Iterator_VM<AZStd::vector<Transform, allocator>>"
@@ -13,14 +13,15 @@
                     "context": "Iterator_VM<AZStd::vector<Transform, allocator>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<Transform, allocator>>::IsNotAtEnd"
+                        "tooltip": "When signaled, this will invoke IsNotAtEnd"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<Transform, allocator>>::IsNotAtEnd is invoked"
+                        "tooltip": "Signaled after IsNotAtEnd is invoked"
                     },
                     "details": {
-                        "name": "Iterator_VM<AZStd::vector<Transform, allocator>>::IsNotAtEnd"
+                        "name": "Iterator_VM<AZStd::vector<Transform, allocator>>::IsNotAtEnd",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -44,14 +45,15 @@
                     "context": "Iterator_VM<AZStd::vector<Transform, allocator>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<Transform, allocator>>::ModValueUnchecked"
+                        "tooltip": "When signaled, this will invoke ModValueUnchecked"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<Transform, allocator>>::ModValueUnchecked is invoked"
+                        "tooltip": "Signaled after ModValueUnchecked is invoked"
                     },
                     "details": {
-                        "name": "Iterator_VM<AZStd::vector<Transform, allocator>>::ModValueUnchecked"
+                        "name": "Iterator_VM<AZStd::vector<Transform, allocator>>::ModValueUnchecked",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -65,7 +67,7 @@
                         {
                             "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
                             "details": {
-                                "name": "Transform"
+                                "name": "Transform&"
                             }
                         }
                     ]
@@ -75,14 +77,15 @@
                     "context": "Iterator_VM<AZStd::vector<Transform, allocator>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::vector<Transform, allocator>>::Next"
+                        "tooltip": "When signaled, this will invoke Next"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Iterator_VM<AZStd::vector<Transform, allocator>>::Next is invoked"
+                        "tooltip": "Signaled after Next is invoked"
                     },
                     "details": {
-                        "name": "Iterator_VM<AZStd::vector<Transform, allocator>>::Next"
+                        "name": "Iterator_VM<AZStd::vector<Transform, allocator>>::Next",
+                        "category": "Other"
                     },
                     "params": [
                         {

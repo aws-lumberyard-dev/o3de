@@ -15,6 +15,9 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftCommon\Source\AWSGameLiftSessionConstants.h">
       <Filter>..\AWSGameLiftCommon\Source</Filter>
     </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftServer\Include\Request\IAWSGameLiftServerRequests.h">
+      <Filter>Include\Request</Filter>
+    </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\AWSGameLift\Code\AWSGameLiftServer\Source\AWSGameLiftServerManager.h">
       <Filter>Source</Filter>
     </ClInclude>
@@ -45,6 +48,12 @@
     </Filter>
     <Filter Include="Generated Files">
       <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Request">
+      <UniqueIdentifier>{F6430AC2-6E82-31E8-A4A2-853D096F289E}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source">
       <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>

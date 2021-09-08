@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiScrollBarBus"
+                "name": "UI Scroll Bar",
+                "category": "UI"
             },
             "methods": [
                 {
@@ -78,21 +79,22 @@
                     "key": "SetHandleEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetHandleEntity"
+                        "tooltip": "When signaled, this will invoke Set Handle Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetHandleEntity is invoked"
+                        "tooltip": "Signaled after Set Handle Entity is invoked"
                     },
                     "details": {
-                        "name": "SetHandleEntity"
+                        "name": "Set Handle Entity",
+                        "tooltip": "Gets the handle element"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Handle EntityID",
+                                "tooltip": "The handle element"
                             }
                         }
                     ]
@@ -101,14 +103,15 @@
                     "key": "GetHandleEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetHandleEntity"
+                        "tooltip": "When signaled, this will invoke Get Handle Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetHandleEntity is invoked"
+                        "tooltip": "Signaled after Get Handle Entity is invoked"
                     },
                     "details": {
-                        "name": "GetHandleEntity"
+                        "name": "Get Handle Entity",
+                        "tooltip": "Gets the handle element"
                     },
                     "results": [
                         {
@@ -146,14 +149,15 @@
                     "key": "GetMinHandlePixelSize",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetMinHandlePixelSize"
+                        "tooltip": "When signaled, this will invoke Get Min Handle Pixel Size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetMinHandlePixelSize is invoked"
+                        "tooltip": "Signaled after Get Min Handle Pixel Size is invoked"
                     },
                     "details": {
-                        "name": "GetMinHandlePixelSize"
+                        "name": "Get Min Handle Pixel Size",
+                        "tooltip": "Gets the minimum size of the handle"
                     },
                     "results": [
                         {
@@ -190,20 +194,22 @@
                     "key": "SetHandleSize",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetHandleSize"
+                        "tooltip": "When signaled, this will invoke Set Handle Size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetHandleSize is invoked"
+                        "tooltip": "Signaled after Set Handle Size is invoked"
                     },
                     "details": {
-                        "name": "SetHandleSize"
+                        "name": "Set Handle Size",
+                        "tooltip": "Sets the size of the handle relative to the scroll bar"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Handle Size",
+                                "tooltip": "The size of the handle relative to the scroll bar [0-1]"
                             }
                         }
                     ]
@@ -212,20 +218,22 @@
                     "key": "SetMinHandlePixelSize",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetMinHandlePixelSize"
+                        "tooltip": "When signaled, this will invoke Set Min Handle Pixel Size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetMinHandlePixelSize is invoked"
+                        "tooltip": "Signaled after Set Min Handle Pixel Size is invoked"
                     },
                     "details": {
-                        "name": "SetMinHandlePixelSize"
+                        "name": "Set Min Handle Pixel Size",
+                        "tooltip": "Sets the minimum size of the handle"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Min Handle Size",
+                                "tooltip": "The minimum size of the handle in pixels"
                             }
                         }
                     ]
@@ -234,14 +242,15 @@
                     "key": "GetHandleSize",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetHandleSize"
+                        "tooltip": "When signaled, this will invoke Get Handle Size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetHandleSize is invoked"
+                        "tooltip": "Signaled after Get Handle Size is invoked"
                     },
                     "details": {
-                        "name": "GetHandleSize"
+                        "name": "Get Handle Size",
+                        "tooltip": "Gets the size of the handle relative to the scroll bar"
                     },
                     "results": [
                         {

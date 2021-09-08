@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "EditorReflectionProbeBus"
+                "name": "EDITORREFLECTIONPROBEBUS_NAME",
+                "category": "EDITORREFLECTIONPROBEBUS_CATEGORY"
             },
             "methods": [
                 {

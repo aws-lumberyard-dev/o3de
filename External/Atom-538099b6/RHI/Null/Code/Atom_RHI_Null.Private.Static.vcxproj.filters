@@ -22,6 +22,9 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\Device.cpp">
       <Filter>Source\RHI</Filter>
     </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\Fence.cpp">
+      <Filter>Source\RHI</Filter>
+    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\FrameGraphCompiler.cpp">
       <Filter>Source\RHI</Filter>
     </ClCompile>
@@ -106,6 +109,9 @@
       <Filter>Source\RHI</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\Device.h">
+      <Filter>Source\RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\Fence.h">
       <Filter>Source\RHI</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Null\Code\Source\RHI\FrameGraphCompiler.h">

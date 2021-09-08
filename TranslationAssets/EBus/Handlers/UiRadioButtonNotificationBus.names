@@ -5,7 +5,8 @@
             "context": "EBusHandler",
             "variant": "",
             "details": {
-                "name": "UiRadioButtonNotificationBus"
+                "name": "UI Radio Button",
+                "category": "UI"
             },
             "methods": [
                 {
@@ -17,7 +18,8 @@
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Checked",
+                                "tooltip": "Indicates whether the radio button is checked"
                             }
                         }
                     ]

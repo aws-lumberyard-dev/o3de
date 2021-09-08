@@ -5,21 +5,22 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "SimulatedBodyComponentRequestBus"
+                "name": "Simulated Body",
+                "category": "PhysX"
             },
             "methods": [
                 {
                     "key": "GetAabb",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetAabb"
+                        "tooltip": "When signaled, this will invoke Get AABB"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetAabb is invoked"
+                        "tooltip": "Signaled after Get AABB is invoked"
                     },
                     "details": {
-                        "name": "GetAabb"
+                        "name": "Get AABB"
                     },
                     "results": [
                         {
@@ -34,14 +35,14 @@
                     "key": "IsPhysicsEnabled",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke IsPhysicsEnabled"
+                        "tooltip": "When signaled, this will invoke Is Physics Enabled"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after IsPhysicsEnabled is invoked"
+                        "tooltip": "Signaled after Is Physics Enabled is invoked"
                     },
                     "details": {
-                        "name": "IsPhysicsEnabled"
+                        "name": "Is Physics Enabled"
                     },
                     "results": [
                         {
@@ -56,20 +57,21 @@
                     "key": "RayCast",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke RayCast"
+                        "tooltip": "When signaled, this will invoke Raycast (Single Body)"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after RayCast is invoked"
+                        "tooltip": "Signaled after Raycast (Single Body) is invoked"
                     },
                     "details": {
-                        "name": "RayCast"
+                        "name": "Raycast (Single Body)",
+                        "tooltip": "Perform a raycast against a single simulated body (not the whole scene)"
                     },
                     "params": [
                         {
                             "typeid": "{53EAD088-A391-48F1-8370-2A1DBA31512F}",
                             "details": {
-                                "name": "RayCast Request",
+                                "name": "Raycast Request",
                                 "tooltip": "Parameters for raycast"
                             }
                         }
@@ -87,28 +89,28 @@
                     "key": "DisablePhysics",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke DisablePhysics"
+                        "tooltip": "When signaled, this will invoke Disable Physics"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after DisablePhysics is invoked"
+                        "tooltip": "Signaled after Disable Physics is invoked"
                     },
                     "details": {
-                        "name": "DisablePhysics"
+                        "name": "Disable Physics"
                     }
                 },
                 {
                     "key": "EnablePhysics",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke EnablePhysics"
+                        "tooltip": "When signaled, this will invoke Enable Physics"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after EnablePhysics is invoked"
+                        "tooltip": "Signaled after Enable Physics is invoked"
                     },
                     "details": {
-                        "name": "EnablePhysics"
+                        "name": "Enable Physics"
                     }
                 }
             ]

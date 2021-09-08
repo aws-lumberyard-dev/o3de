@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZ::Render::EditorRadiusWeightModifierComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "AZ::Render::EditorRadiusWeightModifierComponent"

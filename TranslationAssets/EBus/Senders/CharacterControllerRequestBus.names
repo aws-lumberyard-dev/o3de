@@ -5,27 +5,30 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "CharacterControllerRequestBus"
+                "name": "Character Controller",
+                "category": "PhysX"
             },
             "methods": [
                 {
                     "key": "SetSlopeLimitDegrees",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetSlopeLimitDegrees"
+                        "tooltip": "When signaled, this will invoke Set Slope Limit (degrees)"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetSlopeLimitDegrees is invoked"
+                        "tooltip": "Signaled after Set Slope Limit (degrees) is invoked"
                     },
                     "details": {
-                        "name": "SetSlopeLimitDegrees"
+                        "name": "Set Slope Limit (degrees)",
+                        "tooltip": "Sets the maximum slope (in degrees) which the controller can ascend"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Slope Limit (degrees)",
+                                "tooltip": "The new value for the maximum slope (in degrees) which the controller can ascend"
                             }
                         }
                     ]
@@ -34,14 +37,15 @@
                     "key": "GetSlopeLimitDegrees",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetSlopeLimitDegrees"
+                        "tooltip": "When signaled, this will invoke Get Slope Limit (degrees)"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetSlopeLimitDegrees is invoked"
+                        "tooltip": "Signaled after Get Slope Limit (degrees) is invoked"
                     },
                     "details": {
-                        "name": "GetSlopeLimitDegrees"
+                        "name": "Get Slope Limit (degrees)",
+                        "tooltip": "Gets the maximum slope (in degrees) which the controller can ascend"
                     },
                     "results": [
                         {
@@ -56,20 +60,22 @@
                     "key": "SetMaximumSpeed",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetMaximumSpeed"
+                        "tooltip": "When signaled, this will invoke Set Maximum Speed"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetMaximumSpeed is invoked"
+                        "tooltip": "Signaled after Set Maximum Speed is invoked"
                     },
                     "details": {
-                        "name": "SetMaximumSpeed"
+                        "name": "Set Maximum Speed",
+                        "tooltip": "Sets the maximum speed, above which the accumulated requested velocity will be clamped"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Maximum Speed",
+                                "tooltip": "The new value for the maximum speed, above which the accumulated requested velocity will be clamped"
                             }
                         }
                     ]
@@ -78,14 +84,15 @@
                     "key": "GetUpDirection",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetUpDirection"
+                        "tooltip": "When signaled, this will invoke Get Up Direction"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetUpDirection is invoked"
+                        "tooltip": "Signaled after Get Up Direction is invoked"
                     },
                     "details": {
-                        "name": "GetUpDirection"
+                        "name": "Get Up Direction",
+                        "tooltip": "Gets the direction considered to be upwards when simulating the character"
                     },
                     "results": [
                         {
@@ -100,20 +107,22 @@
                     "key": "AddVelocity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AddVelocity"
+                        "tooltip": "When signaled, this will invoke Add Velocity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AddVelocity is invoked"
+                        "tooltip": "Signaled after Add Velocity is invoked"
                     },
                     "details": {
-                        "name": "AddVelocity"
+                        "name": "Add Velocity",
+                        "tooltip": "Requests a velocity for the controller, to be accumulated with other requests this tick and cumulatively applied before the next physics update"
                     },
                     "params": [
                         {
                             "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
                             "details": {
-                                "name": "Vector3"
+                                "name": "Velocity",
+                                "tooltip": "The desired velocity"
                             }
                         }
                     ]
@@ -122,20 +131,22 @@
                     "key": "SetBasePosition",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetBasePosition"
+                        "tooltip": "When signaled, this will invoke Set Base Position"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetBasePosition is invoked"
+                        "tooltip": "Signaled after Set Base Position is invoked"
                     },
                     "details": {
-                        "name": "SetBasePosition"
+                        "name": "Set Base Position",
+                        "tooltip": "Directly moves (teleports) the controller to a new base position"
                     },
                     "params": [
                         {
                             "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
                             "details": {
-                                "name": "Vector3"
+                                "name": "Base Position",
+                                "tooltip": "The new value for the controller's base position"
                             }
                         }
                     ]
@@ -144,14 +155,15 @@
                     "key": "GetCenterPosition",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetCenterPosition"
+                        "tooltip": "When signaled, this will invoke Get Center Position"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetCenterPosition is invoked"
+                        "tooltip": "Signaled after Get Center Position is invoked"
                     },
                     "details": {
-                        "name": "GetCenterPosition"
+                        "name": "Get Center Position",
+                        "tooltip": "Gets the position of the controller's center"
                     },
                     "results": [
                         {
@@ -166,14 +178,15 @@
                     "key": "GetStepHeight",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetStepHeight"
+                        "tooltip": "When signaled, this will invoke Get Step Height"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetStepHeight is invoked"
+                        "tooltip": "Signaled after Get Step Height is invoked"
                     },
                     "details": {
-                        "name": "GetStepHeight"
+                        "name": "Get Step Height",
+                        "tooltip": "Gets the maximum height of steps which the controller can ascend"
                     },
                     "results": [
                         {
@@ -188,14 +201,15 @@
                     "key": "GetBasePosition",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetBasePosition"
+                        "tooltip": "When signaled, this will invoke Get Base Position"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetBasePosition is invoked"
+                        "tooltip": "Signaled after Get Base Position is invoked"
                     },
                     "details": {
-                        "name": "GetBasePosition"
+                        "name": "Get Base Position",
+                        "tooltip": "Gets the position of the controller's base"
                     },
                     "results": [
                         {
@@ -210,20 +224,22 @@
                     "key": "SetStepHeight",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetStepHeight"
+                        "tooltip": "When signaled, this will invoke Set Step Height"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetStepHeight is invoked"
+                        "tooltip": "Signaled after Set Step Height is invoked"
                     },
                     "details": {
-                        "name": "SetStepHeight"
+                        "name": "Set Step Height",
+                        "tooltip": "Sets the maximum height of steps which the controller can ascend"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Step Height",
+                                "tooltip": "The new value for the maximum height of steps which the controller can ascend"
                             }
                         }
                     ]
@@ -232,14 +248,15 @@
                     "key": "GetMaximumSpeed",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetMaximumSpeed"
+                        "tooltip": "When signaled, this will invoke Get Maximum Speed"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetMaximumSpeed is invoked"
+                        "tooltip": "Signaled after Get Maximum Speed is invoked"
                     },
                     "details": {
-                        "name": "GetMaximumSpeed"
+                        "name": "Get Maximum Speed",
+                        "tooltip": "Gets the maximum speed, above which the accumulated requested velocity will be clamped"
                     },
                     "results": [
                         {
@@ -254,14 +271,15 @@
                     "key": "GetVelocity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetVelocity"
+                        "tooltip": "When signaled, this will invoke Get Velocity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetVelocity is invoked"
+                        "tooltip": "Signaled after Get Velocity is invoked"
                     },
                     "details": {
-                        "name": "GetVelocity"
+                        "name": "Get Velocity",
+                        "tooltip": "Gets the character's observed velocity from the last simulation update"
                     },
                     "results": [
                         {

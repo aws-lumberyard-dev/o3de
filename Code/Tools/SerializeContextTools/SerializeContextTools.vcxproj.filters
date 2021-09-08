@@ -17,12 +17,24 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Tools\SerializeContextTools\Utilities.h" />
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\SerializeContextTools_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\SerializeContextTools\CMakeLists.txt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <None Include="J:\Atom\lyfork\o3de\Code\Tools\SerializeContextTools\serializecontexttools_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\SerializeContextTools_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\SerializeContextTools_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\SerializeContextTools_release.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Generated Files">

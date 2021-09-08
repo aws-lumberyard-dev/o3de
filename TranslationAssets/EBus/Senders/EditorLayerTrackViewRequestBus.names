@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "EditorLayerTrackViewRequestBus"
+                "name": "EDITORLAYERTRACKVIEWREQUESTBUS_NAME",
+                "category": "EDITORLAYERTRACKVIEWREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {
@@ -177,7 +178,7 @@
                         {
                             "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
                             "details": {
-                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                                "name": ""
                             }
                         }
                     ],
@@ -407,13 +408,13 @@
                         {
                             "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
                             "details": {
-                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                                "name": ""
                             }
                         },
                         {
                             "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
                             "details": {
-                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                                "name": ""
                             }
                         }
                     ]
@@ -489,7 +490,7 @@
                         {
                             "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
                             "details": {
-                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                                "name": ""
                             }
                         }
                     ],

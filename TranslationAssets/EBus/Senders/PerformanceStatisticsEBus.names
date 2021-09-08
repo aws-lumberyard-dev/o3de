@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "PerformanceStatisticsEBus"
+                "name": "PERFORMANCESTATISTICSEBUS_NAME",
+                "category": "PERFORMANCESTATISTICSEBUS_CATEGORY"
             },
             "methods": [
                 {

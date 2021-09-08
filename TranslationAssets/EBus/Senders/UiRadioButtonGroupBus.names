@@ -5,28 +5,30 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiRadioButtonGroupBus"
+                "name": "UI Radio Button Group",
+                "category": "UI"
             },
             "methods": [
                 {
                     "key": "AddRadioButton",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AddRadioButton"
+                        "tooltip": "When signaled, this will invoke Add Radio Button"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AddRadioButton is invoked"
+                        "tooltip": "Signaled after Add Radio Button is invoked"
                     },
                     "details": {
-                        "name": "AddRadioButton"
+                        "name": "Add Radio Button",
+                        "tooltip": "Adds a new radio button to the group"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Radio Button EntityID",
+                                "tooltip": "A radio button to add to the group"
                             }
                         }
                     ]
@@ -35,20 +37,22 @@
                     "key": "SetChangedActionName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetChangedActionName"
+                        "tooltip": "When signaled, this will invoke Set Changed Action Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetChangedActionName is invoked"
+                        "tooltip": "Signaled after Set Changed Action Name is invoked"
                     },
                     "details": {
-                        "name": "SetChangedActionName"
+                        "name": "Set Changed Action Name",
+                        "tooltip": "Sets the name of the action triggered when the radio button group state changes"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Name",
+                                "tooltip": "The name of the action triggered when the radio button group state changes"
                             }
                         }
                     ]
@@ -57,20 +61,22 @@
                     "key": "SetAllowUncheck",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetAllowUncheck"
+                        "tooltip": "When signaled, this will invoke Set Allow Uncheck"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetAllowUncheck is invoked"
+                        "tooltip": "Signaled after Set Allow Uncheck is invoked"
                     },
                     "details": {
-                        "name": "SetAllowUncheck"
+                        "name": "Set Allow Uncheck",
+                        "tooltip": "Sets whether to allow clicking on the selected radio button to uncheck it"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Allow Uncheck",
+                                "tooltip": "Indicates whether to allow clicking on the selected radio button to uncheck it"
                             }
                         }
                     ]
@@ -79,21 +85,22 @@
                     "key": "ContainsRadioButton",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke ContainsRadioButton"
+                        "tooltip": "When signaled, this will invoke Contains Radio Button"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after ContainsRadioButton is invoked"
+                        "tooltip": "Signaled after Contains Radio Button is invoked"
                     },
                     "details": {
-                        "name": "ContainsRadioButton"
+                        "name": "Contains Radio Button",
+                        "tooltip": "Returns whether a radio button is in the group"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Radio Button EntityID",
+                                "tooltip": "The radio button"
                             }
                         }
                     ],
@@ -101,7 +108,8 @@
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "bool",
+                                "tooltip": "The radio button"
                             }
                         }
                     ]
@@ -110,14 +118,15 @@
                     "key": "GetChangedActionName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetChangedActionName"
+                        "tooltip": "When signaled, this will invoke Get Changed Action Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetChangedActionName is invoked"
+                        "tooltip": "Signaled after Get Changed Action Name is invoked"
                     },
                     "details": {
-                        "name": "GetChangedActionName"
+                        "name": "Get Changed Action Name",
+                        "tooltip": "Gets the name of the action triggered when the radio button group state changes"
                     },
                     "results": [
                         {
@@ -132,14 +141,15 @@
                     "key": "GetAllowUncheck",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetAllowUncheck"
+                        "tooltip": "When signaled, this will invoke Get Allow Uncheck"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetAllowUncheck is invoked"
+                        "tooltip": "Signaled after Get Allow Uncheck is invoked"
                     },
                     "details": {
-                        "name": "GetAllowUncheck"
+                        "name": "Get Allow Uncheck",
+                        "tooltip": "Returns whether to allow clicking on the selected radio button to uncheck it"
                     },
                     "results": [
                         {
@@ -154,21 +164,22 @@
                     "key": "RemoveRadioButton",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke RemoveRadioButton"
+                        "tooltip": "When signaled, this will invoke Remove Radio Button"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after RemoveRadioButton is invoked"
+                        "tooltip": "Signaled after Remove Radio Button is invoked"
                     },
                     "details": {
-                        "name": "RemoveRadioButton"
+                        "name": "Remove Radio Button",
+                        "tooltip": "Removes a radio button from the group"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Radio Button EntityID",
+                                "tooltip": "The radio button to remove from the group"
                             }
                         }
                     ]
@@ -177,27 +188,29 @@
                     "key": "SetState",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetState"
+                        "tooltip": "When signaled, this will invoke Set State"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetState is invoked"
+                        "tooltip": "Signaled after Set State is invoked"
                     },
                     "details": {
-                        "name": "SetState"
+                        "name": "Set State",
+                        "tooltip": "Sets the checked/unchecked state of a radio button"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Radio Button EntityID",
+                                "tooltip": "The radio button change the checked/unchecked state on"
                             }
                         },
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Checked",
+                                "tooltip": "Indicates whether to set the radio button state to checked"
                             }
                         }
                     ]
@@ -206,14 +219,15 @@
                     "key": "GetState",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetState"
+                        "tooltip": "When signaled, this will invoke Get State"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetState is invoked"
+                        "tooltip": "Signaled after Get State is invoked"
                     },
                     "details": {
-                        "name": "GetState"
+                        "name": "Get State",
+                        "tooltip": "Gets the radio button that is checked"
                     },
                     "results": [
                         {

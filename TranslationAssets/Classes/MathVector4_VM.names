@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "MathVector4_VM",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "MathVector4_VM"
@@ -13,14 +13,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::SetW"
+                        "tooltip": "When signaled, this will invoke SetW"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::SetW is invoked"
+                        "tooltip": "Signaled after SetW is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::SetW"
+                        "name": "MathVector4_VM::SetW",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -50,14 +51,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::SetX"
+                        "tooltip": "When signaled, this will invoke SetX"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::SetX is invoked"
+                        "tooltip": "Signaled after SetX is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::SetX"
+                        "name": "MathVector4_VM::SetX",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -87,14 +89,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::IsNormalized"
+                        "tooltip": "When signaled, this will invoke IsNormalized"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::IsNormalized is invoked"
+                        "tooltip": "Signaled after IsNormalized is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::IsNormalized"
+                        "name": "MathVector4_VM::IsNormalized",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -124,14 +127,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::LengthSquared"
+                        "tooltip": "When signaled, this will invoke LengthSquared"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::LengthSquared is invoked"
+                        "tooltip": "Signaled after LengthSquared is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::LengthSquared"
+                        "name": "MathVector4_VM::LengthSquared",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -155,14 +159,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::MultiplyByNumber"
+                        "tooltip": "When signaled, this will invoke MultiplyByNumber"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::MultiplyByNumber is invoked"
+                        "tooltip": "Signaled after MultiplyByNumber is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::MultiplyByNumber"
+                        "name": "MathVector4_VM::MultiplyByNumber",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -192,14 +197,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::Negate"
+                        "tooltip": "When signaled, this will invoke Negate"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::Negate is invoked"
+                        "tooltip": "Signaled after Negate is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::Negate"
+                        "name": "MathVector4_VM::Negate",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -223,14 +229,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::Dot"
+                        "tooltip": "When signaled, this will invoke Dot"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::Dot is invoked"
+                        "tooltip": "Signaled after Dot is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::Dot"
+                        "name": "MathVector4_VM::Dot",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -260,14 +267,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::FromValues"
+                        "tooltip": "When signaled, this will invoke FromValues"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::FromValues is invoked"
+                        "tooltip": "Signaled after FromValues is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::FromValues"
+                        "name": "MathVector4_VM::FromValues",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -309,14 +317,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::IsFinite"
+                        "tooltip": "When signaled, this will invoke IsFinite"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::IsFinite is invoked"
+                        "tooltip": "Signaled after IsFinite is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::IsFinite"
+                        "name": "MathVector4_VM::IsFinite",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -340,14 +349,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::Length"
+                        "tooltip": "When signaled, this will invoke Length"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::Length is invoked"
+                        "tooltip": "Signaled after Length is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::Length"
+                        "name": "MathVector4_VM::Length",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -371,14 +381,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::MultiplyByVector"
+                        "tooltip": "When signaled, this will invoke MultiplyByVector"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::MultiplyByVector is invoked"
+                        "tooltip": "Signaled after MultiplyByVector is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::MultiplyByVector"
+                        "name": "MathVector4_VM::MultiplyByVector",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -408,14 +419,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::DirectionTo"
+                        "tooltip": "When signaled, this will invoke DirectionTo"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::DirectionTo is invoked"
+                        "tooltip": "Signaled after DirectionTo is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::DirectionTo"
+                        "name": "MathVector4_VM::DirectionTo",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -451,14 +463,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::DivideByVector"
+                        "tooltip": "When signaled, this will invoke DivideByVector"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::DivideByVector is invoked"
+                        "tooltip": "Signaled after DivideByVector is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::DivideByVector"
+                        "name": "MathVector4_VM::DivideByVector",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -488,14 +501,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::LengthReciprocal"
+                        "tooltip": "When signaled, this will invoke LengthReciprocal"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::LengthReciprocal is invoked"
+                        "tooltip": "Signaled after LengthReciprocal is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::LengthReciprocal"
+                        "name": "MathVector4_VM::LengthReciprocal",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -519,14 +533,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::SetZ"
+                        "tooltip": "When signaled, this will invoke SetZ"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::SetZ is invoked"
+                        "tooltip": "Signaled after SetZ is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::SetZ"
+                        "name": "MathVector4_VM::SetZ",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -556,14 +571,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::Normalize"
+                        "tooltip": "When signaled, this will invoke Normalize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::Normalize is invoked"
+                        "tooltip": "Signaled after Normalize is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::Normalize"
+                        "name": "MathVector4_VM::Normalize",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -587,14 +603,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::DivideByNumber"
+                        "tooltip": "When signaled, this will invoke DivideByNumber"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::DivideByNumber is invoked"
+                        "tooltip": "Signaled after DivideByNumber is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::DivideByNumber"
+                        "name": "MathVector4_VM::DivideByNumber",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -624,14 +641,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::IsClose"
+                        "tooltip": "When signaled, this will invoke IsClose"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::IsClose is invoked"
+                        "tooltip": "Signaled after IsClose is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::IsClose"
+                        "name": "MathVector4_VM::IsClose",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -667,14 +685,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::IsZero"
+                        "tooltip": "When signaled, this will invoke IsZero"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::IsZero is invoked"
+                        "tooltip": "Signaled after IsZero is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::IsZero"
+                        "name": "MathVector4_VM::IsZero",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -704,14 +723,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::Add"
+                        "tooltip": "When signaled, this will invoke Add"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::Add is invoked"
+                        "tooltip": "Signaled after Add is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::Add"
+                        "name": "MathVector4_VM::Add",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -741,14 +761,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::GetElement"
+                        "tooltip": "When signaled, this will invoke GetElement"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::GetElement is invoked"
+                        "tooltip": "Signaled after GetElement is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::GetElement"
+                        "name": "MathVector4_VM::GetElement",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -778,14 +799,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::Reciprocal"
+                        "tooltip": "When signaled, this will invoke Reciprocal"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::Reciprocal is invoked"
+                        "tooltip": "Signaled after Reciprocal is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::Reciprocal"
+                        "name": "MathVector4_VM::Reciprocal",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -809,26 +831,27 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::Subtract"
+                        "tooltip": "When signaled, this will invoke Subtract"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::Subtract is invoked"
+                        "tooltip": "Signaled after Subtract is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::Subtract"
+                        "name": "MathVector4_VM::Subtract",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
                             "details": {
-                                "name": "Vector4"
+                                "name": "const Vector4&"
                             }
                         },
                         {
                             "typeid": "{0CE9FA36-1E3A-4C06-9254-B7C73A732053}",
                             "details": {
-                                "name": "Vector4"
+                                "name": "const Vector4&"
                             }
                         }
                     ],
@@ -846,14 +869,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::Absolute"
+                        "tooltip": "When signaled, this will invoke Absolute"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::Absolute is invoked"
+                        "tooltip": "Signaled after Absolute is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::Absolute"
+                        "name": "MathVector4_VM::Absolute",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -877,14 +901,15 @@
                     "context": "MathVector4_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathVector4_VM::SetY"
+                        "tooltip": "When signaled, this will invoke SetY"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathVector4_VM::SetY is invoked"
+                        "tooltip": "Signaled after SetY is invoked"
                     },
                     "details": {
-                        "name": "MathVector4_VM::SetY"
+                        "name": "MathVector4_VM::SetY",
+                        "category": "Other"
                     },
                     "params": [
                         {

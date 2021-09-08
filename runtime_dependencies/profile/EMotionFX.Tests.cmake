@@ -63,3 +63,5 @@ ly_copy("J:/Atom/lyfork/o3de/Gems/EMotionFX/Code/Tests/TestAssets/Pendulum/pendu
 ly_copy("J:/Atom/lyfork/o3de/Gems/EMotionFX/Code/Tests/TestAssets/Pendulum/pendulum.motion" "J:/Atom/lyfork/o3de/bin/profile/Test.Assets/Gems/EMotionFX/Code/Tests/TestAssets/Pendulum")
 ly_copy("J:/Atom/lyfork/o3de/Gems/EMotionFX/Code/Tests/TestAssets/Pendulum/pendulum.motionset" "J:/Atom/lyfork/o3de/bin/profile/Test.Assets/Gems/EMotionFX/Code/Tests/TestAssets/Pendulum")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/profile/EMotionFX.Tests_profile.stamp)

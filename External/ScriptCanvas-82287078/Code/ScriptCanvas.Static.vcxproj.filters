@@ -544,6 +544,9 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Profiler\DrillerEvents.cpp">
       <Filter>Include\ScriptCanvas\Profiler</Filter>
     </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Serialization\BehaviorContextObjectSerializer.cpp">
+      <Filter>Include\ScriptCanvas\Serialization</Filter>
+    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Serialization\DatumSerializer.cpp">
       <Filter>Include\ScriptCanvas\Serialization</Filter>
     </ClCompile>
@@ -943,6 +946,9 @@
       <Filter>Include\ScriptCanvas\Core</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\NodeFunctionGeneric.h">
+      <Filter>Include\ScriptCanvas\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\SerializationListener.h">
       <Filter>Include\ScriptCanvas\Core</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Core\Slot.h">
@@ -1586,6 +1592,9 @@
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Profiler\DrillerEvents.h">
       <Filter>Include\ScriptCanvas\Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Serialization\BehaviorContextObjectSerializer.h">
+      <Filter>Include\ScriptCanvas\Serialization</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvas\Code\Include\ScriptCanvas\Serialization\DatumSerializer.h">
       <Filter>Include\ScriptCanvas\Serialization</Filter>

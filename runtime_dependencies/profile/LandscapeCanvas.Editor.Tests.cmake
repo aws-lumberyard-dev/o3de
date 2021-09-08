@@ -132,3 +132,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/profile/GradientSignal.dll" "J:/Atom/lyfork/o3d
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/Vegetation.Editor.dll" "J:/Atom/lyfork/o3de/bin/profile")
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/AzTestRunner.exe" "J:/Atom/lyfork/o3de/bin/profile")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/profile/LandscapeCanvas.Editor.Tests_profile.stamp)

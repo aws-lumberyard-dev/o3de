@@ -5,28 +5,29 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "NavigationComponentRequestBus"
+                "name": "Navigation",
+                "category": "AI"
             },
             "methods": [
                 {
                     "key": "SetAgentSpeed",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetAgentSpeed"
+                        "tooltip": "When signaled, this will invoke Set Agent Speed"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetAgentSpeed is invoked"
+                        "tooltip": "Signaled after Set Agent Speed is invoked"
                     },
                     "details": {
-                        "name": "SetAgentSpeed"
+                        "name": "Set Agent Speed",
+                        "tooltip": "Sets the agent speed"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float",
-                                "tooltip": "The agent speed in meters per second"
+                                "name": "Speed"
                             }
                         }
                     ]
@@ -48,8 +49,7 @@
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int",
-                                "tooltip": "The movement method: Transform, Physics or Custom"
+                                "name": "int"
                             }
                         }
                     ]
@@ -58,14 +58,15 @@
                     "key": "GetAgentSpeed",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetAgentSpeed"
+                        "tooltip": "When signaled, this will invoke Get Agent Speed"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetAgentSpeed is invoked"
+                        "tooltip": "Signaled after Get Agent Speed is invoked"
                     },
                     "details": {
-                        "name": "GetAgentSpeed"
+                        "name": "Get Agent Speed",
+                        "tooltip": "Returns the agent speed"
                     },
                     "results": [
                         {
@@ -93,8 +94,7 @@
                         {
                             "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
                             "details": {
-                                "name": "Vector3",
-                                "tooltip": "The position to navigate to"
+                                "name": "Vector3"
                             }
                         }
                     ],
@@ -118,14 +118,15 @@
                         "tooltip": "Signaled after Stop is invoked"
                     },
                     "details": {
-                        "name": "Stop"
+                        "name": "Stop",
+                        "tooltip": "Stop all pathfinding operations for the provided requestID"
                     },
                     "params": [
                         {
                             "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
                             "details": {
-                                "name": "unsigned int",
-                                "tooltip": "The request Id of the navigation process to stop"
+                                "name": "Request ID",
+                                "tooltip": "The ID of the request to be canceled"
                             }
                         }
                     ]
@@ -134,21 +135,22 @@
                     "key": "FindPathToEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke FindPathToEntity"
+                        "tooltip": "When signaled, this will invoke Find Path To Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after FindPathToEntity is invoked"
+                        "tooltip": "Signaled after Find Path To Entity is invoked"
                     },
                     "details": {
-                        "name": "FindPathToEntity"
+                        "name": "Find Path To Entity",
+                        "tooltip": "Creates a pathfinding request to navigate toward the specified entity"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Target",
+                                "tooltip": "The ID of the entity toward which you want to navigate"
                             }
                         }
                     ],
@@ -156,7 +158,8 @@
                         {
                             "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
                             "details": {
-                                "name": "unsigned int"
+                                "name": "unsigned int",
+                                "tooltip": "The ID of the entity toward which you want to navigate"
                             }
                         }
                     ]

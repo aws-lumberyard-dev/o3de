@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "EditorCameraRequestBus"
+                "name": "EDITORCAMERAREQUESTBUS_NAME",
+                "category": "EDITORCAMERAREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

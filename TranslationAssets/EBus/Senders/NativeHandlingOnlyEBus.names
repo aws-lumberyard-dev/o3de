@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "NativeHandlingOnlyEBus"
+                "name": "NATIVEHANDLINGONLYEBUS_NAME",
+                "category": "NATIVEHANDLINGONLYEBUS_CATEGORY"
             },
             "methods": [
                 {
@@ -25,7 +26,7 @@
                         {
                             "typeid": "{BFA7A8BD-787E-56C2-96C1-115A572EB249}",
                             "details": {
-                                "name": "t"
+                                "name": ""
                             }
                         }
                     ]
@@ -47,7 +48,7 @@
                         {
                             "typeid": "{33844DCE-75B0-5734-A1B7-7C44199D1D5E}",
                             "details": {
-                                "name": "t"
+                                "name": ""
                             }
                         }
                     ]
@@ -152,7 +153,7 @@
                         {
                             "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
                             "details": {
-                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                                "name": ""
                             }
                         }
                     ]
@@ -174,7 +175,7 @@
                         {
                             "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
                             "details": {
-                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                                "name": ""
                             }
                         }
                     ],

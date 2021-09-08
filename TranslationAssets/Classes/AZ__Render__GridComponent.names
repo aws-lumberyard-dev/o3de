@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZ::Render::GridComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "AZ::Render::GridComponent"

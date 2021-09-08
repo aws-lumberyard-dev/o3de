@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "EditorLayerComponentRequestBus"
+                "name": "EDITORLAYERCOMPONENTREQUESTBUS_NAME",
+                "category": "EDITORLAYERCOMPONENTREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

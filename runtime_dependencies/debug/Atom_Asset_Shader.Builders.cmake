@@ -92,9 +92,9 @@ ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/plu
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin/Qt5Widgetsd.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin/Qt5Svgd.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin/Qt5Xmld.dll" "J:/Atom/lyfork/o3de/bin/debug")
-ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/DirectXShaderCompilerDxc-1.6.2104-o3de-rev2-windows/DirectXShaderCompilerDxc/bin/Release/dxc.exe" "J:/Atom/lyfork/o3de/bin/debug/Builders/DirectXShaderCompiler")
-ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/DirectXShaderCompilerDxc-1.6.2104-o3de-rev2-windows/DirectXShaderCompilerDxc/bin/Release/dxil.dll" "J:/Atom/lyfork/o3de/bin/debug/Builders/DirectXShaderCompiler")
-ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/DirectXShaderCompilerDxc-1.6.2104-o3de-rev2-windows/DirectXShaderCompilerDxc/bin/Release/dxcompiler.dll" "J:/Atom/lyfork/o3de/bin/debug/Builders/DirectXShaderCompiler")
+ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/DirectXShaderCompilerDxc-1.6.2104-o3de-rev3-windows/DirectXShaderCompilerDxc/bin/Release/dxc.exe" "J:/Atom/lyfork/o3de/bin/debug/Builders/DirectXShaderCompiler")
+ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/DirectXShaderCompilerDxc-1.6.2104-o3de-rev3-windows/DirectXShaderCompilerDxc/bin/Release/dxil.dll" "J:/Atom/lyfork/o3de/bin/debug/Builders/DirectXShaderCompiler")
+ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/DirectXShaderCompilerDxc-1.6.2104-o3de-rev3-windows/DirectXShaderCompilerDxc/bin/Release/dxcompiler.dll" "J:/Atom/lyfork/o3de/bin/debug/Builders/DirectXShaderCompiler")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/SPIRVCross-2021.04.29-rev1-windows/SPIRVCross/bin/Release/spirv-cross.exe" "J:/Atom/lyfork/o3de/bin/debug/Builders/SPIRVCross")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/azslc-1.7.23-rev1-multiplatform/azslc/bin/win_x64/Release/azslc.exe" "J:/Atom/lyfork/o3de/bin/debug/Builders/AZSLc")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/azslc-1.7.23-rev1-multiplatform/azslc/bin/win_x64/Release/boost_regex-vc142-mt-x64-1_70.dll" "J:/Atom/lyfork/o3de/bin/debug/Builders/AZSLc")
@@ -114,3 +114,5 @@ ly_copy("J:/Atom/lyfork/o3de/Gems/Atom/Asset/Shader/Code/AZSL/Platform/Linux/Vul
 ly_copy("J:/Atom/lyfork/o3de/Gems/Atom/Asset/Shader/Code/AZSL/Platform/Linux/Vulkan/PlatformHeader.hlsli" "J:/Atom/lyfork/o3de/bin/debug/Builders/ShaderHeaders/Platform/Linux/Vulkan")
 ly_copy("J:/Atom/lyfork/o3de/Gems/Atom/Asset/Shader/Code/AZSL/Platform/Linux/Null/AzslcHeader.azsli" "J:/Atom/lyfork/o3de/bin/debug/Builders/ShaderHeaders/Platform/Linux/Null")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/debug/Atom_Asset_Shader.Builders_debug.stamp)

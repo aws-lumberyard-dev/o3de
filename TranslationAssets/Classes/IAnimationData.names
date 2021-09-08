@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "IAnimationData",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "IAnimationData"
@@ -13,20 +13,21 @@
                     "context": "IAnimationData",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke IAnimationData::GetKeyFrameCount"
+                        "tooltip": "When signaled, this will invoke GetKeyFrameCount"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after IAnimationData::GetKeyFrameCount is invoked"
+                        "tooltip": "Signaled after GetKeyFrameCount is invoked"
                     },
                     "details": {
-                        "name": "IAnimationData::GetKeyFrameCount"
+                        "name": "IAnimationData::GetKeyFrameCount",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{62B0571C-6EFF-42FA-902A-85AC744E04F2}",
                             "details": {
-                                "name": "IAnimationData"
+                                "name": "IAnimationData*"
                             }
                         }
                     ],
@@ -44,20 +45,21 @@
                     "context": "IAnimationData",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke IAnimationData::GetKeyFrame"
+                        "tooltip": "When signaled, this will invoke GetKeyFrame"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after IAnimationData::GetKeyFrame is invoked"
+                        "tooltip": "Signaled after GetKeyFrame is invoked"
                     },
                     "details": {
-                        "name": "IAnimationData::GetKeyFrame"
+                        "name": "IAnimationData::GetKeyFrame",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{62B0571C-6EFF-42FA-902A-85AC744E04F2}",
                             "details": {
-                                "name": "IAnimationData"
+                                "name": "IAnimationData*"
                             }
                         },
                         {
@@ -71,7 +73,7 @@
                         {
                             "typeid": "{1906D8A5-7DEC-4DE3-A606-9E53BB3459E7}",
                             "details": {
-                                "name": "Matrix3x4"
+                                "name": "const Matrix3x4&"
                             }
                         }
                     ]
@@ -81,20 +83,21 @@
                     "context": "IAnimationData",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke IAnimationData::GetTimeStepBetweenFrames"
+                        "tooltip": "When signaled, this will invoke GetTimeStepBetweenFrames"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after IAnimationData::GetTimeStepBetweenFrames is invoked"
+                        "tooltip": "Signaled after GetTimeStepBetweenFrames is invoked"
                     },
                     "details": {
-                        "name": "IAnimationData::GetTimeStepBetweenFrames"
+                        "name": "IAnimationData::GetTimeStepBetweenFrames",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{62B0571C-6EFF-42FA-902A-85AC744E04F2}",
                             "details": {
-                                "name": "IAnimationData"
+                                "name": "IAnimationData*"
                             }
                         }
                     ],

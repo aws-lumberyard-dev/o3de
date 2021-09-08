@@ -73,7 +73,7 @@
     <None Include="J:\Atom\lyfork\o3de\cmake\3rdParty\FindOpenGLInterface.cmake">
       <Filter>cmake\3rdParty</Filter>
     </None>
-    <None Include="J:\Atom\lyfork\o3de\cmake\3rdParty\FindRadTelemetry.cmake">
+    <None Include="J:\Atom\lyfork\o3de\cmake\3rdParty\FindPIX.cmake">
       <Filter>cmake\3rdParty</Filter>
     </None>
     <None Include="J:\Atom\lyfork\o3de\cmake\3rdParty\FindVkValidation.cmake">

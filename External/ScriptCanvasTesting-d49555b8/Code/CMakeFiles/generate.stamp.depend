@@ -1,6 +1,5 @@
 # CMake generation dependency list for this directory.
 J:/Atom/lyfork/o3de/Gems/ScriptCanvasTesting/Code/CMakeLists.txt
-J:/Atom/lyfork/o3de/Gems/ScriptCanvasTesting/Code/Platform/Common/MSVC/scriptcanvastesting_editor_tests_msvc.cmake
 J:/Atom/lyfork/o3de/Gems/ScriptCanvasTesting/Code/scriptcanvastesting_autogen_files.cmake
 J:/Atom/lyfork/o3de/Gems/ScriptCanvasTesting/Code/scriptcanvastestingeditor_files.cmake
 J:/Atom/lyfork/o3de/Gems/ScriptCanvasTesting/Code/scriptcanvastestingeditor_shared_files.cmake

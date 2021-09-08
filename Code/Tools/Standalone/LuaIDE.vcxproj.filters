@@ -279,6 +279,9 @@
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Source\LUA\LUAEditorView.ui">
       <Filter>Source\LUA</Filter>
     </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\LuaIDE_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\CMakeLists.txt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -288,6 +291,15 @@
     <None Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\lua_ide_files.cmake" />
     <None Include="J:\Atom\lyfork\o3de\Code\Tools\Standalone\Platform\Windows\lua_ide_windows_files.cmake">
       <Filter>Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\LuaIDE_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\LuaIDE_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\LuaIDE_release.stamp">
+      <Filter>Generated Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

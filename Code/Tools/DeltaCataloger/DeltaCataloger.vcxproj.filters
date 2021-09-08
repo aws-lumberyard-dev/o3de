@@ -6,6 +6,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\DeltaCataloger_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\DeltaCataloger\CMakeLists.txt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -13,6 +16,15 @@
   <ItemGroup>
     <None Include="J:\Atom\lyfork\o3de\Code\Tools\DeltaCataloger\deltacataloger_files.cmake" />
     <None Include="J:\Atom\lyfork\o3de\Code\Tools\DeltaCataloger\deltacataloger_win_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\DeltaCataloger_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\DeltaCataloger_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\DeltaCataloger_release.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="J:\Atom\lyfork\o3de\Code\Tools\DeltaCataloger\source\DeltaCataloger.rc">

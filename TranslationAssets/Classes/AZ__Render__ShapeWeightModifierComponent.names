@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZ::Render::ShapeWeightModifierComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "AZ::Render::ShapeWeightModifierComponent"

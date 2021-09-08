@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "HDRiSkyboxRequestBus"
+                "name": "HDRISKYBOXREQUESTBUS_NAME",
+                "category": "HDRISKYBOXREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

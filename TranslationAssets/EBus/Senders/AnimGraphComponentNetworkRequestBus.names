@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "AnimGraphComponentNetworkRequestBus"
+                "name": "ANIMGRAPHCOMPONENTNETWORKREQUESTBUS_NAME",
+                "category": "ANIMGRAPHCOMPONENTNETWORKREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

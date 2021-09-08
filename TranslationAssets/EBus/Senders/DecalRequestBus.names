@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "DecalRequestBus"
+                "name": "DECALREQUESTBUS_NAME",
+                "category": "DECALREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

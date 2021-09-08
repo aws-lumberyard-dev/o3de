@@ -96,3 +96,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/release/ScriptEvents.dll" "J:/Atom/lyfork/o3de/
 ly_copy("J:/Atom/lyfork/o3de/bin/release/ScriptCanvas.dll" "J:/Atom/lyfork/o3de/bin/release")
 ly_copy("J:/Atom/lyfork/o3de/bin/release/AzTestRunner.exe" "J:/Atom/lyfork/o3de/bin/release")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/release/ScriptCanvas.Editor.Tests_release.stamp)

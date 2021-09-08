@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Map<Uuid, Map<String, any>>",
@@ -15,26 +15,27 @@
                     "context": "Map<Uuid, Map<String, any>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::contains"
+                        "tooltip": "When signaled, this will invoke contains"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::contains is invoked"
+                        "tooltip": "Signaled after contains is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::contains"
+                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::contains",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{549C99B0-35FE-515D-9066-DFA9A1131500}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "const AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd"
                             }
                         },
                         {
                             "typeid": "{E152C105-A133-4D03-BBF8-3D4B2FBA3E2A}",
                             "details": {
-                                "name": "AZ::Uuid"
+                                "name": "AZ::Uuid&"
                             }
                         }
                     ],
@@ -52,32 +53,33 @@
                     "context": "Map<Uuid, Map<String, any>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Insert"
+                        "tooltip": "When signaled, this will invoke Insert"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Insert is invoked"
+                        "tooltip": "Signaled after Insert is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Insert"
+                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Insert",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{549C99B0-35FE-515D-9066-DFA9A1131500}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basi"
                             }
                         },
                         {
                             "typeid": "{E152C105-A133-4D03-BBF8-3D4B2FBA3E2A}",
                             "details": {
-                                "name": "AZ::Uuid"
+                                "name": "AZ::Uuid&"
                             }
                         },
                         {
                             "typeid": "{9F4210F0-9A8E-5536-A6FD-F3F55D854C0A}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_trai"
                             }
                         }
                     ],
@@ -85,7 +87,7 @@
                         {
                             "typeid": "{549C99B0-35FE-515D-9066-DFA9A1131500}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basi"
                             }
                         }
                     ]
@@ -95,20 +97,21 @@
                     "context": "Map<Uuid, Map<String, any>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Reserve"
+                        "tooltip": "When signaled, this will invoke Reserve"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Reserve is invoked"
+                        "tooltip": "Signaled after Reserve is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Reserve"
+                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Reserve",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{549C99B0-35FE-515D-9066-DFA9A1131500}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basi"
                             }
                         },
                         {
@@ -124,20 +127,21 @@
                     "context": "Map<Uuid, Map<String, any>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::GetSize"
+                        "tooltip": "When signaled, this will invoke GetSize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::GetSize is invoked"
+                        "tooltip": "Signaled after GetSize is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::GetSize"
+                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::GetSize",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{549C99B0-35FE-515D-9066-DFA9A1131500}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basi"
                             }
                         }
                     ],
@@ -155,20 +159,21 @@
                     "context": "Map<Uuid, Map<String, any>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Iterate_VM"
+                        "tooltip": "When signaled, this will invoke Iterate_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Iterate_VM is invoked"
+                        "tooltip": "Signaled after Iterate_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Iterate_VM"
+                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Iterate_VM",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{549C99B0-35FE-515D-9066-DFA9A1131500}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basi"
                             }
                         }
                     ],
@@ -186,20 +191,21 @@
                     "context": "Map<Uuid, Map<String, any>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::GetKeys"
+                        "tooltip": "When signaled, this will invoke GetKeys"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::GetKeys is invoked"
+                        "tooltip": "Signaled after GetKeys is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::GetKeys"
+                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::GetKeys",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{549C99B0-35FE-515D-9066-DFA9A1131500}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basi"
                             }
                         }
                     ],
@@ -207,7 +213,7 @@
                         {
                             "typeid": "{3A9E52F9-1A46-5FC6-822A-249BBFB50C90}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZ::Uuid, allocator>"
                             }
                         }
                     ]
@@ -217,20 +223,21 @@
                     "context": "Map<Uuid, Map<String, any>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Size"
+                        "tooltip": "When signaled, this will invoke Size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Size is invoked"
+                        "tooltip": "Signaled after Size is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Size"
+                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Size",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{549C99B0-35FE-515D-9066-DFA9A1131500}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basi"
                             }
                         }
                     ],
@@ -248,26 +255,27 @@
                     "context": "Map<Uuid, Map<String, any>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Erase"
+                        "tooltip": "When signaled, this will invoke Erase"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Erase is invoked"
+                        "tooltip": "Signaled after Erase is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Erase"
+                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Erase",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{549C99B0-35FE-515D-9066-DFA9A1131500}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basi"
                             }
                         },
                         {
                             "typeid": "{E152C105-A133-4D03-BBF8-3D4B2FBA3E2A}",
                             "details": {
-                                "name": "AZ::Uuid"
+                                "name": "AZ::Uuid&"
                             }
                         }
                     ],
@@ -275,7 +283,7 @@
                         {
                             "typeid": "{549C99B0-35FE-515D-9066-DFA9A1131500}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basi"
                             }
                         }
                     ]
@@ -285,26 +293,27 @@
                     "context": "Map<Uuid, Map<String, any>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::EraseCheck_VM"
+                        "tooltip": "When signaled, this will invoke EraseCheck_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::EraseCheck_VM is invoked"
+                        "tooltip": "Signaled after EraseCheck_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::EraseCheck_VM"
+                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::EraseCheck_VM",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{549C99B0-35FE-515D-9066-DFA9A1131500}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basi"
                             }
                         },
                         {
                             "typeid": "{E152C105-A133-4D03-BBF8-3D4B2FBA3E2A}",
                             "details": {
-                                "name": "AZ::Uuid"
+                                "name": "AZ::Uuid&"
                             }
                         }
                     ],
@@ -322,20 +331,21 @@
                     "context": "Map<Uuid, Map<String, any>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Clear"
+                        "tooltip": "When signaled, this will invoke Clear"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Clear is invoked"
+                        "tooltip": "Signaled after Clear is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Clear"
+                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Clear",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{549C99B0-35FE-515D-9066-DFA9A1131500}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basi"
                             }
                         }
                     ],
@@ -343,7 +353,7 @@
                         {
                             "typeid": "{549C99B0-35FE-515D-9066-DFA9A1131500}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basi"
                             }
                         }
                     ]
@@ -353,26 +363,27 @@
                     "context": "Map<Uuid, Map<String, any>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::At"
+                        "tooltip": "When signaled, this will invoke At"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::At is invoked"
+                        "tooltip": "Signaled after At is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::At"
+                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::At",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{549C99B0-35FE-515D-9066-DFA9A1131500}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basi"
                             }
                         },
                         {
                             "typeid": "{E152C105-A133-4D03-BBF8-3D4B2FBA3E2A}",
                             "details": {
-                                "name": "AZ::Uuid"
+                                "name": "AZ::Uuid&"
                             }
                         }
                     ],
@@ -380,7 +391,7 @@
                         {
                             "typeid": "{9F4210F0-9A8E-5536-A6FD-F3F55D854C0A}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd::hash<AZStd::basic_string<char,"
                             }
                         }
                     ]
@@ -390,20 +401,21 @@
                     "context": "Map<Uuid, Map<String, any>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::BucketCount"
+                        "tooltip": "When signaled, this will invoke BucketCount"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::BucketCount is invoked"
+                        "tooltip": "Signaled after BucketCount is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::BucketCount"
+                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::BucketCount",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{549C99B0-35FE-515D-9066-DFA9A1131500}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basi"
                             }
                         }
                     ],
@@ -421,20 +433,21 @@
                     "context": "Map<Uuid, Map<String, any>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Empty"
+                        "tooltip": "When signaled, this will invoke Empty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Empty is invoked"
+                        "tooltip": "Signaled after Empty is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Empty"
+                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Empty",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{549C99B0-35FE-515D-9066-DFA9A1131500}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basi"
                             }
                         }
                     ],
@@ -452,26 +465,27 @@
                     "context": "Map<Uuid, Map<String, any>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Swap"
+                        "tooltip": "When signaled, this will invoke Swap"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Swap is invoked"
+                        "tooltip": "Signaled after Swap is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Swap"
+                        "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, any, AZStd:::Swap",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{549C99B0-35FE-515D-9066-DFA9A1131500}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basi"
                             }
                         },
                         {
                             "typeid": "{549C99B0-35FE-515D-9066-DFA9A1131500}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<AZ::Uuid, AZStd::unordered_map<AZStd::basi"
                             }
                         }
                     ]

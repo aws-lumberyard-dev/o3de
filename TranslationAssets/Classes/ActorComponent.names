@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "ActorComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "ActorComponent"

@@ -5,21 +5,23 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "TagGlobalRequestBus"
+                "name": "Tag",
+                "category": "Gameplay"
             },
             "methods": [
                 {
                     "key": "RequestTaggedEntities",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke RequestTaggedEntities"
+                        "tooltip": "When signaled, this will invoke Request Tagged Entities"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after RequestTaggedEntities is invoked"
+                        "tooltip": "Signaled after Request Tagged Entities is invoked"
                     },
                     "details": {
-                        "name": "RequestTaggedEntities"
+                        "name": "Request Tagged Entities",
+                        "tooltip": "Returns the first responding entity that has a specified Tag"
                     },
                     "results": [
                         {

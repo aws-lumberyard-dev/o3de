@@ -12,7 +12,7 @@
 		"J:/Atom/lyfork/o3de/Code/Editor/editor_headers_files.cmake",
 		"J:/Atom/lyfork/o3de/Code/Editor/editor_lib_files.cmake",
 		"J:/Atom/lyfork/o3de/Code/Editor/Platform/Windows/platform_windows_files.cmake",
-		"C:/Users/luissemp/.o3de/3rdParty/packages/squish-ccr-20150601-rev3-multiplatform/Findsquish-ccr.cmake",
+		"C:/Users/luissemp/.o3de/3rdParty/packages/squish-ccr-deb557d-rev1-windows/Findsquish-ccr.cmake",
 		"C:/Users/luissemp/.o3de/3rdParty/packages/AWSNativeSDK-1.7.167-rev3-windows/FindAWSNativeSDK.cmake",
 		"C:/Program Files/CMake/share/cmake-3.20/Modules/CMakeParseArguments.cmake",
 		"J:/Atom/lyfork/o3de/Code/Editor/Platform/Windows/editor_lib_windows.cmake",
@@ -24,7 +24,7 @@
 		"J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake",
 		"J:/Atom/lyfork/o3de/Code/Editor/editor_lib_test_files.cmake",
 		"J:/Atom/lyfork/o3de/cmake/Platform/Windows/LYTestWrappers_windows.cmake",
-		"C:/Users/luissemp/.o3de/3rdParty/packages/squish-ccr-20150601-rev3-multiplatform/PackageInfo.json",
+		"C:/Users/luissemp/.o3de/3rdParty/packages/squish-ccr-deb557d-rev1-windows/PackageInfo.json",
 		"C:/Users/luissemp/.o3de/3rdParty/packages/AWSNativeSDK-1.7.167-rev3-windows/PackageInfo.json",
 		"J:/Atom/lyfork/o3de/Code/Editor/MainWindow.qrc",
 		"J:/Atom/lyfork/o3de/Code/Editor/Controls/ConsoleSCB.qrc",
@@ -66,6 +66,7 @@
 	"MOC_DEFINITIONS" : 
 	[
 		"AWS_CUSTOM_MEMORY_MANAGEMENT",
+		"DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev2-windows/python\"",
 		"EDITOR",
 		"EditorLib_Tests_EXPORTS",
 		"HAVE_BENCHMARK",
@@ -77,6 +78,8 @@
 		"QT_NETWORK_LIB",
 		"QT_NO_DEBUG",
 		"QT_SVG_LIB",
+		"QT_TESTCASE_BUILDDIR=\"J:/Atom/lyfork/o3de\"",
+		"QT_TESTLIB_LIB",
 		"QT_WIDGETS_LIB",
 		"QT_XML_LIB",
 		"SANDBOX_IMPORTS",
@@ -95,6 +98,7 @@
 		"AZ_DEBUG_BUILD=1",
 		"AZ_ENABLE_DEBUG_TOOLS",
 		"AZ_ENABLE_TRACING",
+		"DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev2-windows/python\"",
 		"EDITOR",
 		"EditorLib_Tests_EXPORTS",
 		"HAVE_BENCHMARK",
@@ -105,6 +109,8 @@
 		"QT_GUI_LIB",
 		"QT_NETWORK_LIB",
 		"QT_SVG_LIB",
+		"QT_TESTCASE_BUILDDIR=\"J:/Atom/lyfork/o3de\"",
+		"QT_TESTLIB_LIB",
 		"QT_WIDGETS_LIB",
 		"QT_XML_LIB",
 		"SANDBOX_IMPORTS",
@@ -123,6 +129,7 @@
 		"AZ_BUILD_CONFIGURATION_TYPE=\"profile\"",
 		"AZ_ENABLE_DEBUG_TOOLS",
 		"AZ_ENABLE_TRACING",
+		"DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev2-windows/python\"",
 		"EDITOR",
 		"EditorLib_Tests_EXPORTS",
 		"HAVE_BENCHMARK",
@@ -136,6 +143,8 @@
 		"QT_NETWORK_LIB",
 		"QT_NO_DEBUG",
 		"QT_SVG_LIB",
+		"QT_TESTCASE_BUILDDIR=\"J:/Atom/lyfork/o3de\"",
+		"QT_TESTLIB_LIB",
 		"QT_WIDGETS_LIB",
 		"QT_XML_LIB",
 		"SANDBOX_IMPORTS",
@@ -152,6 +161,7 @@
 	[
 		"AWS_CUSTOM_MEMORY_MANAGEMENT",
 		"AZ_BUILD_CONFIGURATION_TYPE=\"release\"",
+		"DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev2-windows/python\"",
 		"EDITOR",
 		"EditorLib_Tests_EXPORTS",
 		"HAVE_BENCHMARK",
@@ -164,6 +174,8 @@
 		"QT_NETWORK_LIB",
 		"QT_NO_DEBUG",
 		"QT_SVG_LIB",
+		"QT_TESTCASE_BUILDDIR=\"J:/Atom/lyfork/o3de\"",
+		"QT_TESTLIB_LIB",
 		"QT_WIDGETS_LIB",
 		"QT_XML_LIB",
 		"RELEASE",
@@ -188,6 +200,7 @@
 	[
 		"J:/Atom/lyfork/o3de/Code/Editor/Include",
 		"J:/Atom/lyfork/o3de/Code/Editor",
+		"J:/Atom/lyfork/o3de/Code/Framework/AzCore/Tests",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzTest",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzTest/AzTest/Platform/Windows",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzCore",
@@ -195,6 +208,7 @@
 		"J:/Atom/lyfork/o3de/Code/Framework/AzCore/Platform/Common",
 		"J:/Atom/lyfork/o3de/Code/Legacy/CryCommon",
 		"J:/Atom/lyfork/o3de/Code/Legacy",
+		"J:/Atom/lyfork/o3de/Code/Legacy/CryCommon/Platform/Windows",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzFramework",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzFramework/Platform/Windows",
 		"J:/Atom/lyfork/o3de/Code/Framework/GridMate",
@@ -203,7 +217,14 @@
 		"J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/AzToolsFramework",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/Platform/Windows",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzQtComponents",
-		"J:/Atom/lyfork/o3de/Code"
+		"J:/Atom/lyfork/o3de/Code/Framework/AzFramework/Tests",
+		"J:/Atom/lyfork/o3de/Code",
+		"J:/Atom/lyfork/o3de/Gems/Atom/Tools/AtomToolsFramework/Code/Include",
+		"J:/Atom/lyfork/o3de/Gems/Atom/RPI/Code/Include",
+		"J:/Atom/lyfork/o3de/Gems/Atom/RPI/Code/External",
+		"J:/Atom/lyfork/o3de/Gems/Atom/RHI/Code/Include",
+		"J:/Atom/lyfork/o3de/Code/Framework/AtomCore",
+		"J:/Atom/lyfork/o3de/Gems/Atom/Bootstrap/Code/Include"
 	],
 	"MOC_MACRO_NAMES" : [ "Q_OBJECT", "Q_GADGET", "Q_NAMESPACE", "Q_NAMESPACE_EXPORT" ],
 	"MOC_OPTIONS" : [],
@@ -334,6 +355,11 @@
 			null
 		],
 		[
+			"J:/Atom/lyfork/o3de/Code/Editor/Lib/Tests/test_ModularViewportCameraController.cpp",
+			"Mu",
+			null
+		],
+		[
 			"J:/Atom/lyfork/o3de/Code/Editor/Lib/Tests/test_ObjectManagerPythonBindings.cpp",
 			"Mu",
 			null
@@ -345,6 +371,11 @@
 		],
 		[
 			"J:/Atom/lyfork/o3de/Code/Editor/Lib/Tests/test_ViewPanePythonBindings.cpp",
+			"Mu",
+			null
+		],
+		[
+			"J:/Atom/lyfork/o3de/Code/Editor/Lib/Tests/test_ViewportManipulatorController.cpp",
 			"Mu",
 			null
 		],

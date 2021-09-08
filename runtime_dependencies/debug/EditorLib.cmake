@@ -98,6 +98,7 @@ ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin/Qt5Svgd.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin/Qt5Xmld.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin/Qt5Concurrentd.dll" "J:/Atom/lyfork/o3de/bin/debug")
+ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/squish-ccr-deb557d-rev1-windows/squish-ccr/bin/squish-ccr.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/AWSNativeSDK-1.7.167-rev3-windows/AWSNativeSDK/bin/Debug/aws-cpp-sdk-sts.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/AzQtComponents.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/lux_core-2.2-rev5-multiplatform/LuxCore2.2/win64/dll/embree3.dll" "J:/Atom/lyfork/o3de/bin/debug")
@@ -130,8 +131,12 @@ ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/openimageio-2.1.16.0-rev2-win
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/openimageio-2.1.16.0-rev2-windows/OpenImageIO/2.1.16.0/win_x64/bin/iinfo.exe" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/openimageio-2.1.16.0-rev2-windows/OpenImageIO/2.1.16.0/win_x64/bin/maketx.exe" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/openimageio-2.1.16.0-rev2-windows/OpenImageIO/2.1.16.0/win_x64/bin/oiiotool.exe" "J:/Atom/lyfork/o3de/bin/debug")
-ly_copy("J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev1-windows/python/python37_d.dll" "J:/Atom/lyfork/o3de/bin/debug")
-ly_copy("J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev1-windows/python/python3_d.dll" "J:/Atom/lyfork/o3de/bin/debug")
+ly_copy("J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev2-windows/python/python37_d.dll" "J:/Atom/lyfork/o3de/bin/debug")
+ly_copy("J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev2-windows/python/python3_d.dll" "J:/Atom/lyfork/o3de/bin/debug")
+ly_copy("J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev2-windows/python/python37_d.pdb" "J:/Atom/lyfork/o3de/bin/debug")
+ly_copy("J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev2-windows/python/python3_d.pdb" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/AtomViewportDisplayInfo.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/EditorCommon.dll" "J:/Atom/lyfork/o3de/bin/debug")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/debug/EditorLib_debug.stamp)

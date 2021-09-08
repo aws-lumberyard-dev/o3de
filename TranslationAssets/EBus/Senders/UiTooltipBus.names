@@ -5,21 +5,23 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiTooltipBus"
+                "name": "UI Tooltip",
+                "category": "UI"
             },
             "methods": [
                 {
                     "key": "GetText",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetText"
+                        "tooltip": "When signaled, this will invoke Get Text"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetText is invoked"
+                        "tooltip": "Signaled after Get Text is invoked"
                     },
                     "details": {
-                        "name": "GetText"
+                        "name": "Get Text",
+                        "tooltip": "Gets the tooltip text"
                     },
                     "results": [
                         {
@@ -34,20 +36,22 @@
                     "key": "SetText",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetText"
+                        "tooltip": "When signaled, this will invoke Set Text"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetText is invoked"
+                        "tooltip": "Signaled after Set Text is invoked"
                     },
                     "details": {
-                        "name": "SetText"
+                        "name": "Set Text",
+                        "tooltip": "Sets the tooltip text"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Text",
+                                "tooltip": "The tooltip text"
                             }
                         }
                     ]

@@ -59,3 +59,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/release/Atom_RHI.Private.dll" "J:/Atom/lyfork/o
 ly_copy("J:/Atom/lyfork/o3de/bin/release/Atom_RPI.Private.dll" "J:/Atom/lyfork/o3de/bin/release")
 ly_copy("J:/Atom/lyfork/o3de/bin/release/AtomLyIntegration_CommonFeatures.dll" "J:/Atom/lyfork/o3de/bin/release")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/release/NvCloth_release.stamp)

@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "DiskShapeComponentRequestsBus"
+                "name": "DISKSHAPECOMPONENTREQUESTSBUS_NAME",
+                "category": "DISKSHAPECOMPONENTREQUESTSBUS_CATEGORY"
             },
             "methods": [
                 {

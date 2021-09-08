@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "ImageGradientRequestBus"
+                "name": "IMAGEGRADIENTREQUESTBUS_NAME",
+                "category": "IMAGEGRADIENTREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

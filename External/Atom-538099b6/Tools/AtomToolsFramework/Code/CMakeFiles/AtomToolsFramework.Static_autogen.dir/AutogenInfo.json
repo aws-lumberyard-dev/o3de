@@ -41,6 +41,42 @@
 			null
 		],
 		[
+			"J:/Atom/lyfork/o3de/Gems/Atom/Tools/AtomToolsFramework/Code/Include/AtomToolsFramework/Document/AtomToolsDocument.h",
+			"Mu",
+			"CFKRZ4CXGM/moc_AtomToolsDocument.cpp",
+			null
+		],
+		[
+			"J:/Atom/lyfork/o3de/Gems/Atom/Tools/AtomToolsFramework/Code/Include/AtomToolsFramework/Document/AtomToolsDocumentMainWindow.h",
+			"Mu",
+			"CFKRZ4CXGM/moc_AtomToolsDocumentMainWindow.cpp",
+			null
+		],
+		[
+			"J:/Atom/lyfork/o3de/Gems/Atom/Tools/AtomToolsFramework/Code/Include/AtomToolsFramework/Document/AtomToolsDocumentNotificationBus.h",
+			"Mu",
+			"CFKRZ4CXGM/moc_AtomToolsDocumentNotificationBus.cpp",
+			null
+		],
+		[
+			"J:/Atom/lyfork/o3de/Gems/Atom/Tools/AtomToolsFramework/Code/Include/AtomToolsFramework/Document/AtomToolsDocumentRequestBus.h",
+			"Mu",
+			"CFKRZ4CXGM/moc_AtomToolsDocumentRequestBus.cpp",
+			null
+		],
+		[
+			"J:/Atom/lyfork/o3de/Gems/Atom/Tools/AtomToolsFramework/Code/Include/AtomToolsFramework/Document/AtomToolsDocumentSystemRequestBus.h",
+			"Mu",
+			"CFKRZ4CXGM/moc_AtomToolsDocumentSystemRequestBus.cpp",
+			null
+		],
+		[
+			"J:/Atom/lyfork/o3de/Gems/Atom/Tools/AtomToolsFramework/Code/Include/AtomToolsFramework/Document/AtomToolsDocumentSystemSettings.h",
+			"Mu",
+			"CFKRZ4CXGM/moc_AtomToolsDocumentSystemSettings.cpp",
+			null
+		],
+		[
 			"J:/Atom/lyfork/o3de/Gems/Atom/Tools/AtomToolsFramework/Code/Include/AtomToolsFramework/DynamicProperty/DynamicProperty.h",
 			"Mu",
 			"U33GKL7DTO/moc_DynamicProperty.cpp",
@@ -143,6 +179,12 @@
 			null
 		],
 		[
+			"J:/Atom/lyfork/o3de/Gems/Atom/Tools/AtomToolsFramework/Code/Source/Document/AtomToolsDocumentSystemComponent.h",
+			"Mu",
+			"7HFTCE577T/moc_AtomToolsDocumentSystemComponent.cpp",
+			null
+		],
+		[
 			"J:/Atom/lyfork/o3de/Gems/Atom/Tools/AtomToolsFramework/Code/Source/Window/AtomToolsMainWindowSystemComponent.h",
 			"Mu",
 			"L6L7XOLXOZ/moc_AtomToolsMainWindowSystemComponent.cpp",
@@ -160,7 +202,7 @@
 	"MOC_COMPILATION_FILE_release" : "J:/Atom/lyfork/o3de/External/Atom-538099b6/Tools/AtomToolsFramework/Code/AtomToolsFramework.Static_autogen/mocs_compilation_release.cpp",
 	"MOC_DEFINITIONS" : 
 	[
-		"DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev1-windows/python\"",
+		"DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev2-windows/python\"",
 		"NOMINMAX",
 		"OPENSSL_ENABLED",
 		"QT_CORE_LIB",
@@ -183,7 +225,7 @@
 		"AZ_DEBUG_BUILD=1",
 		"AZ_ENABLE_DEBUG_TOOLS",
 		"AZ_ENABLE_TRACING",
-		"DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev1-windows/python\"",
+		"DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev2-windows/python\"",
 		"NOMINMAX",
 		"OPENSSL_ENABLED",
 		"QT_CORE_LIB",
@@ -205,7 +247,7 @@
 		"AZ_BUILD_CONFIGURATION_TYPE=\"profile\"",
 		"AZ_ENABLE_DEBUG_TOOLS",
 		"AZ_ENABLE_TRACING",
-		"DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev1-windows/python\"",
+		"DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev2-windows/python\"",
 		"NDEBUG",
 		"NOMINMAX",
 		"OPENSSL_ENABLED",
@@ -228,7 +270,7 @@
 	"MOC_DEFINITIONS_release" : 
 	[
 		"AZ_BUILD_CONFIGURATION_TYPE=\"release\"",
-		"DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev1-windows/python\"",
+		"DEFAULT_LY_PYTHONHOME=\"J:/Atom/lyfork/o3de/python/runtime/python-3.7.10-rev2-windows/python\"",
 		"NDEBUG",
 		"NOMINMAX",
 		"OPENSSL_ENABLED",
@@ -322,6 +364,26 @@
 		],
 		[
 			"J:/Atom/lyfork/o3de/Gems/Atom/Tools/AtomToolsFramework/Code/Source/Debug/TraceRecorder.cpp",
+			"Mu",
+			null
+		],
+		[
+			"J:/Atom/lyfork/o3de/Gems/Atom/Tools/AtomToolsFramework/Code/Source/Document/AtomToolsDocument.cpp",
+			"Mu",
+			null
+		],
+		[
+			"J:/Atom/lyfork/o3de/Gems/Atom/Tools/AtomToolsFramework/Code/Source/Document/AtomToolsDocumentMainWindow.cpp",
+			"Mu",
+			null
+		],
+		[
+			"J:/Atom/lyfork/o3de/Gems/Atom/Tools/AtomToolsFramework/Code/Source/Document/AtomToolsDocumentSystemComponent.cpp",
+			"Mu",
+			null
+		],
+		[
+			"J:/Atom/lyfork/o3de/Gems/Atom/Tools/AtomToolsFramework/Code/Source/Document/AtomToolsDocumentSystemSettings.cpp",
 			"Mu",
 			null
 		],

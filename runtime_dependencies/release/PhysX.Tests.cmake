@@ -31,3 +31,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/release/AzTestRunner.exe" "J:/Atom/lyfork/o3de/
 ly_copy("J:/Atom/lyfork/o3de/bin/release/LmbrCentral.dll" "J:/Atom/lyfork/o3de/bin/release")
 ly_copy("J:/Atom/lyfork/o3de/Gems/PhysX/Code/Tests/RagdollConfiguration.xml" "J:/Atom/lyfork/o3de/bin/release/Test.Assets/Gems/PhysX/Code/Tests")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/release/PhysX.Tests_release.stamp)

@@ -2,10 +2,11 @@
     "entries": [
         {
             "key": "Platform",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
-                "name": "Platform"
+                "name": "Platform",
+                "category": "Utilities"
             },
             "methods": [
                 {
@@ -13,14 +14,15 @@
                     "context": "Platform",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Platform::GetName"
+                        "tooltip": "When signaled, this will invoke GetName"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Platform::GetName is invoked"
+                        "tooltip": "Signaled after GetName is invoked"
                     },
                     "details": {
-                        "name": "Platform::GetName"
+                        "name": "Platform::GetName",
+                        "category": "Utilities"
                     },
                     "params": [
                         {
@@ -34,7 +36,7 @@
                         {
                             "typeid": "{3AB0037F-AF8D-48CE-BCA0-A170D18B2C03}",
                             "details": {
-                                "name": "char"
+                                "name": "Number"
                             }
                         }
                     ]

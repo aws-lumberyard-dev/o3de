@@ -5,7 +5,8 @@
             "context": "EBusHandler",
             "variant": "",
             "details": {
-                "name": "ShapeComponentNotificationsBus"
+                "name": "Shape Component",
+                "category": "Shape"
             },
             "methods": [
                 {

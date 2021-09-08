@@ -1,4 +1,5 @@
 # CMake generation dependency list for this directory.
 J:/Atom/lyfork/o3de/Gems/Atom/Bootstrap/Code/CMakeLists.txt
+J:/Atom/lyfork/o3de/Gems/Atom/Bootstrap/Code/Source/Platform/Windows/bootstrap_windows_files.cmake
 J:/Atom/lyfork/o3de/Gems/Atom/Bootstrap/Code/bootstrap_files.cmake
 J:/Atom/lyfork/o3de/Gems/Atom/Bootstrap/Code/bootstrap_headers_files.cmake

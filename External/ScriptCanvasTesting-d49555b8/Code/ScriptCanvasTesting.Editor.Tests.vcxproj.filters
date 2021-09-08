@@ -74,28 +74,28 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\ScriptCanvasTesting.Editor.Tests_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\CMakeLists.txt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\scriptcanvastestingeditor_tests_files.cmake" />
-    <None Include="J:\Atom\lyfork\o3de\Gems\ScriptCanvasTesting\Code\Platform\Common\MSVC\scriptcanvastesting_editor_tests_msvc.cmake">
-      <Filter>Platform\Common\MSVC</Filter>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\ScriptCanvasTesting.Editor.Tests_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\ScriptCanvasTesting.Editor.Tests_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\ScriptCanvasTesting.Editor.Tests_release.stamp">
+      <Filter>Generated Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Generated Files">
       <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Platform">
-      <UniqueIdentifier>{D4CCE8D3-A6C9-3C6A-9C86-8BF8F7D77D7F}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Platform\Common">
-      <UniqueIdentifier>{C3B9BA79-B7DE-3656-9F2E-A2DB09E250B2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Platform\Common\MSVC">
-      <UniqueIdentifier>{B169EB5F-F635-3041-87FE-B6117DDAC99B}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source">
       <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>

@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Map<Boolean, Vector3>",
@@ -15,26 +15,27 @@
                     "context": "Map<Boolean, Vector3>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::contains"
+                        "tooltip": "When signaled, this will invoke contains"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::contains is invoked"
+                        "tooltip": "Signaled after contains is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::contains"
+                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::contains",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{34333904-F6D2-5090-9D5D-B52D135144EA}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "const AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZ"
                             }
                         },
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "bool&"
                             }
                         }
                     ],
@@ -52,32 +53,33 @@
                     "context": "Map<Boolean, Vector3>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Insert"
+                        "tooltip": "When signaled, this will invoke Insert"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Insert is invoked"
+                        "tooltip": "Signaled after Insert is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Insert"
+                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Insert",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{34333904-F6D2-5090-9D5D-B52D135144EA}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::e"
                             }
                         },
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "bool&"
                             }
                         },
                         {
                             "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
                             "details": {
-                                "name": "Vector3"
+                                "name": "Vector3&"
                             }
                         }
                     ],
@@ -85,7 +87,7 @@
                         {
                             "typeid": "{34333904-F6D2-5090-9D5D-B52D135144EA}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::e"
                             }
                         }
                     ]
@@ -95,20 +97,21 @@
                     "context": "Map<Boolean, Vector3>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Reserve"
+                        "tooltip": "When signaled, this will invoke Reserve"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Reserve is invoked"
+                        "tooltip": "Signaled after Reserve is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Reserve"
+                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Reserve",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{34333904-F6D2-5090-9D5D-B52D135144EA}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::e"
                             }
                         },
                         {
@@ -124,20 +127,21 @@
                     "context": "Map<Boolean, Vector3>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::GetSize"
+                        "tooltip": "When signaled, this will invoke GetSize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::GetSize is invoked"
+                        "tooltip": "Signaled after GetSize is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::GetSize"
+                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::GetSize",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{34333904-F6D2-5090-9D5D-B52D135144EA}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::e"
                             }
                         }
                     ],
@@ -155,20 +159,21 @@
                     "context": "Map<Boolean, Vector3>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Iterate_VM"
+                        "tooltip": "When signaled, this will invoke Iterate_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Iterate_VM is invoked"
+                        "tooltip": "Signaled after Iterate_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Iterate_VM"
+                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Iterate_VM",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{34333904-F6D2-5090-9D5D-B52D135144EA}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::e"
                             }
                         }
                     ],
@@ -186,20 +191,21 @@
                     "context": "Map<Boolean, Vector3>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::GetKeys"
+                        "tooltip": "When signaled, this will invoke GetKeys"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::GetKeys is invoked"
+                        "tooltip": "Signaled after GetKeys is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::GetKeys"
+                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::GetKeys",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{34333904-F6D2-5090-9D5D-B52D135144EA}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::e"
                             }
                         }
                     ],
@@ -207,7 +213,7 @@
                         {
                             "typeid": "{B505B05D-57BF-5A45-9113-B3A2784E2CD7}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<bool, allocator>"
                             }
                         }
                     ]
@@ -217,20 +223,21 @@
                     "context": "Map<Boolean, Vector3>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Size"
+                        "tooltip": "When signaled, this will invoke Size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Size is invoked"
+                        "tooltip": "Signaled after Size is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Size"
+                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Size",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{34333904-F6D2-5090-9D5D-B52D135144EA}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::e"
                             }
                         }
                     ],
@@ -248,26 +255,27 @@
                     "context": "Map<Boolean, Vector3>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Erase"
+                        "tooltip": "When signaled, this will invoke Erase"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Erase is invoked"
+                        "tooltip": "Signaled after Erase is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Erase"
+                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Erase",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{34333904-F6D2-5090-9D5D-B52D135144EA}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::e"
                             }
                         },
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "bool&"
                             }
                         }
                     ],
@@ -275,7 +283,7 @@
                         {
                             "typeid": "{34333904-F6D2-5090-9D5D-B52D135144EA}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::e"
                             }
                         }
                     ]
@@ -285,26 +293,27 @@
                     "context": "Map<Boolean, Vector3>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::EraseCheck_VM"
+                        "tooltip": "When signaled, this will invoke EraseCheck_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::EraseCheck_VM is invoked"
+                        "tooltip": "Signaled after EraseCheck_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::EraseCheck_VM"
+                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::EraseCheck_VM",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{34333904-F6D2-5090-9D5D-B52D135144EA}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::e"
                             }
                         },
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "bool&"
                             }
                         }
                     ],
@@ -322,20 +331,21 @@
                     "context": "Map<Boolean, Vector3>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Clear"
+                        "tooltip": "When signaled, this will invoke Clear"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Clear is invoked"
+                        "tooltip": "Signaled after Clear is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Clear"
+                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Clear",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{34333904-F6D2-5090-9D5D-B52D135144EA}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::e"
                             }
                         }
                     ],
@@ -343,7 +353,7 @@
                         {
                             "typeid": "{34333904-F6D2-5090-9D5D-B52D135144EA}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::e"
                             }
                         }
                     ]
@@ -353,26 +363,27 @@
                     "context": "Map<Boolean, Vector3>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::At"
+                        "tooltip": "When signaled, this will invoke At"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::At is invoked"
+                        "tooltip": "Signaled after At is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::At"
+                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::At",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{34333904-F6D2-5090-9D5D-B52D135144EA}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::e"
                             }
                         },
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "bool&"
                             }
                         }
                     ],
@@ -390,20 +401,21 @@
                     "context": "Map<Boolean, Vector3>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::BucketCount"
+                        "tooltip": "When signaled, this will invoke BucketCount"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::BucketCount is invoked"
+                        "tooltip": "Signaled after BucketCount is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::BucketCount"
+                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::BucketCount",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{34333904-F6D2-5090-9D5D-B52D135144EA}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::e"
                             }
                         }
                     ],
@@ -421,20 +433,21 @@
                     "context": "Map<Boolean, Vector3>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Empty"
+                        "tooltip": "When signaled, this will invoke Empty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Empty is invoked"
+                        "tooltip": "Signaled after Empty is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Empty"
+                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Empty",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{34333904-F6D2-5090-9D5D-B52D135144EA}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::e"
                             }
                         }
                     ],
@@ -452,26 +465,27 @@
                     "context": "Map<Boolean, Vector3>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Swap"
+                        "tooltip": "When signaled, this will invoke Swap"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Swap is invoked"
+                        "tooltip": "Signaled after Swap is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Swap"
+                        "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::equal_to<bool>, allocator>::Swap",
+                        "category": "Map"
                     },
                     "params": [
                         {
                             "typeid": "{34333904-F6D2-5090-9D5D-B52D135144EA}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::e"
                             }
                         },
                         {
                             "typeid": "{34333904-F6D2-5090-9D5D-B52D135144EA}",
                             "details": {
-                                "name": "AZStd::unordered_map"
+                                "name": "AZStd::unordered_map<bool, Vector3, AZStd::hash<bool>, AZStd::e"
                             }
                         }
                     ]

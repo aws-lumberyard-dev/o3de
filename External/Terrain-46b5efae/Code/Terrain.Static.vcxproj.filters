@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Terrain\Code\Source\Components\TerrainHeightGradientListComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Terrain\Code\Source\Components\TerrainLayerSpawnerComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Terrain\Code\Source\Components\TerrainSurfaceDataSystemComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Terrain\Code\Source\Components\TerrainSystemComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Terrain\Code\Source\Components\TerrainWorldComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Terrain\Code\Source\Components\TerrainWorldDebuggerComponent.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Terrain\Code\Source\TerrainRenderer\TerrainFeatureProcessor.cpp">
+      <Filter>Source\TerrainRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Terrain\Code\Source\TerrainSystem\TerrainSystem.cpp">
+      <Filter>Source\TerrainSystem</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Terrain\Code\Source\Components\TerrainHeightGradientListComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Terrain\Code\Source\Components\TerrainLayerSpawnerComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Terrain\Code\Source\Components\TerrainSurfaceDataSystemComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Terrain\Code\Source\Components\TerrainSystemComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Terrain\Code\Source\Components\TerrainWorldComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Terrain\Code\Source\Components\TerrainWorldDebuggerComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Terrain\Code\Source\TerrainRenderer\TerrainFeatureProcessor.h">
+      <Filter>Source\TerrainRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Terrain\Code\Source\TerrainSystem\TerrainSystem.h">
+      <Filter>Source\TerrainSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Terrain\Code\Source\TerrainSystem\TerrainSystemBus.h">
+      <Filter>Source\TerrainSystem</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Terrain\Code\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Terrain\Code\terrain_files.cmake" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components">
+      <UniqueIdentifier>{0B09D740-8293-3A36-BE26-EE344C537516}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\TerrainRenderer">
+      <UniqueIdentifier>{B1724FE8-56B2-3CA0-9471-BDCF97FD19DA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\TerrainSystem">
+      <UniqueIdentifier>{1F08A13E-7281-355E-95E3-07CF9AA15E9F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -5,7 +5,8 @@
             "context": "EBusHandler",
             "variant": "",
             "details": {
-                "name": "TriggerNotificationBus"
+                "name": "Trigger",
+                "category": "PhysX"
             },
             "methods": [
                 {

@@ -29,3 +29,5 @@ ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/AWSNativeSDK-1.7.167-rev3-win
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/AWSNativeSDK-1.7.167-rev3-windows/AWSNativeSDK/bin/Release/aws-cpp-sdk-lambda.dll" "J:/Atom/lyfork/o3de/bin/profile")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/AWSNativeSDK-1.7.167-rev3-windows/AWSNativeSDK/bin/Release/aws-cpp-sdk-s3.dll" "J:/Atom/lyfork/o3de/bin/profile")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/profile/AWSCore_profile.stamp)

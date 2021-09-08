@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "AtomToolsMainWindowFactoryRequestBus"
+                "name": "ATOMTOOLSMAINWINDOWFACTORYREQUESTBUS_NAME",
+                "category": "ATOMTOOLSMAINWINDOWFACTORYREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

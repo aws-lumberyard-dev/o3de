@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "ReferenceGradientRequestBus"
+                "name": "REFERENCEGRADIENTREQUESTBUS_NAME",
+                "category": "REFERENCEGRADIENTREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

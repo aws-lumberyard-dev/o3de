@@ -5,27 +5,30 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiDynamicLayoutBus"
+                "name": "UI Dynamic Layout",
+                "category": "UI"
             },
             "methods": [
                 {
                     "key": "SetNumChildElements",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetNumChildElements"
+                        "tooltip": "When signaled, this will invoke Set Number Of Child Elements"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetNumChildElements is invoked"
+                        "tooltip": "Signaled after Set Number Of Child Elements is invoked"
                     },
                     "details": {
-                        "name": "SetNumChildElements"
+                        "name": "Set Number Of Child Elements",
+                        "tooltip": "Sets the number of children to be cloned from a prototype element"
                     },
                     "params": [
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Count",
+                                "tooltip": "The number of children to be cloned from a prototype element"
                             }
                         }
                     ]

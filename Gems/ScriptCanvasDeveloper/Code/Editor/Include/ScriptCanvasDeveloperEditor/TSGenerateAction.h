@@ -7,15 +7,19 @@
  */
 
 #pragma once
-#include "Source/Translation/TranslationBus.h"
+
+#include <Source/Translation/TranslationBus.h>
 
 class QAction;
 class QWidget;
+class QMenu;
 
 namespace ScriptCanvasDeveloperEditor
 {
     namespace TranslationGenerator
     {
+        void GenerateTranslationDatabase();
+
         //! Utility structures for generating the JSON files used to
         //! configure the names of elements in Script Canvas
         struct EntryDetails
@@ -48,6 +52,15 @@ namespace ScriptCanvasDeveloperEditor
             AZStd::vector<Argument> m_results;
         };
 
+        struct Slot
+        {
+            AZStd::string m_key;
+
+            EntryDetails m_details;
+
+            Argument m_data;
+        };
+
         //! Utility structure that represents an reflected element
         struct Entry
         {
@@ -58,6 +71,7 @@ namespace ScriptCanvasDeveloperEditor
             EntryDetails m_details;
 
             AZStd::vector<Method> m_methods;
+            AZStd::vector<Slot> m_slots;
         };
 
         // The root level JSON object
@@ -72,7 +86,7 @@ namespace ScriptCanvasDeveloperEditor
         bool ShouldSkipClass(const AZ::BehaviorClass* behaviorClass);
 
         //! The Qt action that will start the database generation
-        QAction* TranslationDatabaseFileAction(QWidget* mainWindow);
+        QAction* TranslationDatabaseFileAction(QMenu* mainMenu, QWidget* mainWindow);
 
         
     };

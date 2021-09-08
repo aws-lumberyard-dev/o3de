@@ -5,21 +5,23 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiImageBus"
+                "name": "UI Image",
+                "category": "UI"
             },
             "methods": [
                 {
                     "key": "GetColor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetColor"
+                        "tooltip": "When signaled, this will invoke Get Color"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetColor is invoked"
+                        "tooltip": "Signaled after Get Color is invoked"
                     },
                     "details": {
-                        "name": "GetColor"
+                        "name": "Get Color",
+                        "tooltip": "Gets the color tint for the image"
                     },
                     "results": [
                         {
@@ -34,20 +36,22 @@
                     "key": "SetColor",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetColor"
+                        "tooltip": "When signaled, this will invoke Set Color"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetColor is invoked"
+                        "tooltip": "Signaled after Set Color is invoked"
                     },
                     "details": {
-                        "name": "SetColor"
+                        "name": "Set Color",
+                        "tooltip": "Sets the color tint for the image"
                     },
                     "params": [
                         {
                             "typeid": "{7894072A-9050-4F0F-901B-34B1A0D29417}",
                             "details": {
-                                "name": "Color"
+                                "name": "Color",
+                                "tooltip": "The color tint for the image"
                             }
                         }
                     ]
@@ -56,20 +60,22 @@
                     "key": "SetSpriteType",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetSpriteType"
+                        "tooltip": "When signaled, this will invoke Set Sprite Type"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetSpriteType is invoked"
+                        "tooltip": "Signaled after Set Sprite Type is invoked"
                     },
                     "details": {
-                        "name": "SetSpriteType"
+                        "name": "Set Sprite Type",
+                        "tooltip": "Sets the type of the sprite"
                     },
                     "params": [
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Sprite Type",
+                                "tooltip": "The type of the sprite (0=Sprite Asset, 1=Render Target)"
                             }
                         }
                     ]
@@ -78,14 +84,15 @@
                     "key": "GetFillClockwise",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetFillClockwise"
+                        "tooltip": "When signaled, this will invoke Get Fill Clockwise"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetFillClockwise is invoked"
+                        "tooltip": "Signaled after Get Fill Clockwise is invoked"
                     },
                     "details": {
-                        "name": "GetFillClockwise"
+                        "name": "Get Fill Clockwise",
+                        "tooltip": "Returns whether the image is radially filled clockwise"
                     },
                     "results": [
                         {
@@ -100,20 +107,22 @@
                     "key": "SetRenderTargetName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetRenderTargetName"
+                        "tooltip": "When signaled, this will invoke Set Render Target Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetRenderTargetName is invoked"
+                        "tooltip": "Signaled after Set Render Target Name is invoked"
                     },
                     "details": {
-                        "name": "SetRenderTargetName"
+                        "name": "Set Render Target Name",
+                        "tooltip": "Sets the name of the render target associated with the sprite"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Name",
+                                "tooltip": "The name of the render target associated with the sprite"
                             }
                         }
                     ]
@@ -122,20 +131,22 @@
                     "key": "SetSpritePathnameIfExists",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetSpritePathnameIfExists"
+                        "tooltip": "When signaled, this will invoke Set Sprite Pathname If Exists"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetSpritePathnameIfExists is invoked"
+                        "tooltip": "Signaled after Set Sprite Pathname If Exists is invoked"
                     },
                     "details": {
-                        "name": "SetSpritePathnameIfExists"
+                        "name": "Set Sprite Pathname If Exists",
+                        "tooltip": "Sets the source location of the image to be displayed by the element - only if the sprite asset exists. Otherwise, the current sprite remains unchanged. Returns whether the sprite changed"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Pathname",
+                                "tooltip": "The source location of the image to be displayed by the element"
                             }
                         }
                     ],
@@ -143,7 +154,8 @@
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "bool",
+                                "tooltip": "The source location of the image to be displayed by the element"
                             }
                         }
                     ]
@@ -152,20 +164,22 @@
                     "key": "SetEdgeFillOrigin",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetEdgeFillOrigin"
+                        "tooltip": "When signaled, this will invoke Set Edge Fill Origin"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetEdgeFillOrigin is invoked"
+                        "tooltip": "Signaled after Set Edge Fill Origin is invoked"
                     },
                     "details": {
-                        "name": "SetEdgeFillOrigin"
+                        "name": "Set Edge Fill Origin",
+                        "tooltip": "Sets the edge fill origin of the image"
                     },
                     "params": [
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Origin",
+                                "tooltip": "The edge fill origin (0=Left, 1=Top, 2=Right, 3=Bottom)"
                             }
                         }
                     ]
@@ -174,14 +188,15 @@
                     "key": "GetEdgeFillOrigin",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetEdgeFillOrigin"
+                        "tooltip": "When signaled, this will invoke Get Edge Fill Origin"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetEdgeFillOrigin is invoked"
+                        "tooltip": "Signaled after Get Edge Fill Origin is invoked"
                     },
                     "details": {
-                        "name": "GetEdgeFillOrigin"
+                        "name": "Get Edge Fill Origin",
+                        "tooltip": "Gets the edge fill origin of the image"
                     },
                     "results": [
                         {
@@ -196,20 +211,22 @@
                     "key": "SetFillClockwise",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetFillClockwise"
+                        "tooltip": "When signaled, this will invoke Set Fill Clockwise"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetFillClockwise is invoked"
+                        "tooltip": "Signaled after Set Fill Clockwise is invoked"
                     },
                     "details": {
-                        "name": "SetFillClockwise"
+                        "name": "Set Fill Clockwise",
+                        "tooltip": "Sets whether the image is radially filled clockwise"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Fill Clockwise",
+                                "tooltip": "Indicates whether the image is radially filled clockwise"
                             }
                         }
                     ]
@@ -218,20 +235,22 @@
                     "key": "SetSpritePathname",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetSpritePathname"
+                        "tooltip": "When signaled, this will invoke Set Sprite Pathname"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetSpritePathname is invoked"
+                        "tooltip": "Signaled after Set Sprite Pathname is invoked"
                     },
                     "details": {
-                        "name": "SetSpritePathname"
+                        "name": "Set Sprite Pathname",
+                        "tooltip": "Sets the source location of the image to be displayed by the element"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Pathname",
+                                "tooltip": "The source location of the image to be displayed by the element"
                             }
                         }
                     ]
@@ -240,20 +259,22 @@
                     "key": "SetFillCenter",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetFillCenter"
+                        "tooltip": "When signaled, this will invoke Set Fill Center"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetFillCenter is invoked"
+                        "tooltip": "Signaled after Set Fill Center is invoked"
                     },
                     "details": {
-                        "name": "SetFillCenter"
+                        "name": "Set Fill Center",
+                        "tooltip": "Sets whether the center of a sliced image is filled"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Fill Center",
+                                "tooltip": "Indicates whether the center of a sliced image is filled"
                             }
                         }
                     ]
@@ -262,20 +283,22 @@
                     "key": "SetAlpha",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetAlpha"
+                        "tooltip": "When signaled, this will invoke Set Alpha"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetAlpha is invoked"
+                        "tooltip": "Signaled after Set Alpha is invoked"
                     },
                     "details": {
-                        "name": "SetAlpha"
+                        "name": "Set Alpha",
+                        "tooltip": "Sets the image alpha (opacity)"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Alpha",
+                                "tooltip": "The image alpha (opacity)"
                             }
                         }
                     ]
@@ -284,20 +307,22 @@
                     "key": "SetFillType",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetFillType"
+                        "tooltip": "When signaled, this will invoke Set Fill Type"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetFillType is invoked"
+                        "tooltip": "Signaled after Set Fill Type is invoked"
                     },
                     "details": {
-                        "name": "SetFillType"
+                        "name": "Set Fill Type",
+                        "tooltip": "Sets the fill type of the image. Fill type determines how the image component is filled"
                     },
                     "params": [
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Fill Type",
+                                "tooltip": "The fill type (0=None, 1=Linear, 2=Radial, 3=Radial Corner, 4=Radial Edge)"
                             }
                         }
                     ]
@@ -306,20 +331,22 @@
                     "key": "SetFillAmount",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetFillAmount"
+                        "tooltip": "When signaled, this will invoke Set Fill Amount"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetFillAmount is invoked"
+                        "tooltip": "Signaled after Set Fill Amount is invoked"
                     },
                     "details": {
-                        "name": "SetFillAmount"
+                        "name": "Set Fill Amount",
+                        "tooltip": "Sets the fill amount"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Fill Amount",
+                                "tooltip": "The fill amount [0-1]. One indicates that the image is completely filled. Zero means no part of the image is filled"
                             }
                         }
                     ]
@@ -328,14 +355,15 @@
                     "key": "GetRadialFillStartAngle",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetRadialFillStartAngle"
+                        "tooltip": "When signaled, this will invoke Get Radial Fill Start Angle"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetRadialFillStartAngle is invoked"
+                        "tooltip": "Signaled after Get Radial Fill Start Angle is invoked"
                     },
                     "details": {
-                        "name": "GetRadialFillStartAngle"
+                        "name": "Get Radial Fill Start Angle",
+                        "tooltip": "Gets the starting angle of the radial fill"
                     },
                     "results": [
                         {
@@ -350,14 +378,15 @@
                     "key": "GetRenderTargetName",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetRenderTargetName"
+                        "tooltip": "When signaled, this will invoke Get Render Target Name"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetRenderTargetName is invoked"
+                        "tooltip": "Signaled after Get Render Target Name is invoked"
                     },
                     "details": {
-                        "name": "GetRenderTargetName"
+                        "name": "Get Render Target Name",
+                        "tooltip": "Gets the name of the render target associated with the sprite"
                     },
                     "results": [
                         {
@@ -372,20 +401,22 @@
                     "key": "SetIsRenderTargetSRGB",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetIsRenderTargetSRGB"
+                        "tooltip": "When signaled, this will invoke Set Is Render Target sRGB"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetIsRenderTargetSRGB is invoked"
+                        "tooltip": "Signaled after Set Is Render Target sRGB is invoked"
                     },
                     "details": {
-                        "name": "SetIsRenderTargetSRGB"
+                        "name": "Set Is Render Target sRGB",
+                        "tooltip": "Sets whether the render target is in sRGB color space"
                     },
                     "params": [
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Is sRGB",
+                                "tooltip": "Whether the render target is in sRGB color space"
                             }
                         }
                     ]
@@ -394,14 +425,15 @@
                     "key": "GetAlpha",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetAlpha"
+                        "tooltip": "When signaled, this will invoke Get Alpha"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetAlpha is invoked"
+                        "tooltip": "Signaled after Get Alpha is invoked"
                     },
                     "details": {
-                        "name": "GetAlpha"
+                        "name": "Get Alpha",
+                        "tooltip": "Gets the image alpha (opacity)"
                     },
                     "results": [
                         {
@@ -416,14 +448,15 @@
                     "key": "GetIsRenderTargetSRGB",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetIsRenderTargetSRGB"
+                        "tooltip": "When signaled, this will invoke Get Is Render Target sRGB"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetIsRenderTargetSRGB is invoked"
+                        "tooltip": "Signaled after Get Is Render Target sRGB is invoked"
                     },
                     "details": {
-                        "name": "GetIsRenderTargetSRGB"
+                        "name": "Get Is Render Target sRGB",
+                        "tooltip": "Gets whether the render target is in sRGB color space"
                     },
                     "results": [
                         {
@@ -438,20 +471,22 @@
                     "key": "SetImageType",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetImageType"
+                        "tooltip": "When signaled, this will invoke Set Image Type"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetImageType is invoked"
+                        "tooltip": "Signaled after Set Image Type is invoked"
                     },
                     "details": {
-                        "name": "SetImageType"
+                        "name": "Set Image Type",
+                        "tooltip": "Sets the type of the image. Affects how the texture or sprite is mapped to the image rectangle"
                     },
                     "params": [
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Image Type",
+                                "tooltip": "The image type (0=Stretched, 1=Sliced, 2=Fixed, 3=Tiled, 4=Stretched To Fit, 5=Stretched To Fill)"
                             }
                         }
                     ]
@@ -460,14 +495,15 @@
                     "key": "GetSpritePathname",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetSpritePathname"
+                        "tooltip": "When signaled, this will invoke Get Sprite Pathname"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetSpritePathname is invoked"
+                        "tooltip": "Signaled after Get Sprite Pathname is invoked"
                     },
                     "details": {
-                        "name": "GetSpritePathname"
+                        "name": "Get Sprite Pathname",
+                        "tooltip": "Gets the source location of the image to be displayed by the element"
                     },
                     "results": [
                         {
@@ -482,14 +518,15 @@
                     "key": "GetFillType",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetFillType"
+                        "tooltip": "When signaled, this will invoke Get Fill Type"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetFillType is invoked"
+                        "tooltip": "Signaled after Get Fill Type is invoked"
                     },
                     "details": {
-                        "name": "GetFillType"
+                        "name": "Get Fill Type",
+                        "tooltip": "Gets the fill type"
                     },
                     "results": [
                         {
@@ -504,20 +541,22 @@
                     "key": "SetCornerFillOrigin",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetCornerFillOrigin"
+                        "tooltip": "When signaled, this will invoke Set Corner Fill Origin"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetCornerFillOrigin is invoked"
+                        "tooltip": "Signaled after Set Corner Fill Origin is invoked"
                     },
                     "details": {
-                        "name": "SetCornerFillOrigin"
+                        "name": "Set Corner Fill Origin",
+                        "tooltip": "Sets the corner fill origin of the image"
                     },
                     "params": [
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Origin",
+                                "tooltip": "The corner fill origin (0=Top Left, 1=Top Right, 2=Bottom Right, 3=Bottom Left)"
                             }
                         }
                     ]
@@ -526,14 +565,15 @@
                     "key": "GetCornerFillOrigin",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetCornerFillOrigin"
+                        "tooltip": "When signaled, this will invoke Get Corner Fill Origin"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetCornerFillOrigin is invoked"
+                        "tooltip": "Signaled after Get Corner Fill Origin is invoked"
                     },
                     "details": {
-                        "name": "GetCornerFillOrigin"
+                        "name": "Get Corner Fill Origin",
+                        "tooltip": "Gets the corner fill origin of the image"
                     },
                     "results": [
                         {
@@ -548,14 +588,15 @@
                     "key": "GetImageType",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetImageType"
+                        "tooltip": "When signaled, this will invoke Get Image Type"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetImageType is invoked"
+                        "tooltip": "Signaled after Get Image Type is invoked"
                     },
                     "details": {
-                        "name": "GetImageType"
+                        "name": "Get Image Type",
+                        "tooltip": "Gets the type of the image"
                     },
                     "results": [
                         {
@@ -570,20 +611,22 @@
                     "key": "SetRadialFillStartAngle",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetRadialFillStartAngle"
+                        "tooltip": "When signaled, this will invoke Set Radial Fill Start Angle"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetRadialFillStartAngle is invoked"
+                        "tooltip": "Signaled after Set Radial Fill Start Angle is invoked"
                     },
                     "details": {
-                        "name": "SetRadialFillStartAngle"
+                        "name": "Set Radial Fill Start Angle",
+                        "tooltip": "Sets the starting angle of the radial fill in degrees clockwise"
                     },
                     "params": [
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "Angle",
+                                "tooltip": "The starting angle of the radial fill in degrees clockwise. A value of 0 indicates the top center of the image"
                             }
                         }
                     ]
@@ -592,14 +635,15 @@
                     "key": "GetSpriteType",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetSpriteType"
+                        "tooltip": "When signaled, this will invoke Get Sprite Type"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetSpriteType is invoked"
+                        "tooltip": "Signaled after Get Sprite Type is invoked"
                     },
                     "details": {
-                        "name": "GetSpriteType"
+                        "name": "Get Sprite Type",
+                        "tooltip": "Gets the type of the sprite"
                     },
                     "results": [
                         {
@@ -614,14 +658,15 @@
                     "key": "GetFillAmount",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetFillAmount"
+                        "tooltip": "When signaled, this will invoke Get Fill Amount"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetFillAmount is invoked"
+                        "tooltip": "Signaled after Get Fill Amount is invoked"
                     },
                     "details": {
-                        "name": "GetFillAmount"
+                        "name": "Get Fill Amount",
+                        "tooltip": "Gets the fill amount"
                     },
                     "results": [
                         {
@@ -636,14 +681,15 @@
                     "key": "GetFillCenter",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetFillCenter"
+                        "tooltip": "When signaled, this will invoke Get Fill Center"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetFillCenter is invoked"
+                        "tooltip": "Signaled after Get Fill Center is invoked"
                     },
                     "details": {
-                        "name": "GetFillCenter"
+                        "name": "Get Fill Center",
+                        "tooltip": "Returns whether the center of a sliced image is filled"
                     },
                     "results": [
                         {

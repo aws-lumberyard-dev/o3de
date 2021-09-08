@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "EditorEntityInfoRequestBus"
+                "name": "EDITORENTITYINFOREQUESTBUS_NAME",
+                "category": "EDITORENTITYINFOREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

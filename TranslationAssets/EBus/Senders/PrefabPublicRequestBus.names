@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "PrefabPublicRequestBus"
+                "name": "PREFABPUBLICREQUESTBUS_NAME",
+                "category": "PREFABPUBLICREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {
@@ -31,15 +32,15 @@
                         {
                             "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
                             "details": {
-                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                                "name": ""
                             }
                         }
                     ],
                     "results": [
                         {
-                            "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
+                            "typeid": "{0D5A4347-BCEC-58D6-A2D5-259F78FA0BF0}",
                             "details": {
-                                "name": "bool"
+                                "name": ""
                             }
                         }
                     ]
@@ -61,7 +62,7 @@
                         {
                             "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
                             "details": {
-                                "name": "AZStd::basic_string_view<char, AZStd::char_traits<char>>"
+                                "name": ""
                             }
                         },
                         {
@@ -80,10 +81,39 @@
                     ],
                     "results": [
                         {
-                            "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
+                            "typeid": "{0E9C062F-96E1-58E9-BCE0-AB93C4C425A1}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": ""
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "DeleteEntitiesAndAllDescendantsInInstance",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke DeleteEntitiesAndAllDescendantsInInstance"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after DeleteEntitiesAndAllDescendantsInInstance is invoked"
+                    },
+                    "details": {
+                        "name": "DeleteEntitiesAndAllDescendantsInInstance"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{4841CFF0-7A5C-519C-BD16-D3625E99605E}",
+                            "details": {
+                                "name": "AZStd::vector"
+                            }
+                        }
+                    ],
+                    "results": [
+                        {
+                            "typeid": "{0D5A4347-BCEC-58D6-A2D5-259F78FA0BF0}",
+                            "details": {
+                                "name": ""
                             }
                         }
                     ]

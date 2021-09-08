@@ -5,7 +5,8 @@
             "context": "EBusHandler",
             "variant": "",
             "details": {
-                "name": "TagComponentNotificationsBus"
+                "name": "Tag",
+                "category": "Gameplay"
             },
             "methods": [
                 {
@@ -17,7 +18,8 @@
                         {
                             "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
                             "details": {
-                                "name": "Crc32"
+                                "name": "Tag",
+                                "tooltip": "The tag that was added to the source entity"
                             }
                         }
                     ]
@@ -31,7 +33,8 @@
                         {
                             "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
                             "details": {
-                                "name": "Crc32"
+                                "name": "Tag",
+                                "tooltip": "The tag that was removed from the source entity"
                             }
                         }
                     ]

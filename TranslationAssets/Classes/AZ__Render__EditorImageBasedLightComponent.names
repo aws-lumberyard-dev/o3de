@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZ::Render::EditorImageBasedLightComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "AZ::Render::EditorImageBasedLightComponent"

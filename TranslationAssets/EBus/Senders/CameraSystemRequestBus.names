@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "CameraSystemRequestBus"
+                "name": "CAMERASYSTEMREQUESTBUS_NAME",
+                "category": "CAMERASYSTEMREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

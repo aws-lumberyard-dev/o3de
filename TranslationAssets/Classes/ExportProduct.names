@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "ExportProduct",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "ExportProduct"

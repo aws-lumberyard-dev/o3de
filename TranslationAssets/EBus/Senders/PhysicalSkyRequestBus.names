@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "PhysicalSkyRequestBus"
+                "name": "PHYSICALSKYREQUESTBUS_NAME",
+                "category": "PHYSICALSKYREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

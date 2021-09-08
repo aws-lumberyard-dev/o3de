@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "SimpleMotionComponentRequestBus"
+                "name": "Simple Motion",
+                "category": "Animation"
             },
             "methods": [
                 {
@@ -114,14 +115,14 @@
                     "key": "ReverseMotion",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke ReverseMotion"
+                        "tooltip": "When signaled, this will invoke Reverse Motion"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after ReverseMotion is invoked"
+                        "tooltip": "Signaled after Reverse Motion is invoked"
                     },
                     "details": {
-                        "name": "ReverseMotion"
+                        "name": "Reverse Motion"
                     },
                     "params": [
                         {
@@ -180,14 +181,14 @@
                     "key": "RetargetMotion",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke RetargetMotion"
+                        "tooltip": "When signaled, this will invoke Retarget Motion"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after RetargetMotion is invoked"
+                        "tooltip": "Signaled after Retarget Motion is invoked"
                     },
                     "details": {
-                        "name": "RetargetMotion"
+                        "name": "Retarget Motion"
                     },
                     "params": [
                         {
@@ -202,14 +203,14 @@
                     "key": "SetPlaySpeed",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetPlaySpeed"
+                        "tooltip": "When signaled, this will invoke Set Play Speed"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetPlaySpeed is invoked"
+                        "tooltip": "Signaled after Set Play Speed is invoked"
                     },
                     "details": {
-                        "name": "SetPlaySpeed"
+                        "name": "Set Play Speed"
                     },
                     "params": [
                         {
@@ -312,14 +313,14 @@
                     "key": "LoopMotion",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke LoopMotion"
+                        "tooltip": "When signaled, this will invoke Loop Motion"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after LoopMotion is invoked"
+                        "tooltip": "Signaled after Loop Motion is invoked"
                     },
                     "details": {
-                        "name": "LoopMotion"
+                        "name": "Loop Motion"
                     },
                     "params": [
                         {
@@ -334,14 +335,14 @@
                     "key": "MirrorMotion",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MirrorMotion"
+                        "tooltip": "When signaled, this will invoke Mirror Motion"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MirrorMotion is invoked"
+                        "tooltip": "Signaled after Mirror Motion is invoked"
                     },
                     "details": {
-                        "name": "MirrorMotion"
+                        "name": "Mirror Motion"
                     },
                     "params": [
                         {

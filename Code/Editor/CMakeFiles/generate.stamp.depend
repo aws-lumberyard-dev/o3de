@@ -2,8 +2,8 @@
 C:/Program Files/CMake/share/cmake-3.20/Modules/CMakeParseArguments.cmake
 C:/Users/luissemp/.o3de/3rdParty/packages/AWSNativeSDK-1.7.167-rev3-windows/FindAWSNativeSDK.cmake
 C:/Users/luissemp/.o3de/3rdParty/packages/AWSNativeSDK-1.7.167-rev3-windows/PackageInfo.json
-C:/Users/luissemp/.o3de/3rdParty/packages/squish-ccr-20150601-rev3-multiplatform/Findsquish-ccr.cmake
-C:/Users/luissemp/.o3de/3rdParty/packages/squish-ccr-20150601-rev3-multiplatform/PackageInfo.json
+C:/Users/luissemp/.o3de/3rdParty/packages/squish-ccr-deb557d-rev1-windows/Findsquish-ccr.cmake
+C:/Users/luissemp/.o3de/3rdParty/packages/squish-ccr-deb557d-rev1-windows/PackageInfo.json
 J:/Atom/lyfork/o3de/Code/Editor/CMakeLists.txt
 J:/Atom/lyfork/o3de/Code/Editor/Controls/ConsoleSCB.qrc
 J:/Atom/lyfork/o3de/Code/Editor/LayoutConfigDialog.qrc

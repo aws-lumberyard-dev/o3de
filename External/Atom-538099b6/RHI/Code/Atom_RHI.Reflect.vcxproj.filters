@@ -148,9 +148,6 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\ReflectSystemComponent.cpp">
       <Filter>Source\RHI.Reflect</Filter>
     </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\RHISystemDescriptor.cpp">
-      <Filter>Source\RHI.Reflect</Filter>
-    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Source\RHI.Reflect\AliasedHeapEnums.cpp">
       <Filter>Source\RHI.Reflect</Filter>
     </ClCompile>
@@ -355,9 +352,6 @@
       <Filter>Include\Atom\RHI.Reflect</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\ReflectSystemComponent.h">
-      <Filter>Include\Atom\RHI.Reflect</Filter>
-    </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\RHISystemDescriptor.h">
       <Filter>Include\Atom\RHI.Reflect</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Code\Include\Atom\RHI.Reflect\AliasedHeapEnums.h">

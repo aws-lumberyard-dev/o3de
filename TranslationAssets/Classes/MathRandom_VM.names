@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "MathRandom_VM",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "MathRandom_VM"
@@ -13,14 +13,15 @@
                     "context": "MathRandom_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomPointOnSphere"
+                        "tooltip": "When signaled, this will invoke RandomPointOnSphere"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathRandom_VM::RandomPointOnSphere is invoked"
+                        "tooltip": "Signaled after RandomPointOnSphere is invoked"
                     },
                     "details": {
-                        "name": "MathRandom_VM::RandomPointOnSphere"
+                        "name": "MathRandom_VM::RandomPointOnSphere",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -44,14 +45,15 @@
                     "context": "MathRandom_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomPointInCircle"
+                        "tooltip": "When signaled, this will invoke RandomPointInCircle"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathRandom_VM::RandomPointInCircle is invoked"
+                        "tooltip": "Signaled after RandomPointInCircle is invoked"
                     },
                     "details": {
-                        "name": "MathRandom_VM::RandomPointInCircle"
+                        "name": "MathRandom_VM::RandomPointInCircle",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -75,14 +77,15 @@
                     "context": "MathRandom_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomPointInSquare"
+                        "tooltip": "When signaled, this will invoke RandomPointInSquare"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathRandom_VM::RandomPointInSquare is invoked"
+                        "tooltip": "Signaled after RandomPointInSquare is invoked"
                     },
                     "details": {
-                        "name": "MathRandom_VM::RandomPointInSquare"
+                        "name": "MathRandom_VM::RandomPointInSquare",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -106,14 +109,15 @@
                     "context": "MathRandom_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomUnitVector2"
+                        "tooltip": "When signaled, this will invoke RandomUnitVector2"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathRandom_VM::RandomUnitVector2 is invoked"
+                        "tooltip": "Signaled after RandomUnitVector2 is invoked"
                     },
                     "details": {
-                        "name": "MathRandom_VM::RandomUnitVector2"
+                        "name": "MathRandom_VM::RandomUnitVector2",
+                        "category": "Other"
                     },
                     "results": [
                         {
@@ -129,14 +133,15 @@
                     "context": "MathRandom_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomVector2"
+                        "tooltip": "When signaled, this will invoke RandomVector2"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathRandom_VM::RandomVector2 is invoked"
+                        "tooltip": "Signaled after RandomVector2 is invoked"
                     },
                     "details": {
-                        "name": "MathRandom_VM::RandomVector2"
+                        "name": "MathRandom_VM::RandomVector2",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -166,14 +171,15 @@
                     "context": "MathRandom_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomPointInCylinder"
+                        "tooltip": "When signaled, this will invoke RandomPointInCylinder"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathRandom_VM::RandomPointInCylinder is invoked"
+                        "tooltip": "Signaled after RandomPointInCylinder is invoked"
                     },
                     "details": {
-                        "name": "MathRandom_VM::RandomPointInCylinder"
+                        "name": "MathRandom_VM::RandomPointInCylinder",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -203,14 +209,15 @@
                     "context": "MathRandom_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomQuaternion"
+                        "tooltip": "When signaled, this will invoke RandomQuaternion"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathRandom_VM::RandomQuaternion is invoked"
+                        "tooltip": "Signaled after RandomQuaternion is invoked"
                     },
                     "details": {
-                        "name": "MathRandom_VM::RandomQuaternion"
+                        "name": "MathRandom_VM::RandomQuaternion",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -240,14 +247,15 @@
                     "context": "MathRandom_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomVector4"
+                        "tooltip": "When signaled, this will invoke RandomVector4"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathRandom_VM::RandomVector4 is invoked"
+                        "tooltip": "Signaled after RandomVector4 is invoked"
                     },
                     "details": {
-                        "name": "MathRandom_VM::RandomVector4"
+                        "name": "MathRandom_VM::RandomVector4",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -277,14 +285,15 @@
                     "context": "MathRandom_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomPointInBox"
+                        "tooltip": "When signaled, this will invoke RandomPointInBox"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathRandom_VM::RandomPointInBox is invoked"
+                        "tooltip": "Signaled after RandomPointInBox is invoked"
                     },
                     "details": {
-                        "name": "MathRandom_VM::RandomPointInBox"
+                        "name": "MathRandom_VM::RandomPointInBox",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -308,14 +317,15 @@
                     "context": "MathRandom_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomPointOnCircle"
+                        "tooltip": "When signaled, this will invoke RandomPointOnCircle"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathRandom_VM::RandomPointOnCircle is invoked"
+                        "tooltip": "Signaled after RandomPointOnCircle is invoked"
                     },
                     "details": {
-                        "name": "MathRandom_VM::RandomPointOnCircle"
+                        "name": "MathRandom_VM::RandomPointOnCircle",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -339,14 +349,15 @@
                     "context": "MathRandom_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomPointInEllipsoid"
+                        "tooltip": "When signaled, this will invoke RandomPointInEllipsoid"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathRandom_VM::RandomPointInEllipsoid is invoked"
+                        "tooltip": "Signaled after RandomPointInEllipsoid is invoked"
                     },
                     "details": {
-                        "name": "MathRandom_VM::RandomPointInEllipsoid"
+                        "name": "MathRandom_VM::RandomPointInEllipsoid",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -370,14 +381,15 @@
                     "context": "MathRandom_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomInteger"
+                        "tooltip": "When signaled, this will invoke RandomInteger"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathRandom_VM::RandomInteger is invoked"
+                        "tooltip": "Signaled after RandomInteger is invoked"
                     },
                     "details": {
-                        "name": "MathRandom_VM::RandomInteger"
+                        "name": "MathRandom_VM::RandomInteger",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -407,14 +419,15 @@
                     "context": "MathRandom_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomPointInWedge"
+                        "tooltip": "When signaled, this will invoke RandomPointInWedge"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathRandom_VM::RandomPointInWedge is invoked"
+                        "tooltip": "Signaled after RandomPointInWedge is invoked"
                     },
                     "details": {
-                        "name": "MathRandom_VM::RandomPointInWedge"
+                        "name": "MathRandom_VM::RandomPointInWedge",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -468,14 +481,15 @@
                     "context": "MathRandom_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomGrayscale"
+                        "tooltip": "When signaled, this will invoke RandomGrayscale"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathRandom_VM::RandomGrayscale is invoked"
+                        "tooltip": "Signaled after RandomGrayscale is invoked"
                     },
                     "details": {
-                        "name": "MathRandom_VM::RandomGrayscale"
+                        "name": "MathRandom_VM::RandomGrayscale",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -505,14 +519,15 @@
                     "context": "MathRandom_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomPointInCone"
+                        "tooltip": "When signaled, this will invoke RandomPointInCone"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathRandom_VM::RandomPointInCone is invoked"
+                        "tooltip": "Signaled after RandomPointInCone is invoked"
                     },
                     "details": {
-                        "name": "MathRandom_VM::RandomPointInCone"
+                        "name": "MathRandom_VM::RandomPointInCone",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -542,14 +557,15 @@
                     "context": "MathRandom_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomColor"
+                        "tooltip": "When signaled, this will invoke RandomColor"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathRandom_VM::RandomColor is invoked"
+                        "tooltip": "Signaled after RandomColor is invoked"
                     },
                     "details": {
-                        "name": "MathRandom_VM::RandomColor"
+                        "name": "MathRandom_VM::RandomColor",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -579,14 +595,15 @@
                     "context": "MathRandom_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomNumber"
+                        "tooltip": "When signaled, this will invoke RandomNumber"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathRandom_VM::RandomNumber is invoked"
+                        "tooltip": "Signaled after RandomNumber is invoked"
                     },
                     "details": {
-                        "name": "MathRandom_VM::RandomNumber"
+                        "name": "MathRandom_VM::RandomNumber",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -616,14 +633,15 @@
                     "context": "MathRandom_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomPointInSphere"
+                        "tooltip": "When signaled, this will invoke RandomPointInSphere"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathRandom_VM::RandomPointInSphere is invoked"
+                        "tooltip": "Signaled after RandomPointInSphere is invoked"
                     },
                     "details": {
-                        "name": "MathRandom_VM::RandomPointInSphere"
+                        "name": "MathRandom_VM::RandomPointInSphere",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -647,14 +665,15 @@
                     "context": "MathRandom_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomUnitVector3"
+                        "tooltip": "When signaled, this will invoke RandomUnitVector3"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathRandom_VM::RandomUnitVector3 is invoked"
+                        "tooltip": "Signaled after RandomUnitVector3 is invoked"
                     },
                     "details": {
-                        "name": "MathRandom_VM::RandomUnitVector3"
+                        "name": "MathRandom_VM::RandomUnitVector3",
+                        "category": "Other"
                     },
                     "results": [
                         {
@@ -670,14 +689,15 @@
                     "context": "MathRandom_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomVector3"
+                        "tooltip": "When signaled, this will invoke RandomVector3"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathRandom_VM::RandomVector3 is invoked"
+                        "tooltip": "Signaled after RandomVector3 is invoked"
                     },
                     "details": {
-                        "name": "MathRandom_VM::RandomVector3"
+                        "name": "MathRandom_VM::RandomVector3",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -707,14 +727,15 @@
                     "context": "MathRandom_VM",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke MathRandom_VM::RandomPointInArc"
+                        "tooltip": "When signaled, this will invoke RandomPointInArc"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after MathRandom_VM::RandomPointInArc is invoked"
+                        "tooltip": "Signaled after RandomPointInArc is invoked"
                     },
                     "details": {
-                        "name": "MathRandom_VM::RandomPointInArc"
+                        "name": "MathRandom_VM::RandomPointInArc",
+                        "category": "Other"
                     },
                     "params": [
                         {

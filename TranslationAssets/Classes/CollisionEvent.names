@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "CollisionEvent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "CollisionEvent"
@@ -13,20 +13,21 @@
                     "context": "CollisionEvent",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke CollisionEvent::Get Body 1 EntityId"
+                        "tooltip": "When signaled, this will invoke GetBody1EntityId"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after CollisionEvent::Get Body 1 EntityId is invoked"
+                        "tooltip": "Signaled after GetBody1EntityId is invoked"
                     },
                     "details": {
-                        "name": "CollisionEvent::Get Body 1 EntityId"
+                        "name": "CollisionEvent::Get Body 1 EntityId",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{7602AA36-792C-4BDC-BDF8-AA16792151A3}",
                             "details": {
-                                "name": "CollisionEvent"
+                                "name": "CollisionEvent*"
                             }
                         }
                     ],
@@ -45,20 +46,21 @@
                     "context": "CollisionEvent",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke CollisionEvent::Get Body 2 EntityId"
+                        "tooltip": "When signaled, this will invoke GetBody2EntityId"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after CollisionEvent::Get Body 2 EntityId is invoked"
+                        "tooltip": "Signaled after GetBody2EntityId is invoked"
                     },
                     "details": {
-                        "name": "CollisionEvent::Get Body 2 EntityId"
+                        "name": "CollisionEvent::Get Body 2 EntityId",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{7602AA36-792C-4BDC-BDF8-AA16792151A3}",
                             "details": {
-                                "name": "CollisionEvent"
+                                "name": "CollisionEvent*"
                             }
                         }
                     ],

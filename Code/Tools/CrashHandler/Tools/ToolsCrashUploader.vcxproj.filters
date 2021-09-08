@@ -35,6 +35,9 @@
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Tools\UI\submit_report.ui">
       <Filter>UI</Filter>
     </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\ToolsCrashUploader_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Tools\CMakeLists.txt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -49,6 +52,15 @@
     <None Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Tools\tools_crash_uploader_files.cmake" />
     <None Include="J:\Atom\lyfork\o3de\Code\Tools\CrashHandler\Tools\Platform\Windows\tools_crash_uploader_windows_files.cmake">
       <Filter>Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\ToolsCrashUploader_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\ToolsCrashUploader_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\ToolsCrashUploader_release.stamp">
+      <Filter>Generated Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "DitherGradientRequestBus"
+                "name": "DITHERGRADIENTREQUESTBUS_NAME",
+                "category": "DITHERGRADIENTREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

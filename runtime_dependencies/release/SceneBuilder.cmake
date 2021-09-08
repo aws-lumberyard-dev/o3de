@@ -93,3 +93,5 @@ ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/qt-5.15.2-rev4-windows/qt/bin/Qt5Xml.dll" "J:/Atom/lyfork/o3de/bin/release")
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/assimp-5.0.1-rev11-multiplatform/assimp/bin/win_x64/release/assimp-vc142-mt.dll" "J:/Atom/lyfork/o3de/bin/release")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/release/SceneBuilder_release.stamp)

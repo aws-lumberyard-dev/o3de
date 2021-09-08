@@ -32,3 +32,5 @@ ly_copy("J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Tests/ATLData/MultipleOne/ATL
 ly_copy("J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Tests/ATLData/OneMultiple/ATLTestControls.xml" "J:/Atom/lyfork/o3de/bin/release/Test.Assets/Gems/AudioSystem/ATLData/OneMultiple")
 ly_copy("J:/Atom/lyfork/o3de/Gems/AudioSystem/Code/Tests/ATLData/OneOne/ATLTestControls.xml" "J:/Atom/lyfork/o3de/bin/release/Test.Assets/Gems/AudioSystem/ATLData/OneOne")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/release/AudioSystem.Tests_release.stamp)

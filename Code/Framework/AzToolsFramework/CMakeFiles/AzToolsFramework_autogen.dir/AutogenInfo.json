@@ -10,7 +10,6 @@
 		"J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/AzToolsFramework/aztoolsframework_files.cmake",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/AzToolsFramework/aztoolsframework_windows_files.cmake",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/Platform/Windows/platform_windows_files.cmake",
-		"J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/Platform/Common/MSVC/aztoolsframework_msvc.cmake",
 		"C:/Users/luissemp/.o3de/3rdParty/packages/SQLite-3.32.2-rev3-multiplatform/FindSQLite.cmake",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/AzToolsFramework/aztoolsframeworktestcommon_files.cmake",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzToolsFramework/Tests/aztoolsframeworktests_files.cmake",

@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "ExportProductList",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "ExportProductList"
@@ -13,14 +13,15 @@
                     "context": "ExportProductList",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke ExportProductList::AddProduct"
+                        "tooltip": "When signaled, this will invoke AddProduct"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after ExportProductList::AddProduct is invoked"
+                        "tooltip": "Signaled after AddProduct is invoked"
                     },
                     "details": {
-                        "name": "ExportProductList::AddProduct"
+                        "name": "ExportProductList::AddProduct",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -42,14 +43,15 @@
                     "context": "ExportProductList",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke ExportProductList::GetProducts"
+                        "tooltip": "When signaled, this will invoke GetProducts"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after ExportProductList::GetProducts is invoked"
+                        "tooltip": "Signaled after GetProducts is invoked"
                     },
                     "details": {
-                        "name": "ExportProductList::GetProducts"
+                        "name": "ExportProductList::GetProducts",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -73,14 +75,15 @@
                     "context": "ExportProductList",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke ExportProductList::AddDependencyToProduct"
+                        "tooltip": "When signaled, this will invoke AddDependencyToProduct"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after ExportProductList::AddDependencyToProduct is invoked"
+                        "tooltip": "Signaled after AddDependencyToProduct is invoked"
                     },
                     "details": {
-                        "name": "ExportProductList::AddDependencyToProduct"
+                        "name": "ExportProductList::AddDependencyToProduct",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -92,7 +95,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "const AZStd::basic_string<char, AZStd::char_traits<char>, alloc"
                             }
                         },
                         {

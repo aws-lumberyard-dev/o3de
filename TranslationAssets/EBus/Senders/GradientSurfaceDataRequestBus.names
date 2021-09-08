@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "GradientSurfaceDataRequestBus"
+                "name": "GRADIENTSURFACEDATAREQUESTBUS_NAME",
+                "category": "GRADIENTSURFACEDATAREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

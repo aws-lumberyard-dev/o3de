@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZ::RHI::Handle<unsigned int, ShaderInputBufferDescriptor>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "AZ::RHI::Handle<unsigned int, ShaderInputBufferDescriptor>"
@@ -13,20 +13,21 @@
                     "context": "AZ::RHI::Handle<unsigned int, ShaderInputBufferDescriptor>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZ::RHI::Handle<unsigned int, ShaderInputBufferDescriptor>::IsValid"
+                        "tooltip": "When signaled, this will invoke IsValid"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZ::RHI::Handle<unsigned int, ShaderInputBufferDescriptor>::IsValid is invoked"
+                        "tooltip": "Signaled after IsValid is invoked"
                     },
                     "details": {
-                        "name": "AZ::RHI::Handle<unsigned int, ShaderInputBufferDescriptor>::IsValid"
+                        "name": "AZ::RHI::Handle<unsigned int, ShaderInputBufferDescriptor>::IsValid",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{A7E568EC-5873-5C8A-A43E-A7228B613A21}",
                             "details": {
-                                "name": "AZ::RHI::Handle<unsigned int, ShaderInputBufferDescriptor>"
+                                "name": "AZ::RHI::Handle<unsigned int, ShaderInputBufferDescriptor>*"
                             }
                         }
                     ],

@@ -239,6 +239,12 @@
 			null
 		],
 		[
+			"J:/Atom/lyfork/o3de/Gems/ScriptCanvasDeveloper/Code/Editor/Source/Tools/TranslationBrowser/TranslationBrowser.h",
+			"Mu",
+			"6X6ZGAXEO7/moc_TranslationBrowser.cpp",
+			null
+		],
+		[
 			"J:/Atom/lyfork/o3de/Gems/ScriptCanvasDeveloper/Code/Editor/Source/XMLDoc.h",
 			"Mu",
 			"6M5H4SS6RO/moc_XMLDoc.cpp",
@@ -377,6 +383,10 @@
 		"J:/Atom/lyfork/o3de/Gems/ScriptCanvasDeveloper/Code/Source",
 		"J:/Atom/lyfork/o3de/Gems/ScriptCanvasDeveloper/Code/Editor/Include",
 		"J:/Atom/lyfork/o3de/Gems/ScriptCanvasDeveloper/Code/Editor/Source",
+		"J:/Atom/lyfork/o3de/External/ScriptCanvasDeveloper-a7f67cb3/Code/ScriptCanvasDeveloper.Editor_autogen/include",
+		"J:/Atom/lyfork/o3de/External/ScriptCanvasDeveloper-a7f67cb3/Code/ScriptCanvasDeveloper.Editor_autogen/include/Source",
+		"J:/Atom/lyfork/o3de/External/ScriptCanvasDeveloper-a7f67cb3/Code/ScriptCanvasDeveloper.Editor_autogen/include/Editor/Include",
+		"J:/Atom/lyfork/o3de/External/ScriptCanvasDeveloper-a7f67cb3/Code/ScriptCanvasDeveloper.Editor_autogen/include/Editor/Source",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzCore",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzCore/Platform/Windows",
 		"J:/Atom/lyfork/o3de/Code/Framework/AzCore/Platform/Common",
@@ -397,6 +407,7 @@
 		"J:/Atom/lyfork/o3de/Gems/ExpressionEvaluation/Code/Include",
 		"J:/Atom/lyfork/o3de/Code/Legacy/CryCommon",
 		"J:/Atom/lyfork/o3de/Code/Legacy",
+		"J:/Atom/lyfork/o3de/Code/Legacy/CryCommon/Platform/Windows",
 		"J:/Atom/lyfork/o3de/Code/Tools/AssetProcessor/AssetBuilderSDK",
 		"J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/Include",
 		"J:/Atom/lyfork/o3de/Gems/ScriptCanvas/Code/Editor/Static/Include",
@@ -409,7 +420,10 @@
 	"MOC_PREDEFS_CMD" : [],
 	"MOC_PREDEFS_FILE" : "",
 	"MOC_RELAXED_MODE" : false,
-	"MOC_SKIP" : [],
+	"MOC_SKIP" : 
+	[
+		"J:/Atom/lyfork/o3de/External/ScriptCanvasDeveloper-a7f67cb3/Code/ScriptCanvasDeveloper.Editor_autogen/include/Editor/Source/Tools/TranslationBrowser/ui_TranslationBrowser.h"
+	],
 	"MULTI_CONFIG" : true,
 	"PARALLEL" : 32,
 	"PARSE_CACHE_FILE" : "J:/Atom/lyfork/o3de/External/ScriptCanvasDeveloper-a7f67cb3/Code/CMakeFiles/ScriptCanvasDeveloper.Editor_autogen.dir/ParseCache.txt",
@@ -593,6 +607,11 @@
 		],
 		[
 			"J:/Atom/lyfork/o3de/Gems/ScriptCanvasDeveloper/Code/Editor/Source/TSGenerateAction.cpp",
+			"Mu",
+			null
+		],
+		[
+			"J:/Atom/lyfork/o3de/Gems/ScriptCanvasDeveloper/Code/Editor/Source/Tools/TranslationBrowser/TranslationBrowser.cpp",
 			"Mu",
 			null
 		],

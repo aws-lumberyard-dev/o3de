@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "IGraphObject",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "IGraphObject"

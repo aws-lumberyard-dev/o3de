@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "BehaviorContextObjectTest",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "BehaviorContextObjectTest"
@@ -13,27 +13,28 @@
                     "context": "BehaviorContextObjectTest",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke BehaviorContextObjectTest::SetString"
+                        "tooltip": "When signaled, this will invoke SetString"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after BehaviorContextObjectTest::SetString is invoked"
+                        "tooltip": "Signaled after SetString is invoked"
                     },
                     "details": {
-                        "name": "BehaviorContextObjectTest::SetString"
+                        "name": "BehaviorContextObjectTest::SetString",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{FF687BD7-42AA-44C4-B3AB-79353E8C6CCF}",
                             "details": {
-                                "name": "Behavior Context Object Test",
+                                "name": "BehaviorContextObjectTest*",
                                 "tooltip": "An Object that lives within Behavior Context exclusively for testing"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "AZStd::basic_string<char, AZStd::char_traits<char>, allocator>"
                             }
                         }
                     ]
@@ -43,20 +44,21 @@
                     "context": "BehaviorContextObjectTest",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke BehaviorContextObjectTest::GetString"
+                        "tooltip": "When signaled, this will invoke GetString"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after BehaviorContextObjectTest::GetString is invoked"
+                        "tooltip": "Signaled after GetString is invoked"
                     },
                     "details": {
-                        "name": "BehaviorContextObjectTest::GetString"
+                        "name": "BehaviorContextObjectTest::GetString",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{FF687BD7-42AA-44C4-B3AB-79353E8C6CCF}",
                             "details": {
-                                "name": "Behavior Context Object Test",
+                                "name": "BehaviorContextObjectTest*",
                                 "tooltip": "An Object that lives within Behavior Context exclusively for testing"
                             }
                         }
@@ -65,7 +67,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "AZStd::basic_string<char, AZStd::char_traits<char>, allocator>"
                             }
                         }
                     ]

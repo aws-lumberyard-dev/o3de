@@ -133,6 +133,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\crysystem_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\Platform\Windows\platform_windows_files.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\Platform\Windows\platform_windows.cmake">
+      <Filter>Platform\Windows</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Generated Files">
@@ -140,6 +146,12 @@
     </Filter>
     <Filter Include="LevelSystem">
       <UniqueIdentifier>{78C81F02-5981-3F54-8249-5F7F60EA461A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{D4CCE8D3-A6C9-3C6A-9C86-8BF8F7D77D7F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{9B5BE819-E94D-379A-84DF-5559629D4548}</UniqueIdentifier>
     </Filter>
     <Filter Include="RemoteConsole">
       <UniqueIdentifier>{45DF7663-BA03-3326-8514-E3771A2A89C3}</UniqueIdentifier>

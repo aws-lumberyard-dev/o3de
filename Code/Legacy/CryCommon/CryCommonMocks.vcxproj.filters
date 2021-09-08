@@ -27,9 +27,6 @@
     <None Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Mocks\ICVarMock.h">
       <Filter>Mocks</Filter>
     </None>
-    <None Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Mocks\IRendererMock.h">
-      <Filter>Mocks</Filter>
-    </None>
     <None Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Mocks\ITextureMock.h">
       <Filter>Mocks</Filter>
     </None>

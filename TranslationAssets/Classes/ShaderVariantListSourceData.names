@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "ShaderVariantListSourceData",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "ShaderVariantListSourceData"

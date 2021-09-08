@@ -211,6 +211,9 @@
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneUI\RowWidgets\NodeTreeSelectionWidget.ui">
       <Filter>RowWidgets</Filter>
     </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\SceneUI_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\b07b237c23e3fa05a50d2a22392742ee\qrc_SceneUI.cpp.rule">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -221,6 +224,15 @@
   <ItemGroup>
     <None Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneUI\SceneUI.qrc" />
     <None Include="J:\Atom\lyfork\o3de\Code\Tools\SceneAPI\SceneUI\SceneUI_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\SceneUI_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\SceneUI_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\SceneUI_release.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CommonWidgets">

@@ -14,6 +14,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\GameStateSamples_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\CMakeLists.txt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -22,6 +25,15 @@
     <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\gamestatesamples_shared_files.cmake" />
     <None Include="J:\Atom\lyfork\o3de\Gems\GameStateSamples\Code\Include\Platform\Windows\platform_windows_files.cmake">
       <Filter>Include\Platform\Windows</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\GameStateSamples_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\GameStateSamples_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\GameStateSamples_release.stamp">
+      <Filter>Generated Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

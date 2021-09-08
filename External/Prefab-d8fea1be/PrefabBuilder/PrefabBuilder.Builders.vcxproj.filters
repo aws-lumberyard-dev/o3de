@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Prefab\PrefabBuilder\PrefabBuilderModule.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\PrefabBuilder.Builders_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Prefab\PrefabBuilder\CMakeLists.txt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Prefab\PrefabBuilder\prefabbuilder_module_files.cmake" />
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\PrefabBuilder.Builders_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\PrefabBuilder.Builders_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\PrefabBuilder.Builders_release.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -7,9 +7,6 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore\Instance\InstanceData.cpp">
       <Filter>AtomCore\Instance</Filter>
     </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore\Serialization\Json\JsonUtils.cpp">
-      <Filter>AtomCore\Serialization\Json</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore\Instance\Instance.h">
@@ -23,9 +20,6 @@
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore\Instance\InstanceDatabase.h">
       <Filter>AtomCore\Instance</Filter>
-    </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore\Serialization\Json\JsonUtils.h">
-      <Filter>AtomCore\Serialization\Json</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Framework\AtomCore\AtomCore\std\containers\array_view.h">
       <Filter>AtomCore\std\containers</Filter>
@@ -62,12 +56,6 @@
     </Filter>
     <Filter Include="AtomCore\Instance">
       <UniqueIdentifier>{94E5A3ED-AA28-3760-8793-8005C1E75BD8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="AtomCore\Serialization">
-      <UniqueIdentifier>{E6C24010-667D-3B20-8EA7-BFFD389B9BC9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="AtomCore\Serialization\Json">
-      <UniqueIdentifier>{4C82ED3E-7E77-3586-B09F-CDAC7D6E66CF}</UniqueIdentifier>
     </Filter>
     <Filter Include="AtomCore\std">
       <UniqueIdentifier>{0315D284-B99D-32A8-A44C-E6F7D8508B9D}</UniqueIdentifier>

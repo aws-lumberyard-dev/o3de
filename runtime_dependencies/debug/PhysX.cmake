@@ -29,3 +29,5 @@ ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/PhysX-4.1.2.29882248-rev3-win
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/PhysX-4.1.2.29882248-rev3-windows/PhysX/pxshared/debug/bin/PhysXGpu_64.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/LmbrCentral.dll" "J:/Atom/lyfork/o3de/bin/debug")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/debug/PhysX_debug.stamp)

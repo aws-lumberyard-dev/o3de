@@ -21,10 +21,13 @@
 
 #include <XMLDoc.h>
 
+#if !defined(Q_MOC_RUN)
 #include <QAction>
 #include <QApplication>
 #include <QClipboard>
 #include <QMimeData>
+#include <QMenu>
+#endif
 
 #include <Source/Translation/TranslationAsset.h>
 
@@ -37,6 +40,8 @@
 #include <AzFramework/StringFunc/StringFunc.h>
 #include "../Translation/TranslationHelper.h"
 
+#include <Tools/TranslationBrowser/TranslationBrowser.h>
+
 #pragma optimize("", off)
 
 
@@ -44,9 +49,16 @@ namespace ScriptCanvasDeveloperEditor
 {
     namespace TranslationGenerator
     {
-        void GenerateTranslationDatabase();
 
-        QAction* TranslationDatabaseFileAction(QWidget* mainWindow)
+        void OpenTranslationBrowser(QWidget* parent = nullptr)
+        {
+            using namespace ScriptCanvasDeveloper;
+            TranslationBrowser* browser = new TranslationBrowser(parent);
+            browser->exec();
+
+        }
+
+        QAction* TranslationDatabaseFileAction(QMenu* mainMenu, QWidget* mainWindow)
         {
             QAction* qAction = nullptr;
 
@@ -58,6 +70,14 @@ namespace ScriptCanvasDeveloperEditor
                 qAction->setShortcut(QKeySequence(QAction::tr("Ctrl+Alt+X", "Debug|Produce Localization Database")));
                 mainWindow->addAction(qAction);
                 mainWindow->connect(qAction, &QAction::triggered, &GenerateTranslationDatabase);
+
+                qAction = mainMenu->addAction(QAction::tr("Translation Browser"));
+
+                qAction->setAutoRepeat(false);
+                qAction->setToolTip("....");
+                qAction->setShortcut(QAction::tr("Ctrl+Alt+T", "Developer|Translation Browser"));
+                QObject::connect(qAction, &QAction::triggered, [mainWindow]() {OpenTranslationBrowser(mainWindow); });
+
             }
 
             return qAction;
@@ -218,9 +238,25 @@ namespace ScriptCanvasDeveloperEditor
                 // Generate the translation file
                 entry.m_key = ebus->m_name;
                 entry.m_context = "EBusHandler";
-                entry.m_details.m_category = GraphCanvasAttributeHelper::GetStringAttribute(ebus, AZ::Script::Attributes::Category);
-                entry.m_details.m_tooltip = ebus->m_toolTip;
-                entry.m_details.m_name = ebus->m_name;
+
+                // Check if the Handler has a translation
+                AZStd::string translationContextHandler = ScriptCanvasEditor::TranslationHelper::GetContextName(ScriptCanvasEditor::TranslationContextGroup::EbusHandler, ebus->m_name);
+
+                AZStd::string translationHandlerKey = ScriptCanvasEditor::TranslationHelper::GetClassKey(ScriptCanvasEditor::TranslationContextGroup::EbusHandler, ebus->m_name, ScriptCanvasEditor::TranslationKeyId::Name);
+                AZStd::string translationHandlerTooltipKey = ScriptCanvasEditor::TranslationHelper::GetClassKey(ScriptCanvasEditor::TranslationContextGroup::EbusHandler, ebus->m_name, ScriptCanvasEditor::TranslationKeyId::Tooltip);
+                AZStd::string translationHandlerCategoryKey = ScriptCanvasEditor::TranslationHelper::GetClassKey(ScriptCanvasEditor::TranslationContextGroup::EbusHandler, ebus->m_name, ScriptCanvasEditor::TranslationKeyId::Category);
+
+                GraphCanvas::TranslationKeyedString translatedHandlerName(ebus->m_name, translationContextHandler, translationHandlerKey);
+                GraphCanvas::TranslationKeyedString translatedHandlerTooltip(ebus->m_toolTip, translationContextHandler, translationHandlerTooltipKey);
+                GraphCanvas::TranslationKeyedString translatedHandlerCateogry(GraphCanvasAttributeHelper::GetStringAttribute(ebus, AZ::Script::Attributes::Category), translationContextHandler, translationHandlerCategoryKey);
+
+                entry.m_details.m_name = translatedHandlerName.GetDisplayString();
+                entry.m_details.m_tooltip = translatedHandlerTooltip.GetDisplayString();
+                entry.m_details.m_category = translatedHandlerCateogry.GetDisplayString();
+
+                AZStd::string tempEbusName = ebus->m_name;
+                AZStd::to_upper(tempEbusName.begin(), tempEbusName.end());
+
 
                 for (const AZ::BehaviorEBusHandler::BusForwarderEvent& event : handler->GetEvents())
                 {
@@ -231,6 +267,17 @@ namespace ScriptCanvasDeveloperEditor
                     methodEntry.m_details.m_category = "";
                     methodEntry.m_details.m_tooltip = "";
                     methodEntry.m_details.m_name = event.m_name;
+
+                    AZStd::string oldEventName = event.m_name;
+                    AZStd::to_upper(oldEventName.begin(), oldEventName.end());
+                    AZStd::string oldEventKey = AZStd::string::format("%s_NAME", oldEventName.c_str());
+                    AZStd::string oldEventTooltipKey = AZStd::string::format("%s_TOOLTIP", oldEventName.c_str());
+
+                    GraphCanvas::TranslationKeyedString translatedEventName(cleanName, translationContextHandler, oldEventKey);
+                    GraphCanvas::TranslationKeyedString translatedEventTooltip("", translationContextHandler, oldEventTooltipKey);
+
+                    methodEntry.m_details.m_name = translatedEventName.GetDisplayString();
+                    methodEntry.m_details.m_tooltip = translatedEventTooltip.GetDisplayString();
 
                     // Arguments (Input Slots)
                     if (!event.m_parameters.empty())
@@ -245,6 +292,10 @@ namespace ScriptCanvasDeveloperEditor
                             AZStd::string argumentName = event.m_name;
                             AZStd::string argumentDescription = "";
 
+                            // Generate the OLD style translation key
+                            AZStd::string oldKey = AZStd::string::format("HANDLER_%s_%s_OUTPUT%zu_NAME", tempEbusName.c_str(), oldEventName.c_str(), argIndex - AZ::eBehaviorBusForwarderEventIndices::ParameterFirst);
+                            AZStd::string oldTooltipKey = AZStd::string::format("HANDLER_%s_%s_OUTPUT%zu_TOOLTIP", tempEbusName.c_str(), oldEventName.c_str(), argIndex - AZ::eBehaviorBusForwarderEventIndices::ParameterFirst);
+
                             if (!event.m_metadataParameters.empty() && event.m_metadataParameters.size() > argIndex)
                             {
                                 argumentName = event.m_metadataParameters[argIndex].m_name;
@@ -256,9 +307,12 @@ namespace ScriptCanvasDeveloperEditor
                                 GetTypeNameAndDescription(parameter.m_typeId, argumentName, argumentDescription);
                             }
 
+                            GraphCanvas::TranslationKeyedString translatedArgName(argumentName, translationContextHandler, oldKey);
+                            GraphCanvas::TranslationKeyedString translatedArgTooltip(argumentDescription, translationContextHandler, oldTooltipKey);
+
                             argument.m_typeId = argumentKey;
-                            argument.m_details.m_name = argumentName;
-                            argument.m_details.m_tooltip = argumentDescription;
+                            argument.m_details.m_name = translatedArgName.GetDisplayString();
+                            argument.m_details.m_tooltip = translatedArgTooltip.GetDisplayString();
 
                             methodEntry.m_arguments.push_back(argument);
                         }
@@ -286,9 +340,15 @@ namespace ScriptCanvasDeveloperEditor
                             GetTypeNameAndDescription(resultParameter->m_typeId, resultName, resultDescription);
                         }
 
+                        AZStd::string oldKey = AZStd::string::format("HANDLER_%s_%s_OUTPUT%d_NAME", tempEbusName.c_str(), oldEventName.c_str(), 0);
+                        AZStd::string oldTooltipKey = AZStd::string::format("HANDLER_%s_%s_OUTPUT%d_TOOLTIP", tempEbusName.c_str(), oldEventName.c_str(), 0);
+
+                        GraphCanvas::TranslationKeyedString oldReturnName(resultName, translationContextHandler, oldKey);
+                        GraphCanvas::TranslationKeyedString oldReturnTooltip(resultDescription, translationContextHandler, oldTooltipKey);
+
                         result.m_typeId = resultKey;
-                        result.m_details.m_name = resultName;
-                        result.m_details.m_tooltip = resultDescription;
+                        result.m_details.m_name = oldReturnName.GetDisplayString();
+                        result.m_details.m_tooltip = oldReturnTooltip.GetDisplayString();
 
                         methodEntry.m_results.push_back(result);
                     }
@@ -454,6 +514,43 @@ namespace ScriptCanvasDeveloperEditor
                     entry.AddMember("methods", methods, document.GetAllocator());
                 }
 
+                if (!entrySource.m_slots.empty())
+                {
+                    rapidjson::Value slotsArray(rapidjson::kArrayType);
+
+                    for (const auto& slotSource : entrySource.m_slots)
+                    {
+                        rapidjson::Value theSlot(rapidjson::kObjectType);
+
+                        value.SetString(slotSource.m_key.c_str(), document.GetAllocator());
+                        theSlot.AddMember("key", value, document.GetAllocator());
+
+                        rapidjson::Value sloDetails(rapidjson::kObjectType);
+                        if (!slotSource.m_details.m_name.empty())
+                        {
+                            WriteString(sloDetails, "name", slotSource.m_details.m_name, document);
+                            WriteString(sloDetails, "tooltip", slotSource.m_details.m_tooltip, document);
+                            theSlot.AddMember("details", sloDetails, document.GetAllocator());
+                        }
+
+                        if (!slotSource.m_data.m_details.m_name.empty())
+                        {
+                            rapidjson::Value slotData(rapidjson::kObjectType);
+                            WriteString(slotData, "typeId", slotSource.m_data.m_typeId, document);
+
+                            rapidjson::Value slotDataDetails(rapidjson::kObjectType);
+                            WriteString(slotDataDetails, "name", slotSource.m_data.m_details.m_name, document);
+                            slotData.AddMember("details", slotDataDetails, document.GetAllocator());
+
+                            theSlot.AddMember("data", slotData, document.GetAllocator());
+                        }
+
+                        slotsArray.PushBack(theSlot, document.GetAllocator());
+                    }
+
+                    entry.AddMember("slots", slotsArray, document.GetAllocator());
+                }
+
                 entries.PushBack(entry, document.GetAllocator());
             }
 
@@ -541,22 +638,16 @@ namespace ScriptCanvasDeveloperEditor
 
             for (auto& node : nodes)
             {
-                const AZ::SerializeContext::ClassData* classData = serializeContext->FindClassData(node);
-                if (classData)
+                if (const AZ::SerializeContext::ClassData* classData = serializeContext->FindClassData(node))
                 {
-                    AZStd::string keyName = classData->m_editData ? classData->m_editData->m_name : classData->m_name;
-                    AZStd::string description = classData->m_editData ? classData->m_editData->m_description : "";
-
                     Entry entry;
-
-                    AZStd::string cleanName = GraphCanvas::TranslationKey::Sanitize(classData->m_name);
+                    entry.m_key = classData->m_typeId.ToString<AZStd::string>();
+                    entry.m_context = "ScriptCanvas::Node";
 
                     EntryDetails& details = entry.m_details;
-                    entry.m_key = classData->m_typeId.ToString<AZStd::string>();
-                    details.m_name = keyName;
-                    details.m_tooltip = description;
-                    entry.m_context = "Node";
 
+                    AZStd::string cleanName = GraphCanvas::TranslationKey::Sanitize(classData->m_name);
+                    details.m_name = cleanName;
 
                     // Tooltip attribute takes priority over the edit data description
                     AZStd::string tooltip = GraphCanvasAttributeHelper::GetStringAttribute(classData, AZ::Script::Attributes::ToolTip);
@@ -564,100 +655,119 @@ namespace ScriptCanvasDeveloperEditor
                     {
                         details.m_tooltip = tooltip;
                     }
+                    else
+                    {
+                        details.m_tooltip = classData->m_editData ? classData->m_editData->m_description : "";
+                    }
 
+                    // Find the category
                     details.m_category = GraphCanvasAttributeHelper::GetStringAttribute(classData, AZ::Script::Attributes::Category);
                     if (details.m_category.empty() && classData->m_editData)
                     {
                         auto elementData = classData->m_editData->FindElementData(AZ::Edit::ClassElements::EditorData);
-                        const AZStd::string categoryContext = GraphCanvasAttributeHelper::ReadStringAttribute(elementData->m_attributes, AZ::Script::Attributes::Category);
-                        details.m_category = categoryContext;
-                        if (!categoryContext.empty())
+                        const AZStd::string categoryAttribute = GraphCanvasAttributeHelper::ReadStringAttribute(elementData->m_attributes, AZ::Script::Attributes::Category);
+                        if (!categoryAttribute.empty())
                         {
-                            entry.m_context = categoryContext;
+                            details.m_category = categoryAttribute;
                         }
                     }
 
-                    // Disambiguate if we end up with a duplicate key
-                    translationKey << entry.m_context << entry.m_key << entry.m_variant;
-                    auto verification = verificationSet.insert(translationKey);
-                    if (!verification.second)
+                    if (ScriptCanvas::Node* nodeComponent = reinterpret_cast<ScriptCanvas::Node*>(classData->m_factory->Create(classData->m_name)))
                     {
-                        //entry.m_context = cleanName;
-                    }
+                        nodeComponent->Configure();
 
-                    AZ::Entity* entity = aznew AZ::Entity(classData->m_name);
-                    ScriptCanvas::Node* nodeComponent = reinterpret_cast<ScriptCanvas::Node*>(classData->m_factory->Create(classData->m_name));
-                    entity->AddComponent(nodeComponent);
-                    entity->Init();
-                    
+                        int inputIndex = 0;
+                        int outputIndex = 0;
 
-                    if (nodeComponent)
-                    {
-                        Method methodEntry;
-                        methodEntry.m_key = nodeComponent->GetNodeName();
-                        if (methodEntry.m_key.compare(entry.m_key) == 0)
+                        const auto& allSlots = nodeComponent->GetAllSlots();
+                        for (const auto& slot : allSlots)
                         {
-                            methodEntry.m_key.append("_node");
+                            Slot slotEntry;
+
+                            if (slot->GetDescriptor().IsExecution())
+                            {
+                                if (slot->GetDescriptor().IsInput())
+                                {
+                                    slotEntry.m_key = AZStd::string::format("Input_%d", inputIndex);
+                                    inputIndex++;
+
+                                    slotEntry.m_details.m_name = slot->GetName();
+                                    slotEntry.m_details.m_tooltip = slot->GetToolTip();
+                                }
+                                else if (slot->GetDescriptor().IsOutput())
+                                {
+                                    slotEntry.m_key = AZStd::string::format("Output_%d", outputIndex);
+                                    outputIndex++;
+
+                                    slotEntry.m_details.m_name = slot->GetName();
+                                    slotEntry.m_details.m_tooltip = slot->GetToolTip();
+                                }
+
+                                entry.m_slots.push_back(slotEntry);
+                            }
+                            else
+                            {
+                                AZStd::string slotTypeKey = slot->GetDataType().IsValid() ? ScriptCanvas::Data::GetName(slot->GetDataType()) : "";
+                                if (slotTypeKey.empty())
+                                {
+                                    if (!slot->GetDataType().GetAZType().IsNull())
+                                    {
+                                        slotTypeKey = slot->GetDataType().GetAZType().ToString<AZStd::string>();
+                                    }
+                                }
+
+                                if (slotTypeKey.empty())
+                                {
+                                    if (slot->GetDynamicDataType() == ScriptCanvas::DynamicDataType::Container)
+                                    {
+                                        slotTypeKey = "Container";
+                                    }
+                                    else if (slot->GetDynamicDataType() == ScriptCanvas::DynamicDataType::Value)
+                                    {
+                                        slotTypeKey = "Value";
+                                    }
+                                    else if (slot->GetDynamicDataType() == ScriptCanvas::DynamicDataType::Any)
+                                    {
+                                        slotTypeKey = "Any";
+                                    }
+                                }
+
+                                Argument& argument = slotEntry.m_data;
+
+                                if (slot->GetDescriptor().IsInput())
+                                {
+                                    slotEntry.m_key = AZStd::string::format("DataInput_%d", inputIndex);
+
+                                    AZStd::string argumentKey = slotTypeKey;
+                                    AZStd::string argumentName = slot->GetName();
+                                    AZStd::string argumentDescription = slot->GetToolTip();
+
+                                    argument.m_typeId = argumentKey;
+                                    argument.m_details.m_name = argumentName;
+                                    argument.m_details.m_tooltip = argumentDescription;
+
+                                }
+                                else if (slot->GetDescriptor().IsOutput())
+                                {
+                                    slotEntry.m_key = AZStd::string::format("DataOutput_%d", inputIndex);
+
+                                    AZStd::string resultKey = slotTypeKey;
+                                    AZStd::string resultName = slot->GetName();
+                                    AZStd::string resultDescription = slot->GetToolTip();
+
+                                    argument.m_typeId = resultKey;
+                                    argument.m_details.m_name = resultName;
+                                    argument.m_details.m_tooltip = resultDescription;
+                                }
+
+                                entry.m_slots.push_back(slotEntry);
+                            }
                         }
 
-                        methodEntry.m_details.m_name = nodeComponent->GetNodeName();
-                        methodEntry.m_details.m_tooltip = (classData && classData->m_editData) ? classData->m_editData->m_description : nodeComponent->RTTI_GetTypeName();
-
-                        auto allSlots = nodeComponent->GetAllSlots();
-                        for (auto slot : allSlots)
-                        {
-                            if (slot->GetDescriptor().IsExecution() && slot->GetDescriptor().IsInput())
-                            {
-                                methodEntry.m_entry.m_name = slot->GetName();
-                                methodEntry.m_entry.m_tooltip = slot->GetToolTip();
-                            }
-                            else if (slot->GetDescriptor().IsExecution() && slot->GetDescriptor().IsOutput())
-                            {
-                                methodEntry.m_exit.m_name = slot->GetName();
-                                methodEntry.m_exit.m_tooltip = slot->GetToolTip();
-                            }
-                            else if (slot->GetDescriptor().IsData() && slot->GetDescriptor().IsInput())
-                            {
-                                Argument argument;
-
-                                AZStd::string argumentKey = slot->GetName();
-                                AZStd::string argumentName = slot->GetName();
-                                AZStd::string argumentDescription = slot->GetToolTip();
-
-                                argument.m_typeId = argumentKey;
-                                argument.m_details.m_name = argumentName;
-                                argument.m_details.m_category = "";
-                                argument.m_details.m_tooltip = argumentDescription;
-
-                                methodEntry.m_arguments.push_back(argument);
-                            }
-                            else if (slot->GetDescriptor().IsData() && slot->GetDescriptor().IsOutput())
-                            {
-                                Argument result;
-
-                                AZStd::string resultKey = slot->GetName();
-                                AZStd::string resultName = slot->GetName();
-                                AZStd::string resultDescription = slot->GetToolTip();
-
-                                result.m_typeId = resultKey;
-                                result.m_details.m_name = resultName;
-                                result.m_details.m_category = "";
-                                result.m_details.m_tooltip = resultDescription;
-
-                                methodEntry.m_results.push_back(result);
-                            }
-                        }
-
-                        entry.m_methods.push_back(methodEntry);
+                        delete nodeComponent;
                     }
 
-                    if (entry.m_key.compare("NativeDatumNode") == 0 && entry.m_context.empty())
-                    {
-                        AZ_TracePrintf("Translation", "how?");
-                    }
                     translationRoot.m_entries.push_back(entry);
-
-                    translationKey.clear();
                 }
             }
         }
@@ -698,12 +808,11 @@ namespace ScriptCanvasDeveloperEditor
                         AZ::AttributeReader(nullptr, prettyNameAttribute).Read<AZStd::string>(prettyName, *behaviorContext);
                     }
 
-                    entry.m_context = "";
-                    entry.m_key = behaviorClass->m_name;
+                    entry.m_context = "OnDemandReflected";
+                    entry.m_key = behaviorClass->m_typeId.ToString<AZStd::string>().c_str();
 
                     if (!prettyName.empty())
                     {
-                        entry.m_key = prettyName;
                         details.m_name = prettyName;
                     }
 
@@ -722,7 +831,6 @@ namespace ScriptCanvasDeveloperEditor
                             methodEntry.m_key = cleanName;
                             methodEntry.m_context = entry.m_key;
 
-                            methodEntry.m_details.m_category = GraphCanvasAttributeHelper::GetStringAttribute(behaviorClass, AZ::Script::Attributes::Category);
                             methodEntry.m_details.m_tooltip = GraphCanvasAttributeHelper::GetStringAttribute(behaviorMethod, AZ::Script::Attributes::ToolTip);
                             methodEntry.m_details.m_name = methodPair.second->m_name;
 
@@ -827,11 +935,30 @@ namespace ScriptCanvasDeveloperEditor
                         entry.m_details.m_name = prettyName;
                     }
 
+                    AZStd::string translationContext = ScriptCanvasEditor::TranslationHelper::GetContextName(ScriptCanvasEditor::TranslationContextGroup::EbusSender, ebus->m_name);
+
+                    AZStd::string translationSenderKey = ScriptCanvasEditor::TranslationHelper::GetClassKey(ScriptCanvasEditor::TranslationContextGroup::EbusSender, ebus->m_name, ScriptCanvasEditor::TranslationKeyId::Name);
+                    AZStd::string translatedSenderName = QCoreApplication::translate(translationContext.c_str(), translationSenderKey.c_str()).toUtf8().data();
+
+                    if (!translatedSenderName.empty())
+                    {
+                        entry.m_details.m_name = translatedSenderName;
+                    }
+
+                    AZStd::string translationSenderCategoryKey = ScriptCanvasEditor::TranslationHelper::GetClassKey(ScriptCanvasEditor::TranslationContextGroup::EbusSender, ebus->m_name, ScriptCanvasEditor::TranslationKeyId::Category);
+                    AZStd::string translatedSenderCategory = QCoreApplication::translate(translationContext.c_str(), translationSenderCategoryKey.c_str()).toUtf8().data();
+                    if (!translatedSenderCategory.empty())
+                    {
+                        entry.m_details.m_category = translatedSenderCategory;
+                    }
+
+
+                    AZStd::string tempBusName = ebus->m_name;
+                    AZStd::to_upper(tempBusName.begin(), tempBusName.end());
                     for (auto event : ebus->m_events)
                     {
                         const AZ::BehaviorEBusEventSender& ebusSender = event.second;
 
-                        // TODO: Figure out if I need to make a distinction here
                         AZ::BehaviorMethod* method = ebusSender.m_event;
                         if (!method)
                         {
@@ -840,6 +967,7 @@ namespace ScriptCanvasDeveloperEditor
 
                         if (!method)
                         {
+                            AZ_Warning("Script Canvas", false, "Failed to find method: %s", event.first.c_str());
                             continue;
                         }
 
@@ -849,8 +977,17 @@ namespace ScriptCanvasDeveloperEditor
                         AZStd::string cleanName = GraphCanvas::TranslationKey::Sanitize(eventName);
                         eventEntry.m_key = cleanName;
 
-                        eventEntry.m_details.m_name = cleanName;
-                        eventEntry.m_details.m_tooltip = GraphCanvasAttributeHelper::GetStringAttribute(&ebusSender, AZ::Script::Attributes::ToolTip);
+                        AZStd::string oldEventName = eventName;
+                        AZStd::to_upper(oldEventName.begin(), oldEventName.end());
+
+                        AZStd::string oldKey = AZStd::string::format("%s_%s_NAME", tempBusName.c_str(), oldEventName.c_str());
+                        GraphCanvas::TranslationKeyedString translatedEventName(cleanName, translationContext, oldKey);
+
+                        AZStd::string oldTooltipKey = AZStd::string::format("%s_%s_TOOLTIP", tempBusName.c_str(), oldEventName.c_str());
+                        GraphCanvas::TranslationKeyedString translatedEventTooltip(GraphCanvasAttributeHelper::GetStringAttribute(&ebusSender, AZ::Script::Attributes::ToolTip), translationContext, oldTooltipKey);
+
+                        eventEntry.m_details.m_name = translatedEventName.GetDisplayString();
+                        eventEntry.m_details.m_tooltip = translatedEventTooltip.GetDisplayString();
 
                         eventEntry.m_entry.m_name = "In";
                         eventEntry.m_entry.m_tooltip = AZStd::string::format("When signaled, this will invoke %s", eventEntry.m_details.m_name.c_str());
@@ -863,11 +1000,21 @@ namespace ScriptCanvasDeveloperEditor
                             Argument argument;
                             auto argumentType = method->GetArgument(i)->m_typeId;
 
-                            argument.m_typeId = argumentType.ToString<AZStd::string>();
-                            argument.m_details.m_tooltip = *method->GetArgumentToolTip(i);
-                            argument.m_details.m_name = method->GetArgument(i)->m_name;
+                            // Generate the OLD style translation key
+                            AZStd::string oldMethodName = cleanName;
+                            AZStd::to_upper(oldMethodName.begin(), oldMethodName.end());
+                            AZStd::string oldEbusKey = AZStd::string::format("%s_%s_PARAM%zu_NAME", tempBusName.c_str(), oldEventName.c_str(), i - start);
+                            AZStd::string oldEBusTooltipKey = AZStd::string::format("%s_%s_PARAM%zu_TOOLTIP", tempBusName.c_str(), oldEventName.c_str(), i - start);
 
                             GetTypeNameAndDescription(argumentType, argument.m_details.m_name, argument.m_details.m_tooltip);
+
+                            GraphCanvas::TranslationKeyedString oldArgName(argument.m_details.m_name, translationContext, oldEbusKey);
+                            GraphCanvas::TranslationKeyedString oldArgTooltip(argument.m_details.m_tooltip, translationContext, oldEBusTooltipKey);
+
+                            argument.m_typeId = argumentType.ToString<AZStd::string>();
+                            argument.m_details.m_tooltip = oldArgTooltip.GetDisplayString();
+                            argument.m_details.m_name = oldArgName.GetDisplayString();
+
 
                             eventEntry.m_arguments.push_back(argument);
                         }
@@ -876,11 +1023,20 @@ namespace ScriptCanvasDeveloperEditor
                         {
                             Argument result;
 
-                            auto resultType = method->GetResult()->m_typeId;
-                            result.m_typeId = resultType.ToString<AZStd::string>();
-                            result.m_details.m_name = *method->GetResult()->m_name;
+                            AZStd::string oldMethodName = cleanName;
+                            AZStd::to_upper(oldMethodName.begin(), oldMethodName.end());
+                            AZStd::string oldMethodKey = AZStd::string::format("%s_%s_RESULT%d_NAME", tempBusName.c_str(), oldEventName.c_str(), 0);
+                            AZStd::string oldMethodTooltipKey = AZStd::string::format("%s_%s_PARAM%d_TOOLTIP", tempBusName.c_str(), oldEventName.c_str(), 0);
 
+                            auto resultType = method->GetResult()->m_typeId;
                             GetTypeNameAndDescription(resultType, result.m_details.m_name, result.m_details.m_tooltip);
+
+                            GraphCanvas::TranslationKeyedString oldReturnName(result.m_details.m_name, translationContext, oldMethodKey);
+                            GraphCanvas::TranslationKeyedString oldReturnTooltip(result.m_details.m_tooltip, translationContext, oldMethodTooltipKey);
+
+                            result.m_typeId = resultType.ToString<AZStd::string>();
+                            result.m_details.m_name = oldReturnName.GetDisplayString();
+                            result.m_details.m_tooltip = oldReturnTooltip.GetDisplayString();
 
                             eventEntry.m_results.push_back(result);
                         }
@@ -898,6 +1054,31 @@ namespace ScriptCanvasDeveloperEditor
                     SaveJSONData(AZStd::string::format("EBus/Handlers/%s", ebus->m_name.c_str()), translationRoot);
                 }
             }
+        }
+
+        AZStd::string GetContextName(const AZ::SerializeContext::ClassData& classData)
+        {
+            if (auto editorDataElement = classData.m_editData ? classData.m_editData->FindElementData(AZ::Edit::ClassElements::EditorData) : nullptr)
+            {
+                if (auto attribute = editorDataElement->FindAttribute(AZ::Edit::Attributes::Category))
+                {
+                    if (auto data = azrtti_cast<AZ::Edit::AttributeData<const char*>*>(attribute))
+                    {
+                        AZStd::string fullCategoryName = data->Get(nullptr);
+                        AZStd::string delimiter = "/";
+                        AZStd::vector<AZStd::string> results;
+                        AZStd::tokenize(fullCategoryName, delimiter, results);
+                        return results.back();
+                    }
+                }
+            }
+
+            return {};
+        }
+
+        bool MethodHasAttribute(const AZ::BehaviorMethod* method, AZ::Crc32 attribute)
+        {
+            return AZ::FindAttribute(attribute, method->m_attributes) != nullptr; // warning C4800: 'AZ::Attribute *': forcing value to bool 'true' or 'false' (performance warning)
         }
 
         void TranslateBehaviorClasses(AZ::SerializeContext* /*serializeContext*/, AZ::BehaviorContext* behaviorContext)
@@ -922,13 +1103,29 @@ namespace ScriptCanvasDeveloperEditor
                     TranslationFormat translationRoot;
 
                     Entry entry;
+                    entry.m_context = "BehaviorClass";
+                    entry.m_key = behaviorClass->m_name;
 
                     EntryDetails& details = entry.m_details;
                     details.m_name = className;
                     details.m_category = GraphCanvasAttributeHelper::GetStringAttribute(behaviorClass, AZ::Script::Attributes::Category);
                     details.m_tooltip = GraphCanvasAttributeHelper::GetStringAttribute(behaviorClass, AZ::Script::Attributes::ToolTip);
-                    entry.m_context = "";
-                    entry.m_key = behaviorClass->m_name;
+
+                    // Old system data pull
+                    AZStd::string translationContext = ScriptCanvasEditor::TranslationHelper::GetContextName(ScriptCanvasEditor::TranslationContextGroup::ClassMethod, behaviorClass->m_name);
+                    AZStd::string translationKey = ScriptCanvasEditor::TranslationHelper::GetClassKey(ScriptCanvasEditor::TranslationContextGroup::ClassMethod, behaviorClass->m_name, ScriptCanvasEditor::TranslationKeyId::Category);
+                    AZStd::string translatedCategory = QCoreApplication::translate(translationContext.c_str(), translationKey.c_str()).toUtf8().data();
+
+                    if (translatedCategory != translationKey)
+                    {
+                        details.m_category = translatedCategory;
+                    }
+
+                    auto translatedName = ScriptCanvasEditor::TranslationHelper::GetClassKeyTranslation(ScriptCanvasEditor::TranslationContextGroup::ClassMethod, classIter.first, ScriptCanvasEditor::TranslationKeyId::Name);
+                    if (!translatedName.empty())
+                    {
+                        details.m_name = translatedName;
+                    }
 
                     if (!behaviorClass->m_methods.empty())
                     {
@@ -948,15 +1145,48 @@ namespace ScriptCanvasDeveloperEditor
                             methodEntry.m_details.m_name = methodPair.second->m_name;
 
                             methodEntry.m_entry.m_name = "In";
-                            methodEntry.m_entry.m_tooltip = AZStd::string::format("When signaled, this will invoke %s", methodEntry.m_details.m_name.c_str());
+                            methodEntry.m_entry.m_tooltip = AZStd::string::format("When signaled, this will invoke %s", cleanName.c_str());
                             methodEntry.m_exit.m_name = "Out";
-                            methodEntry.m_exit.m_tooltip = AZStd::string::format("Signaled after %s is invoked", methodEntry.m_details.m_name.c_str());
+                            methodEntry.m_exit.m_tooltip = AZStd::string::format("Signaled after %s is invoked", cleanName.c_str());
+
+                            GraphCanvas::TranslationKeyedString methodCategoryString;
+                            methodCategoryString.m_context = ScriptCanvasEditor::TranslationHelper::GetContextName(ScriptCanvasEditor::TranslationContextGroup::ClassMethod, className.c_str());
+                            methodCategoryString.m_key = ScriptCanvasEditor::TranslationHelper::GetKey(ScriptCanvasEditor::TranslationContextGroup::ClassMethod, className.c_str(), methodPair.first.c_str(), ScriptCanvasEditor::TranslationItemType::Node, ScriptCanvasEditor::TranslationKeyId::Category);
+
+                            if (!methodCategoryString.GetDisplayString().empty())
+                            {
+                                methodEntry.m_details.m_category = methodCategoryString.GetDisplayString();
+                            }
+                            else
+                            {
+                                if (!MethodHasAttribute(behaviorMethod, AZ::ScriptCanvasAttributes::FloatingFunction))
+                                {
+                                    methodEntry.m_details.m_category = details.m_category;
+                                }
+                                else if (MethodHasAttribute(behaviorMethod, AZ::Script::Attributes::Category))
+                                {
+                                    methodEntry.m_details.m_category = GraphCanvasAttributeHelper::ReadStringAttribute(behaviorMethod->m_attributes, AZ::Script::Attributes::Category);;
+                                }
+
+                                if (methodEntry.m_details.m_category.empty())
+                                {
+                                    methodEntry.m_details.m_category = "Other";
+                                }
+                            }
 
                             // Arguments (Input Slots)
                             if (behaviorMethod->GetNumArguments() > 0)
                             {
                                 for (size_t argIndex = 0; argIndex < behaviorMethod->GetNumArguments(); ++argIndex)
                                 {
+                                    // Generate the OLD style translation key
+                                    AZStd::string oldClassName = className;
+                                    AZStd::to_upper(oldClassName.begin(), oldClassName.end());
+                                    AZStd::string oldMethodName = cleanName;
+                                    AZStd::to_upper(oldMethodName.begin(), oldMethodName.end());
+                                    AZStd::string oldKey = AZStd::string::format("%s_%s_PARAM%zu_NAME", oldClassName.c_str(), oldMethodName.c_str(), argIndex);
+                                    AZStd::string oldTooltipKey = AZStd::string::format("%s_%s_PARAM%zu_TOOLTIP", oldClassName.c_str(), oldMethodName.c_str(), argIndex);
+
                                     const AZ::BehaviorParameter* parameter = behaviorMethod->GetArgument(argIndex);
 
                                     Argument argument;
@@ -967,10 +1197,15 @@ namespace ScriptCanvasDeveloperEditor
 
                                     GetTypeNameAndDescription(parameter->m_typeId, argumentName, argumentDescription);
 
+                                    const AZStd::string parameterName = parameter->m_name;
+                                    GraphCanvas::TranslationKeyedString oldArgName(parameterName, translationContext, oldKey);
+
+                                    GraphCanvas::TranslationKeyedString oldArgTooltip(argumentDescription, translationContext, oldTooltipKey);
+
                                     argument.m_typeId = argumentKey;
-                                    argument.m_details.m_name = argumentName;
+                                    argument.m_details.m_name = oldArgName.GetDisplayString();
                                     argument.m_details.m_category = "";
-                                    argument.m_details.m_tooltip = argumentDescription;
+                                    argument.m_details.m_tooltip = oldArgTooltip.GetDisplayString();
 
                                     methodEntry.m_arguments.push_back(argument);
                                 }
@@ -979,18 +1214,29 @@ namespace ScriptCanvasDeveloperEditor
                             const AZ::BehaviorParameter* resultParameter = behaviorMethod->HasResult() ? behaviorMethod->GetResult() : nullptr;
                             if (resultParameter)
                             {
+                                // Generate the OLD style translation key
+                                AZStd::string oldClassName = className;
+                                AZStd::to_upper(oldClassName.begin(), oldClassName.end());
+                                AZStd::string oldMethodName = cleanName;
+                                AZStd::to_upper(oldMethodName.begin(), oldMethodName.end());
+                                AZStd::string oldKey = AZStd::string::format("%s_%s_OUTPUT%d_NAME", oldClassName.c_str(), oldMethodName.c_str(), 0);
+                                AZStd::string oldTooltipKey = AZStd::string::format("%s_%s_OUTPUT%d_TOOLTIP", oldClassName.c_str(), oldMethodName.c_str(), 0);
+
                                 Argument result;
 
                                 AZStd::string resultKey = resultParameter->m_typeId.ToString<AZStd::string>();
-
                                 AZStd::string resultName = resultParameter->m_name;
                                 AZStd::string resultDescription = "";
 
                                 GetTypeNameAndDescription(resultParameter->m_typeId, resultName, resultDescription);
 
+                                const AZStd::string parameterName = resultParameter->m_name;
+                                GraphCanvas::TranslationKeyedString oldArgName(parameterName, translationContext, oldKey);
+                                GraphCanvas::TranslationKeyedString oldArgTooltip(resultDescription, translationContext, oldTooltipKey);
+
                                 result.m_typeId = resultKey;
-                                result.m_details.m_name = resultName;
-                                result.m_details.m_tooltip = resultDescription;
+                                result.m_details.m_name = oldArgName.GetDisplayString();
+                                result.m_details.m_tooltip = oldArgTooltip.GetDisplayString();
 
                                 methodEntry.m_results.push_back(result);
                             }
@@ -1047,5 +1293,5 @@ namespace ScriptCanvasDeveloperEditor
             AZ::IO::FileIOBase::GetInstance()->ResolvePath("@devroot@/TranslationAssets", buffer, sizeof(buffer));
             AZ_TracePrintf("Script Canvas", AZStd::string::format("Translation Database Generation Complete, see: %s", buffer).c_str());
         }
-    }
-}
+    } // TranslationGenerator
+} // ScriptCanvasDeveloperEditor

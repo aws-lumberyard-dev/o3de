@@ -2,10 +2,11 @@
     "entries": [
         {
             "key": "UiPadding",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
-                "name": "UiPadding"
+                "name": "UI Padding",
+                "category": "UI"
             },
             "methods": [
                 {
@@ -13,44 +14,50 @@
                     "context": "UiPadding",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke UiPadding::SetPadding"
+                        "tooltip": "When signaled, this will invoke SetPadding"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after UiPadding::SetPadding is invoked"
+                        "tooltip": "Signaled after SetPadding is invoked"
                     },
                     "details": {
-                        "name": "UiPadding::SetPadding"
+                        "name": "UiPadding::SetPadding",
+                        "category": "UI"
                     },
                     "params": [
                         {
                             "typeid": "{DE5C18B0-4214-4A37-B590-8D45CC450A96}",
                             "details": {
-                                "name": "Padding"
+                                "name": "Padding",
+                                "tooltip": "The padding to set"
                             }
                         },
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Left",
+                                "tooltip": "The padding inside the left edge of the element"
                             }
                         },
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Top",
+                                "tooltip": "The padding inside the top edge of the element"
                             }
                         },
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Right",
+                                "tooltip": "The padding inside the right edge of the element"
                             }
                         },
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Bottom",
+                                "tooltip": "The padding inside the bottom edge of the element"
                             }
                         }
                     ]
@@ -60,26 +67,29 @@
                     "context": "UiPadding",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke UiPadding::SetBottom"
+                        "tooltip": "When signaled, this will invoke SetBottom"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after UiPadding::SetBottom is invoked"
+                        "tooltip": "Signaled after SetBottom is invoked"
                     },
                     "details": {
-                        "name": "UiPadding::SetBottom"
+                        "name": "UiPadding::SetBottom",
+                        "category": "UI"
                     },
                     "params": [
                         {
                             "typeid": "{DE5C18B0-4214-4A37-B590-8D45CC450A96}",
                             "details": {
-                                "name": "Padding"
+                                "name": "Padding",
+                                "tooltip": "The padding for which to set the bottom padding"
                             }
                         },
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Bottom",
+                                "tooltip": "The padding inside the bottom edge of the element"
                             }
                         }
                     ]
@@ -89,26 +99,29 @@
                     "context": "UiPadding",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke UiPadding::SetRight"
+                        "tooltip": "When signaled, this will invoke SetRight"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after UiPadding::SetRight is invoked"
+                        "tooltip": "Signaled after SetRight is invoked"
                     },
                     "details": {
-                        "name": "UiPadding::SetRight"
+                        "name": "UiPadding::SetRight",
+                        "category": "UI"
                     },
                     "params": [
                         {
                             "typeid": "{DE5C18B0-4214-4A37-B590-8D45CC450A96}",
                             "details": {
-                                "name": "Padding"
+                                "name": "Padding",
+                                "tooltip": "The padding for which to set the right padding"
                             }
                         },
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Right",
+                                "tooltip": "The padding inside the right edge of the element"
                             }
                         }
                     ]
@@ -118,26 +131,29 @@
                     "context": "UiPadding",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke UiPadding::SetTop"
+                        "tooltip": "When signaled, this will invoke SetTop"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after UiPadding::SetTop is invoked"
+                        "tooltip": "Signaled after SetTop is invoked"
                     },
                     "details": {
-                        "name": "UiPadding::SetTop"
+                        "name": "UiPadding::SetTop",
+                        "category": "UI"
                     },
                     "params": [
                         {
                             "typeid": "{DE5C18B0-4214-4A37-B590-8D45CC450A96}",
                             "details": {
-                                "name": "Padding"
+                                "name": "Padding",
+                                "tooltip": "The padding for which to set the top padding"
                             }
                         },
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Top",
+                                "tooltip": "The padding inside the top edge of the element"
                             }
                         }
                     ]
@@ -147,26 +163,29 @@
                     "context": "UiPadding",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke UiPadding::SetLeft"
+                        "tooltip": "When signaled, this will invoke SetLeft"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after UiPadding::SetLeft is invoked"
+                        "tooltip": "Signaled after SetLeft is invoked"
                     },
                     "details": {
-                        "name": "UiPadding::SetLeft"
+                        "name": "UiPadding::SetLeft",
+                        "category": "UI"
                     },
                     "params": [
                         {
                             "typeid": "{DE5C18B0-4214-4A37-B590-8D45CC450A96}",
                             "details": {
-                                "name": "Padding"
+                                "name": "Padding",
+                                "tooltip": "The padding for which to set the left padding"
                             }
                         },
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Left",
+                                "tooltip": "The padding inside the left edge of the element"
                             }
                         }
                     ]

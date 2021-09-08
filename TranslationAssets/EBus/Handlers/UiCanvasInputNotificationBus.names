@@ -5,7 +5,8 @@
             "context": "EBusHandler",
             "variant": "",
             "details": {
-                "name": "UiCanvasInputNotificationBus"
+                "name": "UI Canvas Input",
+                "category": "UI"
             },
             "methods": [
                 {
@@ -17,8 +18,8 @@
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Pressed EntityID",
+                                "tooltip": "The element that was pressed or an invalid entityID if no element was pressed"
                             }
                         }
                     ]
@@ -32,8 +33,8 @@
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Released EntityID",
+                                "tooltip": "The element that was released or an invalid EntityID if no element was released"
                             }
                         }
                     ]
@@ -47,14 +48,15 @@
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Pressed EntityID",
+                                "tooltip": "The element that was pressed or an invalid entityID if no element was pressed"
                             }
                         },
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Multi-touch Index",
+                                "tooltip": "The multi-touch index"
                             }
                         }
                     ]
@@ -68,14 +70,15 @@
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Released EntityID",
+                                "tooltip": "The element that was released or an invalid EntityID if no element was released"
                             }
                         },
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Multi-touch Index",
+                                "tooltip": "The multi-touch index"
                             }
                         }
                     ]
@@ -89,8 +92,8 @@
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "EntityID",
+                                "tooltip": "The element that has started being hovered"
                             }
                         }
                     ]
@@ -104,8 +107,8 @@
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "EntityID",
+                                "tooltip": "The element that ended being hovered"
                             }
                         }
                     ]
@@ -119,8 +122,8 @@
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Pressed EntityID",
+                                "tooltip": "The element that was pressed or an invalid entityID if no element was pressed"
                             }
                         }
                     ]
@@ -134,8 +137,8 @@
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Released EntityID",
+                                "tooltip": "The element that was released or an invalid entityID if no element was released"
                             }
                         }
                     ]

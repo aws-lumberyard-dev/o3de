@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "ActorComponentRequestBus"
+                "name": "Actor",
+                "category": "Animation"
             },
             "methods": [
                 {
@@ -34,28 +35,28 @@
                     "key": "DetachFromEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke DetachFromEntity"
+                        "tooltip": "When signaled, this will invoke Detach From Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after DetachFromEntity is invoked"
+                        "tooltip": "Signaled after Detach From Entity is invoked"
                     },
                     "details": {
-                        "name": "DetachFromEntity"
+                        "name": "Detach From Entity"
                     }
                 },
                 {
                     "key": "AttachToEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AttachToEntity"
+                        "tooltip": "When signaled, this will invoke Attach To Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AttachToEntity is invoked"
+                        "tooltip": "Signaled after Attach To Entity is invoked"
                     },
                     "details": {
-                        "name": "AttachToEntity"
+                        "name": "Attach To Entity"
                     },
                     "params": [
                         {
@@ -135,14 +136,14 @@
                     "key": "DebugDrawRoot",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke DebugDrawRoot"
+                        "tooltip": "When signaled, this will invoke Debug Draw Root"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after DebugDrawRoot is invoked"
+                        "tooltip": "Signaled after Debug Draw Root is invoked"
                     },
                     "details": {
-                        "name": "DebugDrawRoot"
+                        "name": "Debug Draw Root"
                     },
                     "params": [
                         {

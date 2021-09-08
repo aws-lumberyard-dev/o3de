@@ -2,10 +2,11 @@
     "entries": [
         {
             "key": "GameplayNotificationId",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
-                "name": "GameplayNotificationId"
+                "name": "Gameplay Notification ID",
+                "category": "Gameplay"
             },
             "methods": [
                 {
@@ -13,20 +14,21 @@
                     "context": "GameplayNotificationId",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GameplayNotificationId::ToString"
+                        "tooltip": "When signaled, this will invoke ToString"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GameplayNotificationId::ToString is invoked"
+                        "tooltip": "Signaled after ToString is invoked"
                     },
                     "details": {
-                        "name": "GameplayNotificationId::ToString"
+                        "name": "GameplayNotificationId::ToString",
+                        "category": "Gameplay"
                     },
                     "params": [
                         {
                             "typeid": "{C5225D36-7068-412D-A46E-DDF79CA1D7FF}",
                             "details": {
-                                "name": "GameplayNotificationId"
+                                "name": "GameplayNotificationId*"
                             }
                         }
                     ],
@@ -34,7 +36,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "String"
                             }
                         }
                     ]
@@ -44,26 +46,27 @@
                     "context": "GameplayNotificationId",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GameplayNotificationId::Equal"
+                        "tooltip": "When signaled, this will invoke Equal"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GameplayNotificationId::Equal is invoked"
+                        "tooltip": "Signaled after Equal is invoked"
                     },
                     "details": {
-                        "name": "GameplayNotificationId::Equal"
+                        "name": "GameplayNotificationId::Equal",
+                        "category": "Gameplay"
                     },
                     "params": [
                         {
                             "typeid": "{C5225D36-7068-412D-A46E-DDF79CA1D7FF}",
                             "details": {
-                                "name": "GameplayNotificationId"
+                                "name": "GameplayNotificationId*"
                             }
                         },
                         {
                             "typeid": "{C5225D36-7068-412D-A46E-DDF79CA1D7FF}",
                             "details": {
-                                "name": "GameplayNotificationId"
+                                "name": "const GameplayNotificationId&"
                             }
                         }
                     ],
@@ -71,7 +74,7 @@
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "Boolean"
                             }
                         }
                     ]
@@ -81,20 +84,21 @@
                     "context": "GameplayNotificationId",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GameplayNotificationId::Clone"
+                        "tooltip": "When signaled, this will invoke Clone"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GameplayNotificationId::Clone is invoked"
+                        "tooltip": "Signaled after Clone is invoked"
                     },
                     "details": {
-                        "name": "GameplayNotificationId::Clone"
+                        "name": "GameplayNotificationId::Clone",
+                        "category": "Gameplay"
                     },
                     "params": [
                         {
                             "typeid": "{C5225D36-7068-412D-A46E-DDF79CA1D7FF}",
                             "details": {
-                                "name": "GameplayNotificationId"
+                                "name": "GameplayNotificationId*"
                             }
                         }
                     ],
@@ -102,7 +106,7 @@
                         {
                             "typeid": "{C5225D36-7068-412D-A46E-DDF79CA1D7FF}",
                             "details": {
-                                "name": "GameplayNotificationId"
+                                "name": "GameplayNotificationID"
                             }
                         }
                     ]

@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "TriggerEvent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "TriggerEvent"
@@ -13,20 +13,21 @@
                     "context": "TriggerEvent",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke TriggerEvent::Get Trigger EntityId"
+                        "tooltip": "When signaled, this will invoke GetTriggerEntityId"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after TriggerEvent::Get Trigger EntityId is invoked"
+                        "tooltip": "Signaled after GetTriggerEntityId is invoked"
                     },
                     "details": {
-                        "name": "TriggerEvent::Get Trigger EntityId"
+                        "name": "TriggerEvent::Get Trigger EntityId",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{7A0851A3-2CBD-4A03-85D5-1C40221E7F61}",
                             "details": {
-                                "name": "TriggerEvent"
+                                "name": "TriggerEvent*"
                             }
                         }
                     ],
@@ -45,20 +46,21 @@
                     "context": "TriggerEvent",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke TriggerEvent::Get Other EntityId"
+                        "tooltip": "When signaled, this will invoke GetOtherEntityId"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after TriggerEvent::Get Other EntityId is invoked"
+                        "tooltip": "Signaled after GetOtherEntityId is invoked"
                     },
                     "details": {
-                        "name": "TriggerEvent::Get Other EntityId"
+                        "name": "TriggerEvent::Get Other EntityId",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{7A0851A3-2CBD-4A03-85D5-1C40221E7F61}",
                             "details": {
-                                "name": "TriggerEvent"
+                                "name": "TriggerEvent*"
                             }
                         }
                     ],

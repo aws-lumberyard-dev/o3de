@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Set<String>",
@@ -15,20 +15,21 @@
                     "context": "Set<String>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Size"
+                        "tooltip": "When signaled, this will invoke Size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Size is invoked"
+                        "tooltip": "Signaled after Size is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Size"
+                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Size",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{32EC831B-8AE7-5715-998B-C0C723CB61DA}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_trai"
                             }
                         }
                     ],
@@ -46,20 +47,21 @@
                     "context": "Set<String>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::GetKeys"
+                        "tooltip": "When signaled, this will invoke GetKeys"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::GetKeys is invoked"
+                        "tooltip": "Signaled after GetKeys is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::GetKeys"
+                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::GetKeys",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{32EC831B-8AE7-5715-998B-C0C723CB61DA}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_trai"
                             }
                         }
                     ],
@@ -67,7 +69,7 @@
                         {
                             "typeid": "{99DAD0BC-740E-5E82-826B-8FC7968CC02C}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, allocator>"
                             }
                         }
                     ]
@@ -77,26 +79,27 @@
                     "context": "Set<String>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::contains"
+                        "tooltip": "When signaled, this will invoke contains"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::contains is invoked"
+                        "tooltip": "Signaled after contains is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::contains"
+                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::contains",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{32EC831B-8AE7-5715-998B-C0C723CB61DA}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "const AZStd::unordered_set<AZStd::basic_string<char, AZStd::cha"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "AZStd::basic_string<char, AZStd::char_traits<char>, allocator>&"
                             }
                         }
                     ],
@@ -114,26 +117,27 @@
                     "context": "Set<String>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Insert"
+                        "tooltip": "When signaled, this will invoke Insert"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Insert is invoked"
+                        "tooltip": "Signaled after Insert is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Insert"
+                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Insert",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{32EC831B-8AE7-5715-998B-C0C723CB61DA}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_trai"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "AZStd::basic_string<char, AZStd::char_traits<char>, allocator>&"
                             }
                         }
                     ],
@@ -141,7 +145,7 @@
                         {
                             "typeid": "{32EC831B-8AE7-5715-998B-C0C723CB61DA}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_trai"
                             }
                         }
                     ]
@@ -151,20 +155,21 @@
                     "context": "Set<String>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::GetSize"
+                        "tooltip": "When signaled, this will invoke GetSize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::GetSize is invoked"
+                        "tooltip": "Signaled after GetSize is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::GetSize"
+                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::GetSize",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{32EC831B-8AE7-5715-998B-C0C723CB61DA}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_trai"
                             }
                         }
                     ],
@@ -182,20 +187,21 @@
                     "context": "Set<String>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Reserve"
+                        "tooltip": "When signaled, this will invoke Reserve"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Reserve is invoked"
+                        "tooltip": "Signaled after Reserve is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Reserve"
+                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Reserve",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{32EC831B-8AE7-5715-998B-C0C723CB61DA}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_trai"
                             }
                         },
                         {
@@ -211,20 +217,21 @@
                     "context": "Set<String>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Iterate_VM"
+                        "tooltip": "When signaled, this will invoke Iterate_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Iterate_VM is invoked"
+                        "tooltip": "Signaled after Iterate_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Iterate_VM"
+                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Iterate_VM",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{32EC831B-8AE7-5715-998B-C0C723CB61DA}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_trai"
                             }
                         }
                     ],
@@ -242,26 +249,27 @@
                     "context": "Set<String>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::EraseCheck_VM"
+                        "tooltip": "When signaled, this will invoke EraseCheck_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::EraseCheck_VM is invoked"
+                        "tooltip": "Signaled after EraseCheck_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::EraseCheck_VM"
+                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::EraseCheck_VM",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{32EC831B-8AE7-5715-998B-C0C723CB61DA}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_trai"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "AZStd::basic_string<char, AZStd::char_traits<char>, allocator>&"
                             }
                         }
                     ],
@@ -279,26 +287,27 @@
                     "context": "Set<String>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Erase"
+                        "tooltip": "When signaled, this will invoke Erase"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Erase is invoked"
+                        "tooltip": "Signaled after Erase is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Erase"
+                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Erase",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{32EC831B-8AE7-5715-998B-C0C723CB61DA}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_trai"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "AZStd::basic_string<char, AZStd::char_traits<char>, allocator>&"
                             }
                         }
                     ],
@@ -306,7 +315,7 @@
                         {
                             "typeid": "{32EC831B-8AE7-5715-998B-C0C723CB61DA}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_trai"
                             }
                         }
                     ]
@@ -316,20 +325,21 @@
                     "context": "Set<String>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Clear"
+                        "tooltip": "When signaled, this will invoke Clear"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Clear is invoked"
+                        "tooltip": "Signaled after Clear is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Clear"
+                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Clear",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{32EC831B-8AE7-5715-998B-C0C723CB61DA}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_trai"
                             }
                         }
                     ],
@@ -337,7 +347,7 @@
                         {
                             "typeid": "{32EC831B-8AE7-5715-998B-C0C723CB61DA}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_trai"
                             }
                         }
                     ]
@@ -347,20 +357,21 @@
                     "context": "Set<String>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::BucketCount"
+                        "tooltip": "When signaled, this will invoke BucketCount"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::BucketCount is invoked"
+                        "tooltip": "Signaled after BucketCount is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::BucketCount"
+                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::BucketCount",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{32EC831B-8AE7-5715-998B-C0C723CB61DA}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_trai"
                             }
                         }
                     ],
@@ -378,20 +389,21 @@
                     "context": "Set<String>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Empty"
+                        "tooltip": "When signaled, this will invoke Empty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Empty is invoked"
+                        "tooltip": "Signaled after Empty is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Empty"
+                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Empty",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{32EC831B-8AE7-5715-998B-C0C723CB61DA}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_trai"
                             }
                         }
                     ],
@@ -409,26 +421,27 @@
                     "context": "Set<String>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Swap"
+                        "tooltip": "When signaled, this will invoke Swap"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Swap is invoked"
+                        "tooltip": "Signaled after Swap is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Swap"
+                        "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_traits<char>, allocator>, AZStd::hash<AZStd::basic_string<char, AZSt::Swap",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{32EC831B-8AE7-5715-998B-C0C723CB61DA}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_trai"
                             }
                         },
                         {
                             "typeid": "{32EC831B-8AE7-5715-998B-C0C723CB61DA}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AZStd::basic_string<char, AZStd::char_trai"
                             }
                         }
                     ]

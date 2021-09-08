@@ -2,10 +2,11 @@
     "entries": [
         {
             "key": "TransformConfig",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
-                "name": "TransformConfig"
+                "name": "Transform",
+                "category": "Entity"
             },
             "methods": [
                 {
@@ -13,14 +14,15 @@
                     "context": "TransformConfig",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke TransformConfig::SetTransform"
+                        "tooltip": "When signaled, this will invoke SetTransform"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after TransformConfig::SetTransform is invoked"
+                        "tooltip": "Signaled after SetTransform is invoked"
                     },
                     "details": {
-                        "name": "TransformConfig::SetTransform"
+                        "name": "TransformConfig::SetTransform",
+                        "category": "Entity"
                     },
                     "params": [
                         {
@@ -32,7 +34,7 @@
                         {
                             "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
                             "details": {
-                                "name": "Transform"
+                                "name": "const Transform&"
                             }
                         }
                     ]
@@ -42,14 +44,15 @@
                     "context": "TransformConfig",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke TransformConfig::SetLocalAndWorldTransform"
+                        "tooltip": "When signaled, this will invoke SetLocalAndWorldTransform"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after TransformConfig::SetLocalAndWorldTransform is invoked"
+                        "tooltip": "Signaled after SetLocalAndWorldTransform is invoked"
                     },
                     "details": {
-                        "name": "TransformConfig::SetLocalAndWorldTransform"
+                        "name": "TransformConfig::SetLocalAndWorldTransform",
+                        "category": "Entity"
                     },
                     "params": [
                         {
@@ -61,13 +64,13 @@
                         {
                             "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
                             "details": {
-                                "name": "Transform"
+                                "name": "const Transform&"
                             }
                         },
                         {
                             "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
                             "details": {
-                                "name": "Transform"
+                                "name": "const Transform&"
                             }
                         }
                     ]

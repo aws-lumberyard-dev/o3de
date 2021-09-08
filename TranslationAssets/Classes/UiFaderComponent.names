@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "UiFaderComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "UiFaderComponent"

@@ -5,7 +5,8 @@
             "context": "EBusHandler",
             "variant": "",
             "details": {
-                "name": "NavigationComponentNotificationBus"
+                "name": "Navigation",
+                "category": "AI"
             },
             "methods": [
                 {
@@ -17,8 +18,8 @@
                         {
                             "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
                             "details": {
-                                "name": "RequestId",
-                                "tooltip": "Navigation request Id"
+                                "name": "Request ID",
+                                "tooltip": "The ID of the path search request"
                             }
                         }
                     ]
@@ -32,8 +33,8 @@
                         {
                             "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
                             "details": {
-                                "name": "RequestId",
-                                "tooltip": "Navigation request Id"
+                                "name": "Request ID",
+                                "tooltip": "The ID of the request for which traversal has started"
                             }
                         }
                     ]
@@ -76,15 +77,15 @@
                         {
                             "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
                             "details": {
-                                "name": "RequestId",
-                                "tooltip": "Navigation request Id"
+                                "name": "Request ID",
+                                "tooltip": "The ID of the request for which traversal is in progress"
                             }
                         },
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
                                 "name": "Distance",
-                                "tooltip": "Distance remaining"
+                                "tooltip": "The remaining distance in the path"
                             }
                         }
                     ]
@@ -98,8 +99,8 @@
                         {
                             "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
                             "details": {
-                                "name": "RequestId",
-                                "tooltip": "Navigation request Id"
+                                "name": "Request ID",
+                                "tooltip": "The ID of the request for which traversal has finished"
                             }
                         }
                     ]
@@ -113,8 +114,8 @@
                         {
                             "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
                             "details": {
-                                "name": "RequestId",
-                                "tooltip": "Navigation request Id"
+                                "name": "Request ID",
+                                "tooltip": "The ID of the request for which traversal was cancelled"
                             }
                         }
                     ]

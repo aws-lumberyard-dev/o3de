@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "PerlinGradientConfig",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "PerlinGradientConfig"

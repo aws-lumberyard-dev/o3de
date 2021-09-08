@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "Render::ShadowmapSize",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Render::ShadowmapSize"

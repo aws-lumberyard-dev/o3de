@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AxisType",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "AxisType"

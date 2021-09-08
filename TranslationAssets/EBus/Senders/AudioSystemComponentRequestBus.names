@@ -5,9 +5,46 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "AudioSystemComponentRequestBus"
+                "name": "AUDIOSYSTEMCOMPONENTREQUESTBUS_NAME",
+                "category": "AUDIOSYSTEMCOMPONENTREQUESTBUS_CATEGORY"
             },
             "methods": [
+                {
+                    "key": "LevelUnloadAudio",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke LevelUnloadAudio"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after LevelUnloadAudio is invoked"
+                    },
+                    "details": {
+                        "name": "LevelUnloadAudio"
+                    }
+                },
+                {
+                    "key": "LevelLoadAudio",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke LevelLoadAudio"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after LevelLoadAudio is invoked"
+                    },
+                    "details": {
+                        "name": "LevelLoadAudio"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
+                            "details": {
+                                "name": ""
+                            }
+                        }
+                    ]
+                },
                 {
                     "key": "GlobalKillAudioTrigger",
                     "entry": {
@@ -94,6 +131,42 @@
                     ]
                 },
                 {
+                    "key": "GlobalRefreshAudio",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GlobalRefreshAudio"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GlobalRefreshAudio is invoked"
+                    },
+                    "details": {
+                        "name": "GlobalRefreshAudio"
+                    },
+                    "params": [
+                        {
+                            "typeid": "{7114E998-A8B4-519B-9342-A86D1587B4F7}",
+                            "details": {
+                                "name": ""
+                            }
+                        }
+                    ]
+                },
+                {
+                    "key": "GlobalMuteAudio",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GlobalMuteAudio"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GlobalMuteAudio is invoked"
+                    },
+                    "details": {
+                        "name": "GlobalMuteAudio"
+                    }
+                },
+                {
                     "key": "GlobalExecuteAudioTrigger",
                     "entry": {
                         "name": "In",
@@ -134,6 +207,20 @@
                     },
                     "details": {
                         "name": "GlobalStopAllSounds"
+                    }
+                },
+                {
+                    "key": "GlobalUnmuteAudio",
+                    "entry": {
+                        "name": "In",
+                        "tooltip": "When signaled, this will invoke GlobalUnmuteAudio"
+                    },
+                    "exit": {
+                        "name": "Out",
+                        "tooltip": "Signaled after GlobalUnmuteAudio is invoked"
+                    },
+                    "details": {
+                        "name": "GlobalUnmuteAudio"
                     }
                 },
                 {

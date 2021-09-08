@@ -163,14 +163,14 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\CryTextureSquisher\ColorBlockRGBA4x4c.cpp">
       <Filter>Source\Compressors\CryTextureSquisher</Filter>
     </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\ISPCTextureCompressor.cpp">
+      <Filter>Source\Compressors</Filter>
+    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Thumbnail\ImageThumbnail.cpp">
       <Filter>Source\Thumbnail</Filter>
     </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Thumbnail\ImageThumbnailSystemComponent.cpp">
       <Filter>Source\Thumbnail</Filter>
-    </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\ISPCTextureCompressor.cpp">
-      <Filter>Source\Platform\Windows\..\..\Compressors</Filter>
     </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Asset\ImageProcessingAtom\Code\ImageProcessingAtom.Editor.Static_autogen\mocs_compilation_profile.cpp">
       <Filter>Generated Files</Filter>
@@ -348,6 +348,9 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\CryTextureSquisher\ColorTypes.h">
       <Filter>Source\Compressors\CryTextureSquisher</Filter>
     </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\ISPCTextureCompressor.h">
+      <Filter>Source\Compressors</Filter>
+    </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Thumbnail\ImageThumbnail.h">
       <Filter>Source\Thumbnail</Filter>
     </ClInclude>
@@ -359,9 +362,6 @@
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Platform\Windows\ImageProcessing_Traits_Windows.h">
       <Filter>Source\Platform\Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Asset\ImageProcessingAtom\Code\Source\Compressors\ISPCTextureCompressor.h">
-      <Filter>Source\Platform\Windows\..\..\Compressors</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\External\Atom-538099b6\Asset\ImageProcessingAtom\Code\ImageProcessingAtom.Editor.Static_autogen\include\Source\Previewer\ui_ImagePreviewer.h">
       <Filter>Generated Files</Filter>
@@ -509,15 +509,6 @@
     </Filter>
     <Filter Include="Source\Platform\Windows">
       <UniqueIdentifier>{6E009862-2333-3599-9B65-E8F840C182D4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Platform\Windows\..">
-      <UniqueIdentifier>{6F36E22C-CF2D-3080-893E-B486004C5B99}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Platform\Windows\..\..">
-      <UniqueIdentifier>{C9C1BC38-4EAC-3109-BEDF-BC9B2A330812}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Platform\Windows\..\..\Compressors">
-      <UniqueIdentifier>{D91DF134-9241-3DBC-B709-DE63D6DFB9BB}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Previewer">
       <UniqueIdentifier>{A2289997-C5EE-3EFE-8AB8-9F095C614102}</UniqueIdentifier>

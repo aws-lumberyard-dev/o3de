@@ -5,27 +5,30 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiIndexableImageBus"
+                "name": "UI Indexable Image",
+                "category": "UI"
             },
             "methods": [
                 {
                     "key": "GetImageIndexAlias",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetImageIndexAlias"
+                        "tooltip": "When signaled, this will invoke Get Image Index Alias"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetImageIndexAlias is invoked"
+                        "tooltip": "Signaled after Get Image Index Alias is invoked"
                     },
                     "details": {
-                        "name": "GetImageIndexAlias"
+                        "name": "Get Image Index Alias",
+                        "tooltip": "Given an index, return its alias (if defined)"
                     },
                     "params": [
                         {
                             "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
                             "details": {
-                                "name": "unsigned int"
+                                "name": "Image Index",
+                                "tooltip": "The index to get alias for"
                             }
                         }
                     ],
@@ -33,7 +36,8 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "AZStd::string",
+                                "tooltip": "The index to get alias for"
                             }
                         }
                     ]
@@ -42,14 +46,15 @@
                     "key": "GetImageIndexCount",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetImageIndexCount"
+                        "tooltip": "When signaled, this will invoke Get Image Index Count"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetImageIndexCount is invoked"
+                        "tooltip": "Signaled after Get Image Index Count is invoked"
                     },
                     "details": {
-                        "name": "GetImageIndexCount"
+                        "name": "Get Image Index Count",
+                        "tooltip": "Gets the number of indices for this image"
                     },
                     "results": [
                         {
@@ -64,20 +69,22 @@
                     "key": "SetImageIndex",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetImageIndex"
+                        "tooltip": "When signaled, this will invoke Set Image Index"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetImageIndex is invoked"
+                        "tooltip": "Signaled after Set Image Index is invoked"
                     },
                     "details": {
-                        "name": "SetImageIndex"
+                        "name": "Set Image Index",
+                        "tooltip": "Sets the index of the image to display"
                     },
                     "params": [
                         {
                             "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
                             "details": {
-                                "name": "unsigned int"
+                                "name": "Image Index",
+                                "tooltip": "The index of the image to display"
                             }
                         }
                     ]
@@ -86,26 +93,29 @@
                     "key": "SetImageIndexAlias",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetImageIndexAlias"
+                        "tooltip": "When signaled, this will invoke Set Image Index Alias"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetImageIndexAlias is invoked"
+                        "tooltip": "Signaled after Set Image Index Alias is invoked"
                     },
                     "details": {
-                        "name": "SetImageIndexAlias"
+                        "name": "Set Image Index Alias",
+                        "tooltip": "Given an index, set an alias for it"
                     },
                     "params": [
                         {
                             "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
                             "details": {
-                                "name": "unsigned int"
+                                "name": "Image Index",
+                                "tooltip": "The index of the image to set alias for"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Image Alias",
+                                "tooltip": "The alias for the given index"
                             }
                         }
                     ]
@@ -114,20 +124,22 @@
                     "key": "GetImageIndexFromAlias",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetImageIndexFromAlias"
+                        "tooltip": "When signaled, this will invoke Get Image Index From Alias"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetImageIndexFromAlias is invoked"
+                        "tooltip": "Signaled after Get Image Index From Alias is invoked"
                     },
                     "details": {
-                        "name": "GetImageIndexFromAlias"
+                        "name": "Get Image Index From Alias",
+                        "tooltip": "Given an alias, return its index"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "Image Alias",
+                                "tooltip": "The alias for image"
                             }
                         }
                     ],
@@ -135,7 +147,8 @@
                         {
                             "typeid": "{43DA906B-7DEF-4CA8-9790-854106D3F983}",
                             "details": {
-                                "name": "unsigned int"
+                                "name": "unsigned int",
+                                "tooltip": "The alias for image"
                             }
                         }
                     ]
@@ -144,14 +157,15 @@
                     "key": "GetImageIndex",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetImageIndex"
+                        "tooltip": "When signaled, this will invoke Get Image Index"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetImageIndex is invoked"
+                        "tooltip": "Signaled after Get Image Index is invoked"
                     },
                     "details": {
-                        "name": "GetImageIndex"
+                        "name": "Get Image Index",
+                        "tooltip": "Gets the index of the image being displayed"
                     },
                     "results": [
                         {

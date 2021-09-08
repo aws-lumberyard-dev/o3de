@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "EditorActorComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "EditorActorComponent"

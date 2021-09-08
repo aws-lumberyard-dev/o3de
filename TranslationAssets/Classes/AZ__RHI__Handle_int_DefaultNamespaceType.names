@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZ::RHI::Handle<int, DefaultNamespaceType>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "AZ::RHI::Handle<int, DefaultNamespaceType>"
@@ -13,20 +13,21 @@
                     "context": "AZ::RHI::Handle<int, DefaultNamespaceType>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZ::RHI::Handle<int, DefaultNamespaceType>::IsValid"
+                        "tooltip": "When signaled, this will invoke IsValid"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZ::RHI::Handle<int, DefaultNamespaceType>::IsValid is invoked"
+                        "tooltip": "Signaled after IsValid is invoked"
                     },
                     "details": {
-                        "name": "AZ::RHI::Handle<int, DefaultNamespaceType>::IsValid"
+                        "name": "AZ::RHI::Handle<int, DefaultNamespaceType>::IsValid",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{C81CC1CA-6841-5F6A-B1C7-E544590B481F}",
                             "details": {
-                                "name": "AZ::RHI::Handle<int, DefaultNamespaceType>"
+                                "name": "AZ::RHI::Handle<int, DefaultNamespaceType>*"
                             }
                         }
                     ],

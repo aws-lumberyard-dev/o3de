@@ -6,5 +6,7 @@ C:/Users/luissemp/.o3de/3rdParty/packages/tiff-4.2.0.14-windows/PackageInfo.json
 C:/Users/luissemp/.o3de/3rdParty/packages/tiff-4.2.0.14-windows/tiff-config-version.cmake
 C:/Users/luissemp/.o3de/3rdParty/packages/tiff-4.2.0.14-windows/tiff-config.cmake
 J:/Atom/lyfork/o3de/Code/Legacy/CrySystem/CMakeLists.txt
+J:/Atom/lyfork/o3de/Code/Legacy/CrySystem/Platform/Windows/platform_windows.cmake
+J:/Atom/lyfork/o3de/Code/Legacy/CrySystem/Platform/Windows/platform_windows_files.cmake
 J:/Atom/lyfork/o3de/Code/Legacy/CrySystem/crysystem_files.cmake
 J:/Atom/lyfork/o3de/Code/Legacy/CrySystem/crysystem_shared_files.cmake

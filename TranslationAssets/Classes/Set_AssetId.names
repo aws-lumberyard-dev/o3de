@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Set<AssetId>",
@@ -15,20 +15,21 @@
                     "context": "Set<AssetId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Size"
+                        "tooltip": "When signaled, this will invoke Size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Size is invoked"
+                        "tooltip": "Signaled after Size is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Size"
+                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Size",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{DB1EB3E5-F953-53A7-B8F9-9121E6A77F85}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equa"
                             }
                         }
                     ],
@@ -46,20 +47,21 @@
                     "context": "Set<AssetId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::GetKeys"
+                        "tooltip": "When signaled, this will invoke GetKeys"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::GetKeys is invoked"
+                        "tooltip": "Signaled after GetKeys is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::GetKeys"
+                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::GetKeys",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{DB1EB3E5-F953-53A7-B8F9-9121E6A77F85}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equa"
                             }
                         }
                     ],
@@ -67,7 +69,7 @@
                         {
                             "typeid": "{877C4A33-39B5-51D7-948D-F97DB81372A1}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<AssetId, allocator>"
                             }
                         }
                     ]
@@ -77,26 +79,27 @@
                     "context": "Set<AssetId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::contains"
+                        "tooltip": "When signaled, this will invoke contains"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::contains is invoked"
+                        "tooltip": "Signaled after contains is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::contains"
+                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::contains",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{DB1EB3E5-F953-53A7-B8F9-9121E6A77F85}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "const AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd"
                             }
                         },
                         {
                             "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
                             "details": {
-                                "name": "AssetId"
+                                "name": "AssetId&"
                             }
                         }
                     ],
@@ -114,26 +117,27 @@
                     "context": "Set<AssetId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Insert"
+                        "tooltip": "When signaled, this will invoke Insert"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Insert is invoked"
+                        "tooltip": "Signaled after Insert is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Insert"
+                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Insert",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{DB1EB3E5-F953-53A7-B8F9-9121E6A77F85}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equa"
                             }
                         },
                         {
                             "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
                             "details": {
-                                "name": "AssetId"
+                                "name": "AssetId&"
                             }
                         }
                     ],
@@ -141,7 +145,7 @@
                         {
                             "typeid": "{DB1EB3E5-F953-53A7-B8F9-9121E6A77F85}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equa"
                             }
                         }
                     ]
@@ -151,20 +155,21 @@
                     "context": "Set<AssetId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::GetSize"
+                        "tooltip": "When signaled, this will invoke GetSize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::GetSize is invoked"
+                        "tooltip": "Signaled after GetSize is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::GetSize"
+                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::GetSize",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{DB1EB3E5-F953-53A7-B8F9-9121E6A77F85}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equa"
                             }
                         }
                     ],
@@ -182,20 +187,21 @@
                     "context": "Set<AssetId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Reserve"
+                        "tooltip": "When signaled, this will invoke Reserve"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Reserve is invoked"
+                        "tooltip": "Signaled after Reserve is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Reserve"
+                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Reserve",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{DB1EB3E5-F953-53A7-B8F9-9121E6A77F85}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equa"
                             }
                         },
                         {
@@ -211,20 +217,21 @@
                     "context": "Set<AssetId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Iterate_VM"
+                        "tooltip": "When signaled, this will invoke Iterate_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Iterate_VM is invoked"
+                        "tooltip": "Signaled after Iterate_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Iterate_VM"
+                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Iterate_VM",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{DB1EB3E5-F953-53A7-B8F9-9121E6A77F85}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equa"
                             }
                         }
                     ],
@@ -242,26 +249,27 @@
                     "context": "Set<AssetId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::EraseCheck_VM"
+                        "tooltip": "When signaled, this will invoke EraseCheck_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::EraseCheck_VM is invoked"
+                        "tooltip": "Signaled after EraseCheck_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::EraseCheck_VM"
+                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::EraseCheck_VM",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{DB1EB3E5-F953-53A7-B8F9-9121E6A77F85}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equa"
                             }
                         },
                         {
                             "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
                             "details": {
-                                "name": "AssetId"
+                                "name": "AssetId&"
                             }
                         }
                     ],
@@ -279,26 +287,27 @@
                     "context": "Set<AssetId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Erase"
+                        "tooltip": "When signaled, this will invoke Erase"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Erase is invoked"
+                        "tooltip": "Signaled after Erase is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Erase"
+                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Erase",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{DB1EB3E5-F953-53A7-B8F9-9121E6A77F85}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equa"
                             }
                         },
                         {
                             "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
                             "details": {
-                                "name": "AssetId"
+                                "name": "AssetId&"
                             }
                         }
                     ],
@@ -306,7 +315,7 @@
                         {
                             "typeid": "{DB1EB3E5-F953-53A7-B8F9-9121E6A77F85}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equa"
                             }
                         }
                     ]
@@ -316,20 +325,21 @@
                     "context": "Set<AssetId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Clear"
+                        "tooltip": "When signaled, this will invoke Clear"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Clear is invoked"
+                        "tooltip": "Signaled after Clear is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Clear"
+                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Clear",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{DB1EB3E5-F953-53A7-B8F9-9121E6A77F85}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equa"
                             }
                         }
                     ],
@@ -337,7 +347,7 @@
                         {
                             "typeid": "{DB1EB3E5-F953-53A7-B8F9-9121E6A77F85}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equa"
                             }
                         }
                     ]
@@ -347,20 +357,21 @@
                     "context": "Set<AssetId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::BucketCount"
+                        "tooltip": "When signaled, this will invoke BucketCount"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::BucketCount is invoked"
+                        "tooltip": "Signaled after BucketCount is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::BucketCount"
+                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::BucketCount",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{DB1EB3E5-F953-53A7-B8F9-9121E6A77F85}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equa"
                             }
                         }
                     ],
@@ -378,20 +389,21 @@
                     "context": "Set<AssetId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Empty"
+                        "tooltip": "When signaled, this will invoke Empty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Empty is invoked"
+                        "tooltip": "Signaled after Empty is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Empty"
+                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Empty",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{DB1EB3E5-F953-53A7-B8F9-9121E6A77F85}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equa"
                             }
                         }
                     ],
@@ -409,26 +421,27 @@
                     "context": "Set<AssetId>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Swap"
+                        "tooltip": "When signaled, this will invoke Swap"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Swap is invoked"
+                        "tooltip": "Signaled after Swap is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Swap"
+                        "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equal_to<AssetId>, allocator>::Swap",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{DB1EB3E5-F953-53A7-B8F9-9121E6A77F85}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equa"
                             }
                         },
                         {
                             "typeid": "{DB1EB3E5-F953-53A7-B8F9-9121E6A77F85}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<AssetId, AZStd::hash<AssetId>, AZStd::equa"
                             }
                         }
                     ]

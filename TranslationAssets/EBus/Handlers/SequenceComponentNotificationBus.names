@@ -5,7 +5,8 @@
             "context": "EBusHandler",
             "variant": "",
             "details": {
-                "name": "SequenceComponentNotificationBus"
+                "name": "Sequence",
+                "category": "Animation"
             },
             "methods": [
                 {

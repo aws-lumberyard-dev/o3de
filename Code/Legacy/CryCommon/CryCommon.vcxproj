@@ -65,14 +65,15 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /RTCsu /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib</AdditionalOptions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /RTCsu /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-rev1-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev2-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BufferSecurityCheck>true</BufferSecurityCheck>
       <CallingConvention>Cdecl</CallingConvention>
+      <ConformanceMode>true</ConformanceMode>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
-      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4201</DisableSpecificWarnings>
       <ExceptionHandling>
       </ExceptionHandling>
       <FloatingPointModel>Fast</FloatingPointModel>
@@ -84,6 +85,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatSpecificWarningsAsErrors>4296;5233;4426;4777;5031;5032</TreatSpecificWarningsAsErrors>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
@@ -92,11 +94,11 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;_HAS_EXCEPTIONS=0;AZ_DEBUG_BUILD=1;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"debug\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR=\"debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -104,20 +106,21 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Lib>
-      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64 /IGNORE:4099</AdditionalOptions>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetMachine>MachineX64</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='profile|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib</AdditionalOptions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-rev1-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev2-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CallingConvention>Cdecl</CallingConvention>
+      <ConformanceMode>true</ConformanceMode>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
-      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4201</DisableSpecificWarnings>
       <ExceptionHandling>
       </ExceptionHandling>
       <FloatingPointModel>Fast</FloatingPointModel>
@@ -131,6 +134,7 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <StringPooling>true</StringPooling>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatSpecificWarningsAsErrors>4296;5233;4426;4777;5031;5032</TreatSpecificWarningsAsErrors>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
@@ -140,11 +144,11 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_PROFILE;PROFILE;NDEBUG;AZ_ENABLE_TRACING;AZ_ENABLE_DEBUG_TOOLS;AZ_BUILD_CONFIGURATION_TYPE=\"profile\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR=\"profile\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -152,19 +156,20 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Lib>
-      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64 /IGNORE:4099</AdditionalOptions>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetMachine>MachineX64</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev1-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib</AdditionalOptions>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /Zc:lambda /favor:AMD64 /bigobj /experimental:external /external:W0 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/Lua-5.3.5-rev5-windows/lua/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidJSON-1.1.0-rev1-multiplatform/RapidJSON/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/RapidXML-1.13-multiplatform/RapidXML/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zlib-1.2.11-rev2-windows/zlib/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/zstd-1.35-multiplatform/zstd/lib /external:IC:/Users/luissemp/.o3de/3rdParty/packages/cityhash-1.1-multiplatform/cityhash/src /external:IC:/Users/luissemp/.o3de/3rdParty/packages/OpenSSL-1.1.1b-rev2-windows/OpenSSL/include /external:IC:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/md5 /external:IC:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/lz4/lib</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CallingConvention>Cdecl</CallingConvention>
+      <ConformanceMode>true</ConformanceMode>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
-      <DisableSpecificWarnings>4201;4244;4245;4389;4193;4702</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4201</DisableSpecificWarnings>
       <ExceptionHandling>
       </ExceptionHandling>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -179,6 +184,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatSpecificWarningsAsErrors>4296;5233;4426;4777;5031;5032</TreatSpecificWarningsAsErrors>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
@@ -189,11 +195,11 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;_RELEASE;RELEASE;NDEBUG;AZ_BUILD_CONFIGURATION_TYPE=\"release\";_ENABLE_EXTENDED_ALIGNED_STORAGE;_WIN32;WIN32;_WIN64;WIN64;NOMINMAX;OPENSSL_ENABLED;CMAKE_INTDIR=\"release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\.;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\..;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\.;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\AzCore\Platform\Common;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\.;J:\Atom\lyfork\o3de\Code\Framework\AzFramework\Platform\Windows;J:\Atom\lyfork\o3de\Code\Framework\GridMate\.;J:\Atom\lyfork\o3de\Code\Framework\GridMate\Platform\Windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -201,7 +207,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Lib>
-      <AdditionalOptions>%(AdditionalOptions) /IGNORE:4099</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64 /IGNORE:4099</AdditionalOptions>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetMachine>MachineX64</TargetMachine>
     </Lib>
@@ -219,7 +225,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_files.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_testing_files.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows\crycommon_windows.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows\crycommon_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_files.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_testing_files.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='profile|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Legacy/CryCommon/CMakeLists.txt</Message>
@@ -232,7 +238,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_files.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_testing_files.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows\crycommon_windows.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows\crycommon_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_files.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_testing_files.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='profile|x64'">J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='profile|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='release|x64'">Building Custom Rule J:/Atom/lyfork/o3de/Code/Legacy/CryCommon/CMakeLists.txt</Message>
@@ -245,24 +251,21 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_files.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_testing_files.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows\crycommon_windows.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows\crycommon_windows_files.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_files.cmake;J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_testing_files.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='release|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryCommon.cpp" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IAudioInterfacesCommonData.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IAudioSystem.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\ICmdLine.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IConsole.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IEntityRenderState.h" />
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IEntityRenderState_info.cpp" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IFont.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IFunctorBase.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IGem.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IIndexedMesh.h" />
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IIndexedMesh_info.cpp" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\ILevelSystem.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\ILocalizationManager.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\LocalizationManagerBus.h" />
@@ -271,19 +274,15 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IMaterial.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IMiniLog.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IMovieSystem.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IPhysics.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IPostEffectGroup.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IProcess.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IReadWriteXMLSink.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IRenderAuxGeom.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IRenderer.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IRenderMesh.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\ISerialize.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IShader.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\ISplines.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IStatObj.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\StatObjBus.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IStereoRenderer.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\ISurfaceType.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\ISystem.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\ITexture.h" />
@@ -293,55 +292,39 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IWindowMessageHandler.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IXml.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\MicrophoneBus.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\physinterface.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\HMDBus.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\VRCommon.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\StereoRendererBus.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\HeightmapUpdateNotificationBus.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\INavigationSystem.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\IMNM.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\SFunctor.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\FunctorBaseFunction.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\FunctorBaseMember.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\stridedptr.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Options.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\SerializationTypes.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryEndian.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryRandomInternal.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Random.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\LCGRandom.h" />
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryTypeInfo.cpp" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\BaseTypes.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\MemoryAccess.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\AnimKey.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\BitFiddling.h" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Common_TypeInfo.cpp" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryArray.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryAssert.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryCrc32.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryCustomTypes.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryFile.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryHeaders.h" />
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryHeaders_info.cpp" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryListenerSet.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryLegacyAllocator.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryName.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryPath.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryPodArray.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CrySizer.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CrySystemBus.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryTypeInfo.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryVersion.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\FrameProfiler.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\HeapAllocator.h" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\LegacyAllocator.cpp" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\LegacyAllocator.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\MetaUtils.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\MiniQueue.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\MultiThread_Containers.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\NullAudioSystem.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\PNoise3.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\PoolAllocator.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\primitives.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\ProjectDefines.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Range.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\ScopedVariableSetter.h" />
@@ -350,14 +333,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\smartptr.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\StlUtils.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Synchronization.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Tarray.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Timer.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\TimeValue.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\TimeValue_info.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\TypeInfo_decl.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\TypeInfo_impl.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\VectorMap.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\VectorSet.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\VertexFormats.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\XMLBinaryHeaders.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\RenderBus.h" />
@@ -365,21 +343,17 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_Matrix33.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_Matrix34.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_Matrix44.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_MatrixDiag.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_Vector4.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_Camera.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_Color.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_Geo.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_GeoDistance.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_GeoIntersect.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_GeoOverlap.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_Math.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_Quat.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_ValidNumber.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_Vector2.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_Vector3.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_XOptimise.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryHalf_info.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\CryHalf.inl" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\MathConversion.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Cry_HWMatrix.h" />
@@ -497,6 +471,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\StaticInstance.h" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\WinBase.cpp" />
     <None Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\crycommon_files.cmake">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows\crycommon_windows_files.cmake">
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\Code\Legacy\CryCommon\Platform\Windows\crycommon_windows.cmake">
     </None>
   </ItemGroup>
   <ItemGroup>

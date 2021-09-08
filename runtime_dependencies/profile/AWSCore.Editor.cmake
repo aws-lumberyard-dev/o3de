@@ -101,3 +101,5 @@ ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/AWSNativeSDK-1.7.167-rev3-win
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/AWSCoreEditorQtBin/AWSCore.ResourceMappingTool.dll" "J:/Atom/lyfork/o3de/bin/profile/AWSCoreEditorQtBin")
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/AWSCore.dll" "J:/Atom/lyfork/o3de/bin/profile")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/profile/AWSCore.Editor_profile.stamp)

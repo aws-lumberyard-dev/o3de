@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "ThresholdGradientConfig",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "ThresholdGradientConfig"

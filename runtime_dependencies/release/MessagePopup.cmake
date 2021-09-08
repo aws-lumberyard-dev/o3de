@@ -22,3 +22,5 @@ function(ly_copy source_file target_directory)
 endfunction()
 
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/release/MessagePopup_release.stamp)

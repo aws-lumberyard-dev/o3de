@@ -58,3 +58,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/debug/Atom_Feature_Common.dll" "J:/Atom/lyfork/
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/Atom_RHI.Private.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/Atom_RPI.Private.dll" "J:/Atom/lyfork/o3de/bin/debug")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/debug/AtomLyIntegration_CommonFeatures_debug.stamp)

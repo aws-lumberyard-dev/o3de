@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "InputDeviceVirtualKeyboard",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "InputDeviceVirtualKeyboard"

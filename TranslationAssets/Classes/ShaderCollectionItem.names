@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "ShaderCollectionItem",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "ShaderCollectionItem"
@@ -13,20 +13,21 @@
                     "context": "ShaderCollectionItem",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke ShaderCollectionItem::GetShaderAsset"
+                        "tooltip": "When signaled, this will invoke GetShaderAsset"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after ShaderCollectionItem::GetShaderAsset is invoked"
+                        "tooltip": "Signaled after GetShaderAsset is invoked"
                     },
                     "details": {
-                        "name": "ShaderCollectionItem::GetShaderAsset"
+                        "name": "ShaderCollectionItem::GetShaderAsset",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{64C7F381-3313-46E8-B23B-D7AA9A915F35}",
                             "details": {
-                                "name": "Item"
+                                "name": "Item*"
                             }
                         }
                     ],
@@ -34,7 +35,7 @@
                         {
                             "typeid": "{C3B16018-28FB-5CFE-B871-25B6E2F0B110}",
                             "details": {
-                                "name": "Asset"
+                                "name": "const Asset<ShaderAsset>&"
                             }
                         }
                     ]
@@ -44,20 +45,21 @@
                     "context": "ShaderCollectionItem",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke ShaderCollectionItem::GetShaderAssetId"
+                        "tooltip": "When signaled, this will invoke GetShaderAssetId"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after ShaderCollectionItem::GetShaderAssetId is invoked"
+                        "tooltip": "Signaled after GetShaderAssetId is invoked"
                     },
                     "details": {
-                        "name": "ShaderCollectionItem::GetShaderAssetId"
+                        "name": "ShaderCollectionItem::GetShaderAssetId",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{64C7F381-3313-46E8-B23B-D7AA9A915F35}",
                             "details": {
-                                "name": "Item"
+                                "name": "Item*"
                             }
                         }
                     ],
@@ -65,7 +67,7 @@
                         {
                             "typeid": "{652ED536-3402-439B-AEBE-4A5DBC554085}",
                             "details": {
-                                "name": "AssetId"
+                                "name": "const AssetId&"
                             }
                         }
                     ]
@@ -75,20 +77,21 @@
                     "context": "ShaderCollectionItem",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke ShaderCollectionItem::GetShaderVariantId"
+                        "tooltip": "When signaled, this will invoke GetShaderVariantId"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after ShaderCollectionItem::GetShaderVariantId is invoked"
+                        "tooltip": "Signaled after GetShaderVariantId is invoked"
                     },
                     "details": {
-                        "name": "ShaderCollectionItem::GetShaderVariantId"
+                        "name": "ShaderCollectionItem::GetShaderVariantId",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{64C7F381-3313-46E8-B23B-D7AA9A915F35}",
                             "details": {
-                                "name": "Item"
+                                "name": "Item*"
                             }
                         }
                     ],
@@ -96,7 +99,7 @@
                         {
                             "typeid": "{27B1FEC2-8C8A-47D7-A034-6609FA092B34}",
                             "details": {
-                                "name": "ShaderVariantId"
+                                "name": "const ShaderVariantId&"
                             }
                         }
                     ]
@@ -106,20 +109,21 @@
                     "context": "ShaderCollectionItem",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke ShaderCollectionItem::GetShaderOptionGroup"
+                        "tooltip": "When signaled, this will invoke GetShaderOptionGroup"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after ShaderCollectionItem::GetShaderOptionGroup is invoked"
+                        "tooltip": "Signaled after GetShaderOptionGroup is invoked"
                     },
                     "details": {
-                        "name": "ShaderCollectionItem::GetShaderOptionGroup"
+                        "name": "ShaderCollectionItem::GetShaderOptionGroup",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{64C7F381-3313-46E8-B23B-D7AA9A915F35}",
                             "details": {
-                                "name": "Item"
+                                "name": "Item*"
                             }
                         }
                     ],

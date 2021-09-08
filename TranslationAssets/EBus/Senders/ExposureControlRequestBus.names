@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "ExposureControlRequestBus"
+                "name": "EXPOSURECONTROLREQUESTBUS_NAME",
+                "category": "EXPOSURECONTROLREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

@@ -4,9 +4,6 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SurfaceData\Code\Source\SurfaceDataSystemComponent.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SurfaceData\Code\Source\TerrainSurfaceDataSystemComponent.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\SurfaceData\Code\Source\SurfaceTag.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -52,9 +49,6 @@
       <Filter>Include\SurfaceData\Utility</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SurfaceData\Code\Source\SurfaceDataSystemComponent.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SurfaceData\Code\Source\TerrainSurfaceDataSystemComponent.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\SurfaceData\Code\Source\Components\SurfaceDataColliderComponent.h">

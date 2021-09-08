@@ -104,3 +104,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/debug/ScriptEvents.Editor.dll" "J:/Atom/lyfork/
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/EditorCore.dll" "J:/Atom/lyfork/o3de/bin/debug")
 ly_copy("J:/Atom/lyfork/o3de/bin/debug/ScriptCanvas.Editor.dll" "J:/Atom/lyfork/o3de/bin/debug")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/debug/ScriptCanvasTesting.Editor_debug.stamp)

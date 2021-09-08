@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "Iterator_VM<AZStd::unordered_map<Crc32, double, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Iterator_VM<AZStd::unordered_map<Crc32, double, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>"
@@ -13,14 +13,15 @@
                     "context": "Iterator_VM<AZStd::unordered_map<Crc32, double, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<Crc32, double, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::GetKeyUnchecked"
+                        "tooltip": "When signaled, this will invoke GetKeyUnchecked"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<Crc32, double, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::GetKeyUnchecked is invoked"
+                        "tooltip": "Signaled after GetKeyUnchecked is invoked"
                     },
                     "details": {
-                        "name": "Iterator_VM<AZStd::unordered_map<Crc32, double, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::GetKeyUnchecked"
+                        "name": "Iterator_VM<AZStd::unordered_map<Crc32, double, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::GetKeyUnchecked",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -34,7 +35,7 @@
                         {
                             "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
                             "details": {
-                                "name": "Crc32"
+                                "name": "const Crc32&"
                             }
                         }
                     ]
@@ -44,14 +45,15 @@
                     "context": "Iterator_VM<AZStd::unordered_map<Crc32, double, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<Crc32, double, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::ModValueUnchecked"
+                        "tooltip": "When signaled, this will invoke ModValueUnchecked"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<Crc32, double, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::ModValueUnchecked is invoked"
+                        "tooltip": "Signaled after ModValueUnchecked is invoked"
                     },
                     "details": {
-                        "name": "Iterator_VM<AZStd::unordered_map<Crc32, double, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::ModValueUnchecked"
+                        "name": "Iterator_VM<AZStd::unordered_map<Crc32, double, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::ModValueUnchecked",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -65,7 +67,7 @@
                         {
                             "typeid": "{110C4B14-11A8-4E9D-8638-5051013A56AC}",
                             "details": {
-                                "name": "double"
+                                "name": "double&"
                             }
                         }
                     ]
@@ -75,14 +77,15 @@
                     "context": "Iterator_VM<AZStd::unordered_map<Crc32, double, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<Crc32, double, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::IsNotAtEnd"
+                        "tooltip": "When signaled, this will invoke IsNotAtEnd"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<Crc32, double, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::IsNotAtEnd is invoked"
+                        "tooltip": "Signaled after IsNotAtEnd is invoked"
                     },
                     "details": {
-                        "name": "Iterator_VM<AZStd::unordered_map<Crc32, double, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::IsNotAtEnd"
+                        "name": "Iterator_VM<AZStd::unordered_map<Crc32, double, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::IsNotAtEnd",
+                        "category": "Other"
                     },
                     "params": [
                         {
@@ -106,14 +109,15 @@
                     "context": "Iterator_VM<AZStd::unordered_map<Crc32, double, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke Iterator_VM<AZStd::unordered_map<Crc32, double, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::Next"
+                        "tooltip": "When signaled, this will invoke Next"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after Iterator_VM<AZStd::unordered_map<Crc32, double, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::Next is invoked"
+                        "tooltip": "Signaled after Next is invoked"
                     },
                     "details": {
-                        "name": "Iterator_VM<AZStd::unordered_map<Crc32, double, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::Next"
+                        "name": "Iterator_VM<AZStd::unordered_map<Crc32, double, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>>::Next",
+                        "category": "Other"
                     },
                     "params": [
                         {

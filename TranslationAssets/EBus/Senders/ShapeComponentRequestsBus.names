@@ -5,27 +5,30 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "ShapeComponentRequestsBus"
+                "name": "Shape Component",
+                "category": "Shape"
             },
             "methods": [
                 {
                     "key": "DistanceSquaredFromPoint",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke DistanceSquaredFromPoint"
+                        "tooltip": "When signaled, this will invoke Distance Squared From Point"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after DistanceSquaredFromPoint is invoked"
+                        "tooltip": "Signaled after Distance Squared From Point is invoked"
                     },
                     "details": {
-                        "name": "DistanceSquaredFromPoint"
+                        "name": "Distance Squared From Point",
+                        "tooltip": "Returns the minimum squared distance between a specified point and the shape"
                     },
                     "params": [
                         {
                             "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
                             "details": {
-                                "name": "Vector3"
+                                "name": "Point",
+                                "tooltip": "Point from which to calculate square distance"
                             }
                         }
                     ],
@@ -33,7 +36,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "float",
+                                "tooltip": "Point from which to calculate square distance"
                             }
                         }
                     ]
@@ -42,20 +46,22 @@
                     "key": "DistanceFromPoint",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke DistanceFromPoint"
+                        "tooltip": "When signaled, this will invoke Distance From Point"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after DistanceFromPoint is invoked"
+                        "tooltip": "Signaled after Distance From Point is invoked"
                     },
                     "details": {
-                        "name": "DistanceFromPoint"
+                        "name": "Distance From Point",
+                        "tooltip": "Returns the minimum distance between a specified point and the shape"
                     },
                     "params": [
                         {
                             "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
                             "details": {
-                                "name": "Vector3"
+                                "name": "Point",
+                                "tooltip": "Point from which to calculate distance"
                             }
                         }
                     ],
@@ -63,7 +69,8 @@
                         {
                             "typeid": "{EA2C3E90-AFBE-44D4-A90D-FAAF79BAF93D}",
                             "details": {
-                                "name": "float"
+                                "name": "float",
+                                "tooltip": "Point from which to calculate distance"
                             }
                         }
                     ]
@@ -72,20 +79,22 @@
                     "key": "IsPointInside",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke IsPointInside"
+                        "tooltip": "When signaled, this will invoke Is Point Inside"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after IsPointInside is invoked"
+                        "tooltip": "Signaled after Is Point Inside is invoked"
                     },
                     "details": {
-                        "name": "IsPointInside"
+                        "name": "Is Point Inside",
+                        "tooltip": "Checks if a given point is inside a shape or outside it"
                     },
                     "params": [
                         {
                             "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
                             "details": {
-                                "name": "Vector3"
+                                "name": "Point",
+                                "tooltip": "The point to be checked"
                             }
                         }
                     ],
@@ -93,7 +102,8 @@
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "bool",
+                                "tooltip": "The point to be checked"
                             }
                         }
                     ]
@@ -102,14 +112,15 @@
                     "key": "GetEncompassingAabb",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetEncompassingAabb"
+                        "tooltip": "When signaled, this will invoke Get Encompassing Aabb"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetEncompassingAabb is invoked"
+                        "tooltip": "Signaled after Get Encompassing Aabb is invoked"
                     },
                     "details": {
-                        "name": "GetEncompassingAabb"
+                        "name": "Get Encompassing Aabb",
+                        "tooltip": "Returns an AABB that encompasses this entire shape"
                     },
                     "results": [
                         {
@@ -124,14 +135,15 @@
                     "key": "GetShapeType",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetShapeType"
+                        "tooltip": "When signaled, this will invoke Get Shape Type"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetShapeType is invoked"
+                        "tooltip": "Signaled after Get Shape Type is invoked"
                     },
                     "details": {
-                        "name": "GetShapeType"
+                        "name": "Get Shape Type",
+                        "tooltip": "Allows users to fetch the type of shape that this component is using"
                     },
                     "results": [
                         {

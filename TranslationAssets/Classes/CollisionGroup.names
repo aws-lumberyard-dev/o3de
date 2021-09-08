@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "CollisionGroup",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "CollisionGroup"

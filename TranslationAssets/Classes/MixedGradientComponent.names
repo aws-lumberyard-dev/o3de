@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "MixedGradientComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "MixedGradientComponent"

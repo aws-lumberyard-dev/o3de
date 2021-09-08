@@ -24,3 +24,5 @@ endfunction()
 ly_copy("C:/Users/luissemp/.o3de/3rdParty/packages/AWSGameLiftServerSDK-3.4.1-rev1-windows/AWSGameLiftServerSDK/bin/intel64/msvc-14.1/Release/aws-cpp-sdk-gamelift-server.dll" "J:/Atom/lyfork/o3de/bin/release")
 ly_copy("J:/Atom/lyfork/o3de/bin/release/AzTestRunner.exe" "J:/Atom/lyfork/o3de/bin/release")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/release/AWSGameLift.Server.Tests_release.stamp)

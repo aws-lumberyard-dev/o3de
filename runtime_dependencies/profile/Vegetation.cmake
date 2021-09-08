@@ -55,3 +55,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/profile/LmbrCentral.dll" "J:/Atom/lyfork/o3de/b
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/GradientSignal.dll" "J:/Atom/lyfork/o3de/bin/profile")
 ly_copy("J:/Atom/lyfork/o3de/bin/profile/SurfaceData.dll" "J:/Atom/lyfork/o3de/bin/profile")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/profile/Vegetation_profile.stamp)

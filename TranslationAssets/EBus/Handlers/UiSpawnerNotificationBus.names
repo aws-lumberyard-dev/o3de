@@ -5,7 +5,8 @@
             "context": "EBusHandler",
             "variant": "",
             "details": {
-                "name": "UiSpawnerNotificationBus"
+                "name": "UI Spawner",
+                "category": "UI"
             },
             "methods": [
                 {
@@ -17,7 +18,8 @@
                         {
                             "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
                             "details": {
-                                "name": "SliceInstantiationTicket"
+                                "name": "Slice Instantiation Ticket",
+                                "tooltip": "The slice instantiation ticket. These can be compared in order to know which spawn request it relates to"
                             }
                         }
                     ]
@@ -31,14 +33,15 @@
                         {
                             "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
                             "details": {
-                                "name": "SliceInstantiationTicket"
+                                "name": "Slice Instantiation Ticket",
+                                "tooltip": "The slice instantiation ticket. These can be compared in order to know which spawn request it relates to"
                             }
                         },
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "Spawned EntityID",
+                                "tooltip": "The spawned entity"
                             }
                         }
                     ]
@@ -52,13 +55,15 @@
                         {
                             "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
                             "details": {
-                                "name": "SliceInstantiationTicket"
+                                "name": "Slice Instantiation Ticket",
+                                "tooltip": "The slice instantiation ticket. These can be compared in order to know which spawn request it relates to"
                             }
                         },
                         {
                             "typeid": "{4841CFF0-7A5C-519C-BD16-D3625E99605E}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "Spawned EntityIDs",
+                                "tooltip": "A list of all entities that were created during the spawn"
                             }
                         }
                     ]
@@ -72,13 +77,15 @@
                         {
                             "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
                             "details": {
-                                "name": "SliceInstantiationTicket"
+                                "name": "Slice Instantiation Ticket",
+                                "tooltip": "The slice instantiation ticket. These can be compared in order to know which spawn request it relates to"
                             }
                         },
                         {
                             "typeid": "{4841CFF0-7A5C-519C-BD16-D3625E99605E}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "Spawned EntityIDs",
+                                "tooltip": "A list of all top-level entities that were created during the spawn"
                             }
                         }
                     ]
@@ -92,7 +99,8 @@
                         {
                             "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
                             "details": {
-                                "name": "SliceInstantiationTicket"
+                                "name": "Slice Instantiation Ticket",
+                                "tooltip": "The slice instantiation ticket. These can be compared in order to know which spawn request it relates to"
                             }
                         }
                     ]
@@ -106,7 +114,8 @@
                         {
                             "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
                             "details": {
-                                "name": "SliceInstantiationTicket"
+                                "name": "Slice Instantiation Ticket",
+                                "tooltip": "The slice instantiation ticket. These can be compared in order to know which spawn request it relates to"
                             }
                         }
                     ]

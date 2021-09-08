@@ -129,3 +129,5 @@ ly_copy("J:/Atom/lyfork/o3de/bin/release/LmbrCentral.Editor.dll" "J:/Atom/lyfork
 ly_copy("J:/Atom/lyfork/o3de/bin/release/GradientSignal.Editor.dll" "J:/Atom/lyfork/o3de/bin/release")
 ly_copy("J:/Atom/lyfork/o3de/bin/release/SurfaceData.Editor.dll" "J:/Atom/lyfork/o3de/bin/release")
 
+
+file(TOUCH J:/Atom/lyfork/o3de/runtime_dependencies/release/Vegetation.Editor_release.stamp)

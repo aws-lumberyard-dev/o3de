@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "EditorLayerComponent",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "EditorLayerComponent"
@@ -13,20 +13,21 @@
                     "context": "EditorLayerComponent",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke EditorLayerComponent::CreateLayerEntityFromName"
+                        "tooltip": "When signaled, this will invoke CreateLayerEntityFromName"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after EditorLayerComponent::CreateLayerEntityFromName is invoked"
+                        "tooltip": "Signaled after CreateLayerEntityFromName is invoked"
                     },
                     "details": {
-                        "name": "EditorLayerComponent::CreateLayerEntityFromName"
+                        "name": "EditorLayerComponent::CreateLayerEntityFromName",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "const AZStd::basic_string<char, AZStd::char_traits<char>, alloc"
                             }
                         }
                     ],
@@ -45,20 +46,21 @@
                     "context": "EditorLayerComponent",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke EditorLayerComponent::RecoverLayer"
+                        "tooltip": "When signaled, this will invoke RecoverLayer"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after EditorLayerComponent::RecoverLayer is invoked"
+                        "tooltip": "Signaled after RecoverLayer is invoked"
                     },
                     "details": {
-                        "name": "EditorLayerComponent::RecoverLayer"
+                        "name": "EditorLayerComponent::RecoverLayer",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "const AZStd::basic_string<char, AZStd::char_traits<char>, alloc"
                             }
                         }
                     ]

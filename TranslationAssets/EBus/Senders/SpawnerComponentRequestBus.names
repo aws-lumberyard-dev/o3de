@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "SpawnerComponentRequestBus"
+                "name": "Spawner",
+                "category": "Gameplay"
             },
             "methods": [
                 {
@@ -47,7 +48,7 @@
                         {
                             "typeid": "{DCAD95EA-9447-5B13-AACC-6C7223E1C04D}",
                             "details": {
-                                "name": "A"
+                                "name": ""
                             }
                         }
                     ]
@@ -188,20 +189,22 @@
                     "key": "SpawnRelative",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SpawnRelative"
+                        "tooltip": "When signaled, this will invoke Spawn Relative"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SpawnRelative is invoked"
+                        "tooltip": "Signaled after Spawn Relative is invoked"
                     },
                     "details": {
-                        "name": "SpawnRelative"
+                        "name": "Spawn Relative",
+                        "tooltip": "Spawn the selected slice at the entity's location with the provided relative offset"
                     },
                     "params": [
                         {
                             "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
                             "details": {
-                                "name": "Transform"
+                                "name": "Offset",
+                                "tooltip": "The relative offset from the entity"
                             }
                         }
                     ],
@@ -209,7 +212,8 @@
                         {
                             "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
                             "details": {
-                                "name": "SliceInstantiationTicket"
+                                "name": "SliceInstantiationTicket",
+                                "tooltip": "The relative offset from the entity"
                             }
                         }
                     ]
@@ -225,7 +229,8 @@
                         "tooltip": "Signaled after Spawn is invoked"
                     },
                     "details": {
-                        "name": "Spawn"
+                        "name": "Spawn",
+                        "tooltip": "Spawns the designated slice at the entity's location"
                     },
                     "results": [
                         {
@@ -240,20 +245,22 @@
                     "key": "SpawnAbsolute",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SpawnAbsolute"
+                        "tooltip": "When signaled, this will invoke Spawn Absolute"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SpawnAbsolute is invoked"
+                        "tooltip": "Signaled after Spawn Absolute is invoked"
                     },
                     "details": {
-                        "name": "SpawnAbsolute"
+                        "name": "Spawn Absolute",
+                        "tooltip": "Spawn the selected slice at an absolute position"
                     },
                     "params": [
                         {
                             "typeid": "{5D9958E9-9F1E-4985-B532-FFFDE75FEDFD}",
                             "details": {
-                                "name": "Transform"
+                                "name": "Position",
+                                "tooltip": "The absolute position where the entity should spawn"
                             }
                         }
                     ],
@@ -261,7 +268,8 @@
                         {
                             "typeid": "{E6E7C0C5-07C9-44BB-A38C-930431948667}",
                             "details": {
-                                "name": "SliceInstantiationTicket"
+                                "name": "SliceInstantiationTicket",
+                                "tooltip": "The absolute position where the entity should spawn"
                             }
                         }
                     ]

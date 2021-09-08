@@ -79,11 +79,6 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("J:/Atom/lyfork/o3de/Code/Framework/Crcfix/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
   include("J:/Atom/lyfork/o3de/Code/Framework/GFxFramework/cmake_install.cmake")
 endif()
 

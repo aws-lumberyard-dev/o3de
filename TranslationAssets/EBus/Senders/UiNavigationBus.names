@@ -5,21 +5,23 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "UiNavigationBus"
+                "name": "UI Navigation",
+                "category": "UI"
             },
             "methods": [
                 {
                     "key": "GetOnRightEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetOnRightEntity"
+                        "tooltip": "When signaled, this will invoke Get On Right Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetOnRightEntity is invoked"
+                        "tooltip": "Signaled after Get On Right Entity is invoked"
                     },
                     "details": {
-                        "name": "GetOnRightEntity"
+                        "name": "Get On Right Entity",
+                        "tooltip": "Gets the element to receive focus when right is pressed"
                     },
                     "results": [
                         {
@@ -35,21 +37,22 @@
                     "key": "SetOnLeftEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetOnLeftEntity"
+                        "tooltip": "When signaled, this will invoke Set On Left Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetOnLeftEntity is invoked"
+                        "tooltip": "Signaled after Set On Left Entity is invoked"
                     },
                     "details": {
-                        "name": "SetOnLeftEntity"
+                        "name": "Set On Left Entity",
+                        "tooltip": "Sets the element to receive focus when left is pressed"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "EntityID",
+                                "tooltip": "The element to receive focus when left is pressed"
                             }
                         }
                     ]
@@ -58,14 +61,15 @@
                     "key": "GetOnLeftEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetOnLeftEntity"
+                        "tooltip": "When signaled, this will invoke Get On Left Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetOnLeftEntity is invoked"
+                        "tooltip": "Signaled after Get On Left Entity is invoked"
                     },
                     "details": {
-                        "name": "GetOnLeftEntity"
+                        "name": "Get On Left Entity",
+                        "tooltip": "Gets the element to receive focus when left is pressed"
                     },
                     "results": [
                         {
@@ -81,21 +85,22 @@
                     "key": "SetOnDownEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetOnDownEntity"
+                        "tooltip": "When signaled, this will invoke Set On Down Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetOnDownEntity is invoked"
+                        "tooltip": "Signaled after Set On Down Entity is invoked"
                     },
                     "details": {
-                        "name": "SetOnDownEntity"
+                        "name": "Set On Down Entity",
+                        "tooltip": "Sets the element to receive focus when down is pressed"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "EntityID",
+                                "tooltip": "The element to receive focus when down is pressed"
                             }
                         }
                     ]
@@ -104,14 +109,15 @@
                     "key": "GetOnUpEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetOnUpEntity"
+                        "tooltip": "When signaled, this will invoke Get On Up Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetOnUpEntity is invoked"
+                        "tooltip": "Signaled after Get On Up Entity is invoked"
                     },
                     "details": {
-                        "name": "GetOnUpEntity"
+                        "name": "Get On Up Entity",
+                        "tooltip": "Gets the element to receive focus when up is pressed"
                     },
                     "results": [
                         {
@@ -127,21 +133,22 @@
                     "key": "SetOnUpEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetOnUpEntity"
+                        "tooltip": "When signaled, this will invoke Set On Up Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetOnUpEntity is invoked"
+                        "tooltip": "Signaled after Set On Up Entity is invoked"
                     },
                     "details": {
-                        "name": "SetOnUpEntity"
+                        "name": "Set On Up Entity",
+                        "tooltip": "Sets the element to receive focus when up is pressed"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "EntityID",
+                                "tooltip": "The element to receive focus when up is pressed"
                             }
                         }
                     ]
@@ -150,21 +157,22 @@
                     "key": "SetOnRightEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetOnRightEntity"
+                        "tooltip": "When signaled, this will invoke Set On Right Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetOnRightEntity is invoked"
+                        "tooltip": "Signaled after Set On Right Entity is invoked"
                     },
                     "details": {
-                        "name": "SetOnRightEntity"
+                        "name": "Set On Right Entity",
+                        "tooltip": "Sets the element to receive focus when right is pressed"
                     },
                     "params": [
                         {
                             "typeid": "{6383F1D3-BB27-4E6B-A49A-6409B2059EAA}",
                             "details": {
-                                "name": "EntityId",
-                                "tooltip": "Entity Unique Id"
+                                "name": "EntityID",
+                                "tooltip": "The element to receive focus when right is pressed"
                             }
                         }
                     ]
@@ -173,20 +181,22 @@
                     "key": "SetNavigationMode",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetNavigationMode"
+                        "tooltip": "When signaled, this will invoke Set Navigation Mode"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetNavigationMode is invoked"
+                        "tooltip": "Signaled after Set Navigation Mode is invoked"
                     },
                     "details": {
-                        "name": "SetNavigationMode"
+                        "name": "Set Navigation Mode",
+                        "tooltip": "Sets how the next element to receive focus is chosen when a navigation event occurs"
                     },
                     "params": [
                         {
                             "typeid": "{72039442-EB38-4D42-A1AD-CB68F7E0EEF6}",
                             "details": {
-                                "name": "int"
+                                "name": "Navigation Mode",
+                                "tooltip": "Indicates how the next element to receive focus is chosen when a navigation event occurs (0=Automatic, 1=Custom, 2=None)"
                             }
                         }
                     ]
@@ -195,14 +205,15 @@
                     "key": "GetOnDownEntity",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetOnDownEntity"
+                        "tooltip": "When signaled, this will invoke Get On Down Entity"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetOnDownEntity is invoked"
+                        "tooltip": "Signaled after Get On Down Entity is invoked"
                     },
                     "details": {
-                        "name": "GetOnDownEntity"
+                        "name": "Get On Down Entity",
+                        "tooltip": "Gets the element to receive focus when down is pressed"
                     },
                     "results": [
                         {
@@ -218,14 +229,15 @@
                     "key": "GetNavigationMode",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetNavigationMode"
+                        "tooltip": "When signaled, this will invoke Get Navigation Mode"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetNavigationMode is invoked"
+                        "tooltip": "Signaled after Get Navigation Mode is invoked"
                     },
                     "details": {
-                        "name": "GetNavigationMode"
+                        "name": "Get Navigation Mode",
+                        "tooltip": "Gets how the next element to receive focus is chosen when a navigation event occurs"
                     },
                     "results": [
                         {

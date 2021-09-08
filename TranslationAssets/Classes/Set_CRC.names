@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "Set<CRC>",
@@ -15,20 +15,21 @@
                     "context": "Set<CRC>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Size"
+                        "tooltip": "When signaled, this will invoke Size"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Size is invoked"
+                        "tooltip": "Signaled after Size is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Size"
+                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Size",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{93BBB90E-EBB4-507D-89B6-E4921FE44AFF}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to"
                             }
                         }
                     ],
@@ -46,20 +47,21 @@
                     "context": "Set<CRC>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::GetKeys"
+                        "tooltip": "When signaled, this will invoke GetKeys"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::GetKeys is invoked"
+                        "tooltip": "Signaled after GetKeys is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::GetKeys"
+                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::GetKeys",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{93BBB90E-EBB4-507D-89B6-E4921FE44AFF}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to"
                             }
                         }
                     ],
@@ -67,7 +69,7 @@
                         {
                             "typeid": "{287CEE87-6FF3-52FC-9D32-38255E2C7FE9}",
                             "details": {
-                                "name": "AZStd::vector"
+                                "name": "AZStd::vector<Crc32, allocator>"
                             }
                         }
                     ]
@@ -77,26 +79,27 @@
                     "context": "Set<CRC>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::contains"
+                        "tooltip": "When signaled, this will invoke contains"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::contains is invoked"
+                        "tooltip": "Signaled after contains is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::contains"
+                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::contains",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{93BBB90E-EBB4-507D-89B6-E4921FE44AFF}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "const AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::eq"
                             }
                         },
                         {
                             "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
                             "details": {
-                                "name": "Crc32"
+                                "name": "Crc32&"
                             }
                         }
                     ],
@@ -114,26 +117,27 @@
                     "context": "Set<CRC>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Insert"
+                        "tooltip": "When signaled, this will invoke Insert"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Insert is invoked"
+                        "tooltip": "Signaled after Insert is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Insert"
+                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Insert",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{93BBB90E-EBB4-507D-89B6-E4921FE44AFF}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to"
                             }
                         },
                         {
                             "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
                             "details": {
-                                "name": "Crc32"
+                                "name": "Crc32&"
                             }
                         }
                     ],
@@ -141,7 +145,7 @@
                         {
                             "typeid": "{93BBB90E-EBB4-507D-89B6-E4921FE44AFF}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to"
                             }
                         }
                     ]
@@ -151,20 +155,21 @@
                     "context": "Set<CRC>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::GetSize"
+                        "tooltip": "When signaled, this will invoke GetSize"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::GetSize is invoked"
+                        "tooltip": "Signaled after GetSize is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::GetSize"
+                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::GetSize",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{93BBB90E-EBB4-507D-89B6-E4921FE44AFF}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to"
                             }
                         }
                     ],
@@ -182,20 +187,21 @@
                     "context": "Set<CRC>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Reserve"
+                        "tooltip": "When signaled, this will invoke Reserve"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Reserve is invoked"
+                        "tooltip": "Signaled after Reserve is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Reserve"
+                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Reserve",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{93BBB90E-EBB4-507D-89B6-E4921FE44AFF}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to"
                             }
                         },
                         {
@@ -211,20 +217,21 @@
                     "context": "Set<CRC>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Iterate_VM"
+                        "tooltip": "When signaled, this will invoke Iterate_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Iterate_VM is invoked"
+                        "tooltip": "Signaled after Iterate_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Iterate_VM"
+                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Iterate_VM",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{93BBB90E-EBB4-507D-89B6-E4921FE44AFF}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to"
                             }
                         }
                     ],
@@ -242,26 +249,27 @@
                     "context": "Set<CRC>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::EraseCheck_VM"
+                        "tooltip": "When signaled, this will invoke EraseCheck_VM"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::EraseCheck_VM is invoked"
+                        "tooltip": "Signaled after EraseCheck_VM is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::EraseCheck_VM"
+                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::EraseCheck_VM",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{93BBB90E-EBB4-507D-89B6-E4921FE44AFF}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to"
                             }
                         },
                         {
                             "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
                             "details": {
-                                "name": "Crc32"
+                                "name": "Crc32&"
                             }
                         }
                     ],
@@ -279,26 +287,27 @@
                     "context": "Set<CRC>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Erase"
+                        "tooltip": "When signaled, this will invoke Erase"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Erase is invoked"
+                        "tooltip": "Signaled after Erase is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Erase"
+                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Erase",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{93BBB90E-EBB4-507D-89B6-E4921FE44AFF}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to"
                             }
                         },
                         {
                             "typeid": "{9F4E062E-06A0-46D4-85DF-E0DA96467D3A}",
                             "details": {
-                                "name": "Crc32"
+                                "name": "Crc32&"
                             }
                         }
                     ],
@@ -306,7 +315,7 @@
                         {
                             "typeid": "{93BBB90E-EBB4-507D-89B6-E4921FE44AFF}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to"
                             }
                         }
                     ]
@@ -316,20 +325,21 @@
                     "context": "Set<CRC>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Clear"
+                        "tooltip": "When signaled, this will invoke Clear"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Clear is invoked"
+                        "tooltip": "Signaled after Clear is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Clear"
+                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Clear",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{93BBB90E-EBB4-507D-89B6-E4921FE44AFF}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to"
                             }
                         }
                     ],
@@ -337,7 +347,7 @@
                         {
                             "typeid": "{93BBB90E-EBB4-507D-89B6-E4921FE44AFF}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to"
                             }
                         }
                     ]
@@ -347,20 +357,21 @@
                     "context": "Set<CRC>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::BucketCount"
+                        "tooltip": "When signaled, this will invoke BucketCount"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::BucketCount is invoked"
+                        "tooltip": "Signaled after BucketCount is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::BucketCount"
+                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::BucketCount",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{93BBB90E-EBB4-507D-89B6-E4921FE44AFF}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to"
                             }
                         }
                     ],
@@ -378,20 +389,21 @@
                     "context": "Set<CRC>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Empty"
+                        "tooltip": "When signaled, this will invoke Empty"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Empty is invoked"
+                        "tooltip": "Signaled after Empty is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Empty"
+                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Empty",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{93BBB90E-EBB4-507D-89B6-E4921FE44AFF}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to"
                             }
                         }
                     ],
@@ -409,26 +421,27 @@
                     "context": "Set<CRC>",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Swap"
+                        "tooltip": "When signaled, this will invoke Swap"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Swap is invoked"
+                        "tooltip": "Signaled after Swap is invoked"
                     },
                     "details": {
-                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Swap"
+                        "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to<Crc32>, allocator>::Swap",
+                        "category": "Set"
                     },
                     "params": [
                         {
                             "typeid": "{93BBB90E-EBB4-507D-89B6-E4921FE44AFF}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to"
                             }
                         },
                         {
                             "typeid": "{93BBB90E-EBB4-507D-89B6-E4921FE44AFF}",
                             "details": {
-                                "name": "AZStd::unordered_set"
+                                "name": "AZStd::unordered_set<Crc32, AZStd::hash<Crc32>, AZStd::equal_to"
                             }
                         }
                     ]

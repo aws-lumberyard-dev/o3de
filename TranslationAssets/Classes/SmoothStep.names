@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "SmoothStep",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "SmoothStep"

@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "SliceInstanceAddress",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "SliceInstanceAddress"
@@ -13,14 +13,15 @@
                     "context": "SliceInstanceAddress",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SliceInstanceAddress::IsValid"
+                        "tooltip": "When signaled, this will invoke IsValid"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SliceInstanceAddress::IsValid is invoked"
+                        "tooltip": "Signaled after IsValid is invoked"
                     },
                     "details": {
-                        "name": "SliceInstanceAddress::IsValid"
+                        "name": "SliceInstanceAddress::IsValid",
+                        "category": "Other"
                     },
                     "params": [
                         {

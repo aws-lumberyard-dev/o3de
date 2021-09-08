@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "CapsuleShapeConfig",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "CapsuleShapeConfig"

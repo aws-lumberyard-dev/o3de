@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "SceneManifest",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "SceneManifest"
@@ -13,20 +13,21 @@
                     "context": "SceneManifest",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SceneManifest::ImportFromJson"
+                        "tooltip": "When signaled, this will invoke ImportFromJson"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SceneManifest::ImportFromJson is invoked"
+                        "tooltip": "Signaled after ImportFromJson is invoked"
                     },
                     "details": {
-                        "name": "SceneManifest::ImportFromJson"
+                        "name": "SceneManifest::ImportFromJson",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{9274AD17-3212-4651-9F3B-7DCCB080E467}",
                             "details": {
-                                "name": "SceneManifest"
+                                "name": "SceneManifest&"
                             }
                         },
                         {
@@ -50,20 +51,21 @@
                     "context": "SceneManifest",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SceneManifest::ExportToJson"
+                        "tooltip": "When signaled, this will invoke ExportToJson"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SceneManifest::ExportToJson is invoked"
+                        "tooltip": "Signaled after ExportToJson is invoked"
                     },
                     "details": {
-                        "name": "SceneManifest::ExportToJson"
+                        "name": "SceneManifest::ExportToJson",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{9274AD17-3212-4651-9F3B-7DCCB080E467}",
                             "details": {
-                                "name": "SceneManifest"
+                                "name": "SceneManifest&"
                             }
                         }
                     ],
@@ -71,7 +73,7 @@
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "AZStd::basic_string<char, AZStd::char_traits<char>, allocator>"
                             }
                         }
                     ]

@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "GraphControllerRequestBus"
+                "name": "GRAPHCONTROLLERREQUESTBUS_NAME",
+                "category": "GRAPHCONTROLLERREQUESTBUS_CATEGORY"
             },
             "methods": [
                 {

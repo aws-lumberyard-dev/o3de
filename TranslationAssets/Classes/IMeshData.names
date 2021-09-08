@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "IMeshData",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "IMeshData"
@@ -13,20 +13,21 @@
                     "context": "IMeshData",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke IMeshData::GetUnitSizeInMeters"
+                        "tooltip": "When signaled, this will invoke GetUnitSizeInMeters"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after IMeshData::GetUnitSizeInMeters is invoked"
+                        "tooltip": "Signaled after GetUnitSizeInMeters is invoked"
                     },
                     "details": {
-                        "name": "IMeshData::GetUnitSizeInMeters"
+                        "name": "IMeshData::GetUnitSizeInMeters",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{B94A59C0-F3A5-40A0-B541-7E36B6576C4A}",
                             "details": {
-                                "name": "IMeshData"
+                                "name": "IMeshData*"
                             }
                         }
                     ],
@@ -44,20 +45,21 @@
                     "context": "IMeshData",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke IMeshData::GetOriginalUnitSizeInMeters"
+                        "tooltip": "When signaled, this will invoke GetOriginalUnitSizeInMeters"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after IMeshData::GetOriginalUnitSizeInMeters is invoked"
+                        "tooltip": "Signaled after GetOriginalUnitSizeInMeters is invoked"
                     },
                     "details": {
-                        "name": "IMeshData::GetOriginalUnitSizeInMeters"
+                        "name": "IMeshData::GetOriginalUnitSizeInMeters",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{B94A59C0-F3A5-40A0-B541-7E36B6576C4A}",
                             "details": {
-                                "name": "IMeshData"
+                                "name": "IMeshData*"
                             }
                         }
                     ],

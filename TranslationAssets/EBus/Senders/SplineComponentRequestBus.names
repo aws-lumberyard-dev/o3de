@@ -5,35 +5,36 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "SplineComponentRequestBus"
+                "name": "Spline",
+                "category": "Shape"
             },
             "methods": [
                 {
                     "key": "ClearVertices",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke ClearVertices"
+                        "tooltip": "When signaled, this will invoke Clear Vertices"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after ClearVertices is invoked"
+                        "tooltip": "Signaled after Clear Vertices is invoked"
                     },
                     "details": {
-                        "name": "ClearVertices"
+                        "name": "Clear Vertices"
                     }
                 },
                 {
                     "key": "RemoveVertex",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke RemoveVertex"
+                        "tooltip": "When signaled, this will invoke Remove Vertex"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after RemoveVertex is invoked"
+                        "tooltip": "Signaled after Remove Vertex is invoked"
                     },
                     "details": {
-                        "name": "RemoveVertex"
+                        "name": "Remove Vertex"
                     },
                     "params": [
                         {
@@ -56,14 +57,14 @@
                     "key": "UpdateVertex",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke UpdateVertex"
+                        "tooltip": "When signaled, this will invoke Update Vertex"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after UpdateVertex is invoked"
+                        "tooltip": "Signaled after Update Vertex is invoked"
                     },
                     "details": {
-                        "name": "UpdateVertex"
+                        "name": "Update Vertex"
                     },
                     "params": [
                         {
@@ -92,14 +93,14 @@
                     "key": "AddVertex",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke AddVertex"
+                        "tooltip": "When signaled, this will invoke Add Vertex"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after AddVertex is invoked"
+                        "tooltip": "Signaled after Add Vertex is invoked"
                     },
                     "details": {
-                        "name": "AddVertex"
+                        "name": "Add Vertex"
                     },
                     "params": [
                         {
@@ -114,14 +115,14 @@
                     "key": "GetSpline",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke GetSpline"
+                        "tooltip": "When signaled, this will invoke Get Spline"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after GetSpline is invoked"
+                        "tooltip": "Signaled after Get Spline is invoked"
                     },
                     "details": {
-                        "name": "GetSpline"
+                        "name": "Get Spline"
                     },
                     "results": [
                         {
@@ -136,14 +137,14 @@
                     "key": "SetClosed",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke SetClosed"
+                        "tooltip": "When signaled, this will invoke Set Closed"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after SetClosed is invoked"
+                        "tooltip": "Signaled after Set Closed is invoked"
                     },
                     "details": {
-                        "name": "SetClosed"
+                        "name": "Set Closed"
                     },
                     "params": [
                         {
@@ -158,14 +159,14 @@
                     "key": "InsertVertex",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke InsertVertex"
+                        "tooltip": "When signaled, this will invoke Insert Vertex"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after InsertVertex is invoked"
+                        "tooltip": "Signaled after Insert Vertex is invoked"
                     },
                     "details": {
-                        "name": "InsertVertex"
+                        "name": "Insert Vertex"
                     },
                     "params": [
                         {

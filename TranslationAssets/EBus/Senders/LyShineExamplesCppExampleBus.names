@@ -5,35 +5,38 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "LyShineExamplesCppExampleBus"
+                "name": "LyShine Cpp Example",
+                "category": "UI/LyShine Examples"
             },
             "methods": [
                 {
                     "key": "CreateCanvas",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke CreateCanvas"
+                        "tooltip": "When signaled, this will invoke Create Canvas"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after CreateCanvas is invoked"
+                        "tooltip": "Signaled after Create Canvas is invoked"
                     },
                     "details": {
-                        "name": "CreateCanvas"
+                        "name": "Create Canvas",
+                        "tooltip": "Creates a canvas using C++"
                     }
                 },
                 {
                     "key": "DestroyCanvas",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke DestroyCanvas"
+                        "tooltip": "When signaled, this will invoke Destroy Canvas"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after DestroyCanvas is invoked"
+                        "tooltip": "Signaled after Destroy Canvas is invoked"
                     },
                     "details": {
-                        "name": "DestroyCanvas"
+                        "name": "Destroy Canvas",
+                        "tooltip": "Destroys a canvas using C++"
                     }
                 }
             ]

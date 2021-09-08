@@ -2,7 +2,7 @@
     "entries": [
         {
             "key": "TestTupleMethods",
-            "context": "",
+            "context": "BehaviorClass",
             "variant": "",
             "details": {
                 "name": "TestTupleMethods"
@@ -13,32 +13,33 @@
                     "context": "TestTupleMethods",
                     "entry": {
                         "name": "In",
-                        "tooltip": "When signaled, this will invoke TestTupleMethods::Three"
+                        "tooltip": "When signaled, this will invoke Three"
                     },
                     "exit": {
                         "name": "Out",
-                        "tooltip": "Signaled after TestTupleMethods::Three is invoked"
+                        "tooltip": "Signaled after Three is invoked"
                     },
                     "details": {
-                        "name": "TestTupleMethods::Three"
+                        "name": "TestTupleMethods::Three",
+                        "category": "Other"
                     },
                     "params": [
                         {
                             "typeid": "{8379EB7D-01FA-4538-B64B-A6543B4BE73D}",
                             "details": {
-                                "name": "Vector3"
+                                "name": "const Vector3&"
                             }
                         },
                         {
                             "typeid": "{03AAAB3F-5C47-5A66-9EBC-D5FA4DB353C9}",
                             "details": {
-                                "name": "AZStd::string"
+                                "name": "const AZStd::basic_string<char, AZStd::char_traits<char>, alloc"
                             }
                         },
                         {
                             "typeid": "{A0CA880C-AFE4-43CB-926C-59AC48496112}",
                             "details": {
-                                "name": "bool"
+                                "name": "const bool&"
                             }
                         }
                     ],

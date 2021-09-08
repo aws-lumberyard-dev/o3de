@@ -5,7 +5,8 @@
             "context": "",
             "variant": "",
             "details": {
-                "name": "DeferredFogRequestsBus"
+                "name": "DEFERREDFOGREQUESTSBUS_NAME",
+                "category": "DEFERREDFOGREQUESTSBUS_CATEGORY"
             },
             "methods": [
                 {

@@ -105,9 +105,6 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Controls\TimelineCtrl.cpp">
       <Filter>Controls</Filter>
     </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Controls\ReflectedPropertyControl\PropertyAnimationCtrl.cpp">
-      <Filter>Controls\ReflectedPropertyControl</Filter>
-    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Controls\ReflectedPropertyControl\PropertyGenericCtrl.cpp">
       <Filter>Controls\ReflectedPropertyControl</Filter>
     </ClCompile>
@@ -121,9 +118,6 @@
       <Filter>Controls\ReflectedPropertyControl</Filter>
     </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Controls\ReflectedPropertyControl\PropertyCtrl.cpp">
-      <Filter>Controls\ReflectedPropertyControl</Filter>
-    </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Controls\ReflectedPropertyControl\ReflectedPropertiesPanel.cpp">
       <Filter>Controls\ReflectedPropertyControl</Filter>
     </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\MainStatusBar.cpp" />
@@ -161,9 +155,6 @@
     </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Dialogs\Generic\UserOptions.cpp">
       <Filter>Dialogs\Generic</Filter>
-    </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\EditMode\SubObjectSelectionReferenceFrameCalculator.cpp">
-      <Filter>EditMode</Filter>
     </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\Export\ExportManager.cpp">
       <Filter>Export</Filter>
@@ -264,7 +255,6 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\LightmapCompiler\SimpleTriangleRasterizer.cpp">
       <Filter>LightmapCompiler</Filter>
     </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\ResourceSelectorHost.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\ToolBox.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\TrackViewNewSequenceDialog.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\UndoConfigSpec.cpp" />
@@ -342,9 +332,6 @@
       <Filter>TrackView</Filter>
     </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\TrackView\CaptureKeyUIControls.cpp">
-      <Filter>TrackView</Filter>
-    </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\TrackView\CharacterKeyUIControls.cpp">
       <Filter>TrackView</Filter>
     </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\TrackView\ConsoleKeyUIControls.cpp">
@@ -519,6 +506,7 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\EditorViewportWidget.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\EditorViewportSettings.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\EditorViewportCamera.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\EditorModularViewportCameraComposer.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\ViewportManipulatorController.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\TopRendererWnd.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\ViewManager.cpp" />
@@ -648,13 +636,7 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Include\IRenderListener.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Include\IResourceSelectorHost.h">
-      <Filter>Include</Filter>
-    </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Include\ISourceControl.h">
-      <Filter>Include</Filter>
-    </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Include\ISubObjectSelectionReferenceFrameCalculator.h">
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Include\ITextureDatabaseUpdater.h">
@@ -751,9 +733,6 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Controls\WndGridHelper.h">
       <Filter>Controls</Filter>
     </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Controls\ReflectedPropertyControl\PropertyAnimationCtrl.h">
-      <Filter>Controls\ReflectedPropertyControl</Filter>
-    </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Controls\ReflectedPropertyControl\PropertyGenericCtrl.h">
       <Filter>Controls\ReflectedPropertyControl</Filter>
     </ClInclude>
@@ -767,9 +746,6 @@
       <Filter>Controls\ReflectedPropertyControl</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Controls\ReflectedPropertyControl\PropertyCtrl.h">
-      <Filter>Controls\ReflectedPropertyControl</Filter>
-    </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Controls\ReflectedPropertyControl\ReflectedPropertiesPanel.h">
       <Filter>Controls\ReflectedPropertyControl</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\MainStatusBar.h" />
@@ -814,9 +790,6 @@
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Dialogs\Generic\UserOptions.h">
       <Filter>Dialogs\Generic</Filter>
-    </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\EditMode\SubObjectSelectionReferenceFrameCalculator.h">
-      <Filter>EditMode</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Export\ExportManager.h">
       <Filter>Export</Filter>
@@ -864,6 +837,9 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\LevelIndependentFileMan.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\LogFileImpl.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Objects\ClassDesc.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Objects\DisplayContextShared.inl">
       <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Objects\IEntityObjectListener.h">
@@ -939,7 +915,6 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\SettingsManager.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\SettingsManagerDialog.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\ErrorReportTableModel.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\ResourceSelectorHost.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\WipFeatureManager.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\Dialogs\ErrorsDlg.h">
       <Filter>Dialogs</Filter>
@@ -1174,6 +1149,8 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\EditorViewportWidget.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\EditorViewportSettings.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\EditorViewportCamera.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\EditorModularViewportCameraComposer.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\EditorModularViewportCameraComposerBus.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\ViewportManipulatorController.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\TopRendererWnd.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\ViewManager.h" />
@@ -1395,6 +1372,9 @@
       <Filter>WelcomeScreen</Filter>
     </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\Code\Editor\ViewportTitleDlg.ui" />
+    <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\30f0cd7e77c1a3af51c56d0e4cd75e53\EditorLib_(CONFIG).stamp.rule">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="J:\Atom\lyfork\o3de\CMakeFiles\854d52257c4b8ef7dff1e46c59f8ad2c\qrc_MainWindow.cpp.rule">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -2142,6 +2122,15 @@
     </None>
     <None Include="J:\Atom\lyfork\o3de\Code\Editor\Platform\Common\MSVC\editor_lib_msvc.cmake">
       <Filter>Platform\Common\MSVC</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\debug\EditorLib_debug.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\profile\EditorLib_profile.stamp">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="J:\Atom\lyfork\o3de\runtime_dependencies\release\EditorLib_release.stamp">
+      <Filter>Generated Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
