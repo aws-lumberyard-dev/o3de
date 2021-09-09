@@ -78,4 +78,3 @@ float3 AcesCc_To_AcesCg(float3 color)
         ACEScc_to_lin(color.g),
         ACEScc_to_lin(color.b));
 }
-

@@ -26,11 +26,7 @@
 #define saturate(value) clamp(value, FLOAT_EPSILON, 1.0f)
 
 // ACES constants
-static const float ACEScc_MAX = 1.4679964;
 static const float ACEScc_MIDGREY = 0.4135884;  // is correct
-static const float ACEScg_MIDGREY = 0.4135884;  // not sure what the value is!?
-
-option bool o_colorGradingUseACES = false;
 
 ShaderResourceGroup PassSrg : SRG_PerPass_WithFallback
 {
@@ -84,12 +80,16 @@ ShaderResourceGroup PassSrg : SRG_PerPass_WithFallback
     float4 m_color;
 }
 
+// Below are the color grading functions. These expect the frame color to be in ACEScg space.
+// If a color parameter is introduced from external sources (e.g. Editor color picker which uses Linear RGB), 
+// it will be converted into ACEScg as needed.
 float3 ColorGradePostExposure (float3 frame_color, float exposure) 
 {
     frame_color *= pow(2.0f, exposure);
 	return frame_color;
 }
 
+// The contrast equation is performed in ACEScc (logarithmic) color space.
 float3 ColorGradingContrast (float3 frame_color, float midgrey, float amount) 
 {
     float contrast_adjustment = amount * 0.01f + 1.0f;
@@ -98,6 +98,7 @@ float3 ColorGradingContrast (float3 frame_color, float midgrey, float amount)
 	return frame_color = TransformColor(frame_color.rgb, ColorSpaceId::ACEScc, ColorSpaceId::ACEScg);
 }
 
+// The swatch_color param expects a linear RGB value.
 float3 ColorGradeColorFilter (float3 frame_color, float3 swatch_color, float alpha) 
 {
     swatch_color = TransformColor(frame_color.rgb, ColorSpaceId::LinearSRGB, ColorSpaceId::ACEScg);
@@ -122,12 +123,12 @@ float3 ColorGradeSaturation (float3 frame_color, float control)
 
 float3 ColorGradeKelvinColorTemp(float3 frame_color, float kTemp, float mix, float lumPreservation)
 {
-    float3 kColor    = KelvinToRGB( kTemp );
-    float3 oLum      = RGBToHSL( frame_color.rgb );
-    float3 blended   = lerp( frame_color.rgb, frame_color.rgb * kColor.rgb, mix );
-    float3 resHSV    = RGBToHSL( blended.rgb );
-    float3 resRGB    = HSLToRGB( float3( resHSV.xy, oLum.z ));
-    return lerp( blended.rgb, resRGB.rgb, lumPreservation );
+    float3 kColor    = TransformColor(KelvinToRGB(kTemp), ColorSpaceId::LinearSRGB, ColorSpaceId::ACEScg);
+    float3 oLum      = RGBToHSL(frame_color.rgb);
+    float3 blended   = lerp(frame_color.rgb, frame_color.rgb * kColor.rgb, mix);
+    float3 resHSV    = RGBToHSL(blended.rgb);
+    float3 resRGB    = HSLToRGB(float3(resHSV.xy, oLum.z));
+    return lerp(blended.rgb, resRGB.rgb, lumPreservation);
 }
 
 // pow(f, e) won't work if f is negative, or may cause inf/NAN.
@@ -145,7 +146,7 @@ float3 ColorGradeSplitTone (float3 frame_color, float balance, float mix)
 	frame_splitTone = BlendMode_SoftLight(frame_splitTone, shadows);
 	frame_splitTone = BlendMode_SoftLight(frame_splitTone, highlights);
     frame_splitTone = NoNanPow(frame_splitTone, 2.2);
-	return lerp( frame_color.rgb, frame_splitTone.rgb, mix );
+	return lerp(frame_color.rgb, frame_splitTone.rgb, mix);
 }
 
 float3 ColorGradeChannelMixer (float3 frame_color) 
@@ -172,28 +173,28 @@ float3 ColorGradeShadowsMidtonesHighlights (float3 frame_color, float shadowsSta
     float3 frame_smh = frame_color * shadowsColorACEScg * shadowsWeight +
 	                   frame_color * midtonesColorACEScg * midtonesWeight +
 	                   frame_color * highlightsColorACEScg * highlightsWeight;
-	return lerp( frame_color.rgb, frame_smh.rgb, mix );
+	return lerp(frame_color.rgb, frame_smh.rgb, mix);
 }
 
-float3 ColorGrade ( float3 frame_color ) 
+float3 ColorGrade (float3 frame_color) 
 {
-    frame_color = min( frame_color, 60.0 );
-	frame_color = ColorGradePostExposure( frame_color, PassSrg::m_colorGradingExposure );
-    frame_color = ColorGradeKelvinColorTemp( frame_color, PassSrg::m_kelvin,
-                                             PassSrg::m_kelvinColorMix, PassSrg::m_kelvinLumPreservation );
-    frame_color = ColorGradingContrast( frame_color, ACEScc_MIDGREY, PassSrg::m_colorGradingContrast );
-    frame_color = ColorGradeColorFilter( frame_color, PassSrg::m_colorFilterSwatch.rgb,
-                                         PassSrg::m_colorFilterMultiply );
-    frame_color = max( frame_color, 0.0 );
-    frame_color = ColorGradeSaturation( frame_color, PassSrg::m_colorGradingPreSaturation );
-	frame_color = ColorGradeSplitTone( frame_color, PassSrg::m_splitToneBalance, PassSrg::m_splitToneMix );
-    frame_color = ColorGradeChannelMixer( frame_color );
-    frame_color = max( frame_color, 0.0 );
-    frame_color = ColorGradeShadowsMidtonesHighlights( frame_color, PassSrg::m_smhShadowsStart, PassSrg::m_smhShadowsEnd,
+    frame_color = min(frame_color, 60.0);
+	frame_color = ColorGradePostExposure(frame_color, PassSrg::m_colorGradingExposure);
+    frame_color = ColorGradeKelvinColorTemp(frame_color, PassSrg::m_kelvin,
+                                            PassSrg::m_kelvinColorMix, PassSrg::m_kelvinLumPreservation);
+    frame_color = ColorGradingContrast(frame_color, ACEScc_MIDGREY, PassSrg::m_colorGradingContrast);
+    frame_color = ColorGradeColorFilter(frame_color, PassSrg::m_colorFilterSwatch.rgb,
+                                         PassSrg::m_colorFilterMultiply);
+    frame_color = max(frame_color, 0.0);
+    frame_color = ColorGradeSaturation(frame_color, PassSrg::m_colorGradingPreSaturation);
+	frame_color = ColorGradeSplitTone(frame_color, PassSrg::m_splitToneBalance, PassSrg::m_splitToneMix);
+    frame_color = ColorGradeChannelMixer(frame_color);
+    frame_color = max(frame_color, 0.0);
+    frame_color = ColorGradeShadowsMidtonesHighlights(frame_color, PassSrg::m_smhShadowsStart, PassSrg::m_smhShadowsEnd,
                                                     PassSrg::m_smhHighlightsStart, PassSrg::m_smhHighlightsEnd, PassSrg::m_smhMix,
                                                     PassSrg::m_smhShadowsColor, PassSrg::m_smhMidtonesColor, PassSrg::m_smhHighlightsColor);
-    frame_color = ColorGradeHueShift( frame_color, PassSrg::m_colorGradingHueShift );
-    frame_color = ColorGradeSaturation( frame_color, PassSrg::m_colorGradingPostSaturation );
+    frame_color = ColorGradeHueShift(frame_color, PassSrg::m_colorGradingHueShift);
+    frame_color = ColorGradeSaturation(frame_color, 5.0);
 	return frame_color.rgb;
 }
 
