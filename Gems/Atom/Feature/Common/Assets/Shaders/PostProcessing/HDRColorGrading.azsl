@@ -6,20 +6,22 @@
  *
  */
 
+#include <Atom/RPI/Math.azsli>
+
 #include <Atom/Features/SrgSemantics.azsli>
 
 #include <Atom/Features/PostProcessing/FullscreenPixelInfo.azsli>
 #include <Atom/Features/PostProcessing/FullscreenVertex.azsli>
 
 #include <Atom/Features/ColorManagement/TransformColor.azsli>
+#include <Atom/Features/PostProcessing/AcesColorSpaceConversion.azsli>
 #include <3rdParty/Features/PostProcessing/PSstyleColorBlends_Separable.azsli>
 #include <3rdParty/Features/PostProcessing/PSstyleColorBlends_NonSeparable.azsli>
 #include <3rdParty/Features/PostProcessing/KelvinToRGB.azsli>
 
-#define EPSILON 10e-5f
 #define FLOAT_EPSILON     1.192092896e-07 // 1.0 + FLOAT_EPSILON != 1.0, smallest positive float
-#define FLOAT_MIN         1.175494351e-38 // Min float number that is positive
-#define FLOAT_MAX         3.402823466e+38 // Max float number representable
+#define FLOAT_MIN         FLOAT_32_MIN // Min float number that is positive
+#define FLOAT_MAX         FLOAT_32_MAX // Max float number representable
 
 #define saturate(value) clamp(value, FLOAT_EPSILON, 1.0f)
 
@@ -82,118 +84,39 @@ ShaderResourceGroup PassSrg : SRG_PerPass_WithFallback
     float4 m_color;
 }
 
-struct ParamsLogColor
+float3 ColorGradePostExposure (float3 frame_color, float exposure) 
 {
-    float cut;
-    float a, b, c, d, e, f;
-};
-
-static const ParamsLogColor LogColor =
-{
-    0.011361, // cut
-    5.555556, // a
-    0.047996, // b
-    0.244161, // c
-    0.386036, // d
-    5.301883, // e
-    0.092819  // f
-};
-
-float LinearToLog(half x) {
-    float o;
-    if (x > LogColor.cut)
-        o = LogColor.c * log10(LogColor.a * x + LogColor.b) + LogColor.d;
-    else
-        o = LogColor.e * x + LogColor.f;
-    return o;
-}
-
-float3 LinearToLogColor(float3 color)
-{
-    return float3(
-        LinearToLog(color.r),
-        LinearToLog(color.g),
-        LinearToLog(color.b)
-    );
-}
-
-float LogToLinear(float x) {
-    float o;
-    if (x > LogColor.e * LogColor.cut + LogColor.f)
-        o = (pow(10.0, (x - LogColor.d) / LogColor.c) - LogColor.b) / LogColor.a;
-    else
-        o = (x - LogColor.f) / LogColor.e;
-    return o;
-}
-
-float3 LogColorToLinear(float3 color) {
-    return float3(
-        LogToLinear(color.r),
-        LogToLinear(color.g),
-        LogToLinear(color.b)
-    );
-}
-
-float3 RgbToHsv(float3 color) {
-    float4 K = float4(0.0f, -1.0f / 3.0f, 2.0f / 3.0f, -1.0f);
-    float4 p = lerp(float4(color.bg, K.wz), float4(color.gb, K.xy), step(color.b, color.g));
-    float4 q = lerp(float4(p.xyw, color.r), float4(color.r, p.yzx), step(p.x, color.r));
-    float d = q.x - min(q.w, q.y);
-    float e = EPSILON;
-    return float3(abs(q.z + (q.w - q.y) / (6.0f * d + e)), d / (q.x + e), q.x);
-}
-
-float3 HsvToRgb(float3 color) {
-  float4 K = float4(1.0f, 2.0f / 3.0f, 1.0f / 3.0f, 3.0f);
-  float3 p = abs(frac(color.xxx + K.xyz) * 6.0f - K.www);
-  return color.z * lerp(K.xxx, saturate(p - K.xxx), color.y);
-}
-
-float RotateHue(float value, float low, float hi) {
-    return (value < low)
-            ? value + hi
-            : (value > hi)
-                ? value - hi
-                : value;
-}
-
-// https://graphics-programming.org/resources/tonemapping/index.html
-float Luminance(float3 color) {
-    return dot(color, float3(0.2126729f, 0.7151522f, 0.0721750f));
-}
-
-float3 ChangeLuminance(float3 color, float new_lum) {
-    float color_lum = Luminance(color);
-    return color * (new_lum / color_lum);
-}
-
-float3 ColorGradePostExposure (float3 frame_color, float exposure) {
     frame_color *= pow(2.0f, exposure);
 	return frame_color;
 }
 
-float3 ColorGradingContrast (float3 frame_color, float midgrey, float amount) {
+float3 ColorGradingContrast (float3 frame_color, float midgrey, float amount) 
+{
     float contrast_adjustment = amount * 0.01f + 1.0f;
-    frame_color = LinearToLogColor(frame_color.rgb);
+    frame_color = TransformColor(frame_color.rgb, ColorSpaceId::ACEScg, ColorSpaceId::ACEScc);
     frame_color = (frame_color - midgrey) * contrast_adjustment + midgrey;
-	return frame_color = LogColorToLinear(frame_color.rgb);
+	return frame_color = TransformColor(frame_color.rgb, ColorSpaceId::ACEScc, ColorSpaceId::ACEScg);
 }
 
-float3 ColorGradeColorFilter (float3 frame_color, float3 swatch_color, float alpha) {
+float3 ColorGradeColorFilter (float3 frame_color, float3 swatch_color, float alpha) 
+{
+    swatch_color = TransformColor(frame_color.rgb, ColorSpaceId::LinearSRGB, ColorSpaceId::ACEScg);
     swatch_color *= pow(2.0f, PassSrg::m_colorFilterIntensity);
     float3 frame_adjust = frame_color * swatch_color;
     return frame_color = lerp(frame_color, frame_adjust, alpha);
 }
 
-float3 CColorGradeHueShift (float3 frame_color, float amount) {
-	float3 frame_hsv = RgbToHsv(frame_color);
+float3 ColorGradeHueShift (float3 frame_color, float amount) 
+{
+	float3 frame_hsv = TransformColor(frame_color, ColorSpaceId::ACEScg, ColorSpaceId::HSV);
 	float hue = frame_hsv.x + amount;
 	frame_hsv.x = RotateHue(hue, 0.0, 1.0);
-	return HsvToRgb(frame_hsv);
+	return TransformColor(frame_hsv, ColorSpaceId::HSV, ColorSpaceId::ACEScg);
 }
 
-float3 ColorGradeSaturation (float3 frame_color, float control) {
-	float v_luminance = Luminance(frame_color);
+float3 ColorGradeSaturation (float3 frame_color, float control) 
+{
+	float v_luminance = CalculateLuminance(frame_color, ColorSpaceId::ACEScg);
 	return (frame_color - v_luminance) * control + v_luminance;
 }
 
@@ -213,9 +136,10 @@ float3 NoNanPow(float3 base, float3 power)
     return pow(max(abs(base), float3(FLOAT_EPSILON, FLOAT_EPSILON, FLOAT_EPSILON)), power);
 }
 
-float3 ColorGradeSplitTone (float3 frame_color, float balance, float mix) {
-	float3 frame_splitTone = NoNanPow(frame_color, 1.0 / 2.2);
-	float t = saturate(Luminance(saturate(frame_splitTone)) + balance);
+float3 ColorGradeSplitTone (float3 frame_color, float balance, float mix) 
+{
+    float3 frame_splitTone = NoNanPow(frame_color, 1.0 / 2.2);
+	float t = saturate(CalculateLuminance(saturate(frame_splitTone), ColorSpaceId::ACEScg) + balance);
 	float3 shadows = lerp(0.5, PassSrg::m_splitToneShadowsColor.rgb, 1.0 - t);
 	float3 highlights = lerp(0.5, PassSrg::m_splitToneHighlightsColor.rgb, t);
 	frame_splitTone = BlendMode_SoftLight(frame_splitTone, shadows);
@@ -224,42 +148,35 @@ float3 ColorGradeSplitTone (float3 frame_color, float balance, float mix) {
 	return lerp( frame_color.rgb, frame_splitTone.rgb, mix );
 }
 
-float3 ColorGradeChannelMixer (float3 frame_color) {
-	return mul( float3x3(   PassSrg::m_channelMixingRed.rgb,
-                            PassSrg::m_channelMixingGreen.rgb,
-                            PassSrg::m_channelMixingBlue.rgb),
-		        frame_color );
-}
-
-// transform primaries
-static const half3x3 sRGB_to_ACES_AP1_Mat = {
-    0.61319, 0.33951, 0.04737,
-    0.07021, 0.91634, 0.01345,
-    0.02062, 0.10957, 0.86961
-};
-
-// sRGB primaries to ACEScg (AP1 w/ linear encoding)
-float3 linearSrgb_to_ACEScg(float3 p)
+float3 ColorGradeChannelMixer (float3 frame_color) 
 {
-    p = mul(sRGB_to_ACES_AP1_Mat, p);
-    return p;
+	return mul(float3x3(PassSrg::m_channelMixingRed.rgb,
+            PassSrg::m_channelMixingGreen.rgb,
+            PassSrg::m_channelMixingBlue.rgb),
+		frame_color);
 }
 
 float3 ColorGradeShadowsMidtonesHighlights (float3 frame_color, float shadowsStart, float shadowsEnd, 
                                             float highlightsStart, float highlightsEnd, float mix,
-                                            float4 shadowsColor, float4 midtonesColor, float4 highlightsColor) {
-	float cLuminance = Luminance(frame_color);
+                                            float4 shadowsColor, float4 midtonesColor, float4 highlightsColor) 
+{
+    float3 shadowsColorACEScg = TransformColor(shadowsColor.rgb, ColorSpaceId::LinearSRGB, ColorSpaceId::ACEScg);
+    float3 midtonesColorACEScg = TransformColor(midtonesColor.rgb, ColorSpaceId::LinearSRGB, ColorSpaceId::ACEScg);
+    float3 highlightsColorACEScg = TransformColor(highlightsColor.rgb, ColorSpaceId::LinearSRGB, ColorSpaceId::ACEScg);
+
+	float cLuminance = CalculateLuminance(frame_color, ColorSpaceId::ACEScg);
 	float shadowsWeight = 1.0 - smoothstep(shadowsStart, shadowsEnd, cLuminance);
 	float highlightsWeight = smoothstep(highlightsStart, highlightsEnd, cLuminance);
 	float midtonesWeight = 1.0 - shadowsWeight - highlightsWeight;
 
-    float3 frame_smh = frame_color * shadowsColor.rgb * shadowsWeight +
-	                   frame_color * midtonesColor.rgb * midtonesWeight +
-	                   frame_color * highlightsColor.rgb * highlightsWeight;
+    float3 frame_smh = frame_color * shadowsColorACEScg * shadowsWeight +
+	                   frame_color * midtonesColorACEScg * midtonesWeight +
+	                   frame_color * highlightsColorACEScg * highlightsWeight;
 	return lerp( frame_color.rgb, frame_smh.rgb, mix );
 }
 
-float3 ColorGrade ( float3 frame_color ) {
+float3 ColorGrade ( float3 frame_color ) 
+{
     frame_color = min( frame_color, 60.0 );
 	frame_color = ColorGradePostExposure( frame_color, PassSrg::m_colorGradingExposure );
     frame_color = ColorGradeKelvinColorTemp( frame_color, PassSrg::m_kelvin,
@@ -275,7 +192,7 @@ float3 ColorGrade ( float3 frame_color ) {
     frame_color = ColorGradeShadowsMidtonesHighlights( frame_color, PassSrg::m_smhShadowsStart, PassSrg::m_smhShadowsEnd,
                                                     PassSrg::m_smhHighlightsStart, PassSrg::m_smhHighlightsEnd, PassSrg::m_smhMix,
                                                     PassSrg::m_smhShadowsColor, PassSrg::m_smhMidtonesColor, PassSrg::m_smhHighlightsColor);
-    frame_color = CColorGradeHueShift( frame_color, PassSrg::m_colorGradingHueShift );
+    frame_color = ColorGradeHueShift( frame_color, PassSrg::m_colorGradingHueShift );
     frame_color = ColorGradeSaturation( frame_color, PassSrg::m_colorGradingPostSaturation );
 	return frame_color.rgb;
 }
