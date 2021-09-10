@@ -6,9 +6,6 @@
 #
 #
 
-set(LY_BUILD_DEPENDENCIES
-    PRIVATE
-        d3d12
-        dxgi
-        dxguid
-)
+include_guard(GLOBAL)
+
+list(APPEND CMAKE_CONFIGURATION_TYPES @CMAKE_INSTALL_CONFIG_NAME@)
