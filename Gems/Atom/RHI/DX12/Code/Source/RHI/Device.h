@@ -57,6 +57,10 @@ namespace AZ
                 const DXGI_SWAP_CHAIN_DESCX& swapChainDesc,
                 RHI::Ptr<IDXGISwapChainX>& swapChain);
 
+            RHI::ResultCode CreateSwapChain(
+                const DXGI_SWAP_CHAIN_DESCX& swapChainDesc,
+                AZStd::array<RHI::Ptr<ID3D12Resource>, RHI::Limits::Device::FrameCountMax>& outSwapChainResources);
+
             void GetImageAllocationInfo(
                 const RHI::ImageDescriptor& descriptor,
                 D3D12_RESOURCE_ALLOCATION_INFO& info);
@@ -143,12 +147,11 @@ namespace AZ
 
             bool IsAftermathInitialized() const;
         private:
-            Device() = default;
+            Device();
 
             //////////////////////////////////////////////////////////////////////////
             // RHI::Device
             RHI::ResultCode InitInternal(RHI::PhysicalDevice& physicalDevice) override;
-            RHI::ResultCode PostInitInternal(const RHI::DeviceDescriptor & params) override;
 
             void ShutdownInternal() override;
             void CompileMemoryStatisticsInternal(RHI::MemoryStatisticsBuilder& builder) override;
@@ -158,6 +161,7 @@ namespace AZ
             void WaitForIdleInternal() override;
             AZStd::chrono::microseconds GpuTimestampToMicroseconds(uint64_t gpuTimestamp, RHI::HardwareQueueClass queueClass) const override;
             void FillFormatsCapabilitiesInternal(FormatCapabilitiesList& formatsCapabilities) override;
+            RHI::ResultCode InitializeLimits() override;
             AZStd::vector<RHI::Format> GetValidSwapChainImageFormats(const RHI::WindowHandle& windowHandle) const override;
             void PreShutdown() override;
             RHI::ResourceMemoryRequirements GetResourceMemoryRequirements(const RHI::ImageDescriptor & descriptor) override;
