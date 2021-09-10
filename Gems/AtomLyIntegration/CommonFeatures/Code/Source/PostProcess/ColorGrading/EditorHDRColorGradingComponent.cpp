@@ -41,12 +41,37 @@ namespace AZ
                         ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly)
                         ;
 
-                    editContext->Class<HDRColorGradingComponentConfig>("LookModificationComponentConfig", "")
+                    editContext->Class<HDRColorGradingComponentConfig>("HDRColorGradingComponentConfig", "")
                         ->DataElement(Edit::UIHandlers::CheckBox, &HDRColorGradingComponentConfig::m_enabled,
-                            "Enable look modification",
-                            "Enable look modification.")
-                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_colorGradingPostSaturation, "Post Saturation", "Post Saturation Value");
-                        // TODO add all options
+                            "Enable HDR color grading",
+                            "Enable HDR color grading.")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_colorGradingExposure, "Exposure", "Exposure Value")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_colorGradingContrast, "Contrast", "Contrast Value")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_colorGradingHueShift, "Hue Shift", "Hue Shift Value")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_colorGradingPreSaturation, "Pre Saturation", "Pre Saturation Value")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_colorGradingFilterIntensity, "Filter Intensity", "Filter Intensity Value")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_colorGradingFilterMultiply, "Filter Multiply", "Filter Multiply Value")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_kelvin, "Temperature", "Temperature in Kelvin")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_kelvinLumPreservation, "Luminance Preservation", "Luminance Preservation Value")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_kelvinColorMix, "Temperature Color Mix", "Temperature Color Mix Value")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_whiteBalance, "White Balance", "White Balance Value")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_splitToneBalance, "Split Tone Balance", "Split Tone Balance Value")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_colorGradingPostSaturation, "Post Saturation", "Post Saturation Value")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_smhShadowsStart, "SMH Shadows Start", "SMH Shadows Start Value")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_smhShadowsEnd, "SMH Shadows End", "SMH Shadows End Value")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_smhHighlightsStart, "SMH Highlights Start", "SMH Highlights Start Value")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_smhHighlightsEnd, "SMH Highlights End", "SMH Highlights End Value")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_smhMix, "SMH Mix", "SMH Mix Value")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_channelMixingRed, "Channel Mixing Red", "Channel Mixing Red Value")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_channelMixingGreen, "Channel Mixing Green", "Channel Mixing Green Value")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_channelMixingBlue, "Channel Mixing Blue", "Channel Mixing Blue Value")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_colorFilterSwatch, "Color Filter Swatch", "Color Filter Swatch Value")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_splitToneShadowsColor, "Split Tone Shadows Color", "Split Tone Shadows Color")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_splitToneHighlightsColor, "Split Tone Highlights Color", "Split Tone Highlights Color")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_smhShadowsColor, "SMH Shadows Color", "SMH Shadows Color")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_smhMidtonesColor, "SMH Midtones Color", "SMH Midtones Color")
+                        ->DataElement(AZ::Edit::UIHandlers::Default, &HDRColorGradingComponentConfig::m_smhHighlightsColor, "SMH Highlights Color", "SMH Highlights Color")
+                        ;
                 }
             }
         }

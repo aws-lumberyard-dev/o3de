@@ -49,20 +49,35 @@ namespace AZ
             //void BuildCommandListInternal(const RHI::FrameGraphExecuteContext& context) override;
 
             RHI::ShaderInputNameIndex m_colorGradingExposureIndex = "m_colorGradingExposure";
-            //RHI::ShaderInputNameIndex m_colorGradingContrastIndex = "m_colorGradingContrast";
-            //RHI::ShaderInputNameIndex m_colorGradingHueShiftIndex = "m_colorGradingHueShift";
-            //RHI::ShaderInputNameIndex m_colorGradingPreSaturationIndex = "m_colorGradingPreSaturation";
-            //RHI::ShaderInputNameIndex m_colorFilterIntensityIndex = "m_colorFilterIntensity";
-            //RHI::ShaderInputNameIndex m_colorFilterMultiplyIndex = "m_colorFilterMultiply";
-            //RHI::ShaderInputNameIndex m_kelvinIndex = "m_kelvin";
-            //RHI::ShaderInputNameIndex m_kelvinLumPreservationIndex = "m_kelvinLumPreservation";
-            //RHI::ShaderInputNameIndex m_kelvinColorMixIndex = "m_kelvinColorMix";
-            //RHI::ShaderInputNameIndex m_whiteBalanceIndex = "m_whiteBalance";
-            //RHI::ShaderInputNameIndex m_whiteBalanceTintIndex = "m_whiteBalanceTint";
-            //RHI::ShaderInputNameIndex m_splitToneBalanceIndex = "m_splitToneBalance";
-            //RHI::ShaderInputNameIndex m_splitToneMixIndex = "m_splitToneMix";
+            RHI::ShaderInputNameIndex m_colorGradingContrastIndex = "m_colorGradingContrast";
+            RHI::ShaderInputNameIndex m_colorGradingHueShiftIndex = "m_colorGradingHueShift";
+            RHI::ShaderInputNameIndex m_colorGradingPreSaturationIndex = "m_colorGradingPreSaturation";
+            RHI::ShaderInputNameIndex m_colorFilterIntensityIndex = "m_colorFilterIntensity";
+            RHI::ShaderInputNameIndex m_colorFilterMultiplyIndex = "m_colorFilterMultiply";
+            RHI::ShaderInputNameIndex m_kelvinIndex = "m_kelvin";
+            RHI::ShaderInputNameIndex m_kelvinLumPreservationIndex = "m_kelvinLumPreservation";
+            RHI::ShaderInputNameIndex m_kelvinColorMixIndex = "m_kelvinColorMix";
+            RHI::ShaderInputNameIndex m_whiteBalanceIndex = "m_whiteBalance";
+            RHI::ShaderInputNameIndex m_whiteBalanceTintIndex = "m_whiteBalanceTint";
+            RHI::ShaderInputNameIndex m_splitToneBalanceIndex = "m_splitToneBalance";
+            RHI::ShaderInputNameIndex m_splitToneMixIndex = "m_splitToneMix";
             RHI::ShaderInputNameIndex m_colorGradingPostSaturationIndex = "m_colorGradingPostSaturation";
-            // TODO: Add other indices
+            RHI::ShaderInputNameIndex m_smhShadowsStartIndex = "m_smhShadowsStart";
+            RHI::ShaderInputNameIndex m_smhShadowsEndIndex = "m_smhShadowsEnd";
+            RHI::ShaderInputNameIndex m_smhHighlightsStartIndex = "m_smhHighlightsStart";
+            RHI::ShaderInputNameIndex m_smhHighlightsEndIndex = "m_smhHighlightsEnd";
+            RHI::ShaderInputNameIndex m_smhMixIndex = "m_smhMix";
+
+            RHI::ShaderInputNameIndex m_channelMixingRedIndex = "m_channelMixingRed";
+            RHI::ShaderInputNameIndex m_channelMixingGreenIndex = "m_channelMixingGreen";
+            RHI::ShaderInputNameIndex m_channelMixingBlueIndex = "m_channelMixingBlue";
+
+            RHI::ShaderInputNameIndex m_colorFilterSwatchIndex = "m_colorFilterSwatch";
+            RHI::ShaderInputNameIndex m_splitToneShadowsColorIndex = "m_splitToneShadowsColor";
+            RHI::ShaderInputNameIndex m_splitToneHighlightsColorIndex = "m_splitTm_splitToneHighlightsColoroneMix";
+            RHI::ShaderInputNameIndex m_smhShadowsColorIndex = "m_smhShadowsColor";
+            RHI::ShaderInputNameIndex m_smhMidtonesColorIndex = "m_smhMidtonesColor";
+            RHI::ShaderInputNameIndex m_smhHighlightsColorIndex = "m_smhHighlightsColor";
         };
     }   // namespace Render
 }   // namespace AZ
