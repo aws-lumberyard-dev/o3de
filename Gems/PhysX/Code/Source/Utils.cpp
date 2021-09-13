@@ -25,6 +25,7 @@
 #include <AzFramework/Physics/PhysicsScene.h>
 #include <AzFramework/Physics/PhysicsSystem.h>
 #include <AzFramework/Physics/SimulatedBodies/StaticRigidBody.h>
+#include <AzFramework/Physics/HeightfieldProviderBus.h>
 
 #include <PhysX/ColliderShapeBus.h>
 #include <PhysX/SystemComponentBus.h>
@@ -170,6 +171,62 @@ namespace PhysX
                     "Please iterate over m_colliderShapes in the asset and call this function for each of them.");
                 return false;
             }
+            case Physics::ShapeType::Heightfield:
+                {
+                    const Physics::HeightfieldShapeConfiguration& heightfieldConfig =
+                        static_cast<const Physics::HeightfieldShapeConfiguration&>(shapeConfiguration);
+                    if (!heightfieldConfig.m_dimensions.IsGreaterThan(AZ::Vector3::CreateZero()))
+                    {
+                        AZ_Error(
+                            "PhysX Utils", false, "Negative or zero values are invalid for heightfield dimensions %s",
+                            ToString(heightfieldConfig.m_dimensions).c_str());
+                        return false;
+                    }
+
+                    physx::PxHeightField* heightfield = nullptr;
+
+                    AZ::Vector2 gridSpacing(1.0f);
+                    Physics::HeightfieldProviderRequestsBus::BroadcastResult(
+                        gridSpacing, &Physics::HeightfieldProviderRequestsBus::Events::GetHeightfieldGridSpacing);
+                    AZ_TracePrintf("Physics", "GridSpacing = (%5.3f, %5.3f)\n", gridSpacing.GetX(), gridSpacing.GetY());
+
+                    int32_t gridWidth = 0;
+                    int32_t gridHeight = 0;
+                    Physics::HeightfieldProviderRequestsBus::Broadcast(
+                        &Physics::HeightfieldProviderRequestsBus::Events::GetHeightfieldGridSize, gridWidth, gridHeight);
+                    AZ_TracePrintf("Physics", "GridSize = (%d, %d)\n", gridWidth, gridHeight);
+
+                    int32_t numRows = gridWidth;
+                    int32_t numCols = gridHeight;
+                    float rowScale = gridSpacing.GetX();
+                    float colScale = gridSpacing.GetY();
+
+                    float heightScale = 0.1f;
+
+                    // Use the cached mesh object if it is there, otherwise create one and save in the shape configuration
+                    if (heightfieldConfig.GetCachedNativeMesh())
+                    {
+                        heightfieldConfig.SetCachedNativeMesh(nullptr);
+                    }
+
+                    AZStd::vector<Physics::HeightMaterialPoint> samples;
+                    Physics::HeightfieldProviderRequestsBus::Broadcast(
+                        &Physics::HeightfieldProviderRequestsBus::Events::GetHeightsAndMaterials, samples);
+
+                    SystemRequestsBus::BroadcastResult(
+                        heightfield, &SystemRequests::CreateHeightField, reinterpret_cast<physx::PxHeightFieldSample*>(samples.data()),
+                        numRows, numCols);
+
+                    if (heightfield)
+                    {
+                        heightfieldConfig.SetCachedNativeMesh(heightfield);
+                    }
+
+                    physx::PxHeightFieldGeometry hfGeom(heightfield, physx::PxMeshGeometryFlags(), heightScale, rowScale, colScale);
+
+                    pxGeometry.storeAny(hfGeom);
+                    break;
+                }
             default:
                 AZ_Warning("PhysX Rigid Body", false, "Shape not supported in PhysX. Shape Type: %d", shapeType);
                 return false;
