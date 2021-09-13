@@ -237,8 +237,8 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\EditorPreferencesPageGeneral.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\EditorPreferencesPageFiles.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\EditorPreferencesPageViewportGeneral.cpp" />
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\EditorPreferencesPageViewportGizmo.cpp" />
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\EditorPreferencesPageViewportMovement.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\EditorPreferencesPageViewportManipulator.cpp" />
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\EditorPreferencesPageViewportCamera.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\EditorPreferencesPageViewportDebug.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\EditorPreferencesPageExperimentalLighting.cpp" />
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Editor\EditorPreferencesPageAWS.cpp" />
@@ -903,8 +903,8 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\EditorPreferencesPageGeneral.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\EditorPreferencesPageFiles.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\EditorPreferencesPageViewportGeneral.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\EditorPreferencesPageViewportGizmo.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\EditorPreferencesPageViewportMovement.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\EditorPreferencesPageViewportManipulator.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\EditorPreferencesPageViewportCamera.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\EditorPreferencesPageViewportDebug.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\EditorPreferencesPageExperimentalLighting.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Editor\EditorPreferencesPageAWS.h" />

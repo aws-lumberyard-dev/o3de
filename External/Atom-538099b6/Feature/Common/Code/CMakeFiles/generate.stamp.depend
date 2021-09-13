@@ -1,6 +1,4 @@
 # CMake generation dependency list for this directory.
-C:/Users/luissemp/.o3de/3rdParty/packages/lux_core-2.2-rev5-multiplatform/Findlux_core.cmake
-C:/Users/luissemp/.o3de/3rdParty/packages/lux_core-2.2-rev5-multiplatform/PackageInfo.json
 J:/Atom/lyfork/o3de/Gems/Atom/Feature/Common/Assets/atom_feature_common_asset_files.cmake
 J:/Atom/lyfork/o3de/Gems/Atom/Feature/Common/Code/CMakeLists.txt
 J:/Atom/lyfork/o3de/Gems/Atom/Feature/Common/Code/Source/Platform/Common/MSVC/atom_feature_common_msvc.cmake

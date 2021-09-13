@@ -85,7 +85,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <TreatSpecificWarningsAsErrors>4296;5233;4426;4777;5031;5032</TreatSpecificWarningsAsErrors>
+      <TreatSpecificWarningsAsErrors>4296;4426;4774;4777;5031;5032;5233</TreatSpecificWarningsAsErrors>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
@@ -134,7 +134,7 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <StringPooling>true</StringPooling>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <TreatSpecificWarningsAsErrors>4296;5233;4426;4777;5031;5032</TreatSpecificWarningsAsErrors>
+      <TreatSpecificWarningsAsErrors>4296;4426;4774;4777;5031;5032;5233</TreatSpecificWarningsAsErrors>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
@@ -184,7 +184,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <TreatSpecificWarningsAsErrors>4296;5233;4426;4777;5031;5032</TreatSpecificWarningsAsErrors>
+      <TreatSpecificWarningsAsErrors>4296;4426;4774;4777;5031;5032;5233</TreatSpecificWarningsAsErrors>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
@@ -269,6 +269,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\ImGuiPassTree.inl" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\ImGuiFrameVisualizer.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\ImGuiFrameVisualizer.inl" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\ImGuiShaderMetrics.h" />
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\ImGuiShaderMetrics.inl" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\ImGuiTransientAttachmentProfiler.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\ImGuiTransientAttachmentProfiler.inl" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\Utils\Code\Include\Atom\Utils\PpmFile.h" />

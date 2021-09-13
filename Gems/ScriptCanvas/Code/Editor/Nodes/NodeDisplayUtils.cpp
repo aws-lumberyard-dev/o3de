@@ -44,6 +44,7 @@
 #include <ScriptCanvas/Libraries/Core/Method.h>
 #include <ScriptCanvas/Libraries/Core/SendScriptEvent.h>
 #include <ScriptCanvas/Libraries/Core/SetVariable.h>
+#include "Source/Translation/TranslationBus.h"
 
 namespace ScriptCanvasEditor::Nodes::SlotDisplayHelper
 {
@@ -294,6 +295,14 @@ namespace ScriptCanvasEditor::Nodes
 
         const AZStd::string& className = methodNode->GetMethodClassName();
         const AZStd::string& methodName = methodNode->GetName();
+
+
+        GraphCanvas::TranslationKey key;
+        GraphCanvas::TranslationKey rootKey;
+        key << "BehaviorClass" << className << methodName;
+
+        GraphCanvas::TranslationRequests::Details details;
+        GraphCanvas::TranslationRequestBus::BroadcastResult(details, &GraphCanvas::TranslationRequests::GetDetails, key + ".details");
 
         AZStd::string translationContext = TranslationHelper::GetContextName(contextGroup, className);
 

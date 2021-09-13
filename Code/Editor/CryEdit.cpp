@@ -3958,6 +3958,9 @@ void CCryEditApp::OpenLUAEditor(const char* files)
     AzFramework::ApplicationRequests::Bus::BroadcastResult(engineRoot, &AzFramework::ApplicationRequests::GetEngineRoot);
     AZ_Assert(engineRoot != nullptr, "Unable to communicate to AzFramework::ApplicationRequests::Bus");
 
+    char projectPath[AZ_MAX_PATH_LEN];
+    AZ::IO::FileIOBase::GetInstance()->ResolvePath("@devassets@", projectPath, AZ_MAX_PATH_LEN);
+
     AZStd::string_view exePath;
     AZ::ComponentApplicationBus::BroadcastResult(exePath, &AZ::ComponentApplicationRequests::GetExecutableFolder);
 
@@ -3975,7 +3978,7 @@ void CCryEditApp::OpenLUAEditor(const char* files)
 #endif
         "%s", argumentQuoteString, aznumeric_cast<int>(exePath.size()), exePath.data(), argumentQuoteString);
 
-    AZStd::string processArgs = AZStd::string::format("%s -engine-path \"%s\"", args.c_str(), engineRoot);
+    AZStd::string processArgs = AZStd::string::format("%s --engine-path \"%s\" --project-path \"%s\"", args.c_str(), engineRoot, projectPath);
     StartProcessDetached(process.c_str(), processArgs.c_str());
 }
 

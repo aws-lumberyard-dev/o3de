@@ -4,6 +4,9 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Tests\AudioComponentTests.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Tests\AxisAlignedBoxShapeTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Tests\BoxShapeTest.cpp">
       <Filter>Tests</Filter>
     </ClCompile>

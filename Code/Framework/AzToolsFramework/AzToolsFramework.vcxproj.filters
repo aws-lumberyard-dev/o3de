@@ -571,6 +571,9 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\Viewport\VertexContainerDisplay.cpp">
       <Filter>AzToolsFramework\Viewport</Filter>
     </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\Viewport\ViewportMessages.cpp">
+      <Filter>AzToolsFramework\Viewport</Filter>
+    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Framework\AzToolsFramework\AzToolsFramework\Viewport\ViewportTypes.cpp">
       <Filter>AzToolsFramework\Viewport</Filter>
     </ClCompile>

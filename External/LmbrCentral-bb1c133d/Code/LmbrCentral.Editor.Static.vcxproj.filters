@@ -55,6 +55,9 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorBoxShapeComponent.cpp">
       <Filter>Source\Shape</Filter>
     </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorAxisAlignedBoxShapeComponent.cpp">
+      <Filter>Source\Shape</Filter>
+    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorCylinderShapeComponent.cpp">
       <Filter>Source\Shape</Filter>
     </ClCompile>
@@ -247,6 +250,9 @@
       <Filter>Source\Shape</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorBoxShapeComponent.h">
+      <Filter>Source\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorAxisAlignedBoxShapeComponent.h">
       <Filter>Source\Shape</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\EditorCylinderShapeComponent.h">

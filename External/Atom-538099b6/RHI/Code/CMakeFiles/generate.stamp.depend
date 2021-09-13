@@ -1,7 +1,6 @@
 # CMake generation dependency list for this directory.
 J:/Atom/lyfork/o3de/Gems/Atom/RHI/Code/CMakeLists.txt
 J:/Atom/lyfork/o3de/Gems/Atom/RHI/Code/Platform/Windows/AtomRHITests_traits_windows.cmake
-J:/Atom/lyfork/o3de/Gems/Atom/RHI/Code/Platform/Windows/renderdoc_windows.cmake
 J:/Atom/lyfork/o3de/Gems/Atom/RHI/Code/Source/Platform/Windows/platform_windows_files.cmake
 J:/Atom/lyfork/o3de/Gems/Atom/RHI/Code/atom_rhi_edit_files.cmake
 J:/Atom/lyfork/o3de/Gems/Atom/RHI/Code/atom_rhi_private_files.cmake

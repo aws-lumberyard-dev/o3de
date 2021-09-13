@@ -450,6 +450,12 @@
 			null
 		],
 		[
+			"J:/Atom/lyfork/o3de/Code/Editor/EditorPreferencesPageViewportCamera.h",
+			"Mu",
+			"EWIEGA46WW/moc_EditorPreferencesPageViewportCamera.cpp",
+			null
+		],
+		[
 			"J:/Atom/lyfork/o3de/Code/Editor/EditorPreferencesPageViewportDebug.h",
 			"Mu",
 			"EWIEGA46WW/moc_EditorPreferencesPageViewportDebug.cpp",
@@ -462,15 +468,9 @@
 			null
 		],
 		[
-			"J:/Atom/lyfork/o3de/Code/Editor/EditorPreferencesPageViewportGizmo.h",
+			"J:/Atom/lyfork/o3de/Code/Editor/EditorPreferencesPageViewportManipulator.h",
 			"Mu",
-			"EWIEGA46WW/moc_EditorPreferencesPageViewportGizmo.cpp",
-			null
-		],
-		[
-			"J:/Atom/lyfork/o3de/Code/Editor/EditorPreferencesPageViewportMovement.h",
-			"Mu",
-			"EWIEGA46WW/moc_EditorPreferencesPageViewportMovement.cpp",
+			"EWIEGA46WW/moc_EditorPreferencesPageViewportManipulator.cpp",
 			null
 		],
 		[
@@ -2217,6 +2217,11 @@
 			null
 		],
 		[
+			"J:/Atom/lyfork/o3de/Code/Editor/EditorPreferencesPageViewportCamera.cpp",
+			"Mu",
+			null
+		],
+		[
 			"J:/Atom/lyfork/o3de/Code/Editor/EditorPreferencesPageViewportDebug.cpp",
 			"Mu",
 			null
@@ -2227,12 +2232,7 @@
 			null
 		],
 		[
-			"J:/Atom/lyfork/o3de/Code/Editor/EditorPreferencesPageViewportGizmo.cpp",
-			"Mu",
-			null
-		],
-		[
-			"J:/Atom/lyfork/o3de/Code/Editor/EditorPreferencesPageViewportMovement.cpp",
+			"J:/Atom/lyfork/o3de/Code/Editor/EditorPreferencesPageViewportManipulator.cpp",
 			"Mu",
 			null
 		],

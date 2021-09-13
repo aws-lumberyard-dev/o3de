@@ -26,16 +26,7 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\xml.cpp">
       <Filter>XML</Filter>
     </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\XMLPatcher.cpp">
-      <Filter>XML</Filter>
-    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\XmlUtils.cpp">
-      <Filter>XML</Filter>
-    </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\ReadXMLSink.cpp">
-      <Filter>XML</Filter>
-    </ClCompile>
-    <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\WriteXMLSource.cpp">
       <Filter>XML</Filter>
     </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\LocalizedStringManager.cpp" />
@@ -61,9 +52,6 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\WindowsErrorReporting.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\ReadWriteXMLSink.h">
-      <Filter>XML</Filter>
-    </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\AZCrySystemInitLogSink.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\AZCoreLogSink.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\CmdLine.h" />
@@ -76,7 +64,6 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\SimpleStringPool.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\CrySystem_precompiled.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\System.h" />
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\SystemCFG.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\SystemEventDispatcher.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\Timer.h" />
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XConsole.h" />
@@ -88,12 +75,6 @@
       <Filter>XML</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\xml.h">
-      <Filter>XML</Filter>
-    </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\XMLPatcher.h">
-      <Filter>XML</Filter>
-    </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\xml_string.h">
       <Filter>XML</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Code\Legacy\CrySystem\XML\XmlUtils.h">

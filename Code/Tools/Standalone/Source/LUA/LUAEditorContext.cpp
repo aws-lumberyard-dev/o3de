@@ -45,6 +45,7 @@
 #include "LUAWatchesDebuggerMessages.h"
 #include "LUAEditorViewMessages.h"
 #include "LUAContextControlMessages.h"
+#include "AzCore/Utils/Utils.h"
 
 namespace LUAEditor
 {
@@ -164,10 +165,25 @@ namespace LUAEditor
         // and able to negotiate a connection when running a debug build
         // and to negotiate a connection
 
+        const AzFramework::CommandLine* commandLine = nullptr;
+
+        EBUS_EVENT_RESULT(commandLine, LegacyFramework::FrameworkApplicationMessages::Bus, GetCommandLineParser);
+
+
+
         AzFramework::AssetSystem::ConnectionSettings connectionSettings;
         AzFramework::AssetSystem::ReadConnectionSettingsFromSettingsRegistry(connectionSettings);
+
+        auto& projectPath = connectionSettings.m_projectName;
+        if (commandLine->HasSwitch("project-path"))
+        {
+            projectPath = commandLine->GetSwitchValue("project-path", 0);
+        }
+
+
         connectionSettings.m_connectionDirection = AzFramework::AssetSystem::ConnectionSettings::ConnectionDirection::ConnectToAssetProcessor;
         connectionSettings.m_connectionIdentifier = desc.name;
+
         AzFramework::AssetSystemRequestBus::BroadcastResult(connectedToAssetProcessor,
             &AzFramework::AssetSystemRequestBus::Events::EstablishAssetProcessorConnection, connectionSettings);
         if (!connectedToAssetProcessor)

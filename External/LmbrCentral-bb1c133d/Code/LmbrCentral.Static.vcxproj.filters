@@ -70,6 +70,12 @@
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\SphereShapeComponent.cpp">
       <Filter>Source\Shape</Filter>
     </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\AxisAlignedBoxShape.cpp">
+      <Filter>Source\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\AxisAlignedBoxShapeComponent.cpp">
+      <Filter>Source\Shape</Filter>
+    </ClCompile>
     <ClCompile Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\BoxShape.cpp">
       <Filter>Source\Shape</Filter>
     </ClCompile>
@@ -243,9 +249,6 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include\LmbrCentral\Rendering\MaterialHandle.h">
       <Filter>include\LmbrCentral\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include\LmbrCentral\Rendering\MaterialOwnerBus.h">
-      <Filter>include\LmbrCentral\Rendering</Filter>
-    </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\include\LmbrCentral\Rendering\MeshAsset.h">
       <Filter>include\LmbrCentral\Rendering</Filter>
     </ClInclude>
@@ -391,6 +394,12 @@
       <Filter>Source\Shape</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\SphereShapeComponent.h">
+      <Filter>Source\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\AxisAlignedBoxShape.h">
+      <Filter>Source\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\AxisAlignedBoxShapeComponent.h">
       <Filter>Source\Shape</Filter>
     </ClInclude>
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\LmbrCentral\Code\Source\Shape\BoxShape.h">

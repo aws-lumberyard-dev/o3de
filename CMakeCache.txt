@@ -368,6 +368,9 @@ LY_PACKAGE_VALIDATE_CONTENTS:BOOL=FALSE
 // before.
 LY_PACKAGE_VALIDATE_PACKAGE:BOOL=FALSE
 
+//Enables PIX profiler integration.
+LY_PIX_ENABLED:BOOL=OFF
+
 //List of projects to enable, this can be a relative path to the
 // engine root or an absolute path
 LY_PROJECTS:STRING=
@@ -380,6 +383,9 @@ LY_RAD_TELEMETRY_INSTALL_ROOT:PATH=@LY_3RDPARTY_PATH@/RadTelemetry
 
 //Enable RenderDoc integration.
 LY_RENDERDOC_ENABLED:BOOL=OFF
+
+//Path to RenderDoc.
+LY_RENDERDOC_PATH:PATH=C:/Program Files/RenderDoc
 
 //Enables statistical profiling when using AZ_PROFILE_SCOPE. If
 // True, it takes effect only if RAD Telemetry is disabled.

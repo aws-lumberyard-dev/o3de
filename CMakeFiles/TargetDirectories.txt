@@ -1,11 +1,12 @@
-J:/Atom/lyfork/o3de/CMakeFiles/INSTALL.dir
 J:/Atom/lyfork/o3de/CMakeFiles/RUN_TESTS.dir
+J:/Atom/lyfork/o3de/CMakeFiles/INSTALL.dir
 J:/Atom/lyfork/o3de/CMakeFiles/TEST_SUITE_smoke.dir
 J:/Atom/lyfork/o3de/CMakeFiles/TEST_SUITE_benchmark.dir
 J:/Atom/lyfork/o3de/CMakeFiles/TEST_SUITE_main.dir
 J:/Atom/lyfork/o3de/CMakeFiles/TEST_SUITE_sandbox.dir
 J:/Atom/lyfork/o3de/CMakeFiles/TEST_SUITE_periodic.dir
 J:/Atom/lyfork/o3de/CMakeFiles/CMakeFiles.dir
+J:/Atom/lyfork/o3de/CMakeFiles/TEST_SUITE_awsi.dir
 J:/Atom/lyfork/o3de/CMakeFiles/ALL_BUILD.dir
 J:/Atom/lyfork/o3de/CMakeFiles/ZERO_CHECK.dir
 J:/Atom/lyfork/o3de/Assets/CMakeFiles/INSTALL.dir
@@ -242,6 +243,8 @@ J:/Atom/lyfork/o3de/scripts/ctest/CMakeFiles/pytest_sanity_benchmark_no_gpu.dir
 J:/Atom/lyfork/o3de/scripts/ctest/CMakeFiles/pytest_sanity_benchmark_requires_gpu.dir
 J:/Atom/lyfork/o3de/scripts/ctest/CMakeFiles/pytest_sanity_sandbox_no_gpu.dir
 J:/Atom/lyfork/o3de/scripts/ctest/CMakeFiles/pytest_sanity_sandbox_requires_gpu.dir
+J:/Atom/lyfork/o3de/scripts/ctest/CMakeFiles/pytest_sanity_awsi_no_gpu.dir
+J:/Atom/lyfork/o3de/scripts/ctest/CMakeFiles/pytest_sanity_awsi_requires_gpu.dir
 J:/Atom/lyfork/o3de/scripts/ctest/CMakeFiles/RUN_TESTS.dir
 J:/Atom/lyfork/o3de/scripts/ctest/CMakeFiles/INSTALL.dir
 J:/Atom/lyfork/o3de/scripts/detect_file_changes/CMakeFiles/test_detect_file_changes.dir

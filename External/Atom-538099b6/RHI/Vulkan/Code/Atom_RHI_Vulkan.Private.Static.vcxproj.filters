@@ -483,6 +483,12 @@
     <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Vulkan\Code\Source\Platform\Windows\Vulkan_Traits_Platform.h">
       <Filter>Source\Platform\Windows</Filter>
     </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Vulkan\Code\Include\Platform\Windows\Atom_RHI_Vulkan_Platform.h">
+      <Filter>Include\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Vulkan\Code\Include\Platform\Windows\Atom_RHI_Vulkan_Windows.h">
+      <Filter>Include\Platform\Windows</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Vulkan\Code\CMakeLists.txt">
@@ -494,6 +500,9 @@
     <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Vulkan\Code\Source\Platform\Windows\platform_private_windows_files.cmake">
       <Filter>Source\Platform\Windows</Filter>
     </None>
+    <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Vulkan\Code\Include\Platform\Windows\platform_private_windows_files.cmake">
+      <Filter>Include\Platform\Windows</Filter>
+    </None>
     <None Include="J:\Atom\lyfork\o3de\Gems\Atom\RHI\Vulkan\Code\Source\Platform\Windows\platform_private_static_windows.cmake">
       <Filter>Source\Platform\Windows</Filter>
     </None>
@@ -501,6 +510,15 @@
   <ItemGroup>
     <Filter Include="Generated Files">
       <UniqueIdentifier>{B850A0B2-A113-352B-B22C-96BF458EC492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{CD36A7C2-E7B2-3C66-962A-6150150D6209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Platform">
+      <UniqueIdentifier>{AAB9169E-40E1-3550-85B3-E5DFF6839FA0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Platform\Windows">
+      <UniqueIdentifier>{2AE0F025-8541-36D3-8E6E-92ED1D1BF622}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source">
       <UniqueIdentifier>{86669345-2456-3927-9E51-B4883FA678D4}</UniqueIdentifier>

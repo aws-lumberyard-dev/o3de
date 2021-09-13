@@ -1,6 +1,6 @@
 # CMake generation dependency list for this directory.
-C:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/Findlz4.cmake
-C:/Users/luissemp/.o3de/3rdParty/packages/lz4-r128-multiplatform/PackageInfo.json
+C:/Users/luissemp/.o3de/3rdParty/packages/lz4-1.9.3-vcpkg-rev1-windows/Findlz4.cmake
+C:/Users/luissemp/.o3de/3rdParty/packages/lz4-1.9.3-vcpkg-rev1-windows/PackageInfo.json
 C:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/Findmd5.cmake
 C:/Users/luissemp/.o3de/3rdParty/packages/md5-2.0-multiplatform/PackageInfo.json
 J:/Atom/lyfork/o3de/Code/Framework/AzFramework/AzFramework/azframework_files.cmake

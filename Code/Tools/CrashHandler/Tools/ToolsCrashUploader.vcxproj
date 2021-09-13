@@ -91,7 +91,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <TreatSpecificWarningsAsErrors>4296;5233;4426;4777;5031;5032</TreatSpecificWarningsAsErrors>
+      <TreatSpecificWarningsAsErrors>4296;4426;4774;4777;5031;5032;5233</TreatSpecificWarningsAsErrors>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
@@ -165,7 +165,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <StringPooling>true</StringPooling>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <TreatSpecificWarningsAsErrors>4296;5233;4426;4777;5031;5032</TreatSpecificWarningsAsErrors>
+      <TreatSpecificWarningsAsErrors>4296;4426;4774;4777;5031;5032;5233</TreatSpecificWarningsAsErrors>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
@@ -242,7 +242,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <TreatSpecificWarningsAsErrors>4296;5233;4426;4777;5031;5032</TreatSpecificWarningsAsErrors>
+      <TreatSpecificWarningsAsErrors>4296;4426;4774;4777;5031;5032;5233</TreatSpecificWarningsAsErrors>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>

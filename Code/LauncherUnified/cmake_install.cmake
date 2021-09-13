@@ -42,11 +42,11 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xCorex" OR NOT CMAKE_INSTALL_COMPONE
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xCorex" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/LauncherGenerator/Platform" TYPE DIRECTORY MESSAGE_NEVER FILES "J:/Atom/lyfork/o3de/Code/LauncherUnified/Platform/Windows" REGEX "/cmakelists\\.txt$" EXCLUDE REGEX "/[^/]*\\.cmake$" EXCLUDE REGEX "/\\_\\_pycache\\_\\_$" EXCLUDE REGEX "/[^/]*\\.egg\\-info$" EXCLUDE)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/LauncherGenerator/Platform" TYPE DIRECTORY MESSAGE_NEVER FILES "J:/Atom/lyfork/o3de/Code/LauncherUnified/Platform/Windows")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xCorex" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/LauncherGenerator/Platform" TYPE DIRECTORY MESSAGE_NEVER FILES "J:/Atom/lyfork/o3de/Code/LauncherUnified/Platform/Common" REGEX "/cmakelists\\.txt$" EXCLUDE REGEX "/[^/]*\\.cmake$" EXCLUDE REGEX "/\\_\\_pycache\\_\\_$" EXCLUDE REGEX "/[^/]*\\.egg\\-info$" EXCLUDE)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/LauncherGenerator/Platform" TYPE DIRECTORY MESSAGE_NEVER FILES "J:/Atom/lyfork/o3de/Code/LauncherUnified/Platform/Common")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xCorex" OR NOT CMAKE_INSTALL_COMPONENT)

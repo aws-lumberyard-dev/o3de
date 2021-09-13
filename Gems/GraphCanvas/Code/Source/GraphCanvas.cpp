@@ -365,7 +365,7 @@ namespace GraphCanvas
     {
         return Styling::VirtualChildElement::Create(real, virtualChildElement);
     }
-
+#pragma optimize("", off)
     void GraphCanvasSystemComponent::OnCatalogLoaded(const char* /*catalogFile*/)
     {
         auto postEnumerateCb = [this]()
@@ -376,8 +376,7 @@ namespace GraphCanvas
         // Find any TranslationAsset files that may have translation database key/values
         AZ::Data::AssetCatalogRequests::AssetEnumerationCB collectAssetsCb = [this](const AZ::Data::AssetId assetId, const AZ::Data::AssetInfo& assetInfo)
         {
-            const auto assetType = azrtti_typeid<TranslationAsset>();
-            if (assetInfo.m_assetType == assetType)
+            if (AZ::StringFunc::EndsWith(assetInfo.m_relativePath, ".names", false))
             {
                 m_translationAssets.push_back(assetId);
             }
@@ -405,7 +404,7 @@ namespace GraphCanvas
         for (const AZ::Data::AssetId& assetId : m_translationAssets)
         {
             AZ::Data::AssetBus::MultiHandler::BusConnect(assetId);
-            AZ::Data::AssetManager::Instance().GetAsset<TranslationAsset>(assetId, AZ::Data::AssetLoadBehavior::Default);
+       //     AZ::Data::AssetManager::Instance().GetAsset<TranslationAsset>(assetId, AZ::Data::AssetLoadBehavior::Default);
         }
     }
 }
