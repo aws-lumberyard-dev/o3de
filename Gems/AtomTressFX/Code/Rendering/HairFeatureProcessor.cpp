@@ -63,13 +63,18 @@ namespace AZ
 
                 ++s_instanceCount;
 
-                // Create right away for everyone to use
                 if (!CreatePerPassResources())
                 {   // this might not be an error - if the pass system is still empty / minimal
                     //  and these passes are not part of the minimal pipeline, they will not
                     //  be created.
-                    AZ_Error("Hair Gem", false, "Failed to create the PerPass Srg.");
+                    AZ_Error("Hair Gem", false, "Failed to create the hair shared buffer resource");
                 }
+            }
+
+            HairFeatureProcessor::~HairFeatureProcessor()
+            {
+                m_linkedListNodesBuffer.reset();
+                m_sharedDynamicBuffer.reset();
             }
 
             void HairFeatureProcessor::Reflect(ReflectContext* context)
@@ -98,8 +103,6 @@ namespace AZ
                 DisableSceneNotification();
                 TickBus::Handler::BusDisconnect();
                 HairGlobalSettingsRequestBus::Handler::BusDisconnect();
-
-                m_sharedDynamicBuffer.reset();
             }
 
             void HairFeatureProcessor::OnTick(float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
@@ -297,29 +300,35 @@ namespace AZ
                 m_forceClearRenderData = true;
             }
 
-            void HairFeatureProcessor::OnRenderPipelineAdded([[maybe_unused]] RPI::RenderPipelinePtr pipeline)
+            void HairFeatureProcessor::OnRenderPipelineAdded([[maybe_unused]] RPI::RenderPipelinePtr renderPipeline)
             {
-                // Is the pass a main pipeline pass that requires a change / initialization of the pipeline.
-                if (!pipeline.get()->GetRootPass()->FindPassByNameRecursive(HairParentPassName))
+                // Proceed only if this is the main pipeline that contains the parent pass
+                if (!renderPipeline.get()->GetRootPass()->FindPassByNameRecursive(HairParentPassName))
                 {
                     return;
                 }
 
-                Init(pipeline.get());
+                Init(renderPipeline.get());
 
                 // Mark for all passes to evacuate their render data and recreate it.
                 m_forceRebuildRenderData = true;
             }
 
-            void HairFeatureProcessor::OnRenderPipelineRemoved([[maybe_unused]] RPI::RenderPipeline* pipeline)
+            void HairFeatureProcessor::OnRenderPipelineRemoved([[maybe_unused]] RPI::RenderPipeline* renderPipeline)
             {
+                // Proceed only if this is the main pipeline that contains the parent pass
+                if (!renderPipeline->GetRootPass()->FindPassByNameRecursive(HairParentPassName))
+                {
+                    return;
+                }
+
                 m_renderPipeline = nullptr;
                 ClearPasses();
             }
 
             void HairFeatureProcessor::OnRenderPipelinePassesChanged([[maybe_unused]] RPI::RenderPipeline* renderPipeline)
             {
-                // Is the pass a main pipeline pass that requires a change / initialization of the pipeline.
+                // Proceed only if this is the main pipeline that contains the parent pass
                 if (!renderPipeline->GetRootPass()->FindPassByNameRecursive(HairParentPassName))
                 {
                     return;
@@ -433,7 +442,7 @@ namespace AZ
                 m_computePasses[passName] = nullptr;
                 if (!m_renderPipeline)
                 {
-                    AZ_Error("Hair Gem", false, "%s does NOT have renderr pipeline set yet", passName.GetCStr());
+                    AZ_Error("Hair Gem", false, "%s does NOT have render pipeline set yet", passName.GetCStr());
                     return false;
                 }
 
@@ -460,7 +469,7 @@ namespace AZ
                 m_hairPPLLRasterPass = nullptr;   // reset it to null, just in case it fails to load the assets properly
                 if (!m_renderPipeline)
                 {
-                    AZ_Error("Hair Gem", false, "Hair Fill Pass does NOT have renderr pipeline set yet");
+                    AZ_Error("Hair Gem", false, "Hair Fill Pass does NOT have render pipeline set yet");
                     return false;
                 }
 
@@ -483,7 +492,7 @@ namespace AZ
                 m_hairPPLLResolvePass = nullptr;   // reset it to null, just in case it fails to load the assets properly
                 if (!m_renderPipeline)
                 {
-                    AZ_Error("Hair Gem", false, "Hair Fill Pass does NOT have renderr pipeline set yet");
+                    AZ_Error("Hair Gem", false, "Hair Fill Pass does NOT have render pipeline set yet");
                     return false;
                 }
 

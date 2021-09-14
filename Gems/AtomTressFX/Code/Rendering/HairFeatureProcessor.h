@@ -90,7 +90,7 @@ namespace AZ
                 static void Reflect(AZ::ReflectContext* context);
 
                 HairFeatureProcessor();
-                virtual ~HairFeatureProcessor() = default;
+                virtual ~HairFeatureProcessor();
 
 
                 void UpdateHairSkinning();
@@ -112,8 +112,8 @@ namespace AZ
                 bool RemoveHairRenderObject(Data::Instance<HairRenderObject> renderObject);
 
                 // RPI::SceneNotificationBus overrides ...
-                void OnRenderPipelineAdded(RPI::RenderPipelinePtr pipeline) override;
-                void OnRenderPipelineRemoved(RPI::RenderPipeline* pipeline) override;
+                void OnRenderPipelineAdded(RPI::RenderPipelinePtr renderPipeline) override;
+                void OnRenderPipelineRemoved(RPI::RenderPipeline* renderPipeline) override;
                 void OnRenderPipelinePassesChanged(RPI::RenderPipeline* renderPipeline) override;
 
                 void OnBeginPrepareRender() override;
