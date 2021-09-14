@@ -70,22 +70,6 @@ namespace MaterialEditor
         m_scene = AZ::RPI::Scene::CreateScene(sceneDesc);
         m_scene->EnableAllFeatureProcessors();
 
-        // Setup scene srg modification callback.
-        AZ::RPI::ShaderResourceGroupCallback callback = [this](AZ::RPI::ShaderResourceGroup* srg)
-        {
-            if (srg == nullptr)
-            {
-                return;
-            }
-            AZ::RHI::ShaderInputConstantIndex timeIndex = srg->FindShaderInputConstantIndex(AZ::Name{ "m_time" });
-            if (timeIndex.IsValid())
-            {
-                srg->SetConstant(timeIndex, m_simulateTime);
-                srg->Compile();
-            }
-        };
-        m_scene->SetShaderResourceGroupCallback(callback);
-
         // Bind m_defaultScene to the GameEntityContext's AzFramework::Scene
         auto sceneSystem = AzFramework::SceneSystemInterface::Get();
         AZ_Assert(sceneSystem, "MaterialViewportRenderer was unable to get the scene system during construction.");
@@ -243,7 +227,7 @@ namespace MaterialEditor
         OnFieldOfViewChanged(viewportSettings->m_fieldOfView);
         OnDisplayMapperOperationTypeChanged(viewportSettings->m_displayMapperOperationType);
 
-        MaterialDocumentNotificationBus::Handler::BusConnect();
+        AtomToolsFramework::AtomToolsDocumentNotificationBus::Handler::BusConnect();
         MaterialViewportNotificationBus::Handler::BusConnect();
         AZ::TickBus::Handler::BusConnect();
         AZ::TransformNotificationBus::MultiHandler::BusConnect(m_cameraEntity->GetId());
@@ -255,7 +239,7 @@ namespace MaterialEditor
         AzFramework::WindowSystemRequestBus::Handler::BusDisconnect();
         AZ::TransformNotificationBus::MultiHandler::BusDisconnect();
         AZ::TickBus::Handler::BusDisconnect();
-        MaterialDocumentNotificationBus::Handler::BusDisconnect();
+        AtomToolsFramework::AtomToolsDocumentNotificationBus::Handler::BusDisconnect();
         MaterialViewportNotificationBus::Handler::BusDisconnect();
         AZ::Data::AssetBus::Handler::BusDisconnect();
 
@@ -448,13 +432,11 @@ namespace MaterialEditor
         }
     }
 
-    void MaterialViewportRenderer::OnTick(float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
+    void MaterialViewportRenderer::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
     {
         m_renderPipeline->AddToRenderTickOnce();
 
         PerformanceMonitorRequestBus::Broadcast(&PerformanceMonitorRequestBus::Handler::GatherMetrics);
-
-        m_simulateTime += deltaTime;
 
         if (m_shadowCatcherMaterial)
         {

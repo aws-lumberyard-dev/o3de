@@ -21,10 +21,11 @@
 #include <AzCore/IO/FileIO.h>
 #include <AzCore/Settings/SettingsRegistryMergeUtils.h>
 
-#include <AtomCore/Serialization/Json/JsonUtils.h>
+#include <AzCore/Serialization/Json/JsonUtils.h>
 
 #include <Atom/RPI.Edit/Common/JsonReportingHelper.h>
 #include <Atom/RPI.Edit/Common/AssetUtils.h>
+#include <Atom/RPI.Edit/Common/JsonUtils.h>
 #include <Atom/RPI.Reflect/Shader/ShaderAsset.h>
 #include <Atom/RPI.Reflect/Shader/ShaderOptionGroup.h>
 
@@ -45,13 +46,13 @@ namespace AZ
     {
         namespace ShaderBuilderUtility
         {
-            static constexpr char ShaderBuilderUtilityName[] = "ShaderBuilderUtility";
+            [[maybe_unused]] static constexpr char ShaderBuilderUtilityName[] = "ShaderBuilderUtility";
 
             Outcome<RPI::ShaderSourceData, AZStd::string> LoadShaderDataJson(const AZStd::string& fullPathToJsonFile)
             {
                 RPI::ShaderSourceData shaderSourceData;
 
-                auto document = JsonSerializationUtils::ReadJsonFile(fullPathToJsonFile);
+                auto document = JsonSerializationUtils::ReadJsonFile(fullPathToJsonFile, AZ::RPI::JsonUtils::AtomMaxFileSize);
 
                 if (!document.IsSuccess())
                 {
@@ -127,7 +128,7 @@ namespace AZ
                 AZStd::unordered_map<int, Outcome<rapidjson::Document, AZStd::string>> outcomes;
                 for (int i : indicesOfInterest)
                 {
-                    outcomes[i] = JsonSerializationUtils::ReadJsonFile(pathOfJsonFiles[i]);
+                    outcomes[i] = JsonSerializationUtils::ReadJsonFile(pathOfJsonFiles[i], AZ::RPI::JsonUtils::AtomMaxFileSize);
                     if (!outcomes[i].IsSuccess())
                     {
                         AZ_Error(builderName, false, "%s", outcomes[i].GetError().c_str());
@@ -460,6 +461,10 @@ namespace AZ
                 {
                     platformId = AzFramework::PlatformId::PC;
                 }
+                else if (platformIdentifier == "linux")
+                {
+                    platformId = AzFramework::PlatformId::LINUX_ID;
+                }
                 else if (platformIdentifier == "mac")
                 {
                     platformId = AzFramework::PlatformId::MAC_ID;
@@ -517,7 +522,7 @@ namespace AZ
                     {
                         // Search the function name into the list of valid entry points into the shader.
                         auto findId =
-                            AZStd::find_if(shaderEntryPoints.begin(), shaderEntryPoints.end(), [&functionName, &mask](const auto& item) {
+                            AZStd::find_if(shaderEntryPoints.begin(), shaderEntryPoints.end(), [&functionName](const auto& item) {
                                 return item.first == functionName;
                             });
 
@@ -618,7 +623,7 @@ namespace AZ
                 StructData inputStruct;
                 inputStruct.m_id = "";
 
-                auto jsonOutcome = JsonSerializationUtils::ReadJsonFile(pathToIaJson);
+                auto jsonOutcome = JsonSerializationUtils::ReadJsonFile(pathToIaJson, AZ::RPI::JsonUtils::AtomMaxFileSize);
                 if (!jsonOutcome.IsSuccess())
                 {
                     AZ_Error(ShaderBuilderUtilityName, false, "%s", jsonOutcome.GetError().c_str());
@@ -711,7 +716,7 @@ namespace AZ
                 StructData outputStruct;
                 outputStruct.m_id = "";
 
-                auto jsonOutcome = JsonSerializationUtils::ReadJsonFile(pathToOmJson);
+                auto jsonOutcome = JsonSerializationUtils::ReadJsonFile(pathToOmJson, AZ::RPI::JsonUtils::AtomMaxFileSize);
                 if (!jsonOutcome.IsSuccess())
                 {
                     AZ_Error(ShaderBuilderUtilityName, false, "%s", jsonOutcome.GetError().c_str());
@@ -807,91 +812,6 @@ namespace AZ
                     }
                 }
                 return success;
-            }
-
-            
-            //! Returns a list of acceptable default entry point names
-            static void GetAcceptableDefaultEntryPoints(
-                const AZStd::vector<FunctionData>& azslFunctionDataList,
-                AZStd::unordered_map<AZStd::string, RPI::ShaderStageType>& defaultEntryPoints)
-            {
-                for (const auto& func : azslFunctionDataList)
-                {
-                    if (!func.m_hasShaderStageVaryings)
-                    {
-                        // Not declaring any semantics for a shader entry is valid, but unusual.
-                        // A shader entry with no semantics must be explicitly listed and won't be selected by default.
-                        continue;
-                    }
-
-                    if (func.m_name.starts_with("VS") || func.m_name.ends_with("VS"))
-                    {
-                        defaultEntryPoints[func.m_name] = RPI::ShaderStageType::Vertex;
-                        AZ_TracePrintf(
-                            ShaderBuilderUtilityName, "Assuming \"%s\" is a valid Vertex shader entry point.\n", func.m_name.c_str());
-                    }
-                    else if (func.m_name.starts_with("PS") || func.m_name.ends_with("PS"))
-                    {
-                        defaultEntryPoints[func.m_name] = RPI::ShaderStageType::Fragment;
-                        AZ_TracePrintf(
-                            ShaderBuilderUtilityName, "Assuming \"%s\" is a valid Fragment shader entry point.\n",
-                            func.m_name.c_str());
-                    }
-                    else if (func.m_name.starts_with("CS") || func.m_name.ends_with("CS"))
-                    {
-                        defaultEntryPoints[func.m_name] = RPI::ShaderStageType::Compute;
-                        AZ_TracePrintf(
-                            ShaderBuilderUtilityName, "Assuming \"%s\" is a valid Compute shader entry point.\n", func.m_name.c_str());
-                    }
-                }
-            }
-
-
-            // DEPRECATED [ATOM-15472
-            //! Returns a list of acceptable default entry point names
-            //! This function
-            static void GetAcceptableDefaultEntryPoints(
-                const AzslData& azslData, AZStd::unordered_map<AZStd::string, RPI::ShaderStageType>& defaultEntryPoints)
-            {
-                return GetAcceptableDefaultEntryPoints(azslData.m_functions, defaultEntryPoints);
-            }
-
-
-            void GetDefaultEntryPointsFromFunctionDataList(
-                const AZStd::vector<FunctionData> azslFunctionDataList,
-                AZStd::unordered_map<AZStd::string, RPI::ShaderStageType>& shaderEntryPoints)
-            {
-                AZStd::unordered_map<AZStd::string, RPI::ShaderStageType> defaultEntryPoints;
-                GetAcceptableDefaultEntryPoints(azslFunctionDataList, defaultEntryPoints);
-
-                for (const auto& functionData : azslFunctionDataList)
-                {
-                    for (const auto& defaultEntryPoint : defaultEntryPoints)
-                    {
-                        // Equal defaults to case insensitive compares...
-                        if (AzFramework::StringFunc::Equal(defaultEntryPoint.first.c_str(), functionData.m_name.c_str()))
-                        {
-                            shaderEntryPoints[defaultEntryPoint.first] = defaultEntryPoint.second;
-                            break; // stop looping default entry points and go to the next shader function
-                        }
-                    }
-                }
-            }
-
-            AZStd::string GetAcceptableDefaultEntryPointNames(const AzslData& azslData)
-            {
-                AZStd::unordered_map<AZStd::string, RPI::ShaderStageType> defaultEntryPointList;
-                GetAcceptableDefaultEntryPoints(azslData, defaultEntryPointList);
-
-                AZStd::vector<AZStd::string> defaultEntryPointNamesList;
-                for (const auto& shaderEntryPoint : defaultEntryPointList)
-                {
-                    defaultEntryPointNamesList.push_back(shaderEntryPoint.first);
-                }
-                AZStd::string shaderEntryPoints;
-                AzFramework::StringFunc::Join(
-                    shaderEntryPoints, defaultEntryPointNamesList.begin(), defaultEntryPointNamesList.end(), ", ");
-                return AZStd::move(shaderEntryPoints);
             }
 
         }  // namespace ShaderBuilderUtility
