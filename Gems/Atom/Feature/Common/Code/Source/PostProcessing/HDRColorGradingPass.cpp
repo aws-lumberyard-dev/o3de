@@ -38,10 +38,7 @@
             m_colorGradingPreSaturationIndex.Reset();
             m_colorFilterIntensityIndex.Reset();
             m_colorFilterMultiplyIndex.Reset();
-            m_kelvinIndex.Reset();
-            m_kelvinLumPreservationIndex.Reset();
-            m_kelvinColorMixIndex.Reset();
-            m_whiteBalanceIndex.Reset();
+            m_whiteBalanceKelvinIndex.Reset();
             m_whiteBalanceTintIndex.Reset();
             m_splitToneBalanceIndex.Reset();
             m_splitToneMixIndex.Reset();
@@ -82,10 +79,7 @@
                 m_shaderResourceGroup->SetConstant(m_colorGradingPreSaturationIndex, settings->GetColorGradingPreSaturation());
                 m_shaderResourceGroup->SetConstant(m_colorFilterIntensityIndex, settings->GetColorGradingFilterIntensity());
                 m_shaderResourceGroup->SetConstant(m_colorFilterMultiplyIndex, settings->GetColorGradingFilterMultiply());
-                m_shaderResourceGroup->SetConstant(m_kelvinIndex, settings->GetKelvin());
-                m_shaderResourceGroup->SetConstant(m_kelvinLumPreservationIndex, settings->GetKelvinLumPreservation());
-                m_shaderResourceGroup->SetConstant(m_kelvinColorMixIndex, settings->GetKelvinColorMix());
-                m_shaderResourceGroup->SetConstant(m_whiteBalanceIndex, settings->GetWhiteBalance());
+                m_shaderResourceGroup->SetConstant(m_whiteBalanceKelvinIndex, settings->GetWhiteBalanceKelvin());
                 m_shaderResourceGroup->SetConstant(m_whiteBalanceTintIndex, settings->GetWhiteBalanceTint());
                 m_shaderResourceGroup->SetConstant(m_splitToneBalanceIndex, settings->GetSplitToneBalance());
                 m_shaderResourceGroup->SetConstant(m_splitToneMixIndex, settings->GetSplitToneMix());
@@ -96,9 +90,9 @@
                 m_shaderResourceGroup->SetConstant(m_smhHighlightsEndIndex, settings->GetSmhHighlightsEnd());
                 m_shaderResourceGroup->SetConstant(m_smhMixIndex, settings->GetSmhMix());
 
-                m_shaderResourceGroup->SetConstant(m_channelMixingRedIndex, settings->GetChannelMixingRed());
-                m_shaderResourceGroup->SetConstant(m_channelMixingGreenIndex, settings->GetChannelMixingGreen());
-                m_shaderResourceGroup->SetConstant(m_channelMixingBlueIndex,settings->GetChannelMixingBlue());
+                m_shaderResourceGroup->SetConstant(m_channelMixingRedIndex, AZ::Vector3(settings->GetChannelMixingRed(), 0.0f, 0.0f));
+                m_shaderResourceGroup->SetConstant(m_channelMixingGreenIndex, AZ::Vector3(0.0f, settings->GetChannelMixingGreen(). 0.0f));
+                m_shaderResourceGroup->SetConstant(m_channelMixingBlueIndex, AZ::Vector3(0.0f, 0.0f, settings->GetChannelMixingBlue());
 
                 m_shaderResourceGroup->SetConstant(m_colorFilterSwatchIndex, settings->GetColorFilterSwatch());
                 m_shaderResourceGroup->SetConstant(m_splitToneShadowsColorIndex, settings->GetSplitToneShadowsColor());

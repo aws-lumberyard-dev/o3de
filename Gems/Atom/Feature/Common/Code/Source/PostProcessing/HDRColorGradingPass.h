@@ -54,10 +54,7 @@ namespace AZ
             RHI::ShaderInputNameIndex m_colorGradingPreSaturationIndex = "m_colorGradingPreSaturation";
             RHI::ShaderInputNameIndex m_colorFilterIntensityIndex = "m_colorFilterIntensity";
             RHI::ShaderInputNameIndex m_colorFilterMultiplyIndex = "m_colorFilterMultiply";
-            RHI::ShaderInputNameIndex m_kelvinIndex = "m_kelvin";
-            RHI::ShaderInputNameIndex m_kelvinLumPreservationIndex = "m_kelvinLumPreservation";
-            RHI::ShaderInputNameIndex m_kelvinColorMixIndex = "m_kelvinColorMix";
-            RHI::ShaderInputNameIndex m_whiteBalanceIndex = "m_whiteBalance";
+            RHI::ShaderInputNameIndex m_whiteBalanceKelvinIndex = "m_whiteBalanceKelvin";
             RHI::ShaderInputNameIndex m_whiteBalanceTintIndex = "m_whiteBalanceTint";
             RHI::ShaderInputNameIndex m_splitToneBalanceIndex = "m_splitToneBalance";
             RHI::ShaderInputNameIndex m_splitToneMixIndex = "m_splitToneMix";
