@@ -154,8 +154,6 @@ namespace AZ
 
                 void EnablePasses(bool enable);
 
-                static const char* s_featureProcessorName;
-
                 //! The following will serve to register the FP in the Thumbnail system
                 AZStd::vector<AZStd::string> m_hairFeatureProcessorRegistryName;
 

@@ -44,7 +44,6 @@ namespace AZ
     {
         namespace Hair
         {
-            const char* HairFeatureProcessor::s_featureProcessorName = "HairFeatureProcessor";
             uint32_t HairFeatureProcessor::s_instanceCount = 0;
 
             HairFeatureProcessor::HairFeatureProcessor()
