@@ -299,7 +299,7 @@ namespace AZ
                 m_forceClearRenderData = true;
             }
 
-            void HairFeatureProcessor::OnRenderPipelineAdded([[maybe_unused]] RPI::RenderPipelinePtr renderPipeline)
+            void HairFeatureProcessor::OnRenderPipelineAdded(RPI::RenderPipelinePtr renderPipeline)
             {
                 // Proceed only if this is the main pipeline that contains the parent pass
                 if (!renderPipeline.get()->GetRootPass()->FindPassByNameRecursive(HairParentPassName))
@@ -313,7 +313,7 @@ namespace AZ
                 m_forceRebuildRenderData = true;
             }
 
-            void HairFeatureProcessor::OnRenderPipelineRemoved([[maybe_unused]] RPI::RenderPipeline* renderPipeline)
+            void HairFeatureProcessor::OnRenderPipelineRemoved(RPI::RenderPipeline* renderPipeline)
             {
                 // Proceed only if this is the main pipeline that contains the parent pass
                 if (!renderPipeline->GetRootPass()->FindPassByNameRecursive(HairParentPassName))
@@ -325,7 +325,7 @@ namespace AZ
                 ClearPasses();
             }
 
-            void HairFeatureProcessor::OnRenderPipelinePassesChanged([[maybe_unused]] RPI::RenderPipeline* renderPipeline)
+            void HairFeatureProcessor::OnRenderPipelinePassesChanged(RPI::RenderPipeline* renderPipeline)
             {
                 // Proceed only if this is the main pipeline that contains the parent pass
                 if (!renderPipeline->GetRootPass()->FindPassByNameRecursive(HairParentPassName))
@@ -445,7 +445,7 @@ namespace AZ
                     return false;
                 }
 
-                RPI::Ptr<RPI::Pass> desiredPass = m_renderPipeline->GetRootPass()->FindPassByNameRecursive(AZ::Name{ passName });
+                RPI::Ptr<RPI::Pass> desiredPass = m_renderPipeline->GetRootPass()->FindPassByNameRecursive(passName);
                 if (desiredPass)
                 {
                     m_computePasses[passName] = static_cast<HairSkinningComputePass*>(desiredPass.get());
@@ -455,7 +455,7 @@ namespace AZ
                 else
                 {
                     AZ_Error("Hair Gem", false,
-                        "%s does not have any valid passes. Check your game project's .pass assets.",
+                        "%s does not exist in this pipeline. Check your game project's .pass assets.",
                         passName.GetCStr());
                     return false;
                 }
@@ -472,7 +472,7 @@ namespace AZ
                     return false;
                 }
 
-                RPI::Ptr<RPI::Pass> desiredPass = m_renderPipeline->GetRootPass()->FindPassByNameRecursive(AZ::Name{ HairPPLLRasterPassName });
+                RPI::Ptr<RPI::Pass> desiredPass = m_renderPipeline->GetRootPass()->FindPassByNameRecursive(HairPPLLRasterPassName);
                 if (desiredPass)
                 {
                     m_hairPPLLRasterPass = static_cast<HairPPLLRasterPass*>(desiredPass.get());
@@ -495,7 +495,7 @@ namespace AZ
                     return false;
                 }
 
-                RPI::Ptr<RPI::Pass> desiredPass = m_renderPipeline->GetRootPass()->FindPassByNameRecursive(AZ::Name{ HairPPLLResolvePassName });
+                RPI::Ptr<RPI::Pass> desiredPass = m_renderPipeline->GetRootPass()->FindPassByNameRecursive(HairPPLLResolvePassName);
                 if (desiredPass)
                 {
                     m_hairPPLLResolvePass = static_cast<HairPPLLResolvePass*>(desiredPass.get());
