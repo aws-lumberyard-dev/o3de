@@ -27,7 +27,21 @@ namespace AZ
                     ->Field("Configuration", &HDRColorGradingComponentController::m_configuration);
             }
 
-            // TODO: Add behavior context for ebus
+            if (auto* behaviorContext = azrtti_cast<AZ::BehaviorContext*>(context))
+            {
+                behaviorContext->EBus<HDRColorGradingRequestBus>("HDRColorGradingRequestBus")
+                    ->Attribute(AZ::Script::Attributes::Module, "render")
+                    ->Attribute(AZ::Script::Attributes::Scope, AZ::Script::Attributes::ScopeFlags::Common)
+
+                    // Auto-gen behavior context...
+#define PARAM_EVENT_BUS HDRColorGradingRequestBus::Events
+#include <Atom/Feature/ParamMacros/StartParamBehaviorContext.inl>
+#include <Atom/Feature/PostProcess/ColorGrading/HDRColorGradingParams.inl>
+#include <Atom/Feature/ParamMacros/EndParams.inl>
+#undef PARAM_EVENT_BUS
+
+                    ;
+            }
         }
 
         void HDRColorGradingComponentController::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
@@ -101,5 +115,46 @@ namespace AZ
                 m_settingsInterface->OnConfigChanged();
             }
         }
+
+        // Auto-gen getter/setter function definitions...
+        // The setter functions will set the values on the Atom settings class, then get the value back
+        // from the settings class to set the local configuration. This is in case the settings class
+        // applies some custom logic that results in the set value being different from the input
+#define AZ_GFX_COMMON_PARAM(ValueType, Name, MemberName, DefaultValue)                                                                     \
+        ValueType HDRColorGradingComponentController::Get##Name() const                                                                       \
+        {                                                                                                                                      \
+            return m_configuration.MemberName;                                                                                                 \
+        }                                                                                                                                      \
+        void HDRColorGradingComponentController::Set##Name(ValueType val)                                                                     \
+        {                                                                                                                                      \
+            if (m_settingsInterface)                                                                                                           \
+            {                                                                                                                                  \
+                m_settingsInterface->Set##Name(val);                                                                                           \
+                m_settingsInterface->OnConfigChanged();                                                                                        \
+                m_configuration.MemberName = m_settingsInterface->Get##Name();                                                                 \
+            }                                                                                                                                  \
+            else                                                                                                                               \
+            {                                                                                                                                  \
+                m_configuration.MemberName = val;                                                                                              \
+            }                                                                                                                                  \
+        }
+
+#define AZ_GFX_COMMON_OVERRIDE(ValueType, Name, MemberName, OverrideValueType)                                                             \
+        OverrideValueType HDRColorGradingComponentController::Get##Name##Override() const                                                     \
+        {                                                                                                                                      \
+            return m_configuration.MemberName##Override;                                                                                       \
+        }                                                                                                                                      \
+        void HDRColorGradingComponentController::Set##Name##Override(OverrideValueType val)                                                   \
+        {                                                                                                                                      \
+            m_configuration.MemberName##Override = val;                                                                                        \
+            if (m_settingsInterface)                                                                                                           \
+            {                                                                                                                                  \
+                m_settingsInterface->Set##Name##Override(val);                                                                                 \
+                m_settingsInterface->OnConfigChanged();                                                                                        \
+            }                                                                                                                                  \
+        }
+#include <Atom/Feature/ParamMacros/MapAllCommon.inl>
+#include <Atom/Feature/PostProcess/ColorGrading/HDRColorGradingParams.inl>
+#include <Atom/Feature/ParamMacros/EndParams.inl>
     } // namespace Render
 } // namespace AZ

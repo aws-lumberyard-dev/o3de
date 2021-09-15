@@ -10,17 +10,18 @@
 
 #include <AzCore/Component/Component.h>
 #include <AtomLyIntegration/CommonFeatures/PostProcess/ColorGrading/HDRColorGradingComponentConfig.h>
+#include <AtomLyIntegration/CommonFeatures/PostProcess/ColorGrading/HDRColorGradingBus.h>
 
 #include <Atom/Feature/PostProcess/ColorGrading/HDRColorGradingSettingsInterface.h>
 #include <Atom/Feature/PostProcess/PostProcessFeatureProcessorInterface.h>
 #include <Atom/Feature/PostProcess/PostProcessSettingsInterface.h>
-
 
 namespace AZ
 {
     namespace Render
     {
         class HDRColorGradingComponentController final
+            : public HDRColorGradingRequestBus::Handler
         {
         public:
             friend class EditorHDRColorGradingComponent;
@@ -40,9 +41,9 @@ namespace AZ
             const HDRColorGradingComponentConfig& GetConfiguration() const;
 
             // Auto-gen function override declarations (functions definitions in .cpp)...
-//#include <Atom/Feature/ParamMacros/StartParamFunctionsOverride.inl>
-//#include <Atom/Feature/PostProcess/ColorGrading/HDRColorGradingParams.inl>
-//#include <Atom/Feature/ParamMacros/EndParams.inl>
+#include <Atom/Feature/ParamMacros/StartParamFunctionsOverride.inl>
+#include <Atom/Feature/PostProcess/ColorGrading/HDRColorGradingParams.inl>
+#include <Atom/Feature/ParamMacros/EndParams.inl>
 
         private:
             AZ_DISABLE_COPY(HDRColorGradingComponentController);

@@ -171,10 +171,9 @@ float3 ColorGradeShadowsMidtonesHighlights (float3 frameColor, float shadowsStar
 
 float3 ColorGrade (float3 frameColor) 
 {
-    frame_color = min(frame_color, 60.0);
+    frameColor = min(frameColor, 60.0);
     frameColor = ColorGradePostExposure(frameColor, PassSrg::m_colorGradingExposure);
     frameColor = ColorGradeKelvinColorTemp(frameColor, PassSrg::m_whiteBalanceKelvin);
-                                            PassSrg::m_kelvinColorMix, PassSrg::m_kelvinLumPreservation);
     frameColor = ColorGradingContrast(frameColor, AcesCcMidGrey, PassSrg::m_colorGradingContrast);
     frameColor = ColorGradeColorFilter(frameColor, PassSrg::m_colorFilterSwatch.rgb,
                                          PassSrg::m_colorFilterMultiply);
