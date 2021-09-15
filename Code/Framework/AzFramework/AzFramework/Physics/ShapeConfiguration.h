@@ -204,7 +204,7 @@ namespace Physics
         AZ_RTTI(HeightfieldShapeConfiguration, "{8DF47C83-D2A9-4E7C-8620-5E173E43C0B3}", ShapeConfiguration);
         static void Reflect(AZ::ReflectContext* context);
         explicit HeightfieldShapeConfiguration(
-            const AZ::Vector3& boxDimensions = AZ::Vector3::CreateOne(), AZ::EntityId entityId = AZ::EntityId());
+            AZ::EntityId entityId = AZ::EntityId());
         HeightfieldShapeConfiguration(const HeightfieldShapeConfiguration&);
         HeightfieldShapeConfiguration& operator=(const HeightfieldShapeConfiguration&);
         ~HeightfieldShapeConfiguration();
@@ -214,11 +214,10 @@ namespace Physics
             return ShapeType::Heightfield;
         }
 
-        void* GetCachedHeightfield() const;
-        void SetCachedHeightfield(void* cachedHeightfield) const;
+        void* GetCachedNativeHeightfield() const;
+        void SetCachedNativeHeightfield(void* cachedNativeHeightfield) const;
 
-        AZ::Vector3 m_dimensions = AZ::Vector3::CreateOne();
         AZ::EntityId m_heightProvider;
-        mutable void* m_cachedHeightfield{ nullptr };
+        mutable void* m_cachedNativeHeightfield{ nullptr };
     };
 } // namespace Physics

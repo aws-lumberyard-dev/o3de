@@ -312,43 +312,29 @@ namespace Physics
                 ->RegisterGenericType<AZStd::shared_ptr<HeightfieldShapeConfiguration>>();
 
             serializeContext->Class<HeightfieldShapeConfiguration, ShapeConfiguration>()
-                ->Version(1)
-                ->Field("Configuration", &HeightfieldShapeConfiguration::m_dimensions);
-
-            if (auto editContext = serializeContext->GetEditContext())
-            {
-                editContext->Class<HeightfieldShapeConfiguration>("HeightfieldShapeConfiguration", "Configuration for heightfield collider")
-                    ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
-                    ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
-                    ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly)
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &HeightfieldShapeConfiguration::m_dimensions, "Dimensions", "Heightfield bounds")
-                    ->Attribute(AZ::Edit::Attributes::Min, 0.0f)
-                    ->Attribute(AZ::Edit::Attributes::Step, 0.01f);
-            }
+                ->Version(1);
         }
     }
 
-    HeightfieldShapeConfiguration::HeightfieldShapeConfiguration(const AZ::Vector3& boxDimensions, AZ::EntityId entityId)
-        : m_dimensions(boxDimensions)
-        , m_heightProvider(entityId)
+    HeightfieldShapeConfiguration::HeightfieldShapeConfiguration(AZ::EntityId entityId)
+        : m_heightProvider(entityId)
     {
     }
 
     HeightfieldShapeConfiguration::~HeightfieldShapeConfiguration()
     {
-        if (m_cachedHeightfield)
+        if (m_cachedNativeHeightfield)
         {
-            Physics::SystemRequestBus::Broadcast(&Physics::SystemRequests::ReleaseHeightfieldObject, m_cachedHeightfield);
+            Physics::SystemRequestBus::Broadcast(&Physics::SystemRequests::ReleaseNativeHeightfieldObject, m_cachedNativeHeightfield);
 
-            m_cachedHeightfield = nullptr;
+            m_cachedNativeHeightfield = nullptr;
         }
     }
 
     HeightfieldShapeConfiguration::HeightfieldShapeConfiguration(const HeightfieldShapeConfiguration& other)
         : ShapeConfiguration(other)
-        , m_dimensions(other.m_dimensions)
         , m_heightProvider(other.m_heightProvider)
-        , m_cachedNativeMesh(nullptr)
+        , m_cachedNativeHeightfield(nullptr)
     {
     }
 
@@ -356,28 +342,28 @@ namespace Physics
     {
         ShapeConfiguration::operator=(other);
 
-        m_dimensions = other.m_dimensions;
+        // The EntityID is all we need to get the heightfield information.
         m_heightProvider = other.m_heightProvider;
 
         // Prevent raw pointer from being copied
-        m_cachedNativeMesh = nullptr;
+        m_cachedNativeHeightfield = nullptr;
 
         return *this;
     }
 
-    void* HeightfieldShapeConfiguration::GetCachedNativeMesh() const
+    void* HeightfieldShapeConfiguration::GetCachedNativeHeightfield() const
     {
-        return m_cachedNativeMesh;
+        return m_cachedNativeHeightfield;
     }
 
-    void HeightfieldShapeConfiguration::SetCachedNativeMesh(void* cachedNativeMesh) const
+    void HeightfieldShapeConfiguration::SetCachedNativeHeightfield(void* cachedNativeHeightfield) const
     {
-        if (m_cachedNativeMesh)
+        if (m_cachedNativeHeightfield)
         {
-            Physics::SystemRequestBus::Broadcast(&Physics::SystemRequests::ReleaseNativeMeshObject, m_cachedNativeMesh);
+            Physics::SystemRequestBus::Broadcast(&Physics::SystemRequests::ReleaseNativeMeshObject, m_cachedNativeHeightfield);
         }
 
-        m_cachedNativeMesh = cachedNativeMesh;
+        m_cachedNativeHeightfield = cachedNativeHeightfield;
     }
 
 
