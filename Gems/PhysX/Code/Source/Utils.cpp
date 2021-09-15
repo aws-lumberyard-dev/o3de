@@ -175,14 +175,6 @@ namespace PhysX
                 {
                     const Physics::HeightfieldShapeConfiguration& heightfieldConfig =
                         static_cast<const Physics::HeightfieldShapeConfiguration&>(shapeConfiguration);
-                    if (!heightfieldConfig.m_dimensions.IsGreaterThan(AZ::Vector3::CreateZero()))
-                    {
-                        AZ_Error(
-                            "PhysX Utils", false, "Negative or zero values are invalid for heightfield dimensions %s",
-                            ToString(heightfieldConfig.m_dimensions).c_str());
-                        return false;
-                    }
-
                     physx::PxHeightField* heightfield = nullptr;
 
                     AZ::Vector2 gridSpacing(1.0f);
@@ -204,9 +196,9 @@ namespace PhysX
                     float heightScale = 0.1f;
 
                     // Use the cached mesh object if it is there, otherwise create one and save in the shape configuration
-                    if (heightfieldConfig.GetCachedNativeMesh())
+                    if (heightfieldConfig.GetCachedNativeHeightfield())
                     {
-                        heightfieldConfig.SetCachedNativeMesh(nullptr);
+                        heightfieldConfig.SetCachedNativeHeightfield(nullptr);
                     }
 
                     AZStd::vector<Physics::HeightMaterialPoint> samples;
@@ -219,7 +211,7 @@ namespace PhysX
 
                     if (heightfield)
                     {
-                        heightfieldConfig.SetCachedNativeMesh(heightfield);
+                        heightfieldConfig.SetCachedNativeHeightfield(heightfield);
                     }
 
                     physx::PxHeightFieldGeometry hfGeom(heightfield, physx::PxMeshGeometryFlags(), heightScale, rowScale, colScale);

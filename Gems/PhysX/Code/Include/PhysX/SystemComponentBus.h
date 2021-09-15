@@ -65,7 +65,7 @@ namespace PhysX
         /// @return Pointer to the created mesh.
         virtual physx::PxTriangleMesh* CreateTriangleMeshFromCooked(const void* cookedMeshData, AZ::u32 bufferSize) = 0;
 
-        ///  Creates a new heightfield.
+        /// Creates a new heightfield.
         /// @param samples Pointer to beginning of heightfield sample data.
         /// @param numRows Number of rows in the heightfield.
         /// @param numColumns Number of columns in the heightfield.
