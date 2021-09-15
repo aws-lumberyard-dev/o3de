@@ -8,6 +8,8 @@ from aws_cdk import (
     core,
 )
 
+from .data_ingestion import DataIngestion
+
 class AWSLogExplorerStack(core.Stack):
 
     def __init__(self, 
@@ -17,3 +19,5 @@ class AWSLogExplorerStack(core.Stack):
                  feature_name: str, 
                  **kwargs) -> None:
         super().__init__(scope, id_, **kwargs)
+
+        self._data_ingestion = DataIngestion(self)
