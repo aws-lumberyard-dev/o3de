@@ -123,6 +123,13 @@ namespace AzToolsFramework
             virtual AZ::EntityId GetInstanceContainerEntityId(AZ::EntityId entityId) const = 0;
             
             /**
+             * Gets the entity id for the instance container of the parent of the owning instance.
+             * @param entityId The id of the entity to query.
+             * @return The entity id of the instance container for the parent of the instance owning the queried entity.
+             */
+            virtual AZ::EntityId GetParentInstanceContainerEntityId(AZ::EntityId entityId) const = 0;
+            
+            /**
              * Gets the entity id for the instance container of the level instance.
              * @return The entity id of the instance container for the currently loaded level.
              */
@@ -174,6 +181,9 @@ namespace AzToolsFramework
               * @return An outcome object; on failure, it comes with an error message detailing the cause of the error.
               */
             virtual PrefabOperationResult DetachPrefab(const AZ::EntityId& containerEntityId) = 0;
+
+            // Test...
+            virtual AZ::EntityId OverrideEntitySelectionInViewport(AZ::EntityId entityId) = 0;
         };
 
     } // namespace Prefab

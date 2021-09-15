@@ -12,6 +12,7 @@
 #include <AzToolsFramework/Manipulators/ManipulatorManager.h>
 #include <AzToolsFramework/Viewport/ViewportMessages.h>
 #include <AzToolsFramework/ViewportSelection/EditorSelectionUtil.h>
+#include <AzToolsFramework/API/ViewportEditorModeTrackerInterface.h>
 #include <Entity/EditorEntityHelpers.h>
 #include <QGuiApplication>
 
@@ -28,10 +29,17 @@ namespace AzToolsFramework
 
         m_manipulatorManager = AZStd::make_shared<AzToolsFramework::ManipulatorManager>(AzToolsFramework::g_mainManipulatorManagerId);
         m_transformComponentSelection = AZStd::make_unique<EditorTransformComponentSelection>(entityDataCache);
+
+        AZ::Interface<ViewportEditorModeTrackerInterface>::Get()->EnterMode({}, ViewportEditorMode::Default);
     }
 
     EditorDefaultSelection::~EditorDefaultSelection()
     {
+        if (AZ::Interface<ViewportEditorModeTrackerInterface>::Get() != nullptr)
+        {
+            AZ::Interface<ViewportEditorModeTrackerInterface>::Get()->ExitMode({}, ViewportEditorMode::Default);
+        }
+
         ComponentModeFramework::ComponentModeSystemRequestBus::Handler::BusDisconnect();
         ActionOverrideRequestBus::Handler::BusDisconnect();
     }

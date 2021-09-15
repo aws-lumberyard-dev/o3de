@@ -33,7 +33,6 @@ set(FILES
     API/EditorCameraBus.cpp
     API/EditorAnimationSystemRequestBus.h
     API/EditorEntityAPI.h
-    API/EditorLevelNotificationBus.h
     API/ViewportEditorModeTrackerNotificationBus.h
     API/EditorVegetationRequestsBus.h
     API/EditorPythonConsoleBus.h
@@ -521,6 +520,7 @@ set(FILES
     ComponentModes/BoxComponentMode.cpp
     ComponentModes/BoxViewportEdit.h
     ComponentModes/BoxViewportEdit.cpp
+    ViewportSelection/EditorInteractionInterface.h
     ViewportSelection/EditorBoxSelect.h
     ViewportSelection/EditorBoxSelect.cpp
     ViewportSelection/EditorDefaultSelection.h
@@ -722,8 +722,11 @@ set(FILES
     UI/Prefab/LevelRootUiHandler.h
     UI/Prefab/LevelRootUiHandler.cpp
     UI/Prefab/PrefabEditInterface.h
+    UI/Prefab/PrefabEditPublicInterface.h
     UI/Prefab/PrefabEditManager.h
     UI/Prefab/PrefabEditManager.cpp
+    UI/Prefab/PrefabEditUndo.h
+    UI/Prefab/PrefabEditUndo.cpp
     UI/Prefab/PrefabIntegrationBus.h
     UI/Prefab/PrefabIntegrationManager.h
     UI/Prefab/PrefabIntegrationManager.cpp

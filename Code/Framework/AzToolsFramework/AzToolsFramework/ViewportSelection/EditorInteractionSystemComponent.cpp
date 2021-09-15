@@ -17,6 +17,7 @@ namespace AzToolsFramework
     {
         EditorInteractionSystemViewportSelectionRequestBus::Handler::BusConnect(GetEntityContextId());
         EditorEventsBus::Handler::BusConnect();
+        m_viewportEditorMode.RegisterInterface();
     }
 
     void EditorInteractionSystemComponent::Deactivate()
@@ -24,6 +25,7 @@ namespace AzToolsFramework
         // EditorVisibleEntityDataCache does BusDisconnect in the destructor, so have to reset here
         m_entityDataCache.reset();
 
+        m_viewportEditorMode.UnregisterInterface();
         AzFramework::ViewportDebugDisplayEventBus::Handler::BusDisconnect();
         EditorEventsBus::Handler::BusDisconnect();
         EditorInteractionSystemViewportSelectionRequestBus::Handler::BusDisconnect();

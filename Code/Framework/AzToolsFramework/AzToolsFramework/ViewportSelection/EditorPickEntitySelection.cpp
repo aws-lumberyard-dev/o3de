@@ -9,6 +9,7 @@
 #include "EditorPickEntitySelection.h"
 
 #include <AzToolsFramework/ViewportSelection/EditorSelectionUtil.h>
+#include <AzToolsFramework/API/ViewportEditorModeTrackerInterface.h>
 #include <QApplication>
 
 namespace AzToolsFramework
@@ -18,10 +19,13 @@ namespace AzToolsFramework
     EditorPickEntitySelection::EditorPickEntitySelection(const EditorVisibleEntityDataCache* entityDataCache)
         : m_editorHelpers(AZStd::make_unique<EditorHelpers>(entityDataCache))
     {
+        AZ::Interface<ViewportEditorModeTrackerInterface>::Get()->EnterMode({}, ViewportEditorMode::Pick);
     }
 
     EditorPickEntitySelection::~EditorPickEntitySelection()
     {
+        AZ::Interface<ViewportEditorModeTrackerInterface>::Get()->ExitMode({}, ViewportEditorMode::Pick);
+
         if (m_hoveredEntityId.IsValid())
         {
             ToolsApplicationRequestBus::Broadcast(&ToolsApplicationRequests::SetEntityHighlighted, m_hoveredEntityId, false);

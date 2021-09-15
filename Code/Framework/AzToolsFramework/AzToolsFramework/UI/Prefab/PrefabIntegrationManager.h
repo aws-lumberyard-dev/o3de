@@ -28,7 +28,6 @@ namespace AzToolsFramework
 {
     namespace Prefab
     {
-
         class PrefabLoaderInterface;
 
         //! Structure for saving/retrieving user settings related to prefab workflows.
@@ -93,6 +92,7 @@ namespace AzToolsFramework
             static void ContextMenu_CreatePrefab(AzToolsFramework::EntityIdList selectedEntities);
             static void ContextMenu_InstantiatePrefab();
             static void ContextMenu_EditPrefab(AZ::EntityId containerEntity);
+            static void ContextMenu_ClosePrefab();
             static void ContextMenu_SavePrefab(AZ::EntityId containerEntity);
             static void ContextMenu_DeleteSelected();
             static void ContextMenu_DetachPrefab(AZ::EntityId containerEntity);
@@ -140,7 +140,7 @@ namespace AzToolsFramework
 
             static EditorEntityUiInterface* s_editorEntityUiInterface;
             static PrefabPublicInterface* s_prefabPublicInterface;
-            static PrefabEditInterface* s_prefabEditInterface;
+            static PrefabEditPublicInterface* s_prefabEditPublicInterface;
             static PrefabLoaderInterface* s_prefabLoaderInterface;
             static PrefabSystemComponentInterface* s_prefabSystemComponentInterface;
         };

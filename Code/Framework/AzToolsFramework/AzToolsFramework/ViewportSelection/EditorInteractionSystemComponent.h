@@ -11,9 +11,12 @@
 #include <AzCore/Component/Component.h>
 #include <AzToolsFramework/ViewportSelection/EditorInteractionSystemViewportSelectionRequestBus.h>
 #include <AzToolsFramework/ViewportSelection/EditorVisibleEntityDataCache.h>
+#include <AzToolsFramework/ViewportSelection/ViewportEditorModeTracker.h>
 
 namespace AzToolsFramework
 {
+    class ViewportEditorModeStateTracker;
+
     //! System Component to wrap active input handler.
     //! EditorInteractionSystemComponent is notified of viewport mouse events from RenderViewport
     //! and forwards them to a concrete implementation of ViewportSelectionRequests.
@@ -54,5 +57,6 @@ namespace AzToolsFramework
         AZStd::unique_ptr<InternalViewportSelectionRequests> m_interactionRequests; //!< Hold a concrete implementation of
                                                                                     //!< ViewportSelectionRequests to handle viewport
                                                                                     //!< input and drawing for the Editor.
+        ViewportEditorModeTracker m_viewportEditorMode;
     };
 } // namespace AzToolsFramework

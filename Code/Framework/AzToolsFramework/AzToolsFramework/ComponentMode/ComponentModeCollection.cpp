@@ -9,6 +9,7 @@
 #include "ComponentModeCollection.h"
 
 #include <AzToolsFramework/Commands/ComponentModeCommand.h>
+#include <AzToolsFramework/API/ViewportEditorModeTrackerInterface.h>
 #include <AzCore/std/smart_ptr/make_shared.h>
 
 namespace AzToolsFramework
@@ -199,6 +200,8 @@ namespace AzToolsFramework
 
         void ComponentModeCollection::BeginComponentMode()
         {
+            AZ::Interface<ViewportEditorModeTrackerInterface>::Get()->EnterMode({}, ViewportEditorMode::Component);
+
             m_selectedComponentModeIndex = 0;
             m_componentMode = true;
             m_adding = false;
@@ -262,6 +265,8 @@ namespace AzToolsFramework
 
         void ComponentModeCollection::EndComponentMode()
         {
+            AZ::Interface<ViewportEditorModeTrackerInterface>::Get()->ExitMode({}, ViewportEditorMode::Component);
+
             if (!UndoRedoOperationInProgress())
             {
                 ScopedUndoBatch undoBatch(s_leavingComponentModeUndoRedoDesc);

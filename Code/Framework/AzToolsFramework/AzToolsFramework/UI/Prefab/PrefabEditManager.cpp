@@ -9,6 +9,11 @@
 #include <AzToolsFramework/UI/Prefab/PrefabEditManager.h>
 
 #include <AzCore/Serialization/SerializeContext.h>
+#include <AzToolsFramework/API/ToolsApplicationAPI.h>
+#include <AzToolsFramework/Commands/SelectionCommand.h>
+#include <AzToolsFramework/UI/Outliner/EntityOutlinerCacheBus.h>
+#include <AzToolsFramework/UI/Prefab/PrefabEditUndo.h>
+#include <AzToolsFramework/API/ViewportEditorModeTrackerNotificationBus.h>
 
 namespace AzToolsFramework
 {
@@ -17,7 +22,6 @@ namespace AzToolsFramework
         PrefabEditManager::PrefabEditManager()
         {
             m_prefabPublicInterface = AZ::Interface<PrefabPublicInterface>::Get();
-
             if (m_prefabPublicInterface == nullptr)
             {
                 AZ_Assert(false, "Prefab - could not get PrefabPublicInterface on PrefabEditManager construction.");
@@ -25,22 +29,134 @@ namespace AzToolsFramework
             }
 
             AZ::Interface<PrefabEditInterface>::Register(this);
+            AZ::Interface<PrefabEditPublicInterface>::Register(this);
+            AZ::Interface<EditorInteractionInterface>::Register(this);
         }
 
         PrefabEditManager::~PrefabEditManager()
         {
+            AZ::Interface<EditorInteractionInterface>::Unregister(this);
+            AZ::Interface<PrefabEditPublicInterface>::Unregister(this);
             AZ::Interface<PrefabEditInterface>::Unregister(this);
+        }
+
+        void PrefabEditManager::EditPrefab(AZ::EntityId entityId)
+        {
+            AZ::EntityId containerEntityId = m_prefabPublicInterface->GetInstanceContainerEntityId(entityId);
+
+            // Early out if no change - saves time on refreshing the views
+            if (containerEntityId == m_editedPrefabContainerId)
+            {
+                return;
+            }
+
+            AZ::EntityId levelContainerEntityId = m_prefabPublicInterface->GetLevelInstanceContainerEntityId();
+
+            // Notify Outliner of changes to what was previously in the cache
+            for (AZ::EntityId changedEntityId : m_editedPrefabHierarchyCache)
+            {
+                EntityOutlinerCacheNotificationBus::Broadcast(&EntityOutlinerCacheNotifications::EntityCacheChanged, changedEntityId);
+            }
+
+            if (!entityId.IsValid() || containerEntityId == levelContainerEntityId)
+            {
+                // Clear variables, go back to editing the level
+                m_editedPrefabContainerId = AZ::EntityId();
+                m_editedPrefabHierarchyCache.clear();
+            }
+            else
+            {
+                // Set edited prefab to owning instance
+                m_editedPrefabContainerId = containerEntityId;
+
+                // Clear cache and populate with all ancestors of edited prefab
+                m_editedPrefabHierarchyCache.clear();
+
+                while (containerEntityId != levelContainerEntityId)
+                {
+                    m_editedPrefabHierarchyCache.insert(containerEntityId);
+                    containerEntityId = m_prefabPublicInterface->GetParentInstanceContainerEntityId(containerEntityId);
+                }
+            }
+
+            // Notify Outliner of changes to what was added to the cache
+            for (AZ::EntityId changedEntityId : m_editedPrefabHierarchyCache)
+            {
+                EntityOutlinerCacheNotificationBus::Broadcast(&EntityOutlinerCacheNotifications::EntityCacheChanged, changedEntityId);
+            }
         }
 
         void PrefabEditManager::EditOwningPrefab(AZ::EntityId entityId)
         {
-            m_instanceBeingEdited = m_prefabPublicInterface->GetInstanceContainerEntityId(entityId);
+            AZ::EntityId containerEntityId = m_prefabPublicInterface->GetInstanceContainerEntityId(entityId);
+
+            // Initialize Undo Batch object
+            ScopedUndoBatch undoBatch("Edit Prefab");
+
+            // Clear Selection
+            {
+                auto selectionUndo = aznew SelectionCommand({}, "Clear Selection");
+                selectionUndo->SetParent(undoBatch.GetUndoBatch());
+                ToolsApplicationRequestBus::Broadcast(&ToolsApplicationRequestBus::Events::RunRedoSeparately, selectionUndo);
+            }
+
+            // Edit Prefab
+            {
+                auto editUndo = aznew PrefabUndoEdit("Edit Owning Prefab");
+                editUndo->Capture(m_editedPrefabContainerId, containerEntityId);
+                editUndo->SetParent(undoBatch.GetUndoBatch());
+                ToolsApplicationRequestBus::Broadcast(&ToolsApplicationRequestBus::Events::RunRedoSeparately, editUndo);
+            }
         }
 
         bool PrefabEditManager::IsOwningPrefabBeingEdited(AZ::EntityId entityId)
         {
+            if (!m_editedPrefabContainerId.IsValid())
+            {
+                return false;
+            }
+
             AZ::EntityId containerEntity = m_prefabPublicInterface->GetInstanceContainerEntityId(entityId);
-            return m_instanceBeingEdited == containerEntity;
+            return m_editedPrefabContainerId == containerEntity;
+        }
+
+        bool PrefabEditManager::IsOwningPrefabInEditStack(AZ::EntityId entityId)
+        {
+            if (!m_editedPrefabContainerId.IsValid())
+            {
+                return false;
+            }
+
+            AZ::EntityId containerEntityId = m_prefabPublicInterface->GetInstanceContainerEntityId(entityId);
+            return m_editedPrefabHierarchyCache.contains(containerEntityId);
+        }
+
+        AZ::EntityId PrefabEditManager::RedirectEntitySelection(AZ::EntityId entityId)
+        {
+            // Retrieve the Level Container
+            AZ::EntityId levelContainerEntityId = m_prefabPublicInterface->GetLevelInstanceContainerEntityId();
+
+            // Find container entity for owning prefab of passed entity
+            AZ::EntityId containerEntityId =  m_prefabPublicInterface->GetInstanceContainerEntityId(entityId);
+
+            // If the entity belongs to the level instance or an instance that is currently being edited, it can be selected
+            if (containerEntityId == levelContainerEntityId || m_editedPrefabHierarchyCache.contains(containerEntityId))
+            {
+                return entityId;
+            }
+
+            // Else keep looping until you can find an instance that is being edited, or the level instance
+            AZ::EntityId parentContainerEntityId = m_prefabPublicInterface->GetParentInstanceContainerEntityId(containerEntityId);
+
+            while (parentContainerEntityId.IsValid() && parentContainerEntityId != levelContainerEntityId &&
+                   !m_editedPrefabHierarchyCache.contains(parentContainerEntityId))
+            {
+                // Else keep going up the hierarchy
+                containerEntityId = parentContainerEntityId;
+                parentContainerEntityId = m_prefabPublicInterface->GetParentInstanceContainerEntityId(containerEntityId);
+            }
+
+            return containerEntityId;
         }
     }
 }

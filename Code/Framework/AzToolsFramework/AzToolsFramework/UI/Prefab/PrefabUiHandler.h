@@ -14,7 +14,7 @@ namespace AzToolsFramework
 {
     namespace Prefab
     {
-        class PrefabEditInterface;
+        class PrefabEditPublicInterface;
         class PrefabPublicInterface;
     };
 
@@ -32,12 +32,14 @@ namespace AzToolsFramework
         QString GenerateItemInfoString(AZ::EntityId entityId) const override;
         QString GenerateItemTooltip(AZ::EntityId entityId) const override;
         QPixmap GenerateItemIcon(AZ::EntityId entityId) const override;
+        bool IsOverridingExpandedState(AZ::EntityId entityId) const override;
+        bool GenerateOverriddenExpandedState(AZ::EntityId entityId) const override;
         void PaintItemBackground(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
         void PaintDescendantBackground(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index,
             const QModelIndex& descendantIndex) const override;
 
     private:
-        Prefab::PrefabEditInterface* m_prefabEditInterface = nullptr;
+        Prefab::PrefabEditPublicInterface* m_prefabEditPublicInterface = nullptr;
         Prefab::PrefabPublicInterface* m_prefabPublicInterface = nullptr;
 
         static bool IsLastVisibleChild(const QModelIndex& parent, const QModelIndex& child);

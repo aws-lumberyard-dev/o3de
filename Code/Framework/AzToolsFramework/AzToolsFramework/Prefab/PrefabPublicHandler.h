@@ -56,6 +56,7 @@ namespace AzToolsFramework
             bool IsInstanceContainerEntity(AZ::EntityId entityId) const override;
             bool IsLevelInstanceContainerEntity(AZ::EntityId entityId) const override;
             AZ::EntityId GetInstanceContainerEntityId(AZ::EntityId entityId) const override;
+            AZ::EntityId GetParentInstanceContainerEntityId(AZ::EntityId entityId) const override;
             AZ::EntityId GetLevelInstanceContainerEntityId() const override;
             AZ::IO::Path GetOwningInstancePrefabPath(AZ::EntityId entityId) const override;
             PrefabRequestResult HasUnsavedChanges(AZ::IO::Path prefabFilePath) const override;
@@ -183,6 +184,8 @@ namespace AzToolsFramework
             static Instance* GetParentInstance(Instance* instance);
             static Instance* GetAncestorOfInstanceThatIsChildOfRoot(const Instance* ancestor, Instance* descendant);
             static void GenerateContainerEntityTransform(const EntityList& topLevelEntities, AZ::Vector3& translation, AZ::Quaternion& rotation);
+
+             AZ::EntityId OverrideEntitySelectionInViewport(AZ::EntityId entityId) override;
 
             InstanceEntityMapperInterface* m_instanceEntityMapperInterface = nullptr;
             InstanceToTemplateInterface* m_instanceToTemplateInterface = nullptr;
