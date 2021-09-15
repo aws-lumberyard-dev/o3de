@@ -68,6 +68,12 @@
             FullscreenTrianglePass::FrameBeginInternal(params);
         }
 
+        bool HDRColorGradingPass::IsEnabled() const
+        {
+            auto* colorGradingSettings = GetHDRColorGradingSettings();
+            return colorGradingSettings ? colorGradingSettings->GetEnabled() : false;
+        }
+
         void HDRColorGradingPass::SetSrgConstants()
         {
             const HDRColorGradingSettings* settings = GetHDRColorGradingSettings();
@@ -91,8 +97,8 @@
                 m_shaderResourceGroup->SetConstant(m_smhMixIndex, settings->GetSmhMix());
 
                 m_shaderResourceGroup->SetConstant(m_channelMixingRedIndex, AZ::Vector3(settings->GetChannelMixingRed(), 0.0f, 0.0f));
-                m_shaderResourceGroup->SetConstant(m_channelMixingGreenIndex, AZ::Vector3(0.0f, settings->GetChannelMixingGreen(). 0.0f));
-                m_shaderResourceGroup->SetConstant(m_channelMixingBlueIndex, AZ::Vector3(0.0f, 0.0f, settings->GetChannelMixingBlue());
+                m_shaderResourceGroup->SetConstant(m_channelMixingGreenIndex, AZ::Vector3(0.0f, settings->GetChannelMixingGreen(), 0.0f));
+                m_shaderResourceGroup->SetConstant(m_channelMixingBlueIndex, AZ::Vector3(0.0f, 0.0f, settings->GetChannelMixingBlue()));
 
                 m_shaderResourceGroup->SetConstant(m_colorFilterSwatchIndex, settings->GetColorFilterSwatch());
                 m_shaderResourceGroup->SetConstant(m_splitToneShadowsColorIndex, settings->GetSplitToneShadowsColor());
@@ -115,16 +121,15 @@
                     PostProcessSettings* postProcessSettings = fp->GetLevelSettingsFromView(view);
                     if (postProcessSettings)
                     {
-                        return postProcessSettings->GetHDRColorGradingSettings();
+                        const HDRColorGradingSettings* colorGradingSettings = postProcessSettings->GetHDRColorGradingSettings();;
+                        if (colorGradingSettings != nullptr && colorGradingSettings->GetEnabled())
+                        {
+                            return postProcessSettings->GetHDRColorGradingSettings();
+                        }
                     }
                 }
             }
             return nullptr;
-        }
-
-        void HDRColorGradingPass::CompileResources(const RHI::FrameGraphCompileContext& context)
-        {
-            FullscreenTrianglePass::CompileResources(context);
         }
     }
 }

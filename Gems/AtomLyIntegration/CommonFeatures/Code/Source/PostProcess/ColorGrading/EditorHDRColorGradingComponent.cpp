@@ -46,7 +46,7 @@ namespace AZ
                             "Enable HDR color grading",
                             "Enable HDR color grading.")
                         ->ClassElement(AZ::Edit::ClassElements::Group, "Color Adjustment")
-                        ->Attribute(AZ::Edit::Attributes::AutoExpand, false)
+                        ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
                         ->DataElement(AZ::Edit::UIHandlers::Slider, &HDRColorGradingComponentConfig::m_colorGradingExposure, "Exposure", "Exposure Value")
                         ->DataElement(AZ::Edit::UIHandlers::Slider, &HDRColorGradingComponentConfig::m_colorGradingContrast, "Contrast", "Contrast Value")
                             ->Attribute(Edit::Attributes::Min, -100.0f)
@@ -67,7 +67,7 @@ namespace AZ
                         ->DataElement(AZ::Edit::UIHandlers::Color, &HDRColorGradingComponentConfig::m_colorFilterSwatch, "Color Filter Swatch", "Color Filter Swatch Value")
 
                         ->ClassElement(AZ::Edit::ClassElements::Group, "White Balance")
-                        ->Attribute(AZ::Edit::Attributes::AutoExpand, false)
+                        ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
                         ->DataElement(AZ::Edit::UIHandlers::Slider, &HDRColorGradingComponentConfig::m_whiteBalanceKelvin, "Temperature", "Temperature in Kelvin")
                             ->Attribute(Edit::Attributes::Min, 1000.0f)
                             ->Attribute(Edit::Attributes::Max, 40000.0f)
@@ -76,7 +76,7 @@ namespace AZ
                             ->Attribute(Edit::Attributes::Max, 100.0f)
 
                         ->ClassElement(AZ::Edit::ClassElements::Group, "Split Toning")
-                        ->Attribute(AZ::Edit::Attributes::AutoExpand, false)
+                        ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
                         ->DataElement(AZ::Edit::UIHandlers::Slider, &HDRColorGradingComponentConfig::m_splitToneBalance, "Split Tone Balance", "Split Tone Balance Value")
                             ->Attribute(Edit::Attributes::Min, 0.0f)
                             ->Attribute(Edit::Attributes::Max, 1.0f)
@@ -84,7 +84,7 @@ namespace AZ
                         ->DataElement(AZ::Edit::UIHandlers::Color, &HDRColorGradingComponentConfig::m_splitToneHighlightsColor, "Split Tone Highlights Color", "Split Tone Highlights Color")
 
                         ->ClassElement(AZ::Edit::ClassElements::Group, "Shadow Midtones Highlights")
-                        ->Attribute(AZ::Edit::Attributes::AutoExpand, false)
+                        ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
                         ->DataElement(AZ::Edit::UIHandlers::Slider, &HDRColorGradingComponentConfig::m_smhShadowsStart, "SMH Shadows Start", "SMH Shadows Start Value")
                             ->Attribute(Edit::Attributes::Min, 0.0f)
                             ->Attribute(Edit::Attributes::Max, 1.0f)
@@ -105,7 +105,7 @@ namespace AZ
                         ->DataElement(AZ::Edit::UIHandlers::Color, &HDRColorGradingComponentConfig::m_smhHighlightsColor, "SMH Highlights Color", "SMH Highlights Color")
 
                         ->ClassElement(AZ::Edit::ClassElements::Group, "Channel Mixing")
-                        ->Attribute(AZ::Edit::Attributes::AutoExpand, false)
+                        ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
                         ->DataElement(AZ::Edit::UIHandlers::Slider, &HDRColorGradingComponentConfig::m_channelMixingRed, "Channel Mixing Red", "Channel Mixing Red Value")
                             ->Attribute(Edit::Attributes::Min, 0.0f)
                         ->DataElement(AZ::Edit::UIHandlers::Slider, &HDRColorGradingComponentConfig::m_channelMixingGreen, "Channel Mixing Green", "Channel Mixing Green Value")

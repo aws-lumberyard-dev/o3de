@@ -38,15 +38,12 @@ namespace AZ
             
             //! Pass behavior overrides
             void InitializeInternal() override;
-            void FrameBeginInternal(FramePrepareParams params) final;
+            void FrameBeginInternal(FramePrepareParams params) override;
+            bool IsEnabled() const override;
 
         private:
             const HDRColorGradingSettings* GetHDRColorGradingSettings() const;
             void SetSrgConstants();
-
-            // Scope producer functions...
-            void CompileResources(const RHI::FrameGraphCompileContext& context) override;
-            //void BuildCommandListInternal(const RHI::FrameGraphExecuteContext& context) override;
 
             RHI::ShaderInputNameIndex m_colorGradingExposureIndex = "m_colorGradingExposure";
             RHI::ShaderInputNameIndex m_colorGradingContrastIndex = "m_colorGradingContrast";

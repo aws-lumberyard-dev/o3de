@@ -28,7 +28,26 @@ namespace AZ
         {
             AZ_Assert(target != nullptr, "HDRColorGradingSettings::ApplySettingsTo called with nullptr as argument.");
 
-            target->m_colorGradingPostSaturation = AZ::Lerp(target->m_colorGradingPostSaturation, m_colorGradingPostSaturation, alpha);
+            if (GetEnabled())
+            {
+                target->m_enabled = m_enabled;
+
+#define AZ_GFX_BOOL_PARAM(NAME, MEMBER_NAME, DefaultValue) ;
+#define AZ_GFX_FLOAT_PARAM(NAME, MEMBER_NAME, DefaultValue)                                                  \
+    {                                                                                                        \
+                target->Set##NAME(AZ::Lerp(target->##MEMBER_NAME, MEMBER_NAME, alpha));                      \
+    }
+
+#define AZ_GFX_VEC3_PARAM(NAME, MEMBER_NAME, DefaultValue)                                                   \
+    {                                                                                                        \
+                target->##MEMBER_NAME.Set(AZ::Lerp(target->##MEMBER_NAME.GetX(), MEMBER_NAME.GetX(), alpha), \
+                    AZ::Lerp(target->##MEMBER_NAME.GetX(), MEMBER_NAME.GetX(), alpha),                       \
+                    AZ::Lerp(target->##MEMBER_NAME.GetX(), MEMBER_NAME.GetX(), alpha));                      \
+    }
+
+#include <Atom/Feature/PostProcess/ColorGrading/HDRColorGradingParams.inl>
+#include <Atom/Feature/ParamMacros/EndParams.inl>
+            }
         }
 
         void HDRColorGradingSettings::Simulate([[maybe_unused]] float deltaTime)
