@@ -17,13 +17,21 @@ class DataIngestion:
     Create the S3 bucket and KinesisFirehose data stream to ingest metrics events.
     """
     
-    def __init__(self, stack: core.Construct) -> None:
+    def __init__(self, stack: core.Construct, project_name: str, feature_name: str) -> None:
         self._stack = stack
-        bucket = s3.Bucket(stack, "Bucket")
+        self._bucket_name = f'{project_name}-{feature_name}-S3bucket'
+  
+        bucket = s3.Bucket(
+            stack,
+            f'{project_name}-{feature_name}-S3bucket',
+            block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
+            encryption=s3.BucketEncryption.S3_MANAGED
+        )
+
+        
         self._input_stream = kinesisFirehose.DeliveryStream(
             self._stack,
             id='InputStream',
             destinations=[destinations.S3Bucket(bucket)],
             delivery_stream_name=f'{self._stack.stack_name}-InputStream'
         )
-

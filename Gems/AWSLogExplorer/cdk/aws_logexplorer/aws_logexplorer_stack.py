@@ -20,4 +20,4 @@ class AWSLogExplorerStack(core.Stack):
                  **kwargs) -> None:
         super().__init__(scope, id_, **kwargs)
 
-        self._data_ingestion = DataIngestion(self)
+        self._data_ingestion = DataIngestion(self, project_name, feature_name)
