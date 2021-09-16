@@ -82,15 +82,12 @@ namespace Terrain
         // HeightfieldProviderRequestsBus
         AZ::Vector2 GetHeightfieldGridSpacing() const override;
         void GetHeightfieldGridSize(int32_t& numColumns, int32_t& numRows) const override;
-        void GetMaterialList(AZStd::vector<Physics::MaterialId>& materialList) const override;
+        AZStd::vector<Physics::MaterialId> GetMaterialList() const override;
         AZStd::vector<float> GetHeights() const override;
         AZStd::vector<Physics::HeightMaterialPoint> GetHeightsAndMaterials() const override;
-        float GetScale() const override;
         AZStd::vector<float> UpdateHeights(const AZ::Aabb& dirtyRegion) const override;
         AZStd::vector<Physics::HeightMaterialPoint> UpdateHeightsAndMaterials(const AZ::Aabb& dirtyRegion) const override;
     private:
         TerrainPhysicsColliderConfig m_configuration;
-
-        float m_heightScale = 0.0f;
     };
 }

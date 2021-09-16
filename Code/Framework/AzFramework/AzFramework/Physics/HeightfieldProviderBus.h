@@ -16,19 +16,19 @@
 
 namespace Physics
 {
-    enum HeightMapFlags
+    enum class QuadMeshType : uint8_t
     {
-        HeightMapFlags_Tesselation = 1 << 0,
-        HeightMapFlags_HoleMaterial = 1 << 1
+        SubdivideULToBR,
+        SubdivideBLToUR,
+        Hole
     };
-
 
     struct HeightMaterialPoint
     {
         float m_height;
-        uint16_t m_flags;
-        uint8_t m_materialIndex0; // Flag is a tesselation flag specifying which way the triangles go for this quad
-        uint8_t m_materialIndex1; // Flag is "reserved"
+        QuadMeshType m_quadMeshType{ QuadMeshType::SubdivideULToBR }; // By default, create two triangles like this |\|, where this point is in the upper left corner.
+        uint8_t m_materialIndex = 0; // The surface material index for the upper left corner of this quad.
+        uint16_t m_padding = 0; // available for future use.
     };
 
     //! An interface to provide heightfield values.
@@ -46,8 +46,8 @@ namespace Physics
         virtual void GetHeightfieldGridSize(int32_t& numColumns, int32_t& numRows) const = 0;
       
         //! Returns the list of materials used by the height field.
-        //! @param materialList contains a vector of all materials.
-        virtual void GetMaterialList(AZStd::vector<MaterialId>& materialList) const = 0;
+        //! @return returns a vector of all materials.
+        virtual AZStd::vector<MaterialId>GetMaterialList() const = 0;
 
         //! Returns the list of heights used by the height field.
         //! @return the rows*columns vector of the heights.
@@ -56,10 +56,6 @@ namespace Physics
         //! Returns the list of heights and materials used by the height field.
         //! @return the rows*columns vector of the heights and materials.
         virtual AZStd::vector<Physics::HeightMaterialPoint> GetHeightsAndMaterials() const = 0;
-
-        //! Returns the scale used by the height field.
-        //! @return the scale of the height values returned by GetHeights.
-        virtual float GetScale() const = 0;
 
         //! Updates values in the height field.
         //! @param dirtyRegion contains the axis aligned bounding box that will be updated.
