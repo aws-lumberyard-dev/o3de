@@ -210,7 +210,7 @@ namespace Terrain
                     height, &AzFramework::Terrain::TerrainDataRequests::GetHeightFromFloats, x, y,
                     AzFramework::Terrain::TerrainDataRequests::Sampler::DEFAULT, nullptr);
 
-                heights.emplace_back(azlossy_cast<float>(height - worldCenterZ));
+                heights.emplace_back(height - worldCenterZ);
             }
         }
     }

@@ -16,19 +16,20 @@
 
 namespace Physics
 {
+    //! The QuadMeshType specifies the property of the heightfield quad.
     enum class QuadMeshType : uint8_t
     {
-        SubdivideULToBR,
-        SubdivideBLToUR,
-        Hole
+        SubdivideUpperLeftToBottomRight, //!< Subdivide the quad, from upper left to bottom right |\|, into two triangles
+        SubdivideBottomLeftToUpperRight, //!< Subdivide the quad, from bottom left to upper right |/|, into two triangles
+        Hole    //!< The quad should betreated as a hole in the heightfield.
     };
 
     struct HeightMaterialPoint
     {
-        float m_height;
-        QuadMeshType m_quadMeshType{ QuadMeshType::SubdivideULToBR }; // By default, create two triangles like this |\|, where this point is in the upper left corner.
-        uint8_t m_materialIndex = 0; // The surface material index for the upper left corner of this quad.
-        uint16_t m_padding = 0; // available for future use.
+        float m_height{ 0.0f }; //!< Holds the height of this point in the heightfield.
+        QuadMeshType m_quadMeshType{ QuadMeshType::SubdivideUpperLeftToBottomRight }; //!< By default, create two triangles like this |\|, where this point is in the upper left corner.
+        uint8_t m_materialIndex{ 0 }; //!< The surface material index for the upper left corner of this quad.
+        uint16_t m_padding{ 0 }; //!< available for future use.
     };
 
     //! An interface to provide heightfield values.
@@ -77,7 +78,7 @@ namespace Physics
     public:
         static const AZ::EBusHandlerPolicy HandlerPolicy = AZ::EBusHandlerPolicy::Multiple;
 
-        virtual void OnHeightfieldDataChanged( [[maybe_unused]] const AZ::Aabb& dirtyRegion)
+        virtual void OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion)
         {
         }
 
