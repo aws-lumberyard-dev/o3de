@@ -19,8 +19,8 @@ namespace Physics
     //! The QuadMeshType specifies the property of the heightfield quad.
     enum class QuadMeshType : uint8_t
     {
-        SubdivideUpperLeftToBottomRight, //!< Subdivide the quad, from upper left to bottom right |\|, into two triangles
-        SubdivideBottomLeftToUpperRight, //!< Subdivide the quad, from bottom left to upper right |/|, into two triangles
+        SubdivideUpperLeftToBottomRight, //!< Subdivide the quad, from upper left to bottom right |\|, into two triangles.
+        SubdivideBottomLeftToUpperRight, //!< Subdivide the quad, from bottom left to upper right |/|, into two triangles.
         Hole    //!< The quad should betreated as a hole in the heightfield.
     };
 
