@@ -223,6 +223,7 @@ set(FILES
     Physics/Configuration/SimulatedBodyConfiguration.cpp
     Physics/Configuration/SystemConfiguration.h
     Physics/Configuration/SystemConfiguration.cpp
+    Physics/HeightfieldProviderBus.h
     Physics/SimulatedBodies/RigidBody.h
     Physics/SimulatedBodies/RigidBody.cpp
     Physics/SimulatedBodies/StaticRigidBody.h
@@ -344,6 +345,8 @@ set(FILES
     Input/Channels/InputChannelQuaternion.h
     Input/Contexts/InputContext.cpp
     Input/Contexts/InputContext.h
+    Input/Contexts/InputContextComponent.cpp
+    Input/Contexts/InputContextComponent.h
     Input/Devices/InputDevice.cpp
     Input/Devices/InputDevice.h
     Input/Devices/InputDeviceId.cpp
