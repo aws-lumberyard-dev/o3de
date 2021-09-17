@@ -202,8 +202,8 @@ namespace PhysX
                     }
 
                     AZStd::vector<Physics::HeightMaterialPoint> samples;
-                    Physics::HeightfieldProviderRequestsBus::Broadcast(
-                        &Physics::HeightfieldProviderRequestsBus::Events::GetHeightsAndMaterials, samples);
+                    Physics::HeightfieldProviderRequestsBus::BroadcastResult(
+                        samples, &Physics::HeightfieldProviderRequestsBus::Events::GetHeightsAndMaterials);
 
                     SystemRequestsBus::BroadcastResult(
                         heightfield, &SystemRequests::CreateHeightField, reinterpret_cast<physx::PxHeightFieldSample*>(samples.data()),
