@@ -9,6 +9,7 @@
 #include <AzCore/std/smart_ptr/make_shared.h>
 #include <AzCore/Component/TransformBus.h>
 #include <AzCore/Component/NonUniformScaleBus.h>
+#include <AzCore/Casting/lossy_cast.h>
 #include <AzCore/EBus/Results.h>
 #include <AzCore/Interface/Interface.h>
 #include <AzCore/RTTI/BehaviorContext.h>
@@ -182,18 +183,18 @@ namespace PhysX
                         gridSpacing, &Physics::HeightfieldProviderRequestsBus::Events::GetHeightfieldGridSpacing);
                     AZ_TracePrintf("Physics", "GridSpacing = (%5.3f, %5.3f)\n", gridSpacing.GetX(), gridSpacing.GetY());
 
-                    int32_t gridWidth = 0;
-                    int32_t gridHeight = 0;
+                    int32_t numCols{ 0 };
+                    int32_t numRows{ 0 };
                     Physics::HeightfieldProviderRequestsBus::Broadcast(
-                        &Physics::HeightfieldProviderRequestsBus::Events::GetHeightfieldGridSize, gridWidth, gridHeight);
-                    AZ_TracePrintf("Physics", "GridSize = (%d, %d)\n", gridWidth, gridHeight);
+                        &Physics::HeightfieldProviderRequestsBus::Events::GetHeightfieldGridSize, numCols, numRows);
+                    AZ_TracePrintf("Physics", "GridSize = (%d, %d)\n", numCols, numRows);
 
-                    int32_t numRows = gridWidth;
-                    int32_t numCols = gridHeight;
                     float rowScale = gridSpacing.GetX();
                     float colScale = gridSpacing.GetY();
 
-                    float heightScale = 0.1f;
+                    const float heightScale{ 1.0f / 128.0f };
+                    const float scaleFactor{ 128 };
+                    const uint8_t physxTesselationFlag{ 0x80 };
 
                     // Use the cached mesh object if it is there, otherwise create one and save in the shape configuration
                     if (heightfieldConfig.GetCachedNativeHeightfield())
@@ -204,10 +205,45 @@ namespace PhysX
                     AZStd::vector<Physics::HeightMaterialPoint> samples;
                     Physics::HeightfieldProviderRequestsBus::BroadcastResult(
                         samples, &Physics::HeightfieldProviderRequestsBus::Events::GetHeightsAndMaterials);
+                    AZ_Assert(samples.size() == numRows * numCols, "GetHeightsAndMaterials returned wrong sized heightfield");
+
+                    AZStd::vector<physx::PxHeightFieldSample> physxSamples(samples.size());
+
+                    for (int i = 0 ; i < samples.size(); ++i)
+                    {
+                        int columnIndex = i % numCols;
+                        int rowIndex = i / numRows;
+                        bool lastColumnIndex = columnIndex == numCols - 1;
+                        bool lastRowIndex = rowIndex == numRows - 1;
+                        Physics::HeightMaterialPoint& currentSample = samples[i];
+                        physx::PxHeightFieldSample& currentPhysxSample = physxSamples[i];
+                        AZ_Assert((currentSample.m_height < 256.0f) && (currentSample.m_height >= 0.0f), "Height value out of range");
+
+                        currentPhysxSample.height = azlossy_cast<physx::PxI16>(currentSample.m_height * scaleFactor);
+                        if (lastRowIndex || lastColumnIndex)
+                        {
+                            currentPhysxSample.materialIndex0 = currentPhysxSample.materialIndex1 = 0;
+                        }
+                        else
+                        {
+                            switch (currentSample.m_quadMeshType)
+                            {
+                            case Physics::QuadMeshType::SubdivideUpperLeftToBottomRight:
+                                currentPhysxSample.materialIndex0 = samples[i + numCols].m_materialIndex | physxTesselationFlag;
+                                currentPhysxSample.materialIndex1 = samples[i + 1].m_materialIndex;
+                                break;
+                            case Physics::QuadMeshType::SubdivideBottomLeftToUpperRight:
+                                currentPhysxSample.materialIndex0 = currentSample.m_materialIndex;
+                                currentPhysxSample.materialIndex1 = samples[i + numRows + 1].m_materialIndex;
+                                break;
+                            case Physics::QuadMeshType::Hole:
+                                currentPhysxSample.materialIndex0 = currentPhysxSample.materialIndex1 = physx::PxHeightFieldMaterial::eHOLE;
+                            }
+                        }
+                    }
 
                     SystemRequestsBus::BroadcastResult(
-                        heightfield, &SystemRequests::CreateHeightField, reinterpret_cast<physx::PxHeightFieldSample*>(samples.data()),
-                        numRows, numCols);
+                        heightfield, &SystemRequests::CreateHeightField, physxSamples.data(), numRows, numCols);
 
                     if (heightfield)
                     {
