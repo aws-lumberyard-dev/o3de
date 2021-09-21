@@ -178,14 +178,10 @@ namespace PhysX
                         static_cast<const Physics::HeightfieldShapeConfiguration&>(shapeConfiguration);
                     physx::PxHeightField* heightfield = nullptr;
 
-                    AZ::Vector2 gridSpacing(1.0f);
-                    Physics::HeightfieldProviderRequestsBus::BroadcastResult(
-                        gridSpacing, &Physics::HeightfieldProviderRequestsBus::Events::GetHeightfieldGridSpacing);
+                    AZ::Vector2 gridSpacing = heightfieldConfig.GetGridResolution();
 
-                    int32_t numCols{ 0 };
-                    int32_t numRows{ 0 };
-                    Physics::HeightfieldProviderRequestsBus::Broadcast(
-                        &Physics::HeightfieldProviderRequestsBus::Events::GetHeightfieldGridSize, numCols, numRows);
+                    int32_t numCols = heightfieldConfig.GetNumColumns();
+                    int32_t numRows = heightfieldConfig.GetNumRows();
 
                     float rowScale = gridSpacing.GetX();
                     float colScale = gridSpacing.GetY();
@@ -200,20 +196,18 @@ namespace PhysX
                         heightfieldConfig.SetCachedNativeHeightfield(nullptr);
                     }
 
-                    AZStd::vector<Physics::HeightMaterialPoint> samples;
-                    Physics::HeightfieldProviderRequestsBus::BroadcastResult(
-                        samples, &Physics::HeightfieldProviderRequestsBus::Events::GetHeightsAndMaterials);
+                    const AZStd::vector<Physics::HeightMaterialPoint>& samples = heightfieldConfig.GetSamples();
                     AZ_Assert(samples.size() == numRows * numCols, "GetHeightsAndMaterials returned wrong sized heightfield");
 
                     AZStd::vector<physx::PxHeightFieldSample> physxSamples(samples.size());
 
                     for (int i = 0 ; i < samples.size(); ++i)
                     {
-                        int columnIndex = i % numCols;
-                        int rowIndex = i / numRows;
-                        bool lastColumnIndex = columnIndex == numCols - 1;
-                        bool lastRowIndex = rowIndex == numRows - 1;
-                        Physics::HeightMaterialPoint& currentSample = samples[i];
+                        const int columnIndex = i % numCols;
+                        const int rowIndex = i / numRows;
+                        const bool lastColumnIndex = columnIndex == numCols - 1;
+                        const bool lastRowIndex = rowIndex == numRows - 1;
+                        const Physics::HeightMaterialPoint& currentSample = samples[i];
                         physx::PxHeightFieldSample& currentPhysxSample = physxSamples[i];
                         AZ_Assert((currentSample.m_height < 256.0f) && (currentSample.m_height >= 0.0f), "Height value out of range");
 
