@@ -120,6 +120,7 @@ namespace EMotionFX
             bool GetRenderCharacter() const override;
             void SetRenderCharacter(bool enable) override;
             SkinningMethod GetSkinningMethod() const override;
+            void SetActorAsset(AZ::Data::Asset<ActorAsset> actorAsset) override;
 
             //////////////////////////////////////////////////////////////////////////
             // ActorComponentNotificationBus::Handler
@@ -177,8 +178,6 @@ namespace EMotionFX
             void OnAssetReloaded(AZ::Data::Asset<AZ::Data::AssetData> asset) override;
 
             bool IsPhysicsSceneSimulationFinishEventConnected() const;
-            
-            void SetActorAsset(AZ::Data::Asset<ActorAsset> actorAsset);
             AZ::Data::Asset<ActorAsset> GetActorAsset() const { return m_configuration.m_actorAsset; }
 
         private:
