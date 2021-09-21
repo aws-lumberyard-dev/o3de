@@ -189,7 +189,7 @@ namespace PhysX
                     const float scaleFactor{ 128.0f };
                     const float heightScale{ 1.0f / scaleFactor };
 
-                    // Use the cached heightfield object if it is there, otherwise create one and save in the shape configuration
+                    // Delete the cached heightfield object if it is there, and create a new one and save in the shape configuration
                     if (heightfieldConfig.GetCachedNativeHeightfield())
                     {
                         heightfieldConfig.SetCachedNativeHeightfield(nullptr);
