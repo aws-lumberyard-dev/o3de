@@ -9,6 +9,7 @@
 #include <AzCore/std/smart_ptr/make_shared.h>
 #include <AzCore/Component/TransformBus.h>
 #include <AzCore/Component/NonUniformScaleBus.h>
+#include <AzCore/Casting/lossy_cast.h>
 #include <AzCore/EBus/Results.h>
 #include <AzCore/Interface/Interface.h>
 #include <AzCore/RTTI/BehaviorContext.h>
@@ -25,6 +26,7 @@
 #include <AzFramework/Physics/PhysicsScene.h>
 #include <AzFramework/Physics/PhysicsSystem.h>
 #include <AzFramework/Physics/SimulatedBodies/StaticRigidBody.h>
+#include <AzFramework/Physics/HeightfieldProviderBus.h>
 
 #include <PhysX/ColliderShapeBus.h>
 #include <PhysX/SystemComponentBus.h>
@@ -170,6 +172,81 @@ namespace PhysX
                     "Please iterate over m_colliderShapes in the asset and call this function for each of them.");
                 return false;
             }
+            case Physics::ShapeType::Heightfield:
+                {
+                    const Physics::HeightfieldShapeConfiguration& heightfieldConfig =
+                        static_cast<const Physics::HeightfieldShapeConfiguration&>(shapeConfiguration);
+                    physx::PxHeightField* heightfield = nullptr;
+
+                    AZ::Vector2 gridSpacing = heightfieldConfig.GetGridResolution();
+
+                    int32_t numCols = heightfieldConfig.GetNumColumns();
+                    int32_t numRows = heightfieldConfig.GetNumRows();
+
+                    float rowScale = gridSpacing.GetX();
+                    float colScale = gridSpacing.GetY();
+
+                    const float heightScale{ 1.0f / 128.0f };
+                    const float scaleFactor{ 128 };
+                    const uint8_t physxTesselationFlag{ 0x80 };
+
+                    // Use the cached mesh object if it is there, otherwise create one and save in the shape configuration
+                    if (heightfieldConfig.GetCachedNativeHeightfield())
+                    {
+                        heightfieldConfig.SetCachedNativeHeightfield(nullptr);
+                    }
+
+                    const AZStd::vector<Physics::HeightMaterialPoint>& samples = heightfieldConfig.GetSamples();
+                    AZ_Assert(samples.size() == numRows * numCols, "GetHeightsAndMaterials returned wrong sized heightfield");
+
+                    AZStd::vector<physx::PxHeightFieldSample> physxSamples(samples.size());
+
+                    for (int i = 0 ; i < samples.size(); ++i)
+                    {
+                        const int columnIndex = i % numCols;
+                        const int rowIndex = i / numRows;
+                        const bool lastColumnIndex = columnIndex == numCols - 1;
+                        const bool lastRowIndex = rowIndex == numRows - 1;
+                        const Physics::HeightMaterialPoint& currentSample = samples[i];
+                        physx::PxHeightFieldSample& currentPhysxSample = physxSamples[i];
+                        AZ_Assert((currentSample.m_height < 256.0f) && (currentSample.m_height >= 0.0f), "Height value out of range");
+
+                        currentPhysxSample.height = azlossy_cast<physx::PxI16>(currentSample.m_height * scaleFactor);
+                        if (lastRowIndex || lastColumnIndex)
+                        {
+                            currentPhysxSample.materialIndex0 = currentPhysxSample.materialIndex1 = 0;
+                        }
+                        else
+                        {
+                            switch (currentSample.m_quadMeshType)
+                            {
+                            case Physics::QuadMeshType::SubdivideUpperLeftToBottomRight:
+                                currentPhysxSample.materialIndex0 = samples[i + numCols].m_materialIndex | physxTesselationFlag;
+                                currentPhysxSample.materialIndex1 = samples[i + 1].m_materialIndex;
+                                break;
+                            case Physics::QuadMeshType::SubdivideBottomLeftToUpperRight:
+                                currentPhysxSample.materialIndex0 = currentSample.m_materialIndex;
+                                currentPhysxSample.materialIndex1 = samples[i + numRows + 1].m_materialIndex;
+                                break;
+                            case Physics::QuadMeshType::Hole:
+                                currentPhysxSample.materialIndex0 = currentPhysxSample.materialIndex1 = physx::PxHeightFieldMaterial::eHOLE;
+                            }
+                        }
+                    }
+
+                    SystemRequestsBus::BroadcastResult(
+                        heightfield, &SystemRequests::CreateHeightField, physxSamples.data(), numRows, numCols);
+
+                    if (heightfield)
+                    {
+                        heightfieldConfig.SetCachedNativeHeightfield(heightfield);
+                    }
+
+                    physx::PxHeightFieldGeometry hfGeom(heightfield, physx::PxMeshGeometryFlags(), heightScale, rowScale, colScale);
+
+                    pxGeometry.storeAny(hfGeom);
+                    break;
+                }
             default:
                 AZ_Warning("PhysX Rigid Body", false, "Shape not supported in PhysX. Shape Type: %d", shapeType);
                 return false;
