@@ -181,13 +181,11 @@ namespace PhysX
                     AZ::Vector2 gridSpacing(1.0f);
                     Physics::HeightfieldProviderRequestsBus::BroadcastResult(
                         gridSpacing, &Physics::HeightfieldProviderRequestsBus::Events::GetHeightfieldGridSpacing);
-                    AZ_TracePrintf("Physics", "GridSpacing = (%5.3f, %5.3f)\n", gridSpacing.GetX(), gridSpacing.GetY());
 
                     int32_t numCols{ 0 };
                     int32_t numRows{ 0 };
                     Physics::HeightfieldProviderRequestsBus::Broadcast(
                         &Physics::HeightfieldProviderRequestsBus::Events::GetHeightfieldGridSize, numCols, numRows);
-                    AZ_TracePrintf("Physics", "GridSize = (%d, %d)\n", numCols, numRows);
 
                     float rowScale = gridSpacing.GetX();
                     float colScale = gridSpacing.GetY();

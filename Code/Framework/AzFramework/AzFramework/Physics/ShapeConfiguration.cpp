@@ -35,6 +35,7 @@ namespace Physics
             REFLECT_SHAPETYPE_ENUM_VALUE(Sphere);
             REFLECT_SHAPETYPE_ENUM_VALUE(Cylinder);
             REFLECT_SHAPETYPE_ENUM_VALUE(PhysicsAsset);
+            REFLECT_SHAPETYPE_ENUM_VALUE(Heightfield);
 
             #undef REFLECT_SHAPETYPE_ENUM_VALUE
         }
