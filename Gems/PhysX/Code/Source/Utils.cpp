@@ -186,11 +186,10 @@ namespace PhysX
                     float rowScale = gridSpacing.GetX();
                     float colScale = gridSpacing.GetY();
 
-                    const float heightScale{ 1.0f / 128.0f };
-                    const float scaleFactor{ 128 };
-                    const uint8_t physxTesselationFlag{ 0x80 };
+                    const float scaleFactor{ 128.0f };
+                    const float heightScale{ 1.0f / scaleFactor };
 
-                    // Use the cached mesh object if it is there, otherwise create one and save in the shape configuration
+                    // Use the cached heightfield object if it is there, otherwise create one and save in the shape configuration
                     if (heightfieldConfig.GetCachedNativeHeightfield())
                     {
                         heightfieldConfig.SetCachedNativeHeightfield(nullptr);
@@ -209,8 +208,8 @@ namespace PhysX
                         const bool lastRowIndex = rowIndex == numRows - 1;
                         const Physics::HeightMaterialPoint& currentSample = samples[i];
                         physx::PxHeightFieldSample& currentPhysxSample = physxSamples[i];
-                        AZ_Assert((currentSample.m_height < 256.0f) && (currentSample.m_height >= 0.0f), "Height value out of range");
-
+                        AZ_Assert((currentSample.m_height < 256.0f) && (currentSample.m_height >= -256.0f), "Height value out of range");
+                        AZ_Assert(currentSample.m_materialIndex < 0x80, "MaterialIndex must be less than 128");
                         currentPhysxSample.height = azlossy_cast<physx::PxI16>(currentSample.m_height * scaleFactor);
                         if (lastRowIndex || lastColumnIndex)
                         {
@@ -221,7 +220,8 @@ namespace PhysX
                             switch (currentSample.m_quadMeshType)
                             {
                             case Physics::QuadMeshType::SubdivideUpperLeftToBottomRight:
-                                currentPhysxSample.materialIndex0 = samples[i + numCols].m_materialIndex | physxTesselationFlag;
+                                currentPhysxSample.materialIndex0 = samples[i + numCols].m_materialIndex;
+                                currentPhysxSample.materialIndex0.setBit();
                                 currentPhysxSample.materialIndex1 = samples[i + 1].m_materialIndex;
                                 break;
                             case Physics::QuadMeshType::SubdivideBottomLeftToUpperRight:
