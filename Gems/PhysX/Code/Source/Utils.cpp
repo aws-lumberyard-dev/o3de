@@ -234,6 +234,7 @@ namespace PhysX
                                 break;
                             default:
                                 AZ_Warning("PhysX Heightfield", false, "Unhandled case in CreatePxGeometryFromConfig");
+                                break;
                             }
                         }
                     }
