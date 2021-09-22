@@ -178,22 +178,21 @@ namespace PhysX
                         static_cast<const Physics::HeightfieldShapeConfiguration&>(shapeConfiguration);
                     physx::PxHeightField* heightfield = nullptr;
 
-                    AZ::Vector2 gridSpacing = heightfieldConfig.GetGridResolution();
+                    const AZ::Vector2 gridSpacing = heightfieldConfig.GetGridResolution();
 
-                    int32_t numCols = heightfieldConfig.GetNumColumns();
-                    int32_t numRows = heightfieldConfig.GetNumRows();
+                    const int32_t numCols = heightfieldConfig.GetNumColumns();
+                    const int32_t numRows = heightfieldConfig.GetNumRows();
 
-                    float rowScale = gridSpacing.GetX();
-                    float colScale = gridSpacing.GetY();
+                    const float rowScale = gridSpacing.GetX();
+                    const float colScale = gridSpacing.GetY();
 
-                    const float scaleFactor{ 128.0f };
+                    const float v0HeightLimit{ 256.0f };
+                    const float scaleFactor{ v0HeightLimit / 2.0f };
                     const float heightScale{ 1.0f / scaleFactor };
+                    const uint8_t physxMaximumMaterialIndex = 0x7f;
 
                     // Delete the cached heightfield object if it is there, and create a new one and save in the shape configuration
-                    if (heightfieldConfig.GetCachedNativeHeightfield())
-                    {
-                        heightfieldConfig.SetCachedNativeHeightfield(nullptr);
-                    }
+                    heightfieldConfig.SetCachedNativeHeightfield(nullptr);
 
                     const AZStd::vector<Physics::HeightMaterialPoint>& samples = heightfieldConfig.GetSamples();
                     AZ_Assert(samples.size() == numRows * numCols, "GetHeightsAndMaterials returned wrong sized heightfield");
@@ -209,11 +208,12 @@ namespace PhysX
                         const Physics::HeightMaterialPoint& currentSample = samples[i];
                         physx::PxHeightFieldSample& currentPhysxSample = physxSamples[i];
                         AZ_Assert((currentSample.m_height < 256.0f) && (currentSample.m_height >= -256.0f), "Height value out of range");
-                        AZ_Assert(currentSample.m_materialIndex < 0x80, "MaterialIndex must be less than 128");
+                        AZ_Assert(currentSample.m_materialIndex <= physxMaximumMaterialIndex, "MaterialIndex must be less than 128");
                         currentPhysxSample.height = azlossy_cast<physx::PxI16>(currentSample.m_height * scaleFactor);
                         if (lastRowIndex || lastColumnIndex)
                         {
-                            currentPhysxSample.materialIndex0 = currentPhysxSample.materialIndex1 = 0;
+                            currentPhysxSample.materialIndex0 = 0;
+                            currentPhysxSample.materialIndex1 = 0;
                         }
                         else
                         {
@@ -229,7 +229,11 @@ namespace PhysX
                                 currentPhysxSample.materialIndex1 = samples[i + numRows + 1].m_materialIndex;
                                 break;
                             case Physics::QuadMeshType::Hole:
-                                currentPhysxSample.materialIndex0 = currentPhysxSample.materialIndex1 = physx::PxHeightFieldMaterial::eHOLE;
+                                currentPhysxSample.materialIndex0 = physx::PxHeightFieldMaterial::eHOLE;
+                                currentPhysxSample.materialIndex1 = physx::PxHeightFieldMaterial::eHOLE;
+                                break;
+                            default:
+                                AZ_Warning("PhysX Heightfield", false, "Unhandled case in CreatePxGeometryFromConfig");
                             }
                         }
                     }
@@ -240,11 +244,11 @@ namespace PhysX
                     if (heightfield)
                     {
                         heightfieldConfig.SetCachedNativeHeightfield(heightfield);
+
+                        physx::PxHeightFieldGeometry hfGeom(heightfield, physx::PxMeshGeometryFlags(), heightScale, rowScale, colScale);
+
+                        pxGeometry.storeAny(hfGeom);
                     }
-
-                    physx::PxHeightFieldGeometry hfGeom(heightfield, physx::PxMeshGeometryFlags(), heightScale, rowScale, colScale);
-
-                    pxGeometry.storeAny(hfGeom);
                     break;
                 }
             default:
