@@ -376,17 +376,17 @@ namespace Physics
         m_cachedNativeHeightfield = cachedNativeHeightfield;
     }
 
-    AZ::Vector2 HeightfieldShapeConfiguration::GetGridResolution() const
+    const AZ::Vector2 HeightfieldShapeConfiguration::GetGridResolution() const
     {
         return m_gridResolution;
     }
 
-    void HeightfieldShapeConfiguration::SetGridResolution(AZ::Vector2& gridResolution)
+    void HeightfieldShapeConfiguration::SetGridResolution(const AZ::Vector2& gridResolution)
     {
         m_gridResolution = gridResolution;
     }
 
-    int32_t HeightfieldShapeConfiguration::GetNumColumns() const
+    const int32_t HeightfieldShapeConfiguration::GetNumColumns() const
     {
         return m_numColumns;
     }
@@ -395,7 +395,8 @@ namespace Physics
     {
         m_numColumns = numColumns;
     }
-    int32_t HeightfieldShapeConfiguration::GetNumRows() const
+
+    const int32_t HeightfieldShapeConfiguration::GetNumRows() const
     {
         return m_numRows;
     }
@@ -405,7 +406,7 @@ namespace Physics
         m_numRows = numRows;
     }
 
-    AZStd::vector<Physics::HeightMaterialPoint>& HeightfieldShapeConfiguration::GetSamples() const
+    const AZStd::vector<Physics::HeightMaterialPoint>& HeightfieldShapeConfiguration::GetSamples() const
     {
         return m_samples;
     }
