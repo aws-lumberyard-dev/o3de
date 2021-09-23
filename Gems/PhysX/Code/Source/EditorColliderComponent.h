@@ -71,6 +71,7 @@ namespace PhysX
         Physics::BoxShapeConfiguration m_box;
         Physics::CapsuleShapeConfiguration m_capsule;
         EditorProxyAssetShapeConfig m_physicsAsset;
+        Physics::HeightfieldShapeConfiguration m_heightfield;
         bool m_hasNonUniformScale = false; //!< Whether there is a non-uniform scale component on this entity.
         AZ::u8 m_subdivisionLevel = 4; //!< The level of subdivision if a primitive shape is replaced with a convex mesh due to scaling.
         Physics::CookedMeshShapeConfiguration m_cookedMesh;
@@ -79,6 +80,7 @@ namespace PhysX
         bool IsBoxConfig() const;
         bool IsCapsuleConfig() const;
         bool IsAssetConfig() const;
+        bool IsHeightfieldConfig() const;
         Physics::ShapeConfiguration& GetCurrent();
         const Physics::ShapeConfiguration& GetCurrent() const;
 

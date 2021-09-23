@@ -15,6 +15,7 @@
 #include <AzFramework/Physics/Utils.h>
 #include <AzFramework/Physics/Collision/CollisionGroups.h>
 #include <AzFramework/Physics/Collision/CollisionLayers.h>
+#include <AzFramework/Physics/HeightfieldProviderBus.h>
 
 #include <Source/BaseColliderComponent.h>
 #include <Source/RigidBodyComponent.h>
@@ -238,6 +239,7 @@ namespace PhysX
         AZ::TransformNotificationBus::Handler::BusConnect(entityId);
         ColliderShapeRequestBus::Handler::BusConnect(GetEntityId());
         Physics::CollisionFilteringRequestBus::Handler::BusConnect(GetEntityId());
+        Physics::HeightfieldProviderNotificationBus::Handler::BusConnect(GetEntityId());
 
         AZ::Transform worldTransform = AZ::Transform::CreateIdentity();
         AZ::TransformBus::EventResult(worldTransform, entityId, &AZ::TransformBus::Events::GetWorldTM);
@@ -250,6 +252,7 @@ namespace PhysX
     {
         m_shapes.clear();
 
+        Physics::HeightfieldProviderNotificationBus::Handler::BusDisconnect();
         Physics::CollisionFilteringRequestBus::Handler::BusDisconnect();
         ColliderShapeRequestBus::Handler::BusDisconnect();
         AZ::TransformNotificationBus::Handler::BusDisconnect();

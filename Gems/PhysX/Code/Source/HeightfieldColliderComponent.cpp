@@ -6,3 +6,17 @@
  *
  */
 
+#include <Source/HeightfieldColliderComponent.h>
+
+namespace PhysX
+{
+    void HeightfieldColliderComponent::Reflect(AZ::ReflectContext* context)
+    {
+        if (auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
+        {
+            serializeContext->Class<HeightfieldColliderComponent, BaseColliderComponent>()
+                ->Version(1)
+                ;
+        }
+    }
+} // namespace PhysX

@@ -27,6 +27,7 @@
 #include <Source/CapsuleColliderComponent.h>
 #include <Source/EditorColliderComponent.h>
 #include <Source/EditorRigidBodyComponent.h>
+#include <Source/HeightfieldColliderComponent.h>
 #include <Editor/Source/Components/EditorSystemComponent.h>
 #include <Source/MeshColliderComponent.h>
 #include <Source/SphereColliderComponent.h>
@@ -75,6 +76,7 @@ namespace PhysX
                 ->Field("Box", &EditorProxyShapeConfig::m_box)
                 ->Field("Capsule", &EditorProxyShapeConfig::m_capsule)
                 ->Field("PhysicsAsset", &EditorProxyShapeConfig::m_physicsAsset)
+                ->Field("Heightfield", &EditorProxyShapeConfig::m_heightfield)
                 ->Field("HasNonUniformScale", &EditorProxyShapeConfig::m_hasNonUniformScale)
                 ->Field("SubdivisionLevel", &EditorProxyShapeConfig::m_subdivisionLevel)
                 ;
@@ -88,7 +90,8 @@ namespace PhysX
                         ->EnumAttribute(Physics::ShapeType::Box, "Box")
                         ->EnumAttribute(Physics::ShapeType::Capsule, "Capsule")
                         ->EnumAttribute(Physics::ShapeType::PhysicsAsset, "PhysicsAsset")
-                        ->Attribute(AZ::Edit::Attributes::ChangeNotify, &EditorProxyShapeConfig::OnShapeTypeChanged)
+                        ->EnumAttribute(Physics::ShapeType::Heightfield, "Heightfield")
+                    ->Attribute(AZ::Edit::Attributes::ChangeNotify, &EditorProxyShapeConfig::OnShapeTypeChanged)
                         // note: we do not want the user to be able to change shape types while in ComponentMode (there will
                         // potentially be different ComponentModes for different shape types)
                         ->Attribute(AZ::Edit::Attributes::ReadOnly, &AzToolsFramework::ComponentModeFramework::InComponentMode)
@@ -104,6 +107,10 @@ namespace PhysX
                         ->Attribute(AZ::Edit::Attributes::ChangeNotify, &EditorProxyShapeConfig::OnConfigurationChanged)
                     ->DataElement(AZ::Edit::UIHandlers::Default, &EditorProxyShapeConfig::m_physicsAsset, "Asset", "Configuration of asset shape")
                         ->Attribute(AZ::Edit::Attributes::Visibility, &EditorProxyShapeConfig::IsAssetConfig)
+                        ->Attribute(AZ::Edit::Attributes::ChangeNotify, &EditorProxyShapeConfig::OnConfigurationChanged)
+                    ->DataElement(
+                        AZ::Edit::UIHandlers::Default, &EditorProxyShapeConfig::m_heightfield, "Heightfield", "Configuration of heightfield shape")
+                        ->Attribute(AZ::Edit::Attributes::Visibility, &EditorProxyShapeConfig::IsHeightfieldConfig)
                         ->Attribute(AZ::Edit::Attributes::ChangeNotify, &EditorProxyShapeConfig::OnConfigurationChanged)
                     ->DataElement(AZ::Edit::UIHandlers::Default, &EditorProxyShapeConfig::m_subdivisionLevel, "Subdivision level",
                         "The level of subdivision if a primitive shape is replaced with a convex mesh due to scaling")
@@ -274,6 +281,9 @@ namespace PhysX
         case Physics::ShapeType::CookedMesh:
             m_cookedMesh = static_cast<const Physics::CookedMeshShapeConfiguration&>(shapeConfiguration);
             break;
+        case Physics::ShapeType::Heightfield:
+            m_heightfield = static_cast<const Physics::HeightfieldShapeConfiguration&>(shapeConfiguration);
+            break;
         default:
             AZ_Warning("EditorProxyShapeConfig", false, "Invalid shape type!");
         }
@@ -299,6 +309,11 @@ namespace PhysX
         return m_shapeType == Physics::ShapeType::PhysicsAsset;
     }
 
+    bool EditorProxyShapeConfig::IsHeightfieldConfig() const
+    {
+        return m_shapeType == Physics::ShapeType::Heightfield;
+    }
+
     Physics::ShapeConfiguration& EditorProxyShapeConfig::GetCurrent()
     {
         return const_cast<Physics::ShapeConfiguration&>(static_cast<const EditorProxyShapeConfig&>(*this).GetCurrent());
@@ -318,6 +333,8 @@ namespace PhysX
             return m_physicsAsset.m_configuration;
         case Physics::ShapeType::CookedMesh:
             return m_cookedMesh;
+        case Physics::ShapeType::Heightfield:
+            return m_heightfield;
         default:
             AZ_Warning("EditorProxyShapeConfig", false, "Unsupported shape type");
             return m_box;
@@ -336,6 +353,8 @@ namespace PhysX
             return AZStd::make_shared<Physics::PhysicsAssetShapeConfiguration>(m_physicsAsset.m_configuration);
         case Physics::ShapeType::CookedMesh:
             return AZStd::make_shared<Physics::CookedMeshShapeConfiguration>(m_cookedMesh);
+        case Physics::ShapeType::Heightfield:
+            return AZStd::make_shared<Physics::HeightfieldShapeConfiguration>(m_heightfield);
         default:
             AZ_Warning("EditorProxyShapeConfig", false, "Unsupported shape type, defaulting to Box.");
             [[fallthrough]];
@@ -566,6 +585,21 @@ namespace PhysX
             colliderComponent->SetShapeConfigurationList({ AZStd::make_pair(sharedColliderConfig,
                 AZStd::make_shared<Physics::CookedMeshShapeConfiguration>(m_shapeConfiguration.m_cookedMesh)) });
             break;
+        case Physics::ShapeType::Heightfield:
+            if (!m_hasNonUniformScale)
+            {
+                m_shapeConfiguration.m_heightfield.m_heightProvider = GetEntityId();
+                colliderComponent = gameEntity->CreateComponent<HeightfieldColliderComponent>();
+                colliderComponent->SetShapeConfigurationList({ AZStd::make_pair(
+                    sharedColliderConfig,
+                    AZStd::make_shared<Physics::HeightfieldShapeConfiguration>(
+                        m_shapeConfiguration.m_heightfield.m_dimensions, m_shapeConfiguration.m_heightfield.m_heightProvider)) });
+            }
+            else
+            {
+                buildGameEntityScaledPrimitive(sharedColliderConfig, m_shapeConfiguration.m_box, m_shapeConfiguration.m_subdivisionLevel);
+            }
+            break;
         default:
             AZ_Warning("EditorColliderComponent", false, "Unsupported shape type for building game entity!");
             break;
@@ -675,6 +709,18 @@ namespace PhysX
         }
 
         m_colliderDebugDraw.ClearCachedGeometry();
+
+        if (m_shapeConfiguration.IsHeightfieldConfig())
+        {
+            if (auto* shapeColliderPair = AZStd::get_if<AzPhysics::ShapeColliderPair>(&configuration.m_colliderAndShapeData))
+            {
+                Physics::HeightfieldShapeConfiguration* heightConfig =
+                    static_cast<Physics::HeightfieldShapeConfiguration*>(shapeColliderPair->second.get());
+
+                m_shapeConfiguration.m_heightfield.SetCachedNativeHeightfield(heightConfig->m_cachedNativeHeightfield);
+                heightConfig->m_cachedNativeHeightfield = nullptr;
+            }
+        }
 
         AzPhysics::SimulatedBodyComponentRequestsBus::Handler::BusConnect(GetEntityId());
     }
@@ -920,6 +966,9 @@ namespace PhysX
             break;
         case Physics::ShapeType::Capsule:
             m_colliderDebugDraw.DrawCapsule(debugDisplay, m_configuration, m_shapeConfiguration.m_capsule);
+            break;
+        case Physics::ShapeType::Heightfield:
+            m_colliderDebugDraw.DrawHeightfield(debugDisplay, m_configuration, m_shapeConfiguration.m_heightfield);
             break;
         }
     }
