@@ -334,8 +334,8 @@ namespace PhysX
                 }
                 else if (shapeConfig.IsHeightfieldConfig())
                 {
-                    AZ::Vector3 dimensions = shapeConfig.m_heightfield.m_dimensions;
-                    randomPoints = Utils::Geometry::GenerateBoxPoints(dimensions * -0.5f, dimensions * 0.5f);
+                    AZ::Vector3 halfExtents = shapeConfig.m_heightfield.GetAabb().GetExtents() * 0.5f;
+                    randomPoints = Utils::Geometry::GenerateBoxPoints(- halfExtents, halfExtents);
                 }
 
                 if (!shapeConfig.IsAssetConfig())

@@ -592,8 +592,7 @@ namespace PhysX
                 colliderComponent = gameEntity->CreateComponent<HeightfieldColliderComponent>();
                 colliderComponent->SetShapeConfigurationList({ AZStd::make_pair(
                     sharedColliderConfig,
-                    AZStd::make_shared<Physics::HeightfieldShapeConfiguration>(
-                        m_shapeConfiguration.m_heightfield.m_dimensions, m_shapeConfiguration.m_heightfield.m_heightProvider)) });
+                    AZStd::make_shared<Physics::HeightfieldShapeConfiguration>(m_shapeConfiguration.m_heightfield.m_heightProvider)) });
             }
             else
             {

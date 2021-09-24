@@ -677,11 +677,11 @@ namespace PhysX
         }
 
         void Collider::DrawHeightfield(
-            AzFramework::DebugDisplayRequests& debugDisplay,
-            const Physics::ColliderConfiguration& colliderConfig,
-            const Physics::HeightfieldShapeConfiguration& heightfieldShapeConfig,
-            const AZ::Vector3& colliderScale,
-            const bool forceUniformScaling) const
+            [[maybe_unused]] AzFramework::DebugDisplayRequests& debugDisplay,
+            [[maybe_unused]] const Physics::ColliderConfiguration& colliderConfig,
+            [[maybe_unused]] const Physics::HeightfieldShapeConfiguration& heightfieldShapeConfig,
+            [[maybe_unused]] const AZ::Vector3& colliderScale,
+            [[maybe_unused]] const bool forceUniformScaling) const
         {
         }
 

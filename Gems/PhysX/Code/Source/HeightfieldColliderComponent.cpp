@@ -6,7 +6,9 @@
  *
  */
 
+#include <AzCore/Component/Entity.h>
 #include <Source/HeightfieldColliderComponent.h>
+#include <Source/Utils.h>
 
 namespace PhysX
 {
@@ -18,5 +20,18 @@ namespace PhysX
                 ->Version(1)
                 ;
         }
+    }
+
+    void HeightfieldColliderComponent::UpdateScaleForShapeConfigs()
+    {
+        if (m_shapeConfigList.size() != 1)
+        {
+            AZ_Error(
+                "PhysX Heightfield Collider Component", false, "Expected exactly one collider/shape configuration for entity \"%s\".",
+                GetEntity()->GetName().c_str());
+            return;
+        }
+
+        m_shapeConfigList[0].second->m_scale = Utils::GetTransformScale(GetEntityId());
     }
 } // namespace PhysX

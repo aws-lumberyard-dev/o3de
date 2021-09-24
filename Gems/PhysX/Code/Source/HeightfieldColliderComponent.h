@@ -14,7 +14,8 @@
 namespace PhysX
 {
     //! Component that provides Heightfield Collider.
-    class HeightfieldColliderComponent : public BaseColliderComponent
+    class HeightfieldColliderComponent
+        : public BaseColliderComponent
     {
     public:
         using Configuration = Physics::HeightfieldShapeConfiguration;

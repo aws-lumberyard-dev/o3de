@@ -29,6 +29,7 @@ namespace PhysX
         , private AZ::TransformNotificationBus::Handler
         , protected PhysX::ColliderShapeRequestBus::Handler
         , protected Physics::CollisionFilteringRequestBus::Handler
+        , protected Physics::HeightfieldProviderNotificationBus::Handler
     {
     public:
         AZ_COMPONENT(BaseColliderComponent, "{D0D48233-DCCA-4125-A6AE-4E5AC5E722D3}");

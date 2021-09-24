@@ -416,4 +416,14 @@ namespace Physics
         m_samples = samples;
     }
 
+    const AZ::Aabb HeightfieldShapeConfiguration::GetAabb() const
+    {
+        return m_aabb;
+    }
+
+    void HeightfieldShapeConfiguration::SetAabb(const AZ::Aabb aabb)
+    {
+        m_aabb = aabb;
+    }
+
 }
