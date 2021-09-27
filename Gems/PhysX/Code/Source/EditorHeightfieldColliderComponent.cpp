@@ -6,4 +6,21 @@
  *
  */
 
-#include <EditorHeightfieldComponent.h>
+#include <EditorHeightfieldColliderComponent.h>
+
+namespace PhysX
+{
+    void EditorHeightfieldColliderComponent::Reflect(AZ::ReflectContext* context)
+    {
+        context;
+    }
+    
+
+    void EditorHeightfieldColliderComponent::GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
+    {
+        required.push_back(AZ_CRC("TransformService", 0x8ee22c50));
+        required.push_back(AZ_CRC("ShapeService", 0xe86aa5fe));
+        required.push_back(AZ_CRC_CE("PhysicsHeightfieldProviderService"));
+    }
+
+} // namespace PhysX
