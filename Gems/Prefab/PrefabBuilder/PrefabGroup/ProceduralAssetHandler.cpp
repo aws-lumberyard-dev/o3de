@@ -81,6 +81,10 @@ namespace AZ::Prefab
         if (AZ::Data::AssetManager::IsReady())
         {
             AZ::Data::AssetManager::Instance().RegisterHandler(this, azrtti_typeid<ProceduralPrefabAsset>());
+
+            // TODO preload all the pre-loaded Proc Prefabs
+            //AZ::Data::AssetManager::Instance().RegisterCatalog()
+            //AzFramework.AssetCatalogEvents.OnCatalogAssetAdded 
         }
         m_assetTypeInfoHandler = AZStd::make_shared<AssetTypeInfoHandler>();
     }
@@ -92,6 +96,8 @@ namespace AZ::Prefab
         {
             AZ::Data::AssetManager::Instance().UnregisterHandler(this);
         }
+
+        // TODO release all the pre-loaded Proc Prefabs
     }
 
     AZ::Data::AssetData* PrefabGroupAssetHandler::CreateAsset([[maybe_unused]] const AZ::Data::AssetId& id, const AZ::Data::AssetType& type)
@@ -106,13 +112,14 @@ namespace AZ::Prefab
 
     void PrefabGroupAssetHandler::DestroyAsset(AZ::Data::AssetData* ptr)
     {
-        auto* prefabSystemComponent = AZ::Interface<AzToolsFramework::Prefab::PrefabSystemComponentInterface>::Get();
-        if (prefabSystemComponent)
-        {
-            auto* prefabAsset = azrtti_cast<ProceduralPrefabAsset*>(ptr);
-            prefabSystemComponent->RemoveTemplate(prefabAsset->GetTemplateId());
-        }
-        delete ptr;
+        //auto* prefabsystemcomponent = az::interface<aztoolsframework::prefab::prefabsystemcomponentinterface>::get();
+        //if (prefabsystemcomponent)
+        //{
+        //    auto* prefabasset = azrtti_cast<proceduralprefabasset*>(ptr);
+        //    prefabsystemcomponent->removetemplate(prefabasset->gettemplateid());
+        //}
+        //delete ptr;
+        AZ_UNUSED(ptr);
     }
 
     void PrefabGroupAssetHandler::GetHandledAssetTypes(AZStd::vector<AZ::Data::AssetType>& assetTypes)
@@ -150,13 +157,16 @@ namespace AZ::Prefab
         {
             return LoadResult::Error;
         }
-
+        // TODO remove "name" and "id"
         if (jsonDoc.FindMember("name") == jsonDoc.MemberEnd())
         {
             return LoadResult::Error;
         }
+
+        // TODO '/Source' becomes the 'templateName'
         const auto& templateName = jsonDoc["name"];
 
+        // TODO remove "data" but find "Source"
         if (jsonDoc.FindMember("data") == jsonDoc.MemberEnd())
         {
             return LoadResult::Error;

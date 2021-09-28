@@ -785,6 +785,8 @@ namespace AzToolsFramework
             {
                 return InvalidTemplateId;
             }
+
+            // 
         }
 
         bool PrefabSystemComponent::IsTemplateDirty(const TemplateId& templateId)

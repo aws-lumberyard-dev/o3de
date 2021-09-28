@@ -153,6 +153,8 @@ namespace AZ::SceneAPI::Behaviors
 
         auto prefabTemplate = rapidjson::Value(generatedInstanceDom, proceduralPrefab->GetAllocator());
 
+        // TODO reduce to only the Prefab DOM; no "id" or "name"; the "name" is stored in the Souce as realtive path to the .procprefab
+
         proceduralPrefab->AddMember("id", prefabId, proceduralPrefab->GetAllocator());
         proceduralPrefab->AddMember("name", prefabName, proceduralPrefab->GetAllocator());
         proceduralPrefab->AddMember("data", prefabTemplate, proceduralPrefab->GetAllocator());

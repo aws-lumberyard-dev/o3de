@@ -24,6 +24,7 @@
 #include <AzToolsFramework/AssetBrowser/AssetSelectionModel.h>
 #include <AzToolsFramework/AssetBrowser/Entries/SourceAssetBrowserEntry.h>
 #include <AzToolsFramework/Prefab/PrefabLoaderInterface.h>
+#include <AzToolsFramework/Prefab/Procedural/ProceduralPrefabAsset.h>
 #include <AzToolsFramework/ToolsComponents/EditorLayerComponentBus.h>
 #include <AzToolsFramework/UI/EditorEntityUi/EditorEntityUiInterface.h>
 #include <AzToolsFramework/UI/Prefab/PrefabIntegrationInterface.h>
@@ -53,6 +54,8 @@
 #include <QScrollArea>
 #include <QVBoxLayout>
 #include <QWidget>
+
+#include <AzToolsFramework/Prefab/PrefabUndoHelpers.h>
 
 namespace AzToolsFramework
 {
@@ -213,6 +216,7 @@ namespace AzToolsFramework
             }
 
             // Instantiate Procedural Prefab
+            if (AZ::Prefab::ProceduralPrefabAsset::UseProceduralPrefabs())
             {
                 QAction* action = menu->addAction(QObject::tr("Instantiate Procedural Prefab..."));
                 action->setToolTip(QObject::tr("Instantiates a procedural prefab file in a prefab."));
@@ -440,6 +444,14 @@ namespace AzToolsFramework
 
         void PrefabIntegrationManager::ContextMenu_InstantiateProceduralPrefab()
         {
+            // TODO:
+            //  need to make sure that a ProcPrefab is not being added to another ProcPrefab!
+            //  try to add template links at a certain location inside an Authored Prefab
+            //  how will a proc link be removed from template/instance?
+            //  should the link save off an asset ID instead of a .procprefab file name?
+            //  on load should the PrefabLoader attempt to load via asset manager if not source found?
+            //  try to rename .procprefab into a Prefab to test in the Editor
+
             AZStd::string prefabAssetPath;
             bool hasUserForProceduralPrefabAsset = QueryUserForProceduralPrefabAsset(prefabAssetPath);
 
@@ -469,7 +481,76 @@ namespace AzToolsFramework
                     // otherwise return since it needs to be inside an authored prefab
                     return;
                 }
+#if false
+                // get target instance's template value
 
+                // find a Create Link to put the ProcPrefab template into the instance
+                // AzToolsFramework.Prefab.PrefabUndoHelpers.CreateLink
+                //AzToolsFramework::Prefab::PrefabUndoHelpers::CreateLink(sourceTemplateId, targetTemplateId, patch, instanceAlias, undoBatch);
+
+                //linkId = m_prefabSystemComponentInterface->CreateLink(
+                //    targetTemplateId,
+                //    sourceInstance.GetTemplateId(),
+                //    sourceInstance.GetInstanceAlias(),
+                //    patch,
+                //    InvalidLinkId);
+                //m_prefabSystemComponentInterface->PropagateTemplateChanges(targetTemplateId);
+
+                // Instantiating from context menu always puts the instance at the root level
+                auto instanceOutcome = s_prefabPublicInterface->InstantiatePrefab(prefabAssetPath, parentId, position);
+
+                if (!instanceOutcome.IsSuccess())
+                {
+                    WarnUserOfError("Prefab Instantiation Error", instanceOutcome.GetError());
+                    return;
+                }
+
+                InstanceEntityMapperInterface* instanceEntityMapperInterface = nullptr;
+                instanceEntityMapperInterface = AZ::Interface<InstanceEntityMapperInterface>::Get();
+                InstanceOptionalReference newInstance = instanceEntityMapperInterface->FindOwningInstance(instanceOutcome.GetValue());
+
+                TemplateId sourceTemplateId = s_prefabSystemComponentInterface->GetTemplateIdFromFilePath(prefabAssetPath.c_str());
+                TemplateId targetTemplateId = targetInstanceRef->get().GetTemplateId();
+
+                s_prefabSystemComponentInterface->CreateLink(
+                        targetTemplateId,
+                        sourceTemplateId,
+                        newInstance->get().GetInstanceAlias(),
+                        AZStd::nullopt,
+                        InvalidLinkId);
+                s_prefabSystemComponentInterface->PropagateTemplateChanges(targetTemplateId);
+
+#elif false
+                //LinkId PrefabSystemComponent::AddLink(
+                //    const TemplateId & sourceTemplateId,
+                //    const TemplateId & targetTemplateId,
+                //    PrefabDomValue::MemberIterator & instanceIterator,
+                //    InstanceOptionalReference instance)
+                //m_prefabSystemComponentInterface->PropagateTemplateChanges(targetTemplateId);
+
+                // s_prefabSystemComponentInterface
+                //  virtual TemplateId GetTemplateIdFromFilePath(AZ::IO::PathView filePath) const = 0;
+                //  virtual PrefabDom& FindTemplateDom(TemplateId templateId) = 0;
+
+                //Instance
+                // EntityAliasOptionalReference GetEntityAlias(const AZ::EntityId& id);
+                // const InstanceAlias& GetInstanceAlias() const;
+
+                TemplateId sourceTemplateId = s_prefabSystemComponentInterface->GetTemplateIdFromFilePath(prefabAssetPath.c_str());
+                TemplateId targetTemplateId = targetInstanceRef->get().GetTemplateId();
+                PrefabDom& targetTemplateDom = s_prefabSystemComponentInterface->FindTemplateDom(targetTemplateId);
+                PrefabDom::MemberIterator member = targetTemplateDom.FindMember("Source");
+
+                s_prefabSystemComponentInterface->AddLink(sourceTemplateId, targetTemplateId, member, targetInstanceRef);
+
+#elif true
+                //
+                auto createPrefabOutcome = s_prefabPublicInterface->InstantiatePrefab(prefabAssetPath, parentId, position);
+                if (!createPrefabOutcome.IsSuccess())
+                {
+                    WarnUserOfError("Prefab Instantiation Error", createPrefabOutcome.GetError());
+                }
+#else
                 //
                 auto createPrefabOutcome = s_prefabPublicInterface->InstantiatePrefab(prefabAssetPath, parentId, position);
                 if (createPrefabOutcome.IsSuccess())
@@ -496,6 +577,7 @@ namespace AzToolsFramework
                 {
                     WarnUserOfError("Prefab Instantiation Error", createPrefabOutcome.GetError());
                 }
+#endif
             }
         }
 

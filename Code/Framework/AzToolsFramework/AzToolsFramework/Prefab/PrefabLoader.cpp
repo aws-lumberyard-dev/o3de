@@ -87,19 +87,45 @@ namespace AzToolsFramework
             }
 
             auto readResult = AZ::Utils::ReadFile(GetFullPath(filePath).Native(), AZStd::numeric_limits<size_t>::max());
-            if (!readResult.IsSuccess())
+            if (readResult.IsSuccess())
             {
-                AZ_Error(
-                    "Prefab", false,
-                    "PrefabLoader::LoadTemplate - Failed to load Prefab file from '%.*s'."
-                    "Error message: '%s'",
-                    AZ_STRING_ARG(filePath.Native()),
-                    readResult.GetError().c_str()
-                );
-                return InvalidTemplateId;
+                return LoadTemplateFromString(readResult.GetValue(), filePath, progressedFilePathsSet);
+            }
+            else
+            {
+                // attempt to find the absolute from the Cache folder
+                AZ::IO::PathView fullPath;
+                AZStd::string assetRootFolder;
+                if (auto settingsRegistry = AZ::SettingsRegistry::Get(); settingsRegistry != nullptr)
+                {
+                    settingsRegistry->Get(assetRootFolder, AZ::SettingsRegistryMergeUtils::FilePathKey_CacheRootFolder);
+                }
+                fullPath = AZ::IO::Path(assetRootFolder) / filePath;
+                if (fullPath.IsAbsolute())
+                {
+                    readResult = AZ::Utils::ReadFile(GetFullPath(filePath).Native(), AZStd::numeric_limits<size_t>::max());
+                    if (!readResult.IsSuccess())
+                    {
+                        AZ_Error(
+                            "Prefab", false,
+                            "PrefabLoader::LoadTemplate - Failed to load Prefab file from asset '%.*s'."
+                            "Error message: '%s'",
+                            AZ_STRING_ARG(filePath.Native()),
+                            readResult.GetError().c_str()
+                        );
+                        return InvalidTemplateId;
+                    }
+                }
             }
 
-            return LoadTemplateFromString(readResult.GetValue(), filePath, progressedFilePathsSet);
+            AZ_Error(
+                "Prefab", false,
+                "PrefabLoader::LoadTemplate - Failed to load Prefab file from '%.*s'."
+                "Error message: '%s'",
+                AZ_STRING_ARG(filePath.Native()),
+                readResult.GetError().c_str()
+            );
+            return InvalidTemplateId;
         }
 
         TemplateId PrefabLoader::LoadTemplateFromString(
@@ -601,23 +627,34 @@ namespace AzToolsFramework
             }
             else
             {
-                // If for some reason the Asset system couldn't provide a relative path, provide some fallback logic.
-
-                // Check to see if the AssetProcessor is ready.  If it *is* and we didn't get a path, print an error then follow
-                // the fallback logic.  If it's *not* ready, we're probably either extremely early in a tool startup flow or inside
-                // a unit test, so just execute the fallback logic without an error.
-                [[maybe_unused]] bool assetProcessorReady = false;
-                AzFramework::AssetSystemRequestBus::BroadcastResult(
-                    assetProcessorReady, &AzFramework::AssetSystemRequestBus::Events::AssetProcessorIsReady);
-
-                AZ_Error(
-                    "Prefab", !assetProcessorReady, "Full source path for '%.*s' could not be determined. Using fallback logic.",
-                    AZ_STRING_ARG(path.Native()));
-
-                // If a relative path was passed in, make it relative to the project root.
-                fullPath = AZ::IO::Path(m_projectPathWithOsSeparator).Append(pathWithOSSeparator);
+                // attempt to find the absolute from the Cache folder
+                AZStd::string assetRootFolder;
+                if (auto settingsRegistry = AZ::SettingsRegistry::Get(); settingsRegistry != nullptr)
+                {
+                    settingsRegistry->Get(assetRootFolder, AZ::SettingsRegistryMergeUtils::FilePathKey_CacheRootFolder);
+                }
+                fullPath = AZ::IO::Path(assetRootFolder) / path;
+                if (fullPath.IsAbsolute())
+                {
+                    return fullPath;
+                }
             }
 
+            // If for some reason the Asset system couldn't provide a relative path, provide some fallback logic.
+
+            // Check to see if the AssetProcessor is ready.  If it *is* and we didn't get a path, print an error then follow
+            // the fallback logic.  If it's *not* ready, we're probably either extremely early in a tool startup flow or inside
+            // a unit test, so just execute the fallback logic without an error.
+            [[maybe_unused]] bool assetProcessorReady = false;
+            AzFramework::AssetSystemRequestBus::BroadcastResult(
+                assetProcessorReady, &AzFramework::AssetSystemRequestBus::Events::AssetProcessorIsReady);
+
+            AZ_Error(
+                "Prefab", !assetProcessorReady, "Full source path for '%.*s' could not be determined. Using fallback logic.",
+                AZ_STRING_ARG(path.Native()));
+
+            // If a relative path was passed in, make it relative to the project root.
+            fullPath = AZ::IO::Path(m_projectPathWithOsSeparator).Append(pathWithOSSeparator);
             return fullPath;
         }
 
