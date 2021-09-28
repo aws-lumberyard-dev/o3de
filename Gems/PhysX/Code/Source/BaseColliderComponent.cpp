@@ -292,7 +292,16 @@ namespace PhysX
                 colliderConfiguration.m_position *= nonUniformScale;
 
                 AZStd::shared_ptr<Physics::Shape> shape;
-                Physics::SystemRequestBus::BroadcastResult(shape, &Physics::SystemRequests::CreateShape, colliderConfiguration, *shapeConfiguration);
+
+                if (shapeConfiguration->GetShapeType() == Physics::ShapeType::Heightfield)
+                {
+                    Physics::HeightfieldShapeConfiguration& heightfieldConfig =
+                        static_cast<Physics::HeightfieldShapeConfiguration&>(*shapeConfiguration);
+                    heightfieldConfig.m_heightProvider = GetEntityId();
+                }
+
+                Physics::SystemRequestBus::BroadcastResult(
+                    shape, &Physics::SystemRequests::CreateShape, colliderConfiguration, *shapeConfiguration);
                 
                 if (!shape)
                 {
@@ -334,4 +343,14 @@ namespace PhysX
         return true;
     }
 
-}
+    void BaseColliderComponent::OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion)
+    {
+        RefreshHeightfield();
+    }
+
+    void BaseColliderComponent::RefreshHeightfield()
+    {
+        m_shapes.clear();
+        InitShapes();
+    }
+} // namespace PhysX

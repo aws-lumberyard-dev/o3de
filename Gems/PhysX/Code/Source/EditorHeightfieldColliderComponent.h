@@ -8,15 +8,40 @@
 
 #pragma once
 
+#include <AzCore/Component/TransformBus.h>
+#include <AzCore/Component/NonUniformScaleBus.h>
 #include <AzToolsFramework/ToolsComponents/EditorComponentBase.h>
 #include <AzToolsFramework/API/ToolsApplicationAPI.h>
+#include <AzFramework/Physics/Components/SimulatedBodyComponentBus.h>
+#include <AzFramework/Physics/PhysicsScene.h>
+#include <AzFramework/Physics/Shape.h>
+#include <Editor/DebugDraw.h>
+#include <PhysX/ColliderShapeBus.h>
+#include <LmbrCentral/Shape/ShapeComponentBus.h>
 
 namespace PhysX
 {
+    //! Cached data for generating sample points inside the attached shape.
+    struct GeometryCache
+    {
+        float m_height = 1.0f; //!< Caches height for capsule, cylinder and polygon prism shapes.
+        float m_radius = 1.0f; //!< Caches radius for capsule, cylinder and sphere shapes.
+        AZ::Vector3 m_boxDimensions = AZ::Vector3::CreateOne(); //!< Caches dimensions for box shapes.
+        AZStd::vector<AZ::Vector3> m_cachedSamplePoints; //!< Stores a cache of points sampled from the shape interior.
+        bool m_cachedSamplePointsDirty = true; //!< Marks whether the cached sample points need to be recalculated.
+    };
+
     //! Editor PhysX Heightfield Collider Component.
     class EditorHeightfieldColliderComponent
         : public AzToolsFramework::Components::EditorComponentBase
         , protected AzToolsFramework::EntitySelectionEvents::Bus::Handler
+        , protected Physics::HeightfieldProviderNotificationBus::Handler
+        , protected AzPhysics::SimulatedBodyComponentRequestsBus::Handler
+        , private AZ::TransformNotificationBus::Handler
+        , private PhysX::ColliderShapeRequestBus::Handler
+        , protected LmbrCentral::ShapeComponentNotificationsBus::Handler
+        , protected DebugDraw::DisplayCallback
+        , protected AzFramework::EntityDebugDisplayEventBus::Handler
     {
     public:
         AZ_EDITOR_COMPONENT(
@@ -25,25 +50,50 @@ namespace PhysX
             AzToolsFramework::Components::EditorComponentBase);
         static void Reflect(AZ::ReflectContext* context);
 
-//        static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided);
+        static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided);
         static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required);
-//        static void GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible);
+        static void GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible);
 
-//        EditorHeightfieldColliderComponent();
+        EditorHeightfieldColliderComponent();
 
         // EditorComponentBase
-//        void BuildGameEntity(AZ::Entity* gameEntity) override;
+        void BuildGameEntity(AZ::Entity* gameEntity) override;
 
     private:
-//        void RefreshUiProperties();
+        AZ::u32 OnConfigurationChanged();
+        void UpdateConfig();
+        void OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion) override;
+        void RefreshHeightfield() override;
+        void CreateStaticEditorCollider();
 
         // AZ::Component
-//        void Activate() override;
-//        void Deactivate() override;
+        void Activate() override;
+        void Deactivate() override;
 
         // AzToolsFramework::EntitySelectionEvents
 //        void OnSelected() override;
 //        void OnDeselected() override;
+
+        // AzPhysics::SimulatedBodyComponentRequestsBus::Handler overrides ...
+        void EnablePhysics() override;
+        void DisablePhysics() override;
+        bool IsPhysicsEnabled() const override;
+        AZ::Aabb GetAabb() const override;
+        AzPhysics::SimulatedBody* GetSimulatedBody() override;
+        AzPhysics::SimulatedBodyHandle GetSimulatedBodyHandle() const override;
+        AzPhysics::SceneQueryHit RayCast(const AzPhysics::RayCastRequest& request) override;
+
+        Physics::ColliderConfiguration m_colliderConfig; //!< Stores collision layers, whether the collider is a trigger, etc.
+        DebugDraw::Collider m_colliderDebugDraw; //!< Handles drawing the collider based on global and local
+        AzPhysics::SceneInterface* m_sceneInterface{ nullptr };
+        AZStd::vector<AZStd::shared_ptr<Physics::HeightfieldShapeConfiguration>>m_shapeConfigs; //!< Stores the physics shape configuration(s).
+        AzPhysics::SimulatedBodyHandle m_editorBodyHandle =
+            AzPhysics::InvalidSimulatedBodyHandle; //!< Handle to the body in the editor physics scene if there is no rigid body component.
+        AzPhysics::SceneHandle m_editorSceneHandle = AzPhysics::InvalidSceneHandle;
+        AZ::NonUniformScaleChangedEvent::Handler m_nonUniformScaleChangedHandler; //!< Responds to changes in non-uniform scale.
+        AZ::Transform m_cachedWorldTransform;
+        AZ::Vector3 m_currentNonUniformScale = AZ::Vector3::CreateOne(); //!< Caches the current non-uniform scale.
+        mutable GeometryCache m_geometryCache; //!< Cached data for generating sample points inside the attached shape.
     };
 
 } // namespace PhysX

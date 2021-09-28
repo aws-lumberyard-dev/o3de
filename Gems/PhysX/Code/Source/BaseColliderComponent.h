@@ -110,6 +110,9 @@ namespace PhysX
         /// Specific collider components should override this function.
         virtual void UpdateScaleForShapeConfigs();
 
+        void OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion) override;
+        void RefreshHeightfield() override;
+
         ShapeInfoCache m_shapeInfoCache;
         AzPhysics::ShapeColliderPairList m_shapeConfigList;
     private:
