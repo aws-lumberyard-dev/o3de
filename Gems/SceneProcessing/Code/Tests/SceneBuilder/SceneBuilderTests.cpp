@@ -14,6 +14,7 @@
 #include <AzCore/UserSettings/UserSettingsComponent.h>
 #include <AzFramework/StringFunc/StringFunc.h>
 #include <AzToolsFramework/Application/ToolsApplication.h>
+#include <SceneAPI/SceneCore/Events/AssetImportRequest.h>
 #include <SceneBuilder/SceneBuilderWorker.h>
 #include <SceneAPI/SceneCore/Events/ExportProductList.h>
 
@@ -193,4 +194,63 @@ TEST_F(SceneBuilderTests, SceneBuilderWorker_ExportProductDependencies_ProductAn
     };
 
     TestSuccessCase(exportProduct, expectedPathDependencies, { dependencyId });
+}
+
+struct ImportHandler
+    : SceneAPI::Events::AssetImportRequestBus::Handler
+{
+    ImportHandler()
+    {
+        BusConnect();
+    }
+
+    ~ImportHandler() override
+    {
+        BusDisconnect();
+    }
+
+    void GetManifestDependencyPaths(AZStd::vector<AZStd::string>& paths) override
+    {
+        paths.emplace_back("/scriptFilename");
+        paths.emplace_back("/layer1/layer2/0/target");
+    }
+};
+
+using SourceDependencyTests = UnitTest::ScopedAllocatorSetupFixture;
+
+TEST_F(SourceDependencyTests, SourceDependencyTest)
+{
+    AZStd::string json = R"JSON(
+{
+    "values": [
+        {
+            "$type": "Test1",
+            "scriptFilename": "a/test/path.png"
+        },
+        {
+            "$type": "Test2",
+            "layer1" : {
+                "layer2" : [
+                    {
+                        "target": "value.png",
+                        "otherData": "value2.png"
+                    },
+                    {
+                        "target" : "wrong.png"
+                    }
+                ]
+            }
+        }
+    ]
+}
+    )JSON";
+
+    ImportHandler handler;
+    AZStd::vector<AssetBuilderSDK::SourceFileDependency> dependencies;
+
+    SceneBuilderWorker::PopulateSourceDependencies(json, dependencies);
+
+    ASSERT_EQ(dependencies.size(), 2);
+    ASSERT_STREQ(dependencies[0].m_sourceFileDependencyPath.c_str(), "a/test/path.png");
+    ASSERT_STREQ(dependencies[1].m_sourceFileDependencyPath.c_str(), "value.png");
 }
