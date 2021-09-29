@@ -97,6 +97,8 @@ namespace AZ
                 // Get scene processing project setting: UseCustomNormal 
                 virtual void AreCustomNormalsUsed(bool & value);
 
+                virtual void GetManifestDependencyPaths(AZStd::vector<AZStd::string>& paths);
+
                 //! Utility function to load an asset and manifest from file by using the EBus functions above.
                 //! @param assetFilePath The absolute path to the source file (not the manifest).
                 //! @param sourceGuid The guid assigned to the source file (not the manifest).

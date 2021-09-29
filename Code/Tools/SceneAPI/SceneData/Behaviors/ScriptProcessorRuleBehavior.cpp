@@ -367,4 +367,8 @@ namespace AZ::SceneAPI::Behaviors
         return Events::ProcessingResult::Ignored;
     }
 
+    void ScriptProcessorRuleBehavior::GetManifestDependencyPaths(AZStd::vector<AZStd::string>& paths)
+    {
+        paths.emplace_back("scriptFilename");
+    }
 } // namespace AZ
