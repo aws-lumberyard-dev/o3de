@@ -14,6 +14,8 @@
 #include <AzFramework/Physics/Shape.h>
 #include <Editor/ColliderComponentMode.h>
 
+#include <System/PhysXSystem.h>
+
 namespace PhysX
 {
     EditorHeightfieldColliderComponent::EditorHeightfieldColliderComponent()
@@ -153,6 +155,28 @@ namespace PhysX
         }
     }
 
+    // AzToolsFramework::EntitySelectionEvents
+    void EditorHeightfieldColliderComponent::OnSelected()
+    {
+        if (auto* physXSystem = GetPhysXSystem())
+        {
+            if (!m_physXConfigChangedHandler.IsConnected())
+            {
+                physXSystem->RegisterSystemConfigurationChangedEvent(m_physXConfigChangedHandler);
+            }
+            if (!m_onMaterialLibraryChangedEventHandler.IsConnected())
+            {
+                physXSystem->RegisterOnMaterialLibraryChangedEventHandler(m_onMaterialLibraryChangedEventHandler);
+            }
+        }
+    }
+
+    void EditorHeightfieldColliderComponent::OnDeselected()
+    {
+        m_onMaterialLibraryChangedEventHandler.Disconnect();
+        m_physXConfigChangedHandler.Disconnect();
+    }
+
     void EditorHeightfieldColliderComponent::OnNonUniformScaleChanged(const AZ::Vector3& scale)
     {
         m_currentNonUniformScale = scale;
@@ -197,13 +221,15 @@ namespace PhysX
 
     void EditorHeightfieldColliderComponent::UpdateConfig()
     {
-        m_geometryCache.m_cachedSamplePointsDirty = true;
-
         const AZ::Vector3 uniformScale = Utils::GetUniformScale(GetEntityId());
         const AZ::Vector3 overallScale = uniformScale * m_currentNonUniformScale;
 
-        overallScale;
+        Physics::HeightfieldShapeConfiguration& configuration =
+            static_cast<Physics::HeightfieldShapeConfiguration&>(*m_shapeConfigs.back());
+        configuration = Physics::HeightfieldShapeConfiguration(GetEntityId());
 
+        m_shapeConfigs.back()->m_scale = overallScale;
+        m_geometryCache.m_cachedSamplePointsDirty = true;
     }
 
     void EditorHeightfieldColliderComponent::RefreshHeightfield()

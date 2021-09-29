@@ -24,9 +24,6 @@ namespace PhysX
     //! Cached data for generating sample points inside the attached shape.
     struct HeightfieldGeometryCache
     {
-        float m_height = 1.0f; //!< Caches height for capsule, cylinder and polygon prism shapes.
-        float m_radius = 1.0f; //!< Caches radius for capsule, cylinder and sphere shapes.
-        AZ::Vector3 m_boxDimensions = AZ::Vector3::CreateOne(); //!< Caches dimensions for box shapes.
         AZStd::vector<AZ::Vector3> m_cachedSamplePoints; //!< Stores a cache of points sampled from the shape interior.
         bool m_cachedSamplePointsDirty = true; //!< Marks whether the cached sample points need to be recalculated.
     };
@@ -69,8 +66,8 @@ namespace PhysX
         void Deactivate() override;
 
         // AzToolsFramework::EntitySelectionEvents
-//        void OnSelected() override;
-//        void OnDeselected() override;
+        void OnSelected() override;
+        void OnDeselected() override;
 
         // handling for non-uniform scale
         void OnNonUniformScaleChanged(const AZ::Vector3& scale);
