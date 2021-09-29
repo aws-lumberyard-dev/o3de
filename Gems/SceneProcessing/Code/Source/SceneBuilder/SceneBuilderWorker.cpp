@@ -176,9 +176,7 @@ namespace SceneBuilder
 
         if(AZ::IO::SystemFile::Exists(manifestPath.Native().c_str()))
         {
-            constexpr int MaxFileSizeBytes = 5 * 1024 * 1024;
-
-            auto readFileOutcome = AZ::Utils::ReadFile(manifestPath.Native(), MaxFileSizeBytes);
+            auto readFileOutcome = AZ::Utils::ReadFile(manifestPath.Native(), AZ::SceneAPI::Containers::SceneManifest::MaxSceneManifestFileSizeInBytes);
             if (!readFileOutcome.IsSuccess())
             {
                 AZ_Error("SceneBuilderWorker", false, "%s", readFileOutcome.GetError().c_str());

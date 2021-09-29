@@ -35,8 +35,7 @@ namespace AZ
     {
         namespace Containers
         {
-            //! Protects from allocating too much memory. The choice of a 5MB threshold is arbitrary.
-            const size_t MaxSceneManifestFileSizeInBytes = 5 * 1024 * 1024;
+            
 
             const char ErrorWindowName[] = "SceneManifest";
 
