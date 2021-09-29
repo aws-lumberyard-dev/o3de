@@ -332,11 +332,6 @@ namespace PhysX
                     const AZ::Vector3 halfExtents = aabb.GetExtents() * 0.5f;
                     randomPoints = Utils::Geometry::GenerateBoxPoints(-halfExtents, halfExtents);
                 }
-                else if (shapeConfig.IsHeightfieldConfig())
-                {
-                    AZ::Vector3 halfExtents = shapeConfig.m_heightfield.GetAabb().GetExtents() * 0.5f;
-                    randomPoints = Utils::Geometry::GenerateBoxPoints(- halfExtents, halfExtents);
-                }
 
                 if (!shapeConfig.IsAssetConfig())
                 {

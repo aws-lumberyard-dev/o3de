@@ -22,6 +22,20 @@ namespace PhysX
         }
     }
 
+    void HeightfieldColliderComponent::Activate()
+    {
+        BaseColliderComponent::Activate();
+
+        Physics::HeightfieldProviderNotificationBus::Handler::BusConnect(GetEntityId());
+    }
+
+    void HeightfieldColliderComponent::Deactivate()
+    {
+        Physics::HeightfieldProviderNotificationBus::Handler::BusDisconnect(GetEntityId());
+
+        BaseColliderComponent::Deactivate();
+    }
+
     void HeightfieldColliderComponent::UpdateScaleForShapeConfigs()
     {
         if (m_shapeConfigList.size() != 1)

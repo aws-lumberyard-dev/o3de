@@ -66,7 +66,7 @@ namespace PhysX
                         ->Attribute(AZ::Edit::Attributes::ViewportIcon, "Icons/Components/Viewport/PhysXCollider.svg")
                         ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC_CE("Game"))
                         ->Attribute(
-                            AZ::Edit::Attributes::HelpPageURL, "https://o3de.org/docs/user-guide/components/reference/physx/shape-collider/")
+                            AZ::Edit::Attributes::HelpPageURL, "https://o3de.org/docs/user-guide/components/reference/physx/heightfield-collider/")
                         ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
                     ->DataElement(
                         AZ::Edit::UIHandlers::Default, &EditorHeightfieldColliderComponent::m_colliderConfig, "Collider configuration",
@@ -84,23 +84,23 @@ namespace PhysX
 
     void EditorHeightfieldColliderComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
     {
-        provided.push_back(AZ_CRC("PhysicsWorldBodyService", 0x944da0cc));
-        provided.push_back(AZ_CRC("PhysXColliderService", 0x4ff43f7c));
-        provided.push_back(AZ_CRC("PhysXTriggerService", 0x3a117d7b));
-        provided.push_back(AZ_CRC("PhysXHeightfieldColliderService", 0x98a7e779));
+        provided.push_back(AZ_CRC_CE("PhysicsWorldBodyService"));
+        provided.push_back(AZ_CRC_CE("PhysXColliderService"));
+        provided.push_back(AZ_CRC_CE("PhysXTriggerService"));
+        provided.push_back(AZ_CRC_CE("PhysXHeightfieldColliderService"));
     }
 
     void EditorHeightfieldColliderComponent::GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
     {
-        required.push_back(AZ_CRC("TransformService", 0x8ee22c50));
-        required.push_back(AZ_CRC("AxisAlignedBoxShapeService", 0xe86aa5fe));
+        required.push_back(AZ_CRC_CE("TransformService"));
+        required.push_back(AZ_CRC_CE("AxisAlignedBoxShapeService"));
         required.push_back(AZ_CRC_CE("PhysicsHeightfieldProviderService"));
     }
 
     void EditorHeightfieldColliderComponent::GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible)
     {
-        incompatible.push_back(AZ_CRC("LegacyCryPhysicsService", 0xbb370351));
-        incompatible.push_back(AZ_CRC("PhysXHeightfieldColliderService", 0x98a7e779));
+        incompatible.push_back(AZ_CRC_CE("LegacyCryPhysicsService"));
+        incompatible.push_back(AZ_CRC_CE("PhysXHeightfieldColliderService"));
     }
 
     // AZ::Component
@@ -184,7 +184,6 @@ namespace PhysX
         UpdateConfig();
 
         CreateStaticEditorCollider();
-        m_geometryCache.m_cachedSamplePointsDirty = true;
         Physics::ColliderComponentEventBus::Event(GetEntityId(), &Physics::ColliderComponentEvents::OnColliderChanged);
     }
 
@@ -229,7 +228,6 @@ namespace PhysX
         configuration = Physics::HeightfieldShapeConfiguration(GetEntityId());
 
         m_shapeConfigs.back()->m_scale = overallScale;
-        m_geometryCache.m_cachedSamplePointsDirty = true;
     }
 
     void EditorHeightfieldColliderComponent::RefreshHeightfield()

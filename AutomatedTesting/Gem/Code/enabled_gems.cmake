@@ -52,7 +52,6 @@ set(ENABLED_GEMS
     AWSCore
     AWSClientAuth
     AWSMetrics
-    Terrain
 
 
     

@@ -421,7 +421,7 @@ namespace Physics
         return m_aabb;
     }
 
-    void HeightfieldShapeConfiguration::SetAabb(const AZ::Aabb aabb)
+    void HeightfieldShapeConfiguration::SetAabb(const AZ::Aabb& aabb)
     {
         m_aabb = aabb;
     }

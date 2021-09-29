@@ -24,6 +24,9 @@ namespace PhysX
 
         HeightfieldColliderComponent() = default;
 
+        void Activate() override;
+        void Deactivate() override;
+
         // BaseColliderComponent
         void UpdateScaleForShapeConfigs() override;
     };

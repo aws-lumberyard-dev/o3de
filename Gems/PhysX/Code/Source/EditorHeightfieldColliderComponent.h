@@ -21,13 +21,6 @@
 
 namespace PhysX
 {
-    //! Cached data for generating sample points inside the attached shape.
-    struct HeightfieldGeometryCache
-    {
-        AZStd::vector<AZ::Vector3> m_cachedSamplePoints; //!< Stores a cache of points sampled from the shape interior.
-        bool m_cachedSamplePointsDirty = true; //!< Marks whether the cached sample points need to be recalculated.
-    };
-
     //! Editor PhysX Heightfield Collider Component.
     class EditorHeightfieldColliderComponent
         : public AzToolsFramework::Components::EditorComponentBase
@@ -101,7 +94,6 @@ namespace PhysX
         AZ::NonUniformScaleChangedEvent::Handler m_nonUniformScaleChangedHandler; //!< Responds to changes in non-uniform scale.
         AZ::Transform m_cachedWorldTransform;
         AZ::Vector3 m_currentNonUniformScale = AZ::Vector3::CreateOne(); //!< Caches the current non-uniform scale.
-        mutable HeightfieldGeometryCache m_geometryCache; //!< Cached data for generating sample points inside the attached shape.
 
         AzPhysics::SystemEvents::OnConfigurationChangedEvent::Handler m_physXConfigChangedHandler;
         AzPhysics::SystemEvents::OnMaterialLibraryChangedEvent::Handler m_onMaterialLibraryChangedEventHandler;

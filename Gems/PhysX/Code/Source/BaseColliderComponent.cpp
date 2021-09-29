@@ -239,7 +239,6 @@ namespace PhysX
         AZ::TransformNotificationBus::Handler::BusConnect(entityId);
         ColliderShapeRequestBus::Handler::BusConnect(GetEntityId());
         Physics::CollisionFilteringRequestBus::Handler::BusConnect(GetEntityId());
-        Physics::HeightfieldProviderNotificationBus::Handler::BusConnect(GetEntityId());
 
         AZ::Transform worldTransform = AZ::Transform::CreateIdentity();
         AZ::TransformBus::EventResult(worldTransform, entityId, &AZ::TransformBus::Events::GetWorldTM);
@@ -252,7 +251,6 @@ namespace PhysX
     {
         m_shapes.clear();
 
-        Physics::HeightfieldProviderNotificationBus::Handler::BusDisconnect();
         Physics::CollisionFilteringRequestBus::Handler::BusDisconnect();
         ColliderShapeRequestBus::Handler::BusDisconnect();
         AZ::TransformNotificationBus::Handler::BusDisconnect();

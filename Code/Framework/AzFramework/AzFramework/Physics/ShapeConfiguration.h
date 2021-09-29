@@ -227,7 +227,7 @@ namespace Physics
         const AZStd::vector<Physics::HeightMaterialPoint>& GetSamples() const;
         void SetSamples(const AZStd::vector<Physics::HeightMaterialPoint>& samples);
         const AZ::Aabb GetAabb() const;
-        void SetAabb(const AZ::Aabb aabb);
+        void SetAabb(const AZ::Aabb& aabb);
 
         AZ::Aabb m_aabb;
         AZ::EntityId m_heightProvider;
