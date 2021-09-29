@@ -22,7 +22,7 @@
 namespace PhysX
 {
     //! Cached data for generating sample points inside the attached shape.
-    struct GeometryCache
+    struct HeightfieldGeometryCache
     {
         float m_height = 1.0f; //!< Caches height for capsule, cylinder and polygon prism shapes.
         float m_radius = 1.0f; //!< Caches radius for capsule, cylinder and sphere shapes.
@@ -41,7 +41,6 @@ namespace PhysX
         , private PhysX::ColliderShapeRequestBus::Handler
         , protected LmbrCentral::ShapeComponentNotificationsBus::Handler
         , protected DebugDraw::DisplayCallback
-        , protected AzFramework::EntityDebugDisplayEventBus::Handler
     {
     public:
         AZ_EDITOR_COMPONENT(
@@ -58,7 +57,6 @@ namespace PhysX
 
         // EditorComponentBase
         void BuildGameEntity(AZ::Entity* gameEntity) override;
-
     private:
         AZ::u32 OnConfigurationChanged();
         void UpdateConfig();
@@ -74,6 +72,9 @@ namespace PhysX
 //        void OnSelected() override;
 //        void OnDeselected() override;
 
+        // handling for non-uniform scale
+        void OnNonUniformScaleChanged(const AZ::Vector3& scale);
+
         // AzPhysics::SimulatedBodyComponentRequestsBus::Handler overrides ...
         void EnablePhysics() override;
         void DisablePhysics() override;
@@ -82,6 +83,16 @@ namespace PhysX
         AzPhysics::SimulatedBody* GetSimulatedBody() override;
         AzPhysics::SimulatedBodyHandle GetSimulatedBodyHandle() const override;
         AzPhysics::SceneQueryHit RayCast(const AzPhysics::RayCastRequest& request) override;
+
+        // ColliderShapeRequestBus
+        AZ::Aabb GetColliderShapeAabb() override;
+        bool IsTrigger() override;
+
+        // DisplayCallback
+        void Display(AzFramework::DebugDisplayRequests& debugDisplay) const;
+
+        // LmbrCentral::ShapeComponentNotificationBus
+        void OnShapeChanged(LmbrCentral::ShapeComponentNotifications::ShapeChangeReasons changeReason) override;
 
         Physics::ColliderConfiguration m_colliderConfig; //!< Stores collision layers, whether the collider is a trigger, etc.
         DebugDraw::Collider m_colliderDebugDraw; //!< Handles drawing the collider based on global and local
@@ -93,7 +104,10 @@ namespace PhysX
         AZ::NonUniformScaleChangedEvent::Handler m_nonUniformScaleChangedHandler; //!< Responds to changes in non-uniform scale.
         AZ::Transform m_cachedWorldTransform;
         AZ::Vector3 m_currentNonUniformScale = AZ::Vector3::CreateOne(); //!< Caches the current non-uniform scale.
-        mutable GeometryCache m_geometryCache; //!< Cached data for generating sample points inside the attached shape.
+        mutable HeightfieldGeometryCache m_geometryCache; //!< Cached data for generating sample points inside the attached shape.
+
+        AzPhysics::SystemEvents::OnConfigurationChangedEvent::Handler m_physXConfigChangedHandler;
+        AzPhysics::SystemEvents::OnMaterialLibraryChangedEvent::Handler m_onMaterialLibraryChangedEventHandler;
     };
 
 } // namespace PhysX
