@@ -74,6 +74,10 @@ namespace AZ
             {
             }
 
+            void AssetImportRequest::GetGeneratedManifestExtension(AZStd::string& /*result*/)
+            {
+            }
+
             void AssetImportRequest::GetSupportedFileExtensions(AZStd::unordered_set<AZStd::string>& /*extensions*/)
             {
             }

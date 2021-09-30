@@ -78,6 +78,8 @@ namespace AZ
                 virtual void GetSupportedFileExtensions(AZStd::unordered_set<AZStd::string>& extensions);
                 //! Gets the file extension for the manifest.
                 virtual void GetManifestExtension(AZStd::string& result);
+                //! Gets the file extension for the generated manifest.
+                virtual void GetGeneratedManifestExtension(AZStd::string& result);
 
                 //! Before asset loading starts this is called to allow for any required initialization.
                 virtual ProcessingResult PrepareForAssetLoading(Containers::Scene& scene, RequestingApplication requester);

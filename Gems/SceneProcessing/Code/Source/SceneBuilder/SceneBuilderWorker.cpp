@@ -125,6 +125,49 @@ namespace SceneBuilder
         }
     }
 
+    bool SceneBuilderWorker::ManifestDependencyCheck(const AssetBuilderSDK::CreateJobsRequest& request, AssetBuilderSDK::CreateJobsResponse& response)
+    {
+        AZStd::string manifestExtension;
+        AZStd::string generatedManifestExtension;
+
+        AZ::SceneAPI::Events::AssetImportRequestBus::Broadcast(
+            &AZ::SceneAPI::Events::AssetImportRequestBus::Events::GetManifestExtension, manifestExtension);
+        AZ::SceneAPI::Events::AssetImportRequestBus::Broadcast(
+            &AZ::SceneAPI::Events::AssetImportRequestBus::Events::GetGeneratedManifestExtension, generatedManifestExtension);
+
+        if (manifestExtension.empty() || generatedManifestExtension.empty())
+        {
+            AZ_Error("SceneBuilderWorker", false, "Failed to get scene manifest extension");
+            return false;
+        }
+
+        auto manifestPath = (AZ::IO::Path(request.m_watchFolder) / (request.m_sourceFile + manifestExtension));
+        auto generatedManifestPath = (AZ::IO::Path(request.m_watchFolder) / (request.m_sourceFile + generatedManifestExtension));
+
+        auto populateDependenciesFunc = [&response](const AZStd::string& path)
+        {
+            auto readFileOutcome = AZ::Utils::ReadFile(path, AZ::SceneAPI::Containers::SceneManifest::MaxSceneManifestFileSizeInBytes);
+            if (!readFileOutcome.IsSuccess())
+            {
+                AZ_Error("SceneBuilderWorker", false, "%s", readFileOutcome.GetError().c_str());
+                return;
+            }
+
+            PopulateSourceDependencies(readFileOutcome.TakeValue(), response.m_sourceFileDependencyList);
+        };
+
+        if (AZ::IO::FileIOBase::GetInstance()->Exists(manifestPath.Native().c_str()))
+        {
+            populateDependenciesFunc(manifestPath.Native());
+        }
+        else if (AZ::IO::FileIOBase::GetInstance()->Exists(generatedManifestPath.Native().c_str()))
+        {
+            populateDependenciesFunc(generatedManifestPath.Native());
+        }
+
+        return true;
+    }
+
     void SceneBuilderWorker::CreateJobs(const AssetBuilderSDK::CreateJobsRequest& request, AssetBuilderSDK::CreateJobsResponse& response)
     {
         // Check for shutdown
@@ -162,29 +205,11 @@ namespace SceneBuilder
         sourceFileDependencyInfo.m_sourceDependencyType = AssetBuilderSDK::SourceFileDependency::SourceFileDependencyType::Wildcards;
         response.m_sourceFileDependencyList.push_back(sourceFileDependencyInfo);
 
-        AZStd::string manifestExtension;
-        AZ::SceneAPI::Events::AssetImportRequestBus::Broadcast(
-            &AZ::SceneAPI::Events::AssetImportRequestBus::Events::GetManifestExtension, manifestExtension);
-
-        if (manifestExtension.empty())
+        if (!ManifestDependencyCheck(request, response))
         {
-            AZ_Error("SceneBuilderWorker", false, "Failed to get scene manifest extension");
             return;
         }
 
-        auto manifestPath = (AZ::IO::Path(request.m_watchFolder) / (request.m_sourceFile + manifestExtension));
-
-        if(AZ::IO::SystemFile::Exists(manifestPath.Native().c_str()))
-        {
-            auto readFileOutcome = AZ::Utils::ReadFile(manifestPath.Native(), AZ::SceneAPI::Containers::SceneManifest::MaxSceneManifestFileSizeInBytes);
-            if (!readFileOutcome.IsSuccess())
-            {
-                AZ_Error("SceneBuilderWorker", false, "%s", readFileOutcome.GetError().c_str());
-                return;
-            }
-            
-            PopulateSourceDependencies(readFileOutcome.TakeValue(), response.m_sourceFileDependencyList);
-        }
         response.m_result = AssetBuilderSDK::CreateJobsResultCode::Success;
     }
 

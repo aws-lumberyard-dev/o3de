@@ -53,7 +53,8 @@ namespace SceneBuilder
         void ShutDown() override;
         const char* GetFingerprint() const;
         static void PopulateSourceDependencies(
-            const AZStd::string& manifestPath, AZStd::vector<AssetBuilderSDK::SourceFileDependency>& sourceFileDependencies);
+            const AZStd::string& manifestJson, AZStd::vector<AssetBuilderSDK::SourceFileDependency>& sourceFileDependencies);
+        static bool ManifestDependencyCheck(const AssetBuilderSDK::CreateJobsRequest& request, AssetBuilderSDK::CreateJobsResponse& response);
         static AZ::Uuid GetUUID();
 
         void PopulateProductDependencies(const AZ::SceneAPI::Events::ExportProduct& exportProduct, const char* watchFolder, AssetBuilderSDK::JobProduct& jobProduct) const;

@@ -11,12 +11,14 @@
 #include <AzCore/IO/Path/Path.h>
 #include <AzCore/Settings/SettingsRegistryMergeUtils.h>
 #include <AzCore/UnitTest/TestTypes.h>
+#include <AzCore/UnitTest/Mocks/MockFileIOBase.h>
 #include <AzCore/UserSettings/UserSettingsComponent.h>
 #include <AzFramework/StringFunc/StringFunc.h>
 #include <AzToolsFramework/Application/ToolsApplication.h>
 #include <SceneAPI/SceneCore/Events/AssetImportRequest.h>
 #include <SceneBuilder/SceneBuilderWorker.h>
 #include <SceneAPI/SceneCore/Events/ExportProductList.h>
+#include <Tests/FileIOBaseTestTypes.h>
 
 using namespace AZ;
 using namespace SceneBuilder;
@@ -214,13 +216,23 @@ struct ImportHandler
         paths.emplace_back("/scriptFilename");
         paths.emplace_back("/layer1/layer2/0/target");
     }
+
+    void GetManifestExtension(AZStd::string& result) override
+    {
+        result = ".test";
+    }
+
+    void GetGeneratedManifestExtension(AZStd::string& result) override
+    {
+        result = ".test.gen";
+    }
 };
 
 using SourceDependencyTests = UnitTest::ScopedAllocatorSetupFixture;
 
-TEST_F(SourceDependencyTests, SourceDependencyTest)
+namespace SourceDependencyJson
 {
-    AZStd::string json = R"JSON(
+    constexpr const char* TestJson = R"JSON(
 {
     "values": [
         {
@@ -244,13 +256,94 @@ TEST_F(SourceDependencyTests, SourceDependencyTest)
     ]
 }
     )JSON";
+}
 
+TEST_F(SourceDependencyTests, SourceDependencyTest)
+{
     ImportHandler handler;
     AZStd::vector<AssetBuilderSDK::SourceFileDependency> dependencies;
 
-    SceneBuilderWorker::PopulateSourceDependencies(json, dependencies);
+    SceneBuilderWorker::PopulateSourceDependencies(SourceDependencyJson::TestJson, dependencies);
 
     ASSERT_EQ(dependencies.size(), 2);
     ASSERT_STREQ(dependencies[0].m_sourceFileDependencyPath.c_str(), "a/test/path.png");
     ASSERT_STREQ(dependencies[1].m_sourceFileDependencyPath.c_str(), "value.png");
+}
+
+struct SourceDependencyMockedIOTests : UnitTest::ScopedAllocatorSetupFixture
+    , UnitTest::SetRestoreFileIOBaseRAII
+{
+    SourceDependencyMockedIOTests()
+        : UnitTest::SetRestoreFileIOBaseRAII(m_ioMock)
+    {
+        
+    }
+
+    void SetUp() override
+    {
+        using namespace ::testing;
+
+        ON_CALL(m_ioMock, Open(_, _, _))
+            .WillByDefault(Invoke(
+                [](auto, auto, IO::HandleType& handle)
+                {
+                    handle = 1234;
+                    return AZ::IO::Result(AZ::IO::ResultCode::Success);
+                }));
+
+        ON_CALL(m_ioMock, Size(An<AZ::IO::HandleType>(), _)).WillByDefault(Invoke([](auto, AZ::u64& size)
+        {
+            size = strlen(SourceDependencyJson::TestJson);
+            return AZ::IO::ResultCode::Success;
+        }));
+
+        EXPECT_CALL(m_ioMock, Read(_, _, _, _, _))
+            .WillRepeatedly(Invoke(
+                [](auto, void* buffer, auto, auto, AZ::u64* bytesRead)
+                {
+                    memcpy(buffer, SourceDependencyJson::TestJson, strlen(SourceDependencyJson::TestJson));
+                    *bytesRead = strlen(SourceDependencyJson::TestJson);
+                    return AZ::IO::ResultCode::Success;
+                }));
+
+        EXPECT_CALL(m_ioMock, Close(_)).WillRepeatedly(Return(AZ::IO::ResultCode::Success));
+    }
+
+    IO::NiceFileIOBaseMock m_ioMock;
+};
+
+TEST_F(SourceDependencyMockedIOTests, RegularManifestHasPriority)
+{
+    ImportHandler handler;
+
+    AssetBuilderSDK::CreateJobsRequest request;
+    AssetBuilderSDK::CreateJobsResponse response;
+
+    request.m_sourceFile = "file.fbx";
+
+    using namespace ::testing;
+    
+    EXPECT_CALL(m_ioMock, Exists(StrEq("file.fbx.test"))).WillRepeatedly(Return(true));
+    EXPECT_CALL(m_ioMock, Exists(StrEq("file.fbx.test.gen"))).Times(Exactly(0));
+    
+    ASSERT_TRUE(SceneBuilderWorker::ManifestDependencyCheck(request, response));
+    ASSERT_EQ(response.m_sourceFileDependencyList.size(), 2);
+}
+
+TEST_F(SourceDependencyMockedIOTests, GeneratedManifestTest)
+{
+    ImportHandler handler;
+
+    AssetBuilderSDK::CreateJobsRequest request;
+    AssetBuilderSDK::CreateJobsResponse response;
+
+    request.m_sourceFile = "file.fbx";
+
+    using namespace ::testing;
+
+    EXPECT_CALL(m_ioMock, Exists(StrEq("file.fbx.test"))).WillRepeatedly(Return(false));
+    EXPECT_CALL(m_ioMock, Exists(StrEq("file.fbx.test.gen"))).WillRepeatedly(Return(true));
+
+    ASSERT_TRUE(SceneBuilderWorker::ManifestDependencyCheck(request, response));
+    ASSERT_EQ(response.m_sourceFileDependencyList.size(), 2);
 }
