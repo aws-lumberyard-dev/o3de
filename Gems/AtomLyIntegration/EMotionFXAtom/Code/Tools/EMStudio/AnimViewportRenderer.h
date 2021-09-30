@@ -12,6 +12,7 @@
 #include <AzFramework/Windowing/NativeWindow.h>
 #include <AzFramework/Scene/Scene.h>
 
+#include <Integration/Assets/ActorAsset.h>
 #include <Atom/RPI.Public/Base.h>
 #include <Atom/RPI.Public/WindowContext.h>
 #include <Atom/Feature/SkyBox/SkyBoxFeatureProcessorInterface.h>
@@ -46,9 +47,21 @@ namespace EMStudio
         AnimViewportRenderer(AZStd::shared_ptr<AZ::RPI::WindowContext> windowContext);
         ~AnimViewportRenderer();
 
+        void Reinit();
+
     private:
 
-        void Reset();
+        // This function resets the light, camera and other environment settings.
+        void ResetEnvironment();
+
+        // This function creates in-editor entities for all actor assets stored in the actor manager,
+        // and deletes all the actor entities that no longer has an actor asset in the actor manager.
+        // Those entities are used in atom render viewport to visualize actors in animation editor.
+        void ReinitActorEntities();
+
+        AZ::Entity* CreateActorEntity(AZ::Data::Asset<EMotionFX::Integration::ActorAsset> actorAsset);
+
+        AZ::Entity* FindActorEntity(AZ::Data::Asset<EMotionFX::Integration::ActorAsset> actorAsset) const;
         void SetLightingPreset(const AZ::Render::LightingPreset* preset);
 
         AZStd::shared_ptr<AZ::RPI::WindowContext> m_windowContext;
@@ -68,6 +81,7 @@ namespace EMStudio
         AZ::Entity* m_modelEntity = nullptr;
         AZ::Data::AssetId m_modelAssetId;
         AZ::Entity* m_gridEntity = nullptr;
+        AZStd::vector<AZ::Entity*> m_actorEntities;
 
         AZStd::vector<AZ::Render::DirectionalLightFeatureProcessorInterface::LightHandle> m_lightHandles;
     };

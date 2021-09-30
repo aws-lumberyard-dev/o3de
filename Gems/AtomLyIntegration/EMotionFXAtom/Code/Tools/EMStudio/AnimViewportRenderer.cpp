@@ -9,6 +9,8 @@
 #include <AzFramework/Entity/GameEntityContextBus.h>
 #include <AzFramework/Components/TransformComponent.h>
 
+#include <Integration/ActorComponentBus.h>
+#include <Integration/Components/ActorComponent.h>
 #include <Atom/RPI.Public/Scene.h>
 #include <Atom/RPI.Public/RenderPipeline.h>
 #include <Atom/RPI.Reflect/Asset/AssetUtils.h>
@@ -30,8 +32,10 @@
 #include <AtomLyIntegration/CommonFeatures/PostProcess/ExposureControl/ExposureControlComponentConstants.h>
 #include <AtomLyIntegration/CommonFeatures/ImageBasedLights/ImageBasedLightComponentConstants.h>
 
+#include <EMotionFX/Source/EMotionFXManager.h>
+#include <EMotionFX/Source/ActorManager.h>
 #include <EMStudio/AnimViewportRenderer.h>
-#pragma optimize("", off)
+
 
 namespace EMStudio
 {
@@ -134,17 +138,6 @@ namespace EMStudio
         const AZ::Render::LightingPreset* preset = lightingPresetAsset->GetDataAs<AZ::Render::LightingPreset>();
         SetLightingPreset(preset);
 
-        // Create a static model.
-        // TODO: Replace this with actor component.
-        AzFramework::EntityContextRequestBus::EventResult(
-            m_modelEntity, entityContextId, &AzFramework::EntityContextRequestBus::Events::CreateEntity, "ViewportModel");
-        AZ_Assert(m_modelEntity != nullptr, "Failed to create model entity.");
-
-        m_modelEntity->CreateComponent(AZ::Render::MeshComponentTypeId);
-        m_modelEntity->CreateComponent(AZ::Render::MaterialComponentTypeId);
-        m_modelEntity->CreateComponent(azrtti_typeid<AzFramework::TransformComponent>());
-        m_modelEntity->Activate();
-
         // Create grid
         AzFramework::EntityContextRequestBus::EventResult(
             m_gridEntity, entityContextId, &AzFramework::EntityContextRequestBus::Events::CreateEntity, "ViewportGrid");
@@ -161,23 +154,21 @@ namespace EMStudio
         m_gridEntity->CreateComponent(azrtti_typeid<AzFramework::TransformComponent>());
         m_gridEntity->Activate();
 
-        Reset();
+        Reinit();
     }
 
     AnimViewportRenderer::~AnimViewportRenderer()
     {
-        const AzFramework::EntityContextId entityContextId = m_entityContext->GetContextId();
-        // Destory all the entities we created.
-        auto DestoryEntity = [](AZ::Entity* entity, AzFramework::EntityContextId contextId)
+        // Destroy all the entity we created.
+        m_entityContext->DestroyEntity(m_iblEntity);
+        m_entityContext->DestroyEntity(m_postProcessEntity);
+        m_entityContext->DestroyEntity(m_cameraEntity);
+        m_entityContext->DestroyEntity(m_gridEntity);
+        for (AZ::Entity* entity : m_actorEntities)
         {
-            AzFramework::EntityContextRequestBus::Event(contextId, &AzFramework::EntityContextRequestBus::Events::DestroyEntity, entity);
-            entity = nullptr;
-        };
-        DestoryEntity(m_iblEntity, entityContextId);
-        DestoryEntity(m_postProcessEntity, entityContextId);
-        DestoryEntity(m_cameraEntity, entityContextId);
-        DestoryEntity(m_modelEntity, entityContextId);
-        DestoryEntity(m_gridEntity, entityContextId);
+            m_entityContext->DestroyEntity(entity);
+        }
+        m_actorEntities.clear();
         m_entityContext->DestroyContext();
 
         for (AZ::Render::DirectionalLightFeatureProcessorInterface::LightHandle& handle : m_lightHandles)
@@ -197,7 +188,13 @@ namespace EMStudio
         m_scene = nullptr;
     }
 
-    void AnimViewportRenderer::Reset()
+    void AnimViewportRenderer::Reinit()
+    {
+        ReinitActorEntities();
+        ResetEnvironment();
+    }
+
+    void AnimViewportRenderer::ResetEnvironment()
     {
         // Reset environment
         AZ::Transform iblTransform = AZ::Transform::CreateIdentity();
@@ -208,15 +205,6 @@ namespace EMStudio
         auto skyBoxFeatureProcessorInterface = scene->GetFeatureProcessor<AZ::Render::SkyBoxFeatureProcessorInterface>();
         skyBoxFeatureProcessorInterface->SetCubemapRotationMatrix(rotationMatrix);
 
-        // Reset model
-        AZ::Transform modelTransform = AZ::Transform::CreateIdentity();
-        AZ::TransformBus::Event(m_modelEntity->GetId(), &AZ::TransformBus::Events::SetLocalTM, modelTransform);
-
-        auto modelAsset = AZ::RPI::AssetUtils::GetAssetByProductPath<AZ::RPI::ModelAsset>(
-            "objects/shaderball_simple.azmodel", AZ::RPI::AssetUtils::TraceLevel::Assert);
-        AZ::Render::MeshComponentRequestBus::Event(
-            m_modelEntity->GetId(), &AZ::Render::MeshComponentRequestBus::Events::SetModelAsset, modelAsset);
-
         Camera::Configuration cameraConfig;
         Camera::CameraRequestBus::EventResult(
             cameraConfig, m_cameraEntity->GetId(), &Camera::CameraRequestBus::Events::GetCameraConfiguration);
@@ -225,7 +213,7 @@ namespace EMStudio
         static constexpr float StartingDistanceMultiplier = 2.0f;
         static constexpr float StartingRotationAngle = AZ::Constants::QuarterPi / 2.0f;
 
-        AZ::Vector3 targetPosition = modelTransform.GetTranslation();
+        AZ::Vector3 targetPosition = iblTransform.GetTranslation();
         const float distance = 1.0f * StartingDistanceMultiplier;
         const AZ::Quaternion cameraRotation = AZ::Quaternion::CreateFromAxisAngle(AZ::Vector3::CreateAxisZ(), StartingRotationAngle);
         AZ::Vector3 cameraPosition(targetPosition.GetX(), targetPosition.GetY() - distance, targetPosition.GetZ());
@@ -236,6 +224,75 @@ namespace EMStudio
         // Setup primary camera controls
         AZ::Debug::CameraControllerRequestBus::Event(
             m_cameraEntity->GetId(), &AZ::Debug::CameraControllerRequestBus::Events::Enable, azrtti_typeid<AZ::Debug::NoClipControllerComponent>());
+    }
+
+    void AnimViewportRenderer::ReinitActorEntities()
+    {
+        // 1. Destroy all the entities that do not point to any actorAsset anymore.
+        AZStd::set<AZ::Data::AssetId> assetLookup;
+        AzFramework::EntityContext* entityContext = m_entityContext.get();
+        const size_t numActors = EMotionFX::GetActorManager().GetNumActors();
+        for (size_t i = 0; i < numActors; ++i)
+        {
+            assetLookup.emplace(EMotionFX::GetActorManager().GetActorAsset(i).GetId());
+        }
+        m_actorEntities.erase(
+            AZStd::remove_if(
+                m_actorEntities.begin(), m_actorEntities.end(),
+                [&assetLookup, entityContext](AZ::Entity* entity)
+                {
+                    EMotionFX::Integration::ActorComponent* actorComponent =
+                        entity->FindComponent<EMotionFX::Integration::ActorComponent>();
+                    if (assetLookup.find(actorComponent->GetActorAsset().GetId()) == assetLookup.end())
+                    {
+                        entityContext->DestroyEntity(entity);
+                        return true;
+                    }
+                    return false;
+                }),
+            m_actorEntities.end());
+
+        // 2. Create an entity for every actorAsset stored in actor manager.
+        for (size_t i = 0; i < numActors; ++i)
+        {
+            AZ::Data::Asset<EMotionFX::Integration::ActorAsset> actorAsset = EMotionFX::GetActorManager().GetActorAsset(i);
+            if (!actorAsset->IsReady())
+            {
+                continue;
+            }
+
+            AZ::Entity* entity = FindActorEntity(actorAsset);
+            if (!entity)
+            {
+                m_actorEntities.emplace_back(CreateActorEntity(actorAsset));
+            }
+        }
+    }
+
+    AZ::Entity* AnimViewportRenderer::FindActorEntity(AZ::Data::Asset<EMotionFX::Integration::ActorAsset> actorAsset) const
+    {
+        const auto foundEntity = AZStd::find_if(
+            begin(m_actorEntities), end(m_actorEntities),
+            [match = actorAsset](const AZ::Entity* entity)
+            {
+                EMotionFX::Integration::ActorComponent* actorComponent = entity->FindComponent<EMotionFX::Integration::ActorComponent>();
+                return actorComponent->GetActorAsset() == match;
+            });
+        return foundEntity != end(m_actorEntities) ? (*foundEntity) : nullptr;
+    }
+
+    AZ::Entity* AnimViewportRenderer::CreateActorEntity(AZ::Data::Asset<EMotionFX::Integration::ActorAsset> actorAsset)
+    {
+        AZ::Entity* actorEntity = m_entityContext->CreateEntity(actorAsset->GetActor()->GetName());
+        actorEntity->CreateComponent(azrtti_typeid<EMotionFX::Integration::ActorComponent>());
+        actorEntity->CreateComponent(AZ::Render::MaterialComponentTypeId);
+        actorEntity->CreateComponent(azrtti_typeid<AzFramework::TransformComponent>());
+        actorEntity->Activate();
+
+        EMotionFX::Integration::ActorComponent* actorComponent = actorEntity->FindComponent<EMotionFX::Integration::ActorComponent>();
+        actorComponent->SetActorAsset(actorAsset);
+
+        return actorEntity;
     }
 
     void AnimViewportRenderer::SetLightingPreset(const AZ::Render::LightingPreset* preset)
@@ -250,7 +307,6 @@ namespace EMStudio
             m_scene->GetFeatureProcessor<AZ::Render::ImageBasedLightFeatureProcessorInterface>();
         AZ::Render::PostProcessFeatureProcessorInterface* postProcessFeatureProcessor =
             m_scene->GetFeatureProcessor<AZ::Render::PostProcessFeatureProcessorInterface>();
-
         AZ::Render::ExposureControlSettingsInterface* exposureControlSettingInterface =
             postProcessFeatureProcessor->GetOrCreateSettingsInterface(m_postProcessEntity->GetId())
                 ->GetOrCreateExposureControlSettingsInterface();
