@@ -436,6 +436,7 @@ float3 ApplyIblSpecular(Surface surface, LightingData lightingData)
     return specularLighting;
 }
 
+// Remark: IBL is still WIP and this part will change in the near future
 void ApplyIBL(Surface surface, inout LightingData lightingData)
 {
 //    float3 normal = normalize(float3(surface.tangent.z, -surface.tangent.x, surface.tangent.y));

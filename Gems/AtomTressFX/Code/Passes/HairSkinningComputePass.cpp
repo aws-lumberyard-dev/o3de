@@ -173,13 +173,15 @@ namespace AZ
                 // The following mutex is used for blocking the shader switch when a hot load occurs, hence ensuring
                 // the shader exists and the same shader, data and dispatch items are used across all hair objects
                 // during this frame.
-                // Two cases exists:
-                // 1. Hot reload will be revoked first - if this mutex was blocking, the flag for hot reload will
-                //      be set and the method will exit without add
-                // 2. Hot reload might be revoked after this method - in this case, BuildCommandListInternal will test
-                //      for the state and clear if required.
+                // Several cases exist:
+                // 1. Hot reload was invoked first - either finished before this method or the mutex in this method
+                //  is waited upon. The flag for hot reload was set already resulting in exit without add of dispatches.
+                // 2. Hot reload was invoked after this method - the BuildCommandListInternal will test for the flag and
+                //  clear if required.
+                // 3. Hot reload was invoked after send to the GPU (BuildCommandListInternal) - the data sent is valid
+                //  and it is safe to change the shader and create new dispatches.
                 // Remark: BuildCommandListInternal does not need to be synched as well since if the data was already
-                //      inserted it is consistent and valid using the existing shader and data.
+                //      inserted it is consistent and valid using the existing shader and data with instance counting.
                 AZStd::lock_guard<AZStd::mutex> lock(m_mutex);
 
                 if (m_buildShaderAndData)
