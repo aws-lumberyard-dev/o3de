@@ -142,7 +142,7 @@ namespace SceneBuilder
         }
 
         auto manifestPath = (AZ::IO::Path(request.m_watchFolder) / (request.m_sourceFile + manifestExtension));
-        auto generatedManifestPath = (AZ::IO::Path(request.m_watchFolder) / (request.m_sourceFile + generatedManifestExtension));
+        auto generatedManifestPath = (AZ::IO::Path("@assets@") / (request.m_sourceFile + generatedManifestExtension));
 
         auto populateDependenciesFunc = [&response](const AZStd::string& path)
         {
