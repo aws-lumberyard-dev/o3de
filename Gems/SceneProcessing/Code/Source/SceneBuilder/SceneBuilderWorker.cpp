@@ -36,6 +36,7 @@
 
 #include <AssetBuilderSDK/AssetBuilderSDK.h>
 #include <AzCore/Serialization/Json/JsonUtils.h>
+#include <AzCore/Settings/SettingsRegistryMergeUtils.h>
 #include <rapidjson/pointer.h>
 #include <SceneBuilder/SceneBuilderWorker.h>
 #include <SceneBuilder/TraceMessageHook.h>
@@ -141,8 +142,11 @@ namespace SceneBuilder
             return false;
         }
 
+        AZ::SettingsRegistryInterface::FixedValueString assetCacheRoot;
+        AZ::SettingsRegistry::Get()->Get(assetCacheRoot, AZ::SettingsRegistryMergeUtils::FilePathKey_CacheRootFolder);
+
         auto manifestPath = (AZ::IO::Path(request.m_watchFolder) / (request.m_sourceFile + manifestExtension));
-        auto generatedManifestPath = (AZ::IO::Path("@assets@") / (request.m_sourceFile + generatedManifestExtension));
+        auto generatedManifestPath = (AZ::IO::Path(assetCacheRoot) / (request.m_sourceFile + generatedManifestExtension));
 
         auto populateDependenciesFunc = [&response](const AZStd::string& path)
         {

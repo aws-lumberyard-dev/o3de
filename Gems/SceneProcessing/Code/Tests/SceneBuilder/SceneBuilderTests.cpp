@@ -270,6 +270,47 @@ TEST_F(SourceDependencyTests, SourceDependencyTest)
     ASSERT_STREQ(dependencies[1].m_sourceFileDependencyPath.c_str(), "value.png");
 }
 
+struct SettingsRegistryMock : AZ::Interface<SettingsRegistryInterface>::Registrar
+{
+    bool Get(FixedValueString& result, AZStd::string_view) const override
+    {
+        result = "cache";
+        return true;
+    }
+
+    void SetApplyPatchSettings(const AZ::JsonApplyPatchSettings& /*applyPatchSettings*/) override{}
+    void GetApplyPatchSettings(AZ::JsonApplyPatchSettings& /*applyPatchSettings*/) override{}
+
+    MOCK_CONST_METHOD1(GetType, Type (AZStd::string_view));
+    MOCK_CONST_METHOD2(Visit, bool (Visitor&, AZStd::string_view));
+    MOCK_CONST_METHOD2(Visit, bool (const VisitorCallback&, AZStd::string_view));
+    MOCK_METHOD1(RegisterNotifier, NotifyEventHandler (const NotifyCallback&));
+    MOCK_METHOD1(RegisterNotifier, NotifyEventHandler (NotifyCallback&&));
+    MOCK_METHOD1(RegisterPreMergeEvent, PreMergeEventHandler (const PreMergeEventCallback&));
+    MOCK_METHOD1(RegisterPreMergeEvent, PreMergeEventHandler (PreMergeEventCallback&&));
+    MOCK_METHOD1(RegisterPostMergeEvent, PostMergeEventHandler (const PostMergeEventCallback&));
+    MOCK_METHOD1(RegisterPostMergeEvent, PostMergeEventHandler (PostMergeEventCallback&&));
+    MOCK_CONST_METHOD2(Get, bool (bool&, AZStd::string_view));
+    MOCK_CONST_METHOD2(Get, bool (s64&, AZStd::string_view));
+    MOCK_CONST_METHOD2(Get, bool (u64&, AZStd::string_view));
+    MOCK_CONST_METHOD2(Get, bool (double&, AZStd::string_view));
+    MOCK_CONST_METHOD2(Get, bool (AZStd::string&, AZStd::string_view));
+    MOCK_CONST_METHOD3(GetObject, bool (void*, Uuid, AZStd::string_view));
+    MOCK_METHOD2(Set, bool (AZStd::string_view, bool));
+    MOCK_METHOD2(Set, bool (AZStd::string_view, s64));
+    MOCK_METHOD2(Set, bool (AZStd::string_view, u64));
+    MOCK_METHOD2(Set, bool (AZStd::string_view, double));
+    MOCK_METHOD2(Set, bool (AZStd::string_view, AZStd::string_view));
+    MOCK_METHOD2(Set, bool (AZStd::string_view, const char*));
+    MOCK_METHOD3(SetObject, bool (AZStd::string_view, const void*, Uuid));
+    MOCK_METHOD1(Remove, bool (AZStd::string_view));
+    MOCK_METHOD3(MergeCommandLineArgument, bool (AZStd::string_view, AZStd::string_view, const CommandLineArgumentSettings&));
+    MOCK_METHOD2(MergeSettings, bool (AZStd::string_view, Format));
+    MOCK_METHOD4(MergeSettingsFile, bool (AZStd::string_view, Format, AZStd::string_view, AZStd::vector<char>*));
+    MOCK_METHOD5(MergeSettingsFolder, bool (AZStd::string_view, const Specializations&, AZStd::string_view, AZStd::string_view, AZStd::vector<char>*));
+    MOCK_METHOD1(SetUseFileIO, void (bool));
+};
+
 struct SourceDependencyMockedIOTests : UnitTest::ScopedAllocatorSetupFixture
     , UnitTest::SetRestoreFileIOBaseRAII
 {
@@ -315,6 +356,7 @@ struct SourceDependencyMockedIOTests : UnitTest::ScopedAllocatorSetupFixture
 TEST_F(SourceDependencyMockedIOTests, RegularManifestHasPriority)
 {
     ImportHandler handler;
+    SettingsRegistryMock settingsRegistry;
 
     AssetBuilderSDK::CreateJobsRequest request;
     AssetBuilderSDK::CreateJobsResponse response;
@@ -323,7 +365,7 @@ TEST_F(SourceDependencyMockedIOTests, RegularManifestHasPriority)
 
     using namespace ::testing;
 
-    AZStd::string genPath = AZStd::string("@assets@").append(1, AZ_TRAIT_OS_PATH_SEPARATOR).append("file.fbx.test.gen");
+    AZStd::string genPath = AZStd::string("cache").append(1, AZ_TRAIT_OS_PATH_SEPARATOR).append("file.fbx.test.gen");
 
     EXPECT_CALL(m_ioMock, Exists(StrEq("file.fbx.test"))).WillRepeatedly(Return(true));
     EXPECT_CALL(m_ioMock, Exists(StrEq(genPath.c_str()))).Times(Exactly(0));
@@ -335,6 +377,7 @@ TEST_F(SourceDependencyMockedIOTests, RegularManifestHasPriority)
 TEST_F(SourceDependencyMockedIOTests, GeneratedManifestTest)
 {
     ImportHandler handler;
+    SettingsRegistryMock settingsRegistry;
 
     AssetBuilderSDK::CreateJobsRequest request;
     AssetBuilderSDK::CreateJobsResponse response;
@@ -343,7 +386,7 @@ TEST_F(SourceDependencyMockedIOTests, GeneratedManifestTest)
 
     using namespace ::testing;
 
-    AZStd::string genPath = AZStd::string("@assets@").append(1, AZ_TRAIT_OS_PATH_SEPARATOR).append("file.fbx.test.gen");
+    AZStd::string genPath = AZStd::string("cache").append(1, AZ_TRAIT_OS_PATH_SEPARATOR).append("file.fbx.test.gen");
 
     EXPECT_CALL(m_ioMock, Exists(StrEq("file.fbx.test"))).WillRepeatedly(Return(false));
     EXPECT_CALL(m_ioMock, Exists(StrEq(genPath.c_str()))).WillRepeatedly(Return(true));
