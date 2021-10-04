@@ -29,7 +29,6 @@ namespace PhysX
         , private AZ::TransformNotificationBus::Handler
         , protected PhysX::ColliderShapeRequestBus::Handler
         , protected Physics::CollisionFilteringRequestBus::Handler
-        , protected Physics::HeightfieldProviderNotificationBus::Handler
     {
     public:
         AZ_COMPONENT(BaseColliderComponent, "{D0D48233-DCCA-4125-A6AE-4E5AC5E722D3}");
@@ -109,9 +108,6 @@ namespace PhysX
         /// Updates the scale of shape configurations to reflect the scale from the transform component.
         /// Specific collider components should override this function.
         virtual void UpdateScaleForShapeConfigs();
-
-        void OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion) override;
-        void RefreshHeightfield() override;
 
         ShapeInfoCache m_shapeInfoCache;
         AzPhysics::ShapeColliderPairList m_shapeConfigList;

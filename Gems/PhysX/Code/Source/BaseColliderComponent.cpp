@@ -15,7 +15,6 @@
 #include <AzFramework/Physics/Utils.h>
 #include <AzFramework/Physics/Collision/CollisionGroups.h>
 #include <AzFramework/Physics/Collision/CollisionLayers.h>
-#include <AzFramework/Physics/HeightfieldProviderBus.h>
 
 #include <Source/BaseColliderComponent.h>
 #include <Source/RigidBodyComponent.h>
@@ -339,16 +338,5 @@ namespace PhysX
             physicsAssetConfiguration.m_subdivisionLevel, m_shapes);
 
         return true;
-    }
-
-    void BaseColliderComponent::OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion)
-    {
-        RefreshHeightfield();
-    }
-
-    void BaseColliderComponent::RefreshHeightfield()
-    {
-        m_shapes.clear();
-        InitShapes();
     }
 } // namespace PhysX

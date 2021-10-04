@@ -53,7 +53,7 @@ namespace PhysX
                 ->Version(1)
                 ->Field("ColliderConfiguration", &EditorHeightfieldColliderComponent::m_colliderConfig)
                 ->Field("DebugDrawSettings", &EditorHeightfieldColliderComponent::m_colliderDebugDraw)
-                ->Field("ShapeConfigs", &EditorHeightfieldColliderComponent::m_shapeConfigs)
+                ->Field("ShapeConfigs", &EditorHeightfieldColliderComponent::m_shapeConfig)
                 ;
 
             if (auto editContext = serializeContext->GetEditContext())
@@ -99,7 +99,6 @@ namespace PhysX
 
     void EditorHeightfieldColliderComponent::GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible)
     {
-        incompatible.push_back(AZ_CRC_CE("LegacyCryPhysicsService"));
         incompatible.push_back(AZ_CRC_CE("PhysXHeightfieldColliderService"));
     }
 
@@ -207,11 +206,8 @@ namespace PhysX
     {
         auto* shapeColliderComponent = gameEntity->CreateComponent<HeightfieldColliderComponent>();
         AzPhysics::ShapeColliderPairList shapeConfigurationList;
-        shapeConfigurationList.reserve(m_shapeConfigs.size());
-        for (const auto& shapeConfig : m_shapeConfigs)
-        {
-            shapeConfigurationList.emplace_back(AZStd::make_shared<Physics::ColliderConfiguration>(m_colliderConfig), shapeConfig);
-        }
+        shapeConfigurationList.reserve(1);
+        shapeConfigurationList.emplace_back(AZStd::make_shared<Physics::ColliderConfiguration>(m_colliderConfig), m_shapeConfig);
 
         shapeColliderComponent->SetShapeConfigurationList(shapeConfigurationList);
 
@@ -224,10 +220,10 @@ namespace PhysX
         const AZ::Vector3 overallScale = uniformScale * m_currentNonUniformScale;
 
         Physics::HeightfieldShapeConfiguration& configuration =
-            static_cast<Physics::HeightfieldShapeConfiguration&>(*m_shapeConfigs.back());
+            static_cast<Physics::HeightfieldShapeConfiguration&>(*m_shapeConfig);
         configuration = Physics::HeightfieldShapeConfiguration(GetEntityId());
 
-        m_shapeConfigs.back()->m_scale = overallScale;
+        m_shapeConfig->m_scale = overallScale;
     }
 
     void EditorHeightfieldColliderComponent::RefreshHeightfield()
@@ -253,11 +249,8 @@ namespace PhysX
         configuration.m_debugName = GetEntity()->GetName();
 
         AzPhysics::ShapeColliderPairList colliderShapePairs;
-        colliderShapePairs.reserve(m_shapeConfigs.size());
-        for (const auto& shapeConfig : m_shapeConfigs)
-        {
-            colliderShapePairs.emplace_back(AZStd::make_shared<Physics::ColliderConfiguration>(m_colliderConfig), shapeConfig);
-        }
+        colliderShapePairs.reserve(1);
+        colliderShapePairs.emplace_back(AZStd::make_shared<Physics::ColliderConfiguration>(m_colliderConfig), m_shapeConfig);
         configuration.m_colliderAndShapeData = colliderShapePairs;
 
         if (m_sceneInterface)
@@ -274,7 +267,7 @@ namespace PhysX
         AzPhysics::SimulatedBodyComponentRequestsBus::Handler::BusConnect(GetEntityId());
     }
 
-        void EditorHeightfieldColliderComponent::EnablePhysics()
+    void EditorHeightfieldColliderComponent::EnablePhysics()
     {
         if (!IsPhysicsEnabled() && m_sceneInterface)
         {
@@ -366,7 +359,7 @@ namespace PhysX
     // DisplayCallback
     void EditorHeightfieldColliderComponent::Display(AzFramework::DebugDisplayRequests& debugDisplay) const
     {
-        const auto& heightfieldConfig = static_cast<const Physics::HeightfieldShapeConfiguration&>(*m_shapeConfigs[0]);
+        const auto& heightfieldConfig = static_cast<const Physics::HeightfieldShapeConfiguration&>(*m_shapeConfig);
         m_colliderDebugDraw.DrawHeightfield(debugDisplay, m_colliderConfig, heightfieldConfig);
     }
 
