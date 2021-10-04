@@ -20,6 +20,7 @@ namespace AZ::Reflection
     class IVisitor
     {
     public:
+        AZ_RTTI(IVisitor, "{F68FB00E-3F3E-426D-9A7E-D5D79658C82E}");
         virtual ~IVisitor() = default;
         virtual void Visit([[maybe_unused]] bool& value, [[maybe_unused]] const IAttributes& attributes){};
         virtual void Visit([[maybe_unused]] int8_t& value, [[maybe_unused]] const IAttributes& attributes){};

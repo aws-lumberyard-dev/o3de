@@ -20,6 +20,7 @@ namespace AZ::Reflection
     class IDescriber
     {
     public:
+        AZ_RTTI(IDescriber, "{16F46700-7B05-45DE-8DC0-8C3E9A36C5B0}");
         virtual ~IDescriber() = default;
         virtual void DescribeBool([[maybe_unused]] const IAttributes& attributes){};
         virtual void DescribeInt8([[maybe_unused]] const IAttributes& attributes){};
