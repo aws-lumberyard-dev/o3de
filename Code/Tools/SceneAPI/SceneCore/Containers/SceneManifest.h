@@ -40,9 +40,8 @@ namespace AZ
                 AZ_CLASS_ALLOCATOR_DECL
 
                 AZ_RTTI(SceneManifest, "{9274AD17-3212-4651-9F3B-7DCCB080E467}");
-
-                //! Protects from allocating too much memory. The choice of a 5MB threshold is arbitrary.
-                static constexpr size_t MaxSceneManifestFileSizeInBytes = 5 * 1024 * 1024;
+                
+                static constexpr size_t MaxSceneManifestFileSizeInBytes = AZStd::numeric_limits<size_t>::max();
 
                 virtual ~SceneManifest();
                 
