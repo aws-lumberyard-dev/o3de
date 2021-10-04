@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Reflection namespace="LmbrCentral">
+    <Include path="AzToolsFramework/ToolsComponents/EditorComponentBase.h" in="header" />
+    <Include path="Source/Editor/EditorCommentComponent.reflection.h" in="body" />
+
+    <Struct name="EditorCommentComponentData" flags="ReflectFunction" extends="AzToolsFramework::Components::EditorComponentBase">
+        <Attribute group="Class" name="Name" value="Editor Comment Data"/>
+        <Attribute group="Class" name="Description" value="The data for the editor comment."/>
+        <Variable name="Comment" type="String">
+            <Attribute group="Variable" name="Description" value="The comment text to store."/>
+            <Attribute group="PropertyGrid" name="Editor" value="MultiLineEdit"/>
+            <Attribute group="PropertyGrid" name="HideName">
+                <Value>true</Value>
+            </Attribute>
+            <Attribute group="PropertyGrid" name="PlaceholderText" value="Add comment text here"/>
+        </Variable>
+    </Struct>
+</Reflection>
+
+<!--<Reflection namespace="LmbrCentral">
+    <Include path="AzCore/std/containers/vector.h" in="header" />
+    <Include path="Source/Editor/EditorCommentComponent.reflection.h" in="body" />
+
+    <Struct name="EditorCommentComponentData" flags="ReflectFunction">
+        <Attribute group="ObjectStream" name="Version">
+            <Value>1</Value>
+        </Attribute>
+        <Attribute group="Class" name="Name" value="Comment"/>
+        <Attribute group="Class" name="Description" value="The Comment component allows you to add long-form text comments for component entities"/>
+        <Attribute group="PropertyGrid" name="Category" value="Editor"/>
+        <Attribute group="PropertyGrid" name="Icon" value="Editor/Icons/Components/Comment.svg"/>
+        <Attribute group="PropertyGrid" name="ViewportIcon" value="Editor/Icons/Components/Viewport/Comment.png"/>
+        <Attribute group="PropertyGrid" name="AppearsInAddComponentMenu">
+            <Value>AZStd::vector&lt;AZ::Crc32&gt;({ AZ_CRC_CE("Level"), AZ_CRC_CE("Game"), AZ_CRC_CE("Layer") })</Value>
+        </Attribute>
+        <Attribute group="PropertyGrid" name="AutoExpand">
+            <Value>true</Value>
+        </Attribute>
+        <Attribute group="PropertyGrid" name="HelpPageURL" value="https://docs.aws.amazon.com/lumberyard/latest/userguide/component-comment.html"/>
+        <Variable name="Comment" type="String">
+            <Attribute group="Variable" name="Description" value="Comment"/>
+            <Attribute group="PropertyGrid" name="PlaceholderText" value="Add comment text here"/>
+        </Variable>
+    </Struct>
+</Reflection>-->

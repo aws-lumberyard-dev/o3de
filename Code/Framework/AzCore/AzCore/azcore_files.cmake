@@ -432,6 +432,17 @@ set(FILES
     Preprocessor/Enum.h
     Preprocessor/EnumReflectUtils.h
     Preprocessor/Sequences.h
+    Reflection/Attributes.h
+    Reflection/Attributes.cpp
+    Reflection/Attributes.inl
+    Reflection/IDescriptor.h
+    Reflection/IVisitor.h
+    Reflection/Reflection.h
+    Reflection/ReflectionConfig.h
+    Reflection/AutoGen/Reflection.cpp.jinja
+    Reflection/AutoGen/Reflection.h.jinja
+    Reflection/AutoGen/Reflection_Attributes.cpp.jinja
+    Reflection/AutoGen/Reflection_Macros.cpp.jinja
     RTTI/RTTI.h
     RTTI/TypeInfo.h
     RTTI/ReflectContext.h

@@ -1,0 +1,104 @@
+{#
+Copyright (c) Contributors to the Open 3D Engine Project.
+For complete copyright and license terms please see the LICENSE at the root of this distribution.
+
+SPDX-License-Identifier: Apache-2.0 OR MIT
+
+#}
+{%- import "Reflection_Attributes.cpp.jinja" as Attrib -%}
+{%- import "Reflection_Macros.cpp.jinja" as Macros -%}
+
+
+{%- macro PrintVariableEditor(variable)                                          -%}
+{%-  set ns=namespace(found = false)                                             -%}
+{%-  call(_, value) Attrib.ListAttribute(variable, "PropertyGrid", "Editor" )    -%}
+AZ_CRC_CE({{value}})
+{%-      set ns.found = true                                                     -%}
+{%-  endcall                                                                     -%}
+{%-  if not ns.found                                                             -%}
+0
+{%-  endif                                                                       -%}
+{%- endmacro                                                                     -%}
+
+
+{%- macro GenerateReflectionFunction(structure)                                              %}
+    void {{ structure.attrib['name'] }}::Reflect(AZ::ReflectContext* context)
+    {
+        if (AZ::SerializeContext* serializeContext = azrtti_cast<AZ::SerializeContext*>(context); serializeContext != nullptr)
+        {
+            serializeContext->Class<{{structure.attrib['name']}}
+{%-     if structure.attrib['extends']                                                      -%}
+        , {{ structure.attrib['extends'] }}
+{%-     endif                                                                               -%}
+            >()
+{% call(_, value) Attrib.ListAttribute(structure, "ObjectStream", "Version")                -%}
+                ->Version({{ value }})
+{% endcall                                                                                   %}
+                ->Attribute(AZ_CRC_CE("Visitor"), [](AZ::Reflection::IVisitor& visitor, void* instance)
+                    { 
+                        AZ::Reflection::Visit(visitor, *reinterpret_cast<{{structure.attrib['name']}}*>(instance));
+                    })
+                ->Attribute(AZ_CRC_CE("Describer"), [](AZ::Reflection::IDescriber& describer)
+                    { 
+                        AZ::Reflection::Describe<{{structure.attrib['name']}}>(describer);
+                    })
+{%- call(variable, name, type, codeName) Macros.ListVariablesInOrder(structure)              %}
+                ->Field("{{name}}", &{{structure.attrib['name']}}::{{codeName}})
+{%- endcall                                                                                  %}
+            ;
+
+            if (AZ::EditContext* editContext = serializeContext->GetEditContext(); editContext != nullptr)
+            {
+                editContext->Class<{{structure.attrib['name']}}>(
+                    {{- Attrib.PrintAttribute(structure, "Class", "Name", '""') }}, {{  Attrib.PrintAttribute(structure, "Class", "Description", '""') }})
+                    ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
+{%  call(name, value) Attrib.ListGroupAttributes(structure, "PropertyGrid")                   %}
+                        ->Attribute(AZ_CRC_CE("{{name}}"), {{value}})
+{%  endcall                                                                                  -%}
+{%  call(variable, name, type, codeName) Macros.ListVariablesInOrder(structure)               %}
+{%      set hideName = Attrib.PrintAttribute(variable, "PropertyGrid", "HideName", "false")   %}
+{%      set editor = PrintVariableEditor(variable).strip()                                    %}
+{%      set conditionalName = '"' ~ name ~ '"' if not hideName else '""'                      %}
+{%      set fullname = "&" ~ structure.attrib['name'] ~ "::" ~codeName                        %}
+{%      set description = Attrib.PrintAttribute(variable, "Variable", "Description", '""')    %}
+                    ->DataElement({{editor}}, {{fullname}}, {{conditionalName}}, {{description}}) 
+{%-     call(name, value) Attrib.ListGroupAttributes(variable, "PropertyGrid")               -%}
+{%-         if name != "Editor" and name != "HideName"                                        %}
+                        ->Attribute(AZ_CRC_CE("{{name}}"), {{value}})
+{%-         endif                                                                            -%}
+{%-    endcall                                                                               -%}
+{%- endcall                                                                                   %}
+                ;
+            }
+        }
+    }
+{% endmacro                                                                                  -%}
+
+#include <AzCore/Reflection/ReflectionConfig.h>
+#if AZ_REFLECTION_PROTOTYPE_ENABLED
+
+{% for xml in dataFiles                                             %}
+{%  for include in xml.iter('Include')                              %}
+{%      if include.attrib['in'] and include.attrib['in'] == "body"  %}
+#include <{{include.attrib['path']}}>
+{%      endif                                                       %}
+{%  endfor                                                          %}
+{% endfor                                                           %}
+{% call Macros.IfHasAnyReflectionFlags(dataFiles)                   %}
+#include <AzCore/Serialization/SerializeContext.h>
+#include <AzCore/Serialization/EditContext.h>
+{% endcall                                                         -%}
+
+
+{% for xml in dataFiles                                                 %}
+namespace {{ xml.attrib['namespace'] }}
+{
+{%  for structure in xml.iter('Struct')                                 %}
+{%      call Macros.IfHasReflectionFunctionFlag(structure)              %}
+{{ GenerateReflectionFunction(structure) -}}
+{%      endcall                                                        -%}
+{%  endfor                                                             -%}
+}
+{%- endfor                                                              %}
+
+#endif // AZ_REFLECTION_PROTOTYPE_ENABLED

@@ -72,8 +72,12 @@ if (PAL_TRAIT_BUILD_HOST_TOOLS)
                 3rdParty::Qt::Widgets
                 Legacy::CryCommon
                 Legacy::Editor.Headers
+                AZ::AzCore
                 AZ::AzToolsFramework
                 AZ::AssetBuilderSDK
+        AUTOGEN_RULES
+            *.reflection.xml,Reflection.h.jinja,$path/$fileprefix.reflection.h
+            *.reflection.xml,Reflection.cpp.jinja,$path/$fileprefix.reflection.cpp
     )
 
     ly_add_target(

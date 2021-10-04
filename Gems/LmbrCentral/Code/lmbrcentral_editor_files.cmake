@@ -7,6 +7,8 @@
 #
 
 set(FILES
+    ${LY_ROOT_FOLDER}/Code/Framework/AzCore/AzCore/Reflection/AutoGen/Reflection.h.jinja
+    ${LY_ROOT_FOLDER}/Code/Framework/AzCore/AzCore/Reflection/AutoGen/Reflection.cpp.jinja
     include/LmbrCentral/Rendering/EditorCameraCorrectionBus.h
     include/LmbrCentral/Rendering/EditorLightComponentBus.h
     include/LmbrCentral/Shape/EditorPolygonPrismShapeComponentBus.h
@@ -80,6 +82,7 @@ set(FILES
     Source/Ai/EditorNavigationUtil.cpp
     Source/Editor/EditorCommentComponent.h
     Source/Editor/EditorCommentComponent.cpp
+    Source/Editor/EditorCommentComponent.reflection.xml
     Source/Ai/NavigationComponent.h
     Source/Ai/NavigationComponent.cpp
     Source/Scripting/SpawnerComponent.h
