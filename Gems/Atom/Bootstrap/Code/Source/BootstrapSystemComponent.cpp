@@ -33,6 +33,7 @@
 #include <Atom/RPI.Public/ViewportContextBus.h>
 #include <Atom/RPI.Public/RPISystemInterface.h>
 #include <Atom/RPI.Public/Shader/ShaderResourceGroup.h>
+#include <Atom/RPI.Public/Shader/ShaderSystem.h>
 
 #include <Atom/Bootstrap/DefaultWindowBus.h>
 #include <Atom/Bootstrap/BootstrapNotificationBus.h>
@@ -87,6 +88,7 @@ namespace AZ
                 dependent.push_back(AZ_CRC("CoreLightsService", 0x91932ef6));
                 dependent.push_back(AZ_CRC("DynamicDrawService", 0x023c1673));
                 dependent.push_back(AZ_CRC("CommonService", 0x6398eec4));
+                dependent.push_back(AZ_CRC_CE("HairService"));
             }
 
             void BootstrapSystemComponent::GetIncompatibleServices(ComponentDescriptor::DependencyArrayType& incompatible)
@@ -168,7 +170,10 @@ namespace AZ
 
                 m_isAssetCatalogLoaded = true;
 
-                RPI::RPISystemInterface::Get()->InitializeSystemAssets();
+                if (!RPI::RPISystemInterface::Get()->IsInitialized())
+                {
+                    RPI::RPISystemInterface::Get()->InitializeSystemAssets();
+                }
 
                 if (!RPI::RPISystemInterface::Get()->IsInitialized())
                 {
@@ -296,6 +301,11 @@ namespace AZ
                 RPI::RenderPipelineDescriptor renderPipelineDescriptor = *RPI::GetDataFromAnyAsset<RPI::RenderPipelineDescriptor>(pipelineAsset);
                 renderPipelineDescriptor.m_name = AZStd::string::format("%s_%i", renderPipelineDescriptor.m_name.c_str(), viewportContext->GetId());
 
+                // Make sure non-msaa super variant is used for non-msaa pipeline
+                bool isNonMsaaPipeline = (renderPipelineDescriptor.m_renderSettings.m_multisampleState.m_samples == 1);
+                const char* supervariantName = isNonMsaaPipeline ? AZ::RPI::NoMsaaSupervariantName : "";
+                AZ::RPI::ShaderSystemInterface::Get()->SetSupervariantName(AZ::Name(supervariantName));
+
                 if (!scene->GetRenderPipeline(AZ::Name(renderPipelineDescriptor.m_name)))
                 {
                     RPI::RenderPipelinePtr renderPipeline = RPI::RenderPipeline::CreateRenderPipelineForWindow(renderPipelineDescriptor, *viewportContext->GetWindowContext().get());
@@ -363,7 +373,7 @@ namespace AZ
                     // Unbind m_defaultScene to the GameEntityContext's AzFramework::Scene
                     if (m_defaultFrameworkScene)
                     {
-                        m_defaultFrameworkScene->UnsetSubsystem<RPI::Scene>();
+                        m_defaultFrameworkScene->UnsetSubsystem(m_defaultScene);
                     }
 
                     m_defaultScene = nullptr;

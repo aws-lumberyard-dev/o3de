@@ -281,6 +281,14 @@ namespace AZ
             return SystemFile::Exists(resolvedPath);
         }
 
+        bool LocalFileIO::IsDirectory(const char* filePath)
+        {
+            char resolvedPath[AZ_MAX_PATH_LEN];
+            ResolvePath(filePath, resolvedPath, AZ_MAX_PATH_LEN);
+
+            return SystemFile::IsDirectory(resolvedPath);
+        }
+
         void LocalFileIO::CheckInvalidWrite([[maybe_unused]] const char* path)
         {
 #if defined(AZ_ENABLE_TRACING)
@@ -734,7 +742,7 @@ namespace AZ
             {
                 if (AZ::StringFunc::StartsWith(pathStrView, aliasKey))
                 {
-                    // Reduce of the size result result path by the size of the and add the resolved alias size
+                    // Add to the size of result path by the resolved alias length - the alias key length
                     AZStd::string_view postAliasView = pathStrView.substr(aliasKey.size());
                     size_t requiredFixedMaxPathSize = postAliasView.size();
                     requiredFixedMaxPathSize += aliasValue.size();
