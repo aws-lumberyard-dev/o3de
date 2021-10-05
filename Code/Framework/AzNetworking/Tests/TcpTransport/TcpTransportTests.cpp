@@ -33,7 +33,7 @@ namespace UnitTest
             ;
         }
 
-        PacketDispatchResult OnPacketReceived([[maybe_unused]] IConnection* connection, const IPacketHeader& packetHeader, [[maybe_unused]] ISerializer& serializer)
+        PacketDispatchResult OnPacketReceived([[maybe_unused]] IConnection* connection, const IPacketHeader& packetHeader, [[maybe_unused]] ISerializer& serializer) override
         {
             EXPECT_TRUE((packetHeader.GetPacketType() == static_cast<PacketType>(CorePackets::PacketType::InitiateConnectionPacket))
                      || (packetHeader.GetPacketType() == static_cast<PacketType>(CorePackets::PacketType::HeartbeatPacket)));
@@ -148,6 +148,12 @@ namespace UnitTest
 
         EXPECT_EQ(testServer.m_serverNetworkInterface->GetConnectionSet().GetConnectionCount(), 1);
         EXPECT_EQ(testClient.m_clientNetworkInterface->GetConnectionSet().GetConnectionCount(), 1);
+
+        const AZ::TimeMs timeoutMs = AZ::TimeMs{ 100 };
+        testClient.m_clientNetworkInterface->SetTimeoutMs(timeoutMs);
+        EXPECT_EQ(testClient.m_clientNetworkInterface->GetTimeoutMs(), timeoutMs);
+
+        EXPECT_TRUE(testServer.m_serverNetworkInterface->StopListening());
     }
 
     #if AZ_TRAIT_DISABLE_FAILED_NETWORKING_TESTS

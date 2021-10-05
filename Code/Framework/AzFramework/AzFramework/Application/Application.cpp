@@ -28,6 +28,7 @@
 #include <AzCore/NativeUI/NativeUISystemComponent.h>
 #include <AzCore/Module/ModuleManagerBus.h>
 #include <AzCore/Interface/Interface.h>
+#include <AzCore/Task/TaskGraphSystemComponent.h>
 
 #include <AzFramework/Asset/SimpleAsset.h>
 #include <AzFramework/Asset/AssetBundleManifest.h>
@@ -81,71 +82,6 @@ namespace AzFramework
         static constexpr const char s_prefabSystemKey[] = "/Amazon/Preferences/EnablePrefabSystem";
         static constexpr const char s_prefabWipSystemKey[] = "/Amazon/Preferences/EnablePrefabSystemWipFeatures";
         static constexpr const char s_legacySlicesAssertKey[] = "/Amazon/Preferences/ShouldAssertForLegacySlicesUsage";
-
-        // A Helper function that can load an app descriptor from file.
-        AZ::Outcome<AZStd::unique_ptr<AZ::ComponentApplication::Descriptor>, AZStd::string> LoadDescriptorFromFilePath(const char* appDescriptorFilePath, AZ::SerializeContext& serializeContext)
-        {
-            AZStd::unique_ptr<AZ::ComponentApplication::Descriptor> loadedDescriptor;
-
-            AZ::IO::SystemFile appDescriptorFile;
-            if (!appDescriptorFile.Open(appDescriptorFilePath, AZ::IO::SystemFile::SF_OPEN_READ_ONLY))
-            {
-                return AZ::Failure(AZStd::string::format("Failed to open file: %s", appDescriptorFilePath));
-            }
-
-            AZ::IO::SystemFileStream appDescriptorFileStream(&appDescriptorFile, true);
-            if (!appDescriptorFileStream.IsOpen())
-            {
-                return AZ::Failure(AZStd::string::format("Failed to stream file: %s", appDescriptorFilePath));
-            }
-
-            // Callback function for allocating the root elements in the file.
-            AZ::ObjectStream::InplaceLoadRootInfoCB inplaceLoadCb =
-                [](void** rootAddress, const AZ::SerializeContext::ClassData**, const AZ::Uuid& classId, AZ::SerializeContext*)
-            {
-                if (rootAddress && classId == azrtti_typeid<AZ::ComponentApplication::Descriptor>())
-                {
-                    // ComponentApplication::Descriptor is normally a singleton.
-                    // Force a unique instance to be created.
-                    *rootAddress = aznew AZ::ComponentApplication::Descriptor();
-                }
-            };
-
-            // Callback function for saving the root elements in the file.
-            AZ::ObjectStream::ClassReadyCB classReadyCb =
-                [&loadedDescriptor](void* classPtr, const AZ::Uuid& classId, AZ::SerializeContext* context)
-            {
-                // Save descriptor, delete anything else loaded from file.
-                if (classId == azrtti_typeid<AZ::ComponentApplication::Descriptor>())
-                {
-                    loadedDescriptor.reset(static_cast<AZ::ComponentApplication::Descriptor*>(classPtr));
-                }
-                else if (const AZ::SerializeContext::ClassData* classData = context->FindClassData(classId))
-                {
-                    classData->m_factory->Destroy(classPtr);
-                }
-                else
-                {
-                    AZ_Error("Application", false, "Unexpected type %s found in application descriptor file. This memory will leak.",
-                        classId.ToString<AZStd::string>().c_str());
-                }
-            };
-
-            // There's other stuff in the file we may not recognize (system components), but we're not interested in that stuff.
-            AZ::ObjectStream::FilterDescriptor loadFilter(&AZ::Data::AssetFilterNoAssetLoading, AZ::ObjectStream::FILTERFLAG_IGNORE_UNKNOWN_CLASSES);
-
-            if (!AZ::ObjectStream::LoadBlocking(&appDescriptorFileStream, serializeContext, classReadyCb, loadFilter, inplaceLoadCb))
-            {
-                return AZ::Failure(AZStd::string::format("Failed to load objects from file: %s", appDescriptorFilePath));
-            }
-
-            if (!loadedDescriptor)
-            {
-                return AZ::Failure(AZStd::string::format("Failed to find descriptor object in file: %s", appDescriptorFilePath));
-            }
-
-            return AZ::Success(AZStd::move(loadedDescriptor));
-        }
     }
 
     Application::Application()
@@ -360,6 +296,7 @@ namespace AzFramework
             azrtti_typeid<AZ::ScriptSystemComponent>(),
             azrtti_typeid<AZ::JobManagerComponent>(),
             azrtti_typeid<AZ::SliceSystemComponent>(),
+            azrtti_typeid<AZ::TaskGraphSystemComponent>(),
 
             azrtti_typeid<AzFramework::AssetCatalogComponent>(),
             azrtti_typeid<AzFramework::CustomAssetTypeComponent>(),
@@ -542,14 +479,16 @@ namespace AzFramework
         newThreadDesc.m_cpuId = AFFINITY_MASK_USERTHREADS;
         newThreadDesc.m_name = newThreadName;
         AZStd::binary_semaphore binarySemaphore;
-        AZStd::thread newThread([&workForNewThread, &binarySemaphore, &newThreadName]
-        {
-            AZ_PROFILE_SCOPE(AzFramework,
-                "Application::PumpSystemEventLoopWhileDoingWorkInNewThread:ThreadWorker %s", newThreadName);
+        AZStd::thread newThread(
+            newThreadDesc,
+            [&workForNewThread, &binarySemaphore, &newThreadName]
+            {
+                AZ_PROFILE_SCOPE(AzFramework,
+                    "Application::PumpSystemEventLoopWhileDoingWorkInNewThread:ThreadWorker %s", newThreadName);
 
-            workForNewThread();
-            binarySemaphore.release();
-        }, &newThreadDesc);
+                workForNewThread();
+                binarySemaphore.release();
+            });
         while (!binarySemaphore.try_acquire_for(eventPumpFrequency))
         {
             PumpSystemEventLoopUntilEmpty();

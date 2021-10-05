@@ -196,28 +196,11 @@ namespace AtomToolsFramework
 
     void RenderViewportWidget::resizeEvent([[maybe_unused]] QResizeEvent* event)
     {
-        // We need to wait until the window is activated, so the underlying surface
-        // has been created and has the correct size.
-        if (windowHandle()->isActive())
-        {
-            SendWindowResizeEvent();
-        }
-        else
-        {
-            m_windowResizedEvent = true;
-        }
+        SendWindowResizeEvent();
     }
 
     bool RenderViewportWidget::event(QEvent* event)
     {
-        // Check if we have a pending resize event.
-        // At this point the surface has been created and has
-        // the proper dimensions.
-        if (event->type() == QEvent::WindowActivate && m_windowResizedEvent)
-        {
-            SendWindowResizeEvent();
-        }
-
         return QWidget::event(event);
     }
 
@@ -245,7 +228,6 @@ namespace AtomToolsFramework
 
         const AzFramework::NativeWindowHandle windowId = reinterpret_cast<AzFramework::NativeWindowHandle>(winId());
         AzFramework::WindowNotificationBus::Event(windowId, &AzFramework::WindowNotifications::OnWindowResized, windowSize.width(), windowSize.height());
-        m_windowResizedEvent = false;
     }
 
     AZ::Name RenderViewportWidget::GetCurrentContextName() const
