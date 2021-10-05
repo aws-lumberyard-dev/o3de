@@ -35,7 +35,6 @@
 #include <ISystem.h>
 #include <ILog.h>
 #include <IConsole.h>
-#include <ITimer.h>
 #include <IRenderer.h>
 #include <IViewSystem.h>
 #include <Maestro/Types/AnimNodeType.h>

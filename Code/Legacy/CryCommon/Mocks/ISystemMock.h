@@ -78,8 +78,6 @@ public:
         IRemoteConsole * ());
     MOCK_METHOD0(GetISystemEventDispatcher,
         ISystemEventDispatcher * ());
-    MOCK_METHOD0(GetITimer,
-        ITimer * ());
     MOCK_METHOD1(SetForceNonDevMode,
         void(bool bValue));
     MOCK_CONST_METHOD0(GetForceNonDevMode,

@@ -12,7 +12,6 @@ set(FILES
     Mocks/ICryPakMock.h
     Mocks/ILogMock.h
     Mocks/ISystemMock.h
-    Mocks/ITimerMock.h
     Mocks/ICVarMock.h
     Mocks/ITextureMock.h
     Mocks/IRemoteConsoleMock.h

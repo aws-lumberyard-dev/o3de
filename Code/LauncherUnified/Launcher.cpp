@@ -27,7 +27,6 @@
 
 #include <CryLibrary.h>
 #include <ISystem.h>
-#include <ITimer.h>
 #include <LegacyAllocator.h>
 
 #include <Launcher_Traits_Platform.h>

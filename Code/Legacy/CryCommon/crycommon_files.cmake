@@ -34,7 +34,6 @@ set(FILES
     StatObjBus.h
     ISystem.h
     ITexture.h
-    ITimer.h
     IValidator.h
     IViewSystem.h
     IWindowMessageHandler.h
@@ -71,7 +70,6 @@ set(FILES
     SimpleSerialize.h
     smartptr.h
     StlUtils.h
-    Timer.h
     TimeValue.h
     VectorMap.h
     VertexFormats.h

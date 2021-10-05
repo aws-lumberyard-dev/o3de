@@ -207,7 +207,6 @@ CSystem::CSystem(SharedEnvironmentInstance* pSharedEnvironment)
     //////////////////////////////////////////////////////////////////////////
     // Initialize global environment interface pointers.
     m_env.pSystem = this;
-    m_env.pTimer = &m_Time;
     m_env.bIgnoreAllAsserts = false;
     m_env.bNoAssertDialog = false;
 
@@ -775,10 +774,6 @@ bool CSystem::UpdatePreTickBus(int updateFlags, int nPauseMode)
             }
         }
     }
-
-    //////////////////////////////////////////////////////////////////////
-    //update time subsystem
-    m_Time.UpdateOnFrameStart();
 
     //////////////////////////////////////////////////////////////////////
     //update console system
