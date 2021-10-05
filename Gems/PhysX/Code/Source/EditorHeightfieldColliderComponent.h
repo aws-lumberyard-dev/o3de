@@ -87,7 +87,6 @@ namespace PhysX
         Physics::ColliderConfiguration m_colliderConfig; //!< Stores collision layers, whether the collider is a trigger, etc.
         DebugDraw::Collider m_colliderDebugDraw; //!< Handles drawing the collider based on global and local
         AzPhysics::SceneInterface* m_sceneInterface{ nullptr };
-//        Physics::HeightfieldShapeConfiguration m_shapeConfig; //!< Stores the physics shape configuration.
         AZStd::shared_ptr<Physics::HeightfieldShapeConfiguration> m_shapeConfig{ new Physics::HeightfieldShapeConfiguration() };
         AzPhysics::SimulatedBodyHandle m_editorBodyHandle =
             AzPhysics::InvalidSimulatedBodyHandle; //!< Handle to the body in the editor physics scene if there is no rigid body component.
