@@ -105,6 +105,7 @@ namespace PhysX
     // AZ::Component
     void EditorHeightfieldColliderComponent::Activate()
     {
+        Physics::HeightfieldProviderNotificationBus::Handler::BusConnect(GetEntityId());
         AzToolsFramework::Components::EditorComponentBase::Activate();
         AzToolsFramework::EntitySelectionEvents::Bus::Handler::BusConnect(GetEntityId());
         AZ::TransformNotificationBus::Handler::BusConnect(GetEntityId());
@@ -147,6 +148,7 @@ namespace PhysX
         AZ::TransformNotificationBus::Handler::BusDisconnect();
         AzToolsFramework::EntitySelectionEvents::Bus::Handler::BusDisconnect();
         AzToolsFramework::Components::EditorComponentBase::Deactivate();
+        Physics::HeightfieldProviderNotificationBus::Handler::BusDisconnect();
 
         if (m_sceneInterface && m_editorBodyHandle != AzPhysics::InvalidSimulatedBodyHandle)
         {

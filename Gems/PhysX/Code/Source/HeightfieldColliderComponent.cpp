@@ -25,14 +25,10 @@ namespace PhysX
     void HeightfieldColliderComponent::Activate()
     {
         BaseColliderComponent::Activate();
-
-        Physics::HeightfieldProviderNotificationBus::Handler::BusConnect(GetEntityId());
     }
 
     void HeightfieldColliderComponent::Deactivate()
     {
-        Physics::HeightfieldProviderNotificationBus::Handler::BusDisconnect(GetEntityId());
-
         BaseColliderComponent::Deactivate();
     }
 
