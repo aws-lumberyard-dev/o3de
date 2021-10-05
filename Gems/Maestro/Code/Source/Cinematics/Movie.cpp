@@ -6,7 +6,6 @@
  *
  */
 
-
 #include <AzCore/Component/Entity.h>
 #include <AzCore/std/allocator_stateless.h>
 #include <AzCore/std/containers/map.h>
@@ -208,6 +207,22 @@ namespace
     }
 }
 
+namespace Internal
+{
+    float ApplyDeltaTimeOverrideIfEnabled(float deltaTime)
+    {
+        if (auto* timeSystem = AZ::Interface<AZ::ITime>::Get())
+        {
+            const AZ::TimeMs deltatimeOverride = timeSystem->GetSimulationTickDeltaOverride();
+            if (deltatimeOverride != AZ::TimeMs{ 0 })
+            {
+                deltaTime = AZ::TimeMsToSeconds(deltatimeOverride);
+            }
+        }
+        return deltaTime;
+    }
+} // namespace Internal
+
 //////////////////////////////////////////////////////////////////////////
 CMovieSystem::CMovieSystem(ISystem* pSystem)
 {
@@ -219,18 +234,13 @@ CMovieSystem::CMovieSystem(ISystem* pSystem)
     m_bEnableCameraShake = true;
     m_bCutscenesPausedInEditor = true;
     m_sequenceStopBehavior = eSSB_GotoEndTime;
-    m_lastUpdateTime.SetValue(0);
+    m_lastUpdateTime = AZ::TimeMs{ 0 };
     m_bStartCapture = false;
     m_captureFrame = -1;
     m_bEndCapture = false;
-    m_fixedTimeStepBackUp = 0;
-    m_maxStepBackUp = 0;
-    m_smoothingBackUp = 0;
+    m_fixedTimeStepBackUp = AZ::TimeMs{ 0 };
     m_cvar_capture_frame_once = nullptr;
     m_cvar_capture_folder = nullptr;
-    m_cvar_t_FixedStep = nullptr;
-    m_cvar_t_MaxStep = nullptr;
-    m_cvar_t_Smoothing = nullptr;
     m_cvar_sys_maxTimeStepForMovieSystem = nullptr;
     m_cvar_capture_frames = nullptr;
     m_cvar_capture_file_prefix = nullptr;
@@ -1041,13 +1051,13 @@ void CMovieSystem::PreUpdate(float deltaTime)
     }
     m_newlyActivatedSequences.clear();
 
-    UpdateInternal(m_cvar_t_FixedStep ? m_cvar_t_FixedStep->GetFVal() : deltaTime, true);
+    UpdateInternal(Internal::ApplyDeltaTimeOverrideIfEnabled(deltaTime), true);
 }
 
 //////////////////////////////////////////////////////////////////////////
 void CMovieSystem::PostUpdate(float deltaTime)
 {
-    UpdateInternal(m_cvar_t_FixedStep ? m_cvar_t_FixedStep->GetFVal() : deltaTime, false);
+    UpdateInternal(Internal::ApplyDeltaTimeOverrideIfEnabled(deltaTime), false);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -1061,7 +1071,7 @@ void CMovieSystem::UpdateInternal(const float deltaTime, const bool bPreUpdate)
     }
 
     // don't update more than once if dt==0.0
-    CTimeValue curTime = gEnv->pTimer->GetFrameStartTime();
+    const AZ::TimeMs curTime = AZ::GetLastSimulationTickTime();
     if (deltaTime == 0.0f && curTime == m_lastUpdateTime && !gEnv->IsEditor())
     {
         return;
@@ -1513,34 +1523,11 @@ void CMovieSystem::GoToFrame(const char* seqName, float targetFrame)
 
 void CMovieSystem::EnableFixedStepForCapture(float step)
 {
-    if (nullptr == m_cvar_t_FixedStep)
+    if (auto* timeSystem = AZ::Interface<AZ::ITime>::Get())
     {
-        m_cvar_t_FixedStep = gEnv->pConsole->GetCVar("t_FixedStep");
+        m_fixedTimeStepBackUp = timeSystem->GetSimulationTickDeltaOverride();
+        timeSystem->SetSimulationTickDeltaOverride(AZ::SecondsToTimeMs(step));
     }
-
-    m_fixedTimeStepBackUp = m_cvar_t_FixedStep->GetFVal();
-    m_cvar_t_FixedStep->Set(step);
-
-    if (nullptr == m_cvar_t_MaxStep)
-    {
-        m_cvar_t_MaxStep = gEnv->pConsole->GetCVar("t_MaxStep");
-    }
-
-    // Make sure to make the max step large enough
-    m_maxStepBackUp = m_cvar_t_MaxStep->GetFVal();
-    if (step > m_maxStepBackUp)
-    {
-        m_cvar_t_MaxStep->Set(step);
-    }
-
-    if (nullptr == m_cvar_t_Smoothing)
-    {
-        m_cvar_t_Smoothing = gEnv->pConsole->GetCVar("t_Smoothing");
-    }
-
-    // Turn off framerate smoothing
-    m_smoothingBackUp = m_cvar_t_Smoothing->GetFVal();
-    m_cvar_t_Smoothing->Set(0);
 
     if (nullptr == m_cvar_sys_maxTimeStepForMovieSystem)
     {
@@ -1557,9 +1544,10 @@ void CMovieSystem::EnableFixedStepForCapture(float step)
 
 void CMovieSystem::DisableFixedStepForCapture()
 {
-    m_cvar_t_FixedStep->Set(m_fixedTimeStepBackUp);
-    m_cvar_t_MaxStep->Set(m_maxStepBackUp);
-    m_cvar_t_Smoothing->Set(m_smoothingBackUp);
+    if (auto* timeSystem = AZ::Interface<AZ::ITime>::Get())
+    {
+        timeSystem->SetSimulationTickDeltaOverride(m_fixedTimeStepBackUp);
+    }
     m_cvar_sys_maxTimeStepForMovieSystem->Set(m_maxTimeStepForMovieSystemBackUp);
 }
 
