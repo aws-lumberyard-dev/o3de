@@ -11,6 +11,7 @@
 #include "Cry_Camera.h"
 #include "IViewSystem.h"
 
+#include <AzCore/Time/ITime.h>
 #include <AzFramework/Input/Devices/Keyboard/InputDeviceKeyboard.h>
 #include <AzFramework/Input/Devices/Gamepad/InputDeviceGamepad.h>
 #include <AzFramework/Input/Devices/Mouse/InputDeviceMouse.h>
@@ -109,9 +110,11 @@ void DebugCamera::Update()
         return;
     }
 
-    float rotationSpeed = clamp_tpl(m_moveScale, g_minRotationSpeed, g_maxRotationSpeed);
-    UpdateYaw(m_cameraYawInput * rotationSpeed * gEnv->pTimer->GetFrameTime());
-    UpdatePitch(m_cameraPitchInput * rotationSpeed * gEnv->pTimer->GetFrameTime());
+    const float rotationSpeed = clamp_tpl(m_moveScale, g_minRotationSpeed, g_maxRotationSpeed);
+    const AZ::TimeMs gameTickTimeMs = AZ::GetSimulationTickDeltaTimeMs();
+    const float gameTickTimeSec = AZ::TimeMsToSeconds(gameTickTimeMs);
+    UpdateYaw(m_cameraYawInput * rotationSpeed * gameTickTimeSec);
+    UpdatePitch(m_cameraPitchInput * rotationSpeed * gameTickTimeSec);
 
     m_view = Matrix33(Ang3(DEG2RAD(m_cameraPitch), 0.0f, DEG2RAD(m_cameraYaw)));
     UpdatePosition(m_moveInput);
@@ -166,6 +169,8 @@ bool DebugCamera::OnInputChannelEventFiltered(const InputChannel& inputChannel)
     }
     else if (InputDeviceMouse::IsMouseDevice(deviceId))
     {
+        const AZ::TimeMs gameTickTimeMs = AZ::GetSimulationTickDeltaTimeMs();
+        const float gameTickTimeSec = AZ::TimeMsToSeconds(gameTickTimeMs);
         if (channelId == InputDeviceMouse::Movement::Z)
         {
             if (inputChannel.GetValue() > 0)
@@ -183,7 +188,8 @@ bool DebugCamera::OnInputChannelEventFiltered(const InputChannel& inputChannel)
             //the mouse movement for horizontal movement.
             if (2 != m_mouseMoveMode)
             {
-                UpdateYaw(fsgnf(-eventValue) * clamp_tpl(fabs_tpl(eventValue) * m_moveScale, 0.0f, g_mouseMaxRotationSpeed) * gEnv->pTimer->GetFrameTime());
+                UpdateYaw(
+                    fsgnf(-eventValue) * clamp_tpl(fabs_tpl(eventValue) * m_moveScale, 0.0f, g_mouseMaxRotationSpeed) * gameTickTimeSec);
             }
             else
             {
@@ -196,7 +202,8 @@ bool DebugCamera::OnInputChannelEventFiltered(const InputChannel& inputChannel)
             //the mouse movement for vertical movement.
             if (2 != m_mouseMoveMode)
             {
-                UpdatePitch(fsgnf(-eventValue) * clamp_tpl(fabs_tpl(eventValue) * m_moveScale, 0.0f, g_mouseMaxRotationSpeed) * gEnv->pTimer->GetFrameTime());
+                UpdatePitch(
+                    fsgnf(-eventValue) * clamp_tpl(fabs_tpl(eventValue) * m_moveScale, 0.0f, g_mouseMaxRotationSpeed) * gameTickTimeSec);
             }
             else
             {
@@ -319,7 +326,9 @@ void DebugCamera::UpdateYaw(float amount)
 ///////////////////////////////////////////////////////////////////////////////
 void DebugCamera::UpdatePosition(const Vec3& amount)
 {
-    Vec3 diff = amount * g_moveSpeed * m_moveScale * gEnv->pTimer->GetFrameTime();
+    const AZ::TimeMs gameTickTimeMs = AZ::GetSimulationTickDeltaTimeMs();
+    const float gameTickTimeSec = AZ::TimeMsToSeconds(gameTickTimeMs);
+    const Vec3 diff = amount * g_moveSpeed * m_moveScale * gameTickTimeSec;
     MovePosition(diff);
 }
 

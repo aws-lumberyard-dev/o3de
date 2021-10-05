@@ -19,6 +19,7 @@
 #include <MathConversion.h>
 
 #include <AzCore/Casting/lossy_cast.h>
+#include <AzCore/Time/ITime.h>
 
 #define VS_CALL_LISTENERS(func)                                                                                     \
     {                                                                                                               \
@@ -250,10 +251,12 @@ void CViewSystem::Update(float frameTime)
 
                     const float fScale = 0.1f;
                     CPNoise3* pNoise = m_pSystem->GetNoiseGen();
-                    float fRes = pNoise->Noise1D(gEnv->pTimer->GetCurrTime() * m_fCameraNoiseFrequency);
+                    const AZ::TimeMs realTimeMs = AZ::GetRealElapsedTimeMs();
+                    const float time = AZ::TimeMsToSeconds(realTimeMs);
+                    float fRes = pNoise->Noise1D(time * m_fCameraNoiseFrequency);
                     aAng1.x += fRes * m_fCameraNoise * fScale;
                     pos.z -= fRes * m_fCameraNoise * fScale;
-                    fRes = pNoise->Noise1D(17 + gEnv->pTimer->GetCurrTime() * m_fCameraNoiseFrequency);
+                    fRes = pNoise->Noise1D(17 + time * m_fCameraNoiseFrequency);
                     aAng1.y -= fRes * m_fCameraNoise * fScale;
 
                     //aAng1.z+=fRes*0.025f; // left / right movement should be much less visible
