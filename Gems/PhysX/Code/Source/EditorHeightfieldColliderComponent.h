@@ -45,6 +45,9 @@ namespace PhysX
 
         EditorHeightfieldColliderComponent();
 
+        // Helper for tests
+        AZStd::shared_ptr<Physics::HeightfieldShapeConfiguration> GetShapeConfig();
+
         // EditorComponentBase
         void BuildGameEntity(AZ::Entity* gameEntity) override;
     private:

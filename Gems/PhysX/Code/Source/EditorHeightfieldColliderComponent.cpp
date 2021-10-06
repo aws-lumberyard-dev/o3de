@@ -109,6 +109,7 @@ namespace PhysX
         AzToolsFramework::Components::EditorComponentBase::Activate();
         AzToolsFramework::EntitySelectionEvents::Bus::Handler::BusConnect(GetEntityId());
         AZ::TransformNotificationBus::Handler::BusConnect(GetEntityId());
+        Physics::HeightfieldProviderNotificationBus::Handler::BusConnect(GetEntityId());
         LmbrCentral::ShapeComponentNotificationsBus::Handler::BusConnect(GetEntityId());
         PhysX::ColliderShapeRequestBus::Handler::BusConnect(GetEntityId());
         AZ::NonUniformScaleRequestBus::Event(
@@ -145,6 +146,7 @@ namespace PhysX
         m_nonUniformScaleChangedHandler.Disconnect();
         PhysX::ColliderShapeRequestBus::Handler::BusDisconnect();
         LmbrCentral::ShapeComponentNotificationsBus::Handler::BusDisconnect();
+        Physics::HeightfieldProviderNotificationBus::Handler::BusDisconnect();
         AZ::TransformNotificationBus::Handler::BusDisconnect();
         AzToolsFramework::EntitySelectionEvents::Bus::Handler::BusDisconnect();
         AzToolsFramework::Components::EditorComponentBase::Deactivate();
@@ -221,9 +223,9 @@ namespace PhysX
         const AZ::Vector3 uniformScale = Utils::GetUniformScale(GetEntityId());
         const AZ::Vector3 overallScale = uniformScale * m_currentNonUniformScale;
 
-        Physics::HeightfieldShapeConfiguration& configuration =
-            static_cast<Physics::HeightfieldShapeConfiguration&>(*m_shapeConfig);
-        configuration = Physics::HeightfieldShapeConfiguration(GetEntityId());
+//        Physics::HeightfieldShapeConfiguration& configuration =
+//            static_cast<Physics::HeightfieldShapeConfiguration&>(*m_shapeConfig);
+//        configuration = Physics::HeightfieldShapeConfiguration(GetEntityId());
 
         m_shapeConfig->m_scale = overallScale;
     }
@@ -364,5 +366,11 @@ namespace PhysX
         const auto& heightfieldConfig = static_cast<const Physics::HeightfieldShapeConfiguration&>(*m_shapeConfig);
         m_colliderDebugDraw.DrawHeightfield(debugDisplay, m_colliderConfig, heightfieldConfig);
     }
+
+    AZStd::shared_ptr<Physics::HeightfieldShapeConfiguration> EditorHeightfieldColliderComponent::GetShapeConfig()
+    {
+        return m_shapeConfig;
+    }
+
 
 } // namespace PhysX
