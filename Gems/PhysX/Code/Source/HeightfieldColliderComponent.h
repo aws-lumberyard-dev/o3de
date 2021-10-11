@@ -11,26 +11,34 @@
 #include <BaseColliderComponent.h>
 #include <AzCore/Component/Component.h>
 #include <AzFramework/Physics/HeightfieldProviderBus.h>
-#include <HeightfieldColliderComponentCommon.h>
 
 namespace PhysX
 {
     //! Component that provides Heightfield Collider.
     class HeightfieldColliderComponent
         : public BaseColliderComponent
-        , public PhysX::HeightfieldColliderComponentCommon
+        , protected Physics::HeightfieldProviderNotificationBus::Handler
+
     {
     public:
         using Configuration = Physics::HeightfieldShapeConfiguration;
         AZ_COMPONENT(HeightfieldColliderComponent, "{9A42672C-281A-4CE8-BFDD-EAA1E0FCED76}", BaseColliderComponent);
         static void Reflect(AZ::ReflectContext* context);
 
-        HeightfieldColliderComponent();
+        HeightfieldColliderComponent() = default;
+
+        static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided);
+        static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required);
+        static void GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible);
 
         void Activate() override;
         void Deactivate() override;
 
         // BaseColliderComponent
         void UpdateScaleForShapeConfigs() override;
+
+    private:
+        void OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion) override;
+        void RefreshHeightfield() override;
     };
 } // namespace PhysX

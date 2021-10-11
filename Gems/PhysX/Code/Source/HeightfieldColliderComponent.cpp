@@ -12,12 +12,6 @@
 
 namespace PhysX
 {
-
-    HeightfieldColliderComponent::HeightfieldColliderComponent()
-        : HeightfieldColliderComponentCommon(GetEntityId())
-    {
-    }
-
     void HeightfieldColliderComponent::Reflect(AZ::ReflectContext* context)
     {
         if (auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
@@ -28,10 +22,29 @@ namespace PhysX
         }
     }
 
+    void HeightfieldColliderComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
+    {
+        provided.push_back(AZ_CRC_CE("PhysicsWorldBodyService"));
+        provided.push_back(AZ_CRC_CE("PhysXColliderService"));
+        provided.push_back(AZ_CRC_CE("PhysXTriggerService"));
+        provided.push_back(AZ_CRC_CE("PhysXHeightfieldColliderService"));
+    }
+
+    void HeightfieldColliderComponent::GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
+    {
+        required.push_back(AZ_CRC_CE("TransformService"));
+        required.push_back(AZ_CRC_CE("AxisAlignedBoxShapeService"));
+        required.push_back(AZ_CRC_CE("PhysicsHeightfieldProviderService"));
+    }
+
+    void HeightfieldColliderComponent::GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible)
+    {
+        incompatible.push_back(AZ_CRC_CE("PhysXHeightfieldColliderService"));
+    }
+
     void HeightfieldColliderComponent::Activate()
     {
         BaseColliderComponent::Activate();
-        HeightfieldColliderComponentCommon::Activate();
         AZStd::vector<Physics::HeightMaterialPoint> samples;
         Physics::HeightfieldProviderRequestsBus::BroadcastResult(samples,
             &Physics::HeightfieldProviderRequestsBus::Events::GetHeightsAndMaterials);
@@ -39,7 +52,6 @@ namespace PhysX
 
     void HeightfieldColliderComponent::Deactivate()
     {
-        HeightfieldColliderComponentCommon::Deactivate();
         BaseColliderComponent::Deactivate();
     }
 
@@ -55,4 +67,35 @@ namespace PhysX
 
         m_shapeConfigList[0].second->m_scale = Utils::GetTransformScale(GetEntityId());
     }
+
+    void HeightfieldColliderComponent::OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion)
+    {
+        RefreshHeightfield();
+    }
+
+    void HeightfieldColliderComponent::RefreshHeightfield()
+    {
+        Physics::HeightfieldShapeConfiguration& configuration =
+            static_cast<Physics::HeightfieldShapeConfiguration&>(*m_shapeConfigList[0].second);
+        configuration = Physics::HeightfieldShapeConfiguration(GetEntityId());
+
+        configuration.SetCachedNativeHeightfield(nullptr);
+
+        int32_t numRows = 0;
+        int32_t numColumns = 0;
+        Physics::HeightfieldProviderRequestsBus::Broadcast(
+            &Physics::HeightfieldProviderRequestsBus::Events::GetHeightfieldGridSize, numColumns, numRows);
+
+        configuration.SetNumRows(numRows);
+        configuration.SetNumColumns(numColumns);
+
+        AZStd::vector<Physics::HeightMaterialPoint> samples;
+        Physics::HeightfieldProviderRequestsBus::BroadcastResult(
+            samples, &Physics::HeightfieldProviderRequestsBus::Events::GetHeightsAndMaterials);
+
+        configuration.SetSamples(samples);
+    }
+
+
+
 } // namespace PhysX
