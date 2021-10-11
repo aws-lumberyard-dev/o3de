@@ -18,8 +18,7 @@
 namespace PhysX
 {
     EditorHeightfieldColliderComponent::EditorHeightfieldColliderComponent()
-        : HeightfieldColliderComponentCommon(GetEntityId())
-        , m_physXConfigChangedHandler(
+        : m_physXConfigChangedHandler(
               []([[maybe_unused]] const AzPhysics::SystemConfiguration* config)
               {
                   AzToolsFramework::PropertyEditorGUIMessages::Bus::Broadcast(
@@ -53,6 +52,7 @@ namespace PhysX
                 ->Version(1)
                 ->Field("ColliderConfiguration", &EditorHeightfieldColliderComponent::m_colliderConfig)
                 ->Field("DebugDrawSettings", &EditorHeightfieldColliderComponent::m_colliderDebugDraw)
+                ->Field("ShapeConfig", &EditorHeightfieldColliderComponent::m_shapeConfig)
                 ;
 
             if (auto editContext = serializeContext->GetEditContext())
@@ -81,11 +81,113 @@ namespace PhysX
         }
     }
 
+    void EditorHeightfieldColliderComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
+    {
+        provided.push_back(AZ_CRC_CE("PhysicsWorldBodyService"));
+        provided.push_back(AZ_CRC_CE("PhysXColliderService"));
+        provided.push_back(AZ_CRC_CE("PhysXTriggerService"));
+        provided.push_back(AZ_CRC_CE("PhysXHeightfieldColliderService"));
+    }
+
+    void EditorHeightfieldColliderComponent::GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
+    {
+        required.push_back(AZ_CRC_CE("TransformService"));
+        required.push_back(AZ_CRC_CE("AxisAlignedBoxShapeService"));
+        required.push_back(AZ_CRC_CE("PhysicsHeightfieldProviderService"));
+    }
+
+    void EditorHeightfieldColliderComponent::GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible)
+    {
+        incompatible.push_back(AZ_CRC_CE("PhysXHeightfieldColliderService"));
+    }
+
+    void EditorHeightfieldColliderComponent::BuildGameEntity(AZ::Entity* gameEntity)
+    {
+        auto* shapeColliderComponent = gameEntity->CreateComponent<HeightfieldColliderComponent>();
+        AzPhysics::ShapeColliderPairList shapeConfigurationList;
+        shapeConfigurationList.reserve(1);
+        shapeConfigurationList.emplace_back(AZStd::make_shared<Physics::ColliderConfiguration>(m_colliderConfig), m_shapeConfig);
+
+        shapeColliderComponent->SetShapeConfigurationList(shapeConfigurationList);
+
+        StaticRigidBodyUtils::TryCreateRuntimeComponent(*GetEntity(), *gameEntity);
+    }
+
+    void EditorHeightfieldColliderComponent::CreateStaticEditorCollider()
+    {
+        // Don't create static rigid body in the editor if current entity components
+        // don't allow creation of runtime static rigid body component
+        if (!StaticRigidBodyUtils::CanCreateRuntimeComponent(*GetEntity()))
+        {
+            return;
+        }
+
+        const AZ::Transform colliderTransform = GetWorldTM();
+
+        AzPhysics::StaticRigidBodyConfiguration configuration;
+        configuration.m_orientation = colliderTransform.GetRotation();
+        configuration.m_position = colliderTransform.GetTranslation();
+        configuration.m_entityId = GetEntityId();
+        configuration.m_debugName = GetEntity()->GetName();
+
+        AzPhysics::ShapeColliderPairList colliderShapePairs;
+        colliderShapePairs.reserve(1);
+        colliderShapePairs.emplace_back(AZStd::make_shared<Physics::ColliderConfiguration>(m_colliderConfig), m_shapeConfig);
+        configuration.m_colliderAndShapeData = colliderShapePairs;
+
+        if (m_sceneInterface)
+        {
+            // remove the previous body if any
+            if (m_editorBodyHandle != AzPhysics::InvalidSimulatedBodyHandle)
+            {
+                m_sceneInterface->RemoveSimulatedBody(m_editorSceneHandle, m_editorBodyHandle);
+            }
+
+            m_editorBodyHandle = m_sceneInterface->AddSimulatedBody(m_editorSceneHandle, &configuration);
+        }
+
+        AzPhysics::SimulatedBodyComponentRequestsBus::Handler::BusConnect(GetEntityId());
+    }
+
+    AZ::u32 EditorHeightfieldColliderComponent::OnConfigurationChanged()
+    {
+        m_colliderConfig.m_materialSelection.SetMaterialSlots(Physics::MaterialSelection::SlotsArray());
+        CreateStaticEditorCollider();
+        return AZ::Edit::PropertyRefreshLevels::None;
+    }
+
+    void EditorHeightfieldColliderComponent::UpdateConfig()
+    {
+        const AZ::Vector3 uniformScale = Utils::GetUniformScale(GetEntityId());
+        const AZ::Vector3 overallScale = uniformScale * m_currentNonUniformScale;
+
+        Physics::HeightfieldShapeConfiguration& configuration =
+            static_cast<Physics::HeightfieldShapeConfiguration&>(*m_shapeConfig);
+        configuration = Physics::HeightfieldShapeConfiguration(GetEntityId());
+
+        configuration.SetCachedNativeHeightfield(nullptr);
+
+        int32_t numRows = 0;
+        int32_t numColumns = 0;
+        Physics::HeightfieldProviderRequestsBus::Broadcast(
+            &Physics::HeightfieldProviderRequestsBus::Events::GetHeightfieldGridSize, numColumns, numRows);
+
+        configuration.SetNumRows(numRows);
+        configuration.SetNumColumns(numColumns);
+
+        AZStd::vector<Physics::HeightMaterialPoint> samples;
+        Physics::HeightfieldProviderRequestsBus::BroadcastResult(samples,
+            &Physics::HeightfieldProviderRequestsBus::Events::GetHeightsAndMaterials);
+
+        configuration.SetSamples(samples);
+
+        m_shapeConfig->m_scale = overallScale;
+
+    }
+
     // AZ::Component
     void EditorHeightfieldColliderComponent::Activate()
     {
-        HeightfieldColliderComponentCommon::Activate();
-
         AzToolsFramework::Components::EditorComponentBase::Activate();
         AzToolsFramework::EntitySelectionEvents::Bus::Handler::BusConnect(GetEntityId());
         AZ::TransformNotificationBus::Handler::BusConnect(GetEntityId());
@@ -133,8 +235,8 @@ namespace PhysX
         {
             m_sceneInterface->RemoveSimulatedBody(m_editorSceneHandle, m_editorBodyHandle);
         }
-        HeightfieldColliderComponentCommon::Deactivate();
     }
+
 
     // AzToolsFramework::EntitySelectionEvents
     void EditorHeightfieldColliderComponent::OnSelected()
@@ -158,6 +260,21 @@ namespace PhysX
         m_physXConfigChangedHandler.Disconnect();
     }
 
+    // TransformBus
+    void EditorHeightfieldColliderComponent::OnTransformChanged(const AZ::Transform& /*local*/, const AZ::Transform& world)
+    {
+        if (world.IsClose(m_cachedWorldTransform))
+        {
+            return;
+        }
+        m_cachedWorldTransform = world;
+
+        UpdateConfig();
+
+        CreateStaticEditorCollider();
+        Physics::ColliderComponentEventBus::Event(GetEntityId(), &Physics::ColliderComponentEvents::OnColliderChanged);
+    }
+
     void EditorHeightfieldColliderComponent::OnNonUniformScaleChanged(const AZ::Vector3& scale)
     {
         m_currentNonUniformScale = scale;
@@ -166,89 +283,6 @@ namespace PhysX
 
         CreateStaticEditorCollider();
         Physics::ColliderComponentEventBus::Event(GetEntityId(), &Physics::ColliderComponentEvents::OnColliderChanged);
-    }
-
-    void EditorHeightfieldColliderComponent::OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion)
-    {
-        RefreshHeightfield();
-    }
-
-    void EditorHeightfieldColliderComponent::OnShapeChanged(LmbrCentral::ShapeComponentNotifications::ShapeChangeReasons changeReason)
-    {
-        if (changeReason == LmbrCentral::ShapeComponentNotifications::ShapeChangeReasons::ShapeChanged)
-        {
-            UpdateConfig();
-
-            CreateStaticEditorCollider();
-            Physics::ColliderComponentEventBus::Event(GetEntityId(), &Physics::ColliderComponentEvents::OnColliderChanged);
-        }
-    }
-
-    void EditorHeightfieldColliderComponent::BuildGameEntity(AZ::Entity* gameEntity)
-    {
-        auto* shapeColliderComponent = gameEntity->CreateComponent<HeightfieldColliderComponent>();
-        AzPhysics::ShapeColliderPairList shapeConfigurationList;
-        shapeConfigurationList.reserve(1);
-        shapeConfigurationList.emplace_back(AZStd::make_shared<Physics::ColliderConfiguration>(m_colliderConfig), m_shapeConfig);
-
-        shapeColliderComponent->SetShapeConfigurationList(shapeConfigurationList);
-
-        StaticRigidBodyUtils::TryCreateRuntimeComponent(*GetEntity(), *gameEntity);
-    }
-
-    void EditorHeightfieldColliderComponent::UpdateConfig()
-    {
-        const AZ::Vector3 uniformScale = Utils::GetUniformScale(GetEntityId());
-        const AZ::Vector3 overallScale = uniformScale * m_currentNonUniformScale;
-
-//        Physics::HeightfieldShapeConfiguration& configuration =
-//            static_cast<Physics::HeightfieldShapeConfiguration&>(*m_shapeConfig);
-//        configuration = Physics::HeightfieldShapeConfiguration(GetEntityId());
-
-        m_shapeConfig->m_scale = overallScale;
-    }
-
-    void EditorHeightfieldColliderComponent::RefreshHeightfield()
-    {
-        HeightfieldColliderComponentCommon::RefreshHeightfield();
-
-        CreateStaticEditorCollider();
-    }
-
-    void EditorHeightfieldColliderComponent::CreateStaticEditorCollider()
-    {
-        // Don't create static rigid body in the editor if current entity components
-        // don't allow creation of runtime static rigid body component
-        if (!StaticRigidBodyUtils::CanCreateRuntimeComponent(*GetEntity()))
-        {
-            return;
-        }
-
-        const AZ::Transform colliderTransform = GetWorldTM();
-
-        AzPhysics::StaticRigidBodyConfiguration configuration;
-        configuration.m_orientation = colliderTransform.GetRotation();
-        configuration.m_position = colliderTransform.GetTranslation();
-        configuration.m_entityId = GetEntityId();
-        configuration.m_debugName = GetEntity()->GetName();
-
-        AzPhysics::ShapeColliderPairList colliderShapePairs;
-        colliderShapePairs.reserve(1);
-        colliderShapePairs.emplace_back(AZStd::make_shared<Physics::ColliderConfiguration>(m_colliderConfig), m_shapeConfig);
-        configuration.m_colliderAndShapeData = colliderShapePairs;
-
-        if (m_sceneInterface)
-        {
-            // remove the previous body if any
-            if (m_editorBodyHandle != AzPhysics::InvalidSimulatedBodyHandle)
-            {
-                m_sceneInterface->RemoveSimulatedBody(m_editorSceneHandle, m_editorBodyHandle);
-            }
-
-            m_editorBodyHandle = m_sceneInterface->AddSimulatedBody(m_editorSceneHandle, &configuration);
-        }
-
-        AzPhysics::SimulatedBodyComponentRequestsBus::Handler::BusConnect(GetEntityId());
     }
 
     void EditorHeightfieldColliderComponent::EnablePhysics()
@@ -279,7 +313,7 @@ namespace PhysX
         return false;
     }
 
-        AZ::Aabb EditorHeightfieldColliderComponent::GetAabb() const
+    AZ::Aabb EditorHeightfieldColliderComponent::GetAabb() const
     {
         if (m_sceneInterface && m_editorBodyHandle != AzPhysics::InvalidSimulatedBodyHandle)
         {
@@ -303,9 +337,20 @@ namespace PhysX
         return nullptr;
     }
 
-        AzPhysics::SimulatedBodyHandle EditorHeightfieldColliderComponent::GetSimulatedBodyHandle() const
+    AzPhysics::SimulatedBodyHandle EditorHeightfieldColliderComponent::GetSimulatedBodyHandle() const
     {
         return m_editorBodyHandle;
+    }
+
+    void EditorHeightfieldColliderComponent::OnShapeChanged(LmbrCentral::ShapeComponentNotifications::ShapeChangeReasons changeReason)
+    {
+        if (changeReason == LmbrCentral::ShapeComponentNotifications::ShapeChangeReasons::ShapeChanged)
+        {
+            UpdateConfig();
+
+            CreateStaticEditorCollider();
+            Physics::ColliderComponentEventBus::Event(GetEntityId(), &Physics::ColliderComponentEvents::OnColliderChanged);
+        }
     }
 
     AzPhysics::SceneQueryHit EditorHeightfieldColliderComponent::RayCast(const AzPhysics::RayCastRequest& request)
@@ -320,11 +365,11 @@ namespace PhysX
         return AzPhysics::SceneQueryHit();
     }
 
-    AZ::u32 EditorHeightfieldColliderComponent::OnConfigurationChanged()
+    // DisplayCallback
+    void EditorHeightfieldColliderComponent::Display(AzFramework::DebugDisplayRequests& debugDisplay) const
     {
-        m_colliderConfig.m_materialSelection.SetMaterialSlots(Physics::MaterialSelection::SlotsArray());
-        CreateStaticEditorCollider();
-        return AZ::Edit::PropertyRefreshLevels::None;
+        const auto& heightfieldConfig = static_cast<const Physics::HeightfieldShapeConfiguration&>(*m_shapeConfig);
+        m_colliderDebugDraw.DrawHeightfield(debugDisplay, m_colliderConfig, heightfieldConfig);
     }
 
     // ColliderShapeRequestBus
@@ -339,18 +384,5 @@ namespace PhysX
     {
         return m_colliderConfig.m_isTrigger;
     }
-
-    // DisplayCallback
-    void EditorHeightfieldColliderComponent::Display(AzFramework::DebugDisplayRequests& debugDisplay) const
-    {
-        const auto& heightfieldConfig = static_cast<const Physics::HeightfieldShapeConfiguration&>(*m_shapeConfig);
-        m_colliderDebugDraw.DrawHeightfield(debugDisplay, m_colliderConfig, heightfieldConfig);
-    }
-
-    AZStd::shared_ptr<Physics::HeightfieldShapeConfiguration> EditorHeightfieldColliderComponent::GetShapeConfig()
-    {
-        return m_shapeConfig;
-    }
-
 
 } // namespace PhysX

@@ -32,6 +32,9 @@ namespace PhysX
     {
         BaseColliderComponent::Activate();
         HeightfieldColliderComponentCommon::Activate();
+        AZStd::vector<Physics::HeightMaterialPoint> samples;
+        Physics::HeightfieldProviderRequestsBus::BroadcastResult(samples,
+            &Physics::HeightfieldProviderRequestsBus::Events::GetHeightsAndMaterials);
     }
 
     void HeightfieldColliderComponent::Deactivate()

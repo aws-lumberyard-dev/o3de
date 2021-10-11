@@ -18,14 +18,12 @@
 #include <Editor/DebugDraw.h>
 #include <PhysX/ColliderShapeBus.h>
 #include <LmbrCentral/Shape/ShapeComponentBus.h>
-#include <HeightfieldColliderComponentCommon.h>
 
 namespace PhysX
 {
     //! Editor PhysX Heightfield Collider Component.
     class EditorHeightfieldColliderComponent
         : public AzToolsFramework::Components::EditorComponentBase
-        , public PhysX::HeightfieldColliderComponentCommon
         , protected AzToolsFramework::EntitySelectionEvents::Bus::Handler
         , protected AzPhysics::SimulatedBodyComponentRequestsBus::Handler
         , private AZ::TransformNotificationBus::Handler
@@ -39,20 +37,18 @@ namespace PhysX
             "{C388C3DB-8D2E-4D26-96D3-198EDC799B77}",
             AzToolsFramework::Components::EditorComponentBase);
         static void Reflect(AZ::ReflectContext* context);
+        static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided);
+        static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required);
+        static void GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible);
 
         EditorHeightfieldColliderComponent();
-
-        // Helper for tests
-        AZStd::shared_ptr<Physics::HeightfieldShapeConfiguration> GetShapeConfig();
 
         // EditorComponentBase
         void BuildGameEntity(AZ::Entity* gameEntity) override;
     private:
+        void CreateStaticEditorCollider();
         AZ::u32 OnConfigurationChanged();
         void UpdateConfig();
-        void OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion) override;
-        void RefreshHeightfield() override;
-        void CreateStaticEditorCollider();
 
         // AZ::Component
         void Activate() override;
@@ -61,6 +57,9 @@ namespace PhysX
         // AzToolsFramework::EntitySelectionEvents
         void OnSelected() override;
         void OnDeselected() override;
+
+        // TransformBus
+        void OnTransformChanged(const AZ::Transform& local, const AZ::Transform& world) override;
 
         // handling for non-uniform scale
         void OnNonUniformScaleChanged(const AZ::Vector3& scale);
@@ -74,28 +73,29 @@ namespace PhysX
         AzPhysics::SimulatedBodyHandle GetSimulatedBodyHandle() const override;
         AzPhysics::SceneQueryHit RayCast(const AzPhysics::RayCastRequest& request) override;
 
-        // ColliderShapeRequestBus
-        AZ::Aabb GetColliderShapeAabb() override;
-        bool IsTrigger() override;
+        // LmbrCentral::ShapeComponentNotificationBus
+        void OnShapeChanged(LmbrCentral::ShapeComponentNotifications::ShapeChangeReasons changeReason) override;
 
         // DisplayCallback
         void Display(AzFramework::DebugDisplayRequests& debugDisplay) const;
 
-        // LmbrCentral::ShapeComponentNotificationBus
-        void OnShapeChanged(LmbrCentral::ShapeComponentNotifications::ShapeChangeReasons changeReason) override;
+        // ColliderShapeRequestBus
+        AZ::Aabb GetColliderShapeAabb() override;
+        bool IsTrigger() override;
 
         Physics::ColliderConfiguration m_colliderConfig; //!< Stores collision layers, whether the collider is a trigger, etc.
         DebugDraw::Collider m_colliderDebugDraw; //!< Handles drawing the collider based on global and local
         AzPhysics::SceneInterface* m_sceneInterface{ nullptr };
+        AzPhysics::SceneHandle m_editorSceneHandle = AzPhysics::InvalidSceneHandle;
         AzPhysics::SimulatedBodyHandle m_editorBodyHandle =
             AzPhysics::InvalidSimulatedBodyHandle; //!< Handle to the body in the editor physics scene if there is no rigid body component.
-        AzPhysics::SceneHandle m_editorSceneHandle = AzPhysics::InvalidSceneHandle;
-        AZ::NonUniformScaleChangedEvent::Handler m_nonUniformScaleChangedHandler; //!< Responds to changes in non-uniform scale.
-        AZ::Transform m_cachedWorldTransform;
-        AZ::Vector3 m_currentNonUniformScale = AZ::Vector3::CreateOne(); //!< Caches the current non-uniform scale.
+        AZStd::shared_ptr<Physics::HeightfieldShapeConfiguration> m_shapeConfig{ new Physics::HeightfieldShapeConfiguration() };
 
         AzPhysics::SystemEvents::OnConfigurationChangedEvent::Handler m_physXConfigChangedHandler;
         AzPhysics::SystemEvents::OnMaterialLibraryChangedEvent::Handler m_onMaterialLibraryChangedEventHandler;
+        AZ::Transform m_cachedWorldTransform;
+        AZ::NonUniformScaleChangedEvent::Handler m_nonUniformScaleChangedHandler; //!< Responds to changes in non-uniform scale.
+        AZ::Vector3 m_currentNonUniformScale = AZ::Vector3::CreateOne(); //!< Caches the current non-uniform scale.
     };
 
 } // namespace PhysX

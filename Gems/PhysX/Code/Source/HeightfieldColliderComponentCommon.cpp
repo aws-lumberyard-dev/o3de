@@ -57,8 +57,32 @@ namespace PhysX
         Physics::HeightfieldProviderNotificationBus::Handler::BusDisconnect(m_entityId);
     }
 
+    void HeightfieldColliderComponentCommon::OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion)
+    {
+        RefreshHeightfield();
+    }
+
     void HeightfieldColliderComponentCommon::RefreshHeightfield()
     {
+        Physics::HeightfieldShapeConfiguration& configuration =
+            static_cast<Physics::HeightfieldShapeConfiguration&>(*m_shapeConfig);
+        configuration = Physics::HeightfieldShapeConfiguration(m_entityId);
+
+        configuration.SetCachedNativeHeightfield(nullptr);
+
+        int32_t numRows = 0;
+        int32_t numColumns = 0;
+        Physics::HeightfieldProviderRequestsBus::Broadcast(
+            &Physics::HeightfieldProviderRequestsBus::Events::GetHeightfieldGridSize, numColumns, numRows);
+
+        configuration.SetNumRows(numRows);
+        configuration.SetNumColumns(numColumns);
+
+        AZStd::vector<Physics::HeightMaterialPoint> samples;
+        Physics::HeightfieldProviderRequestsBus::BroadcastResult(samples,
+            &Physics::HeightfieldProviderRequestsBus::Events::GetHeightsAndMaterials);
+
+        configuration.SetSamples(samples);
     }
 
 } // namespace PhysX

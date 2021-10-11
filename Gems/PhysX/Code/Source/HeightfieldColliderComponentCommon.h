@@ -38,6 +38,7 @@ namespace PhysX
         void Deactivate();
 
     protected:
+        void OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion) override;
         void RefreshHeightfield() override;
 
         AZStd::shared_ptr<Physics::HeightfieldShapeConfiguration> m_shapeConfig{ new Physics::HeightfieldShapeConfiguration() };
