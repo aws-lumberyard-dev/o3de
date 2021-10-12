@@ -13,6 +13,7 @@
 
 #include <aws/core/utils/Outcome.h>
 #include <aws/gamelift/model/StopMatchmakingRequest.h>
+#include <Request/IAWSGameLiftMatchmakingInternalRequests.h>
 
 namespace AWSGameLift
 {
@@ -42,6 +43,7 @@ namespace AWSGameLift
 
             if (stopMatchmakingOutcome.IsSuccess())
             {
+                AZ::Interface<IAWSGameLiftMatchmakingInternalRequests>::Get()->StopPolling();
                 AZ_TracePrintf(AWSGameLiftStopMatchmakingActivityName, "StopMatchmaking request against Amazon GameLift service is complete");
             }
             else

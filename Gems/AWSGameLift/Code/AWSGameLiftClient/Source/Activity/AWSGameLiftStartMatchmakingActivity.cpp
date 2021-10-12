@@ -15,6 +15,8 @@
 #include <aws/core/utils/Outcome.h>
 #include <aws/gamelift/model/StartMatchmakingRequest.h>
 
+#include <Request/IAWSGameLiftMatchmakingInternalRequests.h>
+
 namespace AWSGameLift
 {
     namespace StartMatchmakingActivity
@@ -88,6 +90,10 @@ namespace AWSGameLift
             if (startMatchmakingOutcome.IsSuccess())
             {
                 result = AZStd::string(startMatchmakingOutcome.GetResult().GetMatchmakingTicket().GetTicketId().c_str());
+
+                // Start the local ticket tracker for polling matchmaking ticket based on the given ticket id and player id
+                AZ::Interface<IAWSGameLiftMatchmakingInternalRequests>::Get()->StartPolling(
+                    result, startMatchmakingRequest.m_players[0].m_playerId);
 
                 AZ_TracePrintf(AWSGameLiftStartMatchmakingActivityName, "StartMatchmaking request against Amazon GameLift service is complete");
             }
