@@ -79,6 +79,12 @@ namespace PhysX
 
         configuration.SetCachedNativeHeightfield(nullptr);
 
+        AZ::Vector2 gridSpacing(1.0f);
+        Physics::HeightfieldProviderRequestsBus::BroadcastResult(
+            gridSpacing, &Physics::HeightfieldProviderRequestsBus::Events::GetHeightfieldGridSpacing);
+
+        configuration.SetGridResolution(gridSpacing);
+
         int32_t numRows = 0;
         int32_t numColumns = 0;
         Physics::HeightfieldProviderRequestsBus::Broadcast(
