@@ -13,6 +13,7 @@
 
 #include <AzFramework/Physics/HeightfieldProviderBus.h>
 #include <AzFramework/Physics/Material.h>
+#include <SurfaceData/SurfaceDataTypes.h>
 #include <TerrainSystem/TerrainSystemBus.h>
 
 #include <LmbrCentral/Shape/ShapeComponentBus.h>
@@ -26,6 +27,17 @@ namespace LmbrCentral
 
 namespace Terrain
 {
+    struct TerrainPhysicsSurfaceMaterialMapping final
+    {
+    public:
+        AZ_CLASS_ALLOCATOR(TerrainPhysicsSurfaceMaterialMapping, AZ::SystemAllocator, 0);
+        AZ_RTTI(TerrainPhysicsSurfaceMaterialMapping, "{A88B5289-DFCD-4564-8395-E2177DFE5B18}");
+        static void Reflect(AZ::ReflectContext* context);
+
+        SurfaceData::SurfaceTag m_surfaceTag;
+        Physics::MaterialId m_materialId;
+    };
+
     class TerrainPhysicsColliderConfig
         : public AZ::ComponentConfig
     {
@@ -34,6 +46,7 @@ namespace Terrain
         AZ_RTTI(TerrainPhysicsColliderConfig, "{E9EADB8F-C3A5-4B9C-A62D-2DBC86B4CE59}", AZ::ComponentConfig);
         static void Reflect(AZ::ReflectContext* context);
 
+        AZStd::vector<TerrainPhysicsSurfaceMaterialMapping> m_surfaceMaterialMappings;
     };
 
 
@@ -64,6 +77,8 @@ namespace Terrain
         void Deactivate() override;
         bool ReadInConfig(const AZ::ComponentConfig* baseConfig) override;
         bool WriteOutConfig(AZ::ComponentConfig* outBaseConfig) const override;
+
+        uint8_t FindSurfaceTagIndex(const SurfaceData::SurfaceTag tag) const;
 
         void GetHeightfieldBounds(const AZ::Aabb& bounds, AZ::Vector3& minBounds, AZ::Vector3& maxBounds) const;
         void GetHeightfieldGridSizeInBounds(const AZ::Aabb& bounds, int32_t& numColumns, int32_t& numRows) const;
