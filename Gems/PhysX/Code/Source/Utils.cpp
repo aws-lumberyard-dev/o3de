@@ -197,51 +197,54 @@ namespace PhysX
                     const AZStd::vector<Physics::HeightMaterialPoint>& samples = heightfieldConfig.GetSamples();
                     AZ_Assert(samples.size() == numRows * numCols, "GetHeightsAndMaterials returned wrong sized heightfield");
 
-                    AZStd::vector<physx::PxHeightFieldSample> physxSamples(samples.size());
-
-                    for (int i = 0 ; i < samples.size(); ++i)
+                    if (samples.size())
                     {
-                        const int columnIndex = i % numCols;
-                        const int rowIndex = i / numRows;
-                        const bool lastColumnIndex = columnIndex == numCols - 1;
-                        const bool lastRowIndex = rowIndex == numRows - 1;
-                        const Physics::HeightMaterialPoint& currentSample = samples[i];
-                        physx::PxHeightFieldSample& currentPhysxSample = physxSamples[i];
-                        AZ_Assert((currentSample.m_height < 256.0f) && (currentSample.m_height >= -256.0f), "Height value out of range");
-                        AZ_Assert(currentSample.m_materialIndex <= physxMaximumMaterialIndex, "MaterialIndex must be less than 128");
-                        currentPhysxSample.height = azlossy_cast<physx::PxI16>(currentSample.m_height * scaleFactor);
-                        if (lastRowIndex || lastColumnIndex)
+                        AZStd::vector<physx::PxHeightFieldSample> physxSamples(samples.size());
+
+                        for (int i = 0; i < samples.size(); ++i)
                         {
-                            currentPhysxSample.materialIndex0 = 0;
-                            currentPhysxSample.materialIndex1 = 0;
-                        }
-                        else
-                        {
-                            switch (currentSample.m_quadMeshType)
+                            const int columnIndex = i % numCols;
+                            const int rowIndex = i / numRows;
+                            const bool lastColumnIndex = columnIndex == numCols - 1;
+                            const bool lastRowIndex = rowIndex == numRows - 1;
+                            const Physics::HeightMaterialPoint& currentSample = samples[i];
+                            physx::PxHeightFieldSample& currentPhysxSample = physxSamples[i];
+                            AZ_Assert(
+                                (currentSample.m_height < 256.0f) && (currentSample.m_height >= -256.0f), "Height value out of range");
+                            AZ_Assert(currentSample.m_materialIndex <= physxMaximumMaterialIndex, "MaterialIndex must be less than 128");
+                            currentPhysxSample.height = azlossy_cast<physx::PxI16>(currentSample.m_height * scaleFactor);
+                            if (lastRowIndex || lastColumnIndex)
                             {
-                            case Physics::QuadMeshType::SubdivideUpperLeftToBottomRight:
-                                currentPhysxSample.materialIndex0 = samples[i + numCols].m_materialIndex;
-                                currentPhysxSample.materialIndex0.setBit();
-                                currentPhysxSample.materialIndex1 = samples[i + 1].m_materialIndex;
-                                break;
-                            case Physics::QuadMeshType::SubdivideBottomLeftToUpperRight:
-                                currentPhysxSample.materialIndex0 = currentSample.m_materialIndex;
-                                currentPhysxSample.materialIndex1 = samples[i + numRows + 1].m_materialIndex;
-                                break;
-                            case Physics::QuadMeshType::Hole:
-                                currentPhysxSample.materialIndex0 = physx::PxHeightFieldMaterial::eHOLE;
-                                currentPhysxSample.materialIndex1 = physx::PxHeightFieldMaterial::eHOLE;
-                                break;
-                            default:
-                                AZ_Warning("PhysX Heightfield", false, "Unhandled case in CreatePxGeometryFromConfig");
-                                break;
+                                currentPhysxSample.materialIndex0 = 0;
+                                currentPhysxSample.materialIndex1 = 0;
+                            }
+                            else
+                            {
+                                switch (currentSample.m_quadMeshType)
+                                {
+                                case Physics::QuadMeshType::SubdivideUpperLeftToBottomRight:
+                                    currentPhysxSample.materialIndex0 = samples[i + numCols].m_materialIndex;
+                                    currentPhysxSample.materialIndex0.setBit();
+                                    currentPhysxSample.materialIndex1 = samples[i + 1].m_materialIndex;
+                                    break;
+                                case Physics::QuadMeshType::SubdivideBottomLeftToUpperRight:
+                                    currentPhysxSample.materialIndex0 = currentSample.m_materialIndex;
+                                    currentPhysxSample.materialIndex1 = samples[i + numRows + 1].m_materialIndex;
+                                    break;
+                                case Physics::QuadMeshType::Hole:
+                                    currentPhysxSample.materialIndex0 = physx::PxHeightFieldMaterial::eHOLE;
+                                    currentPhysxSample.materialIndex1 = physx::PxHeightFieldMaterial::eHOLE;
+                                    break;
+                                default:
+                                    AZ_Warning("PhysX Heightfield", false, "Unhandled case in CreatePxGeometryFromConfig");
+                                    break;
+                                }
                             }
                         }
+
+                        SystemRequestsBus::BroadcastResult(
+                            heightfield, &SystemRequests::CreateHeightField, physxSamples.data(), numRows, numCols);
                     }
-
-                    SystemRequestsBus::BroadcastResult(
-                        heightfield, &SystemRequests::CreateHeightField, physxSamples.data(), numRows, numCols);
-
                     if (heightfield)
                     {
                         heightfieldConfig.SetCachedNativeHeightfield(heightfield);

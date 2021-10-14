@@ -82,6 +82,10 @@ namespace Physics
         {
         }
 
+        virtual void RefreshHeightfield()
+        {
+        }
+
     protected:
         ~HeightfieldProviderNotifications() = default;
     };
