@@ -27,3 +27,7 @@ TestResults/**
 /imgui.ini
 /scripts/project_manager/logs/
 /AutomatedTesting/Gem/PythonTests/scripting/TestResults
+AtomTest/
+Gems/Samples
+Gems/Samples
+Gems/Samples

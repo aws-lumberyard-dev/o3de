@@ -1,0 +1,33 @@
+{
+	"MAYA": {
+	    "MAYAPY_VERSION_MAJOR": "3",
+	    "MAYAPY_VERSION_MINOR": "7",
+	    "MAYAPY_VERSION_RELEASE": "7",
+	    "DCCSI_MAYA_VERSION": "2022",
+	    "DCCSI_SDK_MAYA_PATH": "<DCCSIG_PATH>\\SDK\\DCC\\Maya",
+	    "DCCSI_AZPY_MAYA_PATH": "<DCCSIG_PATH>\\azpy\\Maya",
+	    "DCCSI_MAYA_SCRIPT_PATH": "<DCCSIG_PATH>\\SDK\\DCC\\Maya\\Scripts",
+	    "DCCSI_PY_MAYA": "<PROGRAMW6432>\\Maya2022\\bin\\mayapy.exe",
+	    "DCCSI_MAYA_PLUG_IN_PATH": "<DCCSIG_PATH>\\SDK\\DCC\\Maya\\plugins",
+	    "DCCSI_MAYA_SHELF_PATH": "<DCCSIG_PATH>\\SDK\\DCC\\Maya\\Prefs\\Shelves",
+	    "MAYA_MODULE_PATH": [
+	    	"<DCCSIG_PATH>\\SDK\\DCC\\Maya;",
+	        "<PROGRAMW6432>\\Autodesk\\Maya2022\\modules;",
+	        "<PROGRAMW6432>\\Autodesk\\maya\\2022\\modules;",
+	        "<USERPROFILE>\\Documents\\maya\\modules;",
+	        "<PROGRAMW6432>\\Common Files\\Autodesk Shared\\Modules\\maya\\2020;"
+	    ],
+	    "MAYA_LOCATION": "<PROGRAMW6432>\\Autodesk\\Maya2020",
+	    "MAYA_BIN_PATH": "<PROGRAMW6432>\\Autodesk\\Maya2020\\bin",
+	    "MAYA_PLUG_IN_PATH": "<DCCSIG_PATH>\\SDK\\DCC\\Maya\\plugins",
+	    "PYTHONPATH": [
+	    	"<DCCSIG_PATH>\\SDK\\DCC\\Maya\\Scripts",
+	        "<DCCSIG_PATH>\\SDK\\DCC\\Maya\\Scripts\\Python",
+	        "<DCCSIG_PATH>",
+	        "<DCCSIG_PATH>\\3rdParty\\Python\\Lib\\2.x\\2.7.x\\site-packages",
+	        "<PROGRAMW6432>\\Autodesk\\Maya2022\\modules",
+	        "<LY_DEV>\\Build\\bin\\profile",
+	        "<DCCSIG_PATH>\\azpy\\maya"
+	    ]
+	}
+}

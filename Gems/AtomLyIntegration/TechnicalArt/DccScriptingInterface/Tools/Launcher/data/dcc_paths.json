@@ -1,0 +1,17 @@
+{
+	"locked": false,
+	"locations": {
+		"maya": "C:/Program Files/Autodesk/Maya2022/bin/maya.exe",
+		"maya_python": "C:/Program Files/Autodesk/Maya2022/bin/mayapy.exe",
+		"blender": "C:/Program Files/Blender Foundation/Blender 2.90/blender.exe",
+		"blender_python": "C:/Program Files/Blender Foundation/Blender 2.90/2.90/python/bin/python.exe",
+		"3ds_max": "C:/Program Files/Autodesk/3ds Max 2020/3dsmax.exe",
+		"3ds_max_python": "C:/Program Files/Autodesk/3ds Max 2020/3dsmaxpy.exe",
+		"houdini": "C:/Program Files/Side Effects Software/Houdini 18.0.597/bin/houdini.exe",
+		"marmoset_toolbag": "C:/Program Files/Marmoset/Toolbag 4/toolbag.exe",
+		"substance_designer": "C:/Program Files/Adobe/Adobe Substance 3D Designer/Adobe Substance 3D Designer.exe",
+		"pycharm": "C:/Program Files/JetBrains/PyCharm 2021.1/bin/pycharm64.exe",
+		"wing_pro": "C:/Program Files (x86)/Wing Pro 7.2/bin/wing.exe",
+		"vs_code": "C:/Users/<username>/AppData/Local/Programs/Microsoft VS Code/Code.exe"
+	}
+}
