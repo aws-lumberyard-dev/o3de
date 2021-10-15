@@ -18,6 +18,7 @@
 #include <Editor/DebugDraw.h>
 #include <PhysX/ColliderShapeBus.h>
 #include <LmbrCentral/Shape/ShapeComponentBus.h>
+#include <AzFramework/Physics/HeightfieldProviderBus.h>
 
 namespace PhysX
 {
@@ -30,6 +31,7 @@ namespace PhysX
         , private PhysX::ColliderShapeRequestBus::Handler
         , protected LmbrCentral::ShapeComponentNotificationsBus::Handler
         , protected DebugDraw::DisplayCallback
+        , protected Physics::HeightfieldProviderNotificationBus::Handler
     {
     public:
         AZ_EDITOR_COMPONENT(
@@ -83,6 +85,10 @@ namespace PhysX
         // ColliderShapeRequestBus
         AZ::Aabb GetColliderShapeAabb() override;
         bool IsTrigger() override;
+
+        // Physics::HeightfieldProviderNotificationBus
+        void OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion) override;
+        void RefreshHeightfield() override;
 
         Physics::ColliderConfiguration m_colliderConfig; //!< Stores collision layers, whether the collider is a trigger, etc.
         DebugDraw::Collider m_colliderDebugDraw; //!< Handles drawing the collider based on global and local

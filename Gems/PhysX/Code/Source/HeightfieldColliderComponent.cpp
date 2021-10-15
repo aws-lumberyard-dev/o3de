@@ -44,6 +44,7 @@ namespace PhysX
 
     void HeightfieldColliderComponent::Activate()
     {
+        Physics::HeightfieldProviderNotificationBus::Handler::BusConnect(GetEntityId());
         RefreshHeightfield();
         BaseColliderComponent::Activate();
     }
@@ -51,6 +52,7 @@ namespace PhysX
     void HeightfieldColliderComponent::Deactivate()
     {
         BaseColliderComponent::Deactivate();
+        Physics::HeightfieldProviderNotificationBus::Handler::BusDisconnect();
     }
 
     void HeightfieldColliderComponent::UpdateScaleForShapeConfigs()

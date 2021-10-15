@@ -199,6 +199,7 @@ namespace PhysX
     void EditorHeightfieldColliderComponent::Activate()
     {
         AzToolsFramework::Components::EditorComponentBase::Activate();
+        Physics::HeightfieldProviderNotificationBus::Handler::BusConnect(GetEntityId());
         AzToolsFramework::EntitySelectionEvents::Bus::Handler::BusConnect(GetEntityId());
         AZ::TransformNotificationBus::Handler::BusConnect(GetEntityId());
         LmbrCentral::ShapeComponentNotificationsBus::Handler::BusConnect(GetEntityId());
@@ -240,6 +241,7 @@ namespace PhysX
         AZ::TransformNotificationBus::Handler::BusDisconnect();
         AzToolsFramework::EntitySelectionEvents::Bus::Handler::BusDisconnect();
         AzToolsFramework::Components::EditorComponentBase::Deactivate();
+        Physics::HeightfieldProviderNotificationBus::Handler::BusDisconnect();
 
         if (m_sceneInterface && m_editorBodyHandle != AzPhysics::InvalidSimulatedBodyHandle)
         {
@@ -394,5 +396,19 @@ namespace PhysX
     {
         return m_colliderConfig.m_isTrigger;
     }
+
+    void EditorHeightfieldColliderComponent::OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion)
+    {
+        RefreshHeightfield();
+    }
+
+    void EditorHeightfieldColliderComponent::RefreshHeightfield()
+    {
+        UpdateConfig();
+
+        CreateStaticEditorCollider();
+        Physics::ColliderComponentEventBus::Event(GetEntityId(), &Physics::ColliderComponentEvents::OnColliderChanged);
+    }
+
 
 } // namespace PhysX
