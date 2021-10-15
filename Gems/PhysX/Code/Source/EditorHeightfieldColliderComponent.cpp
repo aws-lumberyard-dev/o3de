@@ -43,6 +43,11 @@ namespace PhysX
     {
         m_colliderConfig.SetPropertyVisibility(Physics::ColliderConfiguration::Offset, false);
     }
+    EditorHeightfieldColliderComponent ::~EditorHeightfieldColliderComponent()
+    {
+        m_shapeConfig->SetCachedNativeHeightfield(nullptr);
+    }
+
 
     void EditorHeightfieldColliderComponent::Reflect(AZ::ReflectContext* context)
     {
@@ -163,9 +168,8 @@ namespace PhysX
 
         Physics::HeightfieldShapeConfiguration& configuration =
             static_cast<Physics::HeightfieldShapeConfiguration&>(*m_shapeConfig);
-        configuration = Physics::HeightfieldShapeConfiguration(GetEntityId());
-
         configuration.SetCachedNativeHeightfield(nullptr);
+        configuration = Physics::HeightfieldShapeConfiguration(GetEntityId());
 
         AZ::Vector2 gridSpacing(1.0f);
         Physics::HeightfieldProviderRequestsBus::BroadcastResult(

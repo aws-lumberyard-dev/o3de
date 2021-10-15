@@ -42,6 +42,7 @@ namespace PhysX
         static void GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible);
 
         EditorHeightfieldColliderComponent();
+        ~EditorHeightfieldColliderComponent();
 
         // EditorComponentBase
         void BuildGameEntity(AZ::Entity* gameEntity) override;

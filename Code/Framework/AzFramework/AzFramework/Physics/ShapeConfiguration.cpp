@@ -326,12 +326,7 @@ namespace Physics
 
     HeightfieldShapeConfiguration::~HeightfieldShapeConfiguration()
     {
-        if (m_cachedNativeHeightfield)
-        {
-            Physics::SystemRequestBus::Broadcast(&Physics::SystemRequests::ReleaseNativeHeightfieldObject, m_cachedNativeHeightfield);
-
-            m_cachedNativeHeightfield = nullptr;
-        }
+        SetCachedNativeHeightfield(nullptr);
     }
 
     HeightfieldShapeConfiguration::HeightfieldShapeConfiguration(const HeightfieldShapeConfiguration& other)
@@ -372,7 +367,7 @@ namespace Physics
     {
         if (m_cachedNativeHeightfield)
         {
-            Physics::SystemRequestBus::Broadcast(&Physics::SystemRequests::ReleaseNativeMeshObject, m_cachedNativeHeightfield);
+            Physics::SystemRequestBus::Broadcast(&Physics::SystemRequests::ReleaseNativeHeightfieldObject, m_cachedNativeHeightfield);
         }
 
         m_cachedNativeHeightfield = cachedNativeHeightfield;
