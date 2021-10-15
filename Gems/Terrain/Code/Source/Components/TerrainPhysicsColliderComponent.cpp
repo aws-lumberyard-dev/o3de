@@ -261,7 +261,7 @@ namespace Terrain
             index++;
         }
 
-        return 0;
+        return InvalidSurfaceTagIndex;
     }
 
     void TerrainPhysicsColliderComponent::GenerateHeightsAndMaterialsInBounds(
@@ -306,6 +306,8 @@ namespace Terrain
 
                 Physics::HeightMaterialPoint point;
                 point.m_materialIndex = FindSurfaceTagIndex(surfaceWeight.m_surfaceType);
+                AZ_Warning("TerrainPhysicsCollider", point.m_materialIndex != InvalidSurfaceTagIndex, "SurfaceTag not assigned.");
+
                 point.m_height = height - worldCenterZ;
                 heightMaterials.emplace_back(point);
             }
@@ -336,6 +338,7 @@ namespace Terrain
     AZStd::vector<Physics::MaterialId> TerrainPhysicsColliderComponent::GetMaterialList() const
     {
         AZStd::vector<Physics::MaterialId> materialList;
+        materialList.reserve(m_configuration.m_surfaceMaterialMappings.size());
 
         for (auto mapping : m_configuration.m_surfaceMaterialMappings)
         {

@@ -421,7 +421,7 @@ TEST_F(TerrainPhysicsColliderComponentTest, TerrainPhysicsColliderGetHeightsAndM
                 [[maybe_unused]] bool* terrainExistsPtr)
             {
                 // return tag1 for the first half of the rows, tag2 for the rest.
-                if (y < 256)
+                if (y < 128)
                 {
                     return return1;
                 }
@@ -435,7 +435,7 @@ TEST_F(TerrainPhysicsColliderComponentTest, TerrainPhysicsColliderGetHeightsAndM
         heightsAndMaterials, m_entity->GetId(), &Physics::HeightfieldProviderRequestsBus::Events::GetHeightsAndMaterials);
 
     // We set the bounds to 1024, so check the correctl number of entries are present.
-    EXPECT_EQ(heightsAndMaterials.size(), 1024 * 1024);
+    EXPECT_EQ(heightsAndMaterials.size(), 256 * 256);
 
     const float expectedHeightValue = 16384.0f;
     
@@ -444,8 +444,8 @@ TEST_F(TerrainPhysicsColliderComponentTest, TerrainPhysicsColliderGetHeightsAndM
     EXPECT_NEAR(heightsAndMaterials[0].m_height, expectedHeightValue, 0.01f);
 
     // Check an entry from the second half of the list
-    EXPECT_EQ(heightsAndMaterials[1024*512].m_materialIndex, 1);
-    EXPECT_NEAR(heightsAndMaterials[0].m_height, expectedHeightValue, 0.01f);
+    EXPECT_EQ(heightsAndMaterials[256 * 128].m_materialIndex, 1);
+    EXPECT_NEAR(heightsAndMaterials[256 * 128].m_height, expectedHeightValue, 0.01f);
 
     m_entity.reset();
 }

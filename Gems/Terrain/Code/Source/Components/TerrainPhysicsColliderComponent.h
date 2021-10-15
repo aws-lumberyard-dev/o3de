@@ -27,6 +27,9 @@ namespace LmbrCentral
 
 namespace Terrain
 {
+    const uint8_t InvalidSurfaceTagIndex = 0xFF;
+    const AZStd::string UnknownTagName = "Unknown";
+
     struct TerrainPhysicsSurfaceMaterialMapping final
     {
     public:
