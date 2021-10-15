@@ -8,7 +8,6 @@
 
 #pragma once
 
-#include <AzCore/Component/TransformBus.h>
 #include <AzCore/Component/NonUniformScaleBus.h>
 #include <AzToolsFramework/ToolsComponents/EditorComponentBase.h>
 #include <AzToolsFramework/API/ToolsApplicationAPI.h>
@@ -17,7 +16,6 @@
 #include <AzFramework/Physics/Shape.h>
 #include <Editor/DebugDraw.h>
 #include <PhysX/ColliderShapeBus.h>
-#include <LmbrCentral/Shape/ShapeComponentBus.h>
 #include <AzFramework/Physics/HeightfieldProviderBus.h>
 
 namespace PhysX
@@ -27,9 +25,7 @@ namespace PhysX
         : public AzToolsFramework::Components::EditorComponentBase
         , protected AzToolsFramework::EntitySelectionEvents::Bus::Handler
         , protected AzPhysics::SimulatedBodyComponentRequestsBus::Handler
-        , private AZ::TransformNotificationBus::Handler
         , private PhysX::ColliderShapeRequestBus::Handler
-        , protected LmbrCentral::ShapeComponentNotificationsBus::Handler
         , protected DebugDraw::DisplayCallback
         , protected Physics::HeightfieldProviderNotificationBus::Handler
     {
@@ -61,12 +57,6 @@ namespace PhysX
         void OnSelected() override;
         void OnDeselected() override;
 
-        // TransformBus
-        void OnTransformChanged(const AZ::Transform& local, const AZ::Transform& world) override;
-
-        // handling for non-uniform scale
-        void OnNonUniformScaleChanged(const AZ::Vector3& scale);
-
         // AzPhysics::SimulatedBodyComponentRequestsBus::Handler overrides ...
         void EnablePhysics() override;
         void DisablePhysics() override;
@@ -76,9 +66,6 @@ namespace PhysX
         AzPhysics::SimulatedBodyHandle GetSimulatedBodyHandle() const override;
         AzPhysics::SceneQueryHit RayCast(const AzPhysics::RayCastRequest& request) override;
 
-        // LmbrCentral::ShapeComponentNotificationBus
-        void OnShapeChanged(LmbrCentral::ShapeComponentNotifications::ShapeChangeReasons changeReason) override;
-
         // DisplayCallback
         void Display(AzFramework::DebugDisplayRequests& debugDisplay) const;
 
@@ -87,8 +74,9 @@ namespace PhysX
         bool IsTrigger() override;
 
         // Physics::HeightfieldProviderNotificationBus
+        void OnHeightfieldTransformChanged(const AZ::Transform& transform) override;
         void OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion) override;
-        void RefreshHeightfield() override;
+        void RefreshHeightfield();
 
         Physics::ColliderConfiguration m_colliderConfig; //!< Stores collision layers, whether the collider is a trigger, etc.
         DebugDraw::Collider m_colliderDebugDraw; //!< Handles drawing the collider based on global and local
@@ -100,9 +88,6 @@ namespace PhysX
 
         AzPhysics::SystemEvents::OnConfigurationChangedEvent::Handler m_physXConfigChangedHandler;
         AzPhysics::SystemEvents::OnMaterialLibraryChangedEvent::Handler m_onMaterialLibraryChangedEventHandler;
-        AZ::Transform m_cachedWorldTransform;
-        AZ::NonUniformScaleChangedEvent::Handler m_nonUniformScaleChangedHandler; //!< Responds to changes in non-uniform scale.
-        AZ::Vector3 m_currentNonUniformScale = AZ::Vector3::CreateOne(); //!< Caches the current non-uniform scale.
     };
 
 } // namespace PhysX

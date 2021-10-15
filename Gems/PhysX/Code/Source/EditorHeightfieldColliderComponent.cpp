@@ -35,14 +35,10 @@ namespace PhysX
                       &AzToolsFramework::PropertyEditorGUIMessages::RequestRefresh,
                       AzToolsFramework::PropertyModificationRefreshLevel::Refresh_AttributesAndValues);
               })
-        , m_nonUniformScaleChangedHandler(
-              [this](const AZ::Vector3& scale)
-              {
-                  OnNonUniformScaleChanged(scale);
-              })
     {
         m_colliderConfig.SetPropertyVisibility(Physics::ColliderConfiguration::Offset, false);
     }
+
     EditorHeightfieldColliderComponent ::~EditorHeightfieldColliderComponent()
     {
         m_shapeConfig->SetCachedNativeHeightfield(nullptr);
@@ -96,8 +92,6 @@ namespace PhysX
 
     void EditorHeightfieldColliderComponent::GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
     {
-        required.push_back(AZ_CRC_CE("TransformService"));
-        required.push_back(AZ_CRC_CE("AxisAlignedBoxShapeService"));
         required.push_back(AZ_CRC_CE("PhysicsHeightfieldProviderService"));
     }
 
@@ -127,7 +121,10 @@ namespace PhysX
             return;
         }
 
-        const AZ::Transform colliderTransform = GetWorldTM();
+        AZ::Transform colliderTransform = GetWorldTM();
+
+        Physics::HeightfieldProviderRequestsBus::BroadcastResult(
+            colliderTransform, &Physics::HeightfieldProviderRequestsBus::Events::GetHeightfieldTransform);
 
         AzPhysics::StaticRigidBodyConfiguration configuration;
         configuration.m_orientation = colliderTransform.GetRotation();
@@ -163,35 +160,33 @@ namespace PhysX
 
     void EditorHeightfieldColliderComponent::UpdateConfig()
     {
-        const AZ::Vector3 uniformScale = Utils::GetUniformScale(GetEntityId());
-        const AZ::Vector3 overallScale = uniformScale * m_currentNonUniformScale;
-
         Physics::HeightfieldShapeConfiguration& configuration =
             static_cast<Physics::HeightfieldShapeConfiguration&>(*m_shapeConfig);
         configuration.SetCachedNativeHeightfield(nullptr);
         configuration = Physics::HeightfieldShapeConfiguration(GetEntityId());
 
         AZ::Vector2 gridSpacing(1.0f);
-        Physics::HeightfieldProviderRequestsBus::BroadcastResult(
-            gridSpacing, &Physics::HeightfieldProviderRequestsBus::Events::GetHeightfieldGridSpacing);
+        Physics::HeightfieldProviderRequestsBus::EventResult(
+            gridSpacing, GetEntityId(), &Physics::HeightfieldProviderRequestsBus::Events::GetHeightfieldGridSpacing);
 
         configuration.SetGridResolution(gridSpacing);
 
         int32_t numRows = 0;
         int32_t numColumns = 0;
-        Physics::HeightfieldProviderRequestsBus::Broadcast(
-            &Physics::HeightfieldProviderRequestsBus::Events::GetHeightfieldGridSize, numColumns, numRows);
+        Physics::HeightfieldProviderRequestsBus::Event(
+            GetEntityId(), &Physics::HeightfieldProviderRequestsBus::Events::GetHeightfieldGridSize, numColumns, numRows);
 
         configuration.SetNumRows(numRows);
         configuration.SetNumColumns(numColumns);
 
         AZStd::vector<Physics::HeightMaterialPoint> samples;
-        Physics::HeightfieldProviderRequestsBus::BroadcastResult(samples,
-            &Physics::HeightfieldProviderRequestsBus::Events::GetHeightsAndMaterials);
+        Physics::HeightfieldProviderRequestsBus::EventResult(samples,
+            GetEntityId(), &Physics::HeightfieldProviderRequestsBus::Events::GetHeightsAndMaterials);
 
         configuration.SetSamples(samples);
 
-        m_shapeConfig->m_scale = overallScale;
+        // Scale is expected to be handled inside the heightfield provider, so we'll just set this to unit scale.
+        m_shapeConfig->m_scale = AZ::Vector3::CreateOne();
 
     }
 
@@ -201,16 +196,7 @@ namespace PhysX
         AzToolsFramework::Components::EditorComponentBase::Activate();
         Physics::HeightfieldProviderNotificationBus::Handler::BusConnect(GetEntityId());
         AzToolsFramework::EntitySelectionEvents::Bus::Handler::BusConnect(GetEntityId());
-        AZ::TransformNotificationBus::Handler::BusConnect(GetEntityId());
-        LmbrCentral::ShapeComponentNotificationsBus::Handler::BusConnect(GetEntityId());
         PhysX::ColliderShapeRequestBus::Handler::BusConnect(GetEntityId());
-        AZ::NonUniformScaleRequestBus::Event(
-            GetEntityId(), &AZ::NonUniformScaleRequests::RegisterScaleChangedEvent, m_nonUniformScaleChangedHandler);
-
-        AZ::TransformBus::EventResult(m_cachedWorldTransform, GetEntityId(), &AZ::TransformInterface::GetWorldTM);
-
-        m_currentNonUniformScale = AZ::Vector3::CreateOne();
-        AZ::NonUniformScaleRequestBus::EventResult(m_currentNonUniformScale, GetEntityId(), &AZ::NonUniformScaleRequests::GetScale);
 
         m_colliderConfig.SetPropertyVisibility(Physics::ColliderConfiguration::MaterialSelection, false);
 
@@ -235,10 +221,7 @@ namespace PhysX
         AzPhysics::SimulatedBodyComponentRequestsBus::Handler::BusDisconnect();
         m_colliderDebugDraw.Disconnect();
 
-        m_nonUniformScaleChangedHandler.Disconnect();
         PhysX::ColliderShapeRequestBus::Handler::BusDisconnect();
-        LmbrCentral::ShapeComponentNotificationsBus::Handler::BusDisconnect();
-        AZ::TransformNotificationBus::Handler::BusDisconnect();
         AzToolsFramework::EntitySelectionEvents::Bus::Handler::BusDisconnect();
         AzToolsFramework::Components::EditorComponentBase::Deactivate();
         Physics::HeightfieldProviderNotificationBus::Handler::BusDisconnect();
@@ -272,25 +255,8 @@ namespace PhysX
         m_physXConfigChangedHandler.Disconnect();
     }
 
-    // TransformBus
-    void EditorHeightfieldColliderComponent::OnTransformChanged(const AZ::Transform& /*local*/, const AZ::Transform& world)
+    void EditorHeightfieldColliderComponent::OnHeightfieldTransformChanged([[maybe_unused]] const AZ::Transform& transform)
     {
-        if (world.IsClose(m_cachedWorldTransform))
-        {
-            return;
-        }
-        m_cachedWorldTransform = world;
-
-        UpdateConfig();
-
-        CreateStaticEditorCollider();
-        Physics::ColliderComponentEventBus::Event(GetEntityId(), &Physics::ColliderComponentEvents::OnColliderChanged);
-    }
-
-    void EditorHeightfieldColliderComponent::OnNonUniformScaleChanged(const AZ::Vector3& scale)
-    {
-        m_currentNonUniformScale = scale;
-
         UpdateConfig();
 
         CreateStaticEditorCollider();
@@ -354,17 +320,6 @@ namespace PhysX
         return m_editorBodyHandle;
     }
 
-    void EditorHeightfieldColliderComponent::OnShapeChanged(LmbrCentral::ShapeComponentNotifications::ShapeChangeReasons changeReason)
-    {
-        if (changeReason == LmbrCentral::ShapeComponentNotifications::ShapeChangeReasons::ShapeChanged)
-        {
-            UpdateConfig();
-
-            CreateStaticEditorCollider();
-            Physics::ColliderComponentEventBus::Event(GetEntityId(), &Physics::ColliderComponentEvents::OnColliderChanged);
-        }
-    }
-
     AzPhysics::SceneQueryHit EditorHeightfieldColliderComponent::RayCast(const AzPhysics::RayCastRequest& request)
     {
         if (m_sceneInterface && m_editorBodyHandle != AzPhysics::InvalidSimulatedBodyHandle)
@@ -388,7 +343,10 @@ namespace PhysX
     AZ::Aabb EditorHeightfieldColliderComponent::GetColliderShapeAabb()
     {
         AZ::Aabb aabb = AZ::Aabb::CreateFromPoint(GetWorldTM().GetTranslation());
-        LmbrCentral::ShapeComponentRequestsBus::EventResult(aabb, GetEntityId(), &LmbrCentral::ShapeComponentRequests::GetEncompassingAabb);
+
+        Physics::HeightfieldProviderRequestsBus::EventResult(
+            aabb, GetEntityId(), &Physics::HeightfieldProviderRequestsBus::Events::GetHeightfieldAabb);
+
         return aabb;
     }
 

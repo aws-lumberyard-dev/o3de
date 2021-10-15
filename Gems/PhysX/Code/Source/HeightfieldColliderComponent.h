@@ -39,6 +39,6 @@ namespace PhysX
 
     private:
         void OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion) override;
-        void RefreshHeightfield() override;
+        void RefreshHeightfield();
     };
 } // namespace PhysX
