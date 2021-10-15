@@ -197,47 +197,78 @@ namespace PhysX
                     const AZStd::vector<Physics::HeightMaterialPoint>& samples = heightfieldConfig.GetSamples();
                     AZ_Assert(samples.size() == numRows * numCols, "GetHeightsAndMaterials returned wrong sized heightfield");
 
-                    if (samples.size())
+                    if (!samples.empty())
                     {
                         AZStd::vector<physx::PxHeightFieldSample> physxSamples(samples.size());
 
-                        for (int i = 0; i < samples.size(); ++i)
+                        for (int32_t row = 0; row < numRows; row++)
                         {
-                            const int columnIndex = i % numCols;
-                            const int rowIndex = i / numRows;
-                            const bool lastColumnIndex = columnIndex == numCols - 1;
-                            const bool lastRowIndex = rowIndex == numRows - 1;
-                            const Physics::HeightMaterialPoint& currentSample = samples[i];
-                            physx::PxHeightFieldSample& currentPhysxSample = physxSamples[i];
-                            AZ_Assert(
-                                (currentSample.m_height < 256.0f) && (currentSample.m_height >= -256.0f), "Height value out of range");
-                            AZ_Assert(currentSample.m_materialIndex <= physxMaximumMaterialIndex, "MaterialIndex must be less than 128");
-                            currentPhysxSample.height = azlossy_cast<physx::PxI16>(currentSample.m_height * scaleFactor);
-                            if (lastRowIndex || lastColumnIndex)
+                            const bool lastRowIndex = (row == (numRows - 1));
+
+                            for (int32_t col = 0; col < numCols; col++)
                             {
-                                currentPhysxSample.materialIndex0 = 0;
-                                currentPhysxSample.materialIndex1 = 0;
-                            }
-                            else
-                            {
-                                switch (currentSample.m_quadMeshType)
+                                const bool lastColumnIndex = (col == (numCols - 1));
+
+                                auto GetIndex = [numCols](int32_t row, int32_t col)
                                 {
-                                case Physics::QuadMeshType::SubdivideUpperLeftToBottomRight:
-                                    currentPhysxSample.materialIndex0 = samples[i + numCols].m_materialIndex;
-                                    currentPhysxSample.materialIndex0.setBit();
-                                    currentPhysxSample.materialIndex1 = samples[i + 1].m_materialIndex;
-                                    break;
-                                case Physics::QuadMeshType::SubdivideBottomLeftToUpperRight:
-                                    currentPhysxSample.materialIndex0 = currentSample.m_materialIndex;
-                                    currentPhysxSample.materialIndex1 = samples[i + numRows + 1].m_materialIndex;
-                                    break;
-                                case Physics::QuadMeshType::Hole:
-                                    currentPhysxSample.materialIndex0 = physx::PxHeightFieldMaterial::eHOLE;
-                                    currentPhysxSample.materialIndex1 = physx::PxHeightFieldMaterial::eHOLE;
-                                    break;
-                                default:
-                                    AZ_Warning("PhysX Heightfield", false, "Unhandled case in CreatePxGeometryFromConfig");
-                                    break;
+                                    return (row * numCols) + col;
+                                };
+
+                                const int32_t sampleIndex = GetIndex(row, col);
+
+                                const Physics::HeightMaterialPoint& currentSample = samples[sampleIndex];
+                                physx::PxHeightFieldSample& currentPhysxSample = physxSamples[sampleIndex];
+                                AZ_Assert(
+                                    (currentSample.m_height < 256.0f) && (currentSample.m_height >= -256.0f), "Height value out of range");
+                                AZ_Assert(
+                                    currentSample.m_materialIndex <= physxMaximumMaterialIndex, "MaterialIndex must be less than 128");
+                                currentPhysxSample.height = azlossy_cast<physx::PxI16>(currentSample.m_height * scaleFactor);
+                                if (lastRowIndex || lastColumnIndex)
+                                {
+                                    // In PhysX, the material indices refer to the quad down and to the right of the sample.
+                                    // If we're in the last row or last column, there aren't any quads down or to the right,
+                                    // so just clear these out.
+                                    currentPhysxSample.materialIndex0 = 0;
+                                    currentPhysxSample.materialIndex1 = 0;
+                                }
+                                else
+                                {
+                                    // Our source data is providing one material index per vertex, but PhysX wants one material index
+                                    // per triangle.  The heuristic that we'll go with for selecting the material index is to choose
+                                    // the material for the vertex that's not on the diagonal of each triangle.
+                                    // Ex:  A *---* B
+                                    //        | / |      For this, we'll use A for index0 and D for index1.
+                                    //      C *---* D
+                                    // 
+                                    // Ex:  A *---* B
+                                    //        | \ |      For this, we'll use C for index0 and B for index1.
+                                    //      C *---* D
+                                    //
+                                    // This is a pretty arbitrary choice, so the heuristic might need to be revisited over time if this
+                                    // causes incorrect or unpredictable physics material mappings.
+
+                                    switch (currentSample.m_quadMeshType)
+                                    {
+                                    case Physics::QuadMeshType::SubdivideUpperLeftToBottomRight:
+                                        currentPhysxSample.materialIndex0 = samples[GetIndex(row+1, col)].m_materialIndex;
+                                        currentPhysxSample.materialIndex1 = samples[GetIndex(row, col+1)].m_materialIndex;
+                                        // Set the tesselation flag to say that we need to go from UL to BR
+                                        currentPhysxSample.materialIndex0.setBit();
+                                        break;
+                                    case Physics::QuadMeshType::SubdivideBottomLeftToUpperRight:
+                                        currentPhysxSample.materialIndex0 = currentSample.m_materialIndex;
+                                        currentPhysxSample.materialIndex1 = samples[GetIndex(row + 1, col + 1)].m_materialIndex;
+                                        break;
+                                    case Physics::QuadMeshType::Hole:
+                                        currentPhysxSample.materialIndex0 = physx::PxHeightFieldMaterial::eHOLE;
+                                        currentPhysxSample.materialIndex1 = physx::PxHeightFieldMaterial::eHOLE;
+                                        break;
+                                    default:
+                                        AZ_Warning("PhysX Heightfield", false, "Unhandled case in CreatePxGeometryFromConfig");
+                                        currentPhysxSample.materialIndex0 = 0;
+                                        currentPhysxSample.materialIndex1 = 0;
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -303,6 +334,26 @@ namespace PhysX
                         // PhysX capsules are oriented around x by default.
                         physx::PxQuat pxQuat(AZ::Constants::HalfPi, physx::PxVec3(0.0f, 1.0f, 0.0f));
                         shape->setLocalPose(physx::PxTransform(pxQuat));
+                    }
+                    else if (pxGeomHolder.getType() == physx::PxGeometryType::eHEIGHTFIELD)
+                    {
+                        const Physics::HeightfieldShapeConfiguration& heightfieldConfig =
+                            static_cast<const Physics::HeightfieldShapeConfiguration&>(shapeConfiguration);
+
+                        // PhysX heightfields have the origin at the corner, not the center, so add an offset to the passed-in transform
+                        // to account for this difference.
+                        const AZ::Vector2 gridSpacing = heightfieldConfig.GetGridResolution();
+                        AZ::Vector3 offset(
+                            -(gridSpacing.GetX() * heightfieldConfig.GetNumColumns() / 2.0f),
+                            -(gridSpacing.GetY() * heightfieldConfig.GetNumRows() / 2.0f),
+                            0.0f);
+
+                        // PhysX heightfields are always defined to have the height in the Y direction, not the Z direction, so we need
+                        // to provide additional rotations to make it Z-up.
+                        physx::PxQuat pxQuat = PxMathConvert(
+                            AZ::Quaternion::CreateFromEulerAnglesRadians(AZ::Vector3(AZ::Constants::HalfPi, AZ::Constants::HalfPi, 0.0f)));
+                        physx::PxTransform pxHeightfieldTransform = physx::PxTransform(PxMathConvert(offset), pxQuat);
+                        shape->setLocalPose(pxHeightfieldTransform);
                     }
 
                     // Handle a possible misconfiguration when a shape is set to be both simulated & trigger. This is illegal in PhysX.
