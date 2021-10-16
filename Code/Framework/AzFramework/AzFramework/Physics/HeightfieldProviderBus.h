@@ -45,10 +45,20 @@ namespace Physics
         //! @param numColumns contains the size of the grid in the x direction.
         //! @param numRows contains the size of the grid in the y direction.
         virtual void GetHeightfieldGridSize(int32_t& numColumns, int32_t& numRows) const = 0;
-      
+
+        //! Returns the AABB of the heightfield.
+        //! This is provided separately from the shape AABB because the heightfield might choose to modify the AABB bounds.
+        //! @return AABB of the heightfield.
+        virtual AZ::Aabb GetHeightfieldAabb() const = 0;
+
+        //! Returns the Transform for the heightfield.
+        //! This is provided separately from the entity transform because the heightfield might want to clear out the rotation or scale.
+        //! @return transform that should be used with the heightfield data.
+        virtual AZ::Transform GetHeightfieldTransform() const = 0;
+
         //! Returns the list of materials used by the height field.
         //! @return returns a vector of all materials.
-        virtual AZStd::vector<MaterialId>GetMaterialList() const = 0;
+        virtual AZStd::vector<MaterialId> GetMaterialList() const = 0;
 
         //! Returns the list of heights used by the height field.
         //! @return the rows*columns vector of the heights.
@@ -78,11 +88,17 @@ namespace Physics
     public:
         static const AZ::EBusHandlerPolicy HandlerPolicy = AZ::EBusHandlerPolicy::Multiple;
 
-        virtual void OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion)
+        //! Called whenever the heightfield has a transform change.
+        //! This is a level of abstration beyond the Transform's notification, because the heightfield might have specialized logic
+        //! to modify the transform (for example to remove rotation) or to treat it as a full data change instead of a transform change.
+        //! @param the new transform
+        virtual void OnHeightfieldTransformChanged([[maybe_unused]] const AZ::Transform& transform)
         {
         }
 
-        virtual void RefreshHeightfield()
+        //! Called whenever the heightfield data changes.
+        //! @param the AABB of the area of data that changed.
+        virtual void OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion)
         {
         }
 
