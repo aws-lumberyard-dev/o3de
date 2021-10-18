@@ -103,13 +103,8 @@ namespace PhysX
     void EditorHeightfieldColliderComponent::BuildGameEntity(AZ::Entity* gameEntity)
     {
         auto* shapeColliderComponent = gameEntity->CreateComponent<HeightfieldColliderComponent>();
-        AzPhysics::ShapeColliderPairList shapeConfigurationList;
-        shapeConfigurationList.reserve(1);
-        shapeConfigurationList.emplace_back(AZStd::make_shared<Physics::ColliderConfiguration>(m_colliderConfig), m_shapeConfig);
-
-        shapeColliderComponent->SetShapeConfigurationList(shapeConfigurationList);
-
-        StaticRigidBodyUtils::TryCreateRuntimeComponent(*GetEntity(), *gameEntity);
+        shapeColliderComponent->SetShapeConfiguration(
+            { AZStd::make_shared<Physics::ColliderConfiguration>(m_colliderConfig), m_shapeConfig });
     }
 
     void EditorHeightfieldColliderComponent::ClearHeightfieldData()
