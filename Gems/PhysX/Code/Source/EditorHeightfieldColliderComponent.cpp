@@ -258,14 +258,6 @@ namespace PhysX
         m_physXConfigChangedHandler.Disconnect();
     }
 
-    void EditorHeightfieldColliderComponent::OnHeightfieldTransformChanged([[maybe_unused]] const AZ::Transform& transform)
-    {
-        UpdateConfig();
-
-        CreateStaticEditorCollider();
-        Physics::ColliderComponentEventBus::Event(GetEntityId(), &Physics::ColliderComponentEvents::OnColliderChanged);
-    }
-
     void EditorHeightfieldColliderComponent::EnablePhysics()
     {
         if (!IsPhysicsEnabled() && m_sceneInterface)

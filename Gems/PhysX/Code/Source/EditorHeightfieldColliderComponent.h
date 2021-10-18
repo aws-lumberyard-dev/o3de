@@ -74,7 +74,6 @@ namespace PhysX
         bool IsTrigger() override;
 
         // Physics::HeightfieldProviderNotificationBus
-        void OnHeightfieldTransformChanged(const AZ::Transform& transform) override;
         void OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion) override;
         void RefreshHeightfield();
 

@@ -88,14 +88,6 @@ namespace Physics
     public:
         static const AZ::EBusHandlerPolicy HandlerPolicy = AZ::EBusHandlerPolicy::Multiple;
 
-        //! Called whenever the heightfield has a transform change.
-        //! This is a level of abstration beyond the Transform's notification, because the heightfield might have specialized logic
-        //! to modify the transform (for example to remove rotation) or to treat it as a full data change instead of a transform change.
-        //! @param the new transform
-        virtual void OnHeightfieldTransformChanged([[maybe_unused]] const AZ::Transform& transform)
-        {
-        }
-
         //! Called whenever the heightfield data changes.
         //! @param the AABB of the area of data that changed.
         virtual void OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion)
