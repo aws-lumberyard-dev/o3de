@@ -218,6 +218,9 @@ namespace PhysX
 
     void EditorHeightfieldColliderComponent::Deactivate()
     {
+        Physics::HeightfieldShapeConfiguration& configuration = static_cast<Physics::HeightfieldShapeConfiguration&>(*m_shapeConfig);
+        configuration.SetCachedNativeHeightfield(nullptr);
+
         AzPhysics::SimulatedBodyComponentRequestsBus::Handler::BusDisconnect();
         m_colliderDebugDraw.Disconnect();
 
