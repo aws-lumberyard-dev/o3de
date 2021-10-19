@@ -207,11 +207,6 @@ namespace PhysX
         }
     }
 
-    void EditorHeightfieldColliderComponent::InitHeightfieldShape()
-    {
-        Physics::ColliderComponentEventBus::Event(GetEntityId(), &Physics::ColliderComponentEvents::OnColliderChanged);
-    }
-
     void EditorHeightfieldColliderComponent::InitHeightfieldShapeConfiguration()
     {
         Physics::HeightfieldShapeConfiguration& configuration = static_cast<Physics::HeightfieldShapeConfiguration&>(*m_shapeConfig);
@@ -243,8 +238,8 @@ namespace PhysX
     {
         ClearHeightfield();
         InitHeightfieldShapeConfiguration();
-        InitHeightfieldShape();
         InitStaticRigidBody();
+        Physics::ColliderComponentEventBus::Event(GetEntityId(), &Physics::ColliderComponentEvents::OnColliderChanged);
     }
 
 

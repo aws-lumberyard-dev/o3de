@@ -8,15 +8,16 @@
 
 #pragma once
 
-#include <AzCore/Component/NonUniformScaleBus.h>
 #include <AzToolsFramework/ToolsComponents/EditorComponentBase.h>
 #include <AzToolsFramework/API/ToolsApplicationAPI.h>
+#include <Editor/DebugDraw.h>
+
 #include <AzFramework/Physics/Components/SimulatedBodyComponentBus.h>
+#include <AzFramework/Physics/HeightfieldProviderBus.h>
 #include <AzFramework/Physics/PhysicsScene.h>
 #include <AzFramework/Physics/Shape.h>
-#include <Editor/DebugDraw.h>
+
 #include <PhysX/ColliderShapeBus.h>
-#include <AzFramework/Physics/HeightfieldProviderBus.h>
 
 namespace PhysX
 {
@@ -83,7 +84,6 @@ namespace PhysX
 
         void ClearHeightfield();
         void InitHeightfieldShapeConfiguration();
-        void InitHeightfieldShape();
         void InitStaticRigidBody();
         void RefreshHeightfield();
 

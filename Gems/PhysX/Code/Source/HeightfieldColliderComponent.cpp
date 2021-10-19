@@ -93,10 +93,9 @@ namespace PhysX
 
     void HeightfieldColliderComponent::ClearHeightfield()
     {
-        // There are multiple references to the heightfield data, we need to all of them to make the heightfield clear out and deallocate:
+        // There are two references to the heightfield data, we need to clear both to make the heightfield clear out and deallocate:
         // - The simulated body has a pointer to the shape, which has a GeometryHolder, which has the Heightfield inside it
         // - The shape config is also holding onto a pointer to the Heightfield
-        // - We directly have a point in m_heightfield
 
         // We remove the simulated body first, since we don't want the heightfield to exist any more.
         if (auto* sceneInterface = AZ::Interface<AzPhysics::SceneInterface>::Get();
@@ -108,9 +107,6 @@ namespace PhysX
         // Now we can safely clear out the cached heightfield pointer.
         Physics::HeightfieldShapeConfiguration& configuration = static_cast<Physics::HeightfieldShapeConfiguration&>(*m_shapeConfig.second);
         configuration.SetCachedNativeHeightfield(nullptr);
-
-        // Finally, clear the local reference to the created heightfield Shape.
-        m_heightfield.reset();
     }
 
     void HeightfieldColliderComponent::InitStaticRigidBody()
@@ -137,27 +133,6 @@ namespace PhysX
         {
             m_staticRigidBodyHandle = sceneInterface->AddSimulatedBody(m_attachedSceneHandle, &configuration);
         }
-    }
-
-    void HeightfieldColliderComponent::InitHeightfieldShape()
-    {
-        const auto& [colliderConfiguration, shapeConfiguration] = m_shapeConfig;
-
-        AZ_Error(
-            "PhysX", colliderConfiguration, "Unable to create a physics shape because collider configuration is null. Entity: %s",
-            GetEntity()->GetName().c_str());
-
-        AZ_Error(
-            "PhysX", shapeConfiguration, "Unable to create a physics shape because shape configuration is null. Entity: %s",
-            GetEntity()->GetName().c_str());
-
-        if (shapeConfiguration && colliderConfiguration)
-        {
-            Physics::SystemRequestBus::BroadcastResult(
-                m_heightfield, &Physics::SystemRequests::CreateShape, *colliderConfiguration, *shapeConfiguration);
-        }
-
-        AZ_Error("PhysX", m_heightfield, "Failed to create a PhysX Heightfield shape. Entity: %s", GetEntity()->GetName().c_str());
     }
 
     void HeightfieldColliderComponent::InitHeightfieldShapeConfiguration()
@@ -191,8 +166,8 @@ namespace PhysX
     {
         ClearHeightfield();
         InitHeightfieldShapeConfiguration();
-        InitHeightfieldShape();
         InitStaticRigidBody();
+        Physics::ColliderComponentEventBus::Event(GetEntityId(), &Physics::ColliderComponentEvents::OnColliderChanged);
     }
 
     void HeightfieldColliderComponent::SetShapeConfiguration(const AzPhysics::ShapeColliderPair& shapeConfig)
@@ -280,11 +255,22 @@ namespace PhysX
         return shapeConfigurationList;
     }
 
+    AZStd::shared_ptr<Physics::Shape> HeightfieldColliderComponent::GetHeightfieldShape()
+    {
+        if (auto* body = azdynamic_cast<PhysX::StaticRigidBody*>(GetSimulatedBody()))
+        {
+            // Heightfields should only have one shape
+            AZ_Assert(body->GetShapeCount() == 1, "Heightfield rigid body has the wrong number of shapes:  %zu", body->GetShapeCount());
+            return body->GetShape(0);
+        }
+
+        return {};
+    }
+
     // ColliderComponentRequestBus
     AZStd::vector<AZStd::shared_ptr<Physics::Shape>> HeightfieldColliderComponent::GetShapes()
     {
-        AZStd::vector<AZStd::shared_ptr<Physics::Shape>> shapes({ m_heightfield });
-        return shapes;
+        return { GetHeightfieldShape() };
     }
 
     // PhysX::ColliderShapeBus
@@ -315,15 +301,18 @@ namespace PhysX
     // CollisionFilteringRequestBus
     void HeightfieldColliderComponent::SetCollisionLayer(const AZStd::string& layerName, AZ::Crc32 colliderTag)
     {
-        if (Physics::Utils::FilterTag(m_heightfield->GetTag(), colliderTag))
+        if (auto heightfield = GetHeightfieldShape())
         {
-            bool success = false;
-            AzPhysics::CollisionLayer layer;
-            Physics::CollisionRequestBus::BroadcastResult(
-                success, &Physics::CollisionRequests::TryGetCollisionLayerByName, layerName, layer);
-            if (success)
+            if (Physics::Utils::FilterTag(heightfield->GetTag(), colliderTag))
             {
-                m_heightfield->SetCollisionLayer(layer);
+                bool success = false;
+                AzPhysics::CollisionLayer layer;
+                Physics::CollisionRequestBus::BroadcastResult(
+                    success, &Physics::CollisionRequests::TryGetCollisionLayerByName, layerName, layer);
+                if (success)
+                {
+                    heightfield->SetCollisionLayer(layer);
+                }
             }
         }
     }
@@ -332,23 +321,29 @@ namespace PhysX
     AZStd::string HeightfieldColliderComponent::GetCollisionLayerName()
     {
         AZStd::string layerName;
-        Physics::CollisionRequestBus::BroadcastResult(
-            layerName, &Physics::CollisionRequests::GetCollisionLayerName, m_heightfield->GetCollisionLayer());
+        if (auto heightfield = GetHeightfieldShape())
+        {
+            Physics::CollisionRequestBus::BroadcastResult(
+                layerName, &Physics::CollisionRequests::GetCollisionLayerName, heightfield->GetCollisionLayer());
+        }
         return layerName;
     }
 
     // CollisionFilteringRequestBus
     void HeightfieldColliderComponent::SetCollisionGroup(const AZStd::string& groupName, AZ::Crc32 colliderTag)
     {
-        if (Physics::Utils::FilterTag(m_heightfield->GetTag(), colliderTag))
+        if (auto heightfield = GetHeightfieldShape())
         {
-            bool success = false;
-            AzPhysics::CollisionGroup group;
-            Physics::CollisionRequestBus::BroadcastResult(
-                success, &Physics::CollisionRequests::TryGetCollisionGroupByName, groupName, group);
-            if (success)
+            if (Physics::Utils::FilterTag(heightfield->GetTag(), colliderTag))
             {
-                m_heightfield->SetCollisionGroup(group);
+                bool success = false;
+                AzPhysics::CollisionGroup group;
+                Physics::CollisionRequestBus::BroadcastResult(
+                    success, &Physics::CollisionRequests::TryGetCollisionGroupByName, groupName, group);
+                if (success)
+                {
+                    heightfield->SetCollisionGroup(group);
+                }
             }
         }
     }
@@ -357,8 +352,11 @@ namespace PhysX
     AZStd::string HeightfieldColliderComponent::GetCollisionGroupName()
     {
         AZStd::string groupName;
-        Physics::CollisionRequestBus::BroadcastResult(
-            groupName, &Physics::CollisionRequests::GetCollisionGroupName, m_heightfield->GetCollisionGroup());
+        if (auto heightfield = GetHeightfieldShape())
+        {
+            Physics::CollisionRequestBus::BroadcastResult(
+                groupName, &Physics::CollisionRequests::GetCollisionGroupName, heightfield->GetCollisionGroup());
+        }
 
         return groupName;
     }
@@ -366,17 +364,20 @@ namespace PhysX
     // CollisionFilteringRequestBus
     void HeightfieldColliderComponent::ToggleCollisionLayer(const AZStd::string& layerName, AZ::Crc32 colliderTag, bool enabled)
     {
-        if (Physics::Utils::FilterTag(m_heightfield->GetTag(), colliderTag))
+        if (auto heightfield = GetHeightfieldShape())
         {
-            bool success = false;
-            AzPhysics::CollisionLayer layer;
-            Physics::CollisionRequestBus::BroadcastResult(
-                success, &Physics::CollisionRequests::TryGetCollisionLayerByName, layerName, layer);
-            if (success)
+            if (Physics::Utils::FilterTag(heightfield->GetTag(), colliderTag))
             {
-                auto group = m_heightfield->GetCollisionGroup();
-                group.SetLayer(layer, enabled);
-                m_heightfield->SetCollisionGroup(group);
+                bool success = false;
+                AzPhysics::CollisionLayer layer;
+                Physics::CollisionRequestBus::BroadcastResult(
+                    success, &Physics::CollisionRequests::TryGetCollisionLayerByName, layerName, layer);
+                if (success)
+                {
+                    auto group = heightfield->GetCollisionGroup();
+                    group.SetLayer(layer, enabled);
+                    heightfield->SetCollisionGroup(group);
+                }
             }
         }
     }
