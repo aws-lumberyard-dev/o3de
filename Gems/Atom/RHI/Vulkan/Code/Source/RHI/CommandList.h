@@ -129,6 +129,8 @@ namespace AZ
                 AZStd::array<const ShaderResourceGroup*, RHI::Limits::Pipeline::ShaderResourceGroupCountMax> m_SRGByAzslBindingSlot = { {} };
                 AZStd::array<VkDescriptorSet, RHI::Limits::Pipeline::ShaderResourceGroupCountMax> m_descriptorSets = { {VK_NULL_HANDLE} };
                 AZStd::bitset<RHI::Limits::Pipeline::ShaderResourceGroupCountMax> m_dirtyShaderResourceGroupFlags;
+                uint32_t m_dynamicOffsetCount;
+                uint32_t m_dynamicOffset;
             };
 
             struct State

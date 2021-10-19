@@ -383,6 +383,11 @@ namespace AZ
             return RHI::CheckBitsAny(m_updateMask, resourceTypeMask);
         }
 
+        bool ShaderResourceGroupData::IsResourceTypeEnabledForExclusiveCompilation(uint32_t resourceTypeMask) const
+        {
+            return RHI::CheckBitsAll(m_updateMask, resourceTypeMask);
+        }
+
         bool ShaderResourceGroupData::IsAnyResourceTypeUpdated() const
         {
             return m_updateMask != 0;

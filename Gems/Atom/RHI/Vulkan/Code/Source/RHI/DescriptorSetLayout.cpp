@@ -181,7 +181,7 @@ namespace AZ
 
                 // All constant data of the SRG have the same binding.
                 vbinding.binding = inputListForConstants[0].m_registerId;
-                vbinding.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+                vbinding.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC;
                 vbinding.descriptorCount = 1;
                 vbinding.stageFlags = VK_SHADER_STAGE_ALL; // [GFX TODO][ATOM-347] find a way to get an appropriate shader visibility. 
                 vbinding.pImmutableSamplers = nullptr;

@@ -175,7 +175,8 @@ namespace AZ
             auto constantData = groupData.GetConstantData();
             if (!constantData.empty())
             {
-                descriptorSet.UpdateConstantData(constantData);
+                descriptorSet.UpdateConstantData(constantData,
+                    groupData.IsResourceTypeEnabledForExclusiveCompilation(static_cast<uint32_t>(RHI::ShaderResourceGroupData::ResourceTypeMask::ConstantDataMask)));
             }
             descriptorSet.CommitUpdates();
 

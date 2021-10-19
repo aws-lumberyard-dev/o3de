@@ -207,6 +207,7 @@ namespace AZ
 
             //! Returns true if a resource type specified by resourceTypeMask is enabled for compilation
             bool IsResourceTypeEnabledForCompilation(uint32_t resourceTypeMask) const;
+            bool IsResourceTypeEnabledForExclusiveCompilation(uint32_t resourceTypeMask) const;
 
             //! Disables all resource types for compilation after m_updateMaskResetLatency number of compiles
             //! This allows higher level code to ensure that if SRG is multi-buffered it can compile multiple

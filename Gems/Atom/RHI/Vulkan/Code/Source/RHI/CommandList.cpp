@@ -860,6 +860,12 @@ namespace AZ
                 if (bindings.m_descriptorSets[index] != vkDescriptorSet)
                 {
                     bindings.m_descriptorSets[index] = vkDescriptorSet;
+                    bindings.m_dynamicOffsetCount = compiledData.GetConstantDataBufferView() ? 1 : 0;
+                    if (bindings.m_dynamicOffsetCount)
+                    {
+                        bindings.m_dynamicOffset =
+                            static_cast<uint32_t>(compiledData.GetConstantDataBuffer()->GetBufferMemoryView()->GetOffset());
+                    }
                     interval.m_max = AZStd::max<uint32_t>(interval.m_max, index);
                     interval.m_min = AZStd::min<uint32_t>(interval.m_min, index);
                 }
@@ -868,6 +874,7 @@ namespace AZ
             if (interval != InvalidInterval)
             {
                 AZ_Assert(!bindings.m_descriptorSets.empty(), "No DescriptorSet.");
+                uint32_t dynamicOffset = bindings.m_dynamicOffset;
                 vkCmdBindDescriptorSets(
                     m_nativeCommandBuffer,
                     GetPipelineBindPoint(pipelineState),
@@ -875,8 +882,8 @@ namespace AZ
                     interval.m_min,
                     interval.m_max - interval.m_min + 1,
                     bindings.m_descriptorSets.data() + interval.m_min,
-                    0,
-                    nullptr);
+                    bindings.m_dynamicOffsetCount,
+                    &dynamicOffset);
             }
         }
 

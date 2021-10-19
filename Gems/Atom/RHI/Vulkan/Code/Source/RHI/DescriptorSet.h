@@ -60,9 +60,10 @@ namespace AZ
             void UpdateBufferViews(uint32_t index, const AZStd::array_view<RHI::ConstPtr<RHI::BufferView>>& bufViews);
             void UpdateImageViews(uint32_t index, const AZStd::array_view<RHI::ConstPtr<RHI::ImageView>>& imageViews, RHI::ShaderInputImageType imageType);
             void UpdateSamplers(uint32_t index, const AZStd::array_view<RHI::SamplerState>& samplers);
-            void UpdateConstantData(AZStd::array_view<uint8_t> data);
+            void UpdateConstantData(AZStd::array_view<uint8_t> data, bool noDynamicUpdate);
 
             RHI::Ptr<BufferView> GetConstantDataBufferView() const;
+            RHI::Ptr<Buffer> GetConstantDataBuffer() const;
 
         private:
             struct WriteDescriptorData

@@ -188,7 +188,7 @@ namespace AZ
             m_updateData.push_back(AZStd::move(data));
         }
 
-        void DescriptorSet::UpdateConstantData(AZStd::array_view<uint8_t> rawData)
+        void DescriptorSet::UpdateConstantData(AZStd::array_view<uint8_t> rawData, bool noDynamicUpdate)
         {
             AZ_Assert(m_constantDataBuffer, "Null constant buffer");
             const DescriptorSetLayout& layout = *m_descriptor.m_descriptorSetLayout;
@@ -206,7 +206,11 @@ namespace AZ
             bufferInfo.offset = memoryView->GetOffset();
             bufferInfo.range = rawData.size();
             data.m_bufferViewsInfo.push_back(bufferInfo);
-            m_updateData.push_back(AZStd::move(data));
+
+            if (!noDynamicUpdate)
+            {
+                m_updateData.push_back(AZStd::move(data));
+            }
         }
 
         RHI::Ptr<DescriptorSet> DescriptorSet::Create()
@@ -326,6 +330,7 @@ namespace AZ
                 switch (descType)
                 {
                 case VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER:
+                case VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC:
                 case VK_DESCRIPTOR_TYPE_STORAGE_BUFFER:
                     AZ_Assert(!updateData.m_bufferViewsInfo.empty(), "BufferInfo is empty.");
                     for (const RHI::Interval& interval : GetValidDescriptorsIntervals(updateData.m_bufferViewsInfo))
@@ -477,6 +482,11 @@ namespace AZ
         RHI::Ptr<BufferView> DescriptorSet::GetConstantDataBufferView() const
         {
             return m_constantDataBufferView;
+        }
+
+        RHI::Ptr<Buffer> DescriptorSet::GetConstantDataBuffer() const
+        {
+            return m_constantDataBuffer;
         }
    }
 }
