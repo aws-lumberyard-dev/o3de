@@ -42,7 +42,6 @@ namespace PhysX
         provided.push_back(AZ_CRC_CE("PhysicsWorldBodyService"));
         provided.push_back(AZ_CRC_CE("PhysXColliderService"));
         provided.push_back(AZ_CRC_CE("PhysXHeightfieldColliderService"));
-        provided.push_back(AZ_CRC_CE("PhysXTriggerService"));
         provided.push_back(AZ_CRC_CE("PhysXStaticRigidBodyService"));
     }
 
@@ -311,12 +310,6 @@ namespace PhysX
             }
         }
         return AZ::Aabb::CreateNull();
-    }
-
-    // PhysX::ColliderShapeBus
-    bool HeightfieldColliderComponent::IsTrigger()
-    {
-        return (m_shapeConfig.first->m_isTrigger);
     }
 
     // CollisionFilteringRequestBus

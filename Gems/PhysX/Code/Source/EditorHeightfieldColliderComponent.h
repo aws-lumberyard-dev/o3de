@@ -24,9 +24,9 @@ namespace PhysX
     class EditorHeightfieldColliderComponent
         : public AzToolsFramework::Components::EditorComponentBase
         , protected AzToolsFramework::EntitySelectionEvents::Bus::Handler
-        , protected AzPhysics::SimulatedBodyComponentRequestsBus::Handler
-        , private PhysX::ColliderShapeRequestBus::Handler
         , protected DebugDraw::DisplayCallback
+        , protected AzPhysics::SimulatedBodyComponentRequestsBus::Handler
+        , protected PhysX::ColliderShapeRequestBus::Handler
         , protected Physics::HeightfieldProviderNotificationBus::Handler
     {
     public:
@@ -42,20 +42,29 @@ namespace PhysX
         EditorHeightfieldColliderComponent();
         ~EditorHeightfieldColliderComponent();
 
-        // EditorComponentBase
-        void BuildGameEntity(AZ::Entity* gameEntity) override;
-    private:
-        void CreateStaticEditorCollider();
-        AZ::u32 OnConfigurationChanged();
-        void UpdateConfig();
-
         // AZ::Component
         void Activate() override;
         void Deactivate() override;
 
+        // EditorComponentBase
+        void BuildGameEntity(AZ::Entity* gameEntity) override;
+
+    protected:
+
         // AzToolsFramework::EntitySelectionEvents
         void OnSelected() override;
         void OnDeselected() override;
+
+        // DisplayCallback
+        void Display(AzFramework::DebugDisplayRequests& debugDisplay) const;
+
+        // ColliderShapeRequestBus
+        AZ::Aabb GetColliderShapeAabb() override;
+        bool IsTrigger() override
+        {
+            // PhysX Heightfields don't support triggers.
+            return false;
+        }
 
         // AzPhysics::SimulatedBodyComponentRequestsBus::Handler overrides ...
         void EnablePhysics() override;
@@ -66,29 +75,30 @@ namespace PhysX
         AzPhysics::SimulatedBodyHandle GetSimulatedBodyHandle() const override;
         AzPhysics::SceneQueryHit RayCast(const AzPhysics::RayCastRequest& request) override;
 
-        // DisplayCallback
-        void Display(AzFramework::DebugDisplayRequests& debugDisplay) const;
-
-        // ColliderShapeRequestBus
-        AZ::Aabb GetColliderShapeAabb() override;
-        bool IsTrigger() override;
-
         // Physics::HeightfieldProviderNotificationBus
         void OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion) override;
+
+    private:
+        AZ::u32 OnConfigurationChanged();
+
+        void ClearHeightfield();
+        void InitHeightfieldShapeConfiguration();
+        void InitHeightfieldShape();
+        void InitStaticRigidBody();
         void RefreshHeightfield();
 
-        void ClearHeightfieldData();
-
-        Physics::ColliderConfiguration m_colliderConfig; //!< Stores collision layers, whether the collider is a trigger, etc.
         DebugDraw::Collider m_colliderDebugDraw; //!< Handles drawing the collider based on global and local
         AzPhysics::SceneInterface* m_sceneInterface{ nullptr };
-        AzPhysics::SceneHandle m_editorSceneHandle = AzPhysics::InvalidSceneHandle;
-        AzPhysics::SimulatedBodyHandle m_editorBodyHandle =
-            AzPhysics::InvalidSimulatedBodyHandle; //!< Handle to the body in the editor physics scene if there is no rigid body component.
-        AZStd::shared_ptr<Physics::HeightfieldShapeConfiguration> m_shapeConfig{ new Physics::HeightfieldShapeConfiguration() };
 
         AzPhysics::SystemEvents::OnConfigurationChangedEvent::Handler m_physXConfigChangedHandler;
         AzPhysics::SystemEvents::OnMaterialLibraryChangedEvent::Handler m_onMaterialLibraryChangedEventHandler;
+
+        Physics::ColliderConfiguration m_colliderConfig; //!< Stores collision layers, whether the collider is a trigger, etc.
+        AZStd::shared_ptr<Physics::HeightfieldShapeConfiguration> m_shapeConfig{ new Physics::HeightfieldShapeConfiguration() };
+
+        AzPhysics::SimulatedBodyHandle m_staticRigidBodyHandle =
+            AzPhysics::InvalidSimulatedBodyHandle; //!< Handle to the body in the editor physics scene if there is no rigid body component.
+        AzPhysics::SceneHandle m_attachedSceneHandle = AzPhysics::InvalidSceneHandle;
     };
 
 } // namespace PhysX

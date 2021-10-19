@@ -65,7 +65,11 @@ namespace PhysX
 
         // PhysX::ColliderShapeBus
         AZ::Aabb GetColliderShapeAabb() override;
-        bool IsTrigger() override;
+        bool IsTrigger() override
+        {
+            // PhysX Heightfields don't support triggers.
+            return false;
+        }
 
         // CollisionFilteringRequestBus
         void SetCollisionLayer(const AZStd::string& layerName, AZ::Crc32 filterTag) override;
