@@ -74,9 +74,10 @@ namespace PhysX
         bool IsTrigger() override;
 
         // Physics::HeightfieldProviderNotificationBus
-        void OnHeightfieldTransformChanged(const AZ::Transform& transform) override;
         void OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion) override;
         void RefreshHeightfield();
+
+        void ClearHeightfieldData();
 
         Physics::ColliderConfiguration m_colliderConfig; //!< Stores collision layers, whether the collider is a trigger, etc.
         DebugDraw::Collider m_colliderDebugDraw; //!< Handles drawing the collider based on global and local

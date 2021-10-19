@@ -41,7 +41,7 @@ namespace PhysX
 
     EditorHeightfieldColliderComponent ::~EditorHeightfieldColliderComponent()
     {
-        m_shapeConfig->SetCachedNativeHeightfield(nullptr);
+        ClearHeightfieldData();
     }
 
 
@@ -103,13 +103,24 @@ namespace PhysX
     void EditorHeightfieldColliderComponent::BuildGameEntity(AZ::Entity* gameEntity)
     {
         auto* shapeColliderComponent = gameEntity->CreateComponent<HeightfieldColliderComponent>();
-        AzPhysics::ShapeColliderPairList shapeConfigurationList;
-        shapeConfigurationList.reserve(1);
-        shapeConfigurationList.emplace_back(AZStd::make_shared<Physics::ColliderConfiguration>(m_colliderConfig), m_shapeConfig);
+        shapeColliderComponent->SetShapeConfiguration(
+            { AZStd::make_shared<Physics::ColliderConfiguration>(m_colliderConfig), m_shapeConfig });
+    }
 
-        shapeColliderComponent->SetShapeConfigurationList(shapeConfigurationList);
+    void EditorHeightfieldColliderComponent::ClearHeightfieldData()
+    {
+        // There are two references to the heightfield data, we need to clear both to make the heightfield clear out and deallocate:
+        // - The simulated body has a pointer to the shape, which has a GeometryHolder, which has the Heightfield inside it
+        // - The shape config is also holding onto a pointer to the Heightfield
 
-        StaticRigidBodyUtils::TryCreateRuntimeComponent(*GetEntity(), *gameEntity);
+        // We remove the simulated body first, since we don't want the heightfield to exist any more.
+        if (m_sceneInterface && m_editorBodyHandle != AzPhysics::InvalidSimulatedBodyHandle)
+        {
+            m_sceneInterface->RemoveSimulatedBody(m_editorSceneHandle, m_editorBodyHandle);
+        }
+
+        // Now we can safely clear out the cached heightfield pointer.
+        m_shapeConfig->SetCachedNativeHeightfield(nullptr);
     }
 
     void EditorHeightfieldColliderComponent::CreateStaticEditorCollider()
@@ -160,9 +171,13 @@ namespace PhysX
 
     void EditorHeightfieldColliderComponent::UpdateConfig()
     {
+        // Since we're about to completely replace our heightfield data, clear out the previous one.
+        ClearHeightfieldData();
+
         Physics::HeightfieldShapeConfiguration& configuration =
             static_cast<Physics::HeightfieldShapeConfiguration&>(*m_shapeConfig);
-        configuration.SetCachedNativeHeightfield(nullptr);
+
+        // Reset the configuration to the defaults.
         configuration = Physics::HeightfieldShapeConfiguration(GetEntityId());
 
         AZ::Vector2 gridSpacing(1.0f);
@@ -187,7 +202,6 @@ namespace PhysX
 
         // Scale is expected to be handled inside the heightfield provider, so we'll just set this to unit scale.
         m_shapeConfig->m_scale = AZ::Vector3::CreateOne();
-
     }
 
     // AZ::Component
@@ -218,8 +232,7 @@ namespace PhysX
 
     void EditorHeightfieldColliderComponent::Deactivate()
     {
-        Physics::HeightfieldShapeConfiguration& configuration = static_cast<Physics::HeightfieldShapeConfiguration&>(*m_shapeConfig);
-        configuration.SetCachedNativeHeightfield(nullptr);
+        ClearHeightfieldData();
 
         AzPhysics::SimulatedBodyComponentRequestsBus::Handler::BusDisconnect();
         m_colliderDebugDraw.Disconnect();
@@ -228,11 +241,6 @@ namespace PhysX
         AzToolsFramework::EntitySelectionEvents::Bus::Handler::BusDisconnect();
         AzToolsFramework::Components::EditorComponentBase::Deactivate();
         Physics::HeightfieldProviderNotificationBus::Handler::BusDisconnect();
-
-        if (m_sceneInterface && m_editorBodyHandle != AzPhysics::InvalidSimulatedBodyHandle)
-        {
-            m_sceneInterface->RemoveSimulatedBody(m_editorSceneHandle, m_editorBodyHandle);
-        }
     }
 
 
@@ -256,14 +264,6 @@ namespace PhysX
     {
         m_onMaterialLibraryChangedEventHandler.Disconnect();
         m_physXConfigChangedHandler.Disconnect();
-    }
-
-    void EditorHeightfieldColliderComponent::OnHeightfieldTransformChanged([[maybe_unused]] const AZ::Transform& transform)
-    {
-        UpdateConfig();
-
-        CreateStaticEditorCollider();
-        Physics::ColliderComponentEventBus::Event(GetEntityId(), &Physics::ColliderComponentEvents::OnColliderChanged);
     }
 
     void EditorHeightfieldColliderComponent::EnablePhysics()

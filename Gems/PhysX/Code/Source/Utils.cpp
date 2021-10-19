@@ -219,7 +219,7 @@ namespace PhysX
                                 const Physics::HeightMaterialPoint& currentSample = samples[sampleIndex];
                                 physx::PxHeightFieldSample& currentPhysxSample = physxSamples[sampleIndex];
                                 AZ_Assert(
-                                    (currentSample.m_height < 256.0f) && (currentSample.m_height >= -256.0f), "Height value out of range");
+                                    (currentSample.m_height <= 256.0f) && (currentSample.m_height >= -256.0f), "Height value out of range");
                                 AZ_Assert(
                                     currentSample.m_materialIndex <= physxMaximumMaterialIndex, "MaterialIndex must be less than 128");
                                 currentPhysxSample.height = azlossy_cast<physx::PxI16>(currentSample.m_height * scaleFactor);
