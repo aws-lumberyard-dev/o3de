@@ -155,6 +155,14 @@ namespace PhysX
         configuration.SetNumRows(numRows);
         configuration.SetNumColumns(numColumns);
 
+        float minHeightBounds = 0.0f;
+        float maxHeightBounds = 0.0f;
+        Physics::HeightfieldProviderRequestsBus::Event(
+            GetEntityId(), &Physics::HeightfieldProviderRequestsBus::Events::GetHeightfieldHeightBounds, minHeightBounds, maxHeightBounds);
+
+        configuration.SetMinHeightBounds(minHeightBounds);
+        configuration.SetMaxHeightBounds(maxHeightBounds);
+
         AZStd::vector<Physics::HeightMaterialPoint> samples;
         Physics::HeightfieldProviderRequestsBus::EventResult(
             samples, GetEntityId(), &Physics::HeightfieldProviderRequestsBus::Events::GetHeightsAndMaterials);
