@@ -13,12 +13,10 @@
 
 #include <AzFramework/Physics/CollisionBus.h>
 #include <AzFramework/Physics/Components/SimulatedBodyComponentBus.h>
+#include <AzFramework/Physics/HeightfieldProviderBus.h>
 
 #include <PhysX/ColliderComponentBus.h>
 #include <PhysX/ColliderShapeBus.h>
-
-#include <Source/Shape.h>
-#include <AzFramework/Physics/HeightfieldProviderBus.h>
 
 namespace AzPhysics
 {
@@ -29,11 +27,12 @@ namespace PhysX
 {
     class StaticRigidBody;
 
-    //! Component that provides a Heightfield Collider.
-    //! The heightfield collider component supports having its data changed at runtime.  It also relies on the HeightfieldProvider to
-    //! provide its data.  Due to these differences, this component directly implements both the collider and static rigid body services -
-    //! the default behaviors provided by BaseColliderComponent and StaticRigidBodyComponent don't line up well with the additional
-    //! functionality required here.
+    //! Component that provides a Heightfield Collider and associated Static Rigid Body.
+    //! The heightfield collider is a bit different from the other shape colliders in that it gets the heightfield data from a
+    //! HeightfieldProvider, which can control position, rotation, size, and even change its data at runtime.
+    //! 
+    //! Due to these differences, this component directly implements both the collider and static rigid body services instead of
+    //! using BaseColliderComponent and StaticRigidBodyComponent.
     class HeightfieldColliderComponent
         : public AZ::Component
         , public ColliderComponentRequestBus::Handler
@@ -41,7 +40,6 @@ namespace PhysX
         , protected PhysX::ColliderShapeRequestBus::Handler
         , protected Physics::CollisionFilteringRequestBus::Handler
         , protected Physics::HeightfieldProviderNotificationBus::Handler
-
     {
     public:
         using Configuration = Physics::HeightfieldShapeConfiguration;
@@ -60,6 +58,7 @@ namespace PhysX
 
         void SetShapeConfiguration(const AzPhysics::ShapeColliderPair& shapeConfig);
 
+    protected:
         // ColliderComponentRequestBus
         AzPhysics::ShapeColliderPairList GetShapeConfigurations() override;
         AZStd::vector<AZStd::shared_ptr<Physics::Shape>> GetShapes() override;
@@ -75,28 +74,25 @@ namespace PhysX
         AZStd::string GetCollisionGroupName() override;
         void ToggleCollisionLayer(const AZStd::string& layerName, AZ::Crc32 filterTag, bool enabled) override;
 
-        // AzPhysics::SimulatedBodyComponentRequestsBus::Handler overrides ...
+        // SimulatedBodyComponentRequestsBus
         void EnablePhysics() override;
         void DisablePhysics() override;
         bool IsPhysicsEnabled() const override;
         AZ::Aabb GetAabb() const override;
         AzPhysics::SimulatedBodyHandle GetSimulatedBodyHandle() const override;
         AzPhysics::SimulatedBody* GetSimulatedBody() override;
-
         AzPhysics::SceneQueryHit RayCast(const AzPhysics::RayCastRequest& request) override;
 
-    private:
+        // HeightfieldProviderNotificationBus
         void OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion) override;
-        void RefreshHeightfield();
 
-        void ClearHeightfieldData();
-        bool InitShapes();
+    private:
+
+        void ClearHeightfield();
+        void InitHeightfieldShapeConfiguration();
+        void InitHeightfieldShape();
         void InitStaticRigidBody();
-
-
-        /// Updates the scale of shape configurations to reflect the scale from the transform component.
-        /// Specific collider components should override this function.
-        void UpdateScaleForShapeConfigs();
+        void RefreshHeightfield();
 
         AzPhysics::ShapeColliderPair m_shapeConfig;
         AZStd::shared_ptr<Physics::Shape> m_heightfield;
