@@ -115,8 +115,8 @@ namespace PhysX
         // is computed and the size of the heightfield, it's possible that the HeightfieldProvider will provide a different transform
         // back to us than the one that's directly on that entity.
         AZ::Transform transform = AZ::Transform::CreateIdentity();
-        Physics::HeightfieldProviderRequestsBus::BroadcastResult(
-            transform, &Physics::HeightfieldProviderRequestsBus::Events::GetHeightfieldTransform);
+        Physics::HeightfieldProviderRequestsBus::EventResult(
+            transform, GetEntityId(), &Physics::HeightfieldProviderRequestsBus::Events::GetHeightfieldTransform);
 
         AzPhysics::StaticRigidBodyConfiguration configuration;
         configuration.m_orientation = transform.GetRotation();
