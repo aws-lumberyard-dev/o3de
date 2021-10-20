@@ -1108,7 +1108,7 @@ bool CCryEditDoc::SaveLevel(const QString& filename)
     if (QFileInfo(filename).isRelative())
     {
         // Resolving the path through resolvepath would normalize and lowcase it, and in this case, we don't want that.
-        fullPathName = Path::ToUnixPath(QDir(QString::fromUtf8(gEnv->pFileIO->GetAlias("@devassets@"))).absoluteFilePath(fullPathName));
+        fullPathName = Path::ToUnixPath(QDir(QString::fromUtf8(gEnv->pFileIO->GetAlias("@projectroot@"))).absoluteFilePath(fullPathName));
     }
 
     if (!CFileUtil::OverwriteFile(fullPathName))
@@ -1135,7 +1135,6 @@ bool CCryEditDoc::SaveLevel(const QString& filename)
     {
         // if we're saving to a new folder, we need to copy the old folder tree.
         auto pIPak = GetIEditor()->GetSystem()->GetIPak();
-        pIPak->Lock();
 
         const QString oldLevelPattern = QDir(oldLevelFolder).absoluteFilePath("*.*");
         const QString oldLevelName = Path::GetFile(GetLevelPathName());
@@ -1199,7 +1198,6 @@ bool CCryEditDoc::SaveLevel(const QString& filename)
             QFile(filePath).setPermissions(QFile::ReadOther | QFile::WriteOther);
         });
 
-        pIPak->Unlock();
     }
 
     // Save level to XML archive.
@@ -1275,7 +1273,7 @@ bool CCryEditDoc::SaveLevel(const QString& filename)
         if (savedEntities)
         {
             AZ_PROFILE_SCOPE(AzToolsFramework, "CCryEditDoc::SaveLevel Updated PakFile levelEntities.editor_xml");
-            pakFile.UpdateFile("LevelEntities.editor_xml", entitySaveBuffer.begin(), static_cast<int>(entitySaveBuffer.size()));
+            pakFile.UpdateFile("levelentities.editor_xml", entitySaveBuffer.begin(), static_cast<int>(entitySaveBuffer.size()));
 
             // Save XML archive to pak file.
             bool bSaved = xmlAr.SaveToPak(Path::GetPath(tempSaveFile), pakFile);
@@ -1503,7 +1501,7 @@ bool CCryEditDoc::LoadEntitiesFromLevel(const QString& levelPakFile)
         bool pakOpened = pakSystem->OpenPack(levelPakFile.toUtf8().data());
         if (pakOpened)
         {
-            const QString entityFilename = Path::GetPath(levelPakFile) + "LevelEntities.editor_xml";
+            const QString entityFilename = Path::GetPath(levelPakFile) + "levelentities.editor_xml";
 
             CCryFile entitiesFile;
             if (entitiesFile.Open(entityFilename.toUtf8().data(), "rt"))
@@ -1813,8 +1811,8 @@ bool CCryEditDoc::BackupBeforeSave(bool force)
     QString subFolder = theTime.toString("yyyy-MM-dd [HH.mm.ss]");
 
     QString levelName = GetIEditor()->GetGameEngine()->GetLevelName();
-    QString backupPath = saveBackupPath + "/" + subFolder + "/";
-    gEnv->pCryPak->MakeDir(backupPath.toUtf8().data());
+    QString backupPath = saveBackupPath + "/" + subFolder;
+    AZ::IO::FileIOBase::GetDirectInstance()->CreatePath(backupPath.toUtf8().data());
 
     QString sourcePath = QString::fromUtf8(resolvedLevelPath) + "/";
 
@@ -2028,7 +2026,7 @@ const char* CCryEditDoc::GetTemporaryLevelName() const
 void CCryEditDoc::DeleteTemporaryLevel()
 {
     QString tempLevelPath = (Path::GetEditingGameDataFolder() + "/Levels/" + GetTemporaryLevelName()).c_str();
-    GetIEditor()->GetSystem()->GetIPak()->ClosePacks(tempLevelPath.toUtf8().data(), AZ::IO::IArchive::EPathResolutionRules::FLAGS_ADD_TRAILING_SLASH);
+    GetIEditor()->GetSystem()->GetIPak()->ClosePacks(tempLevelPath.toUtf8().data());
     CFileUtil::Deltree(tempLevelPath.toUtf8().data(), true);
 }
 
@@ -2161,7 +2159,7 @@ bool CCryEditDoc::LoadXmlArchiveArray(TDocMultiArchive& arrXmlAr, const QString&
         xmlAr.bLoading = true;
 
         // bound to the level folder, as if it were the assets folder.
-        // this mounts (whateverlevelname.ly) as @assets@/Levels/whateverlevelname/ and thus it works...
+        // this mounts (whateverlevelname.ly) as @products@/Levels/whateverlevelname/ and thus it works...
         bool openLevelPakFileSuccess = pIPak->OpenPack(levelPath.toUtf8().data(), absoluteLevelPath.toUtf8().data());
         if (!openLevelPakFileSuccess)
         {

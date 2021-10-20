@@ -6,10 +6,7 @@
 #
 #
 
-ly_set(LY_INSTALL_ENABLED TRUE)
-if(INSTALLED_ENGINE)
-    ly_set(LY_INSTALL_ENABLED FALSE)
-endif()
+set(LY_INSTALL_ENABLED TRUE CACHE BOOL "Indicates if the install process is enabled")
 
 if(LY_INSTALL_ENABLED)
     ly_get_absolute_pal_filename(pal_dir ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Platform/${PAL_PLATFORM_NAME})
@@ -148,6 +145,23 @@ function(ly_install_run_code CODE)
     endif()
 
     install(CODE ${CODE}
+        COMPONENT ${CMAKE_INSTALL_DEFAULT_COMPONENT_NAME} # use the default for the time being
+    )
+
+endfunction()
+
+#! ly_install_run_script: specifies path to script to be added to the install process (will run at install time)
+#
+# \notes: 
+#  - refer to cmake's install(SCRIPT documentation for more information
+#
+function(ly_install_run_script SCRIPT)
+
+    if(NOT LY_INSTALL_ENABLED)
+        return()
+    endif()
+
+    install(SCRIPT ${SCRIPT}
         COMPONENT ${CMAKE_INSTALL_DEFAULT_COMPONENT_NAME} # use the default for the time being
     )
 

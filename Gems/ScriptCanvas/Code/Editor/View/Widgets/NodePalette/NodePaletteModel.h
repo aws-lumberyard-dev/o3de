@@ -61,7 +61,7 @@ namespace ScriptCanvasEditor
 
     class NodePaletteModel
         : public GraphCanvas::CategorizerInterface
-        , UpgradeNotifications::Bus::Handler
+        , UpgradeNotificationsBus::Handler
     {
     public:
         typedef AZStd::unordered_map< ScriptCanvas::NodeTypeIdentifier, NodePaletteModelInformation* > NodePaletteRegistry;
@@ -104,10 +104,6 @@ namespace ScriptCanvasEditor
         void OnUpgradeStart() override
         {
             DisconnectLambdas();
-        }
-        void OnUpgradeComplete() override
-        {
-            ConnectLambdas();
         }
 
         // Asset Node Support

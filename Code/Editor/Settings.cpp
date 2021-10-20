@@ -10,6 +10,7 @@
 #include "EditorDefs.h"
 
 #include "Settings.h"
+#include "EditorViewportSettings.h"
 
 // Qt
 #include <QGuiApplication>
@@ -171,7 +172,6 @@ SEditorSettings::SEditorSettings()
     bBackupOnSave = true;
     backupOnSaveMaxCount = 3;
     bApplyConfigSpecInEditor = true;
-    useLowercasePaths = 0;
     showErrorDialogOnLoad = 1;
 
     consoleBackgroundColorTheme = AzToolsFramework::ConsoleColorTheme::Dark;
@@ -488,7 +488,6 @@ void SEditorSettings::Save()
     SaveValue("Settings", "AutoBackupTime", autoBackupTime);
     SaveValue("Settings", "AutoBackupMaxCount", autoBackupMaxCount);
     SaveValue("Settings", "AutoRemindTime", autoRemindTime);
-    SaveValue("Settings", "MaxDisplayedItemsNumInSearch", maxNumberOfItemsShownInSearch);
     SaveValue("Settings", "CameraMoveSpeed", cameraMoveSpeed);
     SaveValue("Settings", "CameraRotateSpeed", cameraRotateSpeed);
     SaveValue("Settings", "StylusMode", stylusMode);
@@ -683,7 +682,6 @@ void SEditorSettings::Load()
     LoadValue("Settings", "AutoBackupTime", autoBackupTime);
     LoadValue("Settings", "AutoBackupMaxCount", autoBackupMaxCount);
     LoadValue("Settings", "AutoRemindTime", autoRemindTime);
-    LoadValue("Settings", "MaxDisplayedItemsNumInSearch", maxNumberOfItemsShownInSearch);
     LoadValue("Settings", "CameraMoveSpeed", cameraMoveSpeed);
     LoadValue("Settings", "CameraRotateSpeed", cameraRotateSpeed);
     LoadValue("Settings", "StylusMode", stylusMode);
@@ -887,6 +885,7 @@ void SEditorSettings::Load()
 
 //////////////////////////////////////////////////////////////////////////
 AZ_CVAR(bool, ed_previewGameInFullscreen_once, false, nullptr, AZ::ConsoleFunctorFlags::IsInvisible, "Preview the game (Ctrl+G, \"Play Game\", etc.) in fullscreen once");
+AZ_CVAR(bool, ed_lowercasepaths, false, nullptr, AZ::ConsoleFunctorFlags::Null, "Convert CCryFile paths to lowercase on Open");
 
 void SEditorSettings::PostInitApply()
 {
@@ -898,7 +897,6 @@ void SEditorSettings::PostInitApply()
     // Create CVars.
     REGISTER_CVAR2("ed_highlightGeometry", &viewports.bHighlightMouseOverGeometry, viewports.bHighlightMouseOverGeometry, 0, "Highlight geometry when mouse over it");
     REGISTER_CVAR2("ed_showFrozenHelpers", &viewports.nShowFrozenHelpers, viewports.nShowFrozenHelpers, 0, "Show helpers of frozen objects");
-    REGISTER_CVAR2("ed_lowercasepaths", &useLowercasePaths, useLowercasePaths, 0, "generate paths in lowercase");
     gEnv->pConsole->RegisterInt("fe_fbx_savetempfile", 0, 0, "When importing an FBX file into Facial Editor, this will save out a conversion FSQ to the Animations/temp folder for trouble shooting");
 
     REGISTER_CVAR2_CB("ed_toolbarIconSize", &gui.nToolbarIconSize, gui.nToolbarIconSize, VF_NULL, "Override size of the toolbar icons 0-default, 16,32,...", ToolbarIconSizeChanged);
@@ -936,8 +934,9 @@ void SEditorSettings::LoadDefaultGamePaths()
         searchPaths[EDITOR_PATH_MATERIALS].push_back((Path::GetEditingGameDataFolder() + "/Materials").c_str());
     }
 
-    AZStd::string iconsPath;
-    AZ::StringFunc::Path::Join(Path::GetEditingRootFolder().c_str(), "Editor/UI/Icons", iconsPath);
+    auto iconsPath = AZ::IO::Path(AZ::Utils::GetEnginePath()) / "Assets";
+    iconsPath /= "Editor/UI/Icons";
+    iconsPath.MakePreferred();
     searchPaths[EDITOR_PATH_UI_ICONS].push_back(iconsPath.c_str());
 }
 
@@ -1174,7 +1173,7 @@ AzToolsFramework::ConsoleColorTheme SEditorSettings::GetConsoleColorTheme() cons
     return consoleBackgroundColorTheme;
 }
 
-int SEditorSettings::GetMaxNumberOfItemsShownInSearchView() const
+AZ::u64 SEditorSettings::GetMaxNumberOfItemsShownInSearchView() const
 {
-    return SEditorSettings::maxNumberOfItemsShownInSearch;
+    return SandboxEditor::MaxItemsShownInAssetBrowserSearch();
 }

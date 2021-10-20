@@ -26,6 +26,7 @@
 #include <AzCore/Component/TransformBus.h>
 #include <AzCore/std/containers/set.h>
 #include <AzCore/std/smart_ptr/make_shared.h>
+#include <Atom/RPI.Reflect/Model/ModelAsset.h>
 #include <Source/AreaSystemComponent.h>
 #include <Source/InstanceSystemComponent.h>
 #include <ISerialize.h>
@@ -268,7 +269,7 @@ namespace UnitTest
             }
         }
 
-        void GetSystemConfig(AZ::ComponentConfig* config) const
+        void GetSystemConfig(AZ::ComponentConfig* config) const override
         {
             if (azrtti_typeid(m_areaSystemConfig) == azrtti_typeid(*config))
             {

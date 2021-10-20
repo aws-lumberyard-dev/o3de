@@ -50,12 +50,11 @@ bool CLevelInfo::OpenLevelPak()
         return false;
     }
 
-    AZStd::string levelpak(m_levelPath);
-    levelpak += "/level.pak";
-    AZStd::fixed_string<AZ::IO::IArchive::MaxPath> fullLevelPakPath;
-    bool bOk = gEnv->pCryPak->OpenPack(
-        levelpak.c_str(), m_isPak ? AZ::IO::IArchive::FLAGS_LEVEL_PAK_INSIDE_PAK : (unsigned)0, NULL, &fullLevelPakPath, false);
-    m_levelPakFullPath.assign(fullLevelPakPath.c_str());
+    AZ::IO::Path levelPak(m_levelPath);
+    levelPak /= "level.pak";
+    AZ::IO::FixedMaxPathString fullLevelPakPath;
+    bool bOk = gEnv->pCryPak->OpenPack(levelPak.Native(), nullptr, &fullLevelPakPath, false);
+    m_levelPakFullPath.assign(fullLevelPakPath.c_str(), fullLevelPakPath.size());
     return bOk;
 }
 
@@ -74,7 +73,7 @@ void CLevelInfo::CloseLevelPak()
 
     if (!m_levelPakFullPath.empty())
     {
-        gEnv->pCryPak->ClosePack(m_levelPakFullPath.c_str(), AZ::IO::IArchive::FLAGS_PATH_REAL);
+        gEnv->pCryPak->ClosePack(m_levelPakFullPath.c_str());
         m_levelPakFullPath.clear();
     }
 }
@@ -87,7 +86,7 @@ bool CLevelInfo::ReadInfo()
         usePrefabSystemForLevels, &AzFramework::ApplicationRequests::IsPrefabSystemForLevelsEnabled);
 
     // Set up a default game type for legacy code.
-    m_defaultGameTypeName = "Mission0";
+    m_defaultGameTypeName = "mission0";
 
     if (usePrefabSystemForLevels)
     {
@@ -97,17 +96,17 @@ bool CLevelInfo::ReadInfo()
 
     AZStd::string levelPath(m_levelPath);
     AZStd::string xmlFile(levelPath);
-    xmlFile += "/LevelInfo.xml";
+    xmlFile += "/levelinfo.xml";
     XmlNodeRef rootNode = GetISystem()->LoadXmlFromFile(xmlFile.c_str());
 
     if (rootNode)
     {
         AZStd::string dataFile(levelPath);
-        dataFile += "/LevelDataAction.xml";
+        dataFile += "/leveldataaction.xml";
         XmlNodeRef dataNode = GetISystem()->LoadXmlFromFile(dataFile.c_str());
         if (!dataNode)
         {
-            dataFile = levelPath + "/LevelData.xml";
+            dataFile = levelPath + "/leveldata.xml";
             dataNode = GetISystem()->LoadXmlFromFile(dataFile.c_str());
         }
 
@@ -233,6 +232,7 @@ CLevelSystem::CLevelSystem(ISystem* pSystem, const char* levelsFolder)
 //------------------------------------------------------------------------
 CLevelSystem::~CLevelSystem()
 {
+    UnloadLevel();
 }
 
 //------------------------------------------------------------------------
@@ -306,7 +306,7 @@ void CLevelSystem::ScanFolder(const char* subfolder, bool modFolder)
                 }
 
                 AZStd::string levelContainerPakPath;
-                AZ::StringFunc::Path::Join("@assets@", m_levelsFolder.c_str(), levelContainerPakPath);
+                AZ::StringFunc::Path::Join("@products@", m_levelsFolder.c_str(), levelContainerPakPath);
                 if (subfolder && subfolder[0])
                 {
                     AZ::StringFunc::Path::Join(levelContainerPakPath.c_str(), subfolder, levelContainerPakPath);
@@ -323,8 +323,7 @@ void CLevelSystem::ScanFolder(const char* subfolder, bool modFolder)
     // Open all the available paks found in the levels folder
     for (auto iter = pakList.begin(); iter != pakList.end(); iter++)
     {
-        AZStd::fixed_string<AZ::IO::IArchive::MaxPath> fullLevelPakPath;
-        gEnv->pCryPak->OpenPack(iter->c_str(), (unsigned)0, nullptr, &fullLevelPakPath, false);
+        gEnv->pCryPak->OpenPack(iter->c_str(), nullptr, nullptr, false);
     }
 
     // Levels in bundles now take priority over levels outside of bundles.
@@ -615,7 +614,7 @@ ILevel* CLevelSystem::LoadLevelInternal(const char* _levelName)
         }
 
         {
-            AZStd::string missionXml("Mission_");
+            AZStd::string missionXml("mission_");
             missionXml += pLevelInfo->m_defaultGameTypeName;
             missionXml += ".xml";
             AZStd::string xmlFile(pLevelInfo->GetPath());

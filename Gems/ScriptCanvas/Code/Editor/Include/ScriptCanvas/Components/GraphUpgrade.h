@@ -82,7 +82,7 @@ namespace ScriptCanvasEditor
 
         StateMachine* GetStateMachine() override { return m_stateMachine; }
 
-        virtual int GetStateId() const { return Traits::StateID(); }
+        int GetStateId() const override { return Traits::StateID(); }
 
         static int StateID() { return Traits::StateID(); }
 
@@ -133,11 +133,15 @@ namespace ScriptCanvasEditor
 
         bool GetVerbose() const;
 
+        const AZStd::string GetError() const { return m_error; }
+
         void SetVerbose(bool isVerbose);
 
         const AZStd::string& GetDebugPrefix() const;
 
         void SetDebugPrefix(AZStd::string_view);
+
+        void MarkError(AZStd::string_view error) { m_error = error; }
 
         AZStd::shared_ptr<IState> m_currentState = nullptr;
         AZStd::vector<AZStd::shared_ptr<IState>> m_states;
@@ -145,6 +149,7 @@ namespace ScriptCanvasEditor
     private:
         bool m_isVerbose = true;
         AZStd::string m_debugPrefix;
+        AZStd::string m_error;
     };
 
     //! This state machine will collect and share a variety of data from the EditorGraph

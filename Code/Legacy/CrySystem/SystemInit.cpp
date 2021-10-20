@@ -588,25 +588,6 @@ bool CSystem::InitFileSystem()
         m_env.pCryPak->RecordFileOpen(AZ::IO::IArchive::RFOM_EngineStartup);
     }
 
-    //init crypak
-    if (m_env.pCryPak->Init(""))
-    {
-#if !defined(_RELEASE)
-        const ICmdLineArg* pakalias = m_pCmdLine->FindArg(eCLAT_Pre, "pakalias");
-#else
-        const ICmdLineArg* pakalias = nullptr;
-#endif // !defined(_RELEASE)
-        if (pakalias && strlen(pakalias->GetValue()) > 0)
-        {
-            m_env.pCryPak->ParseAliases(pakalias->GetValue());
-        }
-    }
-    else
-    {
-        AZ_Assert(false, "Failed to initialize CryPak.");
-        return false;
-    }
-
     // Now that file systems are init, we will clear any events that have arrived
     // during file system init, so that systems do not reload assets that were already compiled in the
     // critical compilation section.
@@ -815,7 +796,7 @@ void CSystem::OpenBasicPaks()
     bBasicPaksLoaded = true;
 
     // open pak files
-    constexpr AZStd::string_view paksFolder = "@assets@/*.pak"; // (@assets@ assumed)
+    constexpr AZStd::string_view paksFolder = "@products@/*.pak"; // (@products@ assumed)
     m_env.pCryPak->OpenPacks(paksFolder);
 
     InlineInitializationProcessing("CSystem::OpenBasicPaks OpenPacks( paksFolder.c_str() )");
@@ -824,10 +805,10 @@ void CSystem::OpenBasicPaks()
     // Open engine packs
     //////////////////////////////////////////////////////////////////////////
 
-    const char* const assetsDir = "@assets@";
+    const char* const assetsDir = "@products@";
 
     // After game paks to have same search order as with files on disk
-    m_env.pCryPak->OpenPack(assetsDir, "Engine.pak");
+    m_env.pCryPak->OpenPack(assetsDir, "engine.pak");
 
 #if defined(AZ_RESTRICTED_PLATFORM)
 #define AZ_RESTRICTED_SECTION SYSTEMINIT_CPP_SECTION_15
@@ -844,9 +825,6 @@ void CSystem::OpenBasicPaks()
 #endif //AZ_PLATFORM_ANDROID
 
     InlineInitializationProcessing("CSystem::OpenBasicPaks OpenPacks( Engine... )");
-
-    // Load paks required for game init to mem
-    gEnv->pCryPak->LoadPakToMemory("Engine.pak", AZ::IO::IArchive::eInMemoryPakLocale_GPU);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -891,20 +869,18 @@ void CSystem::OpenLanguageAudioPak([[maybe_unused]] const char* sLanguage)
 
     // Initialize languages.
 
-    int nPakFlags = 0;
-
     // Omit the trailing slash!
     AZStd::string sLocalizationFolder(AZStd::string().assign(PathUtil::GetLocalizationFolder(), 0, PathUtil::GetLocalizationFolder().size() - 1));
 
     if (!AZ::StringFunc::Equal(sLocalizationFolder, "Languages", false))
     {
-        sLocalizationFolder = "@assets@";
+        sLocalizationFolder = "@products@";
     }
 
     // load localized pak with crc32 filenames on consoles to save memory.
     AZStd::string sLocalizedPath = "loc.pak";
 
-    if (!m_env.pCryPak->OpenPacks(sLocalizationFolder.c_str(), sLocalizedPath.c_str(), nPakFlags))
+    if (!m_env.pCryPak->OpenPacks(sLocalizationFolder.c_str(), sLocalizedPath.c_str()))
     {
         // make sure the localized language is found - not really necessary, for TC
         AZ_Error(AZ_TRACE_SYSTEM_WINDOW, false, "Localized language content(%s) not available or modified from the original installation.", sLanguage);
@@ -1284,9 +1260,6 @@ AZ_POP_DISABLE_WARNING
 
         InlineInitializationProcessing("CSystem::Init Create console");
 
-        // Need to load the engine.pak that includes the config files needed during initialization
-        m_env.pCryPak->OpenPack("@assets@", "Engine.pak");
-
         InitFileSystem_LoadEngineFolders(startupParams);
 
 #if !defined(RELEASE) || defined(RELEASE_LOGGING)
@@ -1300,33 +1273,12 @@ AZ_POP_DISABLE_WARNING
         //Load config files
         //////////////////////////////////////////////////////////////////////////
 
-        int curSpecVal = 0;
-        ICVar* pSysSpecCVar = gEnv->pConsole->GetCVar("r_GraphicsQuality");
-        if (gEnv->pSystem->IsDevMode())
-        {
-            if (pSysSpecCVar && pSysSpecCVar->GetFlags() & VF_WASINCONFIG)
-            {
-                curSpecVal = pSysSpecCVar->GetIVal();
-                pSysSpecCVar->SetFlags(pSysSpecCVar->GetFlags() | VF_SYSSPEC_OVERWRITE);
-            }
-        }
-
         // tools may not interact with @user@
         if (!gEnv->IsInToolMode())
         {
             if (m_pCmdLine->FindArg(eCLAT_Pre, "ResetProfile") == 0)
             {
                 LoadConfiguration("@user@/game.cfg", 0, false);
-            }
-        }
-
-        // If sys spec variable was specified, is not 0, and we are in devmode restore the value from before loading game.cfg
-        // This enables setting of a specific sys_spec outside menu and game.cfg
-        if (gEnv->pSystem->IsDevMode())
-        {
-            if (pSysSpecCVar && curSpecVal && curSpecVal != pSysSpecCVar->GetIVal())
-            {
-                pSysSpecCVar->Set(curSpecVal);
             }
         }
 

@@ -117,6 +117,11 @@ namespace ImageProcessingAtom
         }
     }
 
+    const ImageConvertProcessDescriptor* ImageConvertProcess::GetInputDesc() const
+    {
+        return m_input.get();
+    }
+
     ImageConvertProcess::ImageConvertProcess(AZStd::unique_ptr<ImageConvertProcessDescriptor>&& descriptor)
         : m_image(nullptr)
         , m_progressStep(0)
@@ -181,12 +186,12 @@ namespace ImageProcessingAtom
             {
                 // check and generate IBL specular and diffuse, if necessary
                 AZStd::unique_ptr<CubemapSettings>& cubemapSettings = m_input->m_presetSetting.m_cubemapSetting;
-                if (cubemapSettings->m_generateIBLSpecular && !cubemapSettings->m_iblSpecularPreset.IsNull())
+                if (cubemapSettings->m_generateIBLSpecular && !cubemapSettings->m_iblSpecularPreset.IsEmpty())
                 {
                     CreateIBLCubemap(cubemapSettings->m_iblSpecularPreset, SpecularCubemapSuffix, m_iblSpecularCubemapImage);
                 }
 
-                if (cubemapSettings->m_generateIBLDiffuse && !cubemapSettings->m_iblDiffusePreset.IsNull())
+                if (cubemapSettings->m_generateIBLDiffuse && !cubemapSettings->m_iblDiffusePreset.IsEmpty())
                 {
                     CreateIBLCubemap(cubemapSettings->m_iblDiffusePreset, DiffuseCubemapSuffix, m_iblDiffuseCubemapImage);
                 }
@@ -362,7 +367,7 @@ namespace ImageProcessingAtom
             else
             {
                 AZ_TracePrintf("Image Processing", "Image converted with preset [%s] [%s] and saved to [%s] (%d bytes) taking %f seconds\n",
-                    m_input->m_presetSetting.m_name.c_str(),
+                    m_input->m_presetSetting.m_name.GetCStr(),
                     m_input->m_filePath.c_str(),
                     m_input->m_outputFolder.c_str(), sizeTotal, m_processTime);
             }
@@ -554,12 +559,6 @@ namespace ImageProcessingAtom
     // pixel format conversion
     bool ImageConvertProcess::ConvertPixelformat()
     {
-        //For ASTC compression we need to clear out the alpha to get accurate rgb compression.
-        if(m_alphaImage && IsASTCFormat(m_input->m_presetSetting.m_pixelFormat))
-        {
-            m_image->Get()->Swizzle("rgb1");
-        }
-
         //set up compress option
         ICompressor::EQuality quality;
         if (m_input->m_isPreview)
@@ -574,7 +573,14 @@ namespace ImageProcessingAtom
         // set the compression options
         m_image->GetCompressOption().compressQuality = quality;
         m_image->GetCompressOption().rgbWeight = m_input->m_presetSetting.GetColorWeight();
-        m_image->GetCompressOption().ispcDiscardAlpha = m_input->m_presetSetting.m_discardAlpha;
+        m_image->GetCompressOption().discardAlpha = m_input->m_presetSetting.m_discardAlpha;
+
+        //For ASTC compression we need to clear out the alpha to get accurate rgb compression.
+        if(m_alphaImage && IsASTCFormat(m_input->m_presetSetting.m_pixelFormat))
+        {
+            m_image->GetCompressOption().discardAlpha = true;
+        }
+
         m_image->ConvertFormat(m_input->m_presetSetting.m_pixelFormat);
 
         return true;
@@ -828,7 +834,7 @@ namespace ImageProcessingAtom
 
         // if get textureSetting failed, use the default texture setting, and find suitable preset for this file
         // in very rare user case, an old texture setting file may not have a preset. We fix it over here too. 
-        if (textureSettings.m_preset.IsNull())
+        if (textureSettings.m_preset.IsEmpty())
         {
             textureSettings.m_preset = BuilderSettingManager::Instance()->GetSuggestedPreset(imageFilePath, srcImage);
         }
@@ -839,9 +845,7 @@ namespace ImageProcessingAtom
 
         if (preset == nullptr)
         {
-            AZStd::string uuidStr;
-            textureSettings.m_preset.ToString(uuidStr);
-            AZ_Assert(false, "%s cannot find image preset with ID %s.", imageFilePath.c_str(), uuidStr.c_str());
+            AZ_Assert(false, "%s cannot find image preset %s.", imageFilePath.c_str(), textureSettings.m_preset.GetCStr());
             return nullptr;
         }
 
@@ -869,11 +873,11 @@ namespace ImageProcessingAtom
         return process;
     }
 
-    void ImageConvertProcess::CreateIBLCubemap(AZ::Uuid presetUUID, const char* fileNameSuffix, IImageObjectPtr& cubemapImage)
+    void ImageConvertProcess::CreateIBLCubemap(PresetName preset, const char* fileNameSuffix, IImageObjectPtr& cubemapImage)
     {
         const AZStd::string& platformId = m_input->m_platform;
         AZStd::string_view filePath;
-        const PresetSettings* presetSettings = BuilderSettingManager::Instance()->GetPreset(presetUUID, platformId, &filePath);
+        const PresetSettings* presetSettings = BuilderSettingManager::Instance()->GetPreset(preset, platformId, &filePath);
         if (presetSettings == nullptr)
         {
             AZ_Error("Image Processing", false, "Couldn't find preset for IBL cubemap generation");
@@ -894,7 +898,7 @@ namespace ImageProcessingAtom
 
         // the diffuse irradiance cubemap is generated with a separate ImageConvertProcess
         TextureSettings textureSettings = m_input->m_textureSetting;
-        textureSettings.m_preset = presetUUID;
+        textureSettings.m_preset = preset;
 
         AZStd::unique_ptr<ImageConvertProcessDescriptor> desc = AZStd::make_unique<ImageConvertProcessDescriptor>();
         desc->m_presetSetting = *presetSettings;

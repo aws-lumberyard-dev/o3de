@@ -196,6 +196,10 @@ namespace AzToolsFramework
             virtual float ManipulatorLineBoundWidth() const = 0;
             //! Returns the current circle (torus) bound width for manipulators.
             virtual float ManipulatorCircleBoundWidth() const = 0;
+            //! Returns if sticky select is enabled or not.
+            virtual bool StickySelectEnabled() const = 0;
+            //! Returns the default viewport camera position.
+            virtual AZ::Vector3 DefaultEditorCameraPosition() const = 0;
 
         protected:
             ~ViewportSettingsRequests() = default;
@@ -280,6 +284,30 @@ namespace AzToolsFramework
             return keyboardModifiers;
         }
 
+        //! An interface to deal with time requests relating to viewports.
+        //! @note The bus is global and not per viewport.
+        class EditorViewportInputTimeNowRequests : public AZ::EBusTraits
+        {
+        public:
+            static const AZ::EBusAddressPolicy AddressPolicy = AZ::EBusAddressPolicy::Single;
+            static const AZ::EBusHandlerPolicy HandlerPolicy = AZ::EBusHandlerPolicy::Single;
+
+            //! Returns the current time in seconds.
+            //! This interface can be overridden for the purposes of testing to simplify viewport input requests.
+            virtual AZStd::chrono::milliseconds EditorViewportInputTimeNow() = 0;
+
+        protected:
+            ~EditorViewportInputTimeNowRequests() = default;
+        };
+
+        using EditorViewportInputTimeNowRequestBus = AZ::EBus<EditorViewportInputTimeNowRequests>;
+
+        //! The style of cursor override.
+        enum class CursorStyleOverride
+        {
+            Forbidden
+        };
+
         //! Viewport requests for managing the viewport cursor state.
         class ViewportMouseCursorRequests
         {
@@ -290,6 +318,10 @@ namespace AzToolsFramework
             virtual void EndCursorCapture() = 0;
             //! Is the mouse over the viewport.
             virtual bool IsMouseOver() const = 0;
+            //! Set the cursor style override.
+            virtual void SetOverrideCursor(CursorStyleOverride cursorStyleOverride) = 0;
+            //! Clear the cursor style override.
+            virtual void ClearOverrideCursor() = 0;
 
         protected:
             ~ViewportMouseCursorRequests() = default;

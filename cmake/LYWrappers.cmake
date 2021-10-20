@@ -315,13 +315,16 @@ function(ly_add_target)
     # Store the target so we can walk through all of them in LocationDependencies.cmake
     set_property(GLOBAL APPEND PROPERTY LY_ALL_TARGETS ${interface_name})
 
-    # Store the aliased target into a DIRECTORY property
-    set_property(DIRECTORY APPEND PROPERTY LY_DIRECTORY_TARGETS ${interface_name})
-    # Store the directory path in a GLOBAL property so that it can be accessed
-    # in the layout install logic. Skip if the directory has already been added
-    get_property(ly_all_target_directories GLOBAL PROPERTY LY_ALL_TARGET_DIRECTORIES)
-    if(NOT CMAKE_CURRENT_SOURCE_DIR IN_LIST ly_all_target_directories)
-        set_property(GLOBAL APPEND PROPERTY LY_ALL_TARGET_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR})
+    if(NOT ly_add_target_IMPORTED)
+        # Store the aliased target into a DIRECTORY property
+        set_property(DIRECTORY APPEND PROPERTY LY_DIRECTORY_TARGETS ${interface_name})
+
+        # Store the directory path in a GLOBAL property so that it can be accessed
+        # in the layout install logic. Skip if the directory has already been added
+        get_property(ly_all_target_directories GLOBAL PROPERTY LY_ALL_TARGET_DIRECTORIES)
+        if(NOT CMAKE_CURRENT_SOURCE_DIR IN_LIST ly_all_target_directories)
+            set_property(GLOBAL APPEND PROPERTY LY_ALL_TARGET_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR})
+        endif()
     endif()
 
     # Custom commands need to be declared in the same folder as the target that they use. 
@@ -477,10 +480,22 @@ function(ly_parse_third_party_dependencies ly_THIRD_PARTY_LIBRARIES)
         if(${dependency_namespace} STREQUAL "3rdParty")
             if (NOT TARGET ${dependency})
                 list(GET dependency_list 1 dependency_package)
+                list(LENGTH dependency_list dependency_list_length)
                 ly_download_associated_package(${dependency_package})
-                find_package(${dependency_package} REQUIRED MODULE)
+                if (dependency_list_length GREATER 2)
+                    # There's an optional interface specified
+                    list(GET dependency_list 2 component)
+                    list(APPEND packages_with_components ${dependency_package})
+                    list(APPEND ${dependency_package}_components ${component})
+                else()
+                    find_package(${dependency_package} REQUIRED MODULE)
+                endif()
             endif()
         endif()
+    endforeach()
+
+    foreach(dependency IN LISTS packages_with_components)
+        find_package(${dependency} REQUIRED MODULE COMPONENTS ${${dependency}_components})
     endforeach()
 endfunction()
 
