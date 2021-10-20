@@ -20,6 +20,7 @@
 #include <QHeaderView>
 #include <QTableView>
 #include <AzQtComponents/Components/StyledDialog.h>
+#include <AzQtComponents/Components/StyledDockWidget.h>
 
 #include <AzCore/Component/EntityId.h>
 #include <AzCore/Component/TickBus.h>
@@ -66,21 +67,31 @@ namespace ScriptCanvasDeveloper
         {
             QString m_name;
             QString m_type;
-            AZ::BehaviorClass* m_class;
+            AZ::BehaviorClass* m_behaviorClass;
+            const AZ::SerializeContext::ClassData* m_classData;
 
             TreeNode() {}
             TreeNode(const TreeNode& rhs)
             {
                 m_name = rhs.m_name;
                 m_type = rhs.m_type;
-                m_class = rhs.m_class;
+                m_behaviorClass = rhs.m_behaviorClass;
+                m_classData = rhs.m_classData;
             }
             virtual ~TreeNode() {}
 
             TreeNode(const QString& name, const QString& type, AZ::BehaviorClass* bcClass)
                 : m_name(name)
                 , m_type(type)
-                , m_class(bcClass)
+                , m_behaviorClass(bcClass)
+                , m_classData(nullptr)
+            {}
+
+            TreeNode(const QString& name, const QString& type, const AZ::SerializeContext::ClassData* classData)
+                : m_name(name)
+                , m_type(type)
+                , m_behaviorClass(nullptr)
+                , m_classData(classData)
             {}
         };
 
@@ -100,6 +111,8 @@ namespace ScriptCanvasDeveloper
 
         BehaviorClassModel();
 
+
+        void PopulateScriptCanvasNodes();
 
         /*QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const override
         {
@@ -276,7 +289,6 @@ namespace ScriptCanvasDeveloper
 
     };
 
-
     class TranslationBrowser
         : public AzQtComponents::StyledDialog
         , private AZ::SystemTickBus::Handler
@@ -316,12 +328,14 @@ namespace ScriptCanvasDeveloper
         AZ::SerializeContext* m_serializeContext;
         AZ::BehaviorContext* m_behaviorContext;
 
+        void PopulateScriptCanvasNodes();
         void PopulateBehaviorContextClasses();
 
         void OnSelectionChanged();
         void OnDoubleClick();
 
         void ShowBehaviorClass(AZ::BehaviorClass* behaviorClass);
+        void ShowClassData(const AZ::SerializeContext::ClassData*);
         AZStd::string MakeJSON(const ScriptCanvasDeveloperEditor::TranslationGenerator::TranslationFormat& translationRoot);
         void LoadJSONForClass(const AZStd::string& className);
 
@@ -331,6 +345,9 @@ namespace ScriptCanvasDeveloper
         void SaveSource();
         void SaveOverride();
         void Generate();
+        void DumpDatabase();
+        void ShowOverrideInExplorer();
+        void ReloadDatabase();
 
         enum TranslationMode
         {
@@ -341,6 +358,8 @@ namespace ScriptCanvasDeveloper
         };
 
         TranslationMode m_translationMode = TranslationMode::BehaviorClass;
+
+        AZStd::string m_selection;
 
     };
 

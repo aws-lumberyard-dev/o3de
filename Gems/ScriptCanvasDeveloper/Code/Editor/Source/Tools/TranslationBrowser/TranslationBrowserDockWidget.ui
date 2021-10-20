@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>TranslationBrowser</class>
- <widget class="QWidget" name="TranslationBrowser">
+ <class>TranslationBrowserDockWidget</class>
+ <widget class="AzQtComponents::StyledDockWidget" name="TranslationBrowserDockWidget">
   <property name="windowModality">
-   <enum>Qt::NonModal</enum>
+   <enum>Qt::WindowModeless</enum>
   </property>
   <property name="geometry">
    <rect>

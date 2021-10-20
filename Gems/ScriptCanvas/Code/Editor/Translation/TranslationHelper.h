@@ -15,13 +15,27 @@
 
 #include <ScriptCanvas/Core/Slot.h>
 #include <GraphCanvas/Types/TranslationTypes.h>
+#include "Source/Translation/TranslationBus.h"
 
-namespace GlobalKeys
+namespace Translation
 {
-    static constexpr const char* EBusSenderIDKey = "Globals.EBusSenderBusId";
-    static constexpr const char* EBusHandlerIDKey = "Globals.EBusHandlerBusId";
-    static constexpr const char* MissingFunctionKey = "Globals.missing_function";
-    static constexpr const char* EBusHandlerOutSlot = "Globals.EBusHandler.OutSlot";
+    namespace GlobalKeys
+    {
+        static constexpr const char* EBusSenderIDKey = "Globals.EBusSenderBusId";
+        static constexpr const char* EBusHandlerIDKey = "Globals.EBusHandlerBusId";
+        static constexpr const char* MissingFunctionKey = "Globals.missing_function";
+        static constexpr const char* EBusHandlerOutSlot = "Globals.EBusHandler.OutSlot";
+    }
+
+    static inline bool GetValue(const AZStd::string key, AZStd::string& value)
+    {
+        GraphCanvas::TranslationKey tkey;
+        tkey = key;
+
+        bool result = false;
+        GraphCanvas::TranslationRequestBus::BroadcastResult(result, &GraphCanvas::TranslationRequests::Get, key, value);
+        return result;
+    }
 }
 
 
@@ -486,16 +500,6 @@ namespace ScriptCanvasEditor
             }
 
             return translated;
-        }
-
-        static GraphCanvas::TranslationKeyedString GetEBusHandlerBusIdNameKey()
-        {
-            GraphCanvas::TranslationKeyedString keyedString;
-            keyedString.m_context = "Globals";
-            keyedString.m_key = "DEFAULTS_EBUSHANDLER_BUSID_NAME";
-            keyedString.SetFallback("BusId");
-
-            return keyedString;
         }
 
         static GraphCanvas::TranslationKeyedString GetEBusHandlerBusIdTooltipKey()

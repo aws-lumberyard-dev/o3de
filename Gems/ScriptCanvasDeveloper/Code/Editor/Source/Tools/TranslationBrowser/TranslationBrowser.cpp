@@ -54,8 +54,7 @@
 #include <Tools/TranslationBrowser/ui_TranslationBrowser.h>
 
 #include "../Translation/TranslationHelper.h"
-
-
+#include "AzFramework/IO/LocalFileIO.h"
 
 #pragma optimize("", off)
 
@@ -126,6 +125,58 @@ namespace ScriptCanvasDeveloper
             m_topLevelItems.push_back(classItem);
         }
 
+        PopulateScriptCanvasNodes();
+    }
+
+    void BehaviorClassModel::PopulateScriptCanvasNodes()
+    {
+        AZ::SerializeContext* serializeContext{};
+        AZ::ComponentApplicationBus::BroadcastResult(serializeContext, &AZ::ComponentApplicationRequests::GetSerializeContext);
+
+        //VerificationSet verificationSet;
+        GraphCanvas::TranslationKey translationKey;
+        AZStd::vector<AZ::TypeId> nodes;
+
+        auto getNodeClasses = [&serializeContext, &nodes](const AZ::SerializeContext::ClassData*, const AZ::Uuid& type)
+        {
+
+            bool foundBaseClass = false;
+            auto baseClassVisitorFn = [&nodes, &type, &foundBaseClass](const AZ::SerializeContext::ClassData* reflectedBase, const AZ::TypeId& /*rttiBase*/)
+            {
+                if (!reflectedBase)
+                {
+                    foundBaseClass = false;
+                    return false; // stop iterating
+                }
+
+                foundBaseClass = (reflectedBase->m_typeId == azrtti_typeid<ScriptCanvas::Node>());
+                if (foundBaseClass)
+                {
+                    nodes.push_back(type);
+                    return false; // we have a base, stop iterating
+                }
+
+                return true; // keep iterating
+            };
+
+            AZ::EntityUtils::EnumerateBaseRecursive(serializeContext, baseClassVisitorFn, type);
+
+            return true;
+        };
+
+        serializeContext->EnumerateAll(getNodeClasses);
+
+        for (auto& node : nodes)
+        {
+            if (const AZ::SerializeContext::ClassData* classData = serializeContext->FindClassData(node))
+            {
+                AZStd::string cleanName = GraphCanvas::TranslationKey::Sanitize(classData->m_name);
+
+                auto classItem = std::make_shared<TreeNode>(cleanName.c_str(), "ScriptCanvas::Node", classData);
+
+                m_topLevelItems.push_back(classItem);
+            }
+        }
     }
 
     TranslationBrowser::TranslationBrowser(QWidget* parent /*= nullptr*/)
@@ -154,6 +205,9 @@ namespace ScriptCanvasDeveloper
         connect(m_ui->btnSaveSource, &QPushButton::clicked, this, &TranslationBrowser::SaveSource);
         connect(m_ui->btnSaveOverride, &QPushButton::clicked, this, &TranslationBrowser::SaveOverride);
         connect(m_ui->btnGenerateData, &QPushButton::clicked, this, &TranslationBrowser::Generate);
+        connect(m_ui->btnDumpDatabase, &QPushButton::clicked, this, &TranslationBrowser::DumpDatabase);
+        connect(m_ui->btnOpenInExplorer, &QPushButton::clicked, this, &TranslationBrowser::ShowOverrideInExplorer);
+        connect(m_ui->btnReload, &QPushButton::clicked, this, &TranslationBrowser::ReloadDatabase);
 
         Populate();
 
@@ -167,12 +221,39 @@ namespace ScriptCanvasDeveloper
 
     void TranslationBrowser::SaveOverride()
     {
+        AZ::IO::FileIOBase* fileIO = AZ::IO::FileIOBase::GetInstance();
+        AZ_Assert(fileIO, "FileIO is not initialized.");
+        AZ::IO::HandleType fileHandle = AZ::IO::InvalidHandle;
 
+        if (const AZ::IO::Result result = fileIO->Open(m_selection.c_str(), AZ::IO::OpenMode::ModeWrite, fileHandle))
+        {
+            AZStd::string contents = m_ui->fromFileTranslationData->toPlainText().toUtf8().data();
+            fileIO->Write(fileHandle, contents.c_str(), contents.size());
+            fileIO->Close(fileHandle);
+        }
     }
 
     void TranslationBrowser::Generate()
     {
         ::ScriptCanvasDeveloperEditor::TranslationGenerator::GenerateTranslationDatabase();
+    }
+
+    void TranslationBrowser::DumpDatabase()
+    {
+        GraphCanvas::TranslationRequestBus::Broadcast(&GraphCanvas::TranslationRequests::DumpDatabase, "@user@/ScriptCanvas/Translations/database.log");
+    }
+
+    void TranslationBrowser::ShowOverrideInExplorer()
+    {
+        if (!m_selection.empty())
+        {
+            AzQtComponents::ShowFileOnDesktop(m_selection.c_str());
+        }
+    }
+
+    void TranslationBrowser::ReloadDatabase()
+    {
+        GraphCanvas::TranslationRequestBus::Broadcast(&GraphCanvas::TranslationRequests::Restore);
     }
 
     TranslationBrowser::~TranslationBrowser()
@@ -191,6 +272,181 @@ namespace ScriptCanvasDeveloper
         PopulateBehaviorContextClasses();
     }
 
+    void TranslationBrowser::PopulateScriptCanvasNodes()
+    {
+        AZ::SerializeContext* serializeContext{};
+        AZ::ComponentApplicationBus::BroadcastResult(serializeContext, &AZ::ComponentApplicationRequests::GetSerializeContext);
+
+        //VerificationSet verificationSet;
+        GraphCanvas::TranslationKey translationKey;
+        AZStd::vector<AZ::TypeId> nodes;
+
+        auto getNodeClasses = [&serializeContext, &nodes](const AZ::SerializeContext::ClassData*, const AZ::Uuid& type)
+        {
+
+            bool foundBaseClass = false;
+            auto baseClassVisitorFn = [&nodes, &type, &foundBaseClass](const AZ::SerializeContext::ClassData* reflectedBase, const AZ::TypeId& /*rttiBase*/)
+            {
+                if (!reflectedBase)
+                {
+                    foundBaseClass = false;
+                    return false; // stop iterating
+                }
+
+                foundBaseClass = (reflectedBase->m_typeId == azrtti_typeid<ScriptCanvas::Node>());
+                if (foundBaseClass)
+                {
+                    nodes.push_back(type);
+                    return false; // we have a base, stop iterating
+                }
+
+                return true; // keep iterating
+            };
+
+            AZ::EntityUtils::EnumerateBaseRecursive(serializeContext, baseClassVisitorFn, type);
+
+            return true;
+        };
+
+        serializeContext->EnumerateAll(getNodeClasses);
+
+        for (auto& node : nodes)
+        {
+            if (const AZ::SerializeContext::ClassData* classData = serializeContext->FindClassData(node))
+            {
+                //Entry entry;
+                //entry.m_key = classData->m_typeId.ToString<AZStd::string>();
+                //entry.m_context = "ScriptCanvas::Node";
+
+                //EntryDetails& details = entry.m_details;
+
+                AZStd::string cleanName = GraphCanvas::TranslationKey::Sanitize(classData->m_name);
+                //details.m_name = cleanName;
+
+                // Tooltip attribute takes priority over the edit data description
+                AZStd::string tooltip = GraphCanvasAttributeHelper::GetStringAttribute(classData, AZ::Script::Attributes::ToolTip);
+                if (!tooltip.empty())
+                {
+                    //details.m_tooltip = tooltip;
+                }
+                else
+                {
+                    //details.m_tooltip = classData->m_editData ? classData->m_editData->m_description : "";
+                }
+
+                // Find the category
+                //details.m_category = GraphCanvasAttributeHelper::GetStringAttribute(classData, AZ::Script::Attributes::Category);
+                if (/*details.m_category.empty() && */classData->m_editData)
+                {
+                    auto elementData = classData->m_editData->FindElementData(AZ::Edit::ClassElements::EditorData);
+                    const AZStd::string categoryAttribute = GraphCanvasAttributeHelper::ReadStringAttribute(elementData->m_attributes, AZ::Script::Attributes::Category);
+                    if (!categoryAttribute.empty())
+                    {
+                        //details.m_category = categoryAttribute;
+                    }
+                }
+
+                if (ScriptCanvas::Node* nodeComponent = reinterpret_cast<ScriptCanvas::Node*>(classData->m_factory->Create(classData->m_name)))
+                {
+                    nodeComponent->Configure();
+
+                    [[maybe_unused]] int inputIndex = 0;
+                    [[maybe_unused]] int outputIndex = 0;
+
+                    const auto& allSlots = nodeComponent->GetAllSlots();
+                    for ([[maybe_unused]] const auto& slot : allSlots)
+                    {
+                        /*Slot slotEntry;
+
+                        if (slot->GetDescriptor().IsExecution())
+                        {
+                            if (slot->GetDescriptor().IsInput())
+                            {
+                                slotEntry.m_key = AZStd::string::format("Input_%d", inputIndex);
+                                inputIndex++;
+
+                                slotEntry.m_details.m_name = slot->GetName();
+                                slotEntry.m_details.m_tooltip = slot->GetToolTip();
+                            }
+                            else if (slot->GetDescriptor().IsOutput())
+                            {
+                                slotEntry.m_key = AZStd::string::format("Output_%d", outputIndex);
+                                outputIndex++;
+
+                                slotEntry.m_details.m_name = slot->GetName();
+                                slotEntry.m_details.m_tooltip = slot->GetToolTip();
+                            }
+
+                            entry.m_slots.push_back(slotEntry);
+                        }
+                        else
+                        {
+                            AZStd::string slotTypeKey = slot->GetDataType().IsValid() ? ScriptCanvas::Data::GetName(slot->GetDataType()) : "";
+                            if (slotTypeKey.empty())
+                            {
+                                if (!slot->GetDataType().GetAZType().IsNull())
+                                {
+                                    slotTypeKey = slot->GetDataType().GetAZType().ToString<AZStd::string>();
+                                }
+                            }
+
+                            if (slotTypeKey.empty())
+                            {
+                                if (slot->GetDynamicDataType() == ScriptCanvas::DynamicDataType::Container)
+                                {
+                                    slotTypeKey = "Container";
+                                }
+                                else if (slot->GetDynamicDataType() == ScriptCanvas::DynamicDataType::Value)
+                                {
+                                    slotTypeKey = "Value";
+                                }
+                                else if (slot->GetDynamicDataType() == ScriptCanvas::DynamicDataType::Any)
+                                {
+                                    slotTypeKey = "Any";
+                                }
+                            }
+
+                            Argument& argument = slotEntry.m_data;
+
+                            if (slot->GetDescriptor().IsInput())
+                            {
+                                slotEntry.m_key = AZStd::string::format("DataInput_%d", inputIndex);
+                                inputIndex++;
+
+                                AZStd::string argumentKey = slotTypeKey;
+                                AZStd::string argumentName = slot->GetName();
+                                AZStd::string argumentDescription = slot->GetToolTip();
+
+                                argument.m_typeId = argumentKey;
+                                argument.m_details.m_name = argumentName;
+                                argument.m_details.m_tooltip = argumentDescription;
+
+                            }
+                            else if (slot->GetDescriptor().IsOutput())
+                            {
+                                slotEntry.m_key = AZStd::string::format("DataOutput_%d", outputIndex);
+                                outputIndex++;
+
+                                AZStd::string resultKey = slotTypeKey;
+                                AZStd::string resultName = slot->GetName();
+                                AZStd::string resultDescription = slot->GetToolTip();
+
+                                argument.m_typeId = resultKey;
+                                argument.m_details.m_name = resultName;
+                                argument.m_details.m_tooltip = resultDescription;
+                            }
+
+                            entry.m_slots.push_back(slotEntry);
+                        }*/
+                    }
+
+                    delete nodeComponent;
+                }
+
+                //translationRoot.m_entries.push_back(entry);
+            }
+        }
+    }
 
     void TranslationBrowser::PopulateBehaviorContextClasses()
     {
@@ -327,8 +583,15 @@ namespace ScriptCanvasDeveloper
             {
                 auto childNode = item.data(BehaviorClassModel::DataRoles::BehaviorClass).value<BehaviorClassModel::TreeNode>();
 
-                AZ::BehaviorClass* behaviorClass = childNode.m_class;
-                ShowBehaviorClass(behaviorClass);
+                if (childNode.m_behaviorClass)
+                {
+                    AZ::BehaviorClass* behaviorClass = childNode.m_behaviorClass;
+                    ShowBehaviorClass(behaviorClass);
+                }
+                else if (childNode.m_classData)
+                {
+                    ShowClassData(childNode.m_classData);
+                }
             }
         }
 
@@ -341,6 +604,16 @@ namespace ScriptCanvasDeveloper
         return AZ::FindAttribute(attribute, method->m_attributes) != nullptr; // warning C4800: 'AZ::Attribute *': forcing value to bool 'true' or 'false' (performance warning)
     }
 
+    void TranslationBrowser::ShowClassData(const AZ::SerializeContext::ClassData* classData)
+    {
+        using namespace ScriptCanvasDeveloperEditor::TranslationGenerator;
+
+        AZStd::string className = classData->m_name;
+
+        LoadJSONForClass(className.c_str());
+
+        m_ui->sourceTranslationData->setPlainText(className.c_str());
+    }
 
     void TranslationBrowser::ShowBehaviorClass(AZ::BehaviorClass* behaviorClass)
     {
@@ -537,22 +810,29 @@ namespace ScriptCanvasDeveloper
       
         AZStd::string fileName = AZStd::string::format("%s.names", className.c_str());
         fileName = GraphCanvas::TranslationKey::Sanitize(fileName);
+        AZStd::to_lower(fileName.begin(), fileName.end());
 
         AZStd::string found;
+
         // Find any TranslationAsset files that may have translation database key/values
         AZ::Data::AssetCatalogRequestBus::Broadcast(&AZ::Data::AssetCatalogRequestBus::Events::EnumerateAssets,
             nullptr,
-            [this, fileName, &found](const AZ::Data::AssetId /*assetId*/, const AZ::Data::AssetInfo& assetInfo) {
+            [fileName, &found](const AZ::Data::AssetId /*assetId*/, const AZ::Data::AssetInfo& assetInfo) {
                 const auto assetType = azrtti_typeid<GraphCanvas::TranslationAsset>();
-                if (assetInfo.m_assetType == assetType)
+                if (found.empty() && assetInfo.m_assetType == assetType)
                 {
-                    if (AzFramework::StringFunc::EndsWith(assetInfo.m_relativePath.c_str(), fileName.c_str()))
+                    AZStd::string testFile;
+                    AZ::StringFunc::Path::GetFullFileName(assetInfo.m_relativePath.c_str(), testFile);
+                    testFile = GraphCanvas::TranslationKey::Sanitize(testFile);
+                    AZStd::to_lower(testFile.begin(), testFile.end());
+
+                    if (fileName == testFile)
                     {
                         found = assetInfo.m_relativePath;
                     }
                 }
             },
-            [this]() {
+            []() {
                 
             }
             );
@@ -560,6 +840,8 @@ namespace ScriptCanvasDeveloper
 
         if (AZ::IO::FileIOBase::GetInstance()->Exists(found.c_str()))
         {
+            m_selection = found;
+
             AZ::IO::FileIOBase* fileIO = AZ::IO::FileIOBase::GetInstance();
             AZ_Assert(fileIO, "FileIO is not initialized.");
             AZ::IO::HandleType fileHandle = AZ::IO::InvalidHandle;
@@ -829,3 +1111,4 @@ namespace ScriptCanvasDeveloper
     }
 
 }
+#pragma optimize("", on)

@@ -93,15 +93,10 @@ namespace ScriptCanvasEditor
         };
 
         AZStd::string GetContextName(const AZ::SerializeContext::ClassData& classData);
-        AZStd::string GetCategoryName(const AZ::SerializeContext::ClassData& classData);
 
-        void CopySlotTranslationKeyedNamesToDatums(AZ::EntityId graphCanvasNodeId);
-
-        // Copies the the translated key name to the ScriptCanvas Data Slot which matches
-        // the scSlotId
-        void CopyTranslationKeyedNameToDatumLabel(const AZ::EntityId& graphCanvasNodeId,
-            ScriptCanvas::SlotId scSlotId,
-            const AZ::EntityId& graphCanvasSlotId);
+        // Copies the slot name to the underlying ScriptCanvas Data Slot which matches the slot Id
+        void UpdateSlotDatumLabels(AZ::EntityId graphCanvasNodeId);
+        void UpdateSlotDatumLabel(const AZ::EntityId& graphCanvasNodeId, ScriptCanvas::SlotId scSlotId, const AZStd::string& name);
 
         template <typename NodeType>
         NodeType* GetNode(AZ::EntityId scriptCanvasGraphId, NodeIdPair nodeIdPair)

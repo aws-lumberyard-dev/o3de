@@ -42,6 +42,9 @@
 
 #include <Tools/TranslationBrowser/TranslationBrowser.h>
 
+#include <Editor/Assets/ScriptCanvasAssetTrackerBus.h>
+#include <ScriptCanvas/Bus/EditorScriptCanvasBus.h>
+
 #pragma optimize("", off)
 
 
@@ -54,7 +57,15 @@ namespace ScriptCanvasDeveloperEditor
         {
             using namespace ScriptCanvasDeveloper;
             TranslationBrowser* browser = new TranslationBrowser(parent);
-            browser->exec();
+            browser->show();
+        }
+
+        void ReloadTranslation(QWidget*)
+        {
+            GraphCanvas::TranslationRequestBus::Broadcast(&GraphCanvas::TranslationRequests::Restore);
+            ScriptCanvasEditor::AssetTrackerRequestBus::Broadcast(&ScriptCanvasEditor::AssetTrackerRequests::RefreshAll);
+
+            
 
         }
 
@@ -77,6 +88,12 @@ namespace ScriptCanvasDeveloperEditor
                 qAction->setToolTip("....");
                 qAction->setShortcut(QAction::tr("Ctrl+Alt+T", "Developer|Translation Browser"));
                 QObject::connect(qAction, &QAction::triggered, [mainWindow]() {OpenTranslationBrowser(mainWindow); });
+
+                qAction = mainMenu->addAction(QAction::tr("Reload Translation"));
+                qAction->setAutoRepeat(false);
+                qAction->setToolTip("....");
+                qAction->setShortcut(QAction::tr("Ctrl+Alt+R", "Developer|Reload Translation"));
+                QObject::connect(qAction, &QAction::triggered, [mainWindow]() {ReloadTranslation(mainWindow); });
 
             }
 
@@ -647,7 +664,15 @@ namespace ScriptCanvasDeveloperEditor
                     EntryDetails& details = entry.m_details;
 
                     AZStd::string cleanName = GraphCanvas::TranslationKey::Sanitize(classData->m_name);
-                    details.m_name = cleanName;
+
+                    if (classData->m_editData)
+                    {
+                        details.m_name = classData->m_editData->m_name;
+                    }
+                    else
+                    {
+                        details.m_name = cleanName;
+                    }
 
                     // Tooltip attribute takes priority over the edit data description
                     AZStd::string tooltip = GraphCanvasAttributeHelper::GetStringAttribute(classData, AZ::Script::Attributes::ToolTip);
@@ -737,6 +762,7 @@ namespace ScriptCanvasDeveloperEditor
                                 if (slot->GetDescriptor().IsInput())
                                 {
                                     slotEntry.m_key = AZStd::string::format("DataInput_%d", inputIndex);
+                                    inputIndex++;
 
                                     AZStd::string argumentKey = slotTypeKey;
                                     AZStd::string argumentName = slot->GetName();
@@ -749,7 +775,8 @@ namespace ScriptCanvasDeveloperEditor
                                 }
                                 else if (slot->GetDescriptor().IsOutput())
                                 {
-                                    slotEntry.m_key = AZStd::string::format("DataOutput_%d", inputIndex);
+                                    slotEntry.m_key = AZStd::string::format("DataOutput_%d", outputIndex);
+                                    outputIndex++;
 
                                     AZStd::string resultKey = slotTypeKey;
                                     AZStd::string resultName = slot->GetName();
@@ -768,6 +795,12 @@ namespace ScriptCanvasDeveloperEditor
                     }
 
                     translationRoot.m_entries.push_back(entry);
+                    AZStd::string fileName = AZStd::string::format("Nodes/%s", classData->m_name);
+
+                    SaveJSONData(fileName, translationRoot);
+
+                    translationRoot.m_entries.clear();
+
                 }
             }
         }
@@ -928,6 +961,7 @@ namespace ScriptCanvasDeveloperEditor
                     entry.m_details.m_category = GraphCanvasAttributeHelper::GetStringAttribute(ebus, AZ::Script::Attributes::Category);;
                     entry.m_details.m_tooltip = ebus->m_toolTip;
                     entry.m_details.m_name = ebus->m_name;
+                    entry.m_context = "EBusSender";
 
                     const AZStd::string prettyName = GraphCanvasAttributeHelper::GetStringAttribute(ebus, AZ::ScriptCanvasAttributes::PrettyName);
                     if (!prettyName.empty())
@@ -940,18 +974,17 @@ namespace ScriptCanvasDeveloperEditor
                     AZStd::string translationSenderKey = ScriptCanvasEditor::TranslationHelper::GetClassKey(ScriptCanvasEditor::TranslationContextGroup::EbusSender, ebus->m_name, ScriptCanvasEditor::TranslationKeyId::Name);
                     AZStd::string translatedSenderName = QCoreApplication::translate(translationContext.c_str(), translationSenderKey.c_str()).toUtf8().data();
 
-                    if (!translatedSenderName.empty())
+                    if (entry.m_details.m_name.empty() && translationSenderKey != translatedSenderName)
                     {
                         entry.m_details.m_name = translatedSenderName;
                     }
 
                     AZStd::string translationSenderCategoryKey = ScriptCanvasEditor::TranslationHelper::GetClassKey(ScriptCanvasEditor::TranslationContextGroup::EbusSender, ebus->m_name, ScriptCanvasEditor::TranslationKeyId::Category);
                     AZStd::string translatedSenderCategory = QCoreApplication::translate(translationContext.c_str(), translationSenderCategoryKey.c_str()).toUtf8().data();
-                    if (!translatedSenderCategory.empty())
+                    if (entry.m_details.m_category.empty() && translationSenderCategoryKey != translatedSenderCategory)
                     {
                         entry.m_details.m_category = translatedSenderCategory;
                     }
-
 
                     AZStd::string tempBusName = ebus->m_name;
                     AZStd::to_upper(tempBusName.begin(), tempBusName.end());
@@ -1079,6 +1112,111 @@ namespace ScriptCanvasDeveloperEditor
         bool MethodHasAttribute(const AZ::BehaviorMethod* method, AZ::Crc32 attribute)
         {
             return AZ::FindAttribute(attribute, method->m_attributes) != nullptr; // warning C4800: 'AZ::Attribute *': forcing value to bool 'true' or 'false' (performance warning)
+        }
+
+        void TranslateBehaviorGlobals(AZ::SerializeContext* /*serializeContext*/, AZ::BehaviorContext* behaviorContext)
+        {
+            for (const auto& [propertyName, behaviorProperty] : behaviorContext->m_properties)
+            {
+                TranslationFormat translationRoot;
+
+                if (behaviorProperty->m_getter && !behaviorProperty->m_setter)
+                {
+                    Entry entry;
+                    entry.m_context = "Constant";
+                    entry.m_key = propertyName;
+
+                    auto methodName = behaviorProperty->m_getter->m_name;
+                    entry.m_details.m_name = methodName;
+                    entry.m_details.m_tooltip = behaviorProperty->m_getter->m_debugDescription ? behaviorProperty->m_getter->m_debugDescription : "";
+
+                    auto displayName = ScriptCanvasEditor::TranslationHelper::GetGlobalMethodKeyTranslation(methodName, ScriptCanvasEditor::TranslationItemType::Node, ScriptCanvasEditor::TranslationKeyId::Name);
+                    auto toolTip = ScriptCanvasEditor::TranslationHelper::GetGlobalMethodKeyTranslation(methodName, ScriptCanvasEditor::TranslationItemType::Node, ScriptCanvasEditor::TranslationKeyId::Tooltip);
+                    auto category= ScriptCanvasEditor::TranslationHelper::GetGlobalMethodKeyTranslation(methodName, ScriptCanvasEditor::TranslationItemType::Node, ScriptCanvasEditor::TranslationKeyId::Category);
+
+                    if (!displayName.empty())
+                    {
+                        entry.m_details.m_name = displayName;
+                    }
+
+                    if (!toolTip.empty())
+                    {
+                        entry.m_details.m_tooltip = toolTip;
+                    }
+
+                    entry.m_details.m_category = "Constants";
+
+                    translationRoot.m_entries.push_back(entry);
+                }
+                else
+                {
+                    Entry entry;
+                    entry.m_context = "BehaviorMethod";
+
+                    if (behaviorProperty->m_getter)
+                    {
+                        entry.m_key = propertyName;
+
+                        auto methodName = behaviorProperty->m_getter->m_name;
+                        entry.m_details.m_name = methodName;
+                        entry.m_details.m_tooltip = behaviorProperty->m_getter->m_debugDescription ? behaviorProperty->m_getter->m_debugDescription : "";
+
+                        auto displayName = ScriptCanvasEditor::TranslationHelper::GetGlobalMethodKeyTranslation(methodName, ScriptCanvasEditor::TranslationItemType::Node, ScriptCanvasEditor::TranslationKeyId::Name);
+                        auto toolTip = ScriptCanvasEditor::TranslationHelper::GetGlobalMethodKeyTranslation(methodName, ScriptCanvasEditor::TranslationItemType::Node, ScriptCanvasEditor::TranslationKeyId::Tooltip);
+                        auto category = ScriptCanvasEditor::TranslationHelper::GetGlobalMethodKeyTranslation(methodName, ScriptCanvasEditor::TranslationItemType::Node, ScriptCanvasEditor::TranslationKeyId::Category);
+
+                        if (!displayName.empty())
+                        {
+                            entry.m_details.m_name = displayName;
+                        }
+
+                        if (!toolTip.empty())
+                        {
+                            entry.m_details.m_tooltip = toolTip;
+                        }
+
+                        if (!category.empty())
+                        {
+                            entry.m_details.m_category = category;
+                        }
+
+                        translationRoot.m_entries.push_back(entry);
+                    }
+
+                    if (behaviorProperty->m_setter)
+                    {
+                        entry.m_key = propertyName;
+
+                        auto methodName = behaviorProperty->m_setter->m_name;
+                        entry.m_details.m_name = methodName;
+                        entry.m_details.m_tooltip = behaviorProperty->m_setter->m_debugDescription ? behaviorProperty->m_getter->m_debugDescription : "";
+
+                        auto displayName = ScriptCanvasEditor::TranslationHelper::GetGlobalMethodKeyTranslation(methodName, ScriptCanvasEditor::TranslationItemType::Node, ScriptCanvasEditor::TranslationKeyId::Name);
+                        auto toolTip = ScriptCanvasEditor::TranslationHelper::GetGlobalMethodKeyTranslation(methodName, ScriptCanvasEditor::TranslationItemType::Node, ScriptCanvasEditor::TranslationKeyId::Tooltip);
+                        auto category = ScriptCanvasEditor::TranslationHelper::GetGlobalMethodKeyTranslation(methodName, ScriptCanvasEditor::TranslationItemType::Node, ScriptCanvasEditor::TranslationKeyId::Category);
+
+                        if (!displayName.empty())
+                        {
+                            entry.m_details.m_name = displayName;
+                        }
+
+                        if (!toolTip.empty())
+                        {
+                            entry.m_details.m_tooltip = toolTip;
+                        }
+
+                        if (!category.empty())
+                        {
+                            entry.m_details.m_category = category;
+                        }
+
+                        translationRoot.m_entries.push_back(entry);
+                    }
+                }
+
+                AZStd::string fileName = AZStd::string::format("Properties/%s", behaviorProperty->m_name.c_str());
+                SaveJSONData(fileName, translationRoot);
+            }
         }
 
         void TranslateBehaviorClasses(AZ::SerializeContext* /*serializeContext*/, AZ::BehaviorContext* behaviorContext)
@@ -1280,12 +1418,16 @@ namespace ScriptCanvasDeveloperEditor
             {
                 TranslationFormat nodeTranslationRoot;
                 TranslateNodes(serializeContext, nodeTranslationRoot);
-                SaveJSONData("Nodes/ScriptCanvasNodes", nodeTranslationRoot);
             }
 
             // EBus
             {
                 TranslateEBus(serializeContext, behaviorContext);
+            }
+
+            // Globals
+            {
+                TranslateBehaviorGlobals(serializeContext, behaviorContext);
             }
 
 
