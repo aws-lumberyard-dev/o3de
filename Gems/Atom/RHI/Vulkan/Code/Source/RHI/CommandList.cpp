@@ -874,7 +874,7 @@ namespace AZ
             if (interval != InvalidInterval)
             {
                 AZ_Assert(!bindings.m_descriptorSets.empty(), "No DescriptorSet.");
-                uint32_t dynamicOffset = bindings.m_dynamicOffset;
+                [[maybe_unused]] uint32_t dynamicOffset = bindings.m_dynamicOffset;
                 vkCmdBindDescriptorSets(
                     m_nativeCommandBuffer,
                     GetPipelineBindPoint(pipelineState),

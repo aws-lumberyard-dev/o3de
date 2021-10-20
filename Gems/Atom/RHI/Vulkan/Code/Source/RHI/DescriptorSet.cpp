@@ -188,7 +188,7 @@ namespace AZ
             m_updateData.push_back(AZStd::move(data));
         }
 
-        void DescriptorSet::UpdateConstantData(AZStd::array_view<uint8_t> rawData, bool noDynamicUpdate)
+        void DescriptorSet::UpdateConstantData(AZStd::array_view<uint8_t> rawData, [[maybe_unused]] bool noDynamicUpdate)
         {
             AZ_Assert(m_constantDataBuffer, "Null constant buffer");
             const DescriptorSetLayout& layout = *m_descriptor.m_descriptorSetLayout;
@@ -198,19 +198,15 @@ namespace AZ
             memcpy(mappedData, rawData.data(), rawData.size());
             memoryView->Unmap(RHI::HostMemoryAccess::Write);
 
-            WriteDescriptorData data;
-            data.m_layoutIndex = layout.GetLayoutIndexFromGroupIndex(0, DescriptorSetLayout::ResourceType::ConstantData);
-
-            VkDescriptorBufferInfo bufferInfo;
-            bufferInfo.buffer = memoryView->GetNativeBuffer();
-            bufferInfo.offset = memoryView->GetOffset();
-            bufferInfo.range = rawData.size();
-            data.m_bufferViewsInfo.push_back(bufferInfo);
-
-            if (!noDynamicUpdate)
-            {
-                m_updateData.push_back(AZStd::move(data));
-            }
+            //Unmap is skipping flush so try to add it here manually
+            //auto& device = static_cast<Device&>(GetDevice());
+            //VkMappedMemoryRange writeRange = {};
+            //writeRange.sType = VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE;
+            //writeRange.memory = memoryView->GetAllocation().m_memory->GetNativeBuffer();
+            //writeRange.offset = memoryView->GetAllocation().m_offset;
+            //writeRange.size = rawData.size();
+            //vkFlushMappedMemoryRanges(device.GetNativeDevice(), 1, &writeRange);
+            
         }
 
         RHI::Ptr<DescriptorSet> DescriptorSet::Create()
