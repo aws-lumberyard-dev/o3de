@@ -59,6 +59,7 @@ namespace Terrain
         // HeightfieldProviderRequestsBus
         AZ::Vector2 GetHeightfieldGridSpacing() const override;
         void GetHeightfieldGridSize(int32_t& numColumns, int32_t& numRows) const override;
+        void GetHeightfieldHeightBounds(float& minHeightBounds, float& maxHeightBounds) const override;
         AZ::Aabb GetHeightfieldAabb() const override;
         AZ::Transform GetHeightfieldTransform() const override;
         AZStd::vector<Physics::MaterialId> GetMaterialList() const override;

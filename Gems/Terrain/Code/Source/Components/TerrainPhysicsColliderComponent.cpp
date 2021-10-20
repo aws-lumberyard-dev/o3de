@@ -180,6 +180,16 @@ namespace Terrain
         );
     }
 
+    void TerrainPhysicsColliderComponent::GetHeightfieldHeightBounds(float& minHeightBounds, float& maxHeightBounds) const
+    {
+        AZ::Aabb heightfieldAabb = GetHeightfieldAabb();
+
+        // Because our terrain heights are relative to the center of the bounding box, the min and max allowable heights are also
+        // relative to the center.  They are also clamped to the size of the bounding box.
+        minHeightBounds = -(heightfieldAabb.GetZExtent() / 2.0f);
+        maxHeightBounds = heightfieldAabb.GetZExtent() / 2.0f;
+    }
+
     AZ::Transform TerrainPhysicsColliderComponent::GetHeightfieldTransform() const
     {
         AZ::Transform transform = AZ::Transform::CreateIdentity();
@@ -235,6 +245,8 @@ namespace Terrain
         AZ::Aabb worldSize = GetHeightfieldAabb();
 
         const float worldCenterZ = worldSize.GetCenter().GetZ();
+        const float worldHeightBoundsMin = worldSize.GetMin().GetZ();
+        const float worldHeightBoundsMax = worldSize.GetMax().GetZ();
 
         int32_t gridWidth, gridHeight;
         GetHeightfieldGridSize(gridWidth, gridHeight);
@@ -255,9 +267,15 @@ namespace Terrain
                     height, &AzFramework::Terrain::TerrainDataRequests::GetHeightFromFloats, x, y,
                     AzFramework::Terrain::TerrainDataRequests::Sampler::DEFAULT, &terrainExists);
 
+                // Any heights that fall outside the range of our bounding box will get turned into holes.
+                if ((height < worldHeightBoundsMin) || (height > worldHeightBoundsMax))
+                {
+                    height = worldHeightBoundsMin;
+                    terrainExists = false;
+                }
+
                 Physics::HeightMaterialPoint point;
-                // TODO: Remove the clamp, the underlying code should handle heights outside the bounds.
-                point.m_height = AZ::GetClamp(height - worldCenterZ, -256.0f, 256.0f);
+                point.m_height = height - worldCenterZ;
                 point.m_quadMeshType = terrainExists ? Physics::QuadMeshType::SubdivideUpperLeftToBottomRight : Physics::QuadMeshType::Hole;
                 heightMaterials.emplace_back(point);
             }

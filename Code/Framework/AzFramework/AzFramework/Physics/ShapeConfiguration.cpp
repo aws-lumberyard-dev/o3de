@@ -413,4 +413,23 @@ namespace Physics
         m_samples = samples;
     }
 
+    float HeightfieldShapeConfiguration::GetMinHeightBounds() const
+    {
+        return m_minHeightBounds;
+    }
+
+    void HeightfieldShapeConfiguration::SetMinHeightBounds(float minBounds)
+    {
+        m_minHeightBounds = minBounds;
+    }
+
+    float HeightfieldShapeConfiguration::GetMaxHeightBounds() const
+    {
+        return m_maxHeightBounds;
+    }
+
+    void HeightfieldShapeConfiguration::SetMaxHeightBounds(float maxBounds)
+    {
+        m_maxHeightBounds = maxBounds;
+    }
 }

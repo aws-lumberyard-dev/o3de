@@ -9,7 +9,6 @@
 #pragma once
 
 #include <AzCore/Component/Component.h>
-#include <AzCore/Component/TransformBus.h>
 
 #include <AzFramework/Physics/CollisionBus.h>
 #include <AzFramework/Physics/Components/SimulatedBodyComponentBus.h>
@@ -63,9 +62,13 @@ namespace PhysX
         AzPhysics::ShapeColliderPairList GetShapeConfigurations() override;
         AZStd::vector<AZStd::shared_ptr<Physics::Shape>> GetShapes() override;
 
-        // PhysX::ColliderShapeBus
+        // ColliderShapeRequestBus
         AZ::Aabb GetColliderShapeAabb() override;
-        bool IsTrigger() override;
+        bool IsTrigger() override
+        {
+            // PhysX Heightfields don't support triggers.
+            return false;
+        }
 
         // CollisionFilteringRequestBus
         void SetCollisionLayer(const AZStd::string& layerName, AZ::Crc32 filterTag) override;
@@ -87,15 +90,14 @@ namespace PhysX
         void OnHeightfieldDataChanged([[maybe_unused]] const AZ::Aabb& dirtyRegion) override;
 
     private:
+        AZStd::shared_ptr<Physics::Shape> GetHeightfieldShape();
 
         void ClearHeightfield();
         void InitHeightfieldShapeConfiguration();
-        void InitHeightfieldShape();
         void InitStaticRigidBody();
         void RefreshHeightfield();
 
         AzPhysics::ShapeColliderPair m_shapeConfig;
-        AZStd::shared_ptr<Physics::Shape> m_heightfield;
         AzPhysics::SimulatedBodyHandle m_staticRigidBodyHandle = AzPhysics::InvalidSimulatedBodyHandle;
         AzPhysics::SceneHandle m_attachedSceneHandle = AzPhysics::InvalidSceneHandle;
     };
