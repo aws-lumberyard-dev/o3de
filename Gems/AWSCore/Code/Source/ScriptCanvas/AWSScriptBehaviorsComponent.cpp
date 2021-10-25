@@ -58,10 +58,19 @@ namespace AWSCore
 
     void AWSScriptBehaviorsComponent::Activate()
     {
+        AWSScriptBehaviorDynamoDBNotificationBus::Handler::BusConnect();
+        AWSScriptBehaviorS3NotificationBus::Handler::BusConnect();
+
+        AWSScriptBehaviorS3::HeadObjectRaw("pipelinespdgdeployment-f3cd50ca20217d5bf036ba5dbcfe8b828214d0c8", "pipelines_aggregate_transform_3596524/2b027d4c-3bb5-4286-9b4a-b232fa440273_c9ef41c1b05f094c398b07/LiugHelloNativeAWSLambdaTests.zip", "us-west-2");
+        DynamoDBAttributeValueMap itemKey;
+        itemKey.emplace("AccountId", "{ \"S\" : \"124179626291\" }");
+        AWSScriptBehaviorDynamoDB::GetItemRaw("liug_SilverAccountStats", itemKey, "us-west-2");
     }
 
     void AWSScriptBehaviorsComponent::Deactivate()
     {
+        AWSScriptBehaviorDynamoDBNotificationBus::Handler::BusDisconnect();
+        AWSScriptBehaviorS3NotificationBus::Handler::BusDisconnect();
     }
 }
 

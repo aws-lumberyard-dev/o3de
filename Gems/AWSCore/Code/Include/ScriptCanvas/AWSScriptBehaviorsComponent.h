@@ -11,6 +11,8 @@
 #include <AzCore/Component/Component.h>
 #include <AzCore/RTTI/BehaviorContext.h>
 #include <AzCore/Serialization/EditContext.h>
+#include <ScriptCanvas/AWSScriptBehaviorDynamoDB.h>
+#include <ScriptCanvas/AWSScriptBehaviorS3.h>
 
 namespace AWSCore
 {
@@ -19,6 +21,8 @@ namespace AWSCore
     //! Bootstraps and provides AWS ScriptCanvas behaviors
     class AWSScriptBehaviorsComponent
         : public AZ::Component
+        , public AWSScriptBehaviorDynamoDBNotificationBus::Handler
+        , public AWSScriptBehaviorS3NotificationBus::Handler
     {
     public:
         AZ_COMPONENT(AWSScriptBehaviorsComponent, "{9F37F23F-4229-4A1F-BAA6-4A4AB8422B47}");
@@ -33,5 +37,44 @@ namespace AWSCore
         // AZ::Component interface implementation
         void Activate() override;
         void Deactivate() override;
+
+        void OnGetItemSuccess(const DynamoDBAttributeValueMap& resultBody)
+        {
+            for (auto it = resultBody.begin(); it != resultBody.end(); it++)
+            {
+                AZ::Debug::Trace::Instance().Printf(
+                    "AWSScriptBehaviorsComponent", "result key: %s, value: %s", it->first.c_str(), it->second.c_str());
+            }
+        }
+
+        void OnGetItemError(const AZStd::string& errorBody)
+        {
+            AZ_UNUSED(errorBody);
+            AZ::Debug::Trace::Instance().Printf("AWSScriptBehaviorsComponent", "OnGetItemError %s", errorBody.c_str());
+        }
+
+        void OnHeadObjectSuccess(const AZStd::string& resultBody)
+        {
+            AZ_UNUSED(resultBody);
+            AZ::Debug::Trace::Instance().Printf("AWSScriptBehaviorsComponent", "OnHeadObjectSuccess %s", resultBody.c_str());
+        }
+
+        void OnHeadObjectError(const AZStd::string& errorBody)
+        {
+            AZ_UNUSED(errorBody);
+            AZ::Debug::Trace::Instance().Printf("AWSScriptBehaviorsComponent", "OnHeadObjectError %s", errorBody.c_str());
+        }
+
+        void OnGetObjectSuccess(const AZStd::string& resultBody)
+        {
+            AZ_UNUSED(resultBody);
+            AZ::Debug::Trace::Instance().Printf("AWSScriptBehaviorsComponent", "OnHeadObjectSuccess %s", resultBody.c_str());
+        }
+
+        void OnGetObjectError(const AZStd::string& errorBody)
+        {
+            AZ_UNUSED(errorBody);
+            AZ::Debug::Trace::Instance().Printf("AWSScriptBehaviorsComponent", "OnHeadObjectError %s", errorBody.c_str());
+        }
     };
 } // namespace AWSCore

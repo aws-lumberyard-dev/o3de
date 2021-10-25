@@ -24,16 +24,13 @@ set(ENABLED_GEMS
     Camera
     EMotionFX
     AtomTressFX
-    PhysX
     CameraFramework
     StartingPointMovement
     StartingPointCamera
     ScriptCanvas
-    ScriptCanvasPhysics
     ScriptCanvasTesting
     LyShineExamples
     StartingPointInput
-    PhysXDebug
     WhiteBox
     FastNoise
     SurfaceData
@@ -42,7 +39,6 @@ set(ENABLED_GEMS
     GraphModel
     LandscapeCanvas
     NvCloth
-    Blast
     Maestro
     TextureAtlas
     LmbrCentral
