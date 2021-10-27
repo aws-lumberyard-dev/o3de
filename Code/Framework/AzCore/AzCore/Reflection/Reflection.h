@@ -16,188 +16,33 @@
 #include <AzCore/Reflection/IVisitor.h>
 #include <AzCore/std/string/string_view.h>
 #include <AzCore/std/typetraits/typetraits.h>
+#include <AzCore/RTTI/ReflectContext.h>
 
 namespace AZ::Reflection
 {
-    template<typename T>
-    struct Reflect
+    class ReflectionRegistrationContext : public AZ::ReflectContext
     {
-        void operator()([[maybe_unused]] IVisitor& visitor, [[maybe_unused]] T& value, [[maybe_unused]] const IAttributes& attributes)
+    public:
+        class Description
         {
-        }
-        void operator()([[maybe_unused]] IDescriber& describer, [[maybe_unused]] const IAttributes& attributes)
-        {
-        }
+        public:
+            virtual AZStd::string_view GetName() const = 0;
+            virtual const AZ::IRttiHelper* GetRtti() const = 0;
+            virtual AZStd::any CreateInstance() const = 0;
+
+            virtual void Describe(IDescriber& describer) const = 0;
+            virtual void Visit(const void*, Visitor::IRead& visitor) const = 0;
+            virtual void Visit(void*, Visitor::IReadWrite& visitor) const = 0;
+        };
+
+        using ListCallback = AZStd::function<bool(const Description*)>;
+
+        template<typename T>
+        void Register();
+
+        virtual const Description* Find(const AZ::TypeId& typeId) const = 0;
+        virtual const Description* Find(AZStd::string_view typeName) const = 0;
+        virtual void ListDescriptions(ListCallback& callback) const = 0;
     };
-
-    template<typename T>
-    void Visit(IVisitor& visitor, T& value, const IAttributes& attributes = Attributes<0>())
-    {
-        Reflect<T>{}(visitor, value, attributes);
-    }
-
-    template<typename T>
-    void Describe(IDescriber& describer, const IAttributes& attributes = Attributes<0>())
-    {
-        Reflect<T>{}(describer, attributes);
-    }
-
-    template<>
-    struct Reflect<bool>
-    {
-        void operator()(IVisitor& visitor, bool& value, const IAttributes& attributes)
-        {
-            visitor.Visit(value, attributes);
-        }
-        void operator()(IDescriber& describer, const IAttributes& attributes)
-        {
-            describer.DescribeBool(attributes);
-        }
-    };
-
-    template<>
-    struct Reflect<int8_t>
-    {
-        void operator()(IVisitor& visitor, int8_t& value, const IAttributes& attributes)
-        {
-            visitor.Visit(value, attributes);
-        }
-        void operator()(IDescriber& describer, const IAttributes& attributes)
-        {
-            describer.DescribeInt8(attributes);
-        }
-    };
-
-    template<>
-    struct Reflect<AZStd::string>
-    {
-        void operator()(IVisitor& visitor, AZStd::string& value, const IAttributes& attributes)
-        {
-            visitor.Visit(value, attributes);
-        }
-        void operator()(IDescriber& describer, const IAttributes& attributes)
-        {
-            describer.DescribeString(attributes);
-        }
-    };
-
-    /*
-    template<>
-    struct Reflect<int16_t>
-    {
-        void operator()(IVisitor& visitor, int16_t& value, const IAttributes& attributes)
-        {
-            visitor.Visit(value, attributes);
-        }
-        void operator()(IDescriber& describer, const IAttributes& attributes)
-        {
-            describer.DescribeInt16(attributes);
-        }
-    };
-
-    template<>
-    struct Reflect<int32_t>
-    {
-        void operator()(IVisitor& visitor, int32_t& value, const IAttributes& attributes)
-        {
-            visitor.Visit(value, attributes);
-        }
-        void operator()(IDescriber& describer, const IAttributes& attributes)
-        {
-            describer.DescribeInt32(attributes);
-        }
-    };
-
-    template<>
-    struct Reflect<int64_t>
-    {
-        void operator()(IVisitor& visitor, int64_t& value, const IAttributes& attributes)
-        {
-            visitor.Visit(value, attributes);
-        }
-        void operator()(IDescriber& describer, const IAttributes& attributes)
-        {
-            describer.DescribeInt64(attributes);
-        }
-    };
-
-    template<>
-    struct Reflect<uint8_t>
-    {
-        void operator()(IVisitor& visitor, uint8_t& value, const IAttributes& attributes)
-        {
-            visitor.Visit(value, attributes);
-        }
-        void operator()(IDescriber& describer, const IAttributes& attributes)
-        {
-            describer.DescribeUint8(attributes);
-        }
-    };
-
-    template<>
-    struct Reflect<uint16_t>
-    {
-        void operator()(IVisitor& visitor, uint16_t& value, const IAttributes& attributes)
-        {
-            visitor.Visit(value, attributes);
-        }
-        void operator()(IDescriber& describer, const IAttributes& attributes)
-        {
-            describer.DescribeUint16(attributes);
-        }
-    };
-
-    template<>
-    struct Reflect<uint32_t>
-    {
-        void operator()(IVisitor& visitor, uint32_t& value, const IAttributes& attributes)
-        {
-            visitor.Visit(value, attributes);
-        }
-        void operator()(IDescriber& describer, const IAttributes& attributes)
-        {
-            describer.DescribeUint32(attributes);
-        }
-    };
-
-    template<>
-    struct Reflect<uint64_t>
-    {
-        void operator()(IVisitor& visitor, uint64_t& value, const IAttributes& attributes)
-        {
-            visitor.Visit(value, attributes);
-        }
-        void operator()(IDescriber& describer, const IAttributes& attributes)
-        {
-            describer.DescribeUint64(attributes);
-        }
-    };
-
-    template<>
-    struct Reflect<float>
-    {
-        void operator()(IVisitor& visitor, float& value, const IAttributes& attributes)
-        {
-            visitor.Visit(value, attributes);
-        }
-        void operator()(IDescriber& describer, const IAttributes& attributes)
-        {
-            describer.DescribeFloat(attributes);
-        }
-    };
-
-    template<>
-    struct Reflect<double>
-    {
-        void operator()(IVisitor& visitor, double& value, const IAttributes& attributes)
-        {
-            visitor.Visit(value, attributes);
-        }
-        void operator()(IDescriber& describer, const IAttributes& attributes)
-        {
-            describer.DescribeDouble(attributes);
-        }
-    };
-    */
 }//namespace AZ::Reflection
 #endif // AZ_REFLECTION_PROTOTYPE_ENABLED

@@ -10,9 +10,13 @@
 
 #include <AzCore/Casting/numeric_cast.h>
 #include <AzCore/std/typetraits/typetraits.h>
+#include <AzCore/Name/Name.h>
+#include "Attributes.h"
 
 namespace AZ::Reflection
 {
+    using Hash = AZ::Name::Hash;
+
     namespace Internal
     {
         template<typename T>
@@ -54,7 +58,7 @@ namespace AZ::Reflection
     }
 
     template<size_t N>
-    const AttributeDataType* Attributes<N>::Find(AZ::Crc32 group, AZ::Crc32 name) const
+    const AttributeDataType* Attributes<N>::Find(Hash group, Hash name) const
     {
         for (size_t i = 0; i < N; ++i)
         {
@@ -67,7 +71,7 @@ namespace AZ::Reflection
     }
 
     template<size_t N>
-    void Attributes<N>::ListAttributes(const IterationCallback& callback) const
+    const void Attributes<N>::ListAttributes(const IterationCallback& callback) const
     {
         for (size_t i = 0; i < N; ++i)
         {
@@ -76,7 +80,7 @@ namespace AZ::Reflection
     }
 
     template<typename T>
-    auto AttributeArgument(AZ::Crc32 group, AZ::Crc32 name, T&& value)
+    auto AttributeArgument(Hash group, Hash name, T&& value)
     {
         auto approximatedValue = Internal::AttributeTypeApproximation(AZStd::forward<T>(value));
         Internal::AttributeArgumentStore<decltype(approximatedValue)> result;
@@ -86,8 +90,8 @@ namespace AZ::Reflection
         return result;
     }
 
-    template<typename...Args>
-    Attributes<sizeof...(Args)> BuildAttributes(Internal::AttributeArgumentStore<Args>...args)
+    template<typename... Args>
+    Attributes<sizeof...(Args)> BuildAttributes(Internal::AttributeArgumentStore<Args>... args)
     {
         Attributes<sizeof...(Args)> result;
         result.m_groups = { args.m_group... };
@@ -95,6 +99,5 @@ namespace AZ::Reflection
         result.m_data = { AZStd::move(args.m_value)... };
         return result;
     }
-
 } //AZ::Reflection
 #endif //AZ_REFLECTION_PROTOTYPE_ENABLED

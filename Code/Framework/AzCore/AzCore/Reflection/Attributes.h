@@ -19,15 +19,19 @@
 #include <AzCore/std/containers/array.h>
 #include <AzCore/std/containers/variant.h>
 #include <AzCore/std/string/string_view.h>
+#include <AzCore/Name/Name.h>
+
 
 namespace AZ::Reflection
 {
-    using AttributeDataType = AZStd::variant<bool, uint64_t, int64_t, double, AZStd::string_view, AZStd::any>;
+    using AttributeDataType = AZStd::variant<bool, uint64_t, int64_t, double, AZStd::string_view, AZ::Uuid, AZStd::any>;
+    using Hash = AZ::Name::Hash;
 
     struct IAttributes
     {
-        using IterationCallback = AZStd::function<void(AZ::Crc32 group, AZ::Crc32 name, const AttributeDataType& attribute)>;
-        virtual const AttributeDataType* Find(AZ::Crc32 group, AZ::Crc32 name) const = 0;
+        using IterationCallback = AZStd::function<void(AZStd::string_view group, AZStd::string_view name, const AttributeDataType& attribute)>;
+        virtual const AttributeDataType* Find(Hash name) const = 0;
+        virtual const AttributeDataType* Find(Hash group, Hash name) const = 0;
         virtual void ListAttributes(const IterationCallback& callback) const = 0;
     };
 
@@ -39,8 +43,8 @@ namespace AZ::Reflection
         template<typename T>
         struct AttributeArgumentStore
         {
-            AZ::Crc32 m_group;
-            AZ::Crc32 m_name;
+            Hash m_group;
+            Hash m_name;
             decltype(Internal::AttributeTypeApproximation(AZStd::declval<T&&>())) m_value;
         };
     }
@@ -50,24 +54,28 @@ namespace AZ::Reflection
         static bool GetBool(const AttributeDataType* value, bool defaultValue);
         static int64_t GetInt(const AttributeDataType* value, int64_t defaultValue);
         static AZStd::string_view GetString(const AttributeDataType* value, AZStd::string_view defaultValue);
-        //static uint64_t GetUint(const AttributeDataType* value, uint16_t defaultValue);
-        //static double GetDouble(const AttributeDataType* value, double defaultValue);
+        static AZ::Uuid GetUuid(const AttributeDataType* value, const AZ::Uuid& defaultValue);
         static const AZStd::any& GetAny(const AttributeDataType* value, const AZStd::any& defaultValue);
 
-        static bool GetBool(const IAttributes& attributes, AZ::Crc32 group, AZ::Crc32 name, bool defaultValue);
-        static int64_t GetInt(const IAttributes& attributes, AZ::Crc32 group, AZ::Crc32 name, int64_t defaultValue);
-        static AZStd::string_view GetString(
-            const IAttributes& attributes, AZ::Crc32 group, AZ::Crc32 name, AZStd::string_view defaultValue);
-        //static uint64_t GetUint(const IAttributes& attributes, AZ::Crc32 group, AZ::Crc32 name, uint64_t defaultValue);
-        //static double GetDouble(const IAttributes& attributes, AZ::Crc32 group, AZ::Crc32 name, double defaultValue);
+        static bool GetBool(const IAttributes& attributes, Hash name, bool defaultValue);
+        static int64_t GetInt(const IAttributes& attributes, Hash name, int64_t defaultValue);
+        static AZStd::string_view GetString(const IAttributes& attributes, Hash name, AZStd::string_view defaultValue);
+        static AZ::Uuid GetUuid(const IAttributes& attributes, Hash name, const AZ::Uuid& defaultValue);
+        static const AZStd::any& GetAny(const IAttributes& attributes, Hash name, const AZStd::any& defaultValue);
+
+        static bool GetBool(const IAttributes& attributes, Hash group, Hash name, bool defaultValue);
+        static int64_t GetInt(const IAttributes& attributes, Hash group, Hash name, int64_t defaultValue);
+        static AZStd::string_view GetString(const IAttributes& attributes, Hash group, Hash name, AZStd::string_view defaultValue);
+        static AZ::Uuid GetUuid(const IAttributes& attributes, Hash group, Hash name, const AZ::Uuid& defaultValue);
+        static const AZStd::any& GetAny(const IAttributes& attributes, Hash group, Hash name, const AZStd::any& defaultValue);
+
         static void ListAttributes(const IAttributes& attribtutes, const IAttributes::IterationCallback& callback);
     };
 
     struct AttributeCombiner : IAttributes
     {
         AttributeCombiner(const IAttributes& first, const IAttributes& second);
-
-        const AttributeDataType* Find(AZ::Crc32 group, AZ::Crc32 name) const override;
+        const AttributeDataType* Find(Hash group, Hash name) const override;
         void ListAttributes(const IterationCallback& callback) const override;
 
         const IAttributes& m_first;
@@ -77,18 +85,18 @@ namespace AZ::Reflection
     template<size_t N>
     struct Attributes : IAttributes
     {
-        const AttributeDataType* Find(AZ::Crc32 group, AZ::Crc32 name) const override;
-        void ListAttributes(const IterationCallback& callback) const override;
+        const AttributeDataType* Find(Hash group, Hash name) const override;
+        const void ListAttributes(const IterationCallback& callback) const override;
 
-        AZStd::array<AZ::Crc32, N> m_groups;
-        AZStd::array<AZ::Crc32, N> m_names;
+        AZStd::array<Hash, N> m_groups;
+        AZStd::array<Hash, N> m_names;
         AZStd::array<AttributeDataType, N> m_data;
     };
 
     template<typename T>
-    auto AttributeArgument(AZ::Crc32 group, AZ::Crc32 name, T&& value);
+    auto AttributeArgument(Hash group, Hash name, T&& value);
 
-    template<typename...Args>
+    template<typename... Args>
     Attributes<sizeof...(Args)> BuildAttributes(Internal::AttributeArgumentStore<Args>... args);
 }
 

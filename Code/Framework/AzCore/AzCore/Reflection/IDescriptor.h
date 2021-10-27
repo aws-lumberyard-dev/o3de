@@ -24,24 +24,9 @@ namespace AZ::Reflection
         virtual ~IDescriber() = default;
         virtual void DescribeBool([[maybe_unused]] const IAttributes& attributes){};
         virtual void DescribeInt8([[maybe_unused]] const IAttributes& attributes){};
-        //virtual void DescribeInt16([[maybe_unused]] const IAttributes& attributes){};
-        //virtual void DescribeInt32([[maybe_unused]] const IAttributes& attributes){};
-        //virtual void DescribeInt64([[maybe_unused]] const IAttributes& attributes){};
-
-        //virtual void DescribeUint8([[maybe_unused]] const IAttributes& attributes){};
-        //virtual void DescribeUint16([[maybe_unused]] const IAttributes& attributes){};
-        //virtual void DescribeUint32([[maybe_unused]] const IAttributes& attributes){};
-        //virtual void DescribeUint64([[maybe_unused]] const IAttributes& attributes){};
-
-        //virtual void DescribeFloat([[maybe_unused]] const IAttributes& attributes){};
-        //virtual void DescribeDouble([[maybe_unused]] const IAttributes& attributes){};
-
         virtual void DescribeString([[maybe_unused]] const IAttributes& attributes){};
 
-        virtual void DescribeObjectBegin(
-            [[maybe_unused]] AZStd::string_view type,
-            [[maybe_unused]] const AZ::TypeId& typeId,
-            [[maybe_unused]] const IAttributes& attributes){};
+        virtual void DescribeObjectBegin([[maybe_unused]] AZStd::string_view type, [[maybe_unused]] const IAttributes& attributes){};
         virtual void DescribeObjectEnd(){};
     };
 } //namespace AZ::Reflection

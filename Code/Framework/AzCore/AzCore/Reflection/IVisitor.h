@@ -17,29 +17,46 @@
 
 namespace AZ::Reflection
 {
-    class IVisitor
+    namespace Visitor
     {
-    public:
-        AZ_RTTI(IVisitor, "{F68FB00E-3F3E-426D-9A7E-D5D79658C82E}");
-        virtual ~IVisitor() = default;
-        virtual void Visit([[maybe_unused]] bool& value, [[maybe_unused]] const IAttributes& attributes){};
-        virtual void Visit([[maybe_unused]] int8_t& value, [[maybe_unused]] const IAttributes& attributes){};
-        //virtual void Visit([[maybe_unused]] int16_t& value, [[maybe_unused]] const IAttributes& attributes){};
-        //virtual void Visit([[maybe_unused]] int32_t& value, [[maybe_unused]] const IAttributes& attributes){};
-        //virtual void Visit([[maybe_unused]] int64_t& value, [[maybe_unused]] const IAttributes& attributes){};
+        struct IStringAccess
+        {
+            virtual const AZ::TypeId& GetStringType() const = 0;
+            virtual bool Set(AZStd::string_view) = 0;
+        };
 
-        //virtual void Visit([[maybe_unused]] uint8_t& value, [[maybe_unused]] const IAttributes& attributes){};
-        //virtual void Visit([[maybe_unused]] uint16_t& value, [[maybe_unused]] const IAttributes& attributes){};
-        //virtual void Visit([[maybe_unused]] uint32_t& value, [[maybe_unused]] const IAttributes& attributes){};
-        //virtual void Visit([[maybe_unused]] uint64_t& value, [[maybe_unused]] const IAttributes& attributes){};
+        struct IObjectAccess
+        {
+            virtual const AZ::TypeId& GetType() const = 0;
+            virtual AZStd::string_view GetTypeName() const = 0;
 
-        //virtual void Visit([[maybe_unused]] float& value, [[maybe_unused]] const IAttributes& attributes){};
-        //virtual void Visit([[maybe_unused]] double& value, [[maybe_unused]] const IAttributes& attributes){};
+            virtual void* Get() = 0;
+            virtual const void* Get() const = 0;
+        };
 
-        virtual void Visit([[maybe_unused]] AZStd::string& value, [[maybe_unused]] const IAttributes& attributes){};
+        class IRead
+        {
+        public:
+            virtual ~IRead() = default;
 
-        virtual void VisitObjectBegin([[maybe_unused]] const AZ::TypeId& typeId, [[maybe_unused]] const IAttributes& attributes){};
-        virtual void VisitObjectEnd(){};
+            virtual void Visit(bool, const IAttributes& attributes){};
+            virtual void Visit(int8_t value, const IAttributes& attributes){};
+            virtual void VisitObjectBegin(const IObjectAccess& access, const IAttributes& attributes){};
+            virtual void VisitObjectEnd(){};
+            virtual void Visit(const AZStd::string_view value, const IStringAccess& acess, const IAttributes& attributes){};
+        };
+
+        class IReadWrite
+        {
+        public:
+            virtual ~IReadWrite() = default;
+
+            virtual void Visit(bool& value, const IAttributes& attributes){};
+            virtual void Visit(int8_t& value, const IAttributes& attributes){};
+            virtual void VisitObjectBegin(IObjectAccess& access, const IAttributes& attributes){};
+            virtual void VisitObjectEnd(){};
+            virtual void Visit(const AZStd::string_view value, IStringAccess& access, const IAttributes& attributes){};
+        };
     };
-} // namespace AZ::Reflection
+}
 #endif //AZ_REFLECTION_PROTOTYPE_ENABLED
