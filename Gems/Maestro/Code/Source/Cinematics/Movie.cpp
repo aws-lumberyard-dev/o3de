@@ -215,7 +215,7 @@ namespace Internal
         if (auto* timeSystem = AZ::Interface<AZ::ITime>::Get())
         {
             const AZ::TimeMs deltatimeOverride = timeSystem->GetSimulationTickDeltaOverride();
-            if (deltatimeOverride != AZ::TimeMs{ 0 })
+            if (deltatimeOverride != AZ::ITime::ZeroTimeMs)
             {
                 deltaTime = AZ::TimeMsToSeconds(deltatimeOverride);
             }
@@ -235,11 +235,11 @@ CMovieSystem::CMovieSystem(ISystem* pSystem)
     m_bEnableCameraShake = true;
     m_bCutscenesPausedInEditor = true;
     m_sequenceStopBehavior = eSSB_GotoEndTime;
-    m_lastUpdateTime = AZ::TimeMs{ 0 };
+    m_lastUpdateTime = AZ::ITime::ZeroTimeMs;
     m_bStartCapture = false;
     m_captureFrame = -1;
     m_bEndCapture = false;
-    m_fixedTimeStepBackUp = AZ::TimeMs{ 0 };
+    m_fixedTimeStepBackUp = AZ::ITime::ZeroTimeMs;
     m_cvar_capture_frame_once = nullptr;
     m_cvar_capture_folder = nullptr;
     m_cvar_sys_maxTimeStepForMovieSystem = nullptr;

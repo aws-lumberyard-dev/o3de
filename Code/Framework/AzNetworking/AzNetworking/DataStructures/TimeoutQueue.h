@@ -39,8 +39,8 @@ namespace AzNetworking
             void UpdateTimeoutTime(AZ::TimeMs currentTimeMs);
 
             uint64_t m_userData = 0;
-            AZ::TimeMs m_timeoutMs = AZ::TimeMs{0};
-            AZ::TimeMs m_nextTimeoutTimeMs = AZ::TimeMs{0};
+            AZ::TimeMs m_timeoutMs = AZ::ITime::ZeroTimeMs;
+            AZ::TimeMs m_nextTimeoutTimeMs = AZ::ITime::ZeroTimeMs;
         };
 
         TimeoutQueue() = default;

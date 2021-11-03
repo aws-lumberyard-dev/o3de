@@ -35,7 +35,7 @@ namespace UnitTest
             m_time += AZ::TimeMs{ 1000 };
             return m_time;
         }
-        mutable AZ::TimeMs m_time = AZ::TimeMs{ 0 };
+        mutable AZ::TimeMs m_time = AZ::ITime::ZeroTimeMs;
     };
 
     class UiTooltipTestApplication

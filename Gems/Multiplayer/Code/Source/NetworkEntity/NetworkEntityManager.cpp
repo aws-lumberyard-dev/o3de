@@ -127,7 +127,7 @@ namespace Multiplayer
                 AZ_Assert(entityHandle.GetNetBindComponent(), "No NetBindComponent found on networked entity");
             }
             m_removeList.push_back(entityHandle.GetNetEntityId());
-            m_removeEntitiesEvent.Enqueue(AZ::TimeMs{ 0 });
+            m_removeEntitiesEvent.Enqueue(AZ::ITime::ZeroTimeMs);
         }
     }
 

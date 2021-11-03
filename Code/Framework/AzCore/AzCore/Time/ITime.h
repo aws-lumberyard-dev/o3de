@@ -104,6 +104,9 @@ namespace AZ
         virtual int32_t GetSimulationTickRate() const = 0;
 
         AZ_DISABLE_COPY_MOVE(ITime);
+
+        static const AZ::TimeMs ZeroTimeMs = AZ::TimeMs{ 0 };
+        static const AZ::TimeUs ZeroTimeUs = AZ::TimeUs{ 0 };
     };
 
     // EBus wrapper for ScriptCanvas
