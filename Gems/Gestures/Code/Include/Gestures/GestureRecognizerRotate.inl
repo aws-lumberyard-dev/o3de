@@ -42,8 +42,8 @@ inline Gestures::RecognizerRotate::RecognizerRotate(const Config& config)
     : m_config(config)
     , m_currentState(State::Idle)
 {
-    m_lastUpdateTimes[0] = AZ::TimeMs{ 0 };
-    m_lastUpdateTimes[1] = AZ::TimeMs{ 0 };
+    m_lastUpdateTimes[0] = AZ::ITime::ZeroTimeMs;
+    m_lastUpdateTimes[1] = AZ::ITime::ZeroTimeMs;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

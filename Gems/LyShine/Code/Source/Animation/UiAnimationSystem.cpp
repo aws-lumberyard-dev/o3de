@@ -98,7 +98,7 @@ UiAnimationSystem::UiAnimationSystem()
     m_pCallback = NULL;
     m_bPaused = false;
     m_sequenceStopBehavior = eSSB_GotoEndTime;
-    m_lastUpdateTime = AZ::TimeMs{ 0 };
+    m_lastUpdateTime = AZ::ITime::ZeroTimeMs;
 
     m_nextSequenceId = 1;
 }

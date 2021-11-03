@@ -45,8 +45,8 @@ inline Gestures::RecognizerSwipe::RecognizerSwipe(const Config& config)
     : m_config(config)
     , m_startPosition()
     , m_endPosition()
-    , m_startTime(AZ::TimeMs{ 0 })
-    , m_endTime(AZ::TimeMs{ 0 })
+    , m_startTime(AZ::ITime::ZeroTimeMs)
+    , m_endTime(AZ::ITime::ZeroTimeMs)
     , m_currentState(State::Idle)
 {
 }

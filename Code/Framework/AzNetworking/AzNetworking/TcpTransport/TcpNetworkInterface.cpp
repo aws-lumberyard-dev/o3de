@@ -120,7 +120,7 @@ namespace AzNetworking
 
         auto readCallback = [this, startTimeMs](SocketFd socketFd) { HandleConnectionRecv(socketFd, startTimeMs); };
         auto writeCallback = [this](SocketFd socketFd) { HandleConnectionSend(socketFd); };
-        m_tcpSocketManager.ProcessEvents(AZ::TimeMs{ 0 }, readCallback, writeCallback);
+        m_tcpSocketManager.ProcessEvents(AZ::ITime::ZeroTimeMs, readCallback, writeCallback);
 
         FlushQueuedRemoves();
 
@@ -317,7 +317,7 @@ namespace AzNetworking
         {
             tcpConnection->SendReliablePacket(CorePackets::HeartbeatPacket());
         }
-        else if (net_TcpTimeoutConnections && (m_networkInterface.GetTimeoutMs() > AZ::TimeMs{ 0 }))
+        else if (net_TcpTimeoutConnections && (m_networkInterface.GetTimeoutMs() > AZ::ITime::ZeroTimeMs))
         {
             tcpConnection->Disconnect(DisconnectReason::Timeout, TerminationEndpoint::Local);
             return TimeoutResult::Delete;
