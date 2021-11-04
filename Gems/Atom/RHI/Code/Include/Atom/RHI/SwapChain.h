@@ -98,6 +98,16 @@ namespace AZ
 
             //////////////////////////////////////////////////////////////////////////
 
+            void ShutdownImages();
+            ResultCode InitImages();
+
+            //! Images corresponding to each image in the swap chain.
+            AZStd::vector<Ptr<Image>> m_images;
+
+            //! The current image index.
+            uint32_t m_currentImageIndex = 0;
+
+            SwapChainDescriptor m_descriptor;
         private:
 
             bool ValidateDescriptor(const SwapChainDescriptor& descriptor) const;
@@ -122,13 +132,6 @@ namespace AZ
 
             //////////////////////////////////////////////////////////////////////////
 
-            SwapChainDescriptor m_descriptor;
-
-            //! Images corresponding to each image in the swap chain.
-            AZStd::vector<Ptr<Image>> m_images;
-
-            //! The current image index.
-            uint32_t m_currentImageIndex = 0;
         };
     }
 }

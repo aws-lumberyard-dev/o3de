@@ -103,6 +103,7 @@ namespace AZ
             }
 
             SetName(GetName());
+
             return result;
         }
 
@@ -231,8 +232,10 @@ namespace AZ
                 // VK_SUBOPTIMAL_KHR is treated as success, but we better update the surface info as well.
                 if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR)
                 {
+                    ShutdownImages();
                     InvalidateNativeSwapChain();
                     CreateSwapchain();
+                    InitImages();
                 }
                 else
                 {
@@ -252,8 +255,10 @@ namespace AZ
             RHI::ResultCode result = AcquireNewImage(&acquiredImageIndex);
             if (result == RHI::ResultCode::Fail)
             {
+                ShutdownImages();
                 InvalidateNativeSwapChain();
                 CreateSwapchain();
+                InitImages();
                 return 0;
             }
             else
