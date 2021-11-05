@@ -186,8 +186,18 @@ namespace AZ
         void SwapChain::Present()
         {
             AZ_TRACE_METHOD();
-            m_currentImageIndex = PresentInternal();
-            AZ_Assert(m_currentImageIndex < m_images.size(), "Invalid image index");
+            // Due to swapchain recreation, the images are refreshed.
+            // There is no need to present swapchain for this frame.
+            const uint32_t imageCount = aznumeric_cast<uint32_t>(m_images.size());
+            if (imageCount == 0)
+            {
+                return;
+            }
+            else
+            {
+                m_currentImageIndex = PresentInternal();
+                AZ_Assert(m_currentImageIndex < imageCount, "Invalid image index");
+            }
         }
     }
 }
