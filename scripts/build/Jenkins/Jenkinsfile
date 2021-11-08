@@ -440,6 +440,8 @@ def UploadAPLogs(Map options, String branchName, String platformName, String job
         projects = params.CMAKE_LY_PROJECTS.split(",")
         projects.each{ project ->
             def apLogsPath = "${project}/user/log"
+            archiveArtifacts "${apLogsPath}/**"
+            /*
             def s3UploadScriptPath = "scripts/build/tools/upload_to_s3.py"
             if(env.IS_UNIX) {
                 pythonPath = "${options.PYTHON_DIR}/python.sh"
@@ -452,9 +454,10 @@ def UploadAPLogs(Map options, String branchName, String platformName, String job
                           "--search_subdirectories True --key_prefix ${env.JENKINS_JOB_NAME}/${branchName}/${env.BUILD_NUMBER}/${platformName}/${jobName} " +
                           '--extra_args {\\"ACL\\":\\"bucket-owner-full-control\\"}'
             palSh(command, "Uploading AP logs for job ${jobName} for branch ${branchName}", false)
-            }
+            */
         }
     }
+}
 
 def PostBuildCommonSteps(String workspace, boolean mount = true) {
     echo 'Starting post-build common steps...'
