@@ -108,6 +108,8 @@ set(FILES
     Debug/Profiler.inl
     Debug/Profiler.h
     Debug/ProfilerBus.h
+    Debug/ProfilerReflection.cpp
+    Debug/ProfilerReflection.h
     Debug/StackTracer.h
     Debug/EventTrace.h
     Debug/EventTrace.cpp
@@ -123,6 +125,8 @@ set(FILES
     Debug/TraceMessagesDrillerBus.h
     Debug/TraceReflection.cpp
     Debug/TraceReflection.h
+    DOM/DomVisitor.cpp
+    DOM/DomVisitor.h
     Driller/DefaultStringPool.h
     Driller/Driller.cpp
     Driller/Driller.h
@@ -454,6 +458,7 @@ set(FILES
     RTTI/BehaviorContext.h
     RTTI/BehaviorContextUtilities.h
     RTTI/BehaviorContextUtilities.cpp
+    RTTI/BehaviorInterfaceProxy.h
     RTTI/BehaviorObjectSignals.h
     RTTI/TypeSafeIntegral.h
     Script/ScriptAsset.cpp
