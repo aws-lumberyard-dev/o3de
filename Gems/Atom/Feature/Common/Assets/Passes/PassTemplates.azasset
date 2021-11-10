@@ -233,6 +233,10 @@
                 "Path": "Passes/LightCulling.pass"
             },
             {
+                "Name": "LightCullingTilePrepareTemplate",
+                "Path": "Passes/LightCullingTilePrepare.pass"
+            },
+            {
                 "Name": "LightCullingTilePrepareMSAATemplate",
                 "Path": "Passes/LightCullingTilePrepareMSAA.pass"
             },
@@ -491,6 +495,10 @@
             {
                 "Name": "LightCullingParentTemplate",
                 "Path": "Passes/LightCullingParent.pass"
+            },
+            {
+                "Name": "LightCullingParentNoMSAATemplate",
+                "Path": "Passes/LightCullingParentNoMSAA.pass"
             },
             {
                 "Name": "ShadowParentTemplate",
