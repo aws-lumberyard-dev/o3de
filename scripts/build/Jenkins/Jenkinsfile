@@ -435,26 +435,25 @@ def ExportTestScreenshots(Map options, String branchName, String platformName, S
     }
 }
 
+def ArchiveArtifactsOnS3(String artifactsPath, String s3Prefix) {
+    if(env.IS_UNIX) {
+        palMkdir(s3Prefix)
+        palSh("cp -r ${artifactsPath} ${s3Prefix}", "Copying artifacts")
+    }
+    else {
+        artifactsPath = artifactsPath.replace('/','\\')
+        s3Prefix = s3Prefix.replace('/','\\')
+        palMkdir(s3Prefix)
+        palSh("xcopy ${artifactsPath} ${s3Prefix} /E /Y", "Copying artifacts", winSlashReplacement=false)
+    }
+    archiveArtifacts artifacts: "${s3Prefix}/**"
+}
+
 def UploadAPLogs(Map options, String branchName, String platformName, String jobName, String workspace, Map params) {
     dir("${workspace}/${ENGINE_REPOSITORY_NAME}") {
         projects = params.CMAKE_LY_PROJECTS.split(",")
         projects.each{ project ->
-            def apLogsPath = "${project}/user/log"
-            archiveArtifacts "${apLogsPath}/**"
-            /*
-            def s3UploadScriptPath = "scripts/build/tools/upload_to_s3.py"
-            if(env.IS_UNIX) {
-                pythonPath = "${options.PYTHON_DIR}/python.sh"
-            }
-            else {
-                pythonPath = "${options.PYTHON_DIR}/python.cmd"
-            }
-            def command = "${pythonPath} -u ${s3UploadScriptPath} --base_dir ${apLogsPath} " +
-                          "--file_regex \".*\" --bucket ${env.AP_LOGS_S3_BUCKET} " +
-                          "--search_subdirectories True --key_prefix ${env.JENKINS_JOB_NAME}/${branchName}/${env.BUILD_NUMBER}/${platformName}/${jobName} " +
-                          '--extra_args {\\"ACL\\":\\"bucket-owner-full-control\\"}'
-            palSh(command, "Uploading AP logs for job ${jobName} for branch ${branchName}", false)
-            */
+            ArchiveArtifactsOnS3("${project}/user/log/**", "${platformName}/${jobName}/ap_logs/${project}/user/log")
         }
     }
 }
@@ -561,6 +560,9 @@ def CreateSingleNode(Map pipelineConfig, def platform, def build_job, Map envVar
                                 envVars = pipelineEnvVars + GetBuildEnvVars(platform.value.PIPELINE_ENV ?: EMPTY_JSON, platform.value.build_types[build_step].PIPELINE_ENV ?: EMPTY_JSON, pipelineName)
                                 try {
                                     CreateBuildStage(pipelineConfig,  platform.key, build_step, envVars).call()
+                                    if (IsAPLogUpload(branchName, build_job_name)) {
+                                        CreateUploadAPLogsStage(pipelineConfig, branchName, platform.key, build_job_name, envVars['WORKSPACE'], platform.value.build_types[build_job_name].PARAMETERS).call()
+                                    }
                                 }
                                 catch (Exception e) {
                                     if (envVars['NONBLOCKING_STEP']?.toBoolean()) {
