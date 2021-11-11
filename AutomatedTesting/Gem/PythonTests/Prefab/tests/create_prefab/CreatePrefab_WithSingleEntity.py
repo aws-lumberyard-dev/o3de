@@ -13,7 +13,7 @@ def CreatePrefab_WithSingleEntity():
     from editor_python_test_tools.utils import Report
     from editor_python_test_tools.prefab_utils import Prefab
 
-    from ... import PrefabTestUtils as prefab_test_utils
+    from Prefab.tests.PrefabTestUtils import PrefabTestUtils as prefab_test_utils
 
     prefab_test_utils.open_base_tests_level()
 
