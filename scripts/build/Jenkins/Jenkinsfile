@@ -450,7 +450,7 @@ def ArchiveArtifactsOnS3(Map options, String artifactsSourceDir, String artifact
     def command = "${options.PYTHON_DIR}/python"
     if(env.IS_UNIX) command += '.sh'
     else command += '.cmd'
-    command += " -u scripts/build/tools/copy_file.py -s ${artifactsSourceDir} -r ${artifactsRegex} -t ${s3Prefix}"
+    command += " -u scripts/build/tools/copy_file.py -s ${artifactsSourceDir} -r \"${artifactsRegex}\" -t ${s3Prefix}"
     palSh(command, "Copying artifacts")
     archiveArtifacts artifacts: "${s3Prefix}/**"
 }

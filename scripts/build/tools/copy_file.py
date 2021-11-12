@@ -50,7 +50,7 @@ def main(args):
             target_file_path = os.path.join(target_dir, relative_path)
             target_file_dir = os.path.dirname(target_file_path)
             if not os.path.isdir(target_file_dir):
-                os.mkdir(target_file_dir)
+                os.makedirs(target_file_dir)
             shutil.copy2(f, extended_path(target_file_path))
             print(f'{f} -> {target_file_path}')
 
