@@ -435,7 +435,8 @@ def ExportTestScreenshots(Map options, String branchName, String platformName, S
     }
 }
 
-def ArchiveArtifactsOnS3(String artifactsPath, String s3Prefix) {
+def ArchiveArtifactsOnS3(Map options, String artifactsSourceDir, String artifactsRegex, String s3Prefix) {
+    /*
     if(env.IS_UNIX) {
         palMkdir(s3Prefix)
         palSh("cp -r ${artifactsPath} ${s3Prefix}", "Copying artifacts")
@@ -444,8 +445,13 @@ def ArchiveArtifactsOnS3(String artifactsPath, String s3Prefix) {
         artifactsPath = artifactsPath.replace('/','\\')
         s3Prefix = s3Prefix.replace('/','\\')
         palMkdir(s3Prefix)
-        palSh("xcopy ${artifactsPath} ${s3Prefix} /E /Y", "Copying artifacts", winSlashReplacement=false)
-    }
+        //palSh("xcopy ${artifactsPath} ${s3Prefix} /E /Y", "Copying artifacts", winSlashReplacement=false)
+    }*/
+    def command = "${options.PYTHON_DIR}/python"
+    if(env.IS_UNIX) command += '.sh'
+    else command += '.cmd'
+    command += " -u scripts/build/tools/copy_file.py -s ${artifactsSourceDir} -r ${artifactsRegex} -t ${s3Prefix}"
+    palSh(command, "Copying artifacts")
     archiveArtifacts artifacts: "${s3Prefix}/**"
 }
 
@@ -453,7 +459,7 @@ def UploadAPLogs(Map options, String branchName, String platformName, String job
     dir("${workspace}/${ENGINE_REPOSITORY_NAME}") {
         projects = params.CMAKE_LY_PROJECTS.split(",")
         projects.each{ project ->
-            ArchiveArtifactsOnS3("${project}/user/log/**", "${platformName}/${jobName}/ap_logs/${project}/user/log")
+            ArchiveArtifactsOnS3(options, "${project}/user/log", "**", "ap_logs/${platformName}/${jobName}/${project}")
         }
     }
 }
