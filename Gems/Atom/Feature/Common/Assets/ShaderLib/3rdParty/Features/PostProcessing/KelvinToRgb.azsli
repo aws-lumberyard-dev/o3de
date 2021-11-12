@@ -40,3 +40,27 @@ float3 KelvinToRgb(float kelvin)
         ret.b = saturate(0.54320678911019607843f * log(kelvin - 10.0f) - 1.19625408914f);
     return ret;
 }
+
+half3 KelvinToRgbHalf(half kelvin)
+{
+    half3 ret;
+    kelvin = clamp(kelvin, 1000.0h, 40000.0h) / 100.0h;
+    if(kelvin <= 66.0h)
+    {
+        ret.r = 1.0h;
+        ret.g = saturate(0.39008157876901960784h * log(kelvin) - 0.63184144378862745098h);
+    }
+    else
+    {
+        half t = max(kelvin - 60.0h, 0.0h);
+        ret.r = saturate(1.29293618606274509804h * pow(t, -0.1332047592h));
+        ret.g = saturate(1.12989086089529411765h * pow(t, -0.0755148492h));
+    }
+    if(kelvin >= 66.0h)
+        ret.b = 1.0h;
+    else if(kelvin < 19.0h)
+        ret.b = 0.0h;
+    else
+        ret.b = saturate(0.54320678911019607843f * log(kelvin - 10.0h) - 1.19625408914h);
+    return ret;
+}

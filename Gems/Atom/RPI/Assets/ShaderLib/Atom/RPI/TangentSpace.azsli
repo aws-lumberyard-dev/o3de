@@ -16,6 +16,15 @@ float3 TangentSpaceToWorld(float3 vectorTS, float3 normalWS, float3 tangentWS, f
     return (vectorTS.x * tangentWS + vectorTS.y * bitangentWS + vectorTS.z * normalWS);
 }
 
+half3 TangentSpaceToWorldHalf(
+    half3 vectorTS, 
+    half3 normalWS, 
+    half3 tangentWS, 
+    half3 bitangentWS)
+{
+    return (vectorTS.x * tangentWS + vectorTS.y * bitangentWS + vectorTS.z * normalWS);
+}
+
 //! Utility function to convert vector from world space to tangent space
 float3 WorldSpaceToTangent(float3 vectorWS, float3 normalWS, float3 tangentWS, float3 bitangentWS)
 {
@@ -24,6 +33,19 @@ float3 WorldSpaceToTangent(float3 vectorWS, float3 normalWS, float3 tangentWS, f
     float c = dot(normalWS, vectorWS);
 
     return float3(a,b,c);
+}
+
+half3 WorldSpaceToTangentHalf(
+    half3 vectorWS, 
+    half3 normalWS, 
+    half3 tangentWS, 
+    half3 bitangentWS)
+{
+    half a = dot(tangentWS, vectorWS);
+    half b = dot(bitangentWS, vectorWS);
+    half c = dot(normalWS, vectorWS);
+
+    return half3(a,b,c);
 }
 
 //! Utility function for vertex shaders to transform vertex tangent, bitangent, and normal vectors into world space based on MikkT conventions.
@@ -59,10 +81,40 @@ float3 GetTangentSpaceNormal_Unnormalized(float2 normalMapSample, float normalSt
     return surfaceNormal;
 }
 
+half3 GetTangentSpaceNormal_UnnormalizedHalf(
+    half2 normalMapSample, 
+    half normalStrength)
+{
+    half3 surfaceNormal;
+
+    // [GFX TODO][ATOM-2404] For some reason, the image build pipeline swaps the R and G channels so we swap them back here.
+    surfaceNormal.xy = normalMapSample.yx;
+
+    // The image build pipeline drops the B channel so we have to reconstruct it here.
+    surfaceNormal.z = sqrt(1.0h - dot(surfaceNormal.xy, surfaceNormal.xy));
+    
+    // Don't allow z to be zero just in case normalStrength approaches 0, to avoid a 0-length normal.
+    // It doesn't make sense anyway to have a surface with a normal map completely tangential.
+    // This also addresses the possibility of z being NaN, in the case where x^2+y^2 > 1, so we don't need to call saturate in the sqrt operation above.
+    // (Note this edge case would be particularly evident in multilayer material types, where the normal map is masked out using normalStrength).
+    surfaceNormal.z = max(surfaceNormal.z, 0.01h);
+
+    surfaceNormal.xy *= normalStrength;
+
+    return surfaceNormal;
+}
+    
+
 // Normalized version of above function
 float3 GetTangentSpaceNormal(float2 normalMapSample, float normalStrength)
 {
     return normalize(GetTangentSpaceNormal_Unnormalized(normalMapSample, normalStrength));
+}
+
+// Normalized version of above function
+half3 GetTangentSpaceNormalHalf(half2 normalMapSample, half normalStrength)
+{
+    return normalize(GetTangentSpaceNormal_UnnormalizedHalf(normalMapSample, normalStrength));
 }
 
 float3 GetWorldSpaceNormal(float2 normalMapSample, float3 normalWS, float3 tangentWS, float3 bitangentWS, float normalStrength)
@@ -71,9 +123,29 @@ float3 GetWorldSpaceNormal(float2 normalMapSample, float3 normalWS, float3 tange
     return normalize( TangentSpaceToWorld(tangentSpaceNormal_Unnormalized, normalWS, tangentWS, bitangentWS) );
 }
 
+half3 GetWorldSpaceNormalHalf(
+    half2 normalMapSample, 
+    half3 normalWS, 
+    half3 tangentWS, 
+    half3 bitangentWS, 
+    half normalStrength)
+{
+    half3 tangentSpaceNormal_Unnormalized = GetTangentSpaceNormal_UnnormalizedHalf(normalMapSample, normalStrength);
+    return normalize( TangentSpaceToWorldHalf(tangentSpaceNormal_Unnormalized, normalWS, tangentWS, bitangentWS) );
+}
+
 float3 GetWorldSpaceNormal(float2 normalMapSample, float3 normalWS, float3 tangentWS, float3 bitangentWS)
 {
     return GetWorldSpaceNormal(normalMapSample, normalWS, tangentWS, bitangentWS, 1.0f);
+}
+
+half3 GetWorldSpaceNormalHalf(
+    half2 normalMapSample, 
+    half3 normalWS, 
+    half3 tangentWS, 
+    half3 bitangentWS)
+{
+    return GetWorldSpaceNormalHalf(normalMapSample, normalWS, tangentWS, bitangentWS, 1.0h);
 }
 
 // ---------- Normal Calculation with UV Transform Matrix ----------
@@ -97,10 +169,36 @@ float3 GetTangentSpaceNormal_Unnormalized(float2 normalMapSample, float3x3 uvTra
     return surfaceNormal;
 }
 
+half3 GetTangentSpaceNormal_UnnormalizedHalf(
+    half2 normalMapSample, 
+    half3x3 uvTransform, 
+    half normalStrength)
+{
+    half3 surfaceNormal = GetTangentSpaceNormal_UnnormalizedHalf(normalMapSample, normalStrength);
+
+    // Handle UV transform.
+    // Note, the full calculation is Inverse(uvTransform) * InverseTranspose(uvTransform), which simplifies to just transpose(uvTransform).
+    // (The first Inverse is because the appearance of the normal map moves opposite the UV transformation. The InverseTranspose
+    // of course maintains normals perpendicular to the surface during nonuniform scale).
+    uvTransform = transpose(uvTransform);
+
+    // For non-uniform scale, take the average difference between u and v scales for adjusting normal strength. When scale is uniform, this
+    // preserves the original normal map strength.
+    uvTransform[2] = half3(0.0h, 0.0h, (length(uvTransform[0].xy) + length(uvTransform[1].xy)) * 0.5h);
+    surfaceNormal = mul(uvTransform, surfaceNormal);
+
+    return surfaceNormal;
+}
+
 // Normalized version of above function
 float3 GetTangentSpaceNormal(float2 normalMapSample, float3x3 uvTransform, float normalStrength)
 {
     return normalize(GetTangentSpaceNormal_Unnormalized(normalMapSample, uvTransform, normalStrength));
+}
+
+half3 GetTangentSpaceNormalHalf(half2 normalMapSample, half3x3 uvTransform, half normalStrength)
+{
+    return normalize(GetTangentSpaceNormal_UnnormalizedHalf(normalMapSample, uvTransform, normalStrength));
 }
 
 float3 GetWorldSpaceNormal(float2 normalMapSample, float3 normalWS, float3 tangentWS, float3 bitangentWS, float3x3 uvTransform, float normalStrength)
@@ -109,9 +207,31 @@ float3 GetWorldSpaceNormal(float2 normalMapSample, float3 normalWS, float3 tange
     return normalize( TangentSpaceToWorld(tangentSpaceNormal_Unnormalized, normalWS, tangentWS, bitangentWS) );
 }
 
+half3 GetWorldSpaceNormalHalf(
+    half2 normalMapSample, 
+    half3 normalWS, 
+    half3 tangentWS, 
+    half3 bitangentWS, 
+    half3x3 uvTransform, 
+    half normalStrength)
+{
+    half3 tangentSpaceNormal_Unnormalized = GetTangentSpaceNormal_UnnormalizedHalf( normalMapSample, uvTransform, normalStrength );
+    return normalize( TangentSpaceToWorldHalf(tangentSpaceNormal_Unnormalized, normalWS, tangentWS, bitangentWS) );
+}
+
 float3 GetWorldSpaceNormal(float2 normalMapSample, float3 normalWS, float3 tangentWS, float3 bitangentWS, float3x3 uvTransform)
 {
     return GetWorldSpaceNormal(normalMapSample, normalWS, tangentWS, bitangentWS, uvTransform, 1.0f);
+}
+
+half3 GetWorldSpaceNormalHalf(
+    half2 normalMapSample, 
+    half3 normalWS, 
+    half3 tangentWS, 
+    half3 bitangentWS, 
+    half3x3 uvTransform)
+{
+    return GetWorldSpaceNormalHalf(normalMapSample, normalWS, tangentWS, bitangentWS, uvTransform, 1.0f);
 }
 
 // ---------- Normal Reorientation ----------

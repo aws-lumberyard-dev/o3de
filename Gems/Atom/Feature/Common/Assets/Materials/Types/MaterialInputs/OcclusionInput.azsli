@@ -36,3 +36,19 @@ float GetOcclusionInput(Texture2D map, sampler mapSampler, float2 uv, float fact
     }
     return occlusion;
 }
+
+half GetOcclusionInputHalf(
+    Texture2D map, 
+    sampler mapSampler, 
+    half2 uv, 
+    half factor, 
+    bool useTexture)
+{
+    half occlusion = 1.0h;
+    if(useTexture)
+    {
+        half4 sampledValue = map.Sample(mapSampler, uv);
+        occlusion = pow(sampledValue.r, factor);
+    }
+    return occlusion;
+}

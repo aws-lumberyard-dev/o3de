@@ -28,6 +28,18 @@ float3 GetIblDiffuse(
     return diffuseResponse * albedo * diffuseSample;
 }
 
+half3 GetIblDiffuseHalf(
+    half3 normal, 
+    half3 albedo, 
+    half3 diffuseResponse)
+{
+    half3 irradianceDir = MultiplyVectorQuaternionHalf(normal, half4(SceneSrg::m_iblOrientation));
+    half3 diffuseSample = half3(SceneSrg::m_diffuseEnvMap.Sample(SceneSrg::m_samplerEnv, GetCubemapCoords(irradianceDir)).rgb);
+
+    return diffuseResponse * albedo * diffuseSample;
+}
+
+
 float3 GetIblSpecular(
     float3 position, 
     float3 normal, 
@@ -64,6 +76,48 @@ float3 GetIblSpecular(
             ObjectSrg::m_reflectionProbeData.m_innerObbHalfLengths,
             ObjectSrg::m_reflectionProbeData.m_outerObbHalfLengths,
             position);
+    
+        outSpecular = lerp(outSpecular, probeSpecular, blendAmount);
+    }
+    return outSpecular;
+}
+
+float3 GetIblSpecularHalf(
+    half3 position, 
+    half3 normal, 
+    half3 specularF0, 
+    half roughnessLinear, 
+    half3 dirToCamera, 
+    half2 brdf)
+{
+    half3 reflectDir = reflect(-dirToCamera, normal);
+    reflectDir = MultiplyVectorQuaternionHalf(reflectDir, half4(SceneSrg::m_iblOrientation));    
+
+    // global
+    half3 outSpecular = half3(SceneSrg::m_specularEnvMap.SampleLevel(SceneSrg::m_samplerEnv, GetCubemapCoords(reflectDir), GetRoughnessMip(roughnessLinear)).rgb);
+    outSpecular *= (specularF0 * brdf.x + brdf.y);
+    
+    // reflection probe
+    if (ObjectSrg::m_reflectionProbeData.m_useReflectionProbe)
+    {
+        if (ObjectSrg::m_reflectionProbeData.m_useParallaxCorrection)
+        {
+            reflectDir = ApplyParallaxCorrectionOBBHalf(
+                half4x4(ObjectSrg::GetReflectionProbeWorldMatrixInverse()),
+                half3(ObjectSrg::m_reflectionProbeData.m_outerObbHalfLengths),
+                half3(position),
+                half3(reflectDir));
+        }
+    
+        half3 probeSpecular = half3(ObjectSrg::m_reflectionProbeCubeMap.SampleLevel(SceneSrg::m_samplerEnv, GetCubemapCoordsHalf(reflectDir), GetRoughnessMipHalf(roughnessLinear)).rgb);
+        probeSpecular *= (specularF0 * brdf.x + brdf.y);
+    
+        // compute blend amount based on world position in the reflection probe volume
+        half blendAmount = ComputeLerpBetweenInnerOuterOBBsHalf(
+            half4x4(ObjectSrg::GetReflectionProbeWorldMatrixInverse()),
+            half3(ObjectSrg::m_reflectionProbeData.m_innerObbHalfLengths),
+            half3(ObjectSrg::m_reflectionProbeData.m_outerObbHalfLengths),
+            half3(position));
     
         outSpecular = lerp(outSpecular, probeSpecular, blendAmount);
     }
@@ -116,6 +170,38 @@ void ApplyIBL(Surface surface, inout LightingData lightingData)
                 iblSpecular = iblSpecular * (1.0 - clearCoatResponse) * (1.0 - clearCoatResponse) + clearCoatIblSpecular;
             }
 
+            lightingData.specularLighting += (iblSpecular * iblExposureFactor);
+        }
+    }
+}
+
+void ApplyIBLHalf(Surface surface, inout LightingData lightingData)
+{
+#ifdef FORCE_IBL_IN_FORWARD_PASS
+    bool useDiffuseIbl = true;
+    bool useSpecularIbl = true;
+    bool useIbl = o_enableIBL;
+#else
+    bool isTransparent = (o_opacity_mode == OpacityMode::Blended || o_opacity_mode == OpacityMode::TintedTransparent);
+    bool useDiffuseIbl = isTransparent;
+    bool useSpecularIbl = (isTransparent || o_meshUseForwardPassIBLSpecular || o_materialUseForwardPassIBLSpecular);
+    bool useIbl = o_enableIBL && (useDiffuseIbl || useSpecularIbl);
+#endif
+
+    if(useIbl)
+    {
+        float iblExposureFactor = pow(2.0h, half(SceneSrg::m_iblExposure));
+        
+        if(useDiffuseIbl)
+        {
+            half3 iblDiffuse = GetIblDiffuseHalf(surface.normal, surface.albedo, lightingData.diffuseResponse);
+            lightingData.diffuseLighting += (iblDiffuse * iblExposureFactor * lightingData.diffuseAmbientOcclusion);
+        }
+
+        if(useSpecularIbl)
+        {
+            half3 iblSpecular = GetIblSpecularHalf(surface.position, surface.normal, surface.specularF0, surface.roughnessLinear, lightingData.dirToCamera, lightingData.brdf);
+            iblSpecular *= lightingData.multiScatterCompensation;
             lightingData.specularLighting += (iblSpecular * iblExposureFactor);
         }
     }

@@ -30,3 +30,17 @@ float GetSpecularInput(Texture2D map, sampler mapSampler, float2 uv, float specu
     }
     return specularFactor;
 }
+
+half GetSpecularInputHalf(
+    Texture2D map, 
+    sampler mapSampler, 
+    half2 uv, 
+    half specularFactor, 
+    bool useTexture)
+{
+    if (useTexture)
+    {
+        specularFactor *= map.Sample(mapSampler, uv).r;
+    }
+    return specularFactor;
+}

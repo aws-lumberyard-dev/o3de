@@ -13,3 +13,9 @@ float3 Srgb_To_LinearSrgb(float3 color)
     // Copied from CryFx's ToAccurateLinear()
     return (color.xyz < 0.04045h) ? color.xyz / 12.92h : pow((color.xyz + float3(0.055h, 0.055h, 0.055h)) / float3(1.055h, 1.055h, 1.055h), 2.4h);
 }
+
+half3 Srgb_To_LinearSrgbHalf(half3 color)
+{
+    // Copied from CryFx's ToAccurateLinear()
+    return (color.xyz < 0.04045h) ? color.xyz / 12.92h : pow((color.xyz + float3(0.055h, 0.055h, 0.055h)) / float3(1.055h, 1.055h, 1.055h), 2.4h);
+}

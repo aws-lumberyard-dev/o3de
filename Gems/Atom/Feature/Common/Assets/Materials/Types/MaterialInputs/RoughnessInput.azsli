@@ -37,3 +37,24 @@ float GetRoughnessInput(Texture2D map, sampler mapSampler, float2 uv, float fact
         return factor;
     }
 }
+
+half GetRoughnessInputHalf(
+    Texture2D map, 
+    sampler mapSampler, 
+    half2 uv, 
+    half factor, 
+    half roughnessLowerBound, 
+    half roughnessUpperBound, 
+    bool useTexture)
+{
+    // [GFX TODO][ATOM-1793]: Figure out how we want our base material to expect channels to be encoded, and apply that to the way we pack roughness.
+    if (useTexture)
+    {
+        half sampledValue = map.Sample(mapSampler, uv).r;
+        return lerp(roughnessLowerBound, roughnessUpperBound, sampledValue);
+    }
+    else
+    {
+        return factor;
+    }
+}

@@ -22,7 +22,7 @@ void ApplyDecal(uint currDecalIndex, inout Surface surface);
 
 void ApplyDecals(inout LightCullingTileIterator tileIterator, inout Surface surface)
 {
-    tileIterator.LoadAdvance();
+    /*tileIterator.LoadAdvance();
     
     while( !tileIterator.IsDone() )
     {
@@ -30,6 +30,10 @@ void ApplyDecals(inout LightCullingTileIterator tileIterator, inout Surface surf
         tileIterator.LoadAdvance();
         
         ApplyDecal(currDecalIndex, surface);
+    }*/
+    for(uint i = 0; i < ViewSrg::m_decalCount; i++)
+    {
+        ApplyDecal(i, surface);
     }    
 }
 

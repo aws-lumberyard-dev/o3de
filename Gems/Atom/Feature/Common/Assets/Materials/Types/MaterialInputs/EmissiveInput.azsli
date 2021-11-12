@@ -40,3 +40,25 @@ float3 GetEmissiveInput(Texture2D map, sampler mapSampler, float2 uv, float fact
     }
     return emissive;
 }
+
+half3 GetEmissiveInputHalf(
+    Texture2D map, 
+    sampler mapSampler, 
+    half2 uv, 
+    half factor, 
+    half3 emissiveColor, 
+    bool emissiveEnabled, 
+    bool useTexture)
+{
+    half3 emissive = half3(0.0h, 0.0h, 0.0h);
+    if(emissiveEnabled)
+    {
+        emissive = emissiveColor * factor;
+        if (useTexture)
+        {
+            half3 sampledValue = map.Sample(mapSampler, uv).rgb;
+            emissive *= TransformColor(sampledValue, ColorSpaceId::LinearSRGB, ColorSpaceId::ACEScg);
+        }
+    }
+    return emissive;
+}

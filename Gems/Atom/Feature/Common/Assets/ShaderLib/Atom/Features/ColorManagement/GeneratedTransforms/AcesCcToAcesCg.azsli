@@ -71,10 +71,28 @@ float AcesCcToLinear(float value)
     return HALF_MAX;
 }
 
+half AcesCcToLinearHalf(half value)
+{
+  if (value < -0.3013698630h) 
+    return (pow( 2.h, value*17.52h-9.72h) - pow( 2.h,-16.h))*2.0h;
+  else if (value < (log2(HALF_MAX)+9.72h)/17.52h)
+    return pow( 2.h, value*17.52h-9.72h);
+  else
+    return HALF_MAX;
+}
+
 float3 AcesCcToAcesCg(float3 color)
 {
     return float3(
         AcesCcToLinear(color.r),
         AcesCcToLinear(color.g),
         AcesCcToLinear(color.b));
+}
+
+half3 AcesCcToAcesCgHalf(half3 color)
+{
+    return half3(
+        AcesCcToLinearHalf(color.r),
+        AcesCcToLinearHalf(color.g),
+        AcesCcToLinearHalf(color.b));
 }

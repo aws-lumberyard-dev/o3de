@@ -18,6 +18,13 @@ static const float PqC2 = 2413.0 / 128.0;
 static const float PqC3 = 2392.0 / 128.0;
 static const float PqMaxNits = 10000.0;
 
+static const half PqM1Half = 1305.0h / 8192.0h;
+static const half PqM2Half = 2533.0h / 32.0h;
+static const half PqC1Half = 102.0h / 128.0h;
+static const half PqC2Half = 2413.0h / 128.0h;
+static const half PqC3Half = 2392.0h / 128.0h;
+static const float PqMaxNitsHalf = 10000.0h;
+
 float3 ShaperToLinear(float3 shaperColor, ShaperType shaperType, float shaperBias, float shaperScale)
 {
     // Apply the inverse of the shaper function to give the color in the working color space
@@ -34,6 +41,27 @@ float3 ShaperToLinear(float3 shaperColor, ShaperType shaperType, float shaperBia
     return shaperColor;
 }
 
+half3 ShaperToLinearHalf(
+    half3 shaperColor, 
+    ShaperType shaperType, 
+    half shaperBias, 
+    half shaperScale)
+{
+    // Apply the inverse of the shaper function to give the color in the working color space
+    switch (shaperType)
+    {
+        case ShaperType::ShaperLinear:
+            return (shaperColor - shaperBias) / shaperScale;
+        case ShaperType::ShaperLog2:
+            return pow(2.0h, (shaperColor - shaperBias) / shaperScale);
+        case ShaperType::PqSmpteSt2084:
+            shaperColor = min(shaperColor, 1.0h);
+            return PqMaxNits * pow(max(pow(shaperColor, 1.0h / PqM2Half) - PqC1Half, 0.0h) / (PqC2Half - PqC3Half * pow(shaperColor, 1.0h / PqM2Half)), 1.0h / PqM1Half);
+    }
+    return shaperColor;
+}
+
+
 float3 LinearToShaper(float3 linearColor, ShaperType shaperType, float shaperBias, float shaperScale)
 {
     // Convert from working color space to lut coordinates by applying the shaper function
@@ -47,6 +75,27 @@ float3 LinearToShaper(float3 linearColor, ShaperType shaperType, float shaperBia
             linearColor = min(linearColor, PqMaxNits);
             linearColor = linearColor / PqMaxNits;
             return pow((PqC1 + PqC2 * pow(linearColor, PqM1)) / (1.0 + PqC3 * pow(linearColor, PqM1)), PqM2);
+    }
+    return linearColor;
+}
+
+half3 LinearToShaperHalf(
+    half3 linearColor, 
+    ShaperType shaperType, 
+    half shaperBias, 
+    half shaperScale)
+{
+    // Convert from working color space to lut coordinates by applying the shaper function
+    switch (shaperType)
+    {
+        case ShaperType::ShaperLinear:
+            return linearColor * shaperScale + shaperBias;
+        case ShaperType::ShaperLog2:
+            return log2(linearColor) * shaperScale + shaperBias;
+        case ShaperType::PqSmpteSt2084:
+            linearColor = min(linearColor, PqMaxNitsHalf);
+            linearColor = linearColor / PqMaxNitsHalf;
+            return pow((PqC1Half + PqC2Half * pow(linearColor, PqM1Half)) / (1.0h + PqC3Half * pow(linearColor, PqM1Half)), PqM2Half);
     }
     return linearColor;
 }

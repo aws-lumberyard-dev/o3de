@@ -30,3 +30,24 @@ void CheckClipping(float alpha, float opacityFactor)
             break;
     }
 }
+
+void CheckClippingHalf(half alpha, half opacityFactor)
+{
+    switch(o_opacity_mode)
+    {
+        case OpacityMode::Cutout:
+        {
+            if(alpha)
+            {
+                clip(alpha - (1.0h - opacityFactor));
+            }
+            else
+            {
+                clip(-1.0h);
+            }
+            break;
+        }
+        default:
+            break;
+    }
+}

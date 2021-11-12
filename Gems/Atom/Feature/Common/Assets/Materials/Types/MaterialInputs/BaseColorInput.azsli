@@ -37,6 +37,21 @@ float3 GetBaseColorInput(Texture2D map, sampler mapSampler, float2 uv, float3 ba
     return baseColor;
 }
 
+half3 GetBaseColorInputHalf(
+    Texture2D map, 
+    sampler mapSampler, 
+    half2 uv, 
+    half3 baseColor, 
+    bool useTexture)
+{
+    if(useTexture)
+    {
+        half3 sampledAbledo = map.Sample(mapSampler, uv).rgb;
+        return TransformColorHalf(sampledAbledo, ColorSpaceId::LinearSRGB, ColorSpaceId::ACEScg);
+    }
+    return baseColor;
+}
+
 float3 BlendBaseColor(float3 sampledBaseColor, float3 baseColor, float factor, TextureBlendMode blendMode, bool useTexture)
 {
     // [GFX TODO][ATOM-1761] Figure out how we want our base material to expect channels to be encoded, and apply that to the way we pack alpha. 
@@ -50,6 +65,33 @@ float3 BlendBaseColor(float3 sampledBaseColor, float3 baseColor, float factor, T
         else
         {
             baseColor = ApplyTextureBlend(baseColor, sampledBaseColor, factor, blendMode);
+        }
+    }
+    else
+    {
+        baseColor *= factor;
+    }
+    return baseColor;
+}
+
+half3 BlendBaseColorHalf(
+    half3 sampledBaseColor, 
+    half3 baseColor, 
+    half factor, 
+    TextureBlendMode blendMode, 
+    bool useTexture)
+{
+    // [GFX TODO][ATOM-1761] Figure out how we want our base material to expect channels to be encoded, and apply that to the way we pack alpha. 
+    if (useTexture)
+    {
+        // Depending on the blend mode, we need to flip the order of the colors in order to get a useful result.
+        if(blendMode == TextureBlendMode::Overlay)
+        {
+            baseColor = ApplyTextureBlendHalf(sampledBaseColor, baseColor, factor, blendMode);
+        }
+        else
+        {
+            baseColor = ApplyTextureBlendHalf(baseColor, sampledBaseColor, factor, blendMode);
         }
     }
     else

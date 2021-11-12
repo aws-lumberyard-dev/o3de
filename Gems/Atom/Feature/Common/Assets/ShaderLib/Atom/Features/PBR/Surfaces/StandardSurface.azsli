@@ -13,6 +13,7 @@
 #include <Atom/Features/PBR/Surfaces/ClearCoatSurfaceData.azsli>
 #include <Atom/Features/PBR/Surfaces/TransmissionSurfaceData.azsli>
 
+#if 0
 class Surface
 {
     ClearCoatSurfaceData clearCoat;
@@ -82,4 +83,74 @@ void Surface::SetAlbedoAndSpecularF0(float3 baseColor, float specularF0Factor, f
     albedo = lerp(baseColor, float3(0.0f, 0.0f, 0.0f), metallic);
     specularF0 = lerp(dielectricSpecularF0, baseColor, metallic);
 }
+#endif // #if 0
 
+class Surface
+{
+    ClearCoatSurfaceData clearCoat;
+    TransmissionSurfaceData transmission; // This is not actually used for Standard PBR, but must be present for common lighting code to compile
+
+    // ------- BasePbrSurfaceData -------
+    
+    half3 position;            //!< Position in world-space
+    half3 normal;              //!< Normal in world-space
+    half3 vertexNormal;        //!< Vertex normal in world-space
+    half3 albedo;              //!< Albedo color of the non-metallic material, will be multiplied against the diffuse lighting value
+    half3 specularF0;          //!< Fresnel f0 spectral value of the surface
+    half roughnessLinear;      //!< Perceptually linear roughness value authored by artists. Must be remapped to roughnessA before use
+    half roughnessA;           //!< Actual roughness value ( a.k.a. "alpha roughness") to be used in microfacet calculations
+    half roughnessA2;          //!< Alpha roughness ^ 2 (i.e. roughnessA * roughnessA), used in GGX, cached here for perfromance
+
+    //! Applies specular anti-aliasing to roughnessA2 
+    void ApplySpecularAA();
+
+    //! Calculates roughnessA and roughnessA2 after roughness has been set
+    void CalculateRoughnessA();
+
+    //! Sets albedo and specularF0 using metallic workflow
+    void SetAlbedoAndSpecularF0(half3 baseColor, half specularF0Factor, half metallic);
+
+};
+
+// Specular Anti-Aliasing technique from this paper:
+// http://www.jp.square-enix.com/tech/library/pdf/ImprovedGeometricSpecularAA.pdf
+void Surface::ApplySpecularAA()
+{
+    // Constants for formula below
+    const half screenVariance = 0.25h;
+    const half varianceThresh = 0.18h;
+
+    // Specular Anti-Aliasing
+    half3 dndu = ddx_fine( normal );
+    half3 dndv = ddy_fine( normal );
+    half variance = screenVariance * (dot( dndu , dndu ) + dot( dndv , dndv ));
+    half kernelRoughnessA2 = min(2.0 * variance , varianceThresh );
+    half filteredRoughnessA2 = saturate ( roughnessA2 + kernelRoughnessA2 );
+    roughnessA2 = filteredRoughnessA2;
+}
+
+void Surface::CalculateRoughnessA()
+{
+    // The roughness value in microfacet calculations (called "alpha" in the literature) does not give perceptually
+    // linear results. Disney found that squaring the roughness value before using it in microfacet equations causes
+    // the user-provided roughness parameter to be more perceptually linear. We keep both values available as some
+    // equations need roughnessLinear (i.e. IBL sampling) while others need roughnessA (i.e. GGX equations).
+    // See Burley's Disney PBR: https://pdfs.semanticscholar.org/eeee/3b125c09044d3e2f58ed0e4b1b66a677886d.pdf
+
+    roughnessA = max(roughnessLinear * roughnessLinear, MinRoughnessA);
+
+    roughnessA2 = roughnessA * roughnessA;
+    /*if(o_applySpecularAA)
+    {
+        ApplySpecularAA();
+    }*/
+}
+
+void Surface::SetAlbedoAndSpecularF0(half3 baseColor, half specularF0Factor, half metallic)
+{
+    half3 dielectricSpecularF0 = MaxDielectricSpecularF0 * specularF0Factor;
+
+    // Compute albedo and specularF0 based on metalness
+    albedo = lerp(baseColor, half3(0.0h, 0.0h, 0.0h), metallic);
+    specularF0 = lerp(dielectricSpecularF0, baseColor, metallic);
+}

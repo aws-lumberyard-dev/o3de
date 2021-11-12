@@ -95,7 +95,7 @@ VSOutput StandardPbr_ForwardPassVS(VSInput IN)
 
 
 // ---------- Pixel Shader ----------
-
+#if 0
 PbrLightingOutput ForwardPassPS_Common(VSOutput IN, bool isFrontFace, out float depthNDC)
 {
     const float3 vertexNormal = normalize(IN.m_normal);
@@ -317,24 +317,162 @@ PbrLightingOutput ForwardPassPS_Common(VSOutput IN, bool isFrontFace, out float 
 
     return lightingOutput;
 }
+#endif // #if 0
+
+PbrLightingOutputHalf ForwardPassPS_CommonHalf(VSOutput IN, bool isFrontFace, out float depthNDC)
+{
+    const half3 vertexNormal = half3(normalize(IN.m_normal));
+
+    // ------- Tangents & Bitangets -------
+    half3 tangents[UvSetCount] = { half3(IN.m_tangent.xyz), half3(IN.m_tangent.xyz) };
+    half3 bitangents[UvSetCount] = { half3(IN.m_bitangent.xyz), half3(IN.m_bitangent.xyz) };
+
+    // ------- Depth & Parallax -------
+
+    depthNDC = IN.m_position.z;
+    
+    bool displacementIsClipped = false;
+
+    Surface surface;
+    surface.position = half3(IN.m_worldPosition.xyz);
+
+    // ------- Alpha & Clip -------
+
+    half2 baseColorUv = half2(IN.m_uv[MaterialSrg::m_baseColorMapUvIndex]);
+    half2 opacityUv = half2(IN.m_uv[MaterialSrg::m_opacityMapUvIndex]);
+    half alpha = GetAlphaInputAndClipHalf(MaterialSrg::m_baseColorMap, MaterialSrg::m_opacityMap, baseColorUv, opacityUv, MaterialSrg::m_sampler, MaterialSrg::m_opacityFactor, o_opacity_source);
+
+    // ------- Normal -------
+
+    half2 normalUv = half2(IN.m_uv[MaterialSrg::m_normalMapUvIndex]);
+    half3x3 uvMatrix = half3x3(MaterialSrg::m_normalMapUvIndex == 0 ? MaterialSrg::m_uvMatrix : CreateIdentity3x3()); // By design, only UV0 is allowed to apply transforms.
+    surface.vertexNormal = vertexNormal;
+    surface.normal = GetNormalInputWSHalf(MaterialSrg::m_normalMap, MaterialSrg::m_sampler, normalUv, MaterialSrg::m_flipNormalX, MaterialSrg::m_flipNormalY, isFrontFace, IN.m_normal,
+                                       tangents[MaterialSrg::m_normalMapUvIndex], bitangents[MaterialSrg::m_normalMapUvIndex], uvMatrix, o_normal_useTexture, MaterialSrg::m_normalFactor);
+
+    // ------- Base Color -------
+
+    half3 sampledColor = GetBaseColorInputHalf(MaterialSrg::m_baseColorMap, MaterialSrg::m_sampler, baseColorUv, MaterialSrg::m_baseColor.rgb, o_baseColor_useTexture);
+    half3 baseColor = BlendBaseColorHalf(sampledColor, MaterialSrg::m_baseColor.rgb, MaterialSrg::m_baseColorFactor, o_baseColorTextureBlendMode, o_baseColor_useTexture);
+
+    // ------- Metallic -------
+
+    half2 metallicUv = half2(IN.m_uv[MaterialSrg::m_metallicMapUvIndex]);
+    half metallic = GetMetallicInputHalf(MaterialSrg::m_metallicMap, MaterialSrg::m_sampler, metallicUv, MaterialSrg::m_metallicFactor, o_metallic_useTexture);
+
+    // ------- Specular -------
+
+    half2 specularUv = half2(IN.m_uv[MaterialSrg::m_specularF0MapUvIndex]);
+    half specularF0Factor = GetSpecularInputHalf(MaterialSrg::m_specularF0Map, MaterialSrg::m_sampler, specularUv, MaterialSrg::m_specularF0Factor, o_specularF0_useTexture);
+
+    surface.SetAlbedoAndSpecularF0(baseColor, specularF0Factor, metallic);
+
+    // ------- Roughness -------
+
+    half2 roughnessUv = IN.m_uv[MaterialSrg::m_roughnessMapUvIndex];
+    surface.roughnessLinear = GetRoughnessInputHalf(MaterialSrg::m_roughnessMap, MaterialSrg::m_sampler, roughnessUv, MaterialSrg::m_roughnessFactor,
+                                        MaterialSrg::m_roughnessLowerBound, MaterialSrg::m_roughnessUpperBound, o_roughness_useTexture);
+    surface.CalculateRoughnessA();
+
+    // ------- Lighting Data -------
+
+    LightingData lightingData;
+
+    // Light iterator
+    lightingData.tileIterator.Init(IN.m_position, PassSrg::m_lightListRemapped, PassSrg::m_tileLightData);
+    lightingData.Init(surface.position, surface.normal, surface.roughnessLinear);
+    
+    // Directional light shadow coordinates
+    lightingData.shadowCoords = IN.m_shadowCoords;
+
+    // ------- Emissive -------
+
+    half2 emissiveUv = half2(IN.m_uv[MaterialSrg::m_emissiveMapUvIndex]);
+    lightingData.emissiveLighting = GetEmissiveInputHalf(MaterialSrg::m_emissiveMap, MaterialSrg::m_sampler, emissiveUv, MaterialSrg::m_emissiveIntensity, MaterialSrg::m_emissiveColor.rgb, o_emissiveEnabled, o_emissive_useTexture);
+
+    // ------- Occlusion -------
+    
+    lightingData.diffuseAmbientOcclusion = GetOcclusionInputHalf(MaterialSrg::m_diffuseOcclusionMap, MaterialSrg::m_sampler, IN.m_uv[MaterialSrg::m_diffuseOcclusionMapUvIndex], MaterialSrg::m_diffuseOcclusionFactor, o_diffuseOcclusion_useTexture);
+    lightingData.specularOcclusion = GetOcclusionInputHalf(MaterialSrg::m_specularOcclusionMap, MaterialSrg::m_sampler, IN.m_uv[MaterialSrg::m_specularOcclusionMapUvIndex], MaterialSrg::m_specularOcclusionFactor, o_specularOcclusion_useTexture);
+
+
+    // Diffuse and Specular response (used in IBL calculations)
+    lightingData.specularResponse = FresnelSchlickWithRoughnessHalf(lightingData.NdotV, surface.specularF0, surface.roughnessLinear);
+    lightingData.diffuseResponse = 1.0h - lightingData.specularResponse;
+
+    // ------- Multiscatter -------
+
+    lightingData.CalculateMultiscatterCompensation(surface.specularF0, o_specularF0_enableMultiScatterCompensation);
+
+    // ------- Lighting Calculation -------
+
+    // Apply Decals
+    ApplyDecals(lightingData.tileIterator, surface);
+
+    // Apply Direct Lighting
+    ApplyDirectLightingHalf(surface, lightingData);
+
+    // Apply Image Based Lighting (IBL)
+    ApplyIBLHalf(surface, lightingData);
+
+    // Finalize Lighting
+    lightingData.FinalizeLighting();
+
+    PbrLightingOutputHalf lightingOutput = GetPbrLightingOutputHalf(surface, lightingData, alpha);
+
+    // ------- Opacity -------
+
+    {
+        // Increase opacity at grazing angles for surfaces with a low m_opacityAffectsSpecularFactor.
+        // For m_opacityAffectsSpecularFactor values close to 0, that indicates a transparent surface
+        // like glass, so it becomes less transparent at grazing angles. For m_opacityAffectsSpecularFactor
+        // values close to 1.0, that indicates the absence of a surface entirely, so this effect should
+        // not apply.
+        half fresnelAlpha = FresnelSchlickWithRoughnessHalf(lightingData.NdotV, alpha, surface.roughnessLinear).x;
+        alpha = lerp(fresnelAlpha, alpha, half(MaterialSrg::m_opacityAffectsSpecularFactor));
+    }
+
+    {
+        // [GFX_TODO ATOM-13187] PbrLighting shouldn't be writing directly to render targets. It's confusing when
+        // specular is being added to diffuse just because we're calling render target 0 "diffuse".
+
+        // For blended mode, we do (dest * alpha) + (source * 1.0). This allows the specular
+        // to be added on top of the diffuse, but then the diffuse must be pre-multiplied.
+        // It's done this way because surface transparency doesn't really change specular response (eg, glass).
+
+        lightingOutput.m_diffuseColor.rgb *= lightingOutput.m_diffuseColor.w; // pre-multiply diffuse
+        
+        // Add specular. m_opacityAffectsSpecularFactor controls how much the alpha masks out specular contribution.
+        half3 specular = lightingOutput.m_specularColor.rgb;
+        specular = lerp(specular, specular * lightingOutput.m_diffuseColor.w, half(MaterialSrg::m_opacityAffectsSpecularFactor));
+        lightingOutput.m_diffuseColor.rgb += specular;
+
+        lightingOutput.m_diffuseColor.w = alpha;
+    }
+    
+    return lightingOutput;
+}
+
+
+
 
 ForwardPassOutputWithDepth StandardPbr_ForwardPassPS(VSOutput IN, bool isFrontFace : SV_IsFrontFace)
 {
     ForwardPassOutputWithDepth OUT;
     float depth;
 
-    PbrLightingOutput lightingOutput = ForwardPassPS_Common(IN, isFrontFace, depth);
+    PbrLightingOutputHalf lightingOutput = ForwardPassPS_CommonHalf(IN, isFrontFace, depth);
 
 #ifdef UNIFIED_FORWARD_OUTPUT
-    OUT.m_color.rgb = lightingOutput.m_diffuseColor.rgb + lightingOutput.m_specularColor.rgb;
-    OUT.m_color.a = lightingOutput.m_diffuseColor.a;
+    OUT.m_color.rgb = float3(lightingOutput.m_diffuseColor.rgb + lightingOutput.m_specularColor.rgb);
+    OUT.m_color.a = float(lightingOutput.m_diffuseColor.a);
     OUT.m_depth = depth;
 #else
-    OUT.m_diffuseColor = lightingOutput.m_diffuseColor;
-    OUT.m_specularColor = lightingOutput.m_specularColor;
-    OUT.m_specularF0 = lightingOutput.m_specularF0;
-    OUT.m_albedo = lightingOutput.m_albedo;
-    OUT.m_normal = lightingOutput.m_normal;
+    OUT.m_diffuseColor = float4(lightingOutput.m_diffuseColor);
+    OUT.m_specularColor = float4(lightingOutput.m_specularColor);
+    OUT.m_specularF0 = float4(lightingOutput.m_specularF0);
+    OUT.m_albedo = float4(lightingOutput.m_albedo);
+    OUT.m_normal = float4(lightingOutput.m_normal);
     OUT.m_depth = depth;
 #endif
     return OUT;
@@ -346,17 +484,17 @@ ForwardPassOutput StandardPbr_ForwardPassPS_EDS(VSOutput IN, bool isFrontFace : 
     ForwardPassOutput OUT;
     float depth;
 
-    PbrLightingOutput lightingOutput = ForwardPassPS_Common(IN, isFrontFace, depth);
+    PbrLightingOutputHalf lightingOutput = ForwardPassPS_CommonHalf(IN, isFrontFace, depth);
 
 #ifdef UNIFIED_FORWARD_OUTPUT
-    OUT.m_color.rgb = lightingOutput.m_diffuseColor.rgb + lightingOutput.m_specularColor.rgb;
-    OUT.m_color.a = lightingOutput.m_diffuseColor.a;
+    OUT.m_color.rgb = float3(lightingOutput.m_diffuseColor.rgb + lightingOutput.m_specularColor.rgb);
+    OUT.m_color.a = float(lightingOutput.m_diffuseColor.a);
 #else
-    OUT.m_diffuseColor = lightingOutput.m_diffuseColor;
-    OUT.m_specularColor = lightingOutput.m_specularColor;
-    OUT.m_specularF0 = lightingOutput.m_specularF0;
-    OUT.m_albedo = lightingOutput.m_albedo;
-    OUT.m_normal = lightingOutput.m_normal;
+    OUT.m_diffuseColor = float4(lightingOutput.m_diffuseColor);
+    OUT.m_specularColor = float4(lightingOutput.m_specularColor);
+    OUT.m_specularF0 = float4(lightingOutput.m_specularF0);
+    OUT.m_albedo = float4(lightingOutput.m_albedo);
+    OUT.m_normal = float4(lightingOutput.m_normal);
 #endif
     return OUT;
 }

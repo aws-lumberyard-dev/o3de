@@ -79,6 +79,58 @@ float3 TransformColor(in float3 color, ColorSpaceId fromColorSpace, ColorSpaceId
     return color;
 }
 
+half3 TransformColorHalf(
+    in half3 color, 
+    ColorSpaceId fromColorSpace, 
+    ColorSpaceId toColorSpace)
+{
+    if(fromColorSpace == toColorSpace)
+    {
+        return color;
+    }
+    
+    if (fromColorSpace == ColorSpaceId::LinearSRGB && toColorSpace == ColorSpaceId::ACEScg)
+    {
+        color = LinearSrgb_To_AcesCgHalf(color);
+    }
+    else if (fromColorSpace == ColorSpaceId::LinearSRGB && toColorSpace == ColorSpaceId::SRGB)
+    {
+        color = LinearSrgb_To_SrgbHalf(color);
+    }
+    else if (fromColorSpace == ColorSpaceId::SRGB && toColorSpace == ColorSpaceId::ACEScg)
+    {
+        color = Srgb_To_LinearSrgbHalf(color);
+        color = LinearSrgb_To_AcesCgHalf(color);
+    }
+    else if (fromColorSpace == ColorSpaceId::ACEScg && toColorSpace == ColorSpaceId::SRGB)
+    {
+        color = AcesCg_To_LinearSrgbHalf(color);
+        color = LinearSrgb_To_SrgbHalf(color);
+    }
+    else if (fromColorSpace == ColorSpaceId::ACEScg && toColorSpace == ColorSpaceId::LinearSRGB)
+    {
+        color = AcesCg_To_LinearSrgbHalf(color);
+    }
+    else if (fromColorSpace == ColorSpaceId::ACEScg && toColorSpace == ColorSpaceId::ACEScc)
+    {
+        color = AcesCgToAcesCcHalf(color);
+    }
+    else if (fromColorSpace == ColorSpaceId::ACES2065 && toColorSpace == ColorSpaceId::ACEScg)
+    {
+        color = Aces_To_AcesCgHalf(color);
+    }
+    else if (fromColorSpace == ColorSpaceId::ACEScc && toColorSpace == ColorSpaceId::ACEScg)
+    {
+        color = AcesCcToAcesCgHalf(color);
+    }
+    else
+    {
+        color = half3(1.0h, 0.0h, 1.0h);
+    }
+
+    return color;
+}
+
 float CalculateLuminance(in float3 color, ColorSpaceId colorSpace)
 {
     float luminance = 0.0f;
@@ -89,6 +141,28 @@ float CalculateLuminance(in float3 color, ColorSpaceId colorSpace)
             break;
         case ColorSpaceId::ACEScg:
             luminance = CalculateLuminance_AcesCg(color);
+            break;
+        case ColorSpaceId::SRGB:
+        case ColorSpaceId::ACEScc:
+        case ColorSpaceId::ACES2065:
+        case ColorSpaceId::XYZ:
+        case ColorSpaceId::Invalid:
+            break;
+    }
+    
+    return luminance;
+}
+
+half CalculateLuminanceHalf(in half3 color, ColorSpaceId colorSpace)
+{
+    half luminance = 0.0h;
+    switch (colorSpace)
+    {
+        case ColorSpaceId::LinearSRGB:
+            luminance = CalculateLuminance_LinearSrgbHalf(color);
+            break;
+        case ColorSpaceId::ACEScg:
+            luminance = CalculateLuminance_AcesCgHalf(color);
             break;
         case ColorSpaceId::SRGB:
         case ColorSpaceId::ACEScc:

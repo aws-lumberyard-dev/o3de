@@ -14,18 +14,19 @@ void ApplySimplePointLight(ViewSrg::SimplePointLight light, Surface surface, ino
 {
     float3 posToLight = light.m_position - surface.position;
     float d2 = dot(posToLight, posToLight); // light distance squared
-    float falloff = d2 * light.m_invAttenuationRadiusSquared;
+    float falloff = d2 * float(light.m_invAttenuationRadiusSquared);
     
     // Only calculate shading if light is in range
     if (falloff < 1.0f)
     {
         // Smoothly adjusts the light intensity so it reaches 0 at light.m_attenuationRadius distance
-        float radiusAttenuation = 1.0 - (falloff * falloff);
+        float radiusAttenuation = 1.0f - (falloff * falloff);
         radiusAttenuation = radiusAttenuation * radiusAttenuation;
         
         // Standard quadratic falloff
-        d2 = max(0.001 * 0.001, d2); // clamp the light to at least 1mm away to avoid extreme values.
-        float3 lightIntensity = (light.m_rgbIntensityCandelas / d2) * radiusAttenuation;
+        //d2 = max(0.001h * 0.001h, d2); // clamp the light to at least 1mm away to avoid extreme values.
+        d2 = max(0.00001f, d2); // clamp the light to at least 1mm away to avoid extreme values.
+        float3 lightIntensity = (float3(light.m_rgbIntensityCandelas) / d2) * radiusAttenuation;
         float3 posToLightDir = normalize(posToLight);
 
         // Diffuse contribution
@@ -33,6 +34,33 @@ void ApplySimplePointLight(ViewSrg::SimplePointLight light, Surface surface, ino
 
         // Specular contribution
         lightingData.specularLighting += GetSpecularLighting(surface, lightingData, lightIntensity, posToLightDir);
+    }
+}
+
+void ApplySimplePointLightHalf(ViewSrg::SimplePointLight light, Surface surface, inout LightingData lightingData)
+{
+    half3 posToLight = light.m_position - surface.position;
+    half d2 = dot(posToLight, posToLight); // light distance squared
+    half falloff = d2 * half(light.m_invAttenuationRadiusSquared);
+    
+    // Only calculate shading if light is in range
+    if (falloff < 1.0h)
+    {
+        // Smoothly adjusts the light intensity so it reaches 0 at light.m_attenuationRadius distance
+        half radiusAttenuation = 1.0h - (falloff * falloff);
+        radiusAttenuation = radiusAttenuation * radiusAttenuation;
+        
+        // Standard quadratic falloff
+        //d2 = max(0.001h * 0.001h, d2); // clamp the light to at least 1mm away to avoid extreme values.
+        d2 = max(0.00001h, d2); // clamp the light to at least 1mm away to avoid extreme values.
+        half3 lightIntensity = (half3(light.m_rgbIntensityCandelas) / d2) * radiusAttenuation;
+        half3 posToLightDir = normalize(posToLight);
+
+        // Diffuse contribution
+        lightingData.diffuseLighting += GetDiffuseLightingHalf(surface, lightingData, lightIntensity, posToLightDir);
+
+        // Specular contribution
+        lightingData.specularLighting += GetSpecularLightingHalf(surface, lightingData, lightIntensity, posToLightDir);
     }
 }
 
@@ -47,5 +75,13 @@ void ApplySimplePointLights(Surface surface, inout LightingData lightingData)
     
         ViewSrg::SimplePointLight light = ViewSrg::m_simplePointLights[currLightIndex];
         ApplySimplePointLight(light, surface, lightingData);
+    }
+}
+
+void ApplySimplePointLightsHalf(Surface surface, inout LightingData lightingData)
+{
+    for(uint i = 0; i < ViewSrg::m_simplePointLightCount; i++)
+    {
+        ApplySimplePointLightHalf(ViewSrg::m_simplePointLights[i], surface, lightingData);
     }
 }

@@ -12,6 +12,7 @@
 #include <Atom/Features/LightCulling/LightCullingTileIterator.azsli>
 #include <Atom/Features/PBR/LightingUtils.azsli>
 
+#if 0
 class LightingData
 {
     LightCullingTileIterator tileIterator;
@@ -92,4 +93,81 @@ void LightingData::FinalizeLighting(float3 transmissionTint)
     {
         diffuseLighting += translucentBackLighting * transmissionTint;
     }
+}
+#endif // #if 0
+
+class LightingData
+{
+    LightCullingTileIterator tileIterator;
+    
+    // Lighting outputs
+    half3 diffuseLighting;
+    half3 specularLighting;
+    half3 translucentBackLighting;
+
+    // Factors for the amount of diffuse and specular lighting applied
+    half3 diffuseResponse;
+    half3 specularResponse;
+
+    // Direction light shadow coordinates
+    float3 shadowCoords[ViewSrg::MaxCascadeCount];
+
+    // Normalized direction from surface to camera
+    half3 dirToCamera;
+    
+    // Scaling term to approximate multiscattering contribution in specular BRDF
+    half3 multiScatterCompensation;
+
+    // Lighting emitted from the surface
+    half3 emissiveLighting;
+
+    // BRDF texture values
+    half2 brdf;
+
+    // Normal . View
+    half NdotV;
+
+    // Occlusion factors
+    // 0 = dark, 1 = light
+    half diffuseAmbientOcclusion;
+    half specularOcclusion;
+
+    void Init(half3 positionWS, half3 normal, half roughnessLinear);
+    void CalculateMultiscatterCompensation(half3 specularF0, bool enabled);
+    void FinalizeLighting();
+    void FinalizeLighting(half3 transmissionTint);
+};
+
+void LightingData::Init(half3 positionWS, half3 normal, half roughnessLinear)
+{
+    diffuseLighting = 0.0h;
+    specularLighting = 0.0h;
+    translucentBackLighting = 0.0h;
+    multiScatterCompensation = 1.0h;
+    emissiveLighting = half3(0.0h, 0.0h, 0.0h);
+    diffuseAmbientOcclusion = 1.0h;
+    specularOcclusion = 1.0h;
+
+    dirToCamera = normalize(half3(ViewSrg::m_worldPosition.xyz) - half3(positionWS));
+
+    // sample BRDF map (indexed by smoothness values rather than roughness)
+    NdotV = saturate(dot(normal, dirToCamera));
+    half2 brdfUV = half2(NdotV, (1.0h - roughnessLinear));
+    brdf = PassSrg::m_brdfMap.Sample(PassSrg::LinearSampler, brdfUV).rg;
+}
+
+void LightingData::CalculateMultiscatterCompensation(half3 specularF0, bool enabled)
+{
+    multiScatterCompensation = GetMultiScatterCompensationHalf(specularF0, brdf, enabled);
+}
+
+void LightingData::FinalizeLighting()
+{
+    specularLighting *= specularOcclusion;
+    specularLighting += emissiveLighting;
+}
+
+void LightingData::FinalizeLighting(half3 transmissionTint)
+{
+    FinalizeLighting();
 }

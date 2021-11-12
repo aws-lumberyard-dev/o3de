@@ -31,3 +31,18 @@ float GetMetallicInput(Texture2D map, sampler mapSampler, float2 uv, float facto
     }
     return factor;
 }
+
+half GetMetallicInputHalf(
+    Texture2D map, 
+    sampler mapSampler, 
+    half2 uv, 
+    half factor, 
+    bool useTexture)
+{
+    if (useTexture)
+    {
+       // [GFX TODO][ATOM-1793]: Figure out how we want our base material to expect channels to be encoded, and apply that to the way we pack metalness.
+       return map.Sample(mapSampler, uv).r;
+    }
+    return factor;
+}

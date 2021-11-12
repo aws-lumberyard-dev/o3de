@@ -141,6 +141,20 @@ float3 AabbClosestPoint(float3 aabbMin, float3 aabbMax, float3 testPoint)
     return closestPos;
 }
 
+half3 AabbClosestPointHalf(
+    half3 aabbMin, 
+    half3 aabbMax, 
+    half3 testPoint)
+{
+    half3 closestPos = half3(0.0h, 0.0h, 0.0h);
+    for (uint i = 0; i < 3; ++i)
+    {
+        closestPos[i] = max(testPoint[i], aabbMin[i]);
+        closestPos[i] = min(closestPos[i], aabbMax[i]);
+    }
+    return closestPos;
+}
+
 // computes [0..1] percentage of a point that's in between the inner and outer AABBs
 float ComputeLerpBetweenInnerOuterAABBs(float3 innerAabbMin, float3 innerAabbMax, float3 outerAabbMax, float3 aabbPos, float3 position)
 {
@@ -173,6 +187,42 @@ float ComputeLerpBetweenInnerOuterAABBs(float3 innerAabbMin, float3 innerAabbMax
     return totalDistance > 0.0f ? saturate(shortestDistance / totalDistance) : 1.0f;
 }
 
+half ComputeLerpBetweenInnerOuterAABBsHalf(
+    half3 innerAabbMin, 
+    half3 innerAabbMax, 
+    half3 outerAabbMax, 
+    half3 aabbPos, 
+    half3 position)
+{
+    half3 closestPointOnInnerAabb = AabbClosestPointHalf(innerAabbMin, innerAabbMax, position);
+
+    // find the distance to the outer AABB by intersecting the ray from the closestPointOnInnerAabb through the position
+    // to each plane of the AABB, and take the shortest hit - this is the closest AABB plane to our point
+
+    // translate the points and outer AABB to the origin
+    // take the abs() of the points to move them to the max quadrant of the outer AABB so everything is positive
+    outerAabbMax -= aabbPos;
+    position = abs(position - aabbPos);
+    closestPointOnInnerAabb = abs(closestPointOnInnerAabb - aabbPos);
+    half3 dirToPoint = normalize(position - closestPointOnInnerAabb);
+
+    // intersect the ray from the closest point through the position with all three planes of the AABB
+    // using outerAabbMax as the plane point and the plane normal defined in the array above (n.p = d)
+    // Note: this is an optimized form of the following equation, performed simultaneously in all three planes:
+    //       abs(dot(planeNormal, (outerAabbMax - position)) / dot(planeNormal, dirToPoint));
+    half3 distance = abs(outerAabbMax - position) / dirToPoint;
+    half shortestDistance = min(min(distance.x, distance.y), distance.z);
+
+    // divide the distance by the total distance between the two intersect points
+    // if (shortest distance == total distance) the blend is 1 since it's on the inner AABB
+    // if (shortest distance == 0) the blend is 0 since it's on the outer AABB
+    // if in between then it's the [0..1] percentage of the distance between inner and outer
+    // if the inner and outer AABBs are identical then it's on both and the blend is 1
+    half3 outerAabbIntersect = position + (dirToPoint * shortestDistance);
+    half totalDistance = length(outerAabbIntersect - closestPointOnInnerAabb);
+    return totalDistance > 0.0f ? saturate(shortestDistance / totalDistance) : 1.0h;
+}
+
 // returns true if the Obb contains the specified point
 bool ObbContainsPoint(float4x4 obbTransformInverse, float3 obbHalfExtents, float3 testPoint)
 {
@@ -187,6 +237,18 @@ float ComputeLerpBetweenInnerOuterOBBs(float3x4 obbTransformInverse, float3 inne
     // get the position in Obb local space, force to positive quadrant with abs()
     float3 p = abs(mul(obbTransformInverse, float4(position, 1.0f)));
     return ComputeLerpBetweenInnerOuterAABBs(-innerObbHalfExtents, innerObbHalfExtents, outerObbHalfExtents, float3(0.0f, 0.0f, 0.0f), p);
+}
+
+// computes [0..1] percentage of a point that's in between the inner and outer OBBs
+half ComputeLerpBetweenInnerOuterOBBsHalf(
+    half3x4 obbTransformInverse, 
+    half3 innerObbHalfExtents, 
+    half3 outerObbHalfExtents, 
+    half3 position)
+{
+    // get the position in Obb local space, force to positive quadrant with abs()
+    half3 p = abs(mul(obbTransformInverse, half4(position, 1.0h)));
+    return ComputeLerpBetweenInnerOuterAABBsHalf(-innerObbHalfExtents, innerObbHalfExtents, outerObbHalfExtents, half3(0.0h, 0.0h, 0.0h), p);
 }
 
 // ---------- Normal Encoding -----------
@@ -205,6 +267,19 @@ float3 EncodeNormalSignedOctahedron(float3 normal)
     encodedNormal.z = saturate(normal.z * FLOAT_32_MAX);
     return encodedNormal;
 }
+
+half3 EncodeNormalSignedOctahedronHalf(half3 normal)
+{
+    normal /= (abs(normal.x) + abs(normal.y) + abs(normal.z));
+
+    half3 encodedNormal;
+    encodedNormal.y = normal.y * 0.5h + 0.5h;
+    encodedNormal.x = normal.x * 0.5h + encodedNormal.y;
+    encodedNormal.y = normal.x * -0.5h + encodedNormal.y;
+    encodedNormal.z = saturate(normal.z * FLOAT_32_MAX);
+    return encodedNormal;
+}
+
 
 float3 DecodeNormalSignedOctahedron(float3 encodedNormal)
 {
@@ -242,6 +317,11 @@ float3 DecodedNormalSphereMap(float2 encodedNormal)
 float3 MultiplyVectorQuaternion(float3 v, float4 q)
 {
     return v + 2.0f * cross(cross(v, q.xyz) + q.w * v, q.xyz);
+}
+
+half3 MultiplyVectorQuaternionHalf(half3 v, half4 q)
+{
+    return v + 2.0h * cross(cross(v, q.xyz) + q.w * v, q.xyz);
 }
 
 // Rotates a vector using a rotation from a quaternion

@@ -14,6 +14,11 @@ float3 GetCubemapCoords(float3 original)
     return float3(-original.x, original.z, -original.y);
 }
 
+half3 GetCubemapCoordsHalf(half3 original)
+{
+    return half3(-original.x, original.z, -original.y);
+}
+
 //! Compute multiscatter compensation multiplier
 float3 GetMultiScatterCompensation(float3 specularF0, float2 brdf, bool enabled)
 {
@@ -36,6 +41,27 @@ float3 GetMultiScatterCompensation(float3 specularF0, float2 brdf, bool enabled)
     return compensation + 1.0;
 }
 
+half3 GetMultiScatterCompensationHalf(half3 specularF0, half2 brdf, bool enabled)
+{
+    if (!enabled)
+    {
+        // skip calculation if compensation is disabled
+        return half3(1.0h, 1.0h, 1.0h);
+    }
+
+    // returned values of BRDF are formed by split sum approximation as shown below
+    // brdf.x = integral{(BRDF / F) * (1 - (1 - VdotH)^5) * NdotL dL} 
+    // brdf.y = integral{(BRDF / F) * (1 - VdotH)^5 * NdotL dL}
+    // brdf.x + brdf.y = integral{ (BRDF / F) * (1 - alpha + alpha) * NdotL dL }
+    //                 = integral{ (BRDF / F) * NdotL dL }
+    //                 = integral{ ((GD / 4 * NdotL * NdotV)) * NdotL dL }
+    // which is the integral of microfacet BRDF by assuming fresnel term F == 1 that represents total single scattering reflectance
+    // for more information about compensation term please see:
+    // https://blog.selfshadow.com/publications/turquin/ms_comp_final.pdf
+    float3 compensation = specularF0 * ((1.0h / (brdf.x + brdf.y)) - 1.0h);
+    return compensation + 1.0h;
+}
+
 // returns the UV coordinates for the BRDF texture
 float2 GetBRDFTexCoords(float roughness, float NdotV)
 {
@@ -47,6 +73,12 @@ float2 GetBRDFTexCoords(float roughness, float NdotV)
 float GetRoughnessMip(float roughness)
 {
     const float maxRoughnessMip = 5;
+    return roughness * maxRoughnessMip;
+}
+
+half GetRoughnessMipHalf(half roughness)
+{
+    const half maxRoughnessMip = 5.0h;
     return roughness * maxRoughnessMip;
 }
 
@@ -64,9 +96,35 @@ float3 ApplyParallaxCorrectionAABB(float3 aabbMin, float3 aabbMax, float3 aabbPo
     return (intersectPos - aabbPos);
 }
 
+half3 ApplyParallaxCorrectionAABBHalf(
+    half3 aabbMin, 
+    half3 aabbMax, 
+    half3 aabbPos, 
+    half3 positionWS, 
+    half3 reflectDir)
+{
+    half3 rcpReflectDir = 1.0h / reflectDir;
+    half3 intersectA = (aabbMax - positionWS) * rcpReflectDir;
+    half3 intersectB = (aabbMin - positionWS) * rcpReflectDir;
+    half3 furthestIntersect = max(intersectA, intersectB);
+    half distance = min(min(furthestIntersect.x, furthestIntersect.y), furthestIntersect.z);
+    half3 intersectPos = reflectDir * distance + positionWS;
+    return (intersectPos - aabbPos);
+}
+
 // compute parallax corrected reflection vector, OBB version
 float3 ApplyParallaxCorrectionOBB(float4x4 obbTransformInverse, float3 obbHalfExtents, float3 positionWS, float3 reflectDir)
 {
     float4 p = mul(obbTransformInverse, float4(positionWS, 1.0f));
     return ApplyParallaxCorrectionAABB(-obbHalfExtents, obbHalfExtents, float3(0.0f, 0.0f, 0.0f), p, reflectDir);
+}
+
+half3 ApplyParallaxCorrectionOBBHalf(
+    half4x4 obbTransformInverse, 
+    half3 obbHalfExtents, 
+    half3 positionWS, 
+    half3 reflectDir)
+{
+    half4 p = mul(obbTransformInverse, half4(positionWS, 1.0h));
+    return ApplyParallaxCorrectionAABBHalf(-obbHalfExtents, obbHalfExtents, half3(0.0h, 0.0h, 0.0h), p, reflectDir);
 }

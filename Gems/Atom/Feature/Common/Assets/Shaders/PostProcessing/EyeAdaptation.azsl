@@ -38,7 +38,7 @@ ShaderResourceGroup PassSrg : SRG_PerPass
 void MainCS(uint3 dispatch_id : SV_DispatchThreadID)
 {
     // Determine the goal exposure value in logarithmic(perceptual) space.
-    float goalExposureLog2 = 0.0; // default goal is no adjustment
+    half goalExposureLog2 = 0.0h; // default goal is no adjustment
     
     if (ViewSrg::m_exposureControl.m_eyeAdaptationEnabled)
     {
@@ -48,11 +48,11 @@ void MainCS(uint3 dispatch_id : SV_DispatchThreadID)
         PassSrg::m_sceneLuminance.GetDimensions(0, inputDimensions.x, inputDimensions.y, numMipLevels);
 
         // Use smallest 1x1 mip to get scene average luminance.
-        float luminanceAvg = PassSrg::m_sceneLuminance.SampleLevel(PassSrg::LinearSampler, float2(0.5f, 0.5f), numMipLevels - 1).y;
+        half luminanceAvg = PassSrg::m_sceneLuminance.SampleLevel(PassSrg::LinearSampler, half2(0.5h, 0.5h), numMipLevels - 1).y;
 
         // Middle gray value is the half-tone between black and white in exposure control.
         // Defining Middle Grey value to 0.18f as the typical value used in photography. Cf. https://en.wikipedia.org/wiki/Middle_gray
-        const float middleGray = 0.18f;
+        const half middleGray = 0.18h;
         
         // Protection from NaNs getting in the frame buffer leading to NaN luminance.
         if (isnan(luminanceAvg))
@@ -64,26 +64,26 @@ void MainCS(uint3 dispatch_id : SV_DispatchThreadID)
         goalExposureLog2 = log2(luminanceAvg / middleGray);
 
         // Clamp goal exposure by min / max.
-        float minExposure = ViewSrg::m_exposureControl.m_exposureMinLog2;
-        float maxExposure = ViewSrg::m_exposureControl.m_exposureMaxLog2;
+        half minExposure = half(ViewSrg::m_exposureControl.m_exposureMinLog2);
+        half maxExposure = half(ViewSrg::m_exposureControl.m_exposureMaxLog2);
         goalExposureLog2 = clamp(goalExposureLog2, minExposure, maxExposure);
     }
 
     // Convert the previous frame linear exposure to a stop adjustment.
-    float previousFrameExposureLog2 = -log2(max(0.00000001, PassSrg::m_eyeAdaptationData[0].m_exposureValue));
+    half previousFrameExposureLog2 = -log2(max(0.00001h, PassSrg::m_eyeAdaptationData[0].m_exposureValue));
 
-    float exposureDifference = goalExposureLog2 - previousFrameExposureLog2;
+    half exposureDifference = goalExposureLog2 - previousFrameExposureLog2;
     
     // Speed depends on if the exposure should be increased or decreased.
-    const float speed = exposureDifference > 0.0 ? ViewSrg::m_exposureControl.m_speedUp : ViewSrg::m_exposureControl.m_speedDown;
+    const half speed = exposureDifference > 0.0 ? ViewSrg::m_exposureControl.m_speedUp : ViewSrg::m_exposureControl.m_speedDown;
 
     // Update the adjustment for this frame based on the frame deltaTime and speed
-    float deltaTime = clamp(SceneSrg::m_time - PassSrg::m_eyeAdaptationData[0].m_setValueTime, 0.0f, 1.0f);
-    float exposureAdjustment = exposureDifference * deltaTime * speed;
-    float newExposureLog2 = previousFrameExposureLog2 + exposureAdjustment;
+    half deltaTime = clamp(half(SceneSrg::m_time) - half(PassSrg::m_eyeAdaptationData[0].m_setValueTime), 0.0h, 1.0h);
+    half exposureAdjustment = exposureDifference * deltaTime * speed;
+    half newExposureLog2 = previousFrameExposureLog2 + exposureAdjustment;
 
     // Store the linear exposure so it can be used by the look modification transform later.
     // newExposureLog2 is negated because m_exposureValue is used to correct for a given exposure.
-    PassSrg::m_eyeAdaptationData[0].m_exposureValue = pow(2.0f, -newExposureLog2);
+    PassSrg::m_eyeAdaptationData[0].m_exposureValue = float(pow(2.0h, -newExposureLog2));
     PassSrg::m_eyeAdaptationData[0].m_setValueTime = SceneSrg::m_time;
 }

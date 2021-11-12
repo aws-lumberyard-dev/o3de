@@ -34,9 +34,50 @@ float SampleAlpha(Texture2D baseColorMap, Texture2D opacityMap, float2 baseColor
     return alpha;
 }
 
+float SampleAlphaHalf(
+    Texture2D baseColorMap, 
+    Texture2D opacityMap, 
+    half2 baseColorUv, 
+    half2 opacityUv, 
+    sampler mapSampler, 
+    OpacitySource opacitySource)
+{
+    half alpha = 1.0h;
+    switch(opacitySource)
+    {
+        case OpacitySource::Packed:
+        {
+            alpha = baseColorMap.Sample(mapSampler, baseColorUv).a;
+            break;
+        }
+        case OpacitySource::Split:  
+        {
+            alpha = opacityMap.Sample(mapSampler, opacityUv).r;
+            break;
+        }
+        case OpacitySource::None:
+        break;
+    }
+    return alpha;
+}
+
 float GetAlphaInputAndClip(Texture2D baseColorMap, Texture2D opacityMap, float2 baseColorUv, float2 opacityUv, sampler mapSampler, float opacityFactor, OpacitySource opacitySource)
 {
     float alpha = SampleAlpha(baseColorMap, opacityMap, baseColorUv, opacityUv, mapSampler, opacitySource);
     CheckClipping(alpha, opacityFactor);
+    return (alpha * opacityFactor);
+}
+
+half GetAlphaInputAndClipHalf(
+    Texture2D baseColorMap, 
+    Texture2D opacityMap, 
+    half2 baseColorUv, 
+    half2 opacityUv, 
+    sampler mapSampler, 
+    half opacityFactor, 
+    OpacitySource opacitySource)
+{
+    half alpha = SampleAlphaHalf(baseColorMap, opacityMap, baseColorUv, opacityUv, mapSampler, opacitySource);
+    CheckClippingHalf(alpha, opacityFactor);
     return (alpha * opacityFactor);
 }

@@ -18,11 +18,22 @@ float3 TextureBlend_LinearLight(float3 base, float3 mask)
     return saturate(base + 2 * mask - 1);
 }
 
+half3 TextureBlend_LinearLightHalf(half3 base, half3 mask)
+{
+    return saturate(base + 2.0h * mask - 1.0h);
+}
+
 // See http://www.deepskycolors.com/archive/2010/04/21/formulas-for-Photoshop-blending-modes.html
 float3 TextureBlend_Overlay(float3 target, float3 blend)
 {
     return (target > 0.5) * (1.0 - (1.0 - 2.0 * (target - 0.5)) * (1.0 - blend)) +
            (target <= 0.5) * ((2.0 * target) * blend);
+}
+
+half3 TextureBlend_OverlayHalf(half3 target, half3 blend)
+{
+    return (target > 0.5h) * (1.0h - (1.0h - 2.0h * (target - 0.5h)) * (1.0h - blend)) +
+           (target <= 0.5h) * ((2.0h * target) * blend);
 }
 
 //! General purpose utility function for applying a blend between two colors. Note that the order of the colors is not commutative (for most blend modes).
@@ -61,6 +72,48 @@ float3 ApplyTextureBlend(float3 color, float3 blendColor, float factor, TextureB
         
         // Convert back to ACEScg
         finalColor = TransformColor(finalColor, ColorSpaceId::SRGB, ColorSpaceId::ACEScg);
+        
+        // Apply factor
+        finalColor = lerp(color, finalColor, factor);
+
+        return finalColor;
+    }
+}
+
+half3 ApplyTextureBlendHalf(
+    half3 color, 
+    half3 blendColor, 
+    half factor, 
+    TextureBlendMode blendMode)
+{
+    if(blendMode == TextureBlendMode::Multiply)
+    {
+        return factor * color * blendColor;
+    }
+    else if(blendMode == TextureBlendMode::Lerp)
+    {
+        return lerp(color, blendColor, factor);
+    }
+    else
+    {
+        // [GFX TODO][ATOM-3237] See if we can avoid these extra color space conversions...
+        // To get blend behavior that mimics photoshop, convert to sRGB
+        half3 blendColorSRGB = TransformColorHalf(blendColor, ColorSpaceId::ACEScg, ColorSpaceId::SRGB);
+        half3 colorSRGB = TransformColorHalf(color, ColorSpaceId::ACEScg, ColorSpaceId::SRGB);
+                 
+        half3 finalColor = colorSRGB;
+
+        if(blendMode == TextureBlendMode::LinearLight)
+        {
+            finalColor = TextureBlend_LinearLightHalf(colorSRGB, blendColorSRGB);
+        }
+        else if(blendMode == TextureBlendMode::Overlay)
+        {
+            finalColor = TextureBlend_OverlayHalf(colorSRGB, blendColorSRGB);
+        }
+        
+        // Convert back to ACEScg
+        finalColor = TransformColorHalf(finalColor, ColorSpaceId::SRGB, ColorSpaceId::ACEScg);
         
         // Apply factor
         finalColor = lerp(color, finalColor, factor);

@@ -69,11 +69,30 @@ float LinearToAcesCc(float value)
     return (log2(value) + 9.72) / 17.52;
 }
 
+half LinearToAcesCcHalf(half value)
+{
+  if (value <= 0.0h)
+    return -0.3584474886h;
+  else if (value < pow(2.h,-15.h))
+    return (log2( pow(2.h,-16.h) + value * 0.5h) + 9.72h) / 17.52h;
+  else
+    return (log2(value) + 9.72h) / 17.52h;
+}
+
 float3 AcesCgToAcesCc(float3 color)
 {
     return float3(
         LinearToAcesCc(color.r),
         LinearToAcesCc(color.g),
         LinearToAcesCc(color.b)
+    );
+}
+
+half3 AcesCgToAcesCcHalf(half3 color)
+{
+    return half3(
+        LinearToAcesCcHalf(color.r),
+        LinearToAcesCcHalf(color.g),
+        LinearToAcesCcHalf(color.b)
     );
 }

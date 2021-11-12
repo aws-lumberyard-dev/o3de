@@ -58,6 +58,32 @@ float3 GetSpecularLighting(Surface surface, LightingData lightingData, const flo
     return specular;
 }
 
+// Then define the Diffuse and Specular lighting functions
+half3 GetDiffuseLightingHalf(
+    Surface surface, 
+    LightingData lightingData, 
+    half3 lightIntensity, 
+    half3 dirToLight)
+{
+    half3 albedoHalf = surface.albedo.xyz;
+    half3 normalHalf = surface.normal.xyz;
+    half3 dirToLightHalf = dirToLight.xyz;
+    half diffuseResponseHalf = lightingData.diffuseResponse.x;
+
+    half3 diffuse = DiffuseLambertianHalf(albedoHalf, normalHalf, dirToLightHalf, diffuseResponseHalf);
+
+    diffuse *= lightIntensity;
+    return diffuse;
+}
+
+half3 GetSpecularLightingHalf(Surface surface, LightingData lightingData, const half3 lightIntensity, const half3 dirToLight)
+{
+    half3 specular = SpecularGGXHalf(lightingData.dirToCamera, dirToLight, surface.normal, surface.specularF0, lightingData.NdotV, surface.roughnessA2, lightingData.multiScatterCompensation);
+    specular *= lightIntensity;
+    
+    return specular;
+}
+
 
 // Then include everything else
 #include <Atom/Features/PBR/Lights/Lights.azsli>
@@ -71,6 +97,15 @@ struct PbrLightingOutput
     float4 m_albedo;
     float4 m_specularF0;
     float4 m_normal;
+};
+
+struct PbrLightingOutputHalf
+{
+    half4 m_diffuseColor;
+    half4 m_specularColor;
+    half4 m_albedo;
+    half4 m_specularF0;
+    half4 m_normal;
 };
 
 
@@ -87,6 +122,23 @@ PbrLightingOutput GetPbrLightingOutput(Surface surface, LightingData lightingDat
     lightingOutput.m_albedo.a = lightingData.specularOcclusion;
     lightingOutput.m_normal.rgb = EncodeNormalSignedOctahedron(surface.normal);
     lightingOutput.m_normal.a = o_specularF0_enableMultiScatterCompensation ? 1.0f : 0.0f;
+    
+    return lightingOutput;
+}
+
+PbrLightingOutputHalf GetPbrLightingOutputHalf(Surface surface, LightingData lightingData, half alpha)
+{
+    PbrLightingOutputHalf lightingOutput;
+
+    lightingOutput.m_diffuseColor = half4(lightingData.diffuseLighting, alpha);
+    lightingOutput.m_specularColor = half4(lightingData.specularLighting, 1.0h);
+
+    // albedo, specularF0, roughness, and normals for later passes (specular IBL, Diffuse GI, SSR, AO, etc)
+    lightingOutput.m_specularF0 = half4(surface.specularF0, surface.roughnessLinear);
+    lightingOutput.m_albedo.rgb = surface.albedo * lightingData.diffuseResponse * lightingData.diffuseAmbientOcclusion;
+    lightingOutput.m_albedo.a = lightingData.specularOcclusion;
+    lightingOutput.m_normal.rgb = EncodeNormalSignedOctahedron(float3(surface.normal));
+    lightingOutput.m_normal.a = o_specularF0_enableMultiScatterCompensation ? 1.0h : 0.0h;
     
     return lightingOutput;
 }

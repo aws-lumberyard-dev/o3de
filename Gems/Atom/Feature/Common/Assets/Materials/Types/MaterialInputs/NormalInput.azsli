@@ -42,6 +42,22 @@ float2 SampleNormalXY(Texture2D map, sampler mapSampler, float2 uv)
     return sampledValue.xy;
 }
 
+half2 SampleNormalXYHalf(
+    Texture2D map, 
+    sampler mapSampler, 
+    half2 uv)
+{
+    half4 sampledValue = map.Sample(mapSampler, uv);
+    
+#if AZ_TRAIT_ASTC_COMPRESSION
+    //Astc compression is unorm (0 to 1) so we need to accomodate for that. We are using BC5_SNORM (-1 - +1)for other platforms like pc
+    //[GFX TODO][ATOM-13435] - Look into moving this offline as part of image processing.
+    sampledValue =  (sampledValue * 2.0h) - 1.0h;
+#endif
+
+    return sampledValue.xy;
+}
+
 //! Samples the normal map and returns the XY values of the normal. 
 //! (Z must be reconstructed assuming length=1; this is handled by the various utility functions that take float2 in TangentSpace.azsli).
 //! The returned XY values will be in the range [-1,1].
@@ -62,10 +78,37 @@ float2 SampleNormalXY(Texture2D map, sampler mapSampler, float2 uv, bool flipX, 
     return sampledValue;
 }
 
+half2 SampleNormalXYHalf(
+    Texture2D map, 
+    sampler mapSampler, 
+    half2 uv, 
+    bool flipX, 
+    bool flipY)
+{
+    half2 sampledValue = SampleNormalXYHalf(map, mapSampler, uv);
+
+    // [GFX TODO][ATOM-2404] For some reason, the image build pipeline swaps the R and G channels
+    if(flipX)
+    {
+        sampledValue.y = -sampledValue.y;
+    }
+    if(flipY)
+    {
+        sampledValue.x = -sampledValue.x;
+    }
+    return sampledValue;
+}
+
 // Flip normal if back face is rendered
 float3 AdjustBackFaceNormal(float3 normal, bool isFrontFace)
 {
     normal *= mad(isFrontFace, 2.0, -1.0);
+    return normal;
+}
+
+half3 AdjustBackFaceNormalHalf(half3 normal, bool isFrontFace)
+{
+    normal *= mad(isFrontFace, 2.0h, -1.0h);
     return normal;
 }
 
@@ -84,6 +127,35 @@ float3 GetNormalInputWS(Texture2D map, sampler mapSampler, float2 uv, bool flipX
     }
 
     normal = AdjustBackFaceNormal(normal, isFrontFace);
+    return normal;
+}
+
+// Get the input normal in world space
+half3 GetNormalInputWSHalf(
+    Texture2D map, 
+    sampler mapSampler, 
+    half2 uv, 
+    bool flipX, 
+    bool flipY, 
+    bool isFrontFace,
+    half3 normal, 
+    half3 tangent, 
+    half3 bitangent, 
+    half3x3 uvMatrix, 
+    bool useTexture, 
+    half normalStrength)
+{
+    if (useTexture)
+    {
+        half2 sampledValue = SampleNormalXYHalf(map, mapSampler, uv, flipX, flipY);
+        normal = GetWorldSpaceNormalHalf(sampledValue, normal, tangent, bitangent, uvMatrix, normalStrength);
+    }
+    else
+    {
+        normal = normalize(normal);
+    }
+
+    normal = AdjustBackFaceNormalHalf(normal, isFrontFace);
     return normal;
 }
 

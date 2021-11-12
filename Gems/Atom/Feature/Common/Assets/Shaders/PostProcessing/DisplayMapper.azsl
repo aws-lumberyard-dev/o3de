@@ -51,6 +51,194 @@ ShaderResourceGroup PassSrg : SRG_PerPass
     float m_gamma;
 }
 
+half3 OutputDeviceTransformHalf(
+    const half3 oces, 
+    OutputTransformParameters otParams)
+{
+    // OCES to RGB rendering space
+    half3 rgbPre = mul(AP0ToAP1MatHalf, oces);
+
+    // Apply the tonescale independently in rendering-space RGB
+    half3 rgbPost;
+    rgbPost[0] = SegmentedSplineC9FwdHalf(rgbPre[0], otParams.acesSplineParams);
+    rgbPost[1] = SegmentedSplineC9FwdHalf(rgbPre[1], otParams.acesSplineParams);
+    rgbPost[2] = SegmentedSplineC9FwdHalf(rgbPre[2], otParams.acesSplineParams);
+
+    // A linear mapping from the cinema limit range to a value between 0.0, to 1.0.
+    half3 linearCV = rgbPost;
+    // Scale luminance to linear code value
+    linearCV[0] = YToLinearCVHalf(rgbPost[0], half(otParams.cinemaLimits.y), half(otParams.cinemaLimits.x));
+    linearCV[1] = YToLinearCVHalf(rgbPost[1], half(otParams.cinemaLimits.y), half(otParams.cinemaLimits.x));
+    linearCV[2] = YToLinearCVHalf(rgbPost[2], half(otParams.cinemaLimits.y), half(otParams.cinemaLimits.x));
+
+    if (otParams.outputDisplayTransformFlags & APPLY_ALTER_SURROUND)
+    {
+        // Apply gamma adjustment to compensate for dim surround
+        linearCV = AlterSurroundHalf(linearCV, half(otParams.surroundGamma));
+    }
+
+    if (otParams.outputDisplayTransformFlags & APPLY_DESATURATION)
+    {
+        // Apply desaturation to compensate for luminance difference
+        // Saturation compensation factor
+        const half ODT_SAT_FACTOR = 0.93h;
+        const half3x3 ODT_SAT_MAT = CalcSatAdjustMatrixHalf(ODT_SAT_FACTOR, AP1RGBToYHalf);
+        linearCV = mul(ODT_SAT_MAT, linearCV);
+    }
+
+    // Convert to display primary encoding
+    // Rendering space RGB to XYZ
+    half3 XYZ = mul(AP1ToXYZMatHalf, linearCV);
+
+    if (otParams.outputDisplayTransformFlags & APPLY_CAT_D60TOD65)
+    {
+        // Apply Color appearance transform (CAT) from ACES white point to assumed observer adapted white point
+        // PC content usually always assumes a D65 whitespace, so this should usually be enabled.
+        XYZ = mul(D60ToD65CatHalf, XYZ);
+    }
+
+    // CIE XYZ to display primaries
+    linearCV = mul(half3x3(otParams.XYZtoDisplayPrimaries), XYZ);
+
+    // Encode linear code values with transfer function
+    half3 outputCV = linearCV;
+
+    if (otParams.outputDisplayTransformMode == OUTPUT_SRGB)
+    { 
+        // SRGB
+        // clamp 0/1 and encode 
+        linearCV = clamp(linearCV, 0.h, 1.h);
+
+        outputCV[0] = MoncurveRHalf(linearCV[0], DISPGAMMA, OFFSET);
+        outputCV[1] = MoncurveRHalf(linearCV[1], DISPGAMMA, OFFSET);
+        outputCV[2] = MoncurveRHalf(linearCV[2], DISPGAMMA, OFFSET);
+    }
+    else if (otParams.outputDisplayTransformMode == OUTPUT_PERCEPTUALQUANTIZER)
+    {
+        //scale to bring the ACES data back to the proper range
+        linearCV[0] = LinearCVToYHalf(linearCV[0], half(otParams.cinemaLimits.y), half(otParams.cinemaLimits.x));
+        linearCV[1] = LinearCVToYHalf(linearCV[1], half(otParams.cinemaLimits.y), half(otParams.cinemaLimits.x));
+        linearCV[2] = LinearCVToYHalf(linearCV[2], half(otParams.cinemaLimits.y), half(otParams.cinemaLimits.x));
+
+        linearCV = max(linearCV, 0.h);
+
+        // Encode with PQ transfer function
+        outputCV = PerceptualQuantizerRevF3Half(linearCV);
+    }
+    else if (otParams.outputDisplayTransformMode == OUTPUT_LDR)
+    {
+        // LDR mode, clamp 0/1 and encode with given gamma value for the OETF
+        linearCV = clamp(linearCV, 0.h, 1.h);
+
+        outputCV = outputCV > 0.0h ? pow(linearCV, 1.0h / half(otParams.gamma)) : 0.0h;
+    }
+
+    return outputCV;
+}
+
+half SegmentedSplineC5FwdHalf (
+    half x,  
+    SegmentedSplineParamsC5 C = RRT_PARAMS)
+{
+    const int N_KNOTS_LOW = 4;
+    const int N_KNOTS_HIGH = 4;
+
+    // Check for negatives or zero before taking the log. If negative or zero,
+    // set to ACESMIN.
+    half xCheck = x;
+    if (xCheck <= 0.0h) xCheck = pow(2.0h, -14.0h);
+
+    half logx = log10(float(xCheck));
+
+    half logy;
+
+    if (logx <= log10(C.minPoint.x))
+    {
+        logy = logx * half(C.slopeLow) + half(log10(C.minPoint.y) - C.slopeLow * log10(C.minPoint.x));
+    }
+    else if ((logx > log10(C.minPoint.x)) && (logx < log10(C.midPoint.x)))
+    {
+        half knot_coord = (N_KNOTS_LOW - 1) * half((logx - log10(C.minPoint.x)) / (log10(C.midPoint.x) - log10(C.minPoint.x)));
+        int j = knot_coord;
+        half t = knot_coord - j;
+
+        half3 cf = { half(C.coefsLow[j]), half(C.coefsLow[j + 1]), half(C.coefsLow[j + 2]) };
+
+        half3 monomials = { t * t, t, 1.0h };
+        logy = dot(monomials, mul(cf, MHalf));
+    }
+    else if ((logx >= log10(C.midPoint.x)) && (logx < log10(C.maxPoint.x)))
+    {
+        half knot_coord = (N_KNOTS_HIGH - 1) * half((logx - log10(C.midPoint.x)) / (log10(C.maxPoint.x) - log10(C.midPoint.x)));
+        int j = knot_coord;
+        half t = knot_coord - j;
+
+        half3 cf = { half(C.coefsHigh[j]), half(C.coefsHigh[j + 1]), half(C.coefsHigh[j + 2]) };
+
+        half3 monomials = { t * t, t, 1.0h };
+        logy = dot(monomials, mul(cf, MHalf));
+    }
+    else
+    {
+        logy = logx * half(C.slopeHigh) + half(log10(C.maxPoint.y) - C.slopeHigh * log10(C.maxPoint.x));
+    }
+
+    return Pow10Half(logy);
+}
+
+half3 ReferenceRenderingTransformHalf(
+    half3 rgbIn)
+{
+    // "Glow" module constants
+    const half RRT_GLOW_GAIN = 0.05h;
+    const half RRT_GLOW_MID = 0.08h;
+    // Glow module
+    half saturation = RGBToSaturationHalf(rgbIn);
+    half ycIn = RGBToYcHalf(rgbIn);
+    half s = SigmoidShaperHalf((saturation - 0.4h) / 0.2h);
+    half addedGlow = 1. + GlowFwdHalf(ycIn, RRT_GLOW_GAIN * s, RRT_GLOW_MID);
+
+    half3 aces = addedGlow * rgbIn;
+
+    // Red modifier constants
+    const half RRT_RED_SCALE = 0.82h;
+    const half RRT_RED_PIVOT = 0.03h;
+    const half RRT_RED_HUE = 0.0h;
+    const half RRT_RED_WIDTH = 135.h;
+
+    // Red modifier
+    half hue = RGBToHueHalf(aces);
+    half centeredHue = CenterHueHalf(hue, RRT_RED_HUE);
+    half hueWeight = CubicBasisShaperHalf(centeredHue, RRT_RED_WIDTH);
+
+    aces[0] = aces[0] + hueWeight * saturation *(RRT_RED_PIVOT - aces[0]) * (1.0h - RRT_RED_SCALE);
+
+    // ACES to RGB rendering space
+    aces = max(aces, 0.0h);  // avoids saturated negative colors from becoming positive in the matrix
+
+    half3 rgbPre = mul(AP0ToAP1MatHalf, aces);
+
+    rgbPre = clamp(rgbPre, 0.0h, HALF_MAX_HALF);
+
+    // Global desaturation
+    const half RRT_SAT_FACTOR = 0.96h;
+    const half3x3 RRT_SAT_MAT = CalcSatAdjustMatrixHalf(RRT_SAT_FACTOR, AP1RGBToYHalf);
+
+    rgbPre = mul(RRT_SAT_MAT, rgbPre);
+
+    // Apply the tonescale independently in rendering-space RGB
+    half3 rgbPost;
+    rgbPost[0] = SegmentedSplineC5FwdHalf(rgbPre[0]);
+    rgbPost[1] = SegmentedSplineC5FwdHalf(rgbPre[1]);
+    rgbPost[2] = SegmentedSplineC5FwdHalf(rgbPre[2]);
+
+    // RGB rendering space to OCES
+
+    half3 rgbOces = mul(AP1ToAP0MatHalf, rgbPost);
+
+    return rgbOces;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // A entry point of pixel shader.
 PSOutput MainPS(VSOutput IN)
@@ -69,10 +257,10 @@ PSOutput MainPS(VSOutput IN)
     float3 color = PassSrg::m_framebuffer.Sample(PassSrg::LinearSampler, IN.m_texCoord).rgb;
 
     // Convert to ACEScg to ACES color space
-    float3 aces = mul(AP1ToAP0Mat, color.rgb);
+    half3 aces = mul(AP1ToAP0MatHalf, half3(color.rgb));
 
-    float3 oces = ReferenceRenderingTransform(aces);
-    OUT.m_color.rgb = OutputDeviceTransform(oces, outputTransformParams);
+    half3 oces = ReferenceRenderingTransformHalf(aces);
+    OUT.m_color.rgb = OutputDeviceTransformHalf(oces, outputTransformParams);
     OUT.m_color.w = 1;
 
     return OUT;

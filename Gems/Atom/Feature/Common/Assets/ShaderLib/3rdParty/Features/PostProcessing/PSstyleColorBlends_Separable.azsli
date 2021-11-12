@@ -176,9 +176,33 @@ float BlendMode_SoftLight(float base, float blend)
     }
 }
 
+half BlendMode_SoftLightHalf(
+    half base, 
+    half blend)
+{
+    if (blend <= 0.5h)
+    {
+        return base - (1.0h-2.0h*blend)*base*(1.0h-base);
+    }
+    else
+    {
+        half d = (base <= 0.25h) ? ((16.0h*base-12.0h)*base+4.0h)*base : sqrt(base);
+        return base + (2.0h*blend-1.0h)*(d-base);
+    }
+}
+
 float3 BlendMode_SoftLight(float3 base, float3 blend)
 {
     return float3(  BlendMode_SoftLight(base.r, blend.r), 
+                    BlendMode_SoftLight(base.g, blend.g), 
+                    BlendMode_SoftLight(base.b, blend.b) );
+}
+
+half3 BlendMode_SoftLightHalf(
+    half3 base, 
+    half3 blend)
+{
+    return half3(  BlendMode_SoftLight(base.r, blend.r), 
                     BlendMode_SoftLight(base.g, blend.g), 
                     BlendMode_SoftLight(base.b, blend.b) );
 }
