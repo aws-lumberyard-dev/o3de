@@ -1,0 +1,20 @@
+{
+    "gem_name": "AtomSceneStream",
+    "display_name": "AtomSceneStream",
+    "license": "This Gems is currently confidential and for internal usage only",
+    "license_url": "",
+    "origin": "The primary repo for AtomSceneStream goes here: i.e. http://www.mydomain.com",
+    "type": "Code",
+    "summary": "AtomSceneStream is a gem that take as input the scene streams coming from the Atom backend cloud side and using their data, generates proper rendring data adds it to the rendering pipeline",
+    "canonical_tags": [
+        "Gem"
+    ],
+    "user_tags": [
+        "AtomSceneStream",
+        "Rendering",
+        "Cloud",
+        "Cloud Rendering",
+        "Streaming"
+    ],
+    "requirements": ""
+}
