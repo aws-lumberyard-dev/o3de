@@ -43,7 +43,7 @@ def main(args):
     file_regex = args.file_regex
     target_dir = args.target_dir
     if not os.path.isdir(args.target_dir):
-        os.mkdir(target_dir)
+        os.makedirs(target_dir)
     for f in glob.glob(os.path.join(src_dir, file_regex), recursive=True):
         if os.path.isfile(f):
             relative_path = os.path.relpath(f, src_dir)
