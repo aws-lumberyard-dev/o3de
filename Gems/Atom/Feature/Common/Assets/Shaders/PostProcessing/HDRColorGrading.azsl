@@ -74,7 +74,7 @@ PSOutput MainPS(VSOutput IN)
     // Fetch the pixel color from the input texture
     float3 frameColor = PassSrg::m_framebuffer.Sample(PassSrg::LinearSampler, IN.m_texCoord).rgb;
 
-    OUT.m_color.rgb = ColorGrade(frameColor);
+    OUT.m_color.rgb = float3(ColorGradeHalf(half3(frameColor)));
     OUT.m_color.w = 1;
 
     return OUT;

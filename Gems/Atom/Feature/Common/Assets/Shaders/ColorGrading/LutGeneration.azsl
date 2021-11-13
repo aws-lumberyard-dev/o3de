@@ -113,16 +113,23 @@ PSOutput MainPS(VSOutput IN)
     // baseCoords are from 0-1
     half3 baseCoords = convert2Dto3DLutCoordsHalf(IN.m_texCoord, lutResolution*lutResolution, lutResolution);
 
-    float3 linearColor = ShaperToLinearHalf(baseCoords, shaperType, PassSrg::m_shaperBias, PassSrg::m_shaperScale);
+    half3 linearColor = ShaperToLinearHalf(
+        baseCoords, 
+        shaperType, 
+        half(PassSrg::m_shaperBias), 
+        half(PassSrg::m_shaperScale));
 
-    linearColor = TransformColorHalf(linearColor, ColorSpaceId::LinearSRGB, ColorSpaceId::ACEScg);
-    float3 gradedColor = ColorGradeHalf(linearColor);
+    linearColor = TransformColorHalf(
+        linearColor, 
+        ColorSpaceId::LinearSRGB, 
+        ColorSpaceId::ACEScg);
+    half3 gradedColor = ColorGradeHalf(linearColor);
     gradedColor = TransformColorHalf(gradedColor, ColorSpaceId::ACEScg, ColorSpaceId::LinearSRGB);
 
     // Bring back coordinates into 0-1
-    float3 shapedColor = LinearToShaperHalf(gradedColor, shaperType, half(PassSrg::m_shaperBias), half(PassSrg::m_shaperScale));
+    half3 shapedColor = LinearToShaperHalf(gradedColor, shaperType, half(PassSrg::m_shaperBias), half(PassSrg::m_shaperScale));
     shapedColor = saturate(shapedColor);
 
-    OUT.m_lutOutput = float4(shapedColor, 1.0);
+    OUT.m_lutOutput = float4(float3(shapedColor), 1.0f);
     return OUT;
 }

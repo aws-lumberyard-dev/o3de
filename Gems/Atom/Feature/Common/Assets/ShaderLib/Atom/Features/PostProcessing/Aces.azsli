@@ -154,12 +154,6 @@ float RGBToSaturation(float3 rgb)
     return (max(MaxF3(rgb), EPSILON) - max(MinF3(rgb), EPSILON)) / max(MaxF3(rgb), 1e-2);
 }
 
-half RGBToSaturationHalf(
-    half3 rgb)
-{
-    return (max(MaxF3Half(rgb), EPSILON) - max(MinF3Half(rgb), EPSILON)) / max(MaxF3Half(rgb), 1e-2);
-}
-
 ////////////////////////////////////////////////////////////////////////////////
 // Various transformations between color encodings and data representations
 
@@ -283,41 +277,7 @@ float RGBToYc(float3 rgb, float ycRadiusWeight = 1.75)
     return (b + g + r + ycRadiusWeight * chroma) / 3.0;
 }
 
-half RGBToYcHalf(
-    half3 rgb, 
-    half ycRadiusWeight = 1.75h)
-{
-    // Converts RGB to a luminance proxy, here called YC
-    // YC is ~ Y + K * Chroma
-    // Constant YC is a cone-shaped surface in RGB space, with the tip on the 
-    // neutral axis, towards white.
-    // YC is normalized: RGB 1 1 1 maps to YC = 1
-    //
-    // ycRadiusWeight defaults to 1.75, although can be overridden in function 
-    // call to RGBToYc
-    // ycRadiusWeight = 1 -> YC for pure cyan, magenta, yellow == YC for neutral 
-    // of same value
-    // ycRadiusWeight = 2 -> YC for pure red, green, blue  == YC for  neutral of 
-    // same value.
-
-    half r = rgb[0];
-    half g = rgb[1];
-    half b = rgb[2];
-
-    half chroma = sqrt(b*(b - g) + g*(g - r) + r*(r - b));
-
-    return (b + g + r + ycRadiusWeight * chroma) / 3.0h;
-}
-
 float YToLinearCV(float Y, float Ymax, float Ymin)
-{
-    return (Y - Ymin) / (Ymax - Ymin);
-}
-
-half YToLinearCVHalf(
-    half Y, 
-    half Ymax, 
-    half Ymin)
 {
     return (Y - Ymin) / (Ymax - Ymin);
 }
@@ -410,31 +370,7 @@ float3x3 CalcSatAdjustMatrix(float sat, float3 rgb2Y)
     return M;
 }
 
-half3x3 CalcSatAdjustMatrixHalf(
-    half sat, 
-    half3 rgb2Y)
-{
-    //
-    // This function determines the terms for a 3x3 saturation matrix that is
-    // based on the luminance of the input.
-    //
-    half3x3 M;
-    M[0][0] = (1.0 - sat) * rgb2Y[0] + sat;
-    M[1][0] = (1.0 - sat) * rgb2Y[0];
-    M[2][0] = (1.0 - sat) * rgb2Y[0];
 
-    M[0][1] = (1.0 - sat) * rgb2Y[1];
-    M[1][1] = (1.0 - sat) * rgb2Y[1] + sat;
-    M[2][1] = (1.0 - sat) * rgb2Y[1];
-
-    M[0][2] = (1.0 - sat) * rgb2Y[2];
-    M[1][2] = (1.0 - sat) * rgb2Y[2];
-    M[2][2] = (1.0 - sat) * rgb2Y[2] + sat;
-
-    // CTL matrix indexing is transposed, so the transpose in the reference code is omitted
-
-    return M;
-}
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -466,26 +402,6 @@ float MoncurveR(float y, float gamma, float offs)
     if (y >= yb)
     {
         x = (1.0 + offs) * pow(y, 1.0 / gamma) - offs;
-    }
-    else
-    {
-        x = y * rs;
-    }
-    return x;
-}
-
-half MoncurveRHalf(
-    half y, 
-    half gamma, 
-    half offs)
-{
-    // Reverse monitor curve
-    half x;
-    const half yb = pow(offs * gamma / ((gamma - 1.0h) * (1.0h + offs)), gamma);
-    const half rs = pow((gamma - 1.0h) / offs, gamma - 1.0h) * pow((1.0h + offs) / gamma, gamma);
-    if (y >= yb)
-    {
-        x = (1.0h + offs) * pow(y, 1.0h / gamma) - offs;
     }
     else
     {
@@ -712,59 +628,6 @@ float SegmentedSplineC9Fwd(float x, SegmentedSplineParamsC9 C)
     return Pow10(logy);
 }
 
-half SegmentedSplineC9FwdHalf(
-    half x, 
-    SegmentedSplineParamsC9 C)
-{
-    const int N_KNOTS_LOW = 8;
-    const int N_KNOTS_HIGH = 8;
-
-    // Check for negatives or zero before taking the log. If negative or zero,
-    // set to OCESMIN.
-    half xCheck = x;
-    if (xCheck <= 0.0h)
-    {
-        xCheck = 1e-4h;
-    }
-
-    half logx = log10(float(xCheck));
-
-    half logy;
-
-    if (logx <= log10(C.minPoint.x))
-    {
-        logy = logx * half(C.slopeLow) + half(log10(C.minPoint.y) - half(C.slopeLow) * log10(C.minPoint.x));
-    }
-    else if ((logx > log10(C.minPoint.x)) && (logx < log10(C.midPoint.x)))
-    {
-        half knot_coord = (N_KNOTS_LOW - 1) * half((logx - log10(C.minPoint.x)) / (log10(C.midPoint.x) - log10(C.minPoint.x)));
-        int j = knot_coord;
-        half t = knot_coord - j;
-
-        half3 cf = { half(C.coefs[j].x), half(C.coefs[j + 1].x), half(C.coefs[j + 2].x) };
-        
-        half3 monomials = { t * t, t, 1.h };
-        logy = dot(monomials, mul(cf, M));
-    }
-    else if ((logx >= log10(C.midPoint.x)) && (logx < log10(C.maxPoint.x)))
-    {
-        half knot_coord = (N_KNOTS_HIGH - 1) * half((logx - log10(C.midPoint.x)) / (log10(C.maxPoint.x) - log10(C.midPoint.x)));
-        int j = knot_coord;
-        half t = knot_coord - j;
-
-        half3 cf = { half(C.coefs[j].y), half(C.coefs[j + 1].y), half(C.coefs[j + 2].y) };
-
-        half3 monomials = { t * t, t, 1.0h };
-        logy = dot(monomials, mul(cf, M));
-    }
-    else
-    { 
-        logy = logx * half(C.slopeHigh) + half(log10(C.maxPoint.y) - C.slopeHigh * log10(C.maxPoint.x));
-    }
-
-    return Pow10Half(logy);
-}
-
 ////////////////////////////////////////////////////////////////////////////////
 // Below implementation ported from ACES_rrt.hlsl on the NVIDIA's HDR sample.
 
@@ -784,29 +647,6 @@ float GlowFwd(float ycIn, float glowGainIn, float glowMid)
     else
     {
         glowGainOut = glowGainIn * (glowMid / ycIn - 1.0 / 2.0);
-    }
-
-    return glowGainOut;
-}
-
-half GlowFwdHalf(
-    half ycIn, 
-    half glowGainIn, 
-    half glowMid)
-{
-    half glowGainOut;
-
-    if (ycIn <= 2.0h / 3.0h * glowMid)
-    {
-        glowGainOut = glowGainIn;
-    }
-    else if (ycIn >= 2.0h * glowMid)
-    {
-        glowGainOut = 0.0h;
-    }
-    else
-    {
-        glowGainOut = glowGainIn * (glowMid / ycIn - 1.0h / 2.0h);
     }
 
     return glowGainOut;
@@ -871,66 +711,6 @@ float CubicBasisShaper(float x, float w   /* full base width of the shaper funct
     return y * 3.0 / 2.0;
 }
 
-half CubicBasisShaperHalf(
-    half x, 
-    half w   /* full base width of the shaper function (in degrees)*/)
-{
-    const half M[4][4] =
-    {
-        { -1.0h / 6.0h,  3.0h / 6.0h, -3.0h / 6.0h, 1.0h / 6.0h },
-        {  3.0h / 6.0h, -6.0h / 6.0h,  3.0h / 6.0h, 0.0h / 6.0h },
-        { -3.0h / 6.0h,  0.0h / 6.0h,  3.0h / 6.0h, 0.0h / 6.0h },
-        {  1.0h / 6.0h,  4.0h / 6.0h,  1.0h / 6.0h, 0.0h / 6.0h }
-    };
-
-    half knots[5] =
-    {
-        -w / 2.0h,
-        -w / 4.0h,
-        0.0h,
-        w / 4.0h,
-        w / 2.0h
-    };
-
-    half y = 0;
-    if ((x > knots[0]) && (x < knots[4]))
-    {
-        half knot_coord = (x - knots[0]) * 4.0h / w;
-        int j = knot_coord;
-        half t = knot_coord - j;
-
-        half monomials[4] = { t*t*t, t*t, t, 1.0h };
-
-        // (if/else structure required for compatibility with CTL < v1.5.)
-        if (j == 3)
-        {
-            y = monomials[0] * M[0][0] + monomials[1] * M[1][0] +
-                monomials[2] * M[2][0] + monomials[3] * M[3][0];
-        }
-        else if (j == 2)
-        {
-            y = monomials[0] * M[0][1] + monomials[1] * M[1][1] +
-                monomials[2] * M[2][1] + monomials[3] * M[3][1];
-        }
-        else if (j == 1)
-        {
-            y = monomials[0] * M[0][2] + monomials[1] * M[1][2] +
-                monomials[2] * M[2][2] + monomials[3] * M[3][2];
-        }
-        else if (j == 0)
-        {
-            y = monomials[0] * M[0][3] + monomials[1] * M[1][3] +
-                monomials[2] * M[2][3] + monomials[3] * M[3][3];
-        }
-        else
-        {
-            y = 0.0h;
-        }
-    }
-
-    return y * 3.0h / 2.0h;
-}
-
 // For Glow module feature.
 float SigmoidShaper(float x)
 {
@@ -939,15 +719,6 @@ float SigmoidShaper(float x)
     float y = 1.0 + sign(x) * (1.0 - t * t);
 
     return y / 2.0;
-}
-
-half SigmoidShaperHalf(half x)
-{
-    // Sigmoid function in the range 0 to 1 spanning -2 to +2.
-    half t = max(1.0h - abs(x / 2.0h), 0.0h);
-    half y = 1.0h + sign(x) * (1.0h - t * t);
-
-    return y / 2.0h;
 }
 
 // For red modifier feature.
@@ -961,22 +732,6 @@ float CenterHue(float hue, float centerH)
     else if (hueCentered > 180.0)
     {
         hueCentered = hueCentered - 360.0;
-    }
-    return hueCentered;
-}
-
-half CenterHueHalf(
-    half hue, 
-    half centerH)
-{
-    half hueCentered = hue - centerH;
-    if (hueCentered < -180.0h)
-    {
-        hueCentered = hueCentered + 360.0h;
-    }
-    else if (hueCentered > 180.0h)
-    {
-        hueCentered = hueCentered - 360.0h;
     }
     return hueCentered;
 }

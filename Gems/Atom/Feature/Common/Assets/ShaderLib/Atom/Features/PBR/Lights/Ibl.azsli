@@ -90,11 +90,13 @@ float3 GetIblSpecularHalf(
     half3 dirToCamera, 
     half2 brdf)
 {
-    half3 reflectDir = reflect(-dirToCamera, normal);
-    reflectDir = MultiplyVectorQuaternionHalf(reflectDir, half4(SceneSrg::m_iblOrientation));    
+    //half3 reflectDir = reflect(-dirToCamera, normal);         // validation error from dxc for some reason
+    half3 negDirToCamera = dirToCamera * -1.0h;
+    half3 reflectDir = negDirToCamera - (2.0h * normal * dot(negDirToCamera, normal)); 
+    reflectDir = MultiplyVectorQuaternionHalf(reflectDir, half4(SceneSrg::m_iblOrientation));     
 
     // global
-    half3 outSpecular = half3(SceneSrg::m_specularEnvMap.SampleLevel(SceneSrg::m_samplerEnv, GetCubemapCoords(reflectDir), GetRoughnessMip(roughnessLinear)).rgb);
+    half3 outSpecular = half3(SceneSrg::m_specularEnvMap.SampleLevel(SceneSrg::m_samplerEnv, GetCubemapCoordsHalf(reflectDir), GetRoughnessMipHalf(roughnessLinear)).rgb);
     outSpecular *= (specularF0 * brdf.x + brdf.y);
     
     // reflection probe
@@ -105,8 +107,8 @@ float3 GetIblSpecularHalf(
             reflectDir = ApplyParallaxCorrectionOBBHalf(
                 half4x4(ObjectSrg::GetReflectionProbeWorldMatrixInverse()),
                 half3(ObjectSrg::m_reflectionProbeData.m_outerObbHalfLengths),
-                half3(position),
-                half3(reflectDir));
+                position,
+                reflectDir);
         }
     
         half3 probeSpecular = half3(ObjectSrg::m_reflectionProbeCubeMap.SampleLevel(SceneSrg::m_samplerEnv, GetCubemapCoordsHalf(reflectDir), GetRoughnessMipHalf(roughnessLinear)).rgb);
@@ -117,7 +119,7 @@ float3 GetIblSpecularHalf(
             half4x4(ObjectSrg::GetReflectionProbeWorldMatrixInverse()),
             half3(ObjectSrg::m_reflectionProbeData.m_innerObbHalfLengths),
             half3(ObjectSrg::m_reflectionProbeData.m_outerObbHalfLengths),
-            half3(position));
+            position);
     
         outSpecular = lerp(outSpecular, probeSpecular, blendAmount);
     }
@@ -190,7 +192,7 @@ void ApplyIBLHalf(Surface surface, inout LightingData lightingData)
 
     if(useIbl)
     {
-        float iblExposureFactor = pow(2.0h, half(SceneSrg::m_iblExposure));
+        half iblExposureFactor = pow(2.0h, half(SceneSrg::m_iblExposure));
         
         if(useDiffuseIbl)
         {

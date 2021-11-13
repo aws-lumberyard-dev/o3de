@@ -19,6 +19,7 @@ ShaderResourceGroup PassSrg : SRG_PerPass
 }
 
 [numthreads(16,4,1)]
+#if 0
 void MainCS(uint3 dispatch_id: SV_DispatchThreadID)
 {
     // Get input and output texture dimensions
@@ -85,4 +86,74 @@ void MainCS(uint3 dispatch_id: SV_DispatchThreadID)
 
     // Output the color
     PassSrg::m_outputTexture[outPixel] = output;
+}
+#endif // #if 0
+
+
+void MainCS(uint3 dispatch_id: SV_DispatchThreadID)
+{
+    // Get input and output texture dimensions
+    uint2 inputDimensions;
+    uint2 outputDimenstions;
+    
+    PassSrg::m_inputTexture.GetDimensions(inputDimensions.x, inputDimensions.y);
+    PassSrg::m_outputTexture.GetDimensions(outputDimenstions.x, outputDimenstions.y);
+
+    uint2 outPixel = dispatch_id.xy;
+
+    // Early out if thread is outside of the target image
+    if(outPixel.x >= outputDimenstions.x || outPixel.y >= outputDimenstions.y)
+    {
+        return;
+    }
+
+    // Calculate input pixel position in higher detail mip. If position
+    // is out of bounds of input texture, output black and early out.
+    uint2 inPixel = outPixel * 2;
+    if(inPixel.x >= inputDimensions.x || inPixel.y >= inputDimensions.y)
+    {
+        PassSrg::m_outputTexture[outPixel] = half4(0.0h, 0.0h, 0.0h, 0.0h);
+        return;
+    }
+
+    // Default sample is 4 pixels in a 2x2 quad
+    uint xLoopCount = 2;
+    uint yLoopCount = 2;
+    
+    // If we're at the output border pixel, adjust the amount we sample to extend to the input border
+    if(outPixel.x == (outputDimenstions.x - 1))
+    {
+        xLoopCount = inputDimensions.x - inPixel.x;
+    }
+    if(outPixel.y == (outputDimenstions.y - 1))
+    {
+        yLoopCount = inputDimensions.y - inPixel.y;
+    }
+
+    half minValue = FLOAT_32_MAX;
+    half maxValue = 0.0h;
+    half avgValue = 0.0h;
+    half sampleCount = 0.0h;
+    
+    // Gather the input samples
+    for(uint i = 0; i < xLoopCount; ++i)
+    {
+        for(uint j = 0; j < yLoopCount; ++j)
+        {
+            uint2 samplePoint = inPixel + uint2(i, j);
+            half3 color = PassSrg::m_inputTexture[samplePoint].rgb;
+            half luminance = CalculateLuminanceHalf(color.rgb, ColorSpaceId::ACEScg);
+            minValue = min(minValue, luminance);
+            maxValue = max(maxValue, luminance);
+            avgValue += luminance;
+            ++sampleCount;
+        }
+    }
+    
+    avgValue = avgValue / max(10.0h, sampleCount);
+
+    half4 output = half4(minValue, avgValue, maxValue, 0.0h);
+
+    // Output the color
+    PassSrg::m_outputTexture[outPixel] = float4(output);
 }

@@ -302,7 +302,7 @@ PSOutput MainPS(VSOutput IN)
         color.rgb *= PassSrg::m_eyeAdaptation[0].m_exposureValue;
 
         // Apply manual exposure compensation
-        color *= pow(2.0, ViewSrg::GetExposureValueCompensation());
+        color *= pow(2.0h, half(ViewSrg::GetExposureValueCompensation()));
     }
 
     // Apply color grading LUT
@@ -311,7 +311,8 @@ PSOutput MainPS(VSOutput IN)
     {
         // Convert from working color space to lut coordinates by applying the shaper function
         half3 lutCoordinate = LinearToShaperHalf(
-            color, shaperType, 
+            color, 
+            shaperType, 
             half(PassSrg::m_shaperBias), 
             half(PassSrg::m_shaperScale));
 
