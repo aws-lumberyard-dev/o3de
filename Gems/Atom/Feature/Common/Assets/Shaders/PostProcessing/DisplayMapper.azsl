@@ -99,7 +99,6 @@ half SegmentedSplineC9FwdHalf(
     half logy;
 
     half logMidPtX = half(log10(C.midPoint.x));
-    half logMidPtY = half(log10(C.midPoint.y));
 
     half logMinPtX = half(log10(C.minPoint.x));
     half logMinPtY = half(log10(C.minPoint.y));
@@ -142,6 +141,89 @@ half SegmentedSplineC9FwdHalf(
     }
 
     return pow(10.0h, logy);
+}
+
+half SegmentedSplineC9FwdOptimizeHalf(
+    half x, 
+    SegmentedSplineParamsC9 C)
+{
+    const min16int N_KNOTS_LOW = 8;
+    const min16int N_KNOTS_HIGH = 8;
+
+    // Check for negatives or zero before taking the log. If negative or zero,
+    // set to OCESMIN.
+    half xCheck = x;
+    if (xCheck <= 0.0h)
+    {
+        xCheck = 1e-4h;
+    }
+
+    half logx = log10(float(xCheck));
+
+    half logy;
+
+    half logMidPtX = half(log10(C.midPoint.x));
+
+    half logMinPtX = half(log10(C.minPoint.x));
+    half logMinPtY = half(log10(C.minPoint.y));
+
+    half logMaxPtX = half(log10(C.maxPoint.x));
+    half logMaxPtY = half(log10(C.maxPoint.y));
+
+    half slopeLow = half(C.slopeLow);
+    half slopeHigh = half(C.slopeHigh);
+
+    min16int curveIndex = min16int((logx / (logMinPtX - logMaxPtX)) * 4.0h);
+
+    half t0 = 7.0h * ((logx - logMinPtX) / (logMidPtX - logMinPtX));
+    half t1 = 7.0h * ((logx - logMidPtX) / (logMaxPtX - logMidPtX));
+    min16int j0 = min16int(t0);
+    min16int j1 = min16int(t1);
+    t0 -= j0;
+    t1 -= j1;
+
+    half val[] =
+    {
+        logx * slopeLow + logMinPtY - slopeLow * logMinPtX,
+        dot(half3(t0 * t0, t0, 1.0h), mul(half3(C.coefs[j0].x, C.coefs[j0+1].x, C.coefs[j0+2].x), MHalf)),
+        dot(half3(t1 * t1, t1, 1.0h), mul(half3(C.coefs[j1].x, C.coefs[j1+1].x, C.coefs[j1+2].x), MHalf)),
+        logx * slopeHigh + (logMaxPtY - slopeHigh * logMaxPtX)
+    };
+
+#if 0
+    if (logx <= logMinPtX)
+    {
+        logy = logx * slopeLow + logMinPtY - slopeLow * logMinPtX;
+    }
+    else if ((logx > logMinPtX) && (logx < logMidPtX))
+    {
+        half knot_coord = (N_KNOTS_LOW - 1) * ((logx - logMinPtX) / (logMidPtX - logMinPtX));
+        min16int j = min16int(knot_coord);
+        half t = knot_coord - j;
+
+        half3 cf = { half(C.coefs[j].x), half(C.coefs[j + 1].x), half(C.coefs[j + 2].x) };
+        
+        half3 monomials = { t * t, t, 1.h };
+        logy = dot(monomials, mul(cf, MHalf));
+    }
+    else if ((logx >= logMidPtX) && (logx < logMaxPtX))
+    {
+        half knot_coord = (N_KNOTS_HIGH - 1) * ((logx - logMidPtX) / (logMaxPtX - logMidPtX));
+        min16int j = min16int(knot_coord);
+        half t = knot_coord - j;
+
+        half3 cf = { half(C.coefs[j].y), half(C.coefs[j + 1].y), half(C.coefs[j + 2].y) };
+
+        half3 monomials = { t * t, t, 1.0h };
+        logy = dot(monomials, mul(cf, MHalf));
+    }
+    else
+    { 
+        logy = logx * slopeHigh + (logMaxPtY - slopeHigh * logMaxPtX);
+    }
+#endif // #if 0
+
+    return pow(10.0h, val[curveIndex]);
 }
 
 half YToLinearCVHalf(
@@ -257,7 +339,7 @@ half CubicBasisShaperHalf(
     if ((x > knots[0]) && (x < knots[4]))
     {
         half knot_coord = (x - knots[0]) * 4.0h / w;
-        int j = knot_coord;
+        min16int j = knot_coord;
         half t = knot_coord - j;
 
         half monomials[4] = { t*t*t, t*t, t, 1.0h };
@@ -318,12 +400,37 @@ half3x3 CalcSatAdjustMatrixHalf(
     return M;
 }
 
+struct SegmentedSplineParamsC5Half
+{
+    half coefsLow[6];      // coefs for B-spline between minPoint and midPoint (units of log luminance)
+    half coefsHigh[6];     // coefs for B-spline between midPoint and maxPoint (units of log luminance)
+    half2 minPoint;        // {luminance, luminance} linear extension below this
+    half2 midPoint;        // {luminance, luminance} 
+    half2 maxPoint;        // {luminance, luminance} linear extension above this
+    half slopeLow;         // log-log slope of low linear extension
+    half slopeHigh;        // log-log slope of high linear extension
+};
+
+static const SegmentedSplineParamsC5Half RRT_PARAMS_HALF =
+{
+    // coefsLow[6]
+    { -4.0000000000h, -4.0000000000h, -3.1573765773h, -0.4852499958h, 1.8477324706h, 1.8477324706h },
+    // coefsHigh[6]
+    { -0.7185482425h, 2.0810307172h, 3.6681241237h, 4.0000000000h, 4.0000000000h, 4.0000000000h },
+    { 0.18h*pow(2.h, -15.0h), 0.0001h },    // minPoint
+    { 0.18h, 4.8h },    // midPoint  
+    { 0.18h*pow(2.0h, 18.0h), 10000.0h },    // maxPoint
+    0.0h,  // slopeLow
+    0.0h   // slopeHigh
+};
+
+
 half SegmentedSplineC5FwdHalf (
     half x,  
     SegmentedSplineParamsC5 C = RRT_PARAMS)
 {
-    const int N_KNOTS_LOW = 4;
-    const int N_KNOTS_HIGH = 4;
+    #define N_KNOTS_LOW  4
+    #define N_KNOTS_HIGH  4
 
     // Check for negatives or zero before taking the log. If negative or zero,
     // set to ACESMIN.
@@ -335,28 +442,36 @@ half SegmentedSplineC5FwdHalf (
 
     half logx = log10(float(xCheck));
 
+    half logMidPtX = half(log10(float(C.midPoint.x)));
+
+    half logMinPtX = half(log10(float(C.minPoint.x)));
+    half logMinPtY = half(log10(float(C.minPoint.y)));
+
+    half logMaxPtX = half(log10(float(C.maxPoint.x)));
+    half logMaxPtY = half(log10(float(C.maxPoint.y)));
+
     half logy;
 
-    if (logx <= log10(C.minPoint.x))
+    if (logx <= logMinPtX)
     {
-        logy = logx * half(C.slopeLow) + half(log10(C.minPoint.y) - C.slopeLow * log10(C.minPoint.x));
+        logy = logx * half(C.slopeLow) + half(logMinPtY - C.slopeLow * logMinPtX);
     }
-    else if ((logx > log10(C.minPoint.x)) && (logx < log10(C.midPoint.x)))
+    else if ((logx > logMinPtX) && (logx < logMidPtX))
     {
-        half knot_coord = (N_KNOTS_LOW - 1) * half((logx - log10(C.minPoint.x)) / (log10(C.midPoint.x) - log10(C.minPoint.x)));
-        int j = knot_coord;
-        half t = knot_coord - j;
+        half knot_coord = (N_KNOTS_LOW - 1) * half((logx - logMinPtX) / (logMidPtX - logMinPtX));
+        min16int j = knot_coord;
+        half t = frac(knot_coord); //knot_coord - j;
 
         half3 cf = { half(C.coefsLow[j]), half(C.coefsLow[j + 1]), half(C.coefsLow[j + 2]) };
 
         half3 monomials = { t * t, t, 1.0h };
         logy = dot(monomials, mul(cf, MHalf));
     }
-    else if ((logx >= log10(C.midPoint.x)) && (logx < log10(C.maxPoint.x)))
+    else if ((logx >= logMidPtX) && (logx < logMaxPtX))
     {
-        half knot_coord = (N_KNOTS_HIGH - 1) * half((logx - log10(C.midPoint.x)) / (log10(C.maxPoint.x) - log10(C.midPoint.x)));
-        int j = knot_coord;
-        half t = knot_coord - j;
+        half knot_coord = (N_KNOTS_HIGH - 1) * half((logx - logMidPtX) / (logMaxPtX - logMidPtX));
+        min16int j = knot_coord;
+        half t = frac(knot_coord); //knot_coord - j;
 
         half3 cf = { half(C.coefsHigh[j]), half(C.coefsHigh[j + 1]), half(C.coefsHigh[j + 2]) };
 
@@ -365,11 +480,55 @@ half SegmentedSplineC5FwdHalf (
     }
     else
     {
-        logy = logx * half(C.slopeHigh) + half(log10(C.maxPoint.y) - C.slopeHigh * log10(C.maxPoint.x));
+        logy = logx * half(C.slopeHigh) + half(logMaxPtY - C.slopeHigh * logMaxPtX);
     }
 
     return pow(10.0h, logy);
 }
+
+#if 0
+half SegmentedSplineC5FwdOptimizeHalf (
+    half x,  
+    SegmentedSplineParamsC5Half C = RRT_PARAMS_HALF)
+{
+    // Check for negatives or zero before taking the log. If negative or zero,
+    // set to ACESMIN.
+    half xCheck = x;
+    if (xCheck <= 0.0h) 
+    {
+        xCheck = 0.000061h;
+    }
+
+    half logx = log10(float(xCheck));
+
+    half logMidPtX = half(log10(float(C.midPoint.x)));
+
+    half logMinPtX = half(log10(float(C.minPoint.x)));
+    half logMinPtY = half(log10(float(C.minPoint.y)));
+
+    half logMaxPtX = half(log10(float(C.maxPoint.x)));
+    half logMaxPtY = half(log10(float(C.maxPoint.y)));
+
+    half diff = logx - logMinPtX;
+    min16int curveIndex = min16int((diff / (logMaxPtX - logMinPtX)) * 4.0h);
+    
+    half t0 = 3.0h * ((logx - logMinPtX) / (logMidPtX - logMinPtX));
+    half t1 = 3.0h * ((logx - logMidPtX) / (logMaxPtX - logMidPtX));
+    min16int j0 = min16int(t0);
+    min16int j1 = min16int(t1);
+    t0 = frac(t0);
+    t1 = frac(t1);
+    half val[4] = 
+    {
+        logx * slopeLow + logMinPtY - C.slopeLow * logMinPtX,
+        dot(half3(t0 * t0, t0, 1.0h), mul(half3(C.coefsLow[j0].x, C.coefsLow[j0+1].x, C.coefsLow[j0+2].x), MHalf)),
+        dot(half3(t1 * t1, t1, 1.0h), mul(half3(C.coefsHigh[j1].x, C.coefsHigh[j1+1].x, C.coefsHigh[j1+2].x), MHalf)),
+        logx * slopeHigh + (logMaxPtY - C.slopeHigh * logMaxPtX)
+    };
+
+    return pow(10.0h, val[curveIndex]);
+}
+#endif // #if 0
 
 half3 ReferenceRenderingTransformHalf(
     half3 rgbIn)
@@ -390,7 +549,7 @@ half3 ReferenceRenderingTransformHalf(
     half saturation = RGBToSaturationHalf(rgbIn);
     half ycIn = RGBToYcHalf(rgbIn);
     half s = SigmoidShaperHalf((saturation - 0.4h) / 0.2h);
-    half addedGlow = 1. + GlowFwdHalf(ycIn, RRT_GLOW_GAIN * s, RRT_GLOW_MID);
+    half addedGlow = 1.0h + GlowFwdHalf(ycIn, RRT_GLOW_GAIN * s, RRT_GLOW_MID);
 
     half3 aces = addedGlow * rgbIn;
 
@@ -399,7 +558,7 @@ half3 ReferenceRenderingTransformHalf(
     half centeredHue = CenterHueHalf(hue, RRT_RED_HUE);
     half hueWeight = CubicBasisShaperHalf(centeredHue, RRT_RED_WIDTH);
 
-    aces[0] = aces[0] + hueWeight * saturation *(RRT_RED_PIVOT - aces[0]) * (1.0h - RRT_RED_SCALE);
+    aces[0] = aces[0] + hueWeight * saturation * (RRT_RED_PIVOT - aces[0]) * (1.0h - RRT_RED_SCALE);
 
     // ACES to RGB rendering space
     aces = max(aces, 0.0h);  // avoids saturated negative colors from becoming positive in the matrix
@@ -437,16 +596,10 @@ half3 OutputDeviceTransformHalf(
     rgbPost[0] = SegmentedSplineC9FwdHalf(rgbPre[0], otParams.acesSplineParams);
     rgbPost[1] = SegmentedSplineC9FwdHalf(rgbPre[1], otParams.acesSplineParams);
     rgbPost[2] = SegmentedSplineC9FwdHalf(rgbPre[2], otParams.acesSplineParams);
-    
-    // A linear mapping from the cinema limit range to a value between 0.0, to 1.0.
-    half3 linearCV = rgbPost;
-    // Scale luminance to linear code value
-    const half oneOverRange = 1.0h / half(otParams.cinemaLimits.y - otParams.cinemaLimits.x);
-    linearCV[0] = (rgbPost[0] - half(otParams.cinemaLimits.x)) * oneOverRange;
-    linearCV[1] = (rgbPost[1] - half(otParams.cinemaLimits.x)) * oneOverRange;
-    linearCV[2] = (rgbPost[2] - half(otParams.cinemaLimits.x)) * oneOverRange;
 
-    //linearCV = rgbPost - half3(otParams.cinemaLimits.x, otParams.cinemaLimits.x, otParams.cinemaLimits.x) * oneOverRange;
+    // A linear mapping from the cinema limit range to a value between 0.0, to 1.0.
+    // Scale luminance to linear code value
+    half3 linearCV = (rgbPost - half3(otParams.cinemaLimits.x, otParams.cinemaLimits.x, otParams.cinemaLimits.x)) / half(otParams.cinemaLimits.y - otParams.cinemaLimits.x);
 
     /*if (otParams.outputDisplayTransformFlags & APPLY_ALTER_SURROUND)
     {
@@ -506,7 +659,8 @@ half3 OutputDeviceTransformHalf(
         // Encode with PQ transfer function
         outputCV = PerceptualQuantizerRevF3Half(linearCV);
     }
-    else if (otParams.outputDisplayTransformMode == OUTPUT_LDR)*/
+    else if (otParams.outputDisplayTransformMode == OUTPUT_LDR)
+    */
     {
         // LDR mode, clamp 0/1 and encode with given gamma value for the OETF
         linearCV = clamp(linearCV, 0.h, 1.h);
@@ -516,6 +670,7 @@ half3 OutputDeviceTransformHalf(
 
     return outputCV;
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // A entry point of pixel shader.
@@ -532,11 +687,18 @@ PSOutput MainPS(VSOutput IN)
     outputTransformParams.surroundGamma = PassSrg::m_surroundGamma;
     outputTransformParams.gamma = PassSrg::m_gamma;
 
-    float3 color = PassSrg::m_framebuffer.Sample(PassSrg::LinearSampler, IN.m_texCoord).rgb;
+    half3 color = PassSrg::m_framebuffer.Sample(PassSrg::LinearSampler, IN.m_texCoord).rgb;
+
+    // const float a = 2.51f;
+    // const float b = 0.03f;
+    // const float c = 2.43f;
+    // const float d = 0.59f;
+    // const float e = 0.14f;
+    // half3 ret = saturate((color*(a*color+b))/(color*(c*color+d)+e));
 
     // Convert to ACEScg to ACES color space
     half3 aces = mul(AP1ToAP0MatHalf, half3(color.rgb));
-
+    
     half3 oces = ReferenceRenderingTransformHalf(aces);
     OUT.m_color.rgb = float3(OutputDeviceTransformHalf(oces, outputTransformParams));
     OUT.m_color.w = 1;

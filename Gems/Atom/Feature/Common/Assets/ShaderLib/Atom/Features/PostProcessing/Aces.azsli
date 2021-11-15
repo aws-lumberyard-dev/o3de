@@ -174,7 +174,7 @@ half3 XYZToxyYHalf(
 {
     half3 xyY;
     half divisor = (XYZ[0] + XYZ[1] + XYZ[2]);
-    divisor = max(divisor, 1e-10);
+    divisor = max(divisor, 1e-10h);
     xyY[0] = XYZ[0] / divisor;
     xyY[1] = XYZ[1] / divisor;
     xyY[2] = XYZ[1];
@@ -339,7 +339,7 @@ half3 AlterSurroundHalf(
     half3 XYZ = mul(AP1ToXYZMat, linearCV);
 
     half3 xyY = XYZToxyYHalf(XYZ);
-    xyY[2] = max(xyY[2], 0.0);
+    xyY[2] = max(xyY[2], 0.0h);
     xyY[2] = pow(xyY[2], gamma);
     XYZ = xyYToXYZHalf(xyY);
 
