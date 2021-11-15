@@ -135,11 +135,19 @@ namespace AZ
                 if (m_settingFlags.m_getSizeFromPipeline && m_renderPipelineSource)
                 {
                     RHI::Size sourceSize = m_renderPipelineSource->GetRenderSettings().m_size;
+
                     m_descriptor.m_image.m_size = m_sizeMultipliers.ApplyModifiers(sourceSize);
                 }
                 else if(m_sizeSource && m_sizeSource->m_attachment)
                 {
                     RHI::Size sourceSize = m_sizeSource->m_attachment->m_descriptor.m_image.m_size;
+
+                    if (strstr(m_sizeSource->m_name.GetCStr(), "SwapChainOutput"))
+                    {
+                        m_sizeMultipliers.m_widthMultiplier = 0.85f;
+                        m_sizeMultipliers.m_heightMultiplier = 0.85f;
+                    }
+
                     m_descriptor.m_image.m_size = m_sizeMultipliers.ApplyModifiers(sourceSize);
                 }
 
