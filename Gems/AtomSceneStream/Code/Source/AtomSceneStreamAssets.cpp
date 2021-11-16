@@ -1,3 +1,5 @@
+#include <umbra_defs.h>
+
 #pragma once
 
 #pragma optimize("", off)
@@ -6,6 +8,9 @@ namespace AZ
 {
     namespace AtomSceneStream
     {
+        //======================================================================
+        //                             Texture
+        //======================================================================
         // Load texture from AssetLoadJob and create a corresponding OpenGL texture
         Texture::Texture(Umbra::AssetLoad& job)
         {
@@ -81,7 +86,9 @@ namespace AZ
             g_gpuMemoryUsage -= m_imageDataSize;
         }
 
-        //==========================================================================
+        //======================================================================
+        //                             Material
+        //======================================================================
         // For samples look at cesium-main/Gems/Cesium/Code/Source/GltfRasterMaterialBuilder.cpp
         Material::Material(Umbra::AssetLoad& job)
         {
@@ -110,9 +117,19 @@ namespace AZ
             // [Adi] - check if textures have been destroyed at this point.
         }
 
-        //==========================================================================
+
+        //======================================================================
+        //                              Mesh
+        //======================================================================
+        Mesh::s_PositionName = AZ::Name("UmbraMeshPositionBuffer");
+        Mesh::s_NormalName = AZ::Name("UmbraMeshNormalBuffer");
+        Mesh::s_TangentName = AZ::Name("UmbraMeshTangentBuffer");
+        Mesh::s_UVName = AZ::Name("UmbraMeshUVBuffer");
+        Mesh::s_IndicesName = AZ::Name("UmbraMeshIndexBuffer");
 
         //AZ::Data::Instance<AZ::RPI::Model> CreateModelFromProceduralSkinnedMesh(const ProceduralSkinnedMesh& proceduralMesh)
+
+
         {
             using namespace AZ;
             Data::AssetId assetId;
@@ -176,10 +193,151 @@ namespace AZ
             return RPI::Model::FindOrCreate(modelAsset);
         }
 
+
+        AZ::Data::Asset<AZ::RPI::BufferAsset> Mesh::CreateBufferAsset(
+            const void* data,
+            const AZ::RHI::BufferViewDescriptor& bufferViewDescriptor,
+            const AZStd::string& bufferName
+        )
+        {
+            AZ::RPI::BufferAssetCreator creator;
+            creator.Begin(AZ::Uuid::CreateRandom());
+
+            AZ::RHI::BufferDescriptor bufferDescriptor;
+            bufferDescriptor.m_bindFlags = AZ::RHI::BufferBindFlags::InputAssembly | AZ::RHI::BufferBindFlags::ShaderRead;
+            bufferDescriptor.m_byteCount = static_cast<uint64_t>(bufferViewDescriptor.m_elementSize) * static_cast<uint64_t>(bufferViewDescriptor.m_elementCount);
+
+            creator.SetBuffer(data, bufferDescriptor.m_byteCount, bufferDescriptor);
+            creator.SetBufferViewDescriptor(bufferViewDescriptor);
+            creator.SetUseCommonPool(AZ::RPI::CommonBufferPoolType::StaticInputAssembly);
+
+            AZ::Data::Asset<AZ::RPI::BufferAsset> bufferAsset;
+            if (creator.End(bufferAsset))
+            {
+                return bufferAsset;
+            }
+
+            AZ_Error( "AtomSceneStream", false, "Error creating vertex stream %s", bufferName. )
+            return AZ::Data::Asset();
+        }
+
+
+        // Reference: TerrainFeatureProcessor::InitializePatchModel()
+        bool Mesh::CreateRenderBuffers()
+        {
+            // Vertex Buffer Streams
+            const auto positionDesc = AZ::RHI::BufferViewDescriptor::CreateTyped(0, m_vertexCount * sizeof(Vertex::vertex), AZ::RHI::Format::R32G32B32_FLOAT);
+            const auto positionsAsset = CreateBufferAsset( m_vbStreamsDesc[UmbraVertexAttribute_Position].ptr, positionDesc, "UmbraPositions");
+
+            const auto normalDesc = AZ::RHI::BufferViewDescriptor::CreateTyped(0, m_vertexCount * sizeof(Vertex::normal), AZ::RHI::Format::R32G32B32_FLOAT);
+            const auto normalsAsset = CreateBufferAsset(patchData.m_positions.data(), positionBufferViewDesc, "UmbraNormals");
+
+            const auto tangentDesc = AZ::RHI::BufferViewDescriptor::CreateTyped(0, m_vertexCount * sizeof(Vertex::tangent), AZ::RHI::Format::R32G32B32_FLOAT);
+            const auto tangentsAsset = CreateBufferAsset(patchData.m_positions.data(), positionBufferViewDesc, "UmbraTangents");
+
+            const auto uvDesc = AZ::RHI::BufferViewDescriptor::CreateTyped(0, m_vertexCount * sizeof(Vertex::tex), AZ::RHI::Format::R32G32_FLOAT);
+            const auto uvsAsset = CreateBufferAsset(patchData.m_uvs.data(), uvBufferViewDesc, "UmbraUVs");
+
+            // Index Buffer
+            RHI::Format indicesFormat = (m_indexBytes == 2) ? AZ::RHI::Format::R16_UINT : AZ::RHI::Format::R32_UINT;
+            const auto indexBufferViewDesc = AZ::RHI::BufferViewDescriptor::CreateTyped(0, m_indexCount * m_indexBytes, indicesFormat);
+            const auto indicesAsset = CreateBufferAsset(patchData.m_indices.data(), indexBufferViewDesc, "TerrainPatchIndices");
+
+            return ()
+        }
+
         // Good examples:
         // 1. GltfTrianglePrimitiveBuilder::Create(
         // 2. CreateModelFromProceduralSkinnedMesh
         Mesh::Mesh(Umbra::AssetLoad& job)
+        {
+            Umbra::MeshInfo info = job.getMeshInfo();
+
+            m_vertexCount = info.numUniqueVertices;
+            m_indexCount = info.numIndices;
+            m_indexBytes = m_vertexCount < (1 << 16) ? 2 : 4;
+            m_usedSize = sizeof(Vertex) * m_vertexCount + m_indexBytes * m_indexCount;
+            m_material = (Material*)info.material;
+
+            // Only meshes that have normals can be shaded
+            if (info.attributes & (1 << UmbraVertexAttribute_Normal))
+                m_isShaded = true;
+
+            // Allocating the permanent data to which the data will be copied - includes both VB streams
+            // and IB buffer.
+            m_buffersData = malloc(m_usedSize);
+
+            // Prepare vertex buffer streams
+            uint32_t streamsElementSize[UmbraVertexAttributeCount];
+            streamsElementSize[UmbraVertexAttribute_Position] = sizeof(Vertex::vertex);
+            streamsElementSize[UmbraVertexAttribute_Normal] = sizeof(Vertex::normal);
+            streamsElementSize[UmbraVertexAttribute_TextureCoordinate] = sizeof(Vertex::tex);
+            streamsElementSize[UmbraVertexAttribute_Tangent] = sizeof(Vertex::tangent);
+
+            // Specify the buffer to which the runtime loads vertex
+            uint32_t offset = 0;
+            for (int i = 0; i < UmbraVertexAttributeCount; ++i)
+            {
+                m_vbStreamsDesc[i].flags = UmbraBufferFlags_UncachedMemory;
+                m_vbStreamsDesc[i].elementCapacity = vertexCount;
+                m_vbStreamsDesc[i].ptr = (uint8_t*)(m_buffersData + offset);
+                m_vbStreamsDesc[i].elementStride = m_streamsElementSize[i];
+                m_vbStreamsDesc[i].elementByteSize = m_streamsElementSize[i];
+
+                if (!(info.attributes & (1 << i)))
+                {
+                    m_vbStreamsDesc[i].ptr = nullptr;
+                }
+                else
+                {   // overall unused can be removed at the end but this is only temporary storage anyway.
+                    offset += vertexCount * m_streamsElementSize[i];
+                }
+            }
+
+            // Prepare index buffer
+            m_ibDesc.flags = UmbraBufferFlags_UncachedMemory;
+            m_ibDesc.elementCapacity = m_indexCount;
+            m_ibDesc.ptr = (uint8_t*)(m_buffersData + offset);
+            m_ibDesc.elementStride = m_indexBytes;
+            m_ibDesc.elementByteSize = m_indexBytes;
+
+
+            // Read vertex and index buffers directly into memory mapped buffers. This performs mesh decompression, which
+            // can take longer than a frame. In order to not see frame drops, there are two solutions:
+            //   1) Run mesh decompression in a separate thread
+            //   2) Decompress mesh in smaller parts with time budget
+            bool loadOk;
+    #if 1
+            loadOk = job.getMeshData(m_vbStreamsDesc, m_ibDesc);
+    #else // This branch shows that mesh can be loaded in parts
+            loadOk = job.setMeshBuffers(m_vbStreamsDesc, m_ibDesc);
+            while (!job.meshLoadDone() && loadOk)
+            {
+                uint32_t vertsLoaded, indicesLoaded;
+                loadOk = job.meshLoadNext(&vertsLoaded, &indicesLoaded);
+            }
+    #endif
+
+            if (!loadOk)
+            {
+                free(m_buffersData);
+                return;
+            }
+
+            CreateRenderBuffers();
+        }
+
+        Mesh::~Mesh()
+        {
+            free(m_buffersData);
+            m_buffersData = nullptr;
+            glDeleteBuffers(1, &vbo);
+            glDeleteBuffers(1, &ibo);
+            g_gpuMemoryUsage -= size;
+        }
+
+
+        Mesh::OrganizedBuffersMemory(Umbra::MeshInfo& info)
         {
             Umbra::MeshInfo info = job.getMeshInfo();
 
@@ -207,76 +365,6 @@ namespace AZ
                 vbuffers[i].elementStride = sizeof(Vertex);
                 vbuffers[i].elementCapacity = m_vertexCount;
             }
-
-            vbuffers[UmbraVertexAttribute_Position].ptr = vertices;
-            vbuffers[UmbraVertexAttribute_Position].elementByteSize = sizeof(Vertex::vertex);
-            vbuffers[UmbraVertexAttribute_Normal].ptr = (uint8_t*)vertices + offsetof(Vertex, normal);
-            vbuffers[UmbraVertexAttribute_Normal].elementByteSize = sizeof(Vertex::normal);
-            vbuffers[UmbraVertexAttribute_TextureCoordinate].ptr = (uint8_t*)vertices + offsetof(Vertex, tex);
-            vbuffers[UmbraVertexAttribute_TextureCoordinate].elementByteSize = sizeof(Vertex::tex);
-            vbuffers[UmbraVertexAttribute_Tangent].ptr = (uint8_t*)vertices + offsetof(Vertex, tangent);
-            vbuffers[UmbraVertexAttribute_Tangent].elementByteSize = sizeof(Vertex::tangent);
-
-            for (int i = 0; i < UmbraVertexAttributeCount; ++i)
-            {
-                if (!(info.attributes & (1 << i)))
-                    vbuffers[i].ptr = nullptr;
-            }
-
-            // Prepare index buffer
-
-            glGenBuffers(1, &ibo);
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indexBytes * m_indexCount, NULL, GL_STATIC_DRAW);
-            void* indices = glMapBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_WRITE_ONLY);
-
-            Umbra::ElementBuffer ibuffer;
-            ibuffer.flags = UmbraBufferFlags_UncachedMemory;
-            ibuffer.elementByteSize = m_indexBytes;
-            ibuffer.elementStride = m_indexBytes;
-            ibuffer.elementCapacity = m_indexCount;
-            ibuffer.ptr = indices;
-
-            // Read vertex and index buffers directly into memory mapped buffers. This performs mesh decompression, which
-            // can take longer than a frame. In order to not see frame drops, there are two solutions:
-            //   1) Run mesh decompression in a separate thread
-            //   2) Decompress mesh in smaller parts with time budget
-
-            bool loadOk;
-    #if 1
-            loadOk = job.getMeshData(vbuffers, ibuffer);
-    #else // This branch shows that mesh can be loaded in parts
-            loadOk = job.setMeshBuffers(vbuffers, ibuffer);
-            while (!job.meshLoadDone() && loadOk)
-            {
-                uint32_t vertsLoaded, indicesLoaded;
-                loadOk = job.meshLoadNext(&vertsLoaded, &indicesLoaded);
-            }
-    #endif
-
-            glUnmapBuffer(GL_ARRAY_BUFFER);
-            glBindBuffer(GL_ARRAY_BUFFER, 0);
-            glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER);
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-            if (!loadOk)
-            {
-                glDeleteBuffers(1, &vbo);
-                glDeleteBuffers(1, &ibo);
-                vbo = ibo = 0;
-                return;
-            }
-
-            size = sizeof(Vertex) * m_vertexCount;
-            size += m_indexBytes * m_indexCount;
-            g_gpuMemoryUsage += size;
-        }
-
-        Mesh::~Mesh()
-        {
-            glDeleteBuffers(1, &vbo);
-            glDeleteBuffers(1, &ibo);
-            g_gpuMemoryUsage -= size;
         }
 
     } // namespace AtomSceneStream

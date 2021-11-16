@@ -5,7 +5,6 @@
 #include <AzCore/std/containers/list.h>
 #include <AtomCore/Instance/Instance.h>
 
-
 namespace AZ
 {
     namespace AtomSceneStream
@@ -53,15 +52,38 @@ namespace AZ
         class Mesh
         {
         public:
+            static AZ::Name s_PositionName;
+            static AZ::Name s_NormalName;
+            static AZ::Name s_TangentName;
+            static AZ::Name s_UVName;
+            static AZ::Name s_IndicesName;
+
             Mesh(Umbra::AssetLoad& job);
             ~Mesh();
 
-            size_t size = 0;
+        protected:
+            bool CreateRenderBuffers();
+            AZ::Data::Asset<AZ::RPI::BufferAsset> CreateBufferAsset(
+                const void* data,
+                const AZ::RHI::BufferViewDescriptor& bufferViewDescriptor,
+                const AZStd::string& bufferName);
+
+        private:
+            size_t m_usedSize = 0;
             int m_vertexCount = 0;
             int m_indexCount = 0;
             int m_indexBytes = 0;
             Material* m_material = nullptr;   // [Adi] - this can probably go away.
             bool m_isShaded = false;
+
+            // VB streams and IB buffer combined - temporary for GPU buffer creation 
+            void* m_buffersData = nullptr;
+
+            // VB and IB Umbra descriptors for the streamer load
+            Umbra::ElementBuffer m_vbStreamsDesc[UmbraVertexAttributeCount];
+            Umbra::ElementBuffer m_ibDesc;
+
+            AZStd::unordered_map<AZ::Name, AZ::Data::Asset<AZ::RPI::BufferAsset>> m_bufferAssets;
         };
 
     } // namespace AtomSceneStream
