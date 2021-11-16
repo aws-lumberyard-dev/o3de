@@ -78,6 +78,12 @@ namespace AZ
 
             // Recalculates the start / end indices of the points for this polygon if it recently moved in memory.
             void EvaluateStartEndIndices(PolygonLightDataVector::IndexType index);
+            
+            enum PolygonLightDataIndices
+            {
+                LightData,
+                Points
+            };
 
             PolygonLightDataVector m_polygonLightData;
             
