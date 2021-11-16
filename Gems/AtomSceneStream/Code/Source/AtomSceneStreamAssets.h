@@ -33,7 +33,7 @@ namespace AZ
             ~Material();
 
         private:
-            Data::Instance<AZ::RPI::Material> m_atomMaterial = nullptr;
+            Data::Instance<RPI::Material> m_atomMaterial = nullptr;
             Texture* m_diffuse = nullptr;
             Texture* m_normal = nullptr;
             Texture* m_specular = nullptr;
@@ -52,24 +52,26 @@ namespace AZ
         class Mesh
         {
         public:
-            static AZ::Name s_PositionName;
-            static AZ::Name s_NormalName;
-            static AZ::Name s_TangentName;
-            static AZ::Name s_UVName;
-            static AZ::Name s_IndicesName;
+            static Name s_PositionName;
+            static Name s_NormalName;
+            static Name s_TangentName;
+            static Name s_UVName;
+            static Name s_IndicesName;
+            static uint32_t s_modelNumber;
 
             Mesh(Umbra::AssetLoad& job);
             ~Mesh();
 
         protected:
             bool CreateRenderBuffers();
-            AZ::Data::Asset<AZ::RPI::BufferAsset> CreateBufferAsset(
+            Data::Asset<RPI::BufferAsset> CreateBufferAsset(
                 const void* data,
-                const AZ::RHI::BufferViewDescriptor& bufferViewDescriptor,
+                const RHI::BufferViewDescriptor& bufferViewDescriptor,
                 const AZStd::string& bufferName);
+            bool CreateModel();
 
         private:
-            size_t m_usedSize = 0;
+            size_t m_allocatedSize = 0;
             int m_vertexCount = 0;
             int m_indexCount = 0;
             int m_indexBytes = 0;
@@ -78,12 +80,13 @@ namespace AZ
 
             // VB streams and IB buffer combined - temporary for GPU buffer creation 
             void* m_buffersData = nullptr;
+            Data::Instance<RPI::Model> m_atomModel;
 
             // VB and IB Umbra descriptors for the streamer load
             Umbra::ElementBuffer m_vbStreamsDesc[UmbraVertexAttributeCount];
             Umbra::ElementBuffer m_ibDesc;
 
-            AZStd::unordered_map<AZ::Name, AZ::Data::Asset<AZ::RPI::BufferAsset>> m_bufferAssets;
+            AZStd::unordered_map<Name, Data::Asset<RPI::BufferAsset>> m_bufferAssets;
         };
 
     } // namespace AtomSceneStream

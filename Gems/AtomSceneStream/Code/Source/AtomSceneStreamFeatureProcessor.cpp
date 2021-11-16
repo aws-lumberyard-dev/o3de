@@ -168,7 +168,7 @@ namespace AZ
             {
             case UmbraAssetType_Material: ptr = new Material(assetLoad); break;
             case UmbraAssetType_Texture: ptr = new Texture(assetLoad); break;
-            case UmbraAssetType_Mesh: ptr = new Mesh(assetLoad); break;
+            case UmbraAssetType_Mesh: ptr = new Mesh(assetLoad.getMeshInfo()); break;
             default: break;
             }
 
