@@ -24,10 +24,13 @@ ly_add_target(
     INCLUDE_DIRECTORIES
         PUBLIC
             Include
+            ../External/eigen3/eigen
+            ../External/UmbraSceneStream/include
         PRIVATE
             Source
     BUILD_DEPENDENCIES
         PUBLIC
+            AZ::AtomCore
             AZ::AzCore
             AZ::AzFramework
             Gem::Atom_RHI.Public
@@ -44,6 +47,8 @@ ly_add_target(
     INCLUDE_DIRECTORIES
         PUBLIC
             Include
+            ../External/eigen3/eigen
+            ../External/UmbraSceneStream/include
         PRIVATE
             Source
     BUILD_DEPENDENCIES

@@ -1,9 +1,27 @@
 #pragma once
 
 #include <AzCore/base.h>
+#include <AzCore/Name/Name.h>
+#include <AzCore/Asset/AssetCommon.h>
 #include <AzCore/std/containers/map.h>
 #include <AzCore/std/containers/list.h>
+
 #include <AtomCore/Instance/Instance.h>
+#include <AtomCore/Instance/InstanceData.h>
+
+#include <Atom/RHI/ImagePool.h>
+
+#include <Atom/RPI.Public/Image/StreamingImage.h>
+#include <Atom/RPI.Public/Material/Material.h>
+#include <Atom/RPI.Public/Model/Model.h>
+
+//#pragma warning( disable : 2220 )
+
+#include <Eigen/Core>
+#include <Eigen/Geometry>
+
+#include <umbra/Client.hpp>
+#include <umbra/Runtime.hpp>
 
 namespace AZ
 {
@@ -63,7 +81,6 @@ namespace AZ
             ~Mesh();
 
         protected:
-            bool CreateRenderBuffers();
             Data::Asset<RPI::BufferAsset> CreateBufferAsset(
                 const void* data,
                 const RHI::BufferViewDescriptor& bufferViewDescriptor,

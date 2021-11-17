@@ -1,6 +1,21 @@
+#pragma once
+
+#include <AzCore/Math/Aabb.h>
+
+#include <Atom/RPI.Reflect/Asset/AssetUtils.h>
+
+#include <Atom/RPI.Public/Image/StreamingImage.h>
+#include <Atom/RPI.Public/Image/ImageSystemInterface.h>
+
+#include <Atom/RPI.Reflect/Material/MaterialAsset.h>
+#include <Atom/RPI.Reflect/Buffer/BufferAssetCreator.h>
+#include <Atom/RPI.Reflect/ResourcePoolAssetCreator.h>
+#include <Atom/RPI.Reflect/Model/ModelAssetCreator.h>
+#include <Atom/RPI.Reflect/Model/ModelLodAssetCreator.h>
+
 #include <umbra_defs.h>
 
-#pragma once
+#include <AtomSceneStreamAssets.h>
 
 #pragma optimize("", off)
 
@@ -19,28 +34,29 @@ namespace AZ
                 uint32_t IsLinear;
                 RHI::Format ToRHIFormat;
                 uint32_t FromUmbraFormat;
-                uint32_t DataType;
+                bool IsCompressedTexture;   // compressed format might require different treatment?
             };
 
-            static const textureFormatConverter imageFormatPairing[] = {
-                { 1, RHI::Format::R8G8B8A8_UINT, UmbraTextureFormat_RGBA32, GL_UNSIGNED_BYTE },
-                { 0, RHI::Format::R8G8B8A8_UINT, UmbraTextureFormat_RGBA32, GL_UNSIGNED_BYTE },
-                { 1, RHI::Format::R32G32B32A32_FLOAT, UmbraTextureFormat_RGBA_FLOAT32, GL_FLOAT },
-                { 0, RHI::Format::R32G32B32A32_FLOAT, UmbraTextureFormat_RGBA_FLOAT32, GL_FLOAT },
+            static const ImageFormatPairing imageFormatPairing[] = {
+                { 1, RHI::Format::R8G8B8A8_UINT, UmbraTextureFormat_RGBA32, false },
+                { 0, RHI::Format::R8G8B8A8_UINT, UmbraTextureFormat_RGBA32, false },
+                { 1, RHI::Format::R32G32B32A32_FLOAT, UmbraTextureFormat_RGBA_FLOAT32, false },
+                { 0, RHI::Format::R32G32B32A32_FLOAT, UmbraTextureFormat_RGBA_FLOAT32, false },
                 // The following two formats are not supported and require error message or handling
-                //                { 0, UmbraTextureFormat_RGB24, GL_SRGB8, GL_UNSIGNED_BYTE },
-                //                { 1, UmbraTextureFormat_RGB24, GL_RGB8, GL_UNSIGNED_BYTE },
-                { 1, RHI::Format::BC1_UNORM_SRGB, UmbraTextureFormat_BC1, 0 },
-                { 0, RHI::Format::BC1_UNORM_SRGB, UmbraTextureFormat_BC1, 0 },
-                { 1, RHI::Format::BC3_UNORM_SRGB, UmbraTextureFormat_BC3, 0 },
-                { 0, RHI::Format::BC3_UNORM_SRGB, UmbraTextureFormat_BC3, 0 },
-                { 1, RHI::Format::BC5_SNORM, UmbraTextureFormat_BC5, 0 }
+                //                { 0, UmbraTextureFormat_RGB24, GL_SRGB8, false },
+                //                { 1, UmbraTextureFormat_RGB24, GL_RGB8, false },
+                { 1, RHI::Format::BC1_UNORM_SRGB, UmbraTextureFormat_BC1, true },
+                { 0, RHI::Format::BC1_UNORM_SRGB, UmbraTextureFormat_BC1, true },
+                { 1, RHI::Format::BC3_UNORM_SRGB, UmbraTextureFormat_BC3, true },
+                { 0, RHI::Format::BC3_UNORM_SRGB, UmbraTextureFormat_BC3, true },
+                { 1, RHI::Format::BC5_SNORM, UmbraTextureFormat_BC5, true }
             };
 
             Umbra::TextureInfo info = job.getTextureInfo();
             RHI::Format imageFormat = RHI::Format::Unknown;
+            uint32_t entries = uint32_t(sizeof(imageFormatPairing) / sizeof(ImageFormatPairing));
 
-            for (int i = 0; i < int(sizeof(imageFormatPairing) / sizeof(ImageFormatPairing)); i++)
+            for (uint32_t i = 0; i < entries; i++)
             {
                 if (imageFormatPairing[i].IsLinear == (info.colorSpace == UmbraColorSpace_Linear) && imageFormatPairing[i].FromUmbraFormat == info.format)
                 {
@@ -49,27 +65,25 @@ namespace AZ
                 }
             }
 
-            if (imageFormat.ToRHIFormat == RHI::Format::Unknown)
+            if (imageFormat == RHI::Format::Unknown)
             {
-                AZ_Error("AtomSceneStream", false, "Read image format [%d] != [%d] or linear space [%d] != [%d] mismatch",
-                    glFormats[i].FromUmbraFormat, info.format,
-                    imageFormatPairing[i].IsLinear, info.colorSpace);
+                AZ_Error("AtomSceneStream", false, "Read image format [%d] or linear space [%d] mismatch", (uint32_t)info.format, info.colorSpace);
                 return;
             }
 
-            Data::Instance<RPI::StreamingImagePool> streamingImagePool = RPI::ImageSystemInterface::Get()->GetSystemStreamingPool();
-
             // getting the streaming texture data
-            std::vector<uint8_t>& textureData = m_texturesData[m_currentFrame % backBuffersAmount][textureUsage];
+            static std::vector<uint8_t> textureData;// = m_texturesData[m_currentFrame % backBuffersAmount][textureUsage];
             m_imageDataSize = info.dataByteSize;
             textureData.resize(m_imageDataSize);
+
             Umbra::ByteBuffer buf = {};
             buf.byteSize = m_imageDataSize;
             buf.flags = 0;
             buf.ptr = textureData.data();
             job.getTextureData(buf);    // [Adi] - are we double allocating here?  why Not go directly to the Source and keep the ptr?
 
-            m_streamingImage = StreamingImage::CreateFromCpuData(streamingImagePool,
+            const Data::Instance<RPI::StreamingImagePool>& streamingImagePool = RPI::ImageSystemInterface::Get()->GetSystemStreamingPool();
+            m_streamingImage = RPI::StreamingImage::CreateFromCpuData(*streamingImagePool.get(),
                 RHI::ImageDimension::Image2D,
                 RHI::Size(info.width, info.height, 1),
                 imageFormat,
@@ -102,14 +116,14 @@ namespace AZ
 
             // [Adi] - at this point we should create Atom Material - DynamicMaterialTestComponentcan be a good example for that.
             static constexpr const char DefaultPbrMaterialPath[] = "materials/defaultpbr.azmaterial";
-            Data::Asset<RPI::MaterialAsset> materialAsset = AssetUtils::GetAssetByProductPath<MaterialAsset>(DefaultPbrMaterialPath, AssetUtils::TraceLevel::Assert);
-            m_atomMaterial = Material::Create(materialAsset);
+            Data::Asset<RPI::MaterialAsset> materialAsset = RPI::AssetUtils::GetAssetByProductPath<RPI::MaterialAsset>(DefaultPbrMaterialPath, RPI::AssetUtils::TraceLevel::Assert);
+            m_atomMaterial = RPI::Material::Create(materialAsset);
 
             AZ_Error("AtomSceneStream", m_atomMaterial, "Material was not created");
 
             // And this is an example how to set the textures.
-            MaterialPropertyIndex colorProperty = m_atomMaterial->FindPropertyIndex(Name{ "baseColor.color" });
-            m_atomMaterial->SetPropertyValue(colorProperty, color);
+//            RPI::MaterialPropertyIndex colorProperty = m_atomMaterial->FindPropertyIndex(Name{ "baseColor.color" });
+//            m_atomMaterial->SetPropertyValue(colorProperty, color);
         }
 
         Material::~Material()
@@ -121,12 +135,12 @@ namespace AZ
         //======================================================================
         //                              Mesh
         //======================================================================
-        Mesh::s_PositionName = Name("UmbraMeshPositionBuffer");
-        Mesh::s_NormalName = Name("UmbraMeshNormalBuffer");
-        Mesh::s_TangentName = Name("UmbraMeshTangentBuffer");
-        Mesh::s_UVName = Name("UmbraMeshUVBuffer");
-        Mesh::s_IndicesName = Name("UmbraMeshIndexBuffer");
-        Mesh::s_modelNumber = 0;
+        Name Mesh::s_PositionName = Name("UmbraMeshPositionBuffer");
+        Name Mesh::s_NormalName = Name("UmbraMeshNormalBuffer");
+        Name Mesh::s_TangentName = Name("UmbraMeshTangentBuffer");
+        Name Mesh::s_UVName = Name("UmbraMeshUVBuffer");
+        Name Mesh::s_IndicesName = Name("UmbraMeshIndexBuffer");
+        uint32_t Mesh::s_modelNumber = 0;
 
 
         Data::Asset<RPI::BufferAsset> Mesh::CreateBufferAsset(
@@ -147,13 +161,10 @@ namespace AZ
             creator.SetUseCommonPool(RPI::CommonBufferPoolType::StaticInputAssembly);
 
             Data::Asset<RPI::BufferAsset> bufferAsset;
-            if (creator.End(bufferAsset))
-            {
-                return bufferAsset;
-            }
 
-            AZ_Error( "AtomSceneStream", false, "Error creating vertex stream %s", bufferName. )
-            return Data::Asset();
+            AZ_Error("AtomSceneStream", !creator.End(bufferAsset), "Error creating vertex stream %s", bufferName.c_str())
+
+            return bufferAsset;
         }
 
 
@@ -166,7 +177,7 @@ namespace AZ
             RPI::ModelAssetCreator modelAssetCreator;
             Uuid modelId = Uuid::CreateRandom();
             modelAssetCreator.Begin(Uuid::CreateRandom());
-            modelAssetCreator.SetName(Name("AtomSceneStreamModel_" + modelId.m_guid.ToString<AZStd::string>()));
+            modelAssetCreator.SetName("AtomSceneStreamModel");// _" + modelId.m_guid.ToString<AZStd::string>()));
 
             {
                 // Vertex Buffer Streams
@@ -185,7 +196,7 @@ namespace AZ
                 // Index Buffer
                 RHI::Format indicesFormat = (m_indexBytes == 2) ? RHI::Format::R16_UINT : RHI::Format::R32_UINT;
                 const auto indexBufferViewDesc = RHI::BufferViewDescriptor::CreateTyped(0, m_indexCount * m_indexBytes, indicesFormat);
-                const auto indicesAsset = CreateBufferAsset(patchData.m_indices.data(), indexBufferViewDesc, "TerrainPatchIndices");
+                const auto indicesAsset = CreateBufferAsset(m_ibDesc.ptr, indexBufferViewDesc, "TerrainPatchIndices");
 
                 if (!positionsAsset || !normalsAsset || !tangentsAsset || !uvAsset || !indicesAsset)
                 {
@@ -207,9 +218,9 @@ namespace AZ
                     modelLodAssetCreator.SetMeshIndexBuffer({ indicesAsset, indexBufferViewDesc });
 
                     Aabb localAabb = Aabb::CreateCenterHalfExtents(Vector3(0.0f, 0.0f, 0.0f), Vector3(999999.0f, 999999.0f, 999999.0f));
-                    modelLodCreator.SetMeshAabb(AZStd::move(localAabb));
+                    modelLodAssetCreator.SetMeshAabb(AZStd::move(localAabb));
 
-                    modelLodAssetCreator.SetMeshName(Name("AtomSceneStreamModel_%5d", s_modelNumber));
+                    modelLodAssetCreator.SetMeshName(Name("AtomSceneStreamModel")); // _ % 5d", s_modelNumber));
                 }
 
                 // Here add the material:
@@ -243,8 +254,9 @@ namespace AZ
         // Good examples:
         // 1. GltfTrianglePrimitiveBuilder::Create(
         // 2. CreateModelFromProceduralSkinnedMesh
-        Mesh::Mesh(Umbra::MeshInfo& info)
+        Mesh::Mesh(Umbra::AssetLoad& job)
         {
+            Umbra::MeshInfo info = job.getMeshInfo();
             ++s_modelNumber;
 
             m_vertexCount = info.numUniqueVertices;
@@ -273,10 +285,10 @@ namespace AZ
             for (int i = 0; i < UmbraVertexAttributeCount; ++i)
             {
                 m_vbStreamsDesc[i].flags = UmbraBufferFlags_UncachedMemory;
-                m_vbStreamsDesc[i].elementCapacity = vertexCount;
-                m_vbStreamsDesc[i].ptr = (uint8_t*)(m_buffersData + offset);
-                m_vbStreamsDesc[i].elementStride = m_streamsElementSize[i];
-                m_vbStreamsDesc[i].elementByteSize = m_streamsElementSize[i];
+                m_vbStreamsDesc[i].elementCapacity = m_vertexCount;
+                m_vbStreamsDesc[i].ptr = (uint8_t*)m_buffersData + offset;
+                m_vbStreamsDesc[i].elementStride = streamsElementSize[i];
+                m_vbStreamsDesc[i].elementByteSize = streamsElementSize[i];
 
                 if (!(info.attributes & (1 << i)))
                 {
@@ -284,14 +296,14 @@ namespace AZ
                 }
                 else
                 {   // overall unused can be removed at the end but this is only temporary storage anyway.
-                    offset += vertexCount * m_streamsElementSize[i];
+                    offset += m_vertexCount * streamsElementSize[i];
                 }
             }
 
             // Prepare index buffer
             m_ibDesc.flags = UmbraBufferFlags_UncachedMemory;
             m_ibDesc.elementCapacity = m_indexCount;
-            m_ibDesc.ptr = (uint8_t*)(m_buffersData + offset);
+            m_ibDesc.ptr = (uint8_t*)m_buffersData + offset;
             m_ibDesc.elementStride = m_indexBytes;
             m_ibDesc.elementByteSize = m_indexBytes;
 
@@ -318,7 +330,7 @@ namespace AZ
                 return;
             }
 
-            // [Adi] - should we free the memory now that the asets has been created?
+            // [Adi] - should we free the memory now that the assets has been created?
             CreateModel();
         }
 

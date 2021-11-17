@@ -13,6 +13,7 @@ include(${pal_dir}/${PAL_PLATFORM_NAME_LOWERCASE}_gem.cmake)
 ly_add_external_target_path(${CMAKE_CURRENT_LIST_DIR}/3rdParty)
 
 add_subdirectory(Code)
+# add_subdirectory(External)
 
 # ly_add_target(
 #     NAME AtomSceneStream.Static STATIC

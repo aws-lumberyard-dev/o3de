@@ -4,6 +4,11 @@
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Debug/EventTrace.h>
 
+//#pragma warning(disable:2220)
+
+#include <Eigen/Core>
+#include <Eigen/Geometry>
+
 /*
 #include <Atom/RHI/Factory.h>
 #include <Atom/RHI/RHIUtils.h>
@@ -25,6 +30,7 @@
 #include <Atom/RPI.Reflect/Asset/AssetUtils.h>
 */
 
+#include <AtomSceneStreamAssets.h>
 #include <AtomSceneStreamFeatureProcessor.h>
 
 #pragma optimize("", off)
@@ -33,62 +39,74 @@ namespace AZ
 {
     namespace AtomSceneStream
     {
-        uint32_t AtomSceneStreamFeatureProcessor::s_instanceCount = 0;
+//        uint32_t AtomSceneStreamFeatureProcessor::s_instanceCount = 0;
 
         AtomSceneStreamFeatureProcessor::AtomSceneStreamFeatureProcessor()
         {
-            ++s_instanceCount;
+//            ++s_instanceCount;
 
-            RestartUmbraCLient();
+            bool result = RestartUmbraClient();
         }
 
-        AtomSceneStreamFeatureProcessor::RestartUmbraCLient()
+        bool AtomSceneStreamFeatureProcessor::RestartUmbraClient()
         {
             const char* apiKey = "";   // in our case should be empty string as per the mail
             // Replace the following with data from a component
             const char* locator = "v=1&project=atom%40amazon.com&model=874639baa2218cf4f35019d0dca45c1f4a3435e4&version=default&endpoint=https%3A%2F%2Fhorizon-api-stag.hazel.dex.robotics.a2z.com%2F";
 
             // Create a Client
-            Umbra::Client client = Umbra::Client("RuntimeSample");
+            m_client = new Umbra::Client("RuntimeSample");
 
             // Create Umbra runtime
-            Umbra::EnvironmentInfo env;
-            UmbraEnvironmentInfoDefaults(&env);
+
+            UmbraEnvironmentInfoDefaults(&m_env);
             // Texture support flags is the set of textures that are supported. Runtime attempts to deliver only textures
             // that are supported.
-            env.textureSupportFlags = UmbraTextureSupportFlags_BC1 | UmbraTextureSupportFlags_BC3 |
+            m_env.textureSupportFlags = UmbraTextureSupportFlags_BC1 | UmbraTextureSupportFlags_BC3 |
                 UmbraTextureSupportFlags_BC5 | UmbraTextureSupportFlags_Float;
 
-            Umbra::Runtime runtime(*client, env);
+            m_runtime = new Umbra::Runtime(**m_client, m_env);
+            if (!m_runtime)
+            {
+                AZ_Error("AtomSceneStream", false, "Error creating Umbra run time");
+                return false;
+            }
 
             // Create a Scene by connecting it to a model
-            Umbra::Scene scene = runtime.createScene(apiKey, locator);
+            m_scene = m_runtime->createScene(apiKey, locator);
 
             // Wait for connection so that camera can be initialized
             for (;;)
             {
-                Umbra::ConnectionStatus s = scene.getConnectionStatus();
+                Umbra::ConnectionStatus s = m_scene.getConnectionStatus();
                 if (s == UmbraConnectionStatus_Connected)
                     break;
                 else if (s == UmbraConnectionStatus_ConnectionError)
                 {
                     AZ_Error("AtomSceneStream", false, "Error connecting to Umbra Back end");
-                    return;
+                    return false;
                 }
             }
 
             // Create a View
-            Umbra::View view = runtime.createView();
+            m_view = m_runtime->createView();
+            return true;
         }
 
         AtomSceneStreamFeatureProcessor::~AtomSceneStreamFeatureProcessor()
         {
+            // Destroy Umbra handles
+            m_view.destroy();
+            m_scene.destroy();
+            m_runtime->destroy();
+            m_client->destroy();
+
+            delete m_runtime;
+            delete m_client;
         }
 
         void AtomSceneStreamFeatureProcessor::Reflect(ReflectContext* context)
         {
-            HairGlobalSettings::Reflect(context);
-
             if (auto* serializeContext = azrtti_cast<SerializeContext*>(context))
             {
                 serializeContext
@@ -122,8 +140,67 @@ namespace AZ
         {
             AZ_PROFILE_FUNCTION(AzRender);
 
-            ++m_currentFrame;
-            UpdateLoadedAssets();
+            if (!m_runtime)
+                return;
+
+//            ++m_currentFrame;
+            // run the streaming load for 10 msec - ideally this should be done on another thread!
+            HandleAssetsStreaming(0.01f);   
+
+            /*
+                m_originalPipeline->GetDefaultView()
+
+                // Update View and Runtime with new camera
+
+                Eigen::Matrix4f worldToClip = camera.getProjection() * camera.getCameraMatrix();
+                UmbraFloat4_4 umbraWorldToClip = toUmbra(worldToClip);
+                UmbraFloat3 umbraCamera = toUmbra(camera.getCameraPosition());
+
+                Umbra::ViewInfo viewInfo;
+                viewInfo.cameraWorldToClip = &umbraWorldToClip;
+                viewInfo.cameraPosition = &umbraCamera;
+                viewInfo.cameraDepthRange = UmbraDepthRange_MinusOneToOne;
+                viewInfo.cameraMatrixFormat = UmbraMatrixFormat_ColumnMajor;
+                viewInfo.quality = g_quality;
+                view.setCamera(viewInfo);
+            */
+
+                        // Render all objects in the View in batches
+            /*
+            for (;;)
+            {
+                Umbra::Renderable batch[128];
+                int num = view.nextRenderables(batch, sizeof(batch) / sizeof(batch[0]));
+                if (!num)
+                    break;
+
+                for (int i = 0; i < num; i++)
+                {
+                    Eigen::Matrix4f transform = Eigen::Map<Eigen::Matrix4f>(&batch[i].transform.v[0].v[0]);
+
+                    // Color this mesh based on LOD level if requested
+                    Eigen::Vector4f color = Eigen::Vector4f::Zero();
+                    if (debugColors)
+                    {
+                        int level = batch[i].lodLevel;
+                        color = getLODColor(level).homogeneous();
+                    }
+
+                    m_meshHandle = GetMeshFeatureProcessor()->AcquireMesh(AZ::Render::MeshHandleDescriptor{ meshAsset }, AZ::RPI::Material::FindOrCreate(materialAsset));
+                    const AZ::Vector3 nonUniformScale(1.0f, 1.0f, 1.0f);
+                    GetMeshFeatureProcessor()->SetTransform(m_meshHandle, transform, nonUniformScale);
+
+                    renderMesh(
+                        camera.getCameraPosition(),
+                        camera.getProjection(),
+                        transform * camera.getCameraMatrix(),
+                        transform.topLeftCorner<3, 3>(),
+                        color,
+                        (const Mesh*)batch[i].mesh);
+                }
+            }
+            */
+            m_runtime->update();
 
             AZ_UNUSED(packet);
         }
@@ -147,28 +224,33 @@ namespace AZ
 
 
         // AssetLoad tells that an asset should be loaded into GPU. This function loads a single asset
-        bool AtomSceneStreamFeatureProcessor::AssetLoad(Umbra::Runtime& runtime)
+        bool AtomSceneStreamFeatureProcessor::LoadStreamedAssets()
         {
-            Umbra::AssetLoad assetLoad = runtime.getNextAssetLoad();
+            if (!m_runtime)
+                return false;
+
+            Umbra::AssetLoad assetLoad = m_runtime->getNextAssetLoad();
             if (!assetLoad)
                 return false;
 
             // If memory usage is too high, the job is finished with OutOfMemory. This tells Umbra to stop loading more. The
             // quality must be reduced so that loading can continue
+            /*
             if (g_gpuMemoryUsage > GPU_MEMORY_LIMIT)
             {
                 m_modelsQuality *= 0.875f;
                 assetLoad.finish(UmbraAssetLoadResult_OutOfMemory);
                 return false;
             }
+            */
 
             void* ptr = nullptr;
 
             switch (assetLoad.getType())
             {
-            case UmbraAssetType_Material: ptr = new Material(assetLoad); break;
-            case UmbraAssetType_Texture: ptr = new Texture(assetLoad); break;
-            case UmbraAssetType_Mesh: ptr = new Mesh(assetLoad.getMeshInfo()); break;
+            case UmbraAssetType_Material: ptr = new AtomSceneStream::Material(assetLoad); break;
+            case UmbraAssetType_Texture: ptr = new AtomSceneStream::Texture(assetLoad); break;
+            case UmbraAssetType_Mesh: ptr = new AtomSceneStream::Mesh(assetLoad); break;
             default: break;
             }
 
@@ -176,21 +258,25 @@ namespace AZ
 
             // Finish the job
             assetLoad.finish(UmbraAssetLoadResult_Success);
+
             return true;
         }
 
         // AssetUnloadJob tells that an asset can be freed from the GPU. This function frees a single asset
-        bool AtomSceneStreamFeatureProcessor::AssetUnload(Umbra::Runtime& runtime)
+        bool AtomSceneStreamFeatureProcessor::UnloadStreamedAssets()
         {
-            Umbra::AssetUnload assetUnload = runtime.getNextAssetUnload();
+            if (!m_runtime)
+                return;
+
+            Umbra::AssetUnload assetUnload = m_runtime->getNextAssetUnload();
             if (!assetUnload)
                 return false;
 
             switch (assetUnload.getType())
             {
-            case UmbraAssetType_Material: delete (Material*)assetUnload.getUserPointer(); break;
-            case UmbraAssetType_Texture: delete (Texture*)assetUnload.getUserPointer(); break;
-            case UmbraAssetType_Mesh: delete (Mesh*)assetUnload.getUserPointer(); break;
+            case UmbraAssetType_Material: delete (AtomSceneStream::Material*)assetUnload.getUserPointer(); break;
+            case UmbraAssetType_Texture: delete (AtomSceneStream::Texture*)assetUnload.getUserPointer(); break;
+            case UmbraAssetType_Mesh: delete (AtomSceneStream::Mesh*)assetUnload.getUserPointer(); break;
             default: break;
             }
 
@@ -199,107 +285,25 @@ namespace AZ
         }
 
         // Perform asset streaming work until time budget is reached
-        void AtomSceneStreamFeatureProcessor::HandleAssets(Umbra::Runtime& runtime, float seconds)
+        void AtomSceneStreamFeatureProcessor::HandleAssetsStreaming(float seconds)
         {
-            const float endTime = (float)glfwGetTime() + seconds;
+            if (!m_runtime)
+                return;
+
+//            AZ::u64 endTime = AZStd::GetTimeUTCMilliSecond() + seconds * 1000.0f;
+            auto startTime = AZStd::chrono::system_clock::now();
+            auto endTime = startTime + AZStd::chrono::seconds(seconds);
 
             // First unload old assets to make room for new ones
-            while (glfwGetTime() <= endTime)
-                if (!AssetUnload(runtime))
+//            while (AZStd::GetTimeUTCMilliSecond() () <= endTime)
+            while (AZStd::chrono::system_clock::now() < endTime)
+                if (!UnloadStreamedAssets())
                     break;
 
-            while (glfwGetTime() <= endTime)
-                if (!wAssetLoad(runtime))
+//            while (AZStd::GetTimeUTCMilliSecond() () <= endTime)
+            while (AZStd::chrono::system_clock::now() < endTime)
+                if (!LoadStreamedAssets())
                     break;
-        }
-
-        //! textureUsage = diffuse / specular / ..
-        Data::Instance<RPI::StreamingImage> AtomSceneStreamFeatureProcessor::CreateStreamingTexture(Umbra::AssetLoad& job, uint32_t textureUsage)
-        {
-            struct ImageFormatPairing
-            {
-                uint32_t IsLinear;
-                RHI::Format ToRHIFormat;
-                uint32_t FromUmbraFormat;
-                uint32_t DataType;
-            };
-
-            static const textureFormatConverter imageFormatPairing[] = {
-                { 1, RHI::Format::R8G8B8A8_UINT, UmbraTextureFormat_RGBA32, GL_UNSIGNED_BYTE },
-                { 0, RHI::Format::R8G8B8A8_UINT, UmbraTextureFormat_RGBA32, GL_UNSIGNED_BYTE },
-                { 1, RHI::Format::R32G32B32A32_FLOAT, UmbraTextureFormat_RGBA_FLOAT32, GL_FLOAT },
-                { 0, RHI::Format::R32G32B32A32_FLOAT, UmbraTextureFormat_RGBA_FLOAT32, GL_FLOAT },
-// The following two formats are not supported and require error message or handling
-//                { 0, UmbraTextureFormat_RGB24, GL_SRGB8, GL_UNSIGNED_BYTE },
-//                { 1, UmbraTextureFormat_RGB24, GL_RGB8, GL_UNSIGNED_BYTE },
-                { 1, RHI::Format::BC1_UNORM_SRGB, UmbraTextureFormat_BC1, 0 },
-                { 0, RHI::Format::BC1_UNORM_SRGB, UmbraTextureFormat_BC1, 0 },
-                { 1, RHI::Format::BC3_UNORM_SRGB, UmbraTextureFormat_BC3, 0 },
-                { 0, RHI::Format::BC3_UNORM_SRGB, UmbraTextureFormat_BC3, 0 },
-                { 1, RHI::Format::BC5_SNORM, UmbraTextureFormat_BC5, 0 }
-            };
-
-            Umbra::TextureInfo info = job.getTextureInfo();
-            RHI::Format imageFormat = RHI::Format::Unknown;
-
-            for (int i = 0; i < int(sizeof(imageFormatPairing) / sizeof(ImageFormatPairing)); i++)
-            {
-                if (imageFormatPairing[i].IsLinear == (info.colorSpace == UmbraColorSpace_Linear) && imageFormatPairing[i].FromUmbraFormat == info.format)
-                {
-                    imageFormat = imageFormatPairing[i].ToRHIFormat;
-                    break;
-                }
-            }
-
-            if (imageFormat.ToRHIFormat == RHI::Format::Unknown)
-            {
-                AZ_Error("AtomSceneStream", false, "Read image format [%d] != [%d] or linear space [%d] != [%d] mismatch",
-                    glFormats[i].FromUmbraFormat, info.format,
-                    imageFormatPairing[i].IsLinear, info.colorSpace);
-                return;
-            }
-
-            Data::Instance<RPI::StreamingImagePool> streamingImagePool = RPI::ImageSystemInterface::Get()->GetSystemStreamingPool();
-
-            // getting the streaming texture data
-            std::vector<uint8_t> &textureData = m_texturesData[m_currentFrame % backBuffersAmount][textureUsage];
-            uint32_t imageDataSize = info.dataByteSize;
-            textureData.resize(imageDataSize);
-            Umbra::ByteBuffer buf = {};
-            buf.byteSize = imageDataSize;
-            buf.flags = 0;
-            buf.ptr = textureData.data();
-            job.getTextureData(buf);
-
-            return StreamingImage::CreateFromCpuData( streamingImagePool,
-                RHI::ImageDimension::Image2D,
-                RHI::Size(info.width, info.height, 1),
-                imageFormat,
-                textureData.data(),
-                imageDataSize);
-        }
-
-        // Review LuxCoreMaterial::ParseTexture for texture load / set
-        bool AtomSceneStreamFeatureProcessor::CreateStreamingMaterial(Umbra::AssetLoad& job)
-        {
-
-            Umbra::MaterialInfo info = job.getMaterialInfo();
-            diffuse = (Texture*)info.textures[UmbraTextureType_Diffuse];
-            normal = (Texture*)info.textures[UmbraTextureType_Normal];
-            specular = (Texture*)info.textures[UmbraTextureType_Specular];
-            transparent = !!info.transparent;
-
-            static constexpr const char DefaultPbrMaterialPath[] = "materials/defaultpbr.azmaterial";
-            AZ::Data::Asset<AZ::RPI::MaterialAsset> materialAsset = AssetUtils::GetAssetByProductPath<MaterialAsset>(DefaultPbrMaterialPath, AssetUtils::TraceLevel::Assert);
-            AZ::Data::Instance<AZ::RPI::Material> material = Material::Create(materialAsset);
-
-            MaterialPropertyIndex colorProperty = material->FindPropertyIndex(AZ::Name{ "baseColor.color" });
-            material->SetPropertyValue(colorProperty, color);
-        }
-
-        void AtomSceneStreamFeatureProcessor::CreateMesh(Umbra::AssetLoad& job)
-        {
-            // Review MiniView::nextRenderables for more understanding how to cache the scene
         }
 
     } // namespace AtomSceneStream

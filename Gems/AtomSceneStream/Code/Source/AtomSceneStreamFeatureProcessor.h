@@ -7,15 +7,22 @@
 
 #include <AtomCore/Instance/Instance.h>
 
+#include <Atom/RPI.Public/Image/StreamingImage.h>
+
 #include <Atom/RPI.Public/FeatureProcessor.h>
+
+#include <umbra/Client.hpp>
+#include <umbra/Runtime.hpp>
+
+namespace Umbra
+{
+    class AssetLoad;
+}
 
 namespace AZ
 {
     namespace AtomSceneStream
     {
-
-        class Umbra::AssetLoad;
-
         class AtomSceneStreamFeatureProcessor final
             : public RPI::FeatureProcessor
             , private AZ::TickBus::Handler
@@ -29,7 +36,6 @@ namespace AZ
             virtual ~AtomSceneStreamFeatureProcessor();
 
             bool Init(RPI::RenderPipeline* pipeline);
-            bool IsInitialized() { return m_initialized; }
 
             // FeatureProcessor overrides ...
             void Activate() override;
@@ -46,18 +52,31 @@ namespace AZ
             void OnRenderPipelineRemoved(RPI::RenderPipeline* renderPipeline) override;
             void OnRenderPipelinePassesChanged(RPI::RenderPipeline* renderPipeline) override;
 
-
-            Data::Instance<RPI::StreamingImage> CreateStreamingTexture(Umbra::AssetLoad& job, uint32_t textureUsage);
-            bool CreateStreamingMaterial(Umbra::AssetLoad& job);
+            // Umbra driven functionality
+            bool RestartUmbraClient();
+            bool LoadStreamedAssets();
+            bool UnloadStreamedAssets();
+            void HandleAssetsStreaming(float seconds);
 
         private:
             AZ_DISABLE_COPY_MOVE(AtomSceneStreamFeatureProcessor);
 
+            Umbra::EnvironmentInfo m_env;
+            Umbra::Client* m_client = nullptr;
+            Umbra::Runtime* m_runtime = nullptr;
+            Umbra::Scene m_scene;
+            Umbra::View m_view;
+
+            /*
             const uint32_t backBuffersAmount = 3;
+
+            // We should not need to manage texture or any other buffer memory as it is done
+            // internally by the Umbra streamer.
             AZStd::unordered_map<uint32_t, std::vector<uint8_t>> m_texturesData[backBuffersAmount]; // memory array containing K vectors where K = swap buffers amount
 
             static uint32_t s_instanceCount;
             uint32_t m_currentFrame = 0;  // for keeping cyclic order of allocated memory.
+            */
         };
     } // namespace AtomSceneStream
 } // namespace AZ
