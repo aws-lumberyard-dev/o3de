@@ -35,8 +35,6 @@ namespace AZ
             AtomSceneStreamFeatureProcessor();
             virtual ~AtomSceneStreamFeatureProcessor();
 
-            bool Init(RPI::RenderPipeline* pipeline);
-
             // FeatureProcessor overrides ...
             void Activate() override;
             void Deactivate() override;

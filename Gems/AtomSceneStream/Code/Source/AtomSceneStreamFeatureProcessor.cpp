@@ -4,31 +4,10 @@
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Debug/EventTrace.h>
 
-//#pragma warning(disable:2220)
+#pragma warning(disable:4834)
 
-#include <Eigen/Core>
-#include <Eigen/Geometry>
-
-/*
-#include <Atom/RHI/Factory.h>
-#include <Atom/RHI/RHIUtils.h>
-#include <Atom/RHI/ImagePool.h>
-#include <Atom/RHI/RHISystemInterface.h>
-
-#include <Atom/RPI.Public/View.h>
-#include <Atom/RPI.Public/Scene.h>
-#include <Atom/RPI.Public/RenderPipeline.h>
-#include <Atom/RPI.Public/Pass/PassFilter.h>
-#include <Atom/RPI.Public/Pass/PassSystemInterface.h>
-#include <Atom/RPI.Public/RPIUtils.h>
-#include <Atom/RPI.Public/Shader/Shader.h>
-#include <Atom/RPI.Public/Shader/ShaderResourceGroup.h>
-#include <Atom/RPI.Public/Image/ImageSystemInterface.h>
-#include <Atom/RPI.Public/Image/AttachmentImagePool.h>
-
-#include <Atom/RPI.Reflect/Buffer/BufferAssetView.h>
-#include <Atom/RPI.Reflect/Asset/AssetUtils.h>
-*/
+//#include <Eigen/Core>
+//#include <Eigen/Geometry>
 
 #include <AtomSceneStreamAssets.h>
 #include <AtomSceneStreamFeatureProcessor.h>
@@ -45,7 +24,7 @@ namespace AZ
         {
 //            ++s_instanceCount;
 
-            bool result = RestartUmbraClient();
+            [[maybe_unused]]bool result = RestartUmbraClient();
         }
 
         bool AtomSceneStreamFeatureProcessor::RestartUmbraClient()
@@ -218,11 +197,6 @@ namespace AZ
         {
         }
 
-        bool AtomSceneStreamFeatureProcessor::Init([[maybe_unused]] RPI::RenderPipeline* renderPipeline)
-        {
-        }
-
-
         // AssetLoad tells that an asset should be loaded into GPU. This function loads a single asset
         bool AtomSceneStreamFeatureProcessor::LoadStreamedAssets()
         {
@@ -266,7 +240,7 @@ namespace AZ
         bool AtomSceneStreamFeatureProcessor::UnloadStreamedAssets()
         {
             if (!m_runtime)
-                return;
+                return false;
 
             Umbra::AssetUnload assetUnload = m_runtime->getNextAssetUnload();
             if (!assetUnload)
@@ -292,7 +266,8 @@ namespace AZ
 
 //            AZ::u64 endTime = AZStd::GetTimeUTCMilliSecond() + seconds * 1000.0f;
             auto startTime = AZStd::chrono::system_clock::now();
-            auto endTime = startTime + AZStd::chrono::seconds(seconds);
+            int workTimeMilliseconds = int(seconds * 1000.0f + 0.5f);
+            auto endTime = startTime + AZStd::chrono::milliseconds(workTimeMilliseconds);
 
             // First unload old assets to make room for new ones
 //            while (AZStd::GetTimeUTCMilliSecond() () <= endTime)

@@ -17,8 +17,8 @@
 
 //#pragma warning( disable : 2220 )
 
-#include <Eigen/Core>
-#include <Eigen/Geometry>
+//#include <Eigen/Core>
+//#include <Eigen/Geometry>
 
 #include <umbra/Client.hpp>
 #include <umbra/Runtime.hpp>

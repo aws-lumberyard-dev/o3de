@@ -33,7 +33,7 @@ namespace AZ
             {
                 uint32_t IsLinear;
                 RHI::Format ToRHIFormat;
-                uint32_t FromUmbraFormat;
+                UmbraTextureFormat FromUmbraFormat;
                 bool IsCompressedTexture;   // compressed format might require different treatment?
             };
 
@@ -58,7 +58,8 @@ namespace AZ
 
             for (uint32_t i = 0; i < entries; i++)
             {
-                if (imageFormatPairing[i].IsLinear == (info.colorSpace == UmbraColorSpace_Linear) && imageFormatPairing[i].FromUmbraFormat == info.format)
+                if ((imageFormatPairing[i].IsLinear == uint32_t(info.colorSpace == UmbraColorSpace_Linear)) &&
+                    (imageFormatPairing[i].FromUmbraFormat == info.format))
                 {
                     imageFormat = imageFormatPairing[i].ToRHIFormat;
                     break;
@@ -97,7 +98,7 @@ namespace AZ
         {
             // No need to delete the StreamingImage - once Texture is deleted the ref count will do the rest
             // in a safe way (according to the rest of the ref count by Atom)
-            g_gpuMemoryUsage -= m_imageDataSize;
+//            g_gpuMemoryUsage -= m_imageDataSize;
         }
 
         //======================================================================
@@ -239,15 +240,21 @@ namespace AZ
 
                 // Now add the LOD model asset created to the model asset.
                 modelAssetCreator.AddLodAsset(AZStd::move(modelLodAsset));
-
-                return true;
             }
 
             // Final stage - create the model based on the created assets
             Data::Asset<RPI::ModelAsset> modelAsset;
-            bool success = modelAssetCreator.End(modelAsset);
+
+            if (!modelAssetCreator.End(modelAsset))
+            {
+                AZ_Error("AtomSceneStream", false, "Error - model asset was not created");
+                return false;
+            }
 
             m_atomModel = RPI::Model::FindOrCreate(modelAsset);
+            AZ_Error("AtomSceneStream", m_atomModel, "Error - model could not be found or created");
+
+            return m_atomModel ? true : false;
         }
 
 
