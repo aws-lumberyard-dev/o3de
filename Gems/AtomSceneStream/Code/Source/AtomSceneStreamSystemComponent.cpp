@@ -44,6 +44,7 @@ namespace AZ
 
         void AtomSceneStreamSystemComponent::GetRequiredServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& required)
         {
+            required.push_back(AZ_CRC("RPISystem", 0xf2add773));
         }
 
         void AtomSceneStreamSystemComponent::GetDependentServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& dependent)
@@ -73,17 +74,17 @@ namespace AZ
         void AtomSceneStreamSystemComponent::Activate()
         {
             // Feature processor
-            AZ::RPI::FeatureProcessorFactory::Get()->RegisterFeatureProcessor<AtomSceneStreamFeatureProcessor>();
+            RPI::FeatureProcessorFactory::Get()->RegisterFeatureProcessor<AtomSceneStream::AtomSceneStreamFeatureProcessor>();
 
             AtomSceneStreamRequestBus::Handler::BusConnect();
-            AZ::TickBus::Handler::BusConnect();
+            TickBus::Handler::BusConnect();
         }
 
         void AtomSceneStreamSystemComponent::Deactivate()
         {
-            AZ::RPI::FeatureProcessorFactory::Get()->UnregisterFeatureProcessor<AtomSceneStreamFeatureProcessor>();
+            RPI::FeatureProcessorFactory::Get()->UnregisterFeatureProcessor<AtomSceneStream::AtomSceneStreamFeatureProcessor>();
 
-            AZ::TickBus::Handler::BusDisconnect();
+            TickBus::Handler::BusDisconnect();
             AtomSceneStreamRequestBus::Handler::BusDisconnect();
         }
 

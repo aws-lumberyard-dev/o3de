@@ -19,6 +19,11 @@ namespace Umbra
     class AssetLoad;
 }
 
+namespace Render
+{
+    class MeshFeatureProcessorInterface;
+}
+
 namespace AZ
 {
     namespace AtomSceneStream
@@ -58,6 +63,8 @@ namespace AZ
 
         private:
             AZ_DISABLE_COPY_MOVE(AtomSceneStreamFeatureProcessor);
+
+            Render::MeshFeatureProcessorInterface* m_meshFeatureProcessor = nullptr;
 
             Umbra::EnvironmentInfo m_env;
             Umbra::Client* m_client = nullptr;

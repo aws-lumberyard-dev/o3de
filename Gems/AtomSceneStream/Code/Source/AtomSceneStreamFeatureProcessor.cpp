@@ -4,7 +4,17 @@
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Debug/EventTrace.h>
 
-#pragma warning(disable:4834)
+#include <AzCore/Math/Matrix3x4.h>
+#include <AzCore/Math/Matrix4x4.h>
+#include <AzCore/Math/Transform.h>
+
+#include <Atom/RPI.Public/Scene.h>
+
+#include <AzFramework/Components/CameraBus.h>
+
+#include <Atom/Feature/Mesh/MeshFeatureProcessor.h>
+#include <Atom/Feature/Mesh/MeshFeatureProcessorInterface.h>
+
 
 //#include <Eigen/Core>
 //#include <Eigen/Geometry>
@@ -98,6 +108,8 @@ namespace AZ
         {
             EnableSceneNotification();
             TickBus::Handler::BusConnect();
+
+            m_meshFeatureProcessor =  GetParentScene()->GetFeatureProcessor<Render::MeshFeatureProcessorInterface>();
         }
 
         void AtomSceneStreamFeatureProcessor::Deactivate()
@@ -126,6 +138,16 @@ namespace AZ
             // run the streaming load for 10 msec - ideally this should be done on another thread!
             HandleAssetsStreaming(0.01f);   
 
+            Umbra::ViewInfo viewInfo;
+
+            AZ::Transform activeCameraTransform;
+            Camera::ActiveCameraRequestBus::BroadcastResult(
+                activeCameraTransform,
+                &Camera::ActiveCameraRequestBus::Events::GetActiveCameraTransform
+            );
+            const AZ::Matrix4x4 cameraMatrix = AZ::Matrix4x4::CreateFromTransform(activeCameraTransform);
+
+
             /*
                 m_originalPipeline->GetDefaultView()
 
@@ -144,41 +166,59 @@ namespace AZ
                 view.setCamera(viewInfo);
             */
 
-                        // Render all objects in the View in batches
-            /*
+            if (!m_meshFeatureProcessor)
+            {
+                m_meshFeatureProcessor = GetParentScene()->GetFeatureProcessor<Render::MeshFeatureProcessorInterface>();
+                AZ_Warning("AtomSceneStream", false , "MeshFeatureProcessor was not acquired.");
+                return;
+            }
+
             for (;;)
             {
                 Umbra::Renderable batch[128];
-                int num = view.nextRenderables(batch, sizeof(batch) / sizeof(batch[0]));
+                int num = m_view.nextRenderables(batch, sizeof(batch) / sizeof(batch[0]));
                 if (!num)
                     break;
 
                 for (int i = 0; i < num; i++)
                 {
-                    Eigen::Matrix4f transform = Eigen::Map<Eigen::Matrix4f>(&batch[i].transform.v[0].v[0]);
+                    //                    Eigen::Matrix4f transform = Eigen::Map<Eigen::Matrix4f>(&batch[i].transform.v[0].v[0]);
+                    //
+                    //                    // Color this mesh based on LOD level if requested
+                    //                    Eigen::Vector4f color = Eigen::Vector4f::Zero();
+                    //                    if (debugColors)
+                    //                    {
+                    //                        int level = batch[i].lodLevel;
+                    //                        color = getLODColor(level).homogeneous();
+                    //                    }
 
-                    // Color this mesh based on LOD level if requested
-                    Eigen::Vector4f color = Eigen::Vector4f::Zero();
-                    if (debugColors)
+                    AtomSceneStream::Mesh* currentMesh = (AtomSceneStream::Mesh*)batch[i].mesh;
+                    if (!currentMesh)
                     {
-                        int level = batch[i].lodLevel;
-                        color = getLODColor(level).homogeneous();
+                        AZ_Warning("AtomSceneStream", false, "Missing mesh");
+                        continue;
                     }
 
-                    m_meshHandle = GetMeshFeatureProcessor()->AcquireMesh(AZ::Render::MeshHandleDescriptor{ meshAsset }, AZ::RPI::Material::FindOrCreate(materialAsset));
-                    const AZ::Vector3 nonUniformScale(1.0f, 1.0f, 1.0f);
-                    GetMeshFeatureProcessor()->SetTransform(m_meshHandle, transform, nonUniformScale);
+                    // Adding the model to the mesh feature processor to be rendered this frame.
+                    const Render::MeshHandleDescriptor meshDescriptor = Render::MeshHandleDescriptor{ currentMesh->GetAtomModel()->GetModelAsset() };
+                    Render::MeshFeatureProcessorInterface::MeshHandle meshHandle = m_meshFeatureProcessor->AcquireMesh(meshDescriptor, currentMesh->GetAtomMaterial() );
 
-                    renderMesh(
-                        camera.getCameraPosition(),
-                        camera.getProjection(),
-                        transform * camera.getCameraMatrix(),
-                        transform.topLeftCorner<3, 3>(),
-                        color,
-                        (const Mesh*)batch[i].mesh);
+                    const float* matrixValues = (const float*)&batch[i].transform.v[0].v[0];
+                    Matrix3x4 modelMatrix = Matrix3x4::CreateFromColumnMajorFloat16(matrixValues);
+                    Transform modelTransform = Transform::CreateFromMatrix3x4(modelMatrix);
+                    const AZ::Vector3 nonUniformScale(1.0f, 1.0f, 1.0f);
+                    m_meshFeatureProcessor->SetTransform(meshHandle, modelTransform, nonUniformScale);
+
+                    //                    renderMesh(
+                    //                        camera.getCameraPosition(),
+                    //                        camera.getProjection(),
+                    //                        transform * camera.getCameraMatrix(),
+                    //                        transform.topLeftCorner<3, 3>(),
+                    //                        color,
+                    //                        (const Mesh*)batch[i].mesh);
                 }
             }
-            */
+
             m_runtime->update();
 
             AZ_UNUSED(packet);

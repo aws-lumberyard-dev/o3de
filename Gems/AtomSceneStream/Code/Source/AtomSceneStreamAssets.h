@@ -50,6 +50,11 @@ namespace AZ
             Material(Umbra::AssetLoad& job);
             ~Material();
 
+            Data::Instance<RPI::Material> GetAtomMaterial()
+            {
+                return m_atomMaterial;
+            }
+
         private:
             Data::Instance<RPI::Material> m_atomMaterial = nullptr;
             Texture* m_diffuse = nullptr;
@@ -79,6 +84,17 @@ namespace AZ
 
             Mesh(Umbra::AssetLoad& job);
             ~Mesh();
+
+            Data::Instance<RPI::Model> GetAtomModel()
+            {
+                return m_atomModel;
+            }
+
+            Data::Instance<RPI::Material>  GetAtomMaterial()
+            {
+                return (m_material ? m_material->GetAtomMaterial() : nullptr);
+            }
+
 
         protected:
             Data::Asset<RPI::BufferAsset> CreateBufferAsset(
