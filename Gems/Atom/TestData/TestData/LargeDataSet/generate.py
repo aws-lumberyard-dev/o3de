@@ -2,14 +2,83 @@ import json
 import os
 import random
 
-configMaterialCount = 3
-
 materialConfig_level1_materialCount = 100
-materialConfig_level2_materialCount = 33
+
+materialConfig_level2_materialCountPerBranch = 10
 materialConfig_level2_branchCount = 3
 
-# There must be at least enough materials at each level to support the branch count of the next level
-materialConfig_level1_materialCount = max(materialConfig_level1_materialCount, materialConfig_level2_branchCount)
+materialConfig_level3_materialCountPerBranch = 2
+materialConfig_level3_branchCount = 5
+
+########################################################################################
+
+class MaterialInhertianceLevel:
+
+    def __init__(self, createMaterialCallbackFunction, childCoundPerBranch, branchCount = None):
+        self.branchCount = branchCount
+        self.childCoundPerBranch = childCoundPerBranch
+        self.createMaterialCallbackFunction = createMaterialCallbackFunction
+        self.nextMaterialInhertianceLevel = None
+
+
+    def setNextLevel(self, nextMaterialInhertianceLevel):
+        self.nextMaterialInhertianceLevel = nextMaterialInhertianceLevel
+        
+
+    def generateMaterialFiles(self, materialsFolder):
+        generatedMaterialFilenames = self._generateMaterialFilesInFolder(materialsFolder, self.childCoundPerBranch, 'Materials/Types/StandardPBR.materialtype', '')
+        
+        if self.nextMaterialInhertianceLevel:
+            self.nextMaterialInhertianceLevel._generateChildMaterialFiles(generatedMaterialFilenames)
+
+
+    def _generateChildMaterialFiles(self, upperLevelMaterials):
+
+        for i in range(0, self.branchCount):
+            # When only a few of the upperLevelMaterials are to be parents, we evenly space the selection of those materials to get more variation in their inherited properties
+            maxBranchIndex = self.branchCount - 1
+            parentMaterialIndex = int((len(upperLevelMaterials)-1) * i / maxBranchIndex)
+
+            parentMaterialFilePath = upperLevelMaterials[parentMaterialIndex]
+            parentMaterialFilename = os.path.split(parentMaterialFilePath)[1]
+
+            # The children will go in a folder that has the same name as the parent material
+            childMaterialsFolder = os.path.splitext(parentMaterialFilePath)[0] 
+
+            # We use '/' instead of os.path.join because that's commonly used in o3de json files, even on Windows
+            parentMaterialReferece = '../' + parentMaterialFilename
+
+            childMaterialFilenames = self._generateMaterialFilesInFolder(childMaterialsFolder, self.childCoundPerBranch, 'Materials/Types/StandardPBR.materialtype', parentMaterialReferece)
+            
+            # Recurse to next level of the material inhertiance hierarchy
+            if self.nextMaterialInhertianceLevel:
+                self.nextMaterialInhertianceLevel._generateChildMaterialFiles(childMaterialFilenames)
+
+        
+    def _generateMaterialFilesInFolder(self, folder, howMany, materialType, parentMaterial):
+
+        if(not os.path.exists(folder)):
+            os.mkdir(folder)
+
+        materialFilenameList = []
+
+        for i in range(0, howMany):
+            # The third parameter is a generic factor argument that ranges from 0.0-1.0 as more materials are generated in a single folder; 
+            # each callback can use this factor as it sees fit, or not at all.
+            factor = i / max(howMany-1, 1)
+
+            material = self.createMaterialCallbackFunction(parentMaterial, materialType, factor)
+            jsonText = json.dumps(material, indent='    ')
+
+            filePath = '{}/m{:0>4}.material'.format(folder, i)
+            materialFilenameList.append(filePath)
+
+            with open(filePath, 'w') as f:
+                f.write(jsonText)
+
+        return materialFilenameList
+        
+
         
 ########################################################################################
 # Create Material Functions...
@@ -33,55 +102,12 @@ def createRandomColorMaterial(parentMaterial, materialType, unused):
     
 ########################################################################################
 
-def generateMaterialFiles(inFolder, howMany, materialGeneratorFunction, materialType, parentMaterial):
-
-    if(not os.path.exists(inFolder)):
-        os.mkdir(inFolder)
-
-    materialFilenameList = []
-
-    for i in range(0, howMany):
-        # The third parameter is a generic factor argument that ranges from 0.0-1.0 as more materials are generated in a single folder; 
-        # each callback can use this factor as it sees fit, or not at all.
-        factor = i / max(howMany-1, 1)
-
-        material = materialGeneratorFunction(parentMaterial, materialType, factor)
-        jsonText = json.dumps(material, indent='    ')
-
-        filename = 'm{:0>4}.material'.format(i)
-        materialFilenameList.append(filename)
-
-        with open(os.path.join(inFolder, filename), 'w') as f:
-            f.write(jsonText)
-
-    return materialFilenameList
-
 def askYesNo(question):
     while True:
         print(question + ' (y/n)')
         response = input().lower()
         if(response == 'y'): return True
         if(response == 'n'): return False
-
-
-def generateAllMaterialFiles(materialsFolder):
-
-    level1GeneratedMaterialFilenames = generateMaterialFiles(materialsFolder, materialConfig_level1_materialCount, createRoughnessMaterial, 'Materials/Types/StandardPBR.materialtype', '')
-
-    level2MaterialsPerBranch = int(materialConfig_level2_materialCount / materialConfig_level2_branchCount)
-    for level2BranchIndex in range(0, materialConfig_level2_branchCount):
-        # When only a few of the generated materials are to be parents, we evenly space the selection of those materials to get more variation in their inherited properties
-        maxBranchIndex = materialConfig_level2_branchCount - 1
-        parentMaterialIndex = int((len(level1GeneratedMaterialFilenames)-1) * level2BranchIndex / maxBranchIndex)
-
-        parentMaterialFilename = level1GeneratedMaterialFilenames[parentMaterialIndex]
-
-        level2MaterialsFolder = os.path.join(materialsFolder, parentMaterialFilename)
-        level2MaterialsFolder = os.path.splitext(level2MaterialsFolder)[0]
-
-        level2GeneratedMaterialFilenames = generateMaterialFiles(level2MaterialsFolder, level2MaterialsPerBranch, createRandomColorMaterial, 'Materials/Types/StandardPBR.materialtype', os.path.join('..', parentMaterialFilename))
-
-
 
 def main():
 
@@ -94,9 +120,14 @@ def main():
             return
     else:
         os.mkdir(rootFolder)
+            
+    materialsLevel1 = MaterialInhertianceLevel(createRoughnessMaterial, materialConfig_level1_materialCount)
+    materialsLevel2 = MaterialInhertianceLevel(createRandomColorMaterial, materialConfig_level2_materialCountPerBranch, materialConfig_level2_branchCount)
+    materialsLevel3 = MaterialInhertianceLevel(createRoughnessMaterial, materialConfig_level3_materialCountPerBranch, materialConfig_level3_branchCount)
 
-    generateAllMaterialFiles(os.path.join(rootFolder, 'materials'));
+    materialsLevel1.setNextLevel(materialsLevel2)
+    materialsLevel2.setNextLevel(materialsLevel3)
 
-
+    materialsLevel1.generateMaterialFiles(os.path.join(rootFolder, 'materials'))
 
 main()
