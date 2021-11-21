@@ -52,33 +52,6 @@
                     ]
                 },
                 {
-                    "Name": "LightCullingPass",
-                    "TemplateName": "LightCullingParentNoMSAATemplate",
-                    "Connections": [
-                        {
-                            "LocalSlot": "SkinnedMeshes",
-                            "AttachmentRef": {
-                                "Pass": "SkinningPass",
-                                "Attachment": "SkinnedMeshOutputStream"
-                            }
-                        },
-                        {
-                            "LocalSlot": "Depth",
-                            "AttachmentRef": {
-                                "Pass": "DepthPrePass",
-                                "Attachment": "DepthMSAA"
-                            }
-                        },
-                        {
-                            "LocalSlot": "SwapChainOutput",
-                            "AttachmentRef": {
-                                "Pass": "Parent",
-                                "Attachment": "SwapChainOutput"
-                            }
-                        }
-                    ]
-                },
-                {
                     "Name": "ShadowPass",
                     "TemplateName": "ShadowParentTemplate",
                     "Connections": [
@@ -131,20 +104,6 @@
                                 "Attachment": "ProjectedESM"
                             }
                         },
-                        {
-                            "LocalSlot": "TileLightData",
-                            "AttachmentRef": {
-                                "Pass": "LightCullingPass",
-                                "Attachment": "TileLightData"
-                            }
-                        },
-                        {
-                            "LocalSlot": "LightListRemapped",
-                            "AttachmentRef": {
-                                "Pass": "LightCullingPass",
-                                "Attachment": "LightListRemapped"
-                            }
-                        },
                         // Input/Outputs...
                         {
                             "LocalSlot": "DepthStencilInputOutput",
@@ -160,6 +119,14 @@
                         "PipelineViewTag": "MainCamera",
                         "PassSrgShaderAsset": {
                             "FilePath": "Shaders/ForwardPassSrg.shader"
+                        },
+                        "Viewport": {
+                            "m_minX": 0.0,
+                            "m_maxX": 1632.0,
+                            "m_minY": 0.0,
+                            "m_maxY": 901.85,
+                            "m_minZ": 0.0,
+                            "m_maxZ": 1.0
                         }
                     }
                 },
@@ -227,20 +194,6 @@
                             "AttachmentRef": {
                                 "Pass": "ShadowPass",
                                 "Attachment": "ProjectedESM"
-                            }
-                        },
-                        {
-                            "LocalSlot": "TileLightData",
-                            "AttachmentRef": {
-                                "Pass": "LightCullingPass",
-                                "Attachment": "TileLightData"
-                            }
-                        },
-                        {
-                            "LocalSlot": "LightListRemapped",
-                            "AttachmentRef": {
-                                "Pass": "LightCullingPass",
-                                "Attachment": "LightListRemapped"
                             }
                         },
                         {

@@ -32,6 +32,10 @@
                         "Source": {
                             "Pass": "Parent",
                             "Attachment": "SwapChainOutput"
+                        },
+                        "Multipliers":{
+                            "WidthMultiplier" : "0.85",
+                            "HeightMultiplier": "0.85"
                         }
                     },
                     "MultisampleSource": {
