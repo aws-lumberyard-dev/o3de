@@ -229,14 +229,6 @@ namespace AZ
             AZ_PROFILE_FUNCTION(AzRender);
         }
 
-        void AtomSceneStreamFeatureProcessor::OnRenderPipelineRemoved([[maybe_unused]] RPI::RenderPipeline* renderPipeline)
-        {
-        }
-
-        void AtomSceneStreamFeatureProcessor::OnRenderPipelinePassesChanged([[maybe_unused]] RPI::RenderPipeline* renderPipeline)
-        {
-        }
-
         // AssetLoad tells that an asset should be loaded into GPU. This function loads a single asset
         bool AtomSceneStreamFeatureProcessor::LoadStreamedAssets()
         {

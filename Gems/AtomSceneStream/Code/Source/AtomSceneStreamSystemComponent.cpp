@@ -9,6 +9,8 @@
 
 #include <AtomSceneStreamFeatureProcessor.h>
 
+#pragma optimize("", off)
+
 namespace AZ
 {
     namespace AtomSceneStream
@@ -30,6 +32,8 @@ namespace AZ
                         ;
                 }
             }
+
+            AtomSceneStreamFeatureProcessor::Reflect(context);
         }
 
         void AtomSceneStreamSystemComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
@@ -74,7 +78,7 @@ namespace AZ
         void AtomSceneStreamSystemComponent::Activate()
         {
             // Feature processor
-            RPI::FeatureProcessorFactory::Get()->RegisterFeatureProcessor<AtomSceneStream::AtomSceneStreamFeatureProcessor>();
+            RPI::FeatureProcessorFactory::Get()->RegisterFeatureProcessor<AZ::AtomSceneStream::AtomSceneStreamFeatureProcessor>();
 
             AtomSceneStreamRequestBus::Handler::BusConnect();
             TickBus::Handler::BusConnect();
@@ -82,7 +86,7 @@ namespace AZ
 
         void AtomSceneStreamSystemComponent::Deactivate()
         {
-            RPI::FeatureProcessorFactory::Get()->UnregisterFeatureProcessor<AtomSceneStream::AtomSceneStreamFeatureProcessor>();
+            RPI::FeatureProcessorFactory::Get()->UnregisterFeatureProcessor<AZ::AtomSceneStream::AtomSceneStreamFeatureProcessor>();
 
             TickBus::Handler::BusDisconnect();
             AtomSceneStreamRequestBus::Handler::BusDisconnect();
@@ -95,3 +99,4 @@ namespace AZ
     } // namespace AtomSceneStream
 }
 
+#pragma optimize("", on)

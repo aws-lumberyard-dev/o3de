@@ -136,15 +136,7 @@ namespace AZ
         //======================================================================
         //                              Mesh
         //======================================================================
-        Name Mesh::s_PositionName = Name("UmbraMeshPositionBuffer");
-        Name Mesh::s_NormalName = Name("UmbraMeshNormalBuffer");
-        Name Mesh::s_TangentName = Name("UmbraMeshTangentBuffer");
-        Name Mesh::s_UVName = Name("UmbraMeshUVBuffer");
-        Name Mesh::s_IndicesName = Name("UmbraMeshIndexBuffer");
-        uint32_t Mesh::s_modelNumber = 0;
-
-
-        Data::Asset<RPI::BufferAsset> Mesh::CreateBufferAsset(
+            Data::Asset<RPI::BufferAsset> Mesh::CreateBufferAsset(
             const void* data,
             const RHI::BufferViewDescriptor& bufferViewDescriptor,
             const AZStd::string& bufferName
@@ -178,7 +170,7 @@ namespace AZ
             RPI::ModelAssetCreator modelAssetCreator;
             Uuid modelId = Uuid::CreateRandom();
             modelAssetCreator.Begin(Uuid::CreateRandom());
-            modelAssetCreator.SetName("AtomSceneStreamModel");// _" + modelId.m_guid.ToString<AZStd::string>()));
+            modelAssetCreator.SetName( "AtomSceneStreamModel" );// _" + modelId.m_guid.ToString<AZStd::string>()));
 
             {
                 // Vertex Buffer Streams
@@ -212,16 +204,16 @@ namespace AZ
 
                 modelLodAssetCreator.BeginMesh();
                 {
-                    modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "POSITION" }, s_PositionName, RPI::BufferAssetView{ positionsAsset, positionDesc });
-                    modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "NORMAL" }, s_NormalName, RPI::BufferAssetView{ normalsAsset, normalDesc });
-                    modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "TANGENT" }, s_TangentName, RPI::BufferAssetView{ tangentsAsset, tangentDesc });
-                    modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "UV" }, s_UVName, RPI::BufferAssetView{ uvAsset, uvDesc });
+                    modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "POSITION" }, PositionName, RPI::BufferAssetView{ positionsAsset, positionDesc });
+                    modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "NORMAL" }, NormalName, RPI::BufferAssetView{ normalsAsset, normalDesc });
+                    modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "TANGENT" }, TangentName, RPI::BufferAssetView{ tangentsAsset, tangentDesc });
+                    modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "UV" }, UVName, RPI::BufferAssetView{ uvAsset, uvDesc });
                     modelLodAssetCreator.SetMeshIndexBuffer({ indicesAsset, indexBufferViewDesc });
 
                     Aabb localAabb = Aabb::CreateCenterHalfExtents(Vector3(0.0f, 0.0f, 0.0f), Vector3(999999.0f, 999999.0f, 999999.0f));
                     modelLodAssetCreator.SetMeshAabb(AZStd::move(localAabb));
 
-                    modelLodAssetCreator.SetMeshName(Name("AtomSceneStreamModel")); // _ % 5d", s_modelNumber));
+                    modelLodAssetCreator.SetMeshName(Name{ "AtomSceneStreamModel" }); // _ % 5d", s_modelNumber));
                 }
 
                 // Here add the material:
@@ -257,12 +249,19 @@ namespace AZ
             return m_atomModel ? true : false;
         }
 
+        uint32_t Mesh::s_modelNumber = 0;
 
         // Good examples:
         // 1. GltfTrianglePrimitiveBuilder::Create(
         // 2. CreateModelFromProceduralSkinnedMesh
         Mesh::Mesh(Umbra::AssetLoad& job)
         {
+            PositionName = Name {"UmbraMeshPositionBuffer" };
+            NormalName = Name {"UmbraMeshNormalBuffer" };
+            TangentName = Name {"UmbraMeshTangentBuffer" };
+            UVName = Name {"UmbraMeshUVBuffer" };
+            IndicesName = Name {"UmbraMeshIndexBuffer" };
+
             Umbra::MeshInfo info = job.getMeshInfo();
             ++s_modelNumber;
 

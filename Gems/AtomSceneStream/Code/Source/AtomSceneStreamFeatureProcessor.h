@@ -33,7 +33,7 @@ namespace AZ
             , private AZ::TickBus::Handler
         {
         public:
-            AZ_RTTI(AZ::AtomSceneStreamFeatureProcessor, "{04AF8DF3-CF8B-478B-B52A-050B7161844D}", RPI::FeatureProcessor);
+            AZ_RTTI(AtomSceneStreamFeatureProcessor, "{04AF8DF3-CF8B-478B-B52A-050B7161844D}", RPI::FeatureProcessor);
 
             static void Reflect(AZ::ReflectContext* context);
 
@@ -51,9 +51,9 @@ namespace AZ
             int GetTickOrder() override;
 
             // RPI::SceneNotificationBus overrides ...
-            void OnRenderPipelineAdded(RPI::RenderPipelinePtr renderPipeline) override;
-            void OnRenderPipelineRemoved(RPI::RenderPipeline* renderPipeline) override;
-            void OnRenderPipelinePassesChanged(RPI::RenderPipeline* renderPipeline) override;
+//            void OnRenderPipelineAdded(RPI::RenderPipelinePtr renderPipeline) override;
+//            void OnRenderPipelineRemoved(RPI::RenderPipeline* renderPipeline) override;
+//            void OnRenderPipelinePassesChanged(RPI::RenderPipeline* renderPipeline) override;
 
             // Umbra driven functionality
             bool RestartUmbraClient();

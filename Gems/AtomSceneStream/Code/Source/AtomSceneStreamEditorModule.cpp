@@ -2,6 +2,8 @@
 #include <AtomSceneStreamModuleInterface.h>
 #include <AtomSceneStreamEditorSystemComponent.h>
 
+#pragma optimize("", off)
+
 namespace AZ
 {
     namespace AtomSceneStream
@@ -10,7 +12,7 @@ namespace AZ
             : public AtomSceneStreamModuleInterface
         {
         public:
-            AZ_RTTI(AtomSceneStreamEditorModule, "{37a6ac37-5b31-4431-b01b-41606b1386b5}", AtomSceneStreamModuleInterface);
+            AZ_RTTI(AtomSceneStreamEditorModule, "{88FB772B-2C06-43E6-A56C-01E4F84C0326}", AtomSceneStreamModuleInterface);
             AZ_CLASS_ALLOCATOR(AtomSceneStreamEditorModule, AZ::SystemAllocator, 0);
 
             AtomSceneStreamEditorModule()
@@ -37,6 +39,8 @@ namespace AZ
         };
     } // namespace AtomSceneStream
 
-    AZ_DECLARE_MODULE_CLASS(Gem_AtomSceneStream, AtomSceneStream::AtomSceneStreamEditorModule)
+    AZ_DECLARE_MODULE_CLASS(Gem_AtomSceneStream, AZ::AtomSceneStream::AtomSceneStreamEditorModule)
 }
+
+#pragma optimize("", on)
 

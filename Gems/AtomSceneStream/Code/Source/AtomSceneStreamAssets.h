@@ -75,11 +75,12 @@ namespace AZ
         class Mesh
         {
         public:
-            static Name s_PositionName;
-            static Name s_NormalName;
-            static Name s_TangentName;
-            static Name s_UVName;
-            static Name s_IndicesName;
+            Name PositionName;
+            Name NormalName;
+            Name TangentName;
+            Name UVName;
+            Name IndicesName;
+
             static uint32_t s_modelNumber;
 
             Mesh(Umbra::AssetLoad& job);
