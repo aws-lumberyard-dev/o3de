@@ -178,7 +178,7 @@ PbrLightingOutput ForwardPassPS_Common(VSOutput IN, bool isFrontFace, out float 
 
     float2 roughnessUv = IN.m_uv[MaterialSrg::m_roughnessMapUvIndex];
     surface.roughnessLinear = GetRoughnessInput(MaterialSrg::m_roughnessMap, MaterialSrg::m_sampler, roughnessUv, MaterialSrg::m_roughnessFactor,
-                                        MaterialSrg::m_roughnessLowerBound, MaterialSrg::m_roughnessUpperBound, o_roughness_useTexture);
+                                        half(MaterialSrg::m_roughnessLowerBound, MaterialSrg::m_roughnessUpperBound, o_roughness_useTexture);
     surface.CalculateRoughnessA();
 
     // ------- Lighting Data -------
@@ -369,9 +369,32 @@ PbrLightingOutputHalf ForwardPassPS_CommonHalf(VSOutput IN, bool isFrontFace, ou
 
     // ------- Roughness -------
 
-    half2 roughnessUv = IN.m_uv[MaterialSrg::m_roughnessMapUvIndex];
-    surface.roughnessLinear = GetRoughnessInputHalf(MaterialSrg::m_roughnessMap, MaterialSrg::m_sampler, roughnessUv, MaterialSrg::m_roughnessFactor,
-                                        MaterialSrg::m_roughnessLowerBound, MaterialSrg::m_roughnessUpperBound, o_roughness_useTexture);
+    float2 roughnessUv = IN.m_uv[MaterialSrg::m_roughnessMapUvIndex];
+#if 0
+    float roughnessLinear = GetRoughnessInput(
+        MaterialSrg::m_roughnessMap, 
+        MaterialSrg::m_sampler, 
+        roughnessUv, 
+        MaterialSrg::m_roughnessFactor,
+        MaterialSrg::m_roughnessLowerBound, 
+        MaterialSrg::m_roughnessUpperBound, 
+        o_roughness_useTexture);
+    
+    float roughnessA = roughnessLinear * roughnessLinear;
+    float roughnessA2 = roughnessA * roughnessA;
+    surface.roughnessLinear = half(roughnessLinear);
+    surface.roughnessA = half(roughnessA);
+    surface.roughnessA2 = half(min(max(roughnessA2, 1.0f), 0.001f));
+#endif // #if 0
+
+    surface.roughnessLinear = GetRoughnessInputHalf(
+        MaterialSrg::m_roughnessMap, 
+        MaterialSrg::m_sampler, 
+        half2(roughnessUv), 
+        half(MaterialSrg::m_roughnessFactor),
+        half(MaterialSrg::m_roughnessLowerBound), 
+        half(MaterialSrg::m_roughnessUpperBound), o_roughness_useTexture);
+
     surface.CalculateRoughnessA();
 
     // ------- Lighting Data -------
@@ -464,7 +487,17 @@ ForwardPassOutputWithDepth StandardPbr_ForwardPassPS(VSOutput IN, bool isFrontFa
     PbrLightingOutputHalf lightingOutput = ForwardPassPS_CommonHalf(IN, isFrontFace, depth);
 
 #ifdef UNIFIED_FORWARD_OUTPUT
-    OUT.m_color.rgb = float3(lightingOutput.m_diffuseColor.rgb + lightingOutput.m_specularColor.rgb);
+    half3 clampedSpecular = half3(
+        min(max(lightingOutput.m_specularColor.r, 0.0h), 1.0h),
+        min(max(lightingOutput.m_specularColor.g, 0.0h), 1.0h),
+        min(max(lightingOutput.m_specularColor.b, 0.0h), 1.0h));
+
+    half3 clampedDiffuse = half3(
+        min(max(lightingOutput.m_diffuseColor.r, 0.0h), 1.0h),
+        min(max(lightingOutput.m_diffuseColor.g, 0.0h), 1.0h),
+        min(max(lightingOutput.m_diffuseColor.b, 0.0h), 1.0h));
+
+    OUT.m_color.rgb = float3(clampedDiffuse + clampedSpecular);
     OUT.m_color.a = float(lightingOutput.m_diffuseColor.a);
     OUT.m_depth = depth;
 #else
@@ -487,7 +520,17 @@ ForwardPassOutput StandardPbr_ForwardPassPS_EDS(VSOutput IN, bool isFrontFace : 
     PbrLightingOutputHalf lightingOutput = ForwardPassPS_CommonHalf(IN, isFrontFace, depth);
 
 #ifdef UNIFIED_FORWARD_OUTPUT
-    OUT.m_color.rgb = float3(lightingOutput.m_diffuseColor.rgb + lightingOutput.m_specularColor.rgb);
+    half3 clampedSpecular = half3(
+        min(max(lightingOutput.m_specularColor.r, 0.0h), 1.0h),
+        min(max(lightingOutput.m_specularColor.g, 0.0h), 1.0h),
+        min(max(lightingOutput.m_specularColor.b, 0.0h), 1.0h));
+
+    half3 clampedDiffuse = half3(
+        min(max(lightingOutput.m_diffuseColor.r, 0.0h), 1.0h),
+        min(max(lightingOutput.m_diffuseColor.g, 0.0h), 1.0h),
+        min(max(lightingOutput.m_diffuseColor.b, 0.0h), 1.0h));
+
+    OUT.m_color.rgb = float3(clampedDiffuse + clampedSpecular);
     OUT.m_color.a = float(lightingOutput.m_diffuseColor.a);
 #else
     OUT.m_diffuseColor = float4(lightingOutput.m_diffuseColor);

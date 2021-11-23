@@ -58,6 +58,17 @@ float3 GetSpecularLighting(Surface surface, LightingData lightingData, const flo
     return specular;
 }
 
+//! Simple Lambertian BRDF. 
+half3 DiffuseLambertianHalf(
+    half3 albedo, 
+    half3 normal, 
+    half3 dirToLight, 
+    half diffuseResponse)
+{
+    half NdotL = saturate(dot(normal, dirToLight));
+    return albedo * NdotL * 0.31830988h * diffuseResponse;
+}
+
 // Then define the Diffuse and Specular lighting functions
 half3 GetDiffuseLightingHalf(
     Surface surface, 
@@ -75,6 +86,76 @@ half3 GetDiffuseLightingHalf(
     diffuse *= lightIntensity;
     return diffuse;
 }
+
+half3 FresnelSchlickHalf(
+    const half HdotV, 
+    const half3 F0)
+{
+    return FresnelSchlickF90Half(HdotV, F0, 1.0h);
+}
+
+half3 FresnelSchlickWithRoughnessHalf(
+    const half NdotV, 
+    const half3 specularF0, 
+    const half roughness)
+{
+    half smoothness = 1.0h - roughness;
+    half3 F0 = specularF0;
+
+    return F0 + (max(smoothness, F0) - F0) * pow(1.0h - saturate(NdotV), 5.0h);
+}
+
+half GeometricShadowingMaskingGGXCorrelatedHalf(
+    const half NdotV, 
+    const half NdotL, 
+    const half roughnessA2)
+{
+    // See Frostbite PBR guide (page 12)
+    // https://media.contentapi.ea.com/content/dam/eacom/frostbite/files/course-notes-moving-frostbite-to-pbr-v32.pdf
+    half ggxV = NdotL * sqrt((-NdotV * roughnessA2 + NdotV) * NdotV + roughnessA2);
+    half ggxL = NdotV * sqrt((-NdotL * roughnessA2 + NdotL) * NdotL + roughnessA2);
+    return 0.5h / max(ggxV + ggxL, 1e-4h);
+}
+
+half NormalDistributionGGXHalf(
+    const half NdotH, 
+    const half roughnessA2)
+{
+    half roughnessClamped = max(roughnessA2, 0.0001h);
+
+    // Walter equation 33, simplified given that the positive characteristic function is handled elsewhere
+    half b = (NdotH * roughnessClamped - NdotH) * NdotH + 1.0h;
+    half bClamped = max(b, 0.0001h);
+    return roughnessClamped / (3.14159h * bClamped * bClamped);
+}
+
+half3 SpecularGGXHalf( 
+    half3 dirToCamera, 
+    half3 dirToLight, 
+    half3 normal, 
+    half3 specularF0, 
+    half NdotV, 
+    half roughnessA2, 
+    half3 multiScatterCompensation )
+{
+    half3 halfVector = normalize(dirToLight + dirToCamera);
+    half NdotH = saturate(dot(normal, halfVector));
+    half NdotL = saturate(dot(normal, dirToLight));
+    half HdotV = saturate(dot(halfVector, dirToCamera)); // Note that HdotL = HdotV, so we don't need to calculate both
+
+    // D, G and F from the lighting equation
+    // Note: the division by (4.0 * NdotL * NdotV) is already factored out in the G function as an optimization
+    half D = NormalDistributionGGXHalf(NdotH, roughnessA2);
+    half G = GeometricShadowingMaskingGGXCorrelatedHalf(NdotV, NdotL, roughnessA2);
+    half3 F = FresnelSchlickHalf(HdotV, specularF0);
+
+    D = max(0.0h, D);
+    G = max(0.0h, G);
+
+    // Multiply with multiscattering compensation in order to take account for several specular light bounces.
+    return multiScatterCompensation * (D * G * F * NdotL);
+}
+
 
 half3 GetSpecularLightingHalf(Surface surface, LightingData lightingData, const half3 lightIntensity, const half3 dirToLight)
 {

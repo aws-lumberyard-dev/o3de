@@ -40,15 +40,6 @@ float NormalDistributionGGX(const float NdotH, const float roughnessA2)
     return roughnessA2 / (PI * b * b);
 }
 
-half NormalDistributionGGXHalf(
-    const half NdotH, 
-    const half roughnessA2)
-{
-    // Walter equation 33, simplified given that the positive characteristic function is handled elsewhere
-    half b = (NdotH * roughnessA2 - NdotH) * NdotH + 1.0h;
-    return roughnessA2 / (3.14159h * b * b);
-}
-
 //! (G) Geometric Shadowing and Masking Distribution function for GGX
 //! Variant with height correlated Smith
 //!
@@ -65,19 +56,6 @@ float GeometricShadowingMaskingGGXCorrelated(const float NdotV, const float Ndot
     float ggxL = NdotV * sqrt((-NdotL * roughnessA2 + NdotL) * NdotL + roughnessA2);
     return 0.5f / max(ggxV + ggxL, GGX_EPSILON);
 }
-
-half GeometricShadowingMaskingGGXCorrelatedHalf(
-    const half NdotV, 
-    const half NdotL, 
-    const half roughnessA2)
-{
-    // See Frostbite PBR guide (page 12)
-    // https://media.contentapi.ea.com/content/dam/eacom/frostbite/files/course-notes-moving-frostbite-to-pbr-v32.pdf
-    half ggxV = NdotL * sqrt((-NdotV * roughnessA2 + NdotV) * NdotV + roughnessA2);
-    half ggxL = NdotV * sqrt((-NdotL * roughnessA2 + NdotL) * NdotL + roughnessA2);
-    return 0.5h / max(ggxV + ggxL, GGX_EPSILON);
-}
-
 
 // ------- Anisotropic GGX -------
 

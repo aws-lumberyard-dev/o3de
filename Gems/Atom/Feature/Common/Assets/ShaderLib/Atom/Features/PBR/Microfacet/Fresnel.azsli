@@ -36,14 +36,6 @@ float3 FresnelSchlick(const float HdotV, const float3 F0)
     return FresnelSchlickF90(HdotV, F0, 1.0f);
 }
 
-half3 FresnelSchlickHalf(
-    const half HdotV, 
-    const half3 F0)
-{
-    return FresnelSchlickF90Half(HdotV, F0, 1.0h);
-}
-
-
 //! Calculate fresnel reflectance using the Schlick method, taking roughness into account.
 //! We need to take into account roughness with fresnel when sampling from an environment map,
 //! as the halfway vector used to sample the BRDF (and generate the environment map) is also
@@ -60,16 +52,5 @@ float3 FresnelSchlickWithRoughness(const float NdotV, const float3 specularF0, c
     float3 F0 = specularF0;
 
     return F0 + (max(smoothness, F0) - F0) * pow(1.0 - saturate(NdotV), 5.0f);
-}
-
-half3 FresnelSchlickWithRoughnessHalf(
-    const half NdotV, 
-    const half3 specularF0, 
-    const half roughness)
-{
-    half smoothness = 1.0h - roughness;
-    half3 F0 = specularF0;
-
-    return F0 + (max(smoothness, F0) - F0) * pow(1.0h - saturate(NdotV), 5.0h);
 }
 

@@ -86,9 +86,9 @@ half3 GetDiffuseLightingHalf(Surface surface, LightingData lightingData, half3 l
         diffuse = NormalizedDisneyDiffuse(surface.albedo, surface.normal, lightingData.dirToCamera, dirToLight, surface.roughnessLinear);
     }
     else*/
-    {
-        diffuse = DiffuseLambertianHalf(half3(surface.albedo), half3(surface.normal), half3(dirToLight), half(lightingData.diffuseResponse.x));
-    }
+    //{
+    //    diffuse = DiffuseLambertianHalf(half3(surface.albedo), half3(surface.normal), half3(dirToLight), half(lightingData.diffuseResponse.x));
+    //}
 
     /*if(o_clearCoat_feature_enabled)
     {
@@ -110,9 +110,9 @@ half3 GetSpecularLightingHalf(Surface surface, LightingData lightingData, const 
                        surface.specularF0, lightingData.NdotV, lightingData.multiScatterCompensation );
     }
     else*/
-    {
-        specular = SpecularGGXHalf(half3(lightingData.dirToCamera), half3(dirToLight), half3(surface.normal), half3(surface.specularF0), half(lightingData.NdotV), half(surface.roughnessA2), half3(lightingData.multiScatterCompensation));
-    }
+    //{
+    //    specular = SpecularGGXHalf(half3(lightingData.dirToCamera), half3(dirToLight), half3(surface.normal), half3(surface.specularF0), half(lightingData.NdotV), half(surface.roughnessA2), half3(lightingData.multiScatterCompensation));
+    //}
 
     /*if(o_clearCoat_feature_enabled)
     {

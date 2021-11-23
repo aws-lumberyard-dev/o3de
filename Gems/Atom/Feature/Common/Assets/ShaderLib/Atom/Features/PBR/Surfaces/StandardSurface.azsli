@@ -137,7 +137,7 @@ void Surface::CalculateRoughnessA()
     // equations need roughnessLinear (i.e. IBL sampling) while others need roughnessA (i.e. GGX equations).
     // See Burley's Disney PBR: https://pdfs.semanticscholar.org/eeee/3b125c09044d3e2f58ed0e4b1b66a677886d.pdf
 
-    roughnessA = max(roughnessLinear * roughnessLinear, MinRoughnessA);
+    roughnessA = min(max(roughnessLinear * roughnessLinear, 0.0005h), 1.0h);
 
     roughnessA2 = roughnessA * roughnessA;
     /*if(o_applySpecularAA)

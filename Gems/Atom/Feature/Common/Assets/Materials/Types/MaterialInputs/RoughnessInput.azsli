@@ -50,7 +50,8 @@ half GetRoughnessInputHalf(
     // [GFX TODO][ATOM-1793]: Figure out how we want our base material to expect channels to be encoded, and apply that to the way we pack roughness.
     if (useTexture)
     {
-        half sampledValue = map.Sample(mapSampler, uv).r;
+        half sampledValue = half(map.Sample(mapSampler, uv).r);
+        sampledValue = min(max(sampledValue, 0.0h), 1.0h);
         return lerp(roughnessLowerBound, roughnessUpperBound, sampledValue);
     }
     else

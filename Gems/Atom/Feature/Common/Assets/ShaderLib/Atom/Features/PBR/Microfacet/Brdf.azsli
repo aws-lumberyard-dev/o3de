@@ -28,17 +28,6 @@ float3 DiffuseLambertian(float3 albedo, float3 normal, float3 dirToLight, float 
     return albedo * NdotL * INV_PI * diffuseResponse;
 }
 
-//! Simple Lambertian BRDF. 
-half3 DiffuseLambertianHalf(
-    half3 albedo, 
-    half3 normal, 
-    half3 dirToLight, 
-    half diffuseResponse)
-{
-    half NdotL = saturate(dot(normal, dirToLight));
-    return albedo * NdotL * 0.31830988h * diffuseResponse;
-}
-
 // Normalized Disney diffuse function taken from Frostbite's PBR course notes (page 10):
 // https://media.contentapi.ea.com/content/dam/eacom/frostbite/files/course-notes-moving-frostbite-to-pbr-v32.pdf
 float3 NormalizedDisneyDiffuse(float3 albedo, float3 normal, float3 dirToCamera, float3 dirToLight, float roughnessLinear)
@@ -114,35 +103,6 @@ float3 SpecularGGX( float3 dirToCamera, float3 dirToLight, float3 normal, float3
     // Multiply with multiscattering compensation in order to take account for several specular light bounces.
     return multiScatterCompensation * (D * G * F * NdotL);
 }
-
-half3 SpecularGGXHalf( 
-    half3 dirToCamera, 
-    half3 dirToLight, 
-    half3 normal, 
-    half3 specularF0, 
-    half NdotV, 
-    half roughnessA2, 
-    half3 multiScatterCompensation )
-{
-    half3 halfVector = normalize(dirToLight + dirToCamera);
-    half NdotH = saturate(dot(normal, halfVector));
-    half NdotL = saturate(dot(normal, dirToLight));
-    half HdotV = saturate(dot(halfVector, dirToCamera)); // Note that HdotL = HdotV, so we don't need to calculate both
-
-    // D, G and F from the lighting equation
-    // Note: the division by (4.0 * NdotL * NdotV) is already factored out in the G function as an optimization
-    half D = NormalDistributionGGXHalf(NdotH, roughnessA2);
-    half G = GeometricShadowingMaskingGGXCorrelatedHalf(NdotV, NdotL, roughnessA2);
-    half3 F = FresnelSchlickHalf(HdotV, specularF0);
-
-    D = max(0.0h, D);
-    G = max(0.0h, G);
-
-    // Multiply with multiscattering compensation in order to take account for several specular light bounces.
-    return multiScatterCompensation * (D * G * F * NdotL);
-}
-
-
 
 float3 AnisotropicGGX( float3 dirToCamera, float3 dirToLight, float3 normal, float3 tangent, float3 bitangent, float2 anisotropyFactors,
                        float3 specularF0, float NdotV, float3 multiScatterCompensation )
