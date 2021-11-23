@@ -109,7 +109,7 @@ namespace AZ
             int m_vertexCount = 0;
             int m_indexCount = 0;
             int m_indexBytes = 0;
-            Material* m_material = nullptr;   // [Adi] - this can probably go away.
+            Material* m_material = nullptr;
             bool m_isShaded = false;
 
             // VB streams and IB buffer combined - temporary for GPU buffer creation 

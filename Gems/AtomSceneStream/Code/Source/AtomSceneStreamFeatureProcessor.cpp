@@ -4,6 +4,7 @@
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Debug/EventTrace.h>
 
+#include <AzCore/Math/MatrixUtils.h>
 #include <AzCore/Math/Matrix3x4.h>
 #include <AzCore/Math/Matrix4x4.h>
 #include <AzCore/Math/Transform.h>
@@ -41,7 +42,18 @@ namespace AZ
         {
             const char* apiKey = "";   // in our case should be empty string as per the mail
             // Replace the following with data from a component
-            const char* locator = "v=1&project=atom%40amazon.com&model=874639baa2218cf4f35019d0dca45c1f4a3435e4&version=default&endpoint=https%3A%2F%2Fhorizon-api-stag.hazel.dex.robotics.a2z.com%2F";
+            const char* locator = nullptr;
+
+            [[maybe_unused]] const char* orgLocator =
+                "v=1&project=atom%40amazon.com&model=874639baa2218cf4f35019d0dca45c1f4a3435e4&version=default&endpoint=https%3A%2F%2Fhorizon-api-stag.hazel.dex.robotics.a2z.com%2F";
+            // Porsche model
+            [[maybe_unused]] const char* porscheLocator =
+                "v=1&project=atom%40amazon.com&model=porsche-918-spyder-20211119_121403&version=-991378590&endpoint=https%3A%2F%2Fhorizon-api-stag.hazel.dex.robotics.a2z.com%2F";
+            //Bentley model
+            [[maybe_unused]] const char* bentleyLocator =
+                "v=1&project=atom%40amazon.com&model=bentley-flying-spur-2020-20211119_124412&version=-386855994&endpoint=https%3A%2F%2Fhorizon-api-stag.hazel.dex.robotics.a2z.com%2F";
+
+            locator = porscheLocator;
 
             // Create a Client
             m_client = new Umbra::Client("RuntimeSample");
@@ -135,36 +147,61 @@ namespace AZ
                 return;
 
 //            ++m_currentFrame;
-            // run the streaming load for 10 msec - ideally this should be done on another thread!
-            HandleAssetsStreaming(0.01f);   
+            // run the streaming load for 20 msec - ideally this should be done on another thread!
+            HandleAssetsStreaming(0.05f);
 
-            Umbra::ViewInfo viewInfo;
 
+            //----------------- Camera Transform Matrix ------------------
             AZ::Transform activeCameraTransform;
-            Camera::ActiveCameraRequestBus::BroadcastResult(
-                activeCameraTransform,
-                &Camera::ActiveCameraRequestBus::Events::GetActiveCameraTransform
-            );
+            Camera::ActiveCameraRequestBus::BroadcastResult(activeCameraTransform,
+                &Camera::ActiveCameraRequestBus::Events::GetActiveCameraTransform);
             const AZ::Matrix4x4 cameraMatrix = AZ::Matrix4x4::CreateFromTransform(activeCameraTransform);
 
+            //--------------- Camera Projection Matrix -------------------
+            Camera::Configuration config;
+            Camera::ActiveCameraRequestBus::BroadcastResult(config,
+                &Camera::ActiveCameraRequestBus::Events::GetActiveCameraConfiguration);
 
-            /*
-                m_originalPipeline->GetDefaultView()
+            float nearDist = config.m_nearClipDistance;
+            float farDist = config.m_farClipDistance;
+            float aspectRatio = config.m_frustumWidth / config.m_frustumHeight;
+            Matrix4x4 viewToClipMatrix;
+            MakePerspectiveFovMatrixRH(viewToClipMatrix, config.m_fovRadians, aspectRatio, nearDist, farDist);
 
-                // Update View and Runtime with new camera
 
-                Eigen::Matrix4f worldToClip = camera.getProjection() * camera.getCameraMatrix();
-                UmbraFloat4_4 umbraWorldToClip = toUmbra(worldToClip);
-                UmbraFloat3 umbraCamera = toUmbra(camera.getCameraPosition());
+            //---------- Setting the ViewInfo for the streaming data query -----------
+            // Camera position
+            Vector3 cameraPos = cameraMatrix.GetTranslation();
+            UmbraFloat3 umbraCamera;
+            umbraCamera.v[0] = cameraPos.GetX();
+            umbraCamera.v[1] = cameraPos.GetY();
+            umbraCamera.v[2] = cameraPos.GetZ();
 
-                Umbra::ViewInfo viewInfo;
-                viewInfo.cameraWorldToClip = &umbraWorldToClip;
-                viewInfo.cameraPosition = &umbraCamera;
-                viewInfo.cameraDepthRange = UmbraDepthRange_MinusOneToOne;
-                viewInfo.cameraMatrixFormat = UmbraMatrixFormat_ColumnMajor;
-                viewInfo.quality = g_quality;
-                view.setCamera(viewInfo);
-            */
+            // Camera View-Projection
+            AZ::Matrix4x4 worldToClip = viewToClipMatrix * cameraMatrix;
+            UmbraFloat4_4 umbraWorldToClip;
+            worldToClip.StoreToColumnMajorFloat16((float*)&umbraWorldToClip.v[0]);
+
+            // The data 
+            Umbra::ViewInfo viewInfo;
+            viewInfo.cameraWorldToClip = &umbraWorldToClip;
+            viewInfo.cameraPosition = &umbraCamera;
+            viewInfo.cameraDepthRange = UmbraDepthRange_MinusOneToOne;
+            viewInfo.cameraMatrixFormat = UmbraMatrixFormat_ColumnMajor;
+            viewInfo.quality = 1.0f;// g_quality;
+            m_view.setCamera(viewInfo);
+
+/*
+* //            m_targetView = scene.GetDefaultRenderPipeline()->GetDefaultView();
+* 
+            AZ::EntityId activeCameraId;
+            Camera::CameraSystemRequestBus::BroadcastResult(activeCameraId, &Camera::CameraSystemRequests::GetActiveCamera);
+            if (activeCameraId.IsValid())
+            {
+                AZ::TransformBus::EventResult(cameraPosition, activeCameraId, &AZ::TransformInterface::GetWorldTranslation);
+                cameraPositionIsValid = true;
+            }
+*/
 
             if (!m_meshFeatureProcessor)
             {
@@ -182,15 +219,15 @@ namespace AZ
 
                 for (int i = 0; i < num; i++)
                 {
-                    //                    Eigen::Matrix4f transform = Eigen::Map<Eigen::Matrix4f>(&batch[i].transform.v[0].v[0]);
-                    //
-                    //                    // Color this mesh based on LOD level if requested
-                    //                    Eigen::Vector4f color = Eigen::Vector4f::Zero();
-                    //                    if (debugColors)
-                    //                    {
-                    //                        int level = batch[i].lodLevel;
-                    //                        color = getLODColor(level).homogeneous();
-                    //                    }
+//                    Eigen::Matrix4f transform = Eigen::Map<Eigen::Matrix4f>(&batch[i].transform.v[0].v[0]);
+//
+//                    // Color this mesh based on LOD level if requested
+//                    Eigen::Vector4f color = Eigen::Vector4f::Zero();
+//                    if (debugColors)
+//                    {
+//                        int level = batch[i].lodLevel;
+//                        color = getLODColor(level).homogeneous();
+//                    }
 
                     AtomSceneStream::Mesh* currentMesh = (AtomSceneStream::Mesh*)batch[i].mesh;
                     if (!currentMesh)
@@ -209,13 +246,13 @@ namespace AZ
                     const AZ::Vector3 nonUniformScale(1.0f, 1.0f, 1.0f);
                     m_meshFeatureProcessor->SetTransform(meshHandle, modelTransform, nonUniformScale);
 
-                    //                    renderMesh(
-                    //                        camera.getCameraPosition(),
-                    //                        camera.getProjection(),
-                    //                        transform * camera.getCameraMatrix(),
-                    //                        transform.topLeftCorner<3, 3>(),
-                    //                        color,
-                    //                        (const Mesh*)batch[i].mesh);
+//                    renderMesh(
+//                        camera.getCameraPosition(),
+//                        camera.getProjection(),
+//                        transform * camera.getCameraMatrix(),
+//                        transform.topLeftCorner<3, 3>(),
+//                        color,
+//                        (const Mesh*)batch[i].mesh);
                 }
             }
 

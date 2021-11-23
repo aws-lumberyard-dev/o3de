@@ -108,23 +108,57 @@ namespace AZ
         Material::Material(Umbra::AssetLoad& job)
         {
             Umbra::MaterialInfo info = job.getMaterialInfo();
+
             m_diffuse = (Texture*)info.textures[UmbraTextureType_Diffuse];
             m_normal = (Texture*)info.textures[UmbraTextureType_Normal];
             m_specular = (Texture*)info.textures[UmbraTextureType_Specular];
-
             m_isTransparent = !!info.transparent;
 
-
-            // [Adi] - at this point we should create Atom Material - DynamicMaterialTestComponentcan be a good example for that.
+            // Create the base default Pbr material
             static constexpr const char DefaultPbrMaterialPath[] = "materials/defaultpbr.azmaterial";
-            Data::Asset<RPI::MaterialAsset> materialAsset = RPI::AssetUtils::GetAssetByProductPath<RPI::MaterialAsset>(DefaultPbrMaterialPath, RPI::AssetUtils::TraceLevel::Assert);
-            m_atomMaterial = RPI::Material::Create(materialAsset);
+            //Data::Asset<RPI::MaterialAsset>
+            const auto materialAsset = RPI::AssetUtils::GetAssetByProductPath<RPI::MaterialAsset>(DefaultPbrMaterialPath, RPI::AssetUtils::TraceLevel::Assert);
+//            m_atomMaterial = RPI::Material::Create(materialAsset);
 
-            AZ_Error("AtomSceneStream", m_atomMaterial, "Material was not created");
+            if (!m_atomMaterial)
+            {
+                AZ_Error("AtomSceneStream", false, "Material was not created");
+                return;
+            }
 
-            // And this is an example how to set the textures.
-//            RPI::MaterialPropertyIndex colorProperty = m_atomMaterial->FindPropertyIndex(Name{ "baseColor.color" });
-//            m_atomMaterial->SetPropertyValue(colorProperty, color);
+/*
+            // Adding the textures
+            RPI::MaterialPropertyIndex textureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.textureMap"));
+            RPI::MaterialPropertyIndex useTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.useTexture"));
+            if (m_diffuse->m_streamingImage && textureIndex.IsValid() && useTextureIndex.IsValid())
+            {
+                m_atomMaterial->SetPropertyValue(textureIndex, m_diffuse->m_streamingImage);
+                m_atomMaterial->SetPropertyValue(useTextureIndex, true);
+            }
+
+            textureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.textureMap"));
+            useTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.useTexture"));
+            if (m_normal->m_streamingImage && textureIndex.IsValid() && useTextureIndex.IsValid())
+            {
+                m_atomMaterial->SetPropertyValue(textureIndex, m_normal->m_streamingImage);
+                m_atomMaterial->SetPropertyValue(useTextureIndex, true);
+            }
+
+            textureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("specularF0.textureMap"));
+            useTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("specularF0.useTexture"));
+            if (m_specular->m_streamingImage && textureIndex.IsValid() && useTextureIndex.IsValid())
+            {
+                m_atomMaterial->SetPropertyValue(textureIndex, m_specular->m_streamingImage);
+                m_atomMaterial->SetPropertyValue(useTextureIndex, true);
+            }
+*/
+            // And setting a dummy color
+            RPI::MaterialPropertyIndex colorIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.color"));
+            if (colorIndex.IsValid())
+            {
+                const Color dummyColor = Color(1.0f, .5f, .5f, 1.0f);
+                m_atomMaterial->SetPropertyValue(colorIndex, dummyColor);
+            }
         }
 
         Material::~Material()
@@ -136,7 +170,7 @@ namespace AZ
         //======================================================================
         //                              Mesh
         //======================================================================
-            Data::Asset<RPI::BufferAsset> Mesh::CreateBufferAsset(
+        Data::Asset<RPI::BufferAsset> Mesh::CreateBufferAsset(
             const void* data,
             const RHI::BufferViewDescriptor& bufferViewDescriptor,
             const AZStd::string& bufferName
@@ -155,7 +189,7 @@ namespace AZ
 
             Data::Asset<RPI::BufferAsset> bufferAsset;
 
-            AZ_Error("AtomSceneStream", !creator.End(bufferAsset), "Error creating vertex stream %s", bufferName.c_str())
+            AZ_Error("AtomSceneStream", creator.End(bufferAsset), "Error creating vertex stream %s", bufferName.c_str());
 
             return bufferAsset;
         }
@@ -170,25 +204,25 @@ namespace AZ
             RPI::ModelAssetCreator modelAssetCreator;
             Uuid modelId = Uuid::CreateRandom();
             modelAssetCreator.Begin(Uuid::CreateRandom());
-            modelAssetCreator.SetName( "AtomSceneStreamModel" );// _" + modelId.m_guid.ToString<AZStd::string>()));
+            modelAssetCreator.SetName("AtomSceneStreamModel");// _" + modelId.m_guid.ToString<AZStd::string>()));
 
             {
                 // Vertex Buffer Streams
-                const auto positionDesc = RHI::BufferViewDescriptor::CreateTyped(0, m_vertexCount * sizeof(Vertex::vertex), RHI::Format::R32G32B32_FLOAT);
+                const auto positionDesc = RHI::BufferViewDescriptor::CreateTyped(0, m_vertexCount, RHI::Format::R32G32B32_FLOAT);
                 const auto positionsAsset = CreateBufferAsset(m_vbStreamsDesc[UmbraVertexAttribute_Position].ptr, positionDesc, "UmbraPositions");
 
-                const auto normalDesc = RHI::BufferViewDescriptor::CreateTyped(0, m_vertexCount * sizeof(Vertex::normal), RHI::Format::R32G32B32_FLOAT);
+                const auto normalDesc = RHI::BufferViewDescriptor::CreateTyped(0, m_vertexCount, RHI::Format::R32G32B32_FLOAT);
                 const auto normalsAsset = CreateBufferAsset(m_vbStreamsDesc[UmbraVertexAttribute_Normal].ptr, normalDesc, "UmbraNormals");
 
-                const auto tangentDesc = RHI::BufferViewDescriptor::CreateTyped(0, m_vertexCount * sizeof(Vertex::tangent), RHI::Format::R32G32B32_FLOAT);
+                const auto tangentDesc = RHI::BufferViewDescriptor::CreateTyped(0, m_vertexCount, RHI::Format::R32G32B32_FLOAT);
                 const auto tangentsAsset = CreateBufferAsset(m_vbStreamsDesc[UmbraVertexAttribute_Tangent].ptr, tangentDesc, "UmbraTangents");
 
-                const auto uvDesc = RHI::BufferViewDescriptor::CreateTyped(0, m_vertexCount * sizeof(Vertex::tex), RHI::Format::R32G32_FLOAT);
+                const auto uvDesc = RHI::BufferViewDescriptor::CreateTyped(0, m_vertexCount, RHI::Format::R32G32_FLOAT);
                 const auto uvAsset = CreateBufferAsset(m_vbStreamsDesc[UmbraVertexAttribute_TextureCoordinate].ptr, uvDesc, "UmbraUVs");
 
                 // Index Buffer
                 RHI::Format indicesFormat = (m_indexBytes == 2) ? RHI::Format::R16_UINT : RHI::Format::R32_UINT;
-                const auto indexBufferViewDesc = RHI::BufferViewDescriptor::CreateTyped(0, m_indexCount * m_indexBytes, indicesFormat);
+                const auto indexBufferViewDesc = RHI::BufferViewDescriptor::CreateTyped(0, m_indexCount, indicesFormat);
                 const auto indicesAsset = CreateBufferAsset(m_ibDesc.ptr, indexBufferViewDesc, "TerrainPatchIndices");
 
                 if (!positionsAsset || !normalsAsset || !tangentsAsset || !uvAsset || !indicesAsset)
@@ -213,26 +247,27 @@ namespace AZ
                     Aabb localAabb = Aabb::CreateCenterHalfExtents(Vector3(0.0f, 0.0f, 0.0f), Vector3(999999.0f, 999999.0f, 999999.0f));
                     modelLodAssetCreator.SetMeshAabb(AZStd::move(localAabb));
 
-                    modelLodAssetCreator.SetMeshName(Name{ "AtomSceneStreamModel" }); // _ % 5d", s_modelNumber));
+                    modelLodAssetCreator.SetMeshName(Name{ "AtomSceneStream_Model" }); // _ % 5d", s_modelNumber));
+                }
+                modelLodAssetCreator.EndMesh();
+
+                // Create the model LOD based on the model LOD asset we created
+                Data::Asset<RPI::ModelLodAsset> modelLodAsset;
+                if (modelLodAssetCreator.End(modelLodAsset))
+                {
+                    // Add the LOD model asset created to the model asset.
+                    modelAssetCreator.AddLodAsset(AZStd::move(modelLodAsset));
                 }
 
-                // Here add the material:
-                /*
-                RPI::ModelMaterialSlot::StableId slotId = 0;
-                modelCreator.AddMaterialSlot(RPI::ModelMaterialSlot{ slotId, Name{}, RPI::AssetUtils::LoadAssetByProductPath<RPI::MaterialAsset>(DefaultSkinnedMeshMaterial) });
-                modelLodCreator.SetMeshMaterialSlot(slotId);
-                */
-
-                modelLodAssetCreator.EndMesh();
-                //----------------------------------------------
-
-                // Next create the model LOD based on the model LOD asset we created
-                Data::Asset<RPI::ModelLodAsset> modelLodAsset;
-                modelLodAssetCreator.End(modelLodAsset);
-
-                // Now add the LOD model asset created to the model asset.
-                modelAssetCreator.AddLodAsset(AZStd::move(modelLodAsset));
+                // And finally add the material associated with the streaming model
+                if (m_material && m_material->GetAtomMaterial())
+                {
+                    RPI::ModelMaterialSlot::StableId slotId = 0;
+                    modelAssetCreator.AddMaterialSlot(RPI::ModelMaterialSlot{ slotId, Name{"AtomSceneStream_Material"}, m_material->GetAtomMaterial()->GetAsset() });
+                    modelLodAssetCreator.SetMeshMaterialSlot(slotId);
+                }
             }
+
 
             // Final stage - create the model based on the created assets
             Data::Asset<RPI::ModelAsset> modelAsset;
@@ -256,11 +291,11 @@ namespace AZ
         // 2. CreateModelFromProceduralSkinnedMesh
         Mesh::Mesh(Umbra::AssetLoad& job)
         {
-            PositionName = Name {"UmbraMeshPositionBuffer" };
-            NormalName = Name {"UmbraMeshNormalBuffer" };
-            TangentName = Name {"UmbraMeshTangentBuffer" };
-            UVName = Name {"UmbraMeshUVBuffer" };
-            IndicesName = Name {"UmbraMeshIndexBuffer" };
+            PositionName = Name{ "UmbraMeshPositionBuffer" };
+            NormalName = Name{ "UmbraMeshNormalBuffer" };
+            TangentName = Name{ "UmbraMeshTangentBuffer" };
+            UVName = Name{ "UmbraMeshUVBuffer" };
+            IndicesName = Name{ "UmbraMeshIndexBuffer" };
 
             Umbra::MeshInfo info = job.getMeshInfo();
             ++s_modelNumber;
@@ -319,16 +354,16 @@ namespace AZ
             //   1) Run mesh decompression in a separate thread
             //   2) Decompress mesh in smaller parts with time budget
             bool loadOk;
-    #if 1
+#if 1
             loadOk = job.getMeshData(m_vbStreamsDesc, m_ibDesc);
-    #else // This branch shows that mesh can be loaded in parts
+#else // This branch shows that mesh can be loaded in parts
             loadOk = job.setMeshBuffers(m_vbStreamsDesc, m_ibDesc);
             while (!job.meshLoadDone() && loadOk)
             {
                 uint32_t vertsLoaded, indicesLoaded;
                 loadOk = job.meshLoadNext(&vertsLoaded, &indicesLoaded);
             }
-    #endif
+#endif
 
             if (!loadOk)
             {
@@ -344,7 +379,7 @@ namespace AZ
         {
             free(m_buffersData);
             m_buffersData = nullptr;
-//            g_gpuMemoryUsage -= m_allocatedSize;
+            //            g_gpuMemoryUsage -= m_allocatedSize;
         }
 
     } // namespace AtomSceneStream
