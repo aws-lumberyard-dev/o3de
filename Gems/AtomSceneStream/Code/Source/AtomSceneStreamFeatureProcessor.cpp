@@ -25,6 +25,10 @@
 
 #pragma optimize("", off)
 
+#ifndef SAFE_DELETE
+    #define SAFE_DELETE(p){if(p){delete p;p=nullptr;}}
+#endif
+
 namespace AZ
 {
     namespace AtomSceneStream
@@ -36,6 +40,23 @@ namespace AZ
 //            ++s_instanceCount;
 
             [[maybe_unused]]bool result = RestartUmbraClient();
+        }
+
+        void AtomSceneStreamFeatureProcessor::CleanResource()
+        {
+            m_view.destroy();
+            m_scene.destroy();
+            if (m_runtime)
+            {
+                m_runtime->destroy();
+            }
+            if (m_client)
+            {
+                m_client->destroy();
+            }
+
+            SAFE_DELETE(m_runtime);
+            SAFE_DELETE(m_client);
         }
 
         bool AtomSceneStreamFeatureProcessor::RestartUmbraClient()
@@ -70,6 +91,7 @@ namespace AZ
             if (!m_runtime)
             {
                 AZ_Error("AtomSceneStream", false, "Error creating Umbra run time");
+                CleanResource();
                 return false;
             }
 
@@ -85,25 +107,21 @@ namespace AZ
                 else if (s == UmbraConnectionStatus_ConnectionError)
                 {
                     AZ_Error("AtomSceneStream", false, "Error connecting to Umbra Back end");
+                    CleanResource();
                     return false;
                 }
             }
 
             // Create a View
             m_view = m_runtime->createView();
+
             return true;
         }
 
         AtomSceneStreamFeatureProcessor::~AtomSceneStreamFeatureProcessor()
         {
             // Destroy Umbra handles
-            m_view.destroy();
-            m_scene.destroy();
-            m_runtime->destroy();
-            m_client->destroy();
-
-            delete m_runtime;
-            delete m_client;
+            CleanResource();
         }
 
         void AtomSceneStreamFeatureProcessor::Reflect(ReflectContext* context)
@@ -139,17 +157,14 @@ namespace AZ
             return AZ::TICK_PRE_RENDER;
         }
 
-        void AtomSceneStreamFeatureProcessor::Simulate(const FeatureProcessor::SimulatePacket& packet)
+        void AtomSceneStreamFeatureProcessor::UpdateStreamingResources()
         {
-            AZ_PROFILE_FUNCTION(AzRender);
-
             if (!m_runtime)
                 return;
 
-//            ++m_currentFrame;
+            //            ++m_currentFrame;
             // run the streaming load for 20 msec - ideally this should be done on another thread!
-            HandleAssetsStreaming(0.05f);
-
+            HandleAssetsStreaming(0.025f);
 
             //----------------- Camera Transform Matrix ------------------
             AZ::Transform activeCameraTransform;
@@ -191,17 +206,17 @@ namespace AZ
             viewInfo.quality = 1.0f;// g_quality;
             m_view.setCamera(viewInfo);
 
-/*
-* //            m_targetView = scene.GetDefaultRenderPipeline()->GetDefaultView();
-* 
+            /*
+            * //            m_targetView = scene.GetDefaultRenderPipeline()->GetDefaultView();
+            * 
             AZ::EntityId activeCameraId;
             Camera::CameraSystemRequestBus::BroadcastResult(activeCameraId, &Camera::CameraSystemRequests::GetActiveCamera);
             if (activeCameraId.IsValid())
             {
-                AZ::TransformBus::EventResult(cameraPosition, activeCameraId, &AZ::TransformInterface::GetWorldTranslation);
-                cameraPositionIsValid = true;
+            AZ::TransformBus::EventResult(cameraPosition, activeCameraId, &AZ::TransformInterface::GetWorldTranslation);
+            cameraPositionIsValid = true;
             }
-*/
+            */
 
             if (!m_meshFeatureProcessor)
             {
@@ -219,15 +234,15 @@ namespace AZ
 
                 for (int i = 0; i < num; i++)
                 {
-//                    Eigen::Matrix4f transform = Eigen::Map<Eigen::Matrix4f>(&batch[i].transform.v[0].v[0]);
-//
-//                    // Color this mesh based on LOD level if requested
-//                    Eigen::Vector4f color = Eigen::Vector4f::Zero();
-//                    if (debugColors)
-//                    {
-//                        int level = batch[i].lodLevel;
-//                        color = getLODColor(level).homogeneous();
-//                    }
+                    //                    Eigen::Matrix4f transform = Eigen::Map<Eigen::Matrix4f>(&batch[i].transform.v[0].v[0]);
+                    //
+                    //                    // Color this mesh based on LOD level if requested
+                    //                    Eigen::Vector4f color = Eigen::Vector4f::Zero();
+                    //                    if (debugColors)
+                    //                    {
+                    //                        int level = batch[i].lodLevel;
+                    //                        color = getLODColor(level).homogeneous();
+                    //                    }
 
                     AtomSceneStream::Mesh* currentMesh = (AtomSceneStream::Mesh*)batch[i].mesh;
                     if (!currentMesh)
@@ -246,17 +261,24 @@ namespace AZ
                     const AZ::Vector3 nonUniformScale(1.0f, 1.0f, 1.0f);
                     m_meshFeatureProcessor->SetTransform(meshHandle, modelTransform, nonUniformScale);
 
-//                    renderMesh(
-//                        camera.getCameraPosition(),
-//                        camera.getProjection(),
-//                        transform * camera.getCameraMatrix(),
-//                        transform.topLeftCorner<3, 3>(),
-//                        color,
-//                        (const Mesh*)batch[i].mesh);
+                    //                    renderMesh(
+                    //                        camera.getCameraPosition(),
+                    //                        camera.getProjection(),
+                    //                        transform * camera.getCameraMatrix(),
+                    //                        transform.topLeftCorner<3, 3>(),
+                    //                        color,
+                    //                        (const Mesh*)batch[i].mesh);
                 }
             }
 
             m_runtime->update();
+        }
+
+        void AtomSceneStreamFeatureProcessor::Simulate(const FeatureProcessor::SimulatePacket& packet)
+        {
+            AZ_PROFILE_FUNCTION(AzRender);
+
+            UpdateStreamingResources();
 
             AZ_UNUSED(packet);
         }

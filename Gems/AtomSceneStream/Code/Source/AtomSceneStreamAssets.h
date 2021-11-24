@@ -43,12 +43,16 @@ namespace AZ
         };
 
         //======================================================================
-        class Material
+        class Material :
+            private AZ::Data::AssetBus::MultiHandler
         {
         public:
             // Note that Umbra runtime handles Texture lifetime. Textures have been destroyed before Material is destroyed.
             Material(Umbra::AssetLoad& job);
             ~Material();
+
+            // AZ::Data::AssetBus::Handler
+            void OnAssetReady(AZ::Data::Asset<AZ::Data::AssetData> asset) override;
 
             Data::Instance<RPI::Material> GetAtomMaterial()
             {
@@ -78,6 +82,7 @@ namespace AZ
             Name PositionName;
             Name NormalName;
             Name TangentName;
+            Name BiTangentName;
             Name UVName;
             Name IndicesName;
 
@@ -102,7 +107,10 @@ namespace AZ
                 const void* data,
                 const RHI::BufferViewDescriptor& bufferViewDescriptor,
                 const AZStd::string& bufferName);
-            bool CreateModel();
+
+            void CalculateTangentsAndBiTangents();
+            bool LoadUmbraModel(Umbra::AssetLoad& job);
+            bool CreateAtomModel();
 
         private:
             size_t m_allocatedSize = 0;

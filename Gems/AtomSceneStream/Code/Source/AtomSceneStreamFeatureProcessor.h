@@ -56,6 +56,8 @@ namespace AZ
 //            void OnRenderPipelinePassesChanged(RPI::RenderPipeline* renderPipeline) override;
 
             // Umbra driven functionality
+            void CleanResource();
+            void UpdateStreamingResources();
             bool RestartUmbraClient();
             bool LoadStreamedAssets();
             bool UnloadStreamedAssets();
@@ -72,6 +74,7 @@ namespace AZ
             Umbra::Scene m_scene;
             Umbra::View m_view;
 
+            bool m_isConnectedAndStreaming = false;
             /*
             const uint32_t backBuffersAmount = 3;
 

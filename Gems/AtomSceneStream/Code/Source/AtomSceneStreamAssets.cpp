@@ -104,21 +104,10 @@ namespace AZ
         //======================================================================
         //                             Material
         //======================================================================
-        // For samples look at cesium-main/Gems/Cesium/Code/Source/GltfRasterMaterialBuilder.cpp
-        Material::Material(Umbra::AssetLoad& job)
+
+        void Material::OnAssetReady(AZ::Data::Asset<AZ::Data::AssetData> materialAsset)
         {
-            Umbra::MaterialInfo info = job.getMaterialInfo();
-
-            m_diffuse = (Texture*)info.textures[UmbraTextureType_Diffuse];
-            m_normal = (Texture*)info.textures[UmbraTextureType_Normal];
-            m_specular = (Texture*)info.textures[UmbraTextureType_Specular];
-            m_isTransparent = !!info.transparent;
-
-            // Create the base default Pbr material
-            static constexpr const char DefaultPbrMaterialPath[] = "materials/defaultpbr.azmaterial";
-            //Data::Asset<RPI::MaterialAsset>
-            const auto materialAsset = RPI::AssetUtils::GetAssetByProductPath<RPI::MaterialAsset>(DefaultPbrMaterialPath, RPI::AssetUtils::TraceLevel::Assert);
-//            m_atomMaterial = RPI::Material::Create(materialAsset);
+            m_atomMaterial = RPI::Material::Create(materialAsset);
 
             if (!m_atomMaterial)
             {
@@ -126,13 +115,13 @@ namespace AZ
                 return;
             }
 
-/*
+            /*
             // Adding the textures
             RPI::MaterialPropertyIndex textureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.textureMap"));
             RPI::MaterialPropertyIndex useTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.useTexture"));
             if (m_diffuse->m_streamingImage && textureIndex.IsValid() && useTextureIndex.IsValid())
             {
-                m_atomMaterial->SetPropertyValue(textureIndex, m_diffuse->m_streamingImage);
+                m_atomMaterial->SetPropertyValue(textureIndex, m_diffuse->m_streamingImage );
                 m_atomMaterial->SetPropertyValue(useTextureIndex, true);
             }
 
@@ -151,13 +140,45 @@ namespace AZ
                 m_atomMaterial->SetPropertyValue(textureIndex, m_specular->m_streamingImage);
                 m_atomMaterial->SetPropertyValue(useTextureIndex, true);
             }
-*/
+            */
+
             // And setting a dummy color
             RPI::MaterialPropertyIndex colorIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.color"));
             if (colorIndex.IsValid())
             {
                 const Color dummyColor = Color(1.0f, .5f, .5f, 1.0f);
                 m_atomMaterial->SetPropertyValue(colorIndex, dummyColor);
+            }
+
+            Data::AssetBus::MultiHandler::BusDisconnect(materialAsset.GetId());
+        }
+
+        // For samples look at cesium-main/Gems/Cesium/Code/Source/GltfRasterMaterialBuilder.cpp
+        Material::Material(Umbra::AssetLoad& job)
+        {
+            Umbra::MaterialInfo info = job.getMaterialInfo();
+
+            m_diffuse = (Texture*)info.textures[UmbraTextureType_Diffuse];
+            m_normal = (Texture*)info.textures[UmbraTextureType_Normal];
+            m_specular = (Texture*)info.textures[UmbraTextureType_Specular];
+            m_isTransparent = !!info.transparent;
+
+            // Create the base default Pbr material
+            static constexpr const char DefaultPbrMaterialPath[] = "materials/defaultpbr.azmaterial";
+            Data::Asset<RPI::MaterialAsset> materialAsset =
+                RPI::AssetUtils::GetAssetByProductPath<RPI::MaterialAsset>(DefaultPbrMaterialPath, RPI::AssetUtils::TraceLevel::Assert);
+
+            if (!materialAsset->IsReady())
+            {
+                if (!materialAsset.IsLoading())
+                {
+                    materialAsset.QueueLoad();
+                }
+                Data::AssetBus::MultiHandler::BusConnect(materialAsset.GetId());
+            }
+            else
+            {
+                OnAssetReady(materialAsset);
             }
         }
 
@@ -170,6 +191,8 @@ namespace AZ
         //======================================================================
         //                              Mesh
         //======================================================================
+        uint32_t Mesh::s_modelNumber = 0;
+
         Data::Asset<RPI::BufferAsset> Mesh::CreateBufferAsset(
             const void* data,
             const RHI::BufferViewDescriptor& bufferViewDescriptor,
@@ -194,36 +217,70 @@ namespace AZ
             return bufferAsset;
         }
 
+        // Calculating the bi-tangent given the normal and tangents.
+        // Since the tangents need to be Vector4 with W representing the sign bit, the entire
+        // tangent buffer will move to the end of the overall buffer during this operation to
+        // avoid the need to copy back.
+        void Mesh::CalculateTangentsAndBiTangents()
+        {
+            float* normal = (float*)m_vbStreamsDesc[UmbraVertexAttribute_Normal].ptr;
+            float* orgTangent = (float*)m_vbStreamsDesc[UmbraVertexAttribute_Tangent].ptr;  // this will become the bi-tangent
+            float* newTangent = (float*)m_vbStreamsDesc[UmbraVertexAttribute_Tangent].ptr + m_vertexCount * 3;
+ 
+            for (int vtx = 0; vtx < m_vertexCount; ++vtx, normal+=3, orgTangent+=3, newTangent+=4)
+            {
+                Vector3* normalV3 = (Vector3*)normal;
+                Vector3* orgTangentV3 = (Vector3*)orgTangent;
+
+//                *((Vector4 *)newTangent) = Vector4(*orgTangentV3);   // moving it to the new buffer location and setting W to 1.0
+                memcpy(newTangent, orgTangent, 3 * sizeof(float));
+                newTangent[3] = 1.0f;   // Setting the W component of the tangents
+
+                // orgTangent location is now bi-tangent
+                Vector3 biTangent = normalV3->Cross(*orgTangentV3);
+                memcpy(orgTangent, (void*)&biTangent, 3 * sizeof(float));
+//                *orgTangent = normal->Cross(*orgTangent);   // orgTangent now becomes bi-tangent - this will ovverflow last element by 4 bytes
+            }
+        }
 
         // References
         //  TerrainFeatureProcessor::InitializePatchModel()
         //  CreateModelFromProceduralSkinnedMesh(const ProceduralSkinnedMesh& proceduralMesh)
-        bool Mesh::CreateModel()
+        bool Mesh::CreateAtomModel()
         {
             // Each model gets a unique, random ID, so if the same source model is used for multiple instances, multiple target models will be created.
             RPI::ModelAssetCreator modelAssetCreator;
             Uuid modelId = Uuid::CreateRandom();
             modelAssetCreator.Begin(Uuid::CreateRandom());
-            modelAssetCreator.SetName("AtomSceneStreamModel");// _" + modelId.m_guid.ToString<AZStd::string>()));
+            AZStd::string modelName = "AtomSceneStreamModel" + AZStd::to_string(s_modelNumber);
+            modelAssetCreator.SetName(modelName);
 
             {
                 // Vertex Buffer Streams
                 const auto positionDesc = RHI::BufferViewDescriptor::CreateTyped(0, m_vertexCount, RHI::Format::R32G32B32_FLOAT);
-                const auto positionsAsset = CreateBufferAsset(m_vbStreamsDesc[UmbraVertexAttribute_Position].ptr, positionDesc, "UmbraPositions");
-
-                const auto normalDesc = RHI::BufferViewDescriptor::CreateTyped(0, m_vertexCount, RHI::Format::R32G32B32_FLOAT);
-                const auto normalsAsset = CreateBufferAsset(m_vbStreamsDesc[UmbraVertexAttribute_Normal].ptr, normalDesc, "UmbraNormals");
-
-                const auto tangentDesc = RHI::BufferViewDescriptor::CreateTyped(0, m_vertexCount, RHI::Format::R32G32B32_FLOAT);
-                const auto tangentsAsset = CreateBufferAsset(m_vbStreamsDesc[UmbraVertexAttribute_Tangent].ptr, tangentDesc, "UmbraTangents");
+                const auto positionsAsset = CreateBufferAsset(m_vbStreamsDesc[UmbraVertexAttribute_Position].ptr, positionDesc, "UmbraModel_Positions");
 
                 const auto uvDesc = RHI::BufferViewDescriptor::CreateTyped(0, m_vertexCount, RHI::Format::R32G32_FLOAT);
-                const auto uvAsset = CreateBufferAsset(m_vbStreamsDesc[UmbraVertexAttribute_TextureCoordinate].ptr, uvDesc, "UmbraUVs");
+                const auto uvAsset = CreateBufferAsset(m_vbStreamsDesc[UmbraVertexAttribute_TextureCoordinate].ptr, uvDesc, "UmbraModel_UVs");
+
+                const auto normalDesc = RHI::BufferViewDescriptor::CreateTyped(0, m_vertexCount, RHI::Format::R32G32B32_FLOAT);
+                const auto normalsAsset = CreateBufferAsset(m_vbStreamsDesc[UmbraVertexAttribute_Normal].ptr, normalDesc, "UmbraModel_Normals");
+
+                // Since we needed to add W component to the tangents and calculate the bi-tangents, the original
+                // tangents buffer moved to the end and the bi-tangents took its place.
+                const auto bitangentDesc = RHI::BufferViewDescriptor::CreateTyped(0, m_vertexCount, RHI::Format::R32G32B32_FLOAT);
+                const auto bitangentsAsset = CreateBufferAsset(m_vbStreamsDesc[UmbraVertexAttribute_Tangent].ptr, bitangentDesc, "UmbraModel_BiTangents");
+
+                // Tangents in Atom have 4 components - the W component represents R / L hand matrix
+                const void* tangentsBufferPtr = ((uint8_t*)m_vbStreamsDesc[UmbraVertexAttribute_Tangent].ptr + (m_vertexCount * 3 * sizeof(float)));
+                const auto tangentDesc = RHI::BufferViewDescriptor::CreateTyped(0, m_vertexCount, RHI::Format::R32G32B32A32_FLOAT);
+                const auto tangentsAsset = CreateBufferAsset(tangentsBufferPtr, tangentDesc, "UmbraModel_Tangents");
+
 
                 // Index Buffer
                 RHI::Format indicesFormat = (m_indexBytes == 2) ? RHI::Format::R16_UINT : RHI::Format::R32_UINT;
                 const auto indexBufferViewDesc = RHI::BufferViewDescriptor::CreateTyped(0, m_indexCount, indicesFormat);
-                const auto indicesAsset = CreateBufferAsset(m_ibDesc.ptr, indexBufferViewDesc, "TerrainPatchIndices");
+                const auto indicesAsset = CreateBufferAsset(m_ibDesc.ptr, indexBufferViewDesc, "UmbraModel_Indices");
 
                 if (!positionsAsset || !normalsAsset || !tangentsAsset || !uvAsset || !indicesAsset)
                 {
@@ -241,6 +298,7 @@ namespace AZ
                     modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "POSITION" }, PositionName, RPI::BufferAssetView{ positionsAsset, positionDesc });
                     modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "NORMAL" }, NormalName, RPI::BufferAssetView{ normalsAsset, normalDesc });
                     modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "TANGENT" }, TangentName, RPI::BufferAssetView{ tangentsAsset, tangentDesc });
+                    modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "BITANGENT" }, BiTangentName, RPI::BufferAssetView{ bitangentsAsset, tangentDesc });
                     modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "UV" }, UVName, RPI::BufferAssetView{ uvAsset, uvDesc });
                     modelLodAssetCreator.SetMeshIndexBuffer({ indicesAsset, indexBufferViewDesc });
 
@@ -284,42 +342,20 @@ namespace AZ
             return m_atomModel ? true : false;
         }
 
-        uint32_t Mesh::s_modelNumber = 0;
-
-        // Good examples:
-        // 1. GltfTrianglePrimitiveBuilder::Create(
-        // 2. CreateModelFromProceduralSkinnedMesh
-        Mesh::Mesh(Umbra::AssetLoad& job)
+        bool Mesh::LoadUmbraModel(Umbra::AssetLoad& job)
         {
-            PositionName = Name{ "UmbraMeshPositionBuffer" };
-            NormalName = Name{ "UmbraMeshNormalBuffer" };
-            TangentName = Name{ "UmbraMeshTangentBuffer" };
-            UVName = Name{ "UmbraMeshUVBuffer" };
-            IndicesName = Name{ "UmbraMeshIndexBuffer" };
-
             Umbra::MeshInfo info = job.getMeshInfo();
-            ++s_modelNumber;
 
-            m_vertexCount = info.numUniqueVertices;
-            m_indexCount = info.numIndices;
-            m_indexBytes = m_vertexCount < (1 << 16) ? 2 : 4;
-            m_allocatedSize = sizeof(Vertex) * m_vertexCount + m_indexBytes * m_indexCount;
-            m_material = (Material*)info.material;
-
-            // Only meshes that have normals can be shaded
-            if (info.attributes & (1 << UmbraVertexAttribute_Normal))
-                m_isShaded = true;
-
-            // Allocating the permanent data to which the data will be copied - includes both VB streams
-            // and IB buffer.
+            // Permanent data allocation for the data to be copied includes all VB streams and IB buffer.
             m_buffersData = malloc(m_allocatedSize);
 
-            // Prepare vertex buffer streams
+            // Prepare vertex buffer streams - this matches Umbra convention but will require Atom
+            // change of Tangents from 3 to 4 floats as well as calculating and adding the bi-tangents
             uint32_t streamsElementSize[UmbraVertexAttributeCount];
             streamsElementSize[UmbraVertexAttribute_Position] = sizeof(Vertex::vertex);
             streamsElementSize[UmbraVertexAttribute_Normal] = sizeof(Vertex::normal);
             streamsElementSize[UmbraVertexAttribute_TextureCoordinate] = sizeof(Vertex::tex);
-            streamsElementSize[UmbraVertexAttribute_Tangent] = sizeof(Vertex::tangent);
+            streamsElementSize[UmbraVertexAttribute_Tangent] = sizeof(Vertex::tangent); // kept for the Umbra copy but requires 4 components in Atom
 
             // Specify the buffer to which the runtime loads vertex
             uint32_t offset = 0;
@@ -337,7 +373,9 @@ namespace AZ
                 }
                 else
                 {   // overall unused can be removed at the end but this is only temporary storage anyway.
-                    offset += m_vertexCount * streamsElementSize[i];
+                    // Because tangents requires 4 components in Atom, I offset them to the end, to the
+                    // location where the bi-tangent will be set in order to copy back properly at a second pass.
+                    offset += m_vertexCount * streamsElementSize[i] + ((i != UmbraVertexAttribute_Tangent) ? 0 : 4 * sizeof(float));
                 }
             }
 
@@ -347,7 +385,6 @@ namespace AZ
             m_ibDesc.ptr = (uint8_t*)m_buffersData + offset;
             m_ibDesc.elementStride = m_indexBytes;
             m_ibDesc.elementByteSize = m_indexBytes;
-
 
             // Read vertex and index buffers directly into memory mapped buffers. This performs mesh decompression, which
             // can take longer than a frame. In order to not see frame drops, there are two solutions:
@@ -364,15 +401,52 @@ namespace AZ
                 loadOk = job.meshLoadNext(&vertsLoaded, &indicesLoaded);
             }
 #endif
-
             if (!loadOk)
             {
                 free(m_buffersData);
+            }
+            return loadOk;
+        }
+
+
+        // Good examples:
+        // 1. GltfTrianglePrimitiveBuilder::Create(
+        // 2. CreateModelFromProceduralSkinnedMesh
+        Mesh::Mesh(Umbra::AssetLoad& job)
+        {
+            PositionName = Name{ "UmbraMeshPositionBuffer" };
+            NormalName = Name{ "UmbraMeshNormalBuffer" };
+            TangentName = Name{ "UmbraMeshTangentBuffer" };
+            BiTangentName = Name{ "UmbraMeshBiTangentBuffer" };
+            UVName = Name{ "UmbraMeshUVBuffer" };
+            IndicesName = Name{ "UmbraMeshIndexBuffer" };
+
+            Umbra::MeshInfo info = job.getMeshInfo();
+            ++s_modelNumber;
+
+            m_vertexCount = info.numUniqueVertices;
+            m_indexCount = info.numIndices;
+            m_indexBytes = m_vertexCount < (1 << 16) ? 2 : 4;
+            // Next calculate the required Atom allocation size for
+            m_allocatedSize = m_vertexCount * (4 * sizeof(float) + sizeof(Vertex)); // Final Vertex Size = Umbra vertex + added tangent (3 floats) and W component of the Tangent
+            m_allocatedSize += m_indexCount * m_indexBytes; // and add the allocation for the indices.
+            m_material = (Material*)info.material;
+
+            // Only meshes that have normals can be shaded
+            if (info.attributes & (1 << UmbraVertexAttribute_Normal))
+                m_isShaded = true;
+
+            if (!LoadUmbraModel(job))
+            {
                 return;
             }
 
+            // To move from Umbra to Atom we must add the W component to the tangents, create 
+            // the bi-tangent stream and calculate the bi-tangents..
+            CalculateTangentsAndBiTangents();
+
             // [Adi] - should we free the memory now that the assets has been created?
-            CreateModel();
+            CreateAtomModel();
         }
 
         Mesh::~Mesh()
