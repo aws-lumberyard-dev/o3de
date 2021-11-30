@@ -26,8 +26,17 @@ namespace AZ::Reflection
         virtual void DescribeInt8([[maybe_unused]] const IAttributes& attributes){};
         virtual void DescribeString([[maybe_unused]] const IAttributes& attributes){};
 
-        virtual void DescribeObjectBegin([[maybe_unused]] AZStd::string_view type, [[maybe_unused]] const IAttributes& attributes){};
+        virtual void DescribeObjectBegin(
+            [[maybe_unused]] AZStd::string_view type,
+            [[maybe_unused]] const AZ::TypeId& typeId,
+            [[maybe_unused]] const IAttributes& attributes){};
         virtual void DescribeObjectEnd(){};
+
+        template<typename>
+        void Describe([[maybe_unused]] const IAttributes& attributes)
+        {
+            return;
+        }
     };
 } //namespace AZ::Reflection
 

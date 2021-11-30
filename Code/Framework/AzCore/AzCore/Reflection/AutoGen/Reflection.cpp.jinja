@@ -42,6 +42,11 @@ AZ_CRC_CE({{value}})
                     { 
                         AZ::Reflection::Describe<{{structure.attrib['name']}}>(describer);
                     })
+                ->Attribute(AZ_CRC_CE("ref_test"), []
+                    {
+                        int result = 1 + 1;
+                        printf("%i", result);
+                    })
 {%- call(variable, name, type, codeName) Macros.ListVariablesInOrder(structure)              %}
                 ->Field("{{name}}", &{{structure.attrib['name']}}::{{codeName}})
 {%- endcall                                                                                  %}

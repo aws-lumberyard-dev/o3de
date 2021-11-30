@@ -18,7 +18,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         template<typename T> friend struct AZ::Reflection::Reflect;
 
     public:
-        AZ_RTTI({{fullStructName}}, "{{fullStructName|createHashGuid}}"
+        AZ_COMPONENT({{fullStructName}}, "{{fullStructName|createHashGuid}}"
 {%-     if  struct.attrib['extends']                                                                -%}
         , {{ struct.attrib['extends'] }}
 {%-     endif                                                                                       -%}
@@ -26,6 +26,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
         virtual ~{{struct.attrib['name']}}() = default;
 {% call Macros.IfHasReflectionFunctionFlag(struct)                                                   %}
+        void Activate() override{};
+        void Deactivate() override{};
+        static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
+        {
+            provided.push_back(AZ_CRC("EditorCommentingService", 0xdd5ab934));
+        }
         static void Reflect(AZ::ReflectContext* context);
 {% endcall                                                                                           %}
     protected:
@@ -71,7 +77,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
             visitor.VisitObjectBegin(azrtti_typeid<{{fullStructName}}>(), 
                 AZ::Reflection::AttributeCombiner(attributes, objectAttributes));
 {%-  call(variable, name, type, codeName) Macros.ListVariablesInOrder(struct)                        %}
-            Visit(visitor, value.{{codeName}}, GetAttributesForVariable{{name}}());
+            visitor.Visit(value.{{codeName}}, GetAttributesForVariable{{name}}());
 {%-  endcall                                                                                         %}
             visitor.VisitObjectEnd();
         }
@@ -82,7 +88,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
             describer.DescribeObjectBegin("{{fullStructName}}", azrtti_typeid<{{fullStructName}}>(), 
                 AZ::Reflection::AttributeCombiner(attributes, objectAttributes));
 {%-  call(variable, name, type, codeName) Macros.ListVariablesInOrder(struct)                        %}
-            Describe<{{type}}>(describer, GetAttributesForVariable{{name}}());
+            describer.Describe<{{type}}>(GetAttributesForVariable{{name}}());
 {%-  endcall                                                                                         %}
             describer.DescribeObjectEnd();
         }

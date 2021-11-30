@@ -71,11 +71,11 @@ namespace AZ::Reflection
     }
 
     template<size_t N>
-    const void Attributes<N>::ListAttributes(const IterationCallback& callback) const
+    void Attributes<N>::ListAttributes([[maybe_unused]] const IterationCallback& callback) const
     {
         for (size_t i = 0; i < N; ++i)
         {
-            callback(m_groups[i], m_names[i], m_data[i]);
+            //callback(m_groups[i], m_names[i], m_data[i]);
         }
     }
 

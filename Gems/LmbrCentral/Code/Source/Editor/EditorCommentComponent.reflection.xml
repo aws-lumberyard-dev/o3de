@@ -4,16 +4,22 @@
     <Include path="AzToolsFramework/ToolsComponents/EditorComponentBase.h" in="header" />
     <Include path="Source/Editor/EditorCommentComponent.reflection.h" in="body" />
 
-    <Struct name="EditorCommentComponentData" flags="ReflectFunction" extends="AzToolsFramework::Components::EditorComponentBase">
-        <Attribute group="Class" name="Name" value="Editor Comment Data"/>
-        <Attribute group="Class" name="Description" value="The data for the editor comment."/>
+    <Struct name="Proto_EditorCommentComponentData" flags="ReflectFunction" extends="AzToolsFramework::Components::EditorComponentBase">
+        <Attribute group="Class" name="Name" value="Proto Editor Comment Data"/>
+        <Attribute group="Class" name="Description" value="The data for the proto editor comment."/>
+        <Attribute group="PropertyGrid" name="Category" value="Editor"/>
+        <Attribute group="PropertyGrid" name="Icon" value="Editor/Icons/Components/Comment.svg"/>
+        <Attribute group="PropertyGrid" name="ViewportIcon" value="Editor/Icons/Components/Viewport/Comment.png"/>
+        <Attribute group="PropertyGrid" name="AppearsInAddComponentMenu">
+            <Value>AZStd::vector&lt;AZ::Crc32&gt;({ AZ_CRC("Level", 0x9aeacc13), AZ_CRC("Game", 0x232b318c), AZ_CRC("Layer", 0xe4db211a)})</Value>
+        </Attribute>
         <Variable name="Comment" type="String">
             <Attribute group="Variable" name="Description" value="The comment text to store."/>
             <Attribute group="PropertyGrid" name="Editor" value="MultiLineEdit"/>
             <Attribute group="PropertyGrid" name="HideName">
                 <Value>true</Value>
             </Attribute>
-            <Attribute group="PropertyGrid" name="PlaceholderText" value="Add comment text here"/>
+            <Attribute group="PropertyGrid" name="PlaceholderText" value="Add comment text here...................."/>
         </Variable>
     </Struct>
 </Reflection>

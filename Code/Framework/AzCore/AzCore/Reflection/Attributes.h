@@ -30,9 +30,9 @@ namespace AZ::Reflection
     struct IAttributes
     {
         using IterationCallback = AZStd::function<void(AZStd::string_view group, AZStd::string_view name, const AttributeDataType& attribute)>;
-        virtual const AttributeDataType* Find(Hash name) const = 0;
-        virtual const AttributeDataType* Find(Hash group, Hash name) const = 0;
-        virtual void ListAttributes(const IterationCallback& callback) const = 0;
+        virtual const AttributeDataType* Find(Hash name) const;
+        virtual const AttributeDataType* Find(Hash group, Hash name) const;
+        virtual void ListAttributes(const IterationCallback& callback) const;
     };
 
     namespace Internal
@@ -86,7 +86,7 @@ namespace AZ::Reflection
     struct Attributes : IAttributes
     {
         const AttributeDataType* Find(Hash group, Hash name) const override;
-        const void ListAttributes(const IterationCallback& callback) const override;
+        void ListAttributes(const IterationCallback& callback) const override;
 
         AZStd::array<Hash, N> m_groups;
         AZStd::array<Hash, N> m_names;

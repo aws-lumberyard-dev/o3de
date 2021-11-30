@@ -20,6 +20,17 @@
 
 namespace AZ::Reflection
 {
+    template<typename T>
+    struct Reflect
+    {
+        void operator()([[maybe_unused]] IVisitor& visitor, [[maybe_unused]] T& value, [[maybe_unused]] const IAttributes& attributes)
+        {
+        }
+        void operator()([[maybe_unused]] IDescriber& describer [[maybe_unused]], [[maybe_unused]] const IAttributes& attributes)
+        {
+        }
+    };
+
     class ReflectionRegistrationContext : public AZ::ReflectContext
     {
     public:
@@ -31,8 +42,8 @@ namespace AZ::Reflection
             virtual AZStd::any CreateInstance() const = 0;
 
             virtual void Describe(IDescriber& describer) const = 0;
-            virtual void Visit(const void*, Visitor::IRead& visitor) const = 0;
-            virtual void Visit(void*, Visitor::IReadWrite& visitor) const = 0;
+            virtual void Visit(const void*, IVisitor::IRead& visitor) const = 0;
+            virtual void Visit(void*, IVisitor::IReadWrite& visitor) const = 0;
         };
 
         using ListCallback = AZStd::function<bool(const Description*)>;
@@ -44,5 +55,19 @@ namespace AZ::Reflection
         virtual const Description* Find(AZStd::string_view typeName) const = 0;
         virtual void ListDescriptions(ListCallback& callback) const = 0;
     };
+
+    template<typename T>
+    void Visit([[maybe_unused]] IVisitor& visitor, T t)
+    {
+        printf("reflection - visit");
+        return;
+    }
+
+    template<typename>
+    void Describe([[maybe_unused]] IDescriber& describer)
+    {
+        printf("reflection - describe");
+        return;
+    }
 }//namespace AZ::Reflection
 #endif // AZ_REFLECTION_PROTOTYPE_ENABLED

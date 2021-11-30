@@ -122,7 +122,7 @@ namespace AZ::Reflection
         }
     }
 
-    AZ::Uuid AttributeReader::GetUuid(const AttributeDataType* value, const AZ::Uuid& defaultValue)
+    AZ::Uuid AttributeReader::GetUuid([[maybe_unused]] const AttributeDataType* value, [[maybe_unused]] const AZ::Uuid& defaultValue)
     {
         return AZ::Uuid(0);
     }
@@ -155,14 +155,16 @@ namespace AZ::Reflection
         return GetString(attributes.Find(name), defaultValue);
     }
 
-    AZ::Uuid AttributeReader::GetUuid(const IAttributes& attributes, Hash name, const AZ::Uuid& defaultValue)
+    AZ::Uuid AttributeReader::GetUuid(
+        [[maybe_unused]] const IAttributes& attributes, [[maybe_unused]] Hash name, [[maybe_unused]] const AZ::Uuid& defaultValue)
     {
         return AZ::Uuid(0);
     }
 
-    const AZStd::any& AttributeReader::GetAny(const IAttributes& attributes, Hash name, const AZStd::any& defaultValue)
+    const AZStd::any& AttributeReader::GetAny(
+        [[maybe_unused]] const IAttributes& attributes, [[maybe_unused]] Hash name, [[maybe_unused]] const AZStd::any& defaultValue)
     {
-        return AZStd::any(0);
+        return defaultValue;
     }
 
     bool AttributeReader::GetBool(const IAttributes& attributes, Hash group, Hash name, bool defaultValue)
@@ -181,14 +183,22 @@ namespace AZ::Reflection
         return GetString(attributes.Find(group, name), defaultValue);
     }
 
-    AZ::Uuid AttributeReader::GetUuid(const IAttributes& attributes, Hash group, Hash name, const AZ::Uuid& defaultValue)
+    AZ::Uuid AttributeReader::GetUuid(
+        [[maybe_unused]] const IAttributes& attributes,
+        [[maybe_unused]] Hash group,
+        [[maybe_unused]] Hash name,
+        [[maybe_unused]] const AZ::Uuid& defaultValue)
     {
         return AZ::Uuid(0);
     }
 
-    const AZStd::any& AttributeReader::GetAny(const IAttributes& attributes, Hash group, Hash name, const AZStd::any& defaultValue)
+    const AZStd::any& AttributeReader::GetAny(
+        [[maybe_unused]] const IAttributes& attributes,
+        [[maybe_unused]] Hash group,
+        [[maybe_unused]] Hash name,
+        [[maybe_unused]] const AZStd::any& defaultValue)
     {
-        return AZStd::any(0);
+        return defaultValue;
     }
 
     void AttributeReader::ListAttributes(const IAttributes& attributes, const IAttributes::IterationCallback& callback)
@@ -212,6 +222,19 @@ namespace AZ::Reflection
     {
         m_second.ListAttributes(callback);
         m_first.ListAttributes(callback);
+    }
+
+    const AttributeDataType* IAttributes::Find([[maybe_unused]] Hash name) const
+    {
+        return NULL;
+    }
+    const AttributeDataType* IAttributes::Find([[maybe_unused]] Hash group, [[maybe_unused]] Hash name) const
+    {
+        return NULL;
+    }
+    void IAttributes::ListAttributes([[maybe_unused]] const IterationCallback& callback) const
+    {
+
     }
 } // namespace AZ::Reflection
 

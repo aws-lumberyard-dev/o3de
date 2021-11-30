@@ -35,6 +35,8 @@
 #include "Shape/EditorPolygonPrismShapeComponent.h"
 #include "Editor/EditorCommentComponent.h"
 
+#include "Source/Editor/EditorCommentComponent.reflection.h"
+
 #include "Shape/EditorCompoundShapeComponent.h"
 
 #include <AzFramework/Metrics/MetricsPlainTextNameRegistration.h>
@@ -47,6 +49,11 @@
 #include <Builders/TranslationBuilder/TranslationBuilderComponent.h>
 #include "Builders/CopyDependencyBuilder/CopyDependencyBuilderComponent.h"
 #include <Builders/DependencyBuilder/DependencyBuilderComponent.h>
+
+    void visit_callback()
+    {
+        printf("testing callback");
+    }
 
 namespace LmbrCentral
 {
@@ -88,6 +95,7 @@ namespace LmbrCentral
             LuaBuilder::BuilderPluginComponent::CreateDescriptor(),
 
             BenchmarkAssetBuilder::BenchmarkAssetBuilderComponent::CreateDescriptor(),
+            Proto_EditorCommentComponentData::CreateDescriptor(),
         });
 
         // This is internal Amazon code, so register it's components for metrics tracking, otherwise the name of the component won't get sent back.

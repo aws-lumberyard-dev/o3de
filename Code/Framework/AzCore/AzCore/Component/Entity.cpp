@@ -32,6 +32,7 @@
 #include <AzCore/Platform.h>
 
 #include <AzCore/Debug/Profiler.h>
+#include <AzCore/Reflection/Reflection.h>
 
 namespace AZ
 {
@@ -315,7 +316,7 @@ namespace AZ
 
         return nullptr;
     }
-
+#pragma optimize("", off)
     bool Entity::AddComponent(Component* component)
     {
         AZ_Assert(component != nullptr, "Invalid component!");
@@ -342,6 +343,36 @@ namespace AZ
         component->SetEntity(this);
         m_components.push_back(component);
 
+        /**************************************************************/
+        bool trigger = false;
+        if (trigger)
+        {
+            AZ::SerializeContext* serializeContext = nullptr;
+            EBUS_EVENT_RESULT(serializeContext, AZ::ComponentApplicationBus, GetSerializeContext);
+            AZ_Assert(serializeContext, "No serialize context");
+            auto classData = serializeContext->FindClassData(component->RTTI_GetType());
+
+            using AttributeVisitorFunction = AttributeFunction<void(AZ::Reflection::IVisitor& visitor, void* intance)>;
+            Attribute* attribute = FindAttribute(AZ_CRC_CE("Visitor"), classData->m_attributes);//classData->FindAttribute(AZ_CRC_CE("Visitor"));
+            //auto attributeFunction_v = azrtti_cast < AttributeVisitorFunction*>(attribute);
+            auto attributeFunction_v = azdynamic_cast<AttributeFunction<void(AZ::Reflection::IVisitor)>*>(attribute);
+            //azdynamic_cast < AZ::Edit::AttributeFunction < void(size_t)>*>(reader.GetAttribute());
+
+            if (attributeFunction_v)
+            {
+                AZ::Reflection::IVisitor v2;
+                attributeFunction_v->Invoke(component, v2);
+            }
+
+            AZ::Edit::AttributeFunction<void()>* funcVoid =
+                azdynamic_cast<AZ::Edit::AttributeFunction<void()>*>(classData->FindAttribute(AZ_CRC_CE("ref_test")));
+            if (funcVoid)
+            {
+                funcVoid->Invoke(component);
+            }
+        }
+        /**************************************************************/
+
         if (m_state == State::Init)
         {
             component->Init();
@@ -350,7 +381,7 @@ namespace AZ
         InvalidateDependencies(); // We need to re-evaluate dependencies
         return true;
     }
-
+#pragma optimize("", on)
     bool Entity::IsComponentReadyToAdd(const Uuid& componentTypeId, const Component* instance, ComponentDescriptor::DependencyArrayType* servicesNeededToBeAdded, ComponentArrayType* incompatibleComponents)
     {
         bool isReadyToAdd = true;
