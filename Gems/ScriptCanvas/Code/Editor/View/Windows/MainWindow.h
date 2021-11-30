@@ -50,7 +50,7 @@
 #include <Editor/View/Widgets/NodePalette/NodePaletteModel.h>
 
 #include <Editor/View/Widgets/AssetGraphSceneDataBus.h>
-
+//#include <AzCore/AzCore/std/base.h>
 #include <Editor/View/Windows/Tools/UpgradeTool/Controller.h>
 #include <Editor/View/Windows/Tools/UpgradeTool/FileSaver.h>
 
@@ -765,5 +765,4 @@ namespace ScriptCanvasEditor
         void MarkRecentSave(const SourceHandle& handle);
         AZStd::recursive_mutex m_mutex; 
         AZStd::unordered_map <AZStd::string, AZStd::chrono::system_clock::time_point> m_saves;
-    };
 }

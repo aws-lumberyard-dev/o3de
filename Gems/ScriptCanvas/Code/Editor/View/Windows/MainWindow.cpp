@@ -901,6 +901,12 @@ namespace ScriptCanvasEditor
 
     void MainWindow::closeEvent(QCloseEvent* event)
     {
+        if (m_forceCloseInProgress)
+        {
+            event->accept();
+            return;
+        }
+
         // If we are in the middle of saving a graph. We don't want to close ourselves down and potentially retrigger the saving logic.
         if (m_queueCloseRequest)
         {
@@ -3892,6 +3898,11 @@ namespace ScriptCanvasEditor
 
     void MainWindow::OnSystemTick()
     {
+        if (m_saveAttemptInProgress)
+        {
+            EvaluateSaveAttempt();
+        }
+
         if (HasSystemTickAction(SystemTickActionFlag::RefreshPropertyGrid))
         {
             RemoveSystemTickAction(SystemTickActionFlag::RefreshPropertyGrid);
@@ -3921,6 +3932,44 @@ namespace ScriptCanvasEditor
         }
 
         ClearStaleSaves();
+    }
+
+    bool MainWindow::EvaluateSaveAttempt()
+    {
+        const AZ::s64 k_saveAttemptSeconds = 20;
+
+        if (m_saveAttemptInProgress)
+        {
+            auto saveDuration = AZStd::chrono::seconds(AZStd::chrono::system_clock::now() - m_saveAttemptTime).count();
+
+            if (saveDuration > k_saveAttemptSeconds)
+            {
+                WarnOnFailedSaveAttempt();
+            }
+        }
+
+        return m_forceCloseInProgress;
+    }
+
+    void MainWindow::MarkSaveAttempt()
+    {
+        m_saveAttemptInProgress = true;
+        m_saveAttemptTime = AZStd::chrono::system_clock::now();
+
+        if (!AZ::SystemTickBus::Handler::BusIsConnected())
+        {
+            AZ::SystemTickBus::Handler::BusConnect();
+        }
+    }
+
+    void MainWindow::WarnOnFailedSaveAttempt()
+    {
+        m_forceCloseInProgress = true;
+        QMessageBox::critical(this, QString(), QObject::tr
+        ("The ScriptCanvas Editor has encountered an external bug which prevents it from tracking the file state.<br><br>"
+        "Likely the Asset Processor has crashed. ScriptCanvas files may have saved successfully, but the O3DE Engine and Asset Processor should be restarted before continuing work."));
+        AZ::SystemTickBus::Handler::BusDisconnect();
+        qobject_cast<QWidget*>(parent())->close();
     }
 
     void MainWindow::OnCommandStarted(AZ::Crc32)
