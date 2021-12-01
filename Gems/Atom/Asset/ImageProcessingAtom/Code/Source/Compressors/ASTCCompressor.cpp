@@ -78,7 +78,7 @@ namespace ImageProcessingAtom
         return true;
     }
 
-    astcenc_profile GetAstcProfile(bool isSrgb, EPixelFormat pixelFormat)
+    astcenc_profile GetAstcProfile(bool isSrgb, EPixelFormat pixelFormat, const AZStd::string& platform = "")
     {
         // select profile depends on LDR or HDR, SRGB or Linear
         //      ASTCENC_PRF_LDR
@@ -87,7 +87,8 @@ namespace ImageProcessingAtom
         //      ASTCENC_PRF_HDR
         
         auto formatInfo = CPixelFormats::GetInstance().GetPixelFormatInfo(pixelFormat);
-        bool isHDR = formatInfo->eSampleType == ESampleType::eSampleType_Half || formatInfo->eSampleType == ESampleType::eSampleType_Float;
+        bool isHDR = (formatInfo->eSampleType == ESampleType::eSampleType_Half || formatInfo->eSampleType == ESampleType::eSampleType_Float) && platform != "android";
+
         astcenc_profile profile;
         if (isHDR)
         {
@@ -170,7 +171,7 @@ namespace ImageProcessingAtom
         auto dstFormatInfo = CPixelFormats::GetInstance().GetPixelFormatInfo(fmtDst);
 
         const float quality = GetAstcCompressQuality(compressOption->compressQuality);
-        const astcenc_profile profile = GetAstcProfile(srcImage->HasImageFlags(EIF_SRGBRead), fmtSrc);
+        const astcenc_profile profile = GetAstcProfile(srcImage->HasImageFlags(EIF_SRGBRead), fmtSrc, compressOption->platform);
 
         astcenc_config config;
         astcenc_error status;
@@ -186,7 +187,7 @@ namespace ImageProcessingAtom
         status = astcenc_context_alloc(&config, threadCount, &context);
         AZ_Assert( status == ASTCENC_SUCCESS, "ERROR: Codec context alloc failed: %s\n", astcenc_get_error_string(status));
 
-        const astcenc_type dataType =GetAstcDataType(fmtSrc);
+        const astcenc_type dataType = GetAstcDataType(fmtSrc);
 
         // Compress the image for each mips
         IImageObjectPtr dstImage(srcImage->AllocateImage(fmtDst));
