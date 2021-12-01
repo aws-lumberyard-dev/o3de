@@ -91,14 +91,17 @@ namespace AZ
                 textureData.data(),
                 m_imageDataSize);
 
-            AZ_Error("AtomSceneStream", m_streamingImage, "StreamingImage creation failed");
+            if (!m_streamingImage)
+            {
+                m_imageDataSize = 0;
+                AZ_Error("AtomSceneStream", false, "StreamingImage creation failed");
+            }
         }
 
         Texture::~Texture()
         {
             // No need to delete the StreamingImage - once Texture is deleted the ref count will do the rest
             // in a safe way (according to the rest of the ref count by Atom)
-//            g_gpuMemoryUsage -= m_imageDataSize;
         }
 
         //======================================================================
@@ -223,14 +226,19 @@ namespace AZ
         // avoid the need to copy back.
         void Mesh::CalculateTangentsAndBiTangents()
         {
+//            float* position = (float*)m_vbStreamsDesc[UmbraVertexAttribute_Position].ptr;
             float* normal = (float*)m_vbStreamsDesc[UmbraVertexAttribute_Normal].ptr;
             float* orgTangent = (float*)m_vbStreamsDesc[UmbraVertexAttribute_Tangent].ptr;  // this will become the bi-tangent
             float* newTangent = (float*)m_vbStreamsDesc[UmbraVertexAttribute_Tangent].ptr + m_vertexCount * 3;
  
-            for (int vtx = 0; vtx < m_vertexCount; ++vtx, normal+=3, orgTangent+=3, newTangent+=4)
+//            for (int vtx = 0; vtx < m_vertexCount; ++vtx, position+=3, normal+=3, orgTangent+=3, newTangent+=4)
+            for (int vtx = 0; vtx < m_vertexCount; ++vtx, normal += 3, orgTangent += 3, newTangent += 4)
             {
+//                Vector3* positionV3 = (Vector3*)position;
                 Vector3* normalV3 = (Vector3*)normal;
                 Vector3* orgTangentV3 = (Vector3*)orgTangent;
+
+//                *positionV3 *= 0.25f;// CM_TO_METERRS;
 
 //                *((Vector4 *)newTangent) = Vector4(*orgTangentV3);   // moving it to the new buffer location and setting W to 1.0
                 memcpy(newTangent, orgTangent, 3 * sizeof(float));
@@ -252,8 +260,8 @@ namespace AZ
             RPI::ModelAssetCreator modelAssetCreator;
             Uuid modelId = Uuid::CreateRandom();
             modelAssetCreator.Begin(Uuid::CreateRandom());
-            AZStd::string modelName = "AtomSceneStreamModel" + AZStd::to_string(s_modelNumber);
-            modelAssetCreator.SetName(modelName);
+            m_modelName = "AtomSceneStreamModel" + AZStd::to_string(s_modelNumber);
+            modelAssetCreator.SetName(m_modelName);
 
             {
                 // Vertex Buffer Streams
@@ -295,17 +303,27 @@ namespace AZ
 
                 modelLodAssetCreator.BeginMesh();
                 {
-                    modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "POSITION" }, PositionName, RPI::BufferAssetView{ positionsAsset, positionDesc });
-                    modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "NORMAL" }, NormalName, RPI::BufferAssetView{ normalsAsset, normalDesc });
-                    modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "TANGENT" }, TangentName, RPI::BufferAssetView{ tangentsAsset, tangentDesc });
-                    modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "BITANGENT" }, BiTangentName, RPI::BufferAssetView{ bitangentsAsset, tangentDesc });
-                    modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "UV" }, UVName, RPI::BufferAssetView{ uvAsset, uvDesc });
-                    modelLodAssetCreator.SetMeshIndexBuffer({ indicesAsset, indexBufferViewDesc });
+                    {
+                        modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "POSITION" }, PositionName, RPI::BufferAssetView{ positionsAsset, positionDesc });
+                        modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "NORMAL" }, NormalName, RPI::BufferAssetView{ normalsAsset, normalDesc });
+                        modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "TANGENT" }, TangentName, RPI::BufferAssetView{ tangentsAsset, tangentDesc });
+                        modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "BITANGENT" }, BiTangentName, RPI::BufferAssetView{ bitangentsAsset, tangentDesc });
+                        modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "UV" }, UVName, RPI::BufferAssetView{ uvAsset, uvDesc });
+                        modelLodAssetCreator.SetMeshIndexBuffer({ indicesAsset, indexBufferViewDesc });
 
-                    Aabb localAabb = Aabb::CreateCenterHalfExtents(Vector3(0.0f, 0.0f, 0.0f), Vector3(999999.0f, 999999.0f, 999999.0f));
-                    modelLodAssetCreator.SetMeshAabb(AZStd::move(localAabb));
+                        Aabb localAabb = Aabb::CreateCenterHalfExtents(Vector3(0.0f, 0.0f, 0.0f), Vector3(999999.0f, 999999.0f, 999999.0f));
+                        modelLodAssetCreator.SetMeshAabb(AZStd::move(localAabb));
 
-                    modelLodAssetCreator.SetMeshName(Name{ "AtomSceneStream_Model" }); // _ % 5d", s_modelNumber));
+                        modelLodAssetCreator.SetMeshName(Name{ "AtomSceneStream_Model" }); // _ % 5d", s_modelNumber));
+                    }
+
+                    // And finally add the material associated with the streaming model
+                    if (m_material && m_material->GetAtomMaterial())
+                    {
+                        RPI::ModelMaterialSlot::StableId slotId = 0;
+                        modelAssetCreator.AddMaterialSlot(RPI::ModelMaterialSlot{ slotId, Name{"AtomSceneStream_Material"}, m_material->GetAtomMaterial()->GetAsset() });
+                        modelLodAssetCreator.SetMeshMaterialSlot(slotId);
+                    }
                 }
                 modelLodAssetCreator.EndMesh();
 
@@ -315,14 +333,6 @@ namespace AZ
                 {
                     // Add the LOD model asset created to the model asset.
                     modelAssetCreator.AddLodAsset(AZStd::move(modelLodAsset));
-                }
-
-                // And finally add the material associated with the streaming model
-                if (m_material && m_material->GetAtomMaterial())
-                {
-                    RPI::ModelMaterialSlot::StableId slotId = 0;
-                    modelAssetCreator.AddMaterialSlot(RPI::ModelMaterialSlot{ slotId, Name{"AtomSceneStream_Material"}, m_material->GetAtomMaterial()->GetAsset() });
-                    modelLodAssetCreator.SetMeshMaterialSlot(slotId);
                 }
             }
 
@@ -337,9 +347,15 @@ namespace AZ
             }
 
             m_atomModel = RPI::Model::FindOrCreate(modelAsset);
-            AZ_Error("AtomSceneStream", m_atomModel, "Error - model could not be found or created");
 
-            return m_atomModel ? true : false;
+            if (!m_atomModel)
+            {
+                m_modelName = "FaultyLoadedModel";
+                AZ_Error("AtomSceneStream", false, "Error - model could not be found or created");
+                return false;
+            }
+
+            return true;
         }
 
         bool Mesh::LoadUmbraModel(Umbra::AssetLoad& job)
@@ -373,11 +389,15 @@ namespace AZ
                 }
                 else
                 {   // overall unused can be removed at the end but this is only temporary storage anyway.
-                    // Because tangents requires 4 components in Atom, I offset them to the end, to the
+                    // Because tangents requires 4 components in Atom, offset them to the end, to the
                     // location where the bi-tangent will be set in order to copy back properly at a second pass.
-                    offset += m_vertexCount * streamsElementSize[i] + ((i != UmbraVertexAttribute_Tangent) ? 0 : 4 * sizeof(float));
+                    // Notice that for the tangent, we reserve 4 floats and not 3 as in the Umbra structure.
+                    offset += m_vertexCount * (streamsElementSize[i] + ((i == UmbraVertexAttribute_Tangent) ? sizeof(float) : 0));
                 }
             }
+
+            // Taking the account the space required for the bi-tangents stream
+            offset += m_vertexCount * streamsElementSize[UmbraVertexAttribute_Normal];
 
             // Prepare index buffer
             m_ibDesc.flags = UmbraBufferFlags_UncachedMemory;
@@ -404,6 +424,7 @@ namespace AZ
             if (!loadOk)
             {
                 free(m_buffersData);
+                AZ_Error("AtomSceneStream", false, "Error - Umbra model load failure");
             }
             return loadOk;
         }
@@ -422,13 +443,12 @@ namespace AZ
             IndicesName = Name{ "UmbraMeshIndexBuffer" };
 
             Umbra::MeshInfo info = job.getMeshInfo();
-            ++s_modelNumber;
 
             m_vertexCount = info.numUniqueVertices;
             m_indexCount = info.numIndices;
             m_indexBytes = m_vertexCount < (1 << 16) ? 2 : 4;
             // Next calculate the required Atom allocation size for
-            m_allocatedSize = m_vertexCount * (4 * sizeof(float) + sizeof(Vertex)); // Final Vertex Size = Umbra vertex + added tangent (3 floats) and W component of the Tangent
+            m_allocatedSize = m_vertexCount * (4 * sizeof(float) + sizeof(Vertex)); // Final Vertex Size = Umbra vertex + added bi-tangent (3 floats) and W component of the Tangent
             m_allocatedSize += m_indexCount * m_indexBytes; // and add the allocation for the indices.
             m_material = (Material*)info.material;
 
@@ -446,14 +466,16 @@ namespace AZ
             CalculateTangentsAndBiTangents();
 
             // [Adi] - should we free the memory now that the assets has been created?
-            CreateAtomModel();
+            if (CreateAtomModel())
+            {
+                ++s_modelNumber;
+            }
         }
 
         Mesh::~Mesh()
         {
             free(m_buffersData);
             m_buffersData = nullptr;
-            //            g_gpuMemoryUsage -= m_allocatedSize;
         }
 
     } // namespace AtomSceneStream

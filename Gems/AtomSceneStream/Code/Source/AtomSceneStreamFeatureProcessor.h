@@ -1,7 +1,7 @@
 #pragma once
 
 #include <AzCore/base.h>
-#include <AzCore/std/containers/map.h>
+#include <AzCore/std/containers/unordered_map.h>
 #include <AzCore/std/containers/list.h>
 #include <AzCore/Component/TickBus.h>
 
@@ -10,6 +10,7 @@
 #include <Atom/RPI.Public/Image/StreamingImage.h>
 
 #include <Atom/RPI.Public/FeatureProcessor.h>
+#include <Atom/Feature/Mesh/MeshFeatureProcessorInterface.h>
 
 #include <umbra/Client.hpp>
 #include <umbra/Runtime.hpp>
@@ -28,6 +29,11 @@ namespace AZ
 {
     namespace AtomSceneStream
     {
+        class Mesh;
+        using ModelsMap = AZStd::unordered_map<AtomSceneStream::Mesh*, Render::MeshFeatureProcessorInterface::MeshHandle>;
+
+        const uint32_t GPU_MEMORY_LIMIT = 1024 * 1024 * 1024; // 1 GiB
+
         class AtomSceneStreamFeatureProcessor final
             : public RPI::FeatureProcessor
             , private AZ::TickBus::Handler
@@ -51,14 +57,15 @@ namespace AZ
             int GetTickOrder() override;
 
             // RPI::SceneNotificationBus overrides ...
-//            void OnRenderPipelineAdded(RPI::RenderPipelinePtr renderPipeline) override;
+            void OnRenderPipelineAdded(RPI::RenderPipelinePtr renderPipeline) override;
 //            void OnRenderPipelineRemoved(RPI::RenderPipeline* renderPipeline) override;
 //            void OnRenderPipelinePassesChanged(RPI::RenderPipeline* renderPipeline) override;
 
             // Umbra driven functionality
             void CleanResource();
             void UpdateStreamingResources();
-            bool RestartUmbraClient();
+            bool StartUmbraClient(); 
+            bool RegisterMeshForRender(AtomSceneStream::Mesh* currentMesh, Transform& modelTransform);
             bool LoadStreamedAssets();
             bool UnloadStreamedAssets();
             void HandleAssetsStreaming(float seconds);
@@ -67,6 +74,10 @@ namespace AZ
             AZ_DISABLE_COPY_MOVE(AtomSceneStreamFeatureProcessor);
 
             Render::MeshFeatureProcessorInterface* m_meshFeatureProcessor = nullptr;
+            ModelsMap m_modelsMap;
+
+            float m_quality = 0.5f;     // adjusted based on memory consumption
+            uint32_t m_memoryUsage = 0;
 
             Umbra::EnvironmentInfo m_env;
             Umbra::Client* m_client = nullptr;
@@ -74,6 +85,7 @@ namespace AZ
             Umbra::Scene m_scene;
             Umbra::View m_view;
 
+            bool m_readyForStreaming = false;
             bool m_isConnectedAndStreaming = false;
             /*
             const uint32_t backBuffersAmount = 3;
@@ -83,7 +95,8 @@ namespace AZ
             AZStd::unordered_map<uint32_t, std::vector<uint8_t>> m_texturesData[backBuffersAmount]; // memory array containing K vectors where K = swap buffers amount
 
             static uint32_t s_instanceCount;
-            uint32_t m_currentFrame = 0;  // for keeping cyclic order of allocated memory.
+            uint32_t m_currentFrame = 0;    // for keeping cyclic order of allocated memory.
+
             */
         };
     } // namespace AtomSceneStream

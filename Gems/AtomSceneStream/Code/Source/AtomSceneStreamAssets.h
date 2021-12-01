@@ -27,6 +27,8 @@ namespace AZ
 {
     namespace AtomSceneStream
     {
+        #define  CM_TO_METERRS 0.01f
+
         class Umbra::AssetLoad;
 
         //======================================================================
@@ -40,6 +42,8 @@ namespace AZ
 
             uint32_t m_imageDataSize = 0;
             Data::Instance<RPI::StreamingImage> m_streamingImage;
+
+            uint32_t GetMemoryUsage() { return m_imageDataSize; }
         };
 
         //======================================================================
@@ -101,6 +105,8 @@ namespace AZ
                 return (m_material ? m_material->GetAtomMaterial() : nullptr);
             }
 
+            uint32_t GetMemoryUsage() { return m_allocatedSize; }
+            AZStd::string& GetModelName() { return m_modelName;  }
 
         protected:
             Data::Asset<RPI::BufferAsset> CreateBufferAsset(
@@ -113,7 +119,7 @@ namespace AZ
             bool CreateAtomModel();
 
         private:
-            size_t m_allocatedSize = 0;
+            uint32_t m_allocatedSize = 0;
             int m_vertexCount = 0;
             int m_indexCount = 0;
             int m_indexBytes = 0;
@@ -123,6 +129,7 @@ namespace AZ
             // VB streams and IB buffer combined - temporary for GPU buffer creation 
             void* m_buffersData = nullptr;
             Data::Instance<RPI::Model> m_atomModel;
+            AZStd::string m_modelName;
 
             // VB and IB Umbra descriptors for the streamer load
             Umbra::ElementBuffer m_vbStreamsDesc[UmbraVertexAttributeCount];
