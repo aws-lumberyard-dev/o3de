@@ -153,6 +153,13 @@ namespace AZ
                 m_atomMaterial->SetPropertyValue(colorIndex, dummyColor);
             }
 
+            RPI::MaterialPropertyIndex doubleSidedIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("general.doubleSided"));
+            if (doubleSidedIndex.IsValid())
+            {
+                const bool doubleSided = true; 
+                m_atomMaterial->SetPropertyValue(doubleSidedIndex, doubleSided);
+            }
+            
             Data::AssetBus::MultiHandler::BusDisconnect(materialAsset.GetId());
         }
 
@@ -260,7 +267,7 @@ namespace AZ
             RPI::ModelAssetCreator modelAssetCreator;
             Uuid modelId = Uuid::CreateRandom();
             modelAssetCreator.Begin(Uuid::CreateRandom());
-            m_modelName = "AtomSceneStreamModel" + AZStd::to_string(s_modelNumber);
+            m_modelName = "AtomSceneStreamModel_" + AZStd::to_string(s_modelNumber);
             modelAssetCreator.SetName(m_modelName);
 
             {
@@ -311,10 +318,10 @@ namespace AZ
                         modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "UV" }, UVName, RPI::BufferAssetView{ uvAsset, uvDesc });
                         modelLodAssetCreator.SetMeshIndexBuffer({ indicesAsset, indexBufferViewDesc });
 
-                        Aabb localAabb = Aabb::CreateCenterHalfExtents(Vector3(0.0f, 0.0f, 0.0f), Vector3(999999.0f, 999999.0f, 999999.0f));
+                        Aabb localAabb = Aabb::CreateCenterHalfExtents(Vector3(0.0f, 0.0f, 0.0f), Vector3(999.0f, 999.0f, 999.0f));
                         modelLodAssetCreator.SetMeshAabb(AZStd::move(localAabb));
 
-                        modelLodAssetCreator.SetMeshName(Name{ "AtomSceneStream_Model" }); // _ % 5d", s_modelNumber));
+                        modelLodAssetCreator.SetMeshName(Name{ m_modelName.c_str() }); // _ % 5d", s_modelNumber));
                     }
 
                     // And finally add the material associated with the streaming model

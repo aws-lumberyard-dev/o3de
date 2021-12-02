@@ -190,8 +190,54 @@ namespace AZ
             umbraCameraPos.v[1] = cameraPos.GetY();
             umbraCameraPos.v[2] = cameraPos.GetZ();
 
+            AZ::Matrix4x4 cameraMatrixAtomToUmbra;
+
+            // The following did bring the model into view but the LODs did not update, hence probably
+            // still off - the reason is that the rotation is carried on the local and not world coords
+//            cameraMatrixAtomToUmbra = Matrix4x4::CreateRotationY(AZ::DegToRad(-90.0f)) * cameraMatrix;
+//            cameraMatrixAtomToUmbra = Matrix4x4::CreateRotationZ(AZ::DegToRad(180.0f)) * cameraMatrixAtomToUmbra;
+
+            // Correct but translation components for Y and Z are positive instead of negative
+            // First remove the translation part
+            /*
+            cameraPos = -cameraPos;
+            Matrix4x4 translationMatrix = Matrix4x4::CreateTranslation(cameraPos) - Matrix4x4::CreateIdentity();
+            cameraMatrixAtomToUmbra = cameraMatrix + translationMatrix;  // remove the translation component
+            cameraMatrixAtomToUmbra = Matrix4x4::CreateRotationX(AZ::DegToRad(-90.0f)) * cameraMatrixAtomToUmbra;
+            cameraMatrixAtomToUmbra = Matrix4x4::CreateRotationY(AZ::DegToRad(180.0f)) * cameraMatrixAtomToUmbra;
+            // Once the rotation was done, add the rotated inverse translation in
+            Matrix4x4 invertedMatrix = cameraMatrixAtomToUmbra;
+            invertedMatrix.InvertFast();
+            Vector3 umbraCameraTranslation = invertedMatrix * cameraPos;
+//            Vector3 umbraCameraTranslation = cameraMatrixAtomToUmbra * cameraPos;
+            cameraMatrixAtomToUmbra.SetTranslation(umbraCameraTranslation);
+            
+            // Inverse the position to match Umbra camera
+            cameraPos = -cameraPos;
+            cameraMatrixAtomToUmbra = cameraMatrix;
+            cameraMatrixAtomToUmbra.SetTranslation(cameraPos);
+            cameraMatrixAtomToUmbra = Matrix4x4::CreateRotationX(AZ::DegToRad(-90.0f)) * cameraMatrixAtomToUmbra;
+            cameraMatrixAtomToUmbra = Matrix4x4::CreateRotationY(AZ::DegToRad(180.0f)) * cameraMatrixAtomToUmbra;
+            */
+
+            cameraMatrixAtomToUmbra = cameraMatrix;
+            // Zero the translation
+            cameraMatrixAtomToUmbra.SetTranslation(Vector3::CreateZero());
+            // Rotate the camera in local coordinates to bring to Umbra coordinates system 
+            cameraMatrixAtomToUmbra = Matrix4x4::CreateRotationX(AZ::DegToRad(-90.0f)) * cameraMatrixAtomToUmbra;
+            cameraMatrixAtomToUmbra = Matrix4x4::CreateRotationY(AZ::DegToRad(180.0f)) * cameraMatrixAtomToUmbra;
+
+            // Inverse and transform the position to match Umbra camera position treatment
+            cameraPos = -cameraPos;
+            Vector3 umbraCameraTranslation = cameraMatrixAtomToUmbra * cameraPos;
+            cameraMatrixAtomToUmbra.SetTranslation(umbraCameraTranslation);
+
+            // Should be the right way to get to Umbra camera transpose in Atom representation
+//            cameraMatrixAtomToUmbra = Matrix4x4::CreateRotationY(AZ::DegToRad(180.0f)) * cameraMatrix;
+//            cameraMatrixAtomToUmbra = Matrix4x4::CreateRotationX(AZ::DegToRad(90.0f)) * cameraMatrixAtomToUmbra;
+
             // Camera View-Projection
-            AZ::Matrix4x4 worldToClip = viewToClipMatrix * cameraMatrix;
+            AZ::Matrix4x4 worldToClip = viewToClipMatrix * cameraMatrixAtomToUmbra;
             UmbraFloat4_4 umbraWorldToClip;
 //            worldToClip.StoreToRowMajorFloat16((float*)&umbraWorldToClip.v[0]);
 //            worldToClip.Transpose();
@@ -270,6 +316,9 @@ namespace AZ
                 auto modelPtr = iter->first;
                 if (currentModels.find(modelPtr) == currentModels.end())
                 {   // model was not found in the current frame - ask the FP to remove it
+                    AZStd::string errorMessage = "--- Mesh (Run Time) Removal [" + modelPtr->GetModelName() + "]";
+                    AZ_Warning("AtomSceneStream", false, errorMessage.c_str());
+
                     Render::MeshFeatureProcessorInterface::MeshHandle& modelHandle = iter->second;
                     [[maybe_unused]] bool meshReleased = m_meshFeatureProcessor->ReleaseMesh(modelHandle);
                     iter = m_modelsMap.erase(iter);     // erase from map and advance iterator
@@ -280,6 +329,7 @@ namespace AZ
                 }
             }
             */
+
             m_runtime->update();
         }
 
@@ -419,7 +469,7 @@ namespace AZ
                     auto iter = m_modelsMap.find(meshForRemoval);
                     if (iter != m_modelsMap.end())
                     {
-                        AZStd::string errorMessage = "--- Mesh Removal [" + meshForRemoval->GetModelName() + "]";
+                        AZStd::string errorMessage = "--- Mesh (Streamer) Removal [" + meshForRemoval->GetModelName() + "]";
                         AZ_Warning("AtomSceneStream", false, errorMessage.c_str());
 
                         Render::MeshFeatureProcessorInterface::MeshHandle& modelHandle = iter->second;
