@@ -41,7 +41,7 @@ namespace AZ
             ~Texture();
 
             uint32_t m_imageDataSize = 0;
-            Data::Instance<RPI::StreamingImage> m_streamingImage;
+            Data::Instance<RPI::Image> m_streamingImage;
 
             uint32_t GetMemoryUsage() { return m_imageDataSize; }
         };
@@ -63,12 +63,21 @@ namespace AZ
                 return m_atomMaterial;
             }
 
+            AZStd::string GetName()
+            {
+                return m_name;
+            }
+
         private:
+            static uint32_t s_MaterialNumber;
+
             Data::Instance<RPI::Material> m_atomMaterial = nullptr;
             Texture* m_diffuse = nullptr;
             Texture* m_normal = nullptr;
             Texture* m_specular = nullptr;
             bool m_isTransparent = false;
+
+            AZStd::string m_name;
         };
 
         //======================================================================
@@ -106,7 +115,7 @@ namespace AZ
             }
 
             uint32_t GetMemoryUsage() { return m_allocatedSize; }
-            AZStd::string& GetModelName() { return m_modelName;  }
+            AZStd::string& GetModelName() { return m_name;  }
 
         protected:
             Data::Asset<RPI::BufferAsset> CreateBufferAsset(
@@ -129,7 +138,7 @@ namespace AZ
             // VB streams and IB buffer combined - temporary for GPU buffer creation 
             void* m_buffersData = nullptr;
             Data::Instance<RPI::Model> m_atomModel;
-            AZStd::string m_modelName;
+            AZStd::string m_name;
 
             // VB and IB Umbra descriptors for the streamer load
             Umbra::ElementBuffer m_vbStreamsDesc[UmbraVertexAttributeCount];

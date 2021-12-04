@@ -30,7 +30,8 @@ namespace AZ
     namespace AtomSceneStream
     {
         class Mesh;
-        using ModelsMap = AZStd::unordered_map<AtomSceneStream::Mesh*, Render::MeshFeatureProcessorInterface::MeshHandle>;
+//        using ModelsMap = AZStd::unordered_map<AtomSceneStream::Mesh*, Render::MeshFeatureProcessorInterface::MeshHandle>;
+        using ModelsMap = AZStd::unordered_map<AZStd::string, Render::MeshFeatureProcessorInterface::MeshHandle>;
 
         const uint32_t GPU_MEMORY_LIMIT = 1024 * 1024 * 1024; // 1 GiB
 
@@ -51,6 +52,7 @@ namespace AZ
             void Deactivate() override;
             void Simulate(const FeatureProcessor::SimulatePacket& packet) override;
             void Render(const FeatureProcessor::RenderPacket& packet) override;
+//            void OnRenderEnd() override;
 
             // AZ::TickBus::Handler overrides
             void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
@@ -58,12 +60,14 @@ namespace AZ
 
             // RPI::SceneNotificationBus overrides ...
             void OnRenderPipelineAdded(RPI::RenderPipelinePtr renderPipeline) override;
-//            void OnRenderPipelineRemoved(RPI::RenderPipeline* renderPipeline) override;
+            void OnRenderPipelineRemoved(RPI::RenderPipeline* renderPipeline) override;
 //            void OnRenderPipelinePassesChanged(RPI::RenderPipeline* renderPipeline) override;
 
             // Umbra driven functionality
             void CleanResource();
+            void RemoveAllActiveModels();
             void UpdateStreamingResources();
+            void UpdateUmbraViewCamera();
             bool StartUmbraClient(); 
             bool RegisterMeshForRender(AtomSceneStream::Mesh* currentMesh, Transform& modelTransform);
             bool LoadStreamedAssets();

@@ -107,6 +107,7 @@ namespace AZ
         //======================================================================
         //                             Material
         //======================================================================
+        uint32_t Material::s_MaterialNumber = 0;
 
         void Material::OnAssetReady(AZ::Data::Asset<AZ::Data::AssetData> materialAsset)
         {
@@ -118,7 +119,6 @@ namespace AZ
                 return;
             }
 
-            /*
             // Adding the textures
             RPI::MaterialPropertyIndex textureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.textureMap"));
             RPI::MaterialPropertyIndex useTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.useTexture"));
@@ -127,6 +127,7 @@ namespace AZ
                 m_atomMaterial->SetPropertyValue(textureIndex, m_diffuse->m_streamingImage );
                 m_atomMaterial->SetPropertyValue(useTextureIndex, true);
             }
+//            m_atomMaterial->SetPropertyValue(useTextureIndex, false);
 
             textureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.textureMap"));
             useTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.useTexture"));
@@ -135,6 +136,7 @@ namespace AZ
                 m_atomMaterial->SetPropertyValue(textureIndex, m_normal->m_streamingImage);
                 m_atomMaterial->SetPropertyValue(useTextureIndex, true);
             }
+//            m_atomMaterial->SetPropertyValue(useTextureIndex, false);
 
             textureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("specularF0.textureMap"));
             useTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("specularF0.useTexture"));
@@ -143,14 +145,14 @@ namespace AZ
                 m_atomMaterial->SetPropertyValue(textureIndex, m_specular->m_streamingImage);
                 m_atomMaterial->SetPropertyValue(useTextureIndex, true);
             }
-            */
-
+//            m_atomMaterial->SetPropertyValue(useTextureIndex, false);
+            
             // And setting a dummy color
             RPI::MaterialPropertyIndex colorIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.color"));
             if (colorIndex.IsValid())
             {
-                const Color dummyColor = Color(1.0f, .5f, .5f, 1.0f);
-                m_atomMaterial->SetPropertyValue(colorIndex, dummyColor);
+                const Color dummyColor = Color(1.0f, 0.0f, 0.0f, 1.0f);
+//                m_atomMaterial->SetPropertyValue(colorIndex, dummyColor);
             }
 
             RPI::MaterialPropertyIndex doubleSidedIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("general.doubleSided"));
@@ -166,6 +168,8 @@ namespace AZ
         // For samples look at cesium-main/Gems/Cesium/Code/Source/GltfRasterMaterialBuilder.cpp
         Material::Material(Umbra::AssetLoad& job)
         {
+            m_name = "Material_" + AZStd::to_string(s_MaterialNumber);
+
             Umbra::MaterialInfo info = job.getMaterialInfo();
 
             m_diffuse = (Texture*)info.textures[UmbraTextureType_Diffuse];
@@ -267,8 +271,8 @@ namespace AZ
             RPI::ModelAssetCreator modelAssetCreator;
             Uuid modelId = Uuid::CreateRandom();
             modelAssetCreator.Begin(Uuid::CreateRandom());
-            m_modelName = "AtomSceneStreamModel_" + AZStd::to_string(s_modelNumber);
-            modelAssetCreator.SetName(m_modelName);
+            m_name = "Model_" + AZStd::to_string(s_modelNumber);
+            modelAssetCreator.SetName(m_name);
 
             {
                 // Vertex Buffer Streams
@@ -321,7 +325,7 @@ namespace AZ
                         Aabb localAabb = Aabb::CreateCenterHalfExtents(Vector3(0.0f, 0.0f, 0.0f), Vector3(999.0f, 999.0f, 999.0f));
                         modelLodAssetCreator.SetMeshAabb(AZStd::move(localAabb));
 
-                        modelLodAssetCreator.SetMeshName(Name{ m_modelName.c_str() }); // _ % 5d", s_modelNumber));
+                        modelLodAssetCreator.SetMeshName(Name{ m_name.c_str() }); // _ % 5d", s_modelNumber));
                     }
 
                     // And finally add the material associated with the streaming model
@@ -330,6 +334,11 @@ namespace AZ
                         RPI::ModelMaterialSlot::StableId slotId = 0;
                         modelAssetCreator.AddMaterialSlot(RPI::ModelMaterialSlot{ slotId, Name{"AtomSceneStream_Material"}, m_material->GetAtomMaterial()->GetAsset() });
                         modelLodAssetCreator.SetMeshMaterialSlot(slotId);
+                    }
+                    else
+                    {
+                        AZStd::string messageStr = m_material ? "Missing Atom Material [" : " Missing Umbra Material [" + m_name + "]";
+                        AZ_Warning("AtomSceneStream", false, messageStr.c_str());
                     }
                 }
                 modelLodAssetCreator.EndMesh();
@@ -357,7 +366,7 @@ namespace AZ
 
             if (!m_atomModel)
             {
-                m_modelName = "FaultyLoadedModel";
+                m_name = "FaultyLoadedModel";
                 AZ_Error("AtomSceneStream", false, "Error - model could not be found or created");
                 return false;
             }
