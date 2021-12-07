@@ -8,7 +8,7 @@
 #include <AtomCore/Instance/Instance.h>
 
 #include <Atom/RPI.Public/Image/StreamingImage.h>
-
+#include <Atom/RPI.Public/AuxGeom/AuxGeomFeatureProcessorInterface.h>
 #include <Atom/RPI.Public/FeatureProcessor.h>
 #include <Atom/Feature/Mesh/MeshFeatureProcessorInterface.h>
 
@@ -66,6 +66,7 @@ namespace AZ
             // Umbra driven functionality
             void CleanResource();
             void RemoveAllActiveModels();
+            void DebugDraw(RPI::AuxGeomDrawPtr auxGeom, AtomSceneStream::Mesh* currentMesh, Vector3& offset, const Color& debugColor);
             void UpdateStreamingResources();
             void UpdateUmbraViewCamera();
             bool StartUmbraClient(); 

@@ -1,9 +1,6 @@
 #include <AzCore/std/parallel/thread.h>
-//#include <AzCore/Jobs/JobCompletion.h>
-//#include <AzCore/Jobs/JobFunction.h>
-//#include <AzCore/RTTI/TypeInfo.h>
 #include <AzCore/Serialization/SerializeContext.h>
-//#include <AzCore/Debug/EventTrace.h>
+
 
 #include <AzCore/Math/MatrixUtils.h>
 #include <AzCore/Math/Matrix3x4.h>
@@ -11,11 +8,11 @@
 #include <AzCore/Math/Transform.h>
 
 #include <Atom/RPI.Public/Scene.h>
+#include <Atom/RPI.Public/AuxGeom/AuxGeomDraw.h>
 
 #include <AzFramework/Components/CameraBus.h>
 
 #include <Atom/Feature/Mesh/MeshFeatureProcessor.h>
-
 
 #include <AtomSceneStreamAssets.h>
 #include <AtomSceneStreamFeatureProcessor.h>
@@ -30,7 +27,12 @@ namespace AZ
 {
     namespace AtomSceneStream
     {
-        static bool printDebugInfo = false;
+        static bool printDebugInfo = true;
+        static bool printDebugRemoval = true;
+        static bool printDebugAdd = false;
+        static bool debugDraw = true;
+        static bool debugSpheres = false;
+        static bool removeModels = false;
 
         AtomSceneStreamFeatureProcessor::AtomSceneStreamFeatureProcessor()
         {
@@ -195,10 +197,17 @@ namespace AZ
             cameraMatrixAtomToUmbra = cameraMatrix;
             // Zero the translation
             cameraMatrixAtomToUmbra.SetTranslation(Vector3::CreateZero());
+            ////////////////////////
+            cameraMatrixAtomToUmbra.InvertFast();
+            cameraMatrixAtomToUmbra = Matrix4x4::CreateRotationX(AZ::DegToRad(-90.0f)) * cameraMatrixAtomToUmbra;
+            // /////////////////////
+
+/*
+* Org
             // Rotate the camera in local coordinates to bring to Umbra coordinates system 
             cameraMatrixAtomToUmbra = Matrix4x4::CreateRotationX(AZ::DegToRad(-90.0f)) * cameraMatrixAtomToUmbra;
             cameraMatrixAtomToUmbra = Matrix4x4::CreateRotationY(AZ::DegToRad(180.0f)) * cameraMatrixAtomToUmbra;
-
+*/
             // Inverse and transform the position to match Umbra camera position treatment
             cameraPos = -cameraPos;
             Vector3 umbraCameraTranslation = cameraMatrixAtomToUmbra * cameraPos;
@@ -218,6 +227,30 @@ namespace AZ
             viewInfo.cameraMatrixFormat = UmbraMatrixFormat_ColumnMajor;
             viewInfo.quality = m_quality;
             m_view.setCamera(viewInfo);
+        }
+
+        void AtomSceneStreamFeatureProcessor::DebugDraw(
+            RPI::AuxGeomDrawPtr auxGeom, AtomSceneStream::Mesh* currentMesh,
+            Vector3& offset, const Color& debugColor)
+        {
+            Vector3 center;
+            float radius;
+
+            const Aabb curAABB = currentMesh->GetAABB();
+            curAABB.GetAsSphere(center, radius);
+
+            if (debugSpheres)
+            {
+                auxGeom->DrawSphere(center + offset, radius,
+                    debugColor, RPI::AuxGeomDraw::DrawStyle::Line, RPI::AuxGeomDraw::DepthTest::Off,
+                    RPI::AuxGeomDraw::DepthWrite::Off, RPI::AuxGeomDraw::FaceCullMode::None, -1);
+            }
+            else
+            {
+                auxGeom->DrawAabb(curAABB,
+                    debugColor, RPI::AuxGeomDraw::DrawStyle::Line, RPI::AuxGeomDraw::DepthTest::Off,
+                    RPI::AuxGeomDraw::DepthWrite::Off, RPI::AuxGeomDraw::FaceCullMode::None, -1);
+            }
         }
 
         void AtomSceneStreamFeatureProcessor::UpdateStreamingResources()
@@ -245,9 +278,13 @@ namespace AZ
 
             m_runtime->update();
 
+            RPI::Scene* scene = GetParentScene();
+            RPI::AuxGeomDrawPtr auxGeom = AZ::RPI::AuxGeomFeatureProcessorInterface::GetDrawQueueForScene(scene);
+
             ModelsMap currentModels;
             uint32_t modelsNum = 0;
             uint32_t modelsRegistered = 0;
+
             for (;;)
             {
                 Umbra::Renderable batch[128];
@@ -258,13 +295,23 @@ namespace AZ
                 for (int i = 0; i < num; i++)
                 {
                     AtomSceneStream::Mesh* currentMesh = (AtomSceneStream::Mesh*)batch[i].mesh;
+                    if (!currentMesh->IsReady())
+                    {
+                        AZ_Warning("AtomSceneStream", false, "Model [%s] not ready yet and will be skipped", currentMesh->GetModelName().c_str());
+                        continue;
+                    }
 
                     const float* matrixValues = (const float*)&batch[i].transform.v[0].v[0];
                     Matrix3x4 modelMatrix = Matrix3x4::CreateFromColumnMajorFloat16(matrixValues);
                     Transform modelTransform = Transform::CreateFromMatrix3x4(modelMatrix);
+                    Vector3 offset = modelMatrix.GetTranslation();
+                    Transform positionTransform = AZ::Transform::CreateIdentity();
+                    positionTransform.SetTranslation(offset);
 
-                    AZ::Transform positionTransform = AZ::Transform::CreateIdentity();
-                    positionTransform.SetTranslation(modelMatrix.GetTranslation());
+                    if (debugDraw)
+                    {
+                        DebugDraw(auxGeom, currentMesh, offset, Colors::Green);
+                    }
 
                     ++modelsNum;
                     if (RegisterMeshForRender(currentMesh, positionTransform))
@@ -279,38 +326,50 @@ namespace AZ
             // Remove old entries that should not be rendered anymore.
             // [remark] - this should not be required if the stream offload deletion is working properly
             uint32_t modelsRemoved = 0;
-            /*
-            auto iter = m_modelsMap.begin();
-            while (iter != m_modelsMap.end())
+
+            if (removeModels)
             {
-//                AtomSceneStream::Mesh* modelPtr = iter->first;
-//                if (currentModels.find(modelPtr) == currentModels.end())
-                AZStd::string modelName = iter->first;
-                if (currentModels.find(modelName) == currentModels.end())
-                {   // model was not found in the current frame - ask the FP to remove it
-//                    if (printDebugInfo)
-                    {
-                        AZStd::string errorMessage = "--- Mesh (Run Time) Removal [" + modelName + "]";
-//                        AZStd::string errorMessage = "--- Mesh (Run Time) Removal [" + modelPtr->GetModelName() + "]";
-                        AZ_Warning("AtomSceneStream", false, errorMessage.c_str());
-                    }
-
-                    ++modelsRemoved;
-
-                    Render::MeshFeatureProcessorInterface::MeshHandle& modelHandle = iter->second;
-                    [[maybe_unused]] bool meshReleased = m_meshFeatureProcessor->ReleaseMesh(modelHandle);
-                    iter = m_modelsMap.erase(iter);     // erase from map and advance iterator
-                    ++iter;
-                    break;      // only single removal per frame
-                }
-                else
+                auto iter = m_modelsMap.begin();
+                while (iter != m_modelsMap.end())
                 {
-                    ++iter;
-                }
+    //                AtomSceneStream::Mesh* modelPtr = iter->first;
+    //                if (currentModels.find(modelPtr) == currentModels.end())
+                    AZStd::string modelName = iter->first;
+                    if (currentModels.find(modelName) == currentModels.end())
+                    {   // model was not found in the current frame - ask the FP to remove it
+                        if (printDebugInfo && printDebugRemoval)
+                        {
+                            AZStd::string errorMessage = "--- Mesh (Run Time) Removal [" + modelName + "]";
+    //                        AZStd::string errorMessage = "--- Mesh (Run Time) Removal [" + modelPtr->GetModelName() + "]";
+                            AZ_Warning("AtomSceneStream", false, errorMessage.c_str());
+                        }
+
+                        ++modelsRemoved;
+
+                        Render::MeshFeatureProcessorInterface::MeshHandle& meshHandle = iter->second;
+                        if (meshHandle.IsValid())
+                        {
+                            [[maybe_unused]] bool meshReleased = m_meshFeatureProcessor->ReleaseMesh(meshHandle);
+                        }
+                        else
+                        {
+                            AZ_Error("AtomSceneStream", false, "Error - mesh handle for [%s] is invalid",modelName.c_str());
+                        }
+                        iter = m_modelsMap.erase(iter);     // erase from map and advance iterator
+                    }
+                    else
+                    {
+                        ++iter;
+                    }
+                }  
             }
-            */
-            AZStd::string statString = "\n======================\nModels Stats - Total[" + AZStd::to_string(modelsNum) + "] - New[" + AZStd::to_string(modelsRegistered) + "] - Removed[" + AZStd::to_string(modelsRemoved) + "]\n=====================\n";
-            AZ_Warning("AtomSceneStream", false, statString.c_str());
+
+
+            if (printDebugInfo)// && modelsRemoved)
+            {
+                AZStd::string statString = "\n======================\nModels Stats - Total[" + AZStd::to_string(modelsNum) + "] - New[" + AZStd::to_string(modelsRegistered) + "] - Removed[" + AZStd::to_string(modelsRemoved) + "]\n=====================\n";
+                AZ_Warning("AtomSceneStream", false, statString.c_str());
+            }
         }
 
         void AtomSceneStreamFeatureProcessor::RemoveAllActiveModels()
@@ -337,7 +396,7 @@ namespace AZ
 //            if (m_modelsMap.find(currentMesh) != m_modelsMap.end())
             if (m_modelsMap.find(currentMesh->GetModelName()) != m_modelsMap.end())
             {
-//            if (printDebugInfo)
+                if (printDebugInfo && printDebugAdd)
                 {
                     AZStd::string errorMessage = "+++ Mesh Exists [" + currentMesh->GetModelName() + "]";
                     AZ_Warning("AtomSceneStream", false, errorMessage.c_str());
@@ -349,7 +408,9 @@ namespace AZ
             const Render::MeshHandleDescriptor meshDescriptor = Render::MeshHandleDescriptor{ currentMesh->GetAtomModel()->GetModelAsset() };
             Render::MeshFeatureProcessorInterface::MeshHandle meshHandle = m_meshFeatureProcessor->AcquireMesh(meshDescriptor, currentMesh->GetAtomMaterial());
 
-//            if (printDebugInfo)
+            AZ_Error("AtomSceneStream", meshHandle.IsValid(), "Error - mesh handle for [%s] is invalid", currentMesh->GetModelName().c_str());
+
+            if (printDebugInfo && printDebugAdd)
             {
                 AZStd::string errorMessage = "+++ Mesh Registration [" + currentMesh->GetModelName() + "]";
                 AZ_Warning("AtomSceneStream", false, errorMessage.c_str());
@@ -472,14 +533,14 @@ namespace AZ
             case UmbraAssetType_Mesh:
             {
                 AtomSceneStream::Mesh* meshForRemoval = (AtomSceneStream::Mesh*)assetUnload.getUserPointer();
-                m_memoryUsage -= meshForRemoval->GetMemoryUsage();
-                if (m_meshFeatureProcessor)
-                { 
+                if (m_meshFeatureProcessor && meshForRemoval)
+                {
+                    m_memoryUsage -= meshForRemoval->GetMemoryUsage();
 //                    auto iter = m_modelsMap.find(meshForRemoval);
                     auto iter = m_modelsMap.find(meshForRemoval->GetModelName());
                     if (iter != m_modelsMap.end())
                     {
-                        if (printDebugInfo)
+                        if (printDebugInfo && printDebugRemoval)
                         {
                             AZStd::string errorMessage = "--- Mesh (Streamer) Removal [" + meshForRemoval->GetModelName() + "]";
                             AZ_Warning("AtomSceneStream", false, errorMessage.c_str());

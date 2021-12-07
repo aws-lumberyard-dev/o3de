@@ -15,11 +15,6 @@
 #include <Atom/RPI.Public/Material/Material.h>
 #include <Atom/RPI.Public/Model/Model.h>
 
-//#pragma warning( disable : 2220 )
-
-//#include <Eigen/Core>
-//#include <Eigen/Geometry>
-
 #include <umbra/Client.hpp>
 #include <umbra/Runtime.hpp>
 
@@ -40,10 +35,17 @@ namespace AZ
             Texture(Umbra::AssetLoad& job);
             ~Texture();
 
+            AZStd::string GetName() {  return m_name; }
+            uint32_t GetMemoryUsage() { return m_imageDataSize; }
+            Data::Instance<RPI::Image> GetStreamingImage() { return m_streamingImage;  }
+
+        private:
+            std::vector<uint8_t> m_textureData;
+
             uint32_t m_imageDataSize = 0;
             Data::Instance<RPI::Image> m_streamingImage;
-
-            uint32_t GetMemoryUsage() { return m_imageDataSize; }
+            AZStd::string m_name;
+            static uint32_t s_TextureNumber;
         };
 
         //======================================================================
@@ -58,18 +60,14 @@ namespace AZ
             // AZ::Data::AssetBus::Handler
             void OnAssetReady(AZ::Data::Asset<AZ::Data::AssetData> asset) override;
 
-            Data::Instance<RPI::Material> GetAtomMaterial()
-            {
-                return m_atomMaterial;
-            }
+            Data::Instance<RPI::Material> GetAtomMaterial()  { return m_atomMaterial; }
 
-            AZStd::string GetName()
-            {
-                return m_name;
-            }
+            AZStd::string GetName() { return m_name; }
+
 
         private:
             static uint32_t s_MaterialNumber;
+            static bool s_useTextures;
 
             Data::Instance<RPI::Material> m_atomMaterial = nullptr;
             Texture* m_diffuse = nullptr;
@@ -104,10 +102,7 @@ namespace AZ
             Mesh(Umbra::AssetLoad& job);
             ~Mesh();
 
-            Data::Instance<RPI::Model> GetAtomModel()
-            {
-                return m_atomModel;
-            }
+            Data::Instance<RPI::Model> GetAtomModel() { return m_atomModel; }
 
             Data::Instance<RPI::Material>  GetAtomMaterial()
             {
@@ -116,6 +111,8 @@ namespace AZ
 
             uint32_t GetMemoryUsage() { return m_allocatedSize; }
             AZStd::string& GetModelName() { return m_name;  }
+            const Aabb& GetAABB() { return m_aabb;  }
+            bool IsReady() { return m_modelReady;  }
 
         protected:
             Data::Asset<RPI::BufferAsset> CreateBufferAsset(
@@ -128,6 +125,7 @@ namespace AZ
             bool CreateAtomModel();
 
         private:
+            Aabb m_aabb;
             uint32_t m_allocatedSize = 0;
             int m_vertexCount = 0;
             int m_indexCount = 0;
@@ -139,6 +137,7 @@ namespace AZ
             void* m_buffersData = nullptr;
             Data::Instance<RPI::Model> m_atomModel;
             AZStd::string m_name;
+            bool m_modelReady = false;
 
             // VB and IB Umbra descriptors for the streamer load
             Umbra::ElementBuffer m_vbStreamsDesc[UmbraVertexAttributeCount];

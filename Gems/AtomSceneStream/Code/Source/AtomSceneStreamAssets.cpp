@@ -26,7 +26,8 @@ namespace AZ
         //======================================================================
         //                             Texture
         //======================================================================
-        // Load texture from AssetLoadJob and create a corresponding OpenGL texture
+        uint32_t Texture::s_TextureNumber = 0;
+
         Texture::Texture(Umbra::AssetLoad& job)
         {
             struct ImageFormatPairing
@@ -73,14 +74,14 @@ namespace AZ
             }
 
             // getting the streaming texture data
-            static std::vector<uint8_t> textureData;// = m_texturesData[m_currentFrame % backBuffersAmount][textureUsage];
+//            static std::vector<uint8_t> textureData;// = m_texturesData[m_currentFrame % backBuffersAmount][textureUsage];
             m_imageDataSize = info.dataByteSize;
-            textureData.resize(m_imageDataSize);
+            m_textureData.resize(m_imageDataSize);
 
             Umbra::ByteBuffer buf = {};
             buf.byteSize = m_imageDataSize;
             buf.flags = 0;
-            buf.ptr = textureData.data();
+            buf.ptr = m_textureData.data();
             job.getTextureData(buf);    // [Adi] - are we double allocating here?  why Not go directly to the Source and keep the ptr?
 
             const Data::Instance<RPI::StreamingImagePool>& streamingImagePool = RPI::ImageSystemInterface::Get()->GetSystemStreamingPool();
@@ -88,7 +89,7 @@ namespace AZ
                 RHI::ImageDimension::Image2D,
                 RHI::Size(info.width, info.height, 1),
                 imageFormat,
-                textureData.data(),
+                m_textureData.data(),
                 m_imageDataSize);
 
             if (!m_streamingImage)
@@ -96,6 +97,10 @@ namespace AZ
                 m_imageDataSize = 0;
                 AZ_Error("AtomSceneStream", false, "StreamingImage creation failed");
             }
+
+            m_name = "Texture_" + AZStd::to_string(s_TextureNumber++);
+            AZStd::string msg = "   Texture [" + m_name + "] was created";
+            AZ_Warning("AtomSceneStream", false, msg.c_str());
         }
 
         Texture::~Texture()
@@ -108,6 +113,7 @@ namespace AZ
         //                             Material
         //======================================================================
         uint32_t Material::s_MaterialNumber = 0;
+        bool Material::s_useTextures = false;
 
         void Material::OnAssetReady(AZ::Data::Asset<AZ::Data::AssetData> materialAsset)
         {
@@ -120,47 +126,71 @@ namespace AZ
             }
 
             // Adding the textures
-            RPI::MaterialPropertyIndex textureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.textureMap"));
-            RPI::MaterialPropertyIndex useTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.useTexture"));
-            if (m_diffuse->m_streamingImage && textureIndex.IsValid() && useTextureIndex.IsValid())
+            RPI::MaterialPropertyIndex useDiffTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.useTexture"));
+            RPI::MaterialPropertyIndex useNormTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.useTexture"));
+            RPI::MaterialPropertyIndex useSpecTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("specularF0.useTexture"));
+            if (s_useTextures)
             {
-                m_atomMaterial->SetPropertyValue(textureIndex, m_diffuse->m_streamingImage );
-                m_atomMaterial->SetPropertyValue(useTextureIndex, true);
-            }
-//            m_atomMaterial->SetPropertyValue(useTextureIndex, false);
+                RPI::MaterialPropertyIndex diffTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.textureMap"));
+                if (m_diffuse->GetStreamingImage() && diffTextureIndex.IsValid() && useDiffTextureIndex.IsValid())
+                {
+                    m_atomMaterial->SetPropertyValue(diffTextureIndex, m_diffuse->GetStreamingImage());
+                    m_atomMaterial->SetPropertyValue(useDiffTextureIndex, true);
+                }
+                else if (!m_diffuse->GetStreamingImage())
+                {
+                    AZ_Warning("AtomSceneStream", false, "Material [%s] Missing Diffuse Texture", m_name.c_str());
+                }
 
-            textureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.textureMap"));
-            useTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.useTexture"));
-            if (m_normal->m_streamingImage && textureIndex.IsValid() && useTextureIndex.IsValid())
-            {
-                m_atomMaterial->SetPropertyValue(textureIndex, m_normal->m_streamingImage);
-                m_atomMaterial->SetPropertyValue(useTextureIndex, true);
-            }
-//            m_atomMaterial->SetPropertyValue(useTextureIndex, false);
+                RPI::MaterialPropertyIndex normTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.textureMap"));
+                if (m_normal->GetStreamingImage() && normTextureIndex.IsValid() && useNormTextureIndex.IsValid())
+                {
+                    m_atomMaterial->SetPropertyValue(normTextureIndex, m_normal->GetStreamingImage());
+                    m_atomMaterial->SetPropertyValue(useNormTextureIndex, true);
+                }
+                else if (!m_normal->GetStreamingImage())
+                {
+                    AZ_Warning("AtomSceneStream", false, "Material [%s] Missing Normal Texture", m_name.c_str());
+                }
 
-            textureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("specularF0.textureMap"));
-            useTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("specularF0.useTexture"));
-            if (m_specular->m_streamingImage && textureIndex.IsValid() && useTextureIndex.IsValid())
-            {
-                m_atomMaterial->SetPropertyValue(textureIndex, m_specular->m_streamingImage);
-                m_atomMaterial->SetPropertyValue(useTextureIndex, true);
+                RPI::MaterialPropertyIndex specTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("specularF0.textureMap"));
+                if (m_specular->GetStreamingImage() && specTextureIndex.IsValid() && useSpecTextureIndex.IsValid())
+                {
+                    m_atomMaterial->SetPropertyValue(specTextureIndex, m_specular->GetStreamingImage());
+                    m_atomMaterial->SetPropertyValue(useSpecTextureIndex, true);
+                }
+                else if (!m_specular->GetStreamingImage())
+                {
+                    AZ_Warning("AtomSceneStream", false, "Material [%s] Missing Specular Texture", m_name.c_str());
+                }
             }
-//            m_atomMaterial->SetPropertyValue(useTextureIndex, false);
-            
-            // And setting a dummy color
-            RPI::MaterialPropertyIndex colorIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.color"));
-            if (colorIndex.IsValid())
+            else
             {
-                const Color dummyColor = Color(1.0f, 0.0f, 0.0f, 1.0f);
-//                m_atomMaterial->SetPropertyValue(colorIndex, dummyColor);
+                m_atomMaterial->SetPropertyValue(useDiffTextureIndex, false);
+                m_atomMaterial->SetPropertyValue(useNormTextureIndex, false);
+                m_atomMaterial->SetPropertyValue(useSpecTextureIndex, false);
+
+                RPI::MaterialPropertyIndex useRoughTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("roughness.useTexture"));
+                m_atomMaterial->SetPropertyValue(useRoughTextureIndex, false);
+
+                // And setting a dummy color
+                RPI::MaterialPropertyIndex colorIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.color"));
+                if (colorIndex.IsValid())
+                {
+                    const Color dummyColor = Color(1.0f, 0.5f, 0.5f, 1.0f);
+                    m_atomMaterial->SetPropertyValue(colorIndex, dummyColor);
+                }
             }
 
-            RPI::MaterialPropertyIndex doubleSidedIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("general.doubleSided"));
-            if (doubleSidedIndex.IsValid())
-            {
-                const bool doubleSided = true; 
-                m_atomMaterial->SetPropertyValue(doubleSidedIndex, doubleSided);
-            }
+//            RPI::MaterialPropertyIndex doubleSidedIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("general.doubleSided"));
+//            if (doubleSidedIndex.IsValid())
+//            {
+//                const bool doubleSided = true; 
+//                m_atomMaterial->SetPropertyValue(doubleSidedIndex, doubleSided);
+//            }
+
+            AZ_Warning("AtomSceneStream", false, " Material [%s] was created with Textures: [%s]   [%s]   [%s]",
+                m_name.c_str(), m_diffuse->GetName().c_str(), m_specular->GetName().c_str(), m_normal->GetName().c_str());
             
             Data::AssetBus::MultiHandler::BusDisconnect(materialAsset.GetId());
         }
@@ -168,7 +198,7 @@ namespace AZ
         // For samples look at cesium-main/Gems/Cesium/Code/Source/GltfRasterMaterialBuilder.cpp
         Material::Material(Umbra::AssetLoad& job)
         {
-            m_name = "Material_" + AZStd::to_string(s_MaterialNumber);
+            m_name = "Material_" + AZStd::to_string(s_MaterialNumber++);
 
             Umbra::MaterialInfo info = job.getMaterialInfo();
 
@@ -237,19 +267,17 @@ namespace AZ
         // avoid the need to copy back.
         void Mesh::CalculateTangentsAndBiTangents()
         {
-//            float* position = (float*)m_vbStreamsDesc[UmbraVertexAttribute_Position].ptr;
+            float* position = (float*)m_vbStreamsDesc[UmbraVertexAttribute_Position].ptr;
             float* normal = (float*)m_vbStreamsDesc[UmbraVertexAttribute_Normal].ptr;
             float* orgTangent = (float*)m_vbStreamsDesc[UmbraVertexAttribute_Tangent].ptr;  // this will become the bi-tangent
             float* newTangent = (float*)m_vbStreamsDesc[UmbraVertexAttribute_Tangent].ptr + m_vertexCount * 3;
  
 //            for (int vtx = 0; vtx < m_vertexCount; ++vtx, position+=3, normal+=3, orgTangent+=3, newTangent+=4)
-            for (int vtx = 0; vtx < m_vertexCount; ++vtx, normal += 3, orgTangent += 3, newTangent += 4)
+            for (int vtx = 0; vtx < m_vertexCount; ++vtx, normal += 3, orgTangent += 3, newTangent += 4, position+=3)
             {
-//                Vector3* positionV3 = (Vector3*)position;
+                Vector3* positionV3 = (Vector3*)position;
                 Vector3* normalV3 = (Vector3*)normal;
                 Vector3* orgTangentV3 = (Vector3*)orgTangent;
-
-//                *positionV3 *= 0.25f;// CM_TO_METERRS;
 
 //                *((Vector4 *)newTangent) = Vector4(*orgTangentV3);   // moving it to the new buffer location and setting W to 1.0
                 memcpy(newTangent, orgTangent, 3 * sizeof(float));
@@ -259,19 +287,17 @@ namespace AZ
                 Vector3 biTangent = normalV3->Cross(*orgTangentV3);
                 memcpy(orgTangent, (void*)&biTangent, 3 * sizeof(float));
 //                *orgTangent = normal->Cross(*orgTangent);   // orgTangent now becomes bi-tangent - this will ovverflow last element by 4 bytes
+
+                m_aabb.AddPoint(*positionV3);
             }
         }
 
-        // References
-        //  TerrainFeatureProcessor::InitializePatchModel()
-        //  CreateModelFromProceduralSkinnedMesh(const ProceduralSkinnedMesh& proceduralMesh)
         bool Mesh::CreateAtomModel()
         {
             // Each model gets a unique, random ID, so if the same source model is used for multiple instances, multiple target models will be created.
             RPI::ModelAssetCreator modelAssetCreator;
             Uuid modelId = Uuid::CreateRandom();
             modelAssetCreator.Begin(Uuid::CreateRandom());
-            m_name = "Model_" + AZStd::to_string(s_modelNumber);
             modelAssetCreator.SetName(m_name);
 
             {
@@ -303,7 +329,7 @@ namespace AZ
 
                 if (!positionsAsset || !normalsAsset || !tangentsAsset || !uvAsset || !indicesAsset)
                 {
-                    AZ_Error("AtomSceneStream", false, "Error - model buffer assets were not created successfully");
+                    AZ_Error("AtomSceneStream", false, "Error creating model [%s] - buffer assets were not created successfully", m_name.c_str());
                     return false;
                 }
 
@@ -322,10 +348,8 @@ namespace AZ
                         modelLodAssetCreator.AddMeshStreamBuffer(RHI::ShaderSemantic{ "UV" }, UVName, RPI::BufferAssetView{ uvAsset, uvDesc });
                         modelLodAssetCreator.SetMeshIndexBuffer({ indicesAsset, indexBufferViewDesc });
 
-                        Aabb localAabb = Aabb::CreateCenterHalfExtents(Vector3(0.0f, 0.0f, 0.0f), Vector3(999.0f, 999.0f, 999.0f));
-                        modelLodAssetCreator.SetMeshAabb(AZStd::move(localAabb));
-
-                        modelLodAssetCreator.SetMeshName(Name{ m_name.c_str() }); // _ % 5d", s_modelNumber));
+                        modelLodAssetCreator.SetMeshAabb(AZStd::move(m_aabb));
+                        modelLodAssetCreator.SetMeshName(Name{ m_name.c_str() });
                     }
 
                     // And finally add the material associated with the streaming model
@@ -358,7 +382,7 @@ namespace AZ
 
             if (!modelAssetCreator.End(modelAsset))
             {
-                AZ_Error("AtomSceneStream", false, "Error - model asset was not created");
+                AZ_Error("AtomSceneStream", false, "Error creating model [%s] - model asset was not created", m_name.c_str());
                 return false;
             }
 
@@ -366,8 +390,7 @@ namespace AZ
 
             if (!m_atomModel)
             {
-                m_name = "FaultyLoadedModel";
-                AZ_Error("AtomSceneStream", false, "Error - model could not be found or created");
+                AZ_Error("AtomSceneStream", false, "Error creating model [%s] - model could not be found or created", m_name.c_str());
                 return false;
             }
 
@@ -440,17 +463,16 @@ namespace AZ
             if (!loadOk)
             {
                 free(m_buffersData);
-                AZ_Error("AtomSceneStream", false, "Error - Umbra model load failure");
+                AZ_Error("AtomSceneStream", false, "Error creating model [%s] - Umbra model load failure", m_name.c_str());
             }
             return loadOk;
         }
 
-
-        // Good examples:
-        // 1. GltfTrianglePrimitiveBuilder::Create(
-        // 2. CreateModelFromProceduralSkinnedMesh
         Mesh::Mesh(Umbra::AssetLoad& job)
         {
+            m_name = "Model_" + AZStd::to_string(s_modelNumber++);
+            m_aabb.CreateNull();
+
             PositionName = Name{ "UmbraMeshPositionBuffer" };
             NormalName = Name{ "UmbraMeshNormalBuffer" };
             TangentName = Name{ "UmbraMeshTangentBuffer" };
@@ -484,7 +506,8 @@ namespace AZ
             // [Adi] - should we free the memory now that the assets has been created?
             if (CreateAtomModel())
             {
-                ++s_modelNumber;
+                m_modelReady = true;
+                AZ_Warning("AtomSceneStream", false, "Mesh [%s] was created with Material [%s]", m_name.c_str(), m_material->GetName().c_str());
             }
         }
 
