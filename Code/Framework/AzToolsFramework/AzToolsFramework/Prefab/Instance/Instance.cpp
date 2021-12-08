@@ -805,5 +805,15 @@ namespace AzToolsFramework
             }
             return AZStd::move(m_containerEntity);
         }
+
+        PrefabDomValueConstReference Instance::GetCachedInstanceDomInRootInstance() const
+        {
+            return m_cachedInstanceDomInRootInstance;
+        }
+
+        void Instance::SetCachedInstanceDomInRootInstance(PrefabDomValueConstReference instanceDomInRootInstance)
+        {
+            m_cachedInstanceDomInRootInstance.CopyFrom(instanceDomInRootInstance->get(), m_cachedInstanceDomInRootInstance.GetAllocator());
+        }
     }
 }

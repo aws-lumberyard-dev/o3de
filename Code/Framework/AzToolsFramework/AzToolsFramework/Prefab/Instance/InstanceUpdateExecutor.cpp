@@ -190,7 +190,7 @@ namespace AzToolsFramework
                             continue;
                         }
 
-                        PrefabDomValueReference instanceDomFromRoot = *instanceDomFromRootValue;
+                        PrefabDomValueConstReference instanceDomFromRoot = *instanceDomFromRootValue;
                         if (!instanceDomFromRoot.has_value())
                         {
                             AZ_Assert(

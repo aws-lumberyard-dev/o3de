@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-
+#pragma optimize("", off)
 #include <AzCore/Component/Entity.h>
 #include <AzCore/Serialization/Json/RegistrationContext.h>
 #include <AzToolsFramework/Prefab/Instance/Instance.h>
@@ -111,9 +111,38 @@ namespace AzToolsFramework
             InstanceEntityIdMapper** idMapper = context.GetMetadata().Find<InstanceEntityIdMapper*>();
 
             JSR::ResultCode result(JSR::Tasks::ReadField);
+
+            PrefabDomValueConstReference cachedInstanceDomInRootInstance =
+                instance->GetCachedInstanceDomInRootInstance();
+            PrefabDom jsonPatch, jsonMergePatch;
+            if (cachedInstanceDomInRootInstance != AZStd::nullopt)
             {
-                JSR::ResultCode sourceLoadResult =
-                    ContinueLoadingFromJsonObjectField(&instance->m_templateSourcePath, azrtti_typeid<AZStd::string>(), inputValue, "Source", context);
+                
+                AZ::JsonSerialization::CreatePatch(
+                    jsonPatch, jsonPatch.GetAllocator(), cachedInstanceDomInRootInstance->get(), inputValue,
+                    AZ::JsonMergeApproach::JsonPatch);
+                AZ::JsonSerialization::CreatePatch(
+                    jsonMergePatch, jsonMergePatch.GetAllocator(), cachedInstanceDomInRootInstance->get(), inputValue,
+                    AZ::JsonMergeApproach::JsonMergePatch);
+
+                PrefabDomUtils::PrintPrefabDomValue("cached instace dom is ", cachedInstanceDomInRootInstance->get());
+                PrefabDomUtils::PrintPrefabDomValue("actual instace dom is ", inputValue);
+                PrefabDomUtils::PrintPrefabDomValue("json patch is ", jsonPatch);
+                PrefabDomUtils::PrintPrefabDomValue("json merge patch is ", jsonMergePatch);
+
+                if (jsonPatch.IsArray() && jsonPatch.GetArray().Empty())
+                {
+                    JSR::ResultCode result1(JSR::Tasks::CreatePatch, JSR::Outcomes::Skipped);
+                    return context.Report(
+                        result1,
+                        "Skipped loading instance since no difference from previously cached instance dom was found.");
+                }
+            }
+
+            
+            {
+                JSR::ResultCode sourceLoadResult = ContinueLoadingFromJsonObjectField(
+                    &instance->m_templateSourcePath, azrtti_typeid<AZStd::string>(), jsonMergePatch, "Source", context);
 
                 if (sourceLoadResult.GetOutcome() == JSR::Outcomes::Success)
                 {
@@ -141,13 +170,13 @@ namespace AzToolsFramework
             }
 
             {
-                instance->m_nestedInstances.clear();
+                //instance->m_nestedInstances.clear();
 
                 // Load nested instances iteratively
                 // We want to first create the nested instance object and assign its alias and parent pointer
                 // These values are needed for the idmapper to properly resolve alias paths
-                auto instancesMemberIter = inputValue.FindMember("Instances");
-                if (instancesMemberIter != inputValue.MemberEnd() && instancesMemberIter->value.IsObject())
+                auto instancesMemberIter = jsonMergePatch.FindMember("Instances");
+                if (instancesMemberIter != jsonMergePatch.MemberEnd() && instancesMemberIter->value.IsObject())
                 {
                     for (auto& instanceIter : instancesMemberIter->value.GetObject())
                     {
@@ -156,30 +185,36 @@ namespace AzToolsFramework
                         InstanceAlias instanceAlias(instanceAliasValue.GetString(),
                             instanceAliasValue.GetStringLength());
 
-                        AZStd::unique_ptr<Instance> nestedInstance = AZStd::make_unique<Instance>();
+                        InstanceOptionalReference existingNestedInstance = instance->FindNestedInstance(instanceAlias);
+                        if (existingNestedInstance != AZStd::nullopt)
+                        {
+                            result.Combine(ContinueLoading(
+                                &existingNestedInstance->get(), azrtti_typeid<decltype(instance)>(), instanceIter.value, context));
+                        }
+                        else
+                        {
+                            AZStd::unique_ptr<Instance> nestedInstance = AZStd::make_unique<Instance>();
 
-                        nestedInstance->m_alias = instanceAlias;
-                        nestedInstance->m_parent = instance;
+                            nestedInstance->m_alias = instanceAlias;
+                            nestedInstance->m_parent = instance;
 
-                        result.Combine(
-                            ContinueLoading(&nestedInstance, azrtti_typeid<decltype(nestedInstance)>(),
-                            instanceIter.value, context));
+                            result.Combine(
+                                ContinueLoading(&nestedInstance, azrtti_typeid<decltype(nestedInstance)>(), instanceIter.value, context));
 
-                        instance->m_nestedInstances.emplace(
-                            instanceAlias,
-                            AZStd::move(nestedInstance));
+                            instance->m_nestedInstances.emplace(instanceAlias, AZStd::move(nestedInstance));
+                        }
                     }
                 }
             }
 
-            // An already filled instance should be cleared if inputValue's Entities member is empty
+            // An already filled instance should be cleared if jsonMergePatch's Entities member is empty
             // The Json serializer will not do this by default as it will not attempt to load a missing member
-            instance->ClearEntities();
-
+            /* instance->ClearEntities();
+            
             if (instance->m_containerEntity)
             {
                 instance->m_containerEntity.reset();
-            }
+            }*/
 
             if (idMapper && *idMapper)
             {
@@ -187,21 +222,26 @@ namespace AzToolsFramework
             }
 
             {
-                JSR::ResultCode containerEntityResult = ContinueLoadingFromJsonObjectField(
-                    &instance->m_containerEntity, azrtti_typeid<decltype(instance->m_containerEntity)>(), inputValue, "ContainerEntity", context);
+                auto instancesMemberIter = jsonMergePatch.FindMember("ContainerEntity");
+                if (instancesMemberIter != jsonMergePatch.MemberEnd() && instancesMemberIter->value.IsObject())
+                {
+                    JSR::ResultCode containerEntityResult = ContinueLoadingFromJsonObjectField(
+                        &instance->m_containerEntity, azrtti_typeid<decltype(instance->m_containerEntity)>(), jsonMergePatch,
+                        "ContainerEntity", context);
 
-                result.Combine(containerEntityResult);
+                    result.Combine(containerEntityResult);
+                }
             }
 
             {
                 JSR::ResultCode entitiesResult = ContinueLoadingFromJsonObjectField(
-                    &instance->m_entities, azrtti_typeid<Instance::AliasToEntityMap>(), inputValue, "Entities", context);
+                    &instance->m_entities, azrtti_typeid<Instance::AliasToEntityMap>(), jsonMergePatch, "Entities", context);
                 AddEntitiesToScrub(instance, context);
                 result.Combine(entitiesResult);
             }
 
             {
-                result.Combine(ContinueLoadingFromJsonObjectField(&instance->m_linkId, azrtti_typeid<LinkId>(), inputValue, "LinkId", context));
+                result.Combine(ContinueLoadingFromJsonObjectField(&instance->m_linkId, azrtti_typeid<LinkId>(), jsonMergePatch, "LinkId", context));
             }
 
             return context.Report(result,
@@ -221,7 +261,10 @@ namespace AzToolsFramework
 
             for (const auto& [entityAlias, entity] : instance->m_entities)
             {
-                entitiesInInstance.emplace_back(entity.get());
+                if (entity != nullptr)
+                {
+                    entitiesInInstance.emplace_back(entity.get());
+                }
             }
 
             InstanceEntityScrubber* instanceEntityScrubber = jsonDeserializerContext.GetMetadata().Find<InstanceEntityScrubber>();
@@ -232,4 +275,5 @@ namespace AzToolsFramework
         }
 
     } // namespace Prefab
-}
+} // namespace AzToolsFramework
+#pragma optimize("", on)

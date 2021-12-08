@@ -185,6 +185,8 @@ namespace AzToolsFramework
                     return false;
                 }
 
+                instance.SetCachedInstanceDomInRootInstance(prefabDom);
+
                 return true;
             }
 
@@ -228,6 +230,8 @@ namespace AzToolsFramework
                 AZ::Data::SerializedAssetTracker* assetTracker = settings.m_metadata.Find<AZ::Data::SerializedAssetTracker>();
 
                 referencedAssets = AZStd::move(assetTracker->GetTrackedAssets());
+
+                instance.SetCachedInstanceDomInRootInstance(prefabDom);
                 return true;
             }
 
@@ -301,6 +305,8 @@ namespace AzToolsFramework
 
                     return false;
                 }
+
+                instance.SetCachedInstanceDomInRootInstance(prefabDom);
 
                 return true;
             }

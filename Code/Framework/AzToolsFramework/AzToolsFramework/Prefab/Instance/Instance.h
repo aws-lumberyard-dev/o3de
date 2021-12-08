@@ -18,6 +18,7 @@
 #include <AzCore/std/optional.h>
 #include <AzCore/std/smart_ptr/unique_ptr.h>
 #include <AzCore/std/string/string.h>
+#include <AzToolsFramework/Prefab/PrefabDomTypes.h>
 #include <AzToolsFramework/Prefab/PrefabIdTypes.h>
 
 namespace AZ
@@ -214,6 +215,9 @@ namespace AzToolsFramework
 
             static InstanceAlias GenerateInstanceAlias();
 
+            PrefabDomValueConstReference GetCachedInstanceDomInRootInstance() const;
+            void SetCachedInstanceDomInRootInstance(PrefabDomValueConstReference instanceDomInRootInstance);
+
         private:
             static constexpr const char s_aliasPathSeparator = '/';
 
@@ -257,6 +261,8 @@ namespace AzToolsFramework
 
             // The source path of the template this instance represents
             AZ::IO::Path m_templateSourcePath;
+
+            PrefabDom m_cachedInstanceDomInRootInstance;
 
             // The unique ID of the template this Instance belongs to.
             TemplateId m_templateId = InvalidTemplateId;
