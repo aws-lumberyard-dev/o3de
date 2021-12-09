@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-
+#pragma optimize("", off)
 #include <AzCore/std/containers/map.h>
 #include <AzCore/Component/Entity.h>
 #include <AzCore/Component/EntityIdSerializer.h>
@@ -36,8 +36,13 @@ namespace AZ
                 (*idMapper)->SetIsEntityReference(false);
             }
 
-            JSR::ResultCode idLoadResult = ContinueLoadingFromJsonObjectField(
-                &entityInstance->m_id, azrtti_typeid<decltype(entityInstance->m_id)>(), inputValue, "Id", context);
+            auto entityMemberIterator = inputValue.FindMember("Id");
+            if (entityMemberIterator != inputValue.MemberEnd() && entityMemberIterator->value.IsString())
+            {
+                JSR::ResultCode idLoadResult = ContinueLoadingFromJsonObjectField(
+                    &entityInstance->m_id, azrtti_typeid<decltype(entityInstance->m_id)>(), inputValue, "Id", context);
+                result.Combine(idLoadResult);
+            }
 
             // If the entity has an invalid ID, there's no point in deserializing, the entity will be unusable.
             // It's also dangerous to generate new IDs here:
@@ -61,8 +66,6 @@ namespace AZ
             {
                 (*idMapper)->SetIsEntityReference(true);
             }
-
-            result.Combine(idLoadResult);
         }
 
         {
@@ -207,4 +210,5 @@ namespace AZ
             }
         }
     }
-}
+} // namespace AZ
+#pragma optimize("", on)
