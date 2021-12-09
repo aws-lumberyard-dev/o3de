@@ -30,8 +30,9 @@ namespace AZ
     namespace AtomSceneStream
     {
         class Mesh;
-//        using ModelsMap = AZStd::unordered_map<AtomSceneStream::Mesh*, Render::MeshFeatureProcessorInterface::MeshHandle>;
-        using ModelsMap = AZStd::unordered_map<AZStd::string, Render::MeshFeatureProcessorInterface::MeshHandle>;
+        using ModelsMapByModel = AZStd::unordered_map<AtomSceneStream::Mesh*, Render::MeshFeatureProcessorInterface::MeshHandle>;
+        using ModelsMapByName = AZStd::unordered_map<AZStd::string, Render::MeshFeatureProcessorInterface::MeshHandle>;
+//        using ModelsMapByName = AZStd::unordered_map<AZStd::string, uint32_t>;
 
         const uint32_t GPU_MEMORY_LIMIT = 1024 * 1024 * 1024; // 1 GiB
 
@@ -67,6 +68,7 @@ namespace AZ
             void CleanResource();
             void RemoveAllActiveModels();
             void DebugDraw(RPI::AuxGeomDrawPtr auxGeom, AtomSceneStream::Mesh* currentMesh, Vector3& offset, const Color& debugColor);
+            void DebugDrawMeshes(RPI::AuxGeomDrawPtr auxGeom, AtomSceneStream::Mesh* currentMesh, const Color& debugColor);
             void UpdateStreamingResources();
             void UpdateUmbraViewCamera();
             bool StartUmbraClient(); 
@@ -79,7 +81,12 @@ namespace AZ
             AZ_DISABLE_COPY_MOVE(AtomSceneStreamFeatureProcessor);
 
             Render::MeshFeatureProcessorInterface* m_meshFeatureProcessor = nullptr;
-            ModelsMap m_modelsMap;
+//            ModelsMapByName m_modelsMapByName;
+            ModelsMapByName m_visibleModelsMapByName;
+//            ModelsMapByModel m_modelsMapByModel;
+            ModelsMapByName m_hiddenModelsByName;
+
+//            AZStd::vector<Render::MeshFeatureProcessorInterface::MeshHandle> m_meshHandles;
 
             float m_quality = 0.5f;     // adjusted based on memory consumption
             uint32_t m_memoryUsage = 0;
@@ -92,17 +99,6 @@ namespace AZ
 
             bool m_readyForStreaming = false;
             bool m_isConnectedAndStreaming = false;
-            /*
-            const uint32_t backBuffersAmount = 3;
-
-            // We should not need to manage texture or any other buffer memory as it is done
-            // internally by the Umbra streamer.
-            AZStd::unordered_map<uint32_t, std::vector<uint8_t>> m_texturesData[backBuffersAmount]; // memory array containing K vectors where K = swap buffers amount
-
-            static uint32_t s_instanceCount;
-            uint32_t m_currentFrame = 0;    // for keeping cyclic order of allocated memory.
-
-            */
         };
     } // namespace AtomSceneStream
 } // namespace AZ

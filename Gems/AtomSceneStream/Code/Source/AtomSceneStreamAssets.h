@@ -110,9 +110,14 @@ namespace AZ
             }
 
             uint32_t GetMemoryUsage() { return m_allocatedSize; }
-            AZStd::string& GetModelName() { return m_name;  }
+            AZStd::string& GetName() { return m_name;  }
             const Aabb& GetAABB() { return m_aabb;  }
             bool IsReady() { return m_modelReady;  }
+            void* GetBuffersData() { return m_buffersData;  }
+            uint32_t GetVertexCount() { return m_vertexCount;  }
+            uint32_t GetIndexCount() { return m_indexCount; }
+            Umbra::ElementBuffer GetVertexDesc() { return m_vbStreamsDesc[UmbraVertexAttribute_Position]; }
+            Umbra::ElementBuffer GetIndexDesc() { return m_ibDesc; }
 
         protected:
             Data::Asset<RPI::BufferAsset> CreateBufferAsset(
@@ -127,9 +132,9 @@ namespace AZ
         private:
             Aabb m_aabb;
             uint32_t m_allocatedSize = 0;
-            int m_vertexCount = 0;
-            int m_indexCount = 0;
-            int m_indexBytes = 0;
+            uint32_t m_vertexCount = 0;
+            uint32_t m_indexCount = 0;
+            uint32_t m_indexBytes = 0;
             Material* m_material = nullptr;
             bool m_isShaded = false;
 

@@ -28,6 +28,8 @@ namespace AZ
         //======================================================================
         uint32_t Texture::s_TextureNumber = 0;
 
+        static bool printCreationMessages = false;
+
         Texture::Texture(Umbra::AssetLoad& job)
         {
             struct ImageFormatPairing
@@ -69,7 +71,7 @@ namespace AZ
 
             if (imageFormat == RHI::Format::Unknown)
             {
-                AZ_Error("AtomSceneStream", false, "Read image format [%d] or linear space [%d] mismatch", (uint32_t)info.format, info.colorSpace);
+                AZ_Error("AtomSceneStream", false, "Error -- Read image format [%d] or linear space [%d] mismatch", (uint32_t)info.format, info.colorSpace);
                 return;
             }
 
@@ -95,12 +97,12 @@ namespace AZ
             if (!m_streamingImage)
             {
                 m_imageDataSize = 0;
-                AZ_Error("AtomSceneStream", false, "StreamingImage creation failed");
+                AZ_Error("AtomSceneStream", false, "Error -- StreamingImage creation failed");
             }
 
             m_name = "Texture_" + AZStd::to_string(s_TextureNumber++);
-            AZStd::string msg = "   Texture [" + m_name + "] was created";
-            AZ_Warning("AtomSceneStream", false, msg.c_str());
+            if (printCreationMessages)
+                AZ_Warning("AtomSceneStream", false, "   Texture [%s] was created", m_name.c_str());
         }
 
         Texture::~Texture()
@@ -113,7 +115,7 @@ namespace AZ
         //                             Material
         //======================================================================
         uint32_t Material::s_MaterialNumber = 0;
-        bool Material::s_useTextures = false;
+        bool Material::s_useTextures = true;
 
         void Material::OnAssetReady(AZ::Data::Asset<AZ::Data::AssetData> materialAsset)
         {
@@ -121,7 +123,7 @@ namespace AZ
 
             if (!m_atomMaterial)
             {
-                AZ_Error("AtomSceneStream", false, "Material was not created");
+                AZ_Error("AtomSceneStream", false, "Error -- Material was not created");
                 return;
             }
 
@@ -139,9 +141,10 @@ namespace AZ
                 }
                 else if (!m_diffuse->GetStreamingImage())
                 {
-                    AZ_Warning("AtomSceneStream", false, "Material [%s] Missing Diffuse Texture", m_name.c_str());
+                    AZ_Warning("AtomSceneStream", false, "Warning -- Material [%s] Missing Diffuse Texture", m_name.c_str());
                 }
 
+                /*
                 RPI::MaterialPropertyIndex normTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.textureMap"));
                 if (m_normal->GetStreamingImage() && normTextureIndex.IsValid() && useNormTextureIndex.IsValid())
                 {
@@ -150,8 +153,10 @@ namespace AZ
                 }
                 else if (!m_normal->GetStreamingImage())
                 {
-                    AZ_Warning("AtomSceneStream", false, "Material [%s] Missing Normal Texture", m_name.c_str());
+                    AZ_Warning("AtomSceneStream", false, "Warning -- Material [%s] Missing Normal Texture", m_name.c_str());
                 }
+                */
+                m_atomMaterial->SetPropertyValue(useNormTextureIndex, false);
 
                 RPI::MaterialPropertyIndex specTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("specularF0.textureMap"));
                 if (m_specular->GetStreamingImage() && specTextureIndex.IsValid() && useSpecTextureIndex.IsValid())
@@ -161,7 +166,7 @@ namespace AZ
                 }
                 else if (!m_specular->GetStreamingImage())
                 {
-                    AZ_Warning("AtomSceneStream", false, "Material [%s] Missing Specular Texture", m_name.c_str());
+                    AZ_Warning("AtomSceneStream", false, "Warning -- Material [%s] Missing Specular Texture", m_name.c_str());
                 }
             }
             else
@@ -189,8 +194,11 @@ namespace AZ
 //                m_atomMaterial->SetPropertyValue(doubleSidedIndex, doubleSided);
 //            }
 
-            AZ_Warning("AtomSceneStream", false, " Material [%s] was created with Textures: [%s]   [%s]   [%s]",
-                m_name.c_str(), m_diffuse->GetName().c_str(), m_specular->GetName().c_str(), m_normal->GetName().c_str());
+            m_atomMaterial->Compile();
+
+            if (printCreationMessages)
+                AZ_Warning("AtomSceneStream", false, " Material [%s] was created with Textures: [%s]   [%s]   [%s]",
+                    m_name.c_str(), m_diffuse->GetName().c_str(), m_specular->GetName().c_str(), m_normal->GetName().c_str());
             
             Data::AssetBus::MultiHandler::BusDisconnect(materialAsset.GetId());
         }
@@ -256,7 +264,7 @@ namespace AZ
 
             Data::Asset<RPI::BufferAsset> bufferAsset;
 
-            AZ_Error("AtomSceneStream", creator.End(bufferAsset), "Error creating vertex stream %s", bufferName.c_str());
+            AZ_Error("AtomSceneStream", creator.End(bufferAsset), "Error -- creating vertex stream %s", bufferName.c_str());
 
             return bufferAsset;
         }
@@ -273,7 +281,7 @@ namespace AZ
             float* newTangent = (float*)m_vbStreamsDesc[UmbraVertexAttribute_Tangent].ptr + m_vertexCount * 3;
  
 //            for (int vtx = 0; vtx < m_vertexCount; ++vtx, position+=3, normal+=3, orgTangent+=3, newTangent+=4)
-            for (int vtx = 0; vtx < m_vertexCount; ++vtx, normal += 3, orgTangent += 3, newTangent += 4, position+=3)
+            for (uint32_t vtx = 0; vtx < m_vertexCount; ++vtx, normal += 3, orgTangent += 3, newTangent += 4, position+=3)
             {
                 Vector3* positionV3 = (Vector3*)position;
                 Vector3* normalV3 = (Vector3*)normal;
@@ -288,7 +296,15 @@ namespace AZ
                 memcpy(orgTangent, (void*)&biTangent, 3 * sizeof(float));
 //                *orgTangent = normal->Cross(*orgTangent);   // orgTangent now becomes bi-tangent - this will ovverflow last element by 4 bytes
 
-                m_aabb.AddPoint(*positionV3);
+                float length = positionV3->GetLength();
+                const float maxVertexSize = 999.0f;
+                if (length < maxVertexSize)
+                {
+                    m_aabb.AddPoint(*positionV3);
+                }
+                else
+                    AZ_Error("AtomSveneStream", false, "Error -- position out of bound (%.2f, %.2f, %.2f)",
+                        positionV3->GetX(), positionV3->GetY(), positionV3->GetZ());
             }
         }
 
@@ -321,15 +337,33 @@ namespace AZ
                 const auto tangentDesc = RHI::BufferViewDescriptor::CreateTyped(0, m_vertexCount, RHI::Format::R32G32B32A32_FLOAT);
                 const auto tangentsAsset = CreateBufferAsset(tangentsBufferPtr, tangentDesc, "UmbraModel_Tangents");
 
-
+/*
                 // Index Buffer
+                // [Adi] [To Do] - the conversion to 4 bytes per index is for debug draw purposes only
+                if (m_indexBytes == 2)
+                {   // In this case we'd copy the index data into 4 bytes per index and move the ptr to point at
+                    // the new starting point.
+                    uint16_t* oldPtr = (uint16_t*) m_ibDesc.ptr;
+                    uint32_t* newPtr = (uint32_t*) ((uint16_t*)m_ibDesc.ptr + m_indexCount);
+                    m_ibDesc.ptr = (void*)newPtr;
+                    m_ibDesc.elementByteSize = 4;
+                    m_ibDesc.elementStride = 4;
+                    for (uint32_t ind = 0; ind < m_indexCount; ++ind)
+                    {
+                        *newPtr++ = (uint32_t) *oldPtr++;
+                    }
+
+                    m_indexBytes = 4;
+                }
+*/
+
                 RHI::Format indicesFormat = (m_indexBytes == 2) ? RHI::Format::R16_UINT : RHI::Format::R32_UINT;
                 const auto indexBufferViewDesc = RHI::BufferViewDescriptor::CreateTyped(0, m_indexCount, indicesFormat);
                 const auto indicesAsset = CreateBufferAsset(m_ibDesc.ptr, indexBufferViewDesc, "UmbraModel_Indices");
 
                 if (!positionsAsset || !normalsAsset || !tangentsAsset || !uvAsset || !indicesAsset)
                 {
-                    AZ_Error("AtomSceneStream", false, "Error creating model [%s] - buffer assets were not created successfully", m_name.c_str());
+                    AZ_Error("AtomSceneStream", false, "Error -- creating model [%s] - buffer assets were not created successfully", m_name.c_str());
                     return false;
                 }
 
@@ -355,13 +389,15 @@ namespace AZ
                     // And finally add the material associated with the streaming model
                     if (m_material && m_material->GetAtomMaterial())
                     {
+                        Data::Instance<RPI::Material> atomMaterial = m_material->GetAtomMaterial();
                         RPI::ModelMaterialSlot::StableId slotId = 0;
-                        modelAssetCreator.AddMaterialSlot(RPI::ModelMaterialSlot{ slotId, Name{"AtomSceneStream_Material"}, m_material->GetAtomMaterial()->GetAsset() });
+                        modelAssetCreator.AddMaterialSlot(RPI::ModelMaterialSlot{ slotId, Name{"AtomSceneStream_Material"}, atomMaterial->GetAsset() });
                         modelLodAssetCreator.SetMeshMaterialSlot(slotId);
+                        atomMaterial->Compile();
                     }
                     else
                     {
-                        AZStd::string messageStr = m_material ? "Missing Atom Material [" : " Missing Umbra Material [" + m_name + "]";
+                        AZStd::string messageStr = m_material ? "Error -- Missing Atom Material [" : " Error -- Missing Umbra Material [" + m_name + "]";
                         AZ_Warning("AtomSceneStream", false, messageStr.c_str());
                     }
                 }
@@ -369,20 +405,22 @@ namespace AZ
 
                 // Create the model LOD based on the model LOD asset we created
                 Data::Asset<RPI::ModelLodAsset> modelLodAsset;
-                if (modelLodAssetCreator.End(modelLodAsset))
+                if (!modelLodAssetCreator.End(modelLodAsset))
                 {
-                    // Add the LOD model asset created to the model asset.
-                    modelAssetCreator.AddLodAsset(AZStd::move(modelLodAsset));
+                    AZ_Error("AtomSceneStream", false, "Error -- creating model [%s] - ModelLoadAssetCreator.End() failed", m_name.c_str());
+                    return false;
                 }
-            }
 
+                // Add the LOD model asset created to the model asset.
+                modelAssetCreator.AddLodAsset(AZStd::move(modelLodAsset));
+            }
 
             // Final stage - create the model based on the created assets
             Data::Asset<RPI::ModelAsset> modelAsset;
 
             if (!modelAssetCreator.End(modelAsset))
             {
-                AZ_Error("AtomSceneStream", false, "Error creating model [%s] - model asset was not created", m_name.c_str());
+                AZ_Error("AtomSceneStream", false, "Error -- creating model [%s] - model asset was not created", m_name.c_str());
                 return false;
             }
 
@@ -390,7 +428,7 @@ namespace AZ
 
             if (!m_atomModel)
             {
-                AZ_Error("AtomSceneStream", false, "Error creating model [%s] - model could not be found or created", m_name.c_str());
+                AZ_Error("AtomSceneStream", false, "Error -- creating model [%s] - model could not be found or created", m_name.c_str());
                 return false;
             }
 
@@ -463,7 +501,7 @@ namespace AZ
             if (!loadOk)
             {
                 free(m_buffersData);
-                AZ_Error("AtomSceneStream", false, "Error creating model [%s] - Umbra model load failure", m_name.c_str());
+                AZ_Error("AtomSceneStream", false, "Error -- creating model [%s] - Umbra model load failure", m_name.c_str());
             }
             return loadOk;
         }
@@ -487,7 +525,7 @@ namespace AZ
             m_indexBytes = m_vertexCount < (1 << 16) ? 2 : 4;
             // Next calculate the required Atom allocation size for
             m_allocatedSize = m_vertexCount * (4 * sizeof(float) + sizeof(Vertex)); // Final Vertex Size = Umbra vertex + added bi-tangent (3 floats) and W component of the Tangent
-            m_allocatedSize += m_indexCount * m_indexBytes; // and add the allocation for the indices.
+            m_allocatedSize += m_indexCount * m_indexBytes;// ((m_indexBytes == 2) ? (m_indexBytes * 3) : m_indexBytes); // and add the allocation for the indices.  [Adi][To Do]  - notice doubling for easier debugging
             m_material = (Material*)info.material;
 
             // Only meshes that have normals can be shaded
@@ -496,6 +534,8 @@ namespace AZ
 
             if (!LoadUmbraModel(job))
             {
+                free(m_buffersData);
+                m_buffersData = nullptr;
                 return;
             }
 
@@ -504,11 +544,16 @@ namespace AZ
             CalculateTangentsAndBiTangents();
 
             // [Adi] - should we free the memory now that the assets has been created?
-            if (CreateAtomModel())
+            if (!CreateAtomModel())
             {
-                m_modelReady = true;
-                AZ_Warning("AtomSceneStream", false, "Mesh [%s] was created with Material [%s]", m_name.c_str(), m_material->GetName().c_str());
+                free(m_buffersData);
+                m_buffersData = nullptr;
+                return;
             }
+
+            m_modelReady = true;
+            if (printCreationMessages)
+                AZ_Warning("AtomSceneStream", false, "Mesh [%s] was created with Material [%s]", m_name.c_str(), m_material->GetName().c_str());
         }
 
         Mesh::~Mesh()
