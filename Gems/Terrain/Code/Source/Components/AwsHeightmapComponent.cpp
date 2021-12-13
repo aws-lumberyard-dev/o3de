@@ -166,7 +166,7 @@ namespace Terrain
     {
         // This component uses https://registry.opendata.aws/terrain-tiles/ as a way to download real-world height data
         // directly into Lumberyard terrain.
-        // Use http://www.openstreetmap.org/export#map=19/30.43295/-97.81745 as a way to get lat / long values
+        // Use https://www.openstreetmap.org/export#map=15/30.4019/-97.8937 as a way to get lat / long values
 
 
         // AWS Terrarium format tiles only come in 256x256 tile sizes:
@@ -185,31 +185,27 @@ namespace Terrain
         float xTileLeft = 0.0f, yTileTop = 0.0f;
         float xTileRight = 0.0f, yTileBottom = 0.0f;
 
-
-        //bool ok = false;
-        //int fractionalDigitCount = 6;
-
-        // Based on the lat / long coordinates, calculate the appropriate terrain tiles to download
+        // Based on the lat / long coordinates and zoom level, get the top left tile XY name.
         LatLongToTerrainTile(top, left, zoom, xTileLeft, yTileTop);
 
-        // This would default to the correct right/bottom values
+        // This would default to the correct right/bottom values for a heightmap of a given size.
         //xTileRight = xTileLeft + (m_pHeightmap->GetWidth() / tileSize) - 1;
         //yTileBottom = yTileTop + (m_pHeightmap->GetHeight() / tileSize) - 1;
         //TerrainTileToLatLong(xTileRight, yTileBottom, zoom, bottom, right);
 
-        // Based on the lat / long coordinates, calculate the appropriate terrain tiles to download
+        // Based on the lat / long coordinates and zoom level, get the bottom right tile XY name.
         LatLongToTerrainTile(bottom, right, zoom, xTileRight, yTileBottom);
 
-        // Clamp to a max of 4k x 4k pixels
+        // Clamp to a max of 4k x 4k pixels by controlling the number of tiles we load in our grid in each direction.
         xTileRight = AZStd::GetMin((xTileLeft + (maxHeightmapSize / tileSize)), xTileRight);
         yTileBottom = AZStd::GetMin((yTileTop + (maxHeightmapSize / tileSize)), yTileBottom);
 
-        // TODO:  Expose XY and Z scales to the user through the component?
-        // Determine a height scale that matches the XY scale of the imported world.
+        // Calculate the heightmap XY resolution in the data we've downloaded.  This isn't needed for the component to run,
+        // but it's useful to understand the max quality level we'll get from this data.
         // (Math found here - http://wiki.openstreetmap.org/wiki/Zoom_levels )
         const float equatorCircumferenceMeters = 40075017;
         const float tileMetersPerPixel = (equatorCircumferenceMeters * cos(AZ::DegToRad(top)) / pow(2.0f, zoom + 8.0f));
-        float heightScale = m_cachedHeightQueryResolution.GetX() / tileMetersPerPixel;
+        AZ_TracePrintf("Terrain", "The terrain tile resolution has %.3f meters per pixel.", tileMetersPerPixel);
 
         //TODO: Account for fractional offsets.  Right now, we force things to 256x256 tile boundaries.
         xTileLeft = floorf(xTileLeft);
@@ -231,12 +227,12 @@ namespace Terrain
 
         AZ::JobCompletion jobCompletion;
 
-        for (int xTile = static_cast<int>(xTileLeft); xTile <= static_cast<int>(xTileRight); xTile++)
+        for (int yTile = static_cast<int>(yTileTop); yTile <= static_cast<int>(yTileBottom); yTile++)
         {
-            for (int yTile = static_cast<int>(yTileTop); yTile <= static_cast<int>(yTileBottom); yTile++)
+            for (int xTile = static_cast<int>(xTileLeft); xTile <= static_cast<int>(xTileRight); xTile++)
             {
                 url = AZStd::string::format("https://s3.amazonaws.com/elevation-tiles-prod/terrarium/%d/%d/%d.png", zoom, xTile, yTile);
-                AZ::Job* job = DownloadAndStitchTerrainTile(url, heightScale, 0, 0, static_cast<int>((xTile - xTileLeft) * tileSize), static_cast<int>((yTile - yTileTop) * tileSize));
+                AZ::Job* job = DownloadAndStitchTerrainTile(url, 0, 0, static_cast<int>((xTile - xTileLeft) * tileSize), static_cast<int>((yTile - yTileTop) * tileSize));
 
                 job->SetDependent(&jobCompletion);
                 job->Start();
@@ -247,10 +243,6 @@ namespace Terrain
 
         // TODO:  Change this to let the jobs run asynchronously, and just set terrain heightfield to dirty when they're all done.
         jobCompletion.StartAndWaitForCompletion();
-
-        // Done importing terrain tiles, refresh the terrain system
-        //Physics::EditorTerrainComponentRequestsBus::Broadcast(&Physics::EditorTerrainComponentRequests::UpdateHeightFieldAsset);
-
     }
 
     void AwsHeightmapComponent::LatLongToTerrainTile(float latitudeDegrees, float longitudeDegrees, int zoom, float& xTile, float& yTile)
@@ -274,10 +266,10 @@ namespace Terrain
 
 
 
-    AZ::Job* AwsHeightmapComponent::DownloadAndStitchTerrainTile(const AZStd::string& url, float heightScale, int tileStartX, int tileStartY, int stitchStartX, int stitchStartY)
+    AZ::Job* AwsHeightmapComponent::DownloadAndStitchTerrainTile(const AZStd::string& url, int tileStartX, int tileStartY, int stitchStartX, int stitchStartY)
     {
         AZ::JobContext* jobContext{ nullptr };
-        EBUS_EVENT_RESULT(jobContext, AZ::JobManagerBus, GetGlobalContext);
+        AZ::JobManagerBus::BroadcastResult(jobContext, &AZ::JobManagerEvents::GetGlobalContext);
         AZ::Job* job{ nullptr };
         job = AZ::CreateJobFunction([=]()
         {
@@ -306,7 +298,7 @@ namespace Terrain
             AZStd::string returnString;
             auto& body = httpResponse->GetResponseBody();
 
-            ProcessTerrainTile(body, heightScale, tileStartX, tileStartY, stitchStartX, stitchStartY);
+            ProcessTerrainTile(body, tileStartX, tileStartY, stitchStartX, stitchStartY);
 
             // Debug code to save the downloaded PNG
             /*
@@ -328,7 +320,7 @@ namespace Terrain
         return job;
     }
 
-    void AwsHeightmapComponent::ProcessTerrainTile(Aws::IOStream& responseBody, float heightScale, int tileStartX, int tileStartY, int stitchStartX, int stitchStartY)
+    void AwsHeightmapComponent::ProcessTerrainTile(Aws::IOStream& responseBody, int tileStartX, int tileStartY, int stitchStartX, int stitchStartY)
     {
         AZStd::vector<char> pngBuffer;
         AZStd::vector<uint32_t> pixelBuffer;
@@ -361,10 +353,24 @@ namespace Terrain
                 for (int width = 0; width < copyWidth; width++)
                 {
                     uint32_t curSrcPixel = srcPixel[((height + tileStartY) * srcWidth) + width + tileStartX];
-                    float terrainHeight = ((float)GetRValue(curSrcPixel) * 256.0f) + (float)GetGValue(curSrcPixel) + ((float)GetBValue(curSrcPixel) / 256.0f) - 32768.0f;
-                    m_heightmapData[((height + stitchStartY) * dstWidth) + width + stitchStartX] = terrainHeight * heightScale;
-                    minHeight = AZStd::GetMin(minHeight, terrainHeight * heightScale);
-                    maxHeight = AZStd::GetMax(maxHeight, terrainHeight * heightScale);
+
+                    // The terrarium format stores heights in a fixed-point 16.8 format in RGB.  The conversion formula is the following:
+                    // (R*256) + G + (B/256) - 32768
+                    // This gives a range of -32768 to 32768 meters, at 1/256 m (~4 mm) precision.
+                    float terrainHeight =
+                          ((float)GetRValue(curSrcPixel) * 256.0f)
+                        +  (float)GetGValue(curSrcPixel)
+                        + ((float)GetBValue(curSrcPixel) / 256.0f)
+                        - 32768.0f;
+
+                    // When storing in the image, we can either make (0,0) represent the "top left" of the data we downloaded, or
+                    // the "bottom left".  We'll choose to make it the bottom left, so the Y value here gets flipped when writing
+                    // into the image.
+                    int dstX = width + stitchStartX;
+                    int dstY = (dstHeight - 1) - (height + stitchStartY);
+                    m_heightmapData[(dstY * dstWidth) + dstX] = terrainHeight;
+                    minHeight = AZStd::GetMin(minHeight, terrainHeight);
+                    maxHeight = AZStd::GetMax(maxHeight, terrainHeight);
                 }
             }
 
@@ -376,57 +382,23 @@ namespace Terrain
 
     float AwsHeightmapComponent::GetValue(const GradientSignal::GradientSampleParams& sampleParams) const
     {
+        const float x = sampleParams.m_position.GetX();
+        const float y = sampleParams.m_position.GetY();
         float height = 0.0f;
-        GetHeightSynchronous(sampleParams.m_position.GetX(), sampleParams.m_position.GetY(), height);
-        float scaledHeight = (height - m_heightmapMinHeight) / (m_heightmapMaxHeight - m_heightmapMinHeight);
-        static bool printValues = false;
-        if (printValues)
-        {
-            AZ_TracePrintf("Terrain", "%.2f, %.2f:  %.4f -> %.4f\n", (float)sampleParams.m_position.GetX(), (float)sampleParams.m_position.GetY(), height, scaledHeight);
-        }
-        return scaledHeight;
-    }
-
-    void AwsHeightmapComponent::GetHeightSynchronous(float x, float y, float& height) const
-    {
         if ((x >= m_cachedShapeBounds.GetMin().GetX()) && (x <= m_cachedShapeBounds.GetMax().GetX()) &&
             (y >= m_cachedShapeBounds.GetMin().GetY()) && (y <= m_cachedShapeBounds.GetMax().GetY()))
         {
             height = GetBilinearZ(x, y);
         }
-    }
 
-    void AwsHeightmapComponent::GetNormalSynchronous(float x, float y, AZ::Vector3& normal) const
-    {
-        if ((x >= m_cachedShapeBounds.GetMin().GetX()) && (x <= m_cachedShapeBounds.GetMax().GetX()) &&
-            (y >= m_cachedShapeBounds.GetMin().GetY()) && (y <= m_cachedShapeBounds.GetMax().GetY()))
+        float scaledHeight = AZ::LerpInverse(m_heightmapMinHeight, m_heightmapMaxHeight, height);
+        static bool printValues = false;
+        if (printValues)
         {
-            normal = GetTerrainSurfaceNormal(x, y);
+            AZ_TracePrintf("Terrain", "%.2f, %.2f:  %.4f -> %.4f\n", x, y, height, scaledHeight);
         }
+        return scaledHeight;
     }
-
-    void AwsHeightmapComponent::RefreshHeightData(bool& refresh)
-    {
-        if (m_configuration.m_enableRefresh)
-        {
-            // TODO:  Find better way to refresh this.  The problem is that the world component might get activated after us.
-            AZ::Aabb worldBounds = AZ::Aabb::CreateNull();
-            AzFramework::Terrain::TerrainDataRequestBus::BroadcastResult(
-                worldBounds, &AzFramework::Terrain::TerrainDataRequests::GetTerrainAabb);
-            m_cachedHeightRange.SetX(worldBounds.GetMin().GetZ());
-            m_cachedHeightRange.SetY(worldBounds.GetMin().GetZ());
-            AzFramework::Terrain::TerrainDataRequestBus::BroadcastResult(
-                m_cachedHeightQueryResolution, &AzFramework::Terrain::TerrainDataRequests::GetTerrainHeightQueryResolution);
-
-            refresh = refresh || m_refreshHeightData;
-            m_refreshHeightData = false;
-        }
-        else
-        {
-            refresh = false;
-        }
-    }
-
 
     float AwsHeightmapComponent::GetBilinearZ(float x, float y) const
     {
@@ -478,22 +450,7 @@ namespace Terrain
         // lerp bewteen the lerped top and bottom pixels
         float finalHeight = AZ::Lerp(topHeight, bottomHeight, yLerp);
 
-        //float clampedHeight = clamp_tpl(finalHeight, 0.0f, m_heightmapMaxHeight);
-        //return AZ::Lerp(m_configuration.m_heightMin, m_configuration.m_heightMax, sample);
-
-        //return AZ::GetClamp(finalHeight, m_cachedHeightRange.GetX(), m_cachedHeightRange.GetY());
         return finalHeight;
-    }
-
-    AZ::Vector3 AwsHeightmapComponent::GetTerrainSurfaceNormal(float x, float y) const
-    {
-        float fRange = (m_cachedHeightQueryResolution.GetX() / 2.0f) + 0.05f;
-
-        AZ::Vector3 v1(x - fRange, y - fRange, GetBilinearZ(x - fRange, y - fRange));
-        AZ::Vector3 v2(x - fRange, y + fRange, GetBilinearZ(x - fRange, y + fRange));
-        AZ::Vector3 v3(x + fRange, y - fRange, GetBilinearZ(x + fRange, y - fRange));
-        AZ::Vector3 v4(x + fRange, y + fRange, GetBilinearZ(x + fRange, y + fRange));
-        return (v3 - v2).Cross(v4 - v1).GetNormalized();
     }
 
     void AwsHeightmapComponent::OnTransformChanged(const AZ::Transform& /*local*/, const AZ::Transform& /* world*/)
@@ -512,18 +469,10 @@ namespace Terrain
     {
         if (m_configuration.m_enableRefresh)
         {
-            // Get the height range of the entire world
-            AZ::Aabb worldBounds = AZ::Aabb::CreateNull();
-            AzFramework::Terrain::TerrainDataRequestBus::BroadcastResult(
-                worldBounds, &AzFramework::Terrain::TerrainDataRequests::GetTerrainAabb);
-            m_cachedHeightRange.SetX(worldBounds.GetMin().GetZ());
-            m_cachedHeightRange.SetY(worldBounds.GetMin().GetZ());
-            AzFramework::Terrain::TerrainDataRequestBus::BroadcastResult(
-                m_cachedHeightQueryResolution, &AzFramework::Terrain::TerrainDataRequests::GetTerrainHeightQueryResolution);
-
             // Get the height range of our height provider based on the shape component.
             LmbrCentral::ShapeComponentRequestsBus::EventResult(m_cachedShapeBounds, GetEntityId(), &LmbrCentral::ShapeComponentRequestsBus::Events::GetEncompassingAabb);
 
         }
     }
 }
+

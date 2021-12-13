@@ -106,21 +106,7 @@ namespace Terrain
         void OnShapeChanged(ShapeChangeReasons changeReason) override;
 
     private:
-        AZ::Vector2 m_cachedHeightRange;
-        AZ::Vector2 m_cachedHeightQueryResolution{ 1.0f, 1.0f };
-        AZ::Aabb m_cachedShapeBounds;
-        bool m_refreshHeightData = true;
-
-    private:
-        ///////////////////////////////////////////
-        void GetHeightSynchronous(float x, float y, float& height) const;
-        void GetNormalSynchronous(float x, float y, AZ::Vector3& normal) const;
-        void RefreshHeightData(bool& refresh);
-        ///////////////////////////////////////////
-
-        //////////////////////////////////////////////////////////////////////////
         float GetBilinearZ(float x, float y) const;
-        AZ::Vector3 GetTerrainSurfaceNormal(float x, float y) const;
 
         void RefreshMinMaxHeights();
 
@@ -129,8 +115,8 @@ namespace Terrain
         void LatLongToTerrainTile(float latitudeDegrees, float longitudeDegrees, int zoom, float& xTile, float& yTile);
         void TerrainTileToLatLong(float xTile, float yTile, int zoom, float& latitudeDegrees, float& longitudeDegrees);
 
-        AZ::Job* DownloadAndStitchTerrainTile(const AZStd::string& url, float heightScale, int tileStartX, int tileStartY, int stitchStartX, int stitchStartY);
-        void ProcessTerrainTile(Aws::IOStream& responseBody, float heightScale, int tileStartX, int tileStartY, int stitchStartX, int stitchStartY);
+        AZ::Job* DownloadAndStitchTerrainTile(const AZStd::string& url, int tileStartX, int tileStartY, int stitchStartX, int stitchStartY);
+        void ProcessTerrainTile(Aws::IOStream& responseBody, int tileStartX, int tileStartY, int stitchStartX, int stitchStartY);
 
         AwsHeightmapConfig m_configuration;
 
@@ -140,5 +126,7 @@ namespace Terrain
         float m_heightmapMinHeight = 0.0f;
         float m_heightmapMaxHeight = 0.0f;
 
+        AZ::Aabb m_cachedShapeBounds;
+        bool m_refreshHeightData = true;
     };
 }
