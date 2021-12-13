@@ -7,6 +7,8 @@
 #
 
 set(FILES
+    Source/EditorComponents/EditorAwsHeightmapComponent.cpp
+    Source/EditorComponents/EditorAwsHeightmapComponent.h
     Source/EditorComponents/EditorTerrainHeightGradientListComponent.cpp
     Source/EditorComponents/EditorTerrainHeightGradientListComponent.h
     Source/EditorComponents/EditorTerrainLayerSpawnerComponent.cpp

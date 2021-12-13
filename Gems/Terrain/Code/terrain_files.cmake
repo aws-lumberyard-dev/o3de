@@ -8,6 +8,10 @@
 
 set(FILES
     Include/Terrain/Ebuses/TerrainAreaSurfaceRequestBus.h
+    Source/PngDecoder.cpp
+    Source/PngDecoder.h
+    Source/Components/AwsHeightmapComponent.cpp
+    Source/Components/AwsHeightmapComponent.h
     Source/Components/TerrainHeightGradientListComponent.cpp
     Source/Components/TerrainHeightGradientListComponent.h
     Source/Components/TerrainLayerSpawnerComponent.cpp

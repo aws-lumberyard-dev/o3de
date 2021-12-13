@@ -26,6 +26,10 @@ ly_add_target(
             Gem::GradientSignal
             Gem::SurfaceData
             Gem::LmbrCentral
+        PRIVATE
+            Gem::AWSCore
+            Gem::HttpRequestor
+            3rdParty::AWSNativeSDK::Core
 )
 
 ly_add_target(
@@ -73,6 +77,10 @@ if(PAL_TRAIT_BUILD_HOST_TOOLS)
                 Gem::GradientSignal
                 Gem::LmbrCentral
                 Gem::Terrain.Static
+        PRIVATE
+            Gem::AWSCore
+            Gem::HttpRequestor
+            3rdParty::AWSNativeSDK::Core
     )
 
     # the above module is for use in dev tool situations

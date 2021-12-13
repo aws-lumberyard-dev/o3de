@@ -7,6 +7,7 @@
  */
 
 #include <EditorTerrainModule.h>
+#include <EditorComponents/EditorAwsHeightmapComponent.h>
 #include <EditorComponents/EditorTerrainHeightGradientListComponent.h>
 #include <EditorComponents/EditorTerrainLayerSpawnerComponent.h>
 #include <EditorComponents/EditorTerrainSurfaceGradientListComponent.h>
@@ -35,6 +36,7 @@ namespace Terrain
                 Terrain::EditorTerrainWorldDebuggerComponent::CreateDescriptor(),
                 Terrain::EditorTerrainPhysicsColliderComponent::CreateDescriptor(),
                 Terrain::EditorTerrainWorldRendererComponent::CreateDescriptor(),
+                Terrain::EditorAwsHeightmapComponent::CreateDescriptor(),
 
             });
     }
