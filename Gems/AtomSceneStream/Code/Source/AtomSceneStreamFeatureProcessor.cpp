@@ -27,8 +27,10 @@ namespace AZ
 {
     namespace AtomSceneStream
     {
-        static bool printDebugInfo = false;
-        static bool printDebugRemoval = false;
+        static bool printDebugInfo = true;
+        static bool printDebugStats = false;
+        static bool printDebugRemoval = true;
+        static bool printDebugRunTimeHiding = false;
         static bool printDebugAdd = false;
         static bool debugDraw = false;
         static bool debugSpheres = false;
@@ -192,9 +194,13 @@ namespace AZ
             Camera::ActiveCameraRequestBus::BroadcastResult(config,
                 &Camera::ActiveCameraRequestBus::Events::GetActiveCameraConfiguration);
 
-            float nearDist = config.m_nearClipDistance;
+//            RPI::ViewPtr currentView = this->GetParentScene()->Get GetView();
+//            Camera::CameraRequestBus::EventResult(viewWidth, m_cameraEntityId, &Camera::CameraRequestBus::Events::GetFrustumWidth);
+
+            float nearDist = AZStd::min(config.m_nearClipDistance, 0.01f);
             float farDist = config.m_farClipDistance;
-            float aspectRatio = config.m_frustumWidth / config.m_frustumHeight;
+            // [Adi] - the following aspect is a hack since the aspect is bogus per the code in GetActiveCameraConfiguration
+            float aspectRatio = 1.35f * config.m_frustumWidth / config.m_frustumHeight; 
             Matrix4x4 viewToClipMatrix;
             MakePerspectiveFovMatrixRH(viewToClipMatrix, config.m_fovRadians, aspectRatio, nearDist, farDist);
 
@@ -211,17 +217,11 @@ namespace AZ
             cameraMatrixAtomToUmbra = cameraMatrix;
             // Zero the translation
             cameraMatrixAtomToUmbra.SetTranslation(Vector3::CreateZero());
-            ////////////////////////
+
+            // Inverting since the Umbra matrix math is inverse to ours
             cameraMatrixAtomToUmbra.InvertFast();
             cameraMatrixAtomToUmbra = Matrix4x4::CreateRotationX(AZ::DegToRad(-90.0f)) * cameraMatrixAtomToUmbra;
-            // /////////////////////
 
-/*
-* Org
-            // Rotate the camera in local coordinates to bring to Umbra coordinates system 
-            cameraMatrixAtomToUmbra = Matrix4x4::CreateRotationX(AZ::DegToRad(-90.0f)) * cameraMatrixAtomToUmbra;
-            cameraMatrixAtomToUmbra = Matrix4x4::CreateRotationY(AZ::DegToRad(180.0f)) * cameraMatrixAtomToUmbra;
-*/
             // Inverse and transform the position to match Umbra camera position treatment
             cameraPos = -cameraPos;
             Vector3 umbraCameraTranslation = cameraMatrixAtomToUmbra * cameraPos;
@@ -289,7 +289,7 @@ namespace AZ
                 return;
 
             // run the streaming load for 20 msec - ideally this should be done on another thread!
-            HandleAssetsStreaming(0.02f);
+            HandleAssetsStreaming(0.025f);
 
             Render::MeshFeatureProcessorInterface* currentMeshFeatureProcessor = GetParentScene()->GetFeatureProcessor<Render::MeshFeatureProcessorInterface>();
             if (!currentMeshFeatureProcessor || (currentMeshFeatureProcessor != m_meshFeatureProcessor))
@@ -387,7 +387,7 @@ namespace AZ
 //                    AtomSceneStream::Mesh* modelPtr = iter->first;
 //                    if (currentModelsByModel.find(modelPtr) == currentModelsByModel.end())
                     {   // model was not found in the current frame - ask the FP to remove it
-                        if (printDebugInfo && printDebugRemoval)
+                        if (printDebugInfo && printDebugRunTimeHiding)
                         {
                             AZ_Warning("AtomSceneStream", false, "--- Mesh (Run Time) Removal [%s]", modelName.c_str());
 //                            AZ_Warning("AtomSceneStream", false, "--- Mesh (Run Time) Removal [%s]", modelPtr->GetModelName().c_str());
@@ -424,7 +424,7 @@ namespace AZ
                 }  
             }
 
-            if (printDebugInfo)// && modelsRemoved)
+            if (printDebugInfo && printDebugStats)// && modelsRemoved)
             {
                 AZStd::string statString = "\n======================\nModels Stats - Total[" + AZStd::to_string(modelsNum) + "] - New[" + AZStd::to_string(modelsRegistered) + "] - Removed[" + AZStd::to_string(modelsRemoved) + "]\n=====================\n";
                 AZ_Warning("AtomSceneStream", false, statString.c_str());
@@ -568,8 +568,8 @@ namespace AZ
                 AtomSceneStream::Mesh* meshPtr = (AtomSceneStream::Mesh*) ptr;
                 if (!meshPtr->IsReady())
                 {
-                    AZ_Error("AtomSceneStream", false, "Error -- Mesh %s was not created successfully - deleting now", meshPtr->GetName().c_str());
-                    delete meshPtr;
+                    AZ_Error("AtomSceneStream", false, "Error -- Mesh %s FAILED creation - deleting now", meshPtr->GetName().c_str());
+//                    delete meshPtr;
                     assetLoad.finish(UmbraAssetLoadResult_Failure);
                     return true;    // the reason to return true is to avoid breaking the streaming loop
                 }
@@ -635,7 +635,7 @@ namespace AZ
                         iter = m_visibleModelsMapByName.erase(iter);     // erase from map and advance iterator
                     }
                 }
-                delete meshForRemoval;
+//                delete meshForRemoval; [Adi] - adibugbug
                 break;
             }
 

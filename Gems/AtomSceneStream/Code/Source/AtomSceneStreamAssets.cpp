@@ -52,19 +52,19 @@ namespace AZ
                 { 0, RHI::Format::BC1_UNORM_SRGB, UmbraTextureFormat_BC1, true },
                 { 1, RHI::Format::BC3_UNORM_SRGB, UmbraTextureFormat_BC3, true },
                 { 0, RHI::Format::BC3_UNORM_SRGB, UmbraTextureFormat_BC3, true },
-                { 1, RHI::Format::BC5_SNORM, UmbraTextureFormat_BC5, true }
+                { 1, RHI::Format::BC5_UNORM, UmbraTextureFormat_BC5, true }
             };
 
             Umbra::TextureInfo info = job.getTextureInfo();
             RHI::Format imageFormat = RHI::Format::Unknown;
             uint32_t entries = uint32_t(sizeof(imageFormatPairing) / sizeof(ImageFormatPairing));
-
-            for (uint32_t i = 0; i < entries; i++)
+            uint32_t entryIndex = 0;
+            for ( ; entryIndex < entries; entryIndex++)
             {
-                if ((imageFormatPairing[i].IsLinear == uint32_t(info.colorSpace == UmbraColorSpace_Linear)) &&
-                    (imageFormatPairing[i].FromUmbraFormat == info.format))
+                if ((imageFormatPairing[entryIndex].IsLinear == uint32_t(info.colorSpace == UmbraColorSpace_Linear)) &&
+                    (imageFormatPairing[entryIndex].FromUmbraFormat == info.format))
                 {
-                    imageFormat = imageFormatPairing[i].ToRHIFormat;
+                    imageFormat = imageFormatPairing[entryIndex].ToRHIFormat;
                     break;
                 }
             }
@@ -75,24 +75,37 @@ namespace AZ
                 return;
             }
 
-            // getting the streaming texture data
-//            static std::vector<uint8_t> textureData;// = m_texturesData[m_currentFrame % backBuffersAmount][textureUsage];
-            m_imageDataSize = info.dataByteSize;
-            m_textureData.resize(m_imageDataSize);
+            // Creating the Atom streaming image
+            {
+                uint32_t loadLevel = 0;
+                uint32_t curLevelOffset = UmbraTextureGetMipmapLevelOffset(&info, loadLevel);
+                uint32_t nextLevelOffset = loadLevel < (uint32_t)info.numMipLevels - 1 ?
+                    UmbraTextureGetMipmapLevelOffset(&info, loadLevel + 1)
+                    : info.dataByteSize;
 
-            Umbra::ByteBuffer buf = {};
-            buf.byteSize = m_imageDataSize;
-            buf.flags = 0;
-            buf.ptr = m_textureData.data();
-            job.getTextureData(buf);    // [Adi] - are we double allocating here?  why Not go directly to the Source and keep the ptr?
+                m_imageDataSize = nextLevelOffset - curLevelOffset;
 
-            const Data::Instance<RPI::StreamingImagePool>& streamingImagePool = RPI::ImageSystemInterface::Get()->GetSystemStreamingPool();
-            m_streamingImage = RPI::StreamingImage::CreateFromCpuData(*streamingImagePool.get(),
-                RHI::ImageDimension::Image2D,
-                RHI::Size(info.width, info.height, 1),
-                imageFormat,
-                m_textureData.data(),
-                m_imageDataSize);
+                // getting the streaming texture data
+                m_imageDataSize = info.dataByteSize;
+                m_textureData.resize(m_imageDataSize);
+
+                Umbra::ByteBuffer buf = {};
+                buf.byteSize = m_imageDataSize;
+                buf.flags = 0;
+                buf.ptr = m_textureData.data() + UmbraTextureGetMipmapLevelOffset(&info, loadLevel);
+
+                // Read the stream data
+                job.getTextureData(buf);    // [Adi] - are we double allocating here?  why Not go directly to the Source and keep the ptr?
+
+                // Create the Atom streaming image.
+                const Data::Instance<RPI::StreamingImagePool>& streamingImagePool = RPI::ImageSystemInterface::Get()->GetSystemStreamingPool();
+                m_streamingImage = RPI::StreamingImage::CreateFromCpuData(*streamingImagePool.get(),
+                    RHI::ImageDimension::Image2D,
+                    RHI::Size(info.width, info.height, 1),
+                    imageFormat,
+                    m_textureData.data(),
+                    m_imageDataSize);
+            }
 
             if (!m_streamingImage)
             {
@@ -138,24 +151,34 @@ namespace AZ
                 {
                     m_atomMaterial->SetPropertyValue(diffTextureIndex, m_diffuse->GetStreamingImage());
                     m_atomMaterial->SetPropertyValue(useDiffTextureIndex, true);
+
+                    RPI::MaterialPropertyIndex colorFlipYIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.flipY"));
+                    if (colorFlipYIndex.IsValid())
+                    {   // This does not seem to be valid for some reason
+                        m_atomMaterial->SetPropertyValue(colorFlipYIndex, true);
+                    }
                 }
                 else if (!m_diffuse->GetStreamingImage())
                 {
                     AZ_Warning("AtomSceneStream", false, "Warning -- Material [%s] Missing Diffuse Texture", m_name.c_str());
                 }
 
-                /*
                 RPI::MaterialPropertyIndex normTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.textureMap"));
                 if (m_normal->GetStreamingImage() && normTextureIndex.IsValid() && useNormTextureIndex.IsValid())
                 {
                     m_atomMaterial->SetPropertyValue(normTextureIndex, m_normal->GetStreamingImage());
                     m_atomMaterial->SetPropertyValue(useNormTextureIndex, true);
+
+                    RPI::MaterialPropertyIndex normFlipYIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.flipY"));
+                    if (normFlipYIndex.IsValid())
+                    {   // This does not seem to be valid for some reason
+                        m_atomMaterial->SetPropertyValue(normFlipYIndex, true);
+                    }
                 }
                 else if (!m_normal->GetStreamingImage())
                 {
                     AZ_Warning("AtomSceneStream", false, "Warning -- Material [%s] Missing Normal Texture", m_name.c_str());
-                }
-                */
+                }            
                 m_atomMaterial->SetPropertyValue(useNormTextureIndex, false);
 
                 RPI::MaterialPropertyIndex specTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("specularF0.textureMap"));
@@ -163,6 +186,12 @@ namespace AZ
                 {
                     m_atomMaterial->SetPropertyValue(specTextureIndex, m_specular->GetStreamingImage());
                     m_atomMaterial->SetPropertyValue(useSpecTextureIndex, true);
+
+                    RPI::MaterialPropertyIndex specFlipYIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("specularF0.flipY"));
+                    if (specFlipYIndex.IsValid())
+                    {   // This does not seem to be valid for some reason
+                        m_atomMaterial->SetPropertyValue(specFlipYIndex, true);
+                    }
                 }
                 else if (!m_specular->GetStreamingImage())
                 {
@@ -175,9 +204,6 @@ namespace AZ
                 m_atomMaterial->SetPropertyValue(useNormTextureIndex, false);
                 m_atomMaterial->SetPropertyValue(useSpecTextureIndex, false);
 
-                RPI::MaterialPropertyIndex useRoughTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("roughness.useTexture"));
-                m_atomMaterial->SetPropertyValue(useRoughTextureIndex, false);
-
                 // And setting a dummy color
                 RPI::MaterialPropertyIndex colorIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.color"));
                 if (colorIndex.IsValid())
@@ -187,6 +213,23 @@ namespace AZ
                 }
             }
 
+
+            RPI::MaterialPropertyIndex useRoughTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("roughness.useTexture"));
+            m_atomMaterial->SetPropertyValue(useRoughTextureIndex, false);
+            RPI::MaterialPropertyIndex roughnessFactorIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("roughness.factor"));
+            m_atomMaterial->SetPropertyValue(roughnessFactorIndex, 0.5f);
+
+            if (m_isTransparent)
+            {
+                RPI::MaterialPropertyIndex opacityModeIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("opacity.mode"));
+                RPI::MaterialPropertyIndex factorModeIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("opacity.factor"));
+                if (opacityModeIndex.IsValid() && factorModeIndex.IsValid())
+                {
+                    int opaqueMode = 3; // TintedTransparent
+                    m_atomMaterial->SetPropertyValue(opacityModeIndex, opaqueMode);
+                    m_atomMaterial->SetPropertyValue(factorModeIndex, 0.7f);
+                }
+            }
 //            RPI::MaterialPropertyIndex doubleSidedIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("general.doubleSided"));
 //            if (doubleSidedIndex.IsValid())
 //            {
@@ -273,7 +316,7 @@ namespace AZ
         // Since the tangents need to be Vector4 with W representing the sign bit, the entire
         // tangent buffer will move to the end of the overall buffer during this operation to
         // avoid the need to copy back.
-        void Mesh::CalculateTangentsAndBiTangents()
+        bool Mesh::ProcessBuffersData()
         {
             float* position = (float*)m_vbStreamsDesc[UmbraVertexAttribute_Position].ptr;
             float* normal = (float*)m_vbStreamsDesc[UmbraVertexAttribute_Normal].ptr;
@@ -303,9 +346,13 @@ namespace AZ
                     m_aabb.AddPoint(*positionV3);
                 }
                 else
-                    AZ_Error("AtomSveneStream", false, "Error -- position out of bound (%.2f, %.2f, %.2f)",
-                        positionV3->GetX(), positionV3->GetY(), positionV3->GetZ());
+                    AZ_Error("AtomSceneStream", false, "Error -- vertex [%d:%d] out of bound (%.2f, %.2f, %.2f) in model [%s]",
+                        vtx, m_vertexCount, positionV3->GetX(), positionV3->GetY(), positionV3->GetZ(), m_name.c_str());
             }
+
+            AZ_Error("AtomSceneStream", m_aabb.IsValid(), "Error --- Model [%] AABB is invalid - all [%d] vertices are corrupted",
+                m_name.c_str(), m_vertexCount);
+            return m_aabb.IsValid() ? true : false;
         }
 
         bool Mesh::CreateAtomModel()
@@ -393,7 +440,7 @@ namespace AZ
                         RPI::ModelMaterialSlot::StableId slotId = 0;
                         modelAssetCreator.AddMaterialSlot(RPI::ModelMaterialSlot{ slotId, Name{"AtomSceneStream_Material"}, atomMaterial->GetAsset() });
                         modelLodAssetCreator.SetMeshMaterialSlot(slotId);
-                        atomMaterial->Compile();
+//                        atomMaterial->Compile();
                     }
                     else
                     {
@@ -541,10 +588,7 @@ namespace AZ
 
             // To move from Umbra to Atom we must add the W component to the tangents, create 
             // the bi-tangent stream and calculate the bi-tangents..
-            CalculateTangentsAndBiTangents();
-
-            // [Adi] - should we free the memory now that the assets has been created?
-            if (!CreateAtomModel())
+            if (!ProcessBuffersData() || !CreateAtomModel())
             {
                 free(m_buffersData);
                 m_buffersData = nullptr;

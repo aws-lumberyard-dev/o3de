@@ -125,7 +125,7 @@ namespace AZ
                 const RHI::BufferViewDescriptor& bufferViewDescriptor,
                 const AZStd::string& bufferName);
 
-            void CalculateTangentsAndBiTangents();
+            bool ProcessBuffersData();
             bool LoadUmbraModel(Umbra::AssetLoad& job);
             bool CreateAtomModel();
 
