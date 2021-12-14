@@ -18,7 +18,6 @@ TODO:
 - serious code clean-up pass
     split up methods
     make it all more readable
-- handle PLTE chunks
 - handle more bit depths and formats
 - check and stop and IEND
 - better error handling all the way around
@@ -35,8 +34,7 @@ TODO:
 #include <AzCore/Math/MathUtils.h>
 #include <AzCore/Compression/Compression.h>
 #include <AzCore/Debug/Trace.h>
-
-
+#include <AzCore/std/containers/fixed_vector.h>
 
 
 void PNGDecoder::ProcessBuffer(AZStd::vector<char>* pngBuffer, AZStd::vector<uint32_t>& pixelBuffer, uint32_t& height, uint32_t& width)
@@ -63,12 +61,20 @@ void PNGDecoder::ProcessBuffer(AZStd::vector<char>* pngBuffer, AZStd::vector<uin
         uint8_t interlaceMethod;
     };
 
-    // Parse the PNG data into a CImageEx.
+    struct pngPLTE
+    {
+        uint8_t red;
+        uint8_t green;
+        uint8_t blue;
+    };
+
+    // Parse the PNG data into a 32-bit pixelBuffer.
 
     int offset = 0;
     pngChunkHeader chunkHeader;
     pngChunkFooter chunkFooter;
     pngIHDR ihdr;
+    AZStd::fixed_vector<pngPLTE, 256> palette;
 
     auto ReadUint8 = [](auto pngBuffer, auto& offset)
     {
@@ -200,17 +206,33 @@ void PNGDecoder::ProcessBuffer(AZStd::vector<char>* pngBuffer, AZStd::vector<uin
 
 
         // Terrain-specific header validations:  colorType of 2 means RGB pixels (24-bit)
-        if ((ihdr.width != 256) || (ihdr.height != 256) || (ihdr.colorType != 2) || (ihdr.bitDepth != 8))
+        bool parseableFormat = false;
+        parseableFormat |= ((ihdr.width == 256) && (ihdr.height == 256) && (ihdr.colorType == 2) && (ihdr.bitDepth == 8));
+        parseableFormat |= ((ihdr.width == 512) && (ihdr.height == 512) && (ihdr.colorType == 3) && (ihdr.bitDepth == 8));
+
+        if (!parseableFormat)
         {
             AZ_Error("Terrain", false, "Unexpected PNG IHDR chunk.");
             return;
         }
     }
 
-    // Reserve enough space for all of our raw pixels.  Each raw pixel is 24-bit.
+    // Reserve enough space for all of our raw pixels.  Each raw pixel can be 1 to 32 bits.
     // The extra numFilterBytes are because the first byte of each scanline contains a "filter-type" byte.
     const uint32_t numFilterBytes = ihdr.height;
-    const uint32_t uncompressedBufferSize = (ihdr.width * ihdr.height * 3) + numFilterBytes;
+    const uint32_t entriesPerPixel[] =
+    {
+        1, // greyscale
+        0, // invalid
+        3, // RGB triplet
+        1, // palette index
+        2, // greyscale + alpha
+        0, // invalid
+        4  // RGB triplet + alpha
+    };
+
+
+    const uint32_t uncompressedBufferSize = ((ihdr.width * ihdr.height * entriesPerPixel[ihdr.colorType] * ihdr.bitDepth) / 8) + numFilterBytes;
     char* uncompressedRawPixels = new char[uncompressedBufferSize];
 
     // Locate and decompress the raw scanline data from the PNG.  We'll need to do a second pass on this data to decode it,
@@ -226,36 +248,59 @@ void PNGDecoder::ProcessBuffer(AZStd::vector<char>* pngBuffer, AZStd::vector<uin
         {
             chunkHeader.length = ReadUint32(pngBuffer, offset);
             chunkHeader.chunkType = ReadUint32(pngBuffer, offset);
-            if (chunkHeader.chunkType == 'IDAT')
+            switch (chunkHeader.chunkType)
             {
-                uint32_t compressedBytesHandled = 0;
-
-                while (compressedBytesHandled < chunkHeader.length)
+            case 'PLTE':
                 {
-                    uint32_t currentRemainingUncompressedBufferSize = static_cast<uint32_t>(uncompressedRawPixelsEnd - uncompressedBufferPtr);
-                    uint32_t remainingUncompressedBufferSize = currentRemainingUncompressedBufferSize;
-
-                    if (remainingUncompressedBufferSize == 0)
+                    AZ_Assert((chunkHeader.length % 3) == 0, "Invalid PLTE size, it should have RGB values for each entry.");
+                    for (uint32_t entry = 0; entry < (chunkHeader.length / 3); entry++)
                     {
-                        AZ_Assert(remainingUncompressedBufferSize > 0, "Ran out of buffer space!");
-                        return;
+                        pngPLTE paletteEntry;
+                        paletteEntry.red = ReadUint8(pngBuffer, offset);
+                        paletteEntry.green = ReadUint8(pngBuffer, offset);
+                        paletteEntry.blue = ReadUint8(pngBuffer, offset);
+                        palette.push_back(paletteEntry);
                     }
-
-                    uint32_t currentCompressedBytesHandled = decompressor.Decompress(&((*pngBuffer)[offset + compressedBytesHandled]), chunkHeader.length - compressedBytesHandled,
-                        uncompressedBufferPtr, remainingUncompressedBufferSize);
-
-                    compressedBytesHandled += currentCompressedBytesHandled;
-                    if ((currentCompressedBytesHandled <= 0) || (compressedBytesHandled > chunkHeader.length))
-                    {
-                        AZ_Assert(currentCompressedBytesHandled > 0, "Failed to decompress.");
-                        AZ_Assert(compressedBytesHandled <= chunkHeader.length, "Unexpected buffer overflow");
-                        return;
-                    }
-                    uncompressedBufferPtr += (currentRemainingUncompressedBufferSize - remainingUncompressedBufferSize);
                 }
+                break;
+            case 'IDAT':
+                {
+                    uint32_t compressedBytesHandled = 0;
+
+                    while (compressedBytesHandled < chunkHeader.length)
+                    {
+                        uint32_t currentRemainingUncompressedBufferSize =
+                            static_cast<uint32_t>(uncompressedRawPixelsEnd - uncompressedBufferPtr);
+                        uint32_t remainingUncompressedBufferSize = currentRemainingUncompressedBufferSize;
+
+                        if (remainingUncompressedBufferSize == 0)
+                        {
+                            AZ_Assert(remainingUncompressedBufferSize > 0, "Ran out of buffer space!");
+                            return;
+                        }
+
+                        uint32_t currentCompressedBytesHandled = decompressor.Decompress(
+                            &((*pngBuffer)[offset + compressedBytesHandled]), chunkHeader.length - compressedBytesHandled,
+                            uncompressedBufferPtr, remainingUncompressedBufferSize);
+
+                        compressedBytesHandled += currentCompressedBytesHandled;
+                        if ((currentCompressedBytesHandled <= 0) || (compressedBytesHandled > chunkHeader.length))
+                        {
+                            AZ_Assert(currentCompressedBytesHandled > 0, "Failed to decompress.");
+                            AZ_Assert(compressedBytesHandled <= chunkHeader.length, "Unexpected buffer overflow");
+                            return;
+                        }
+                        uncompressedBufferPtr += (currentRemainingUncompressedBufferSize - remainingUncompressedBufferSize);
+                    }
+                    offset += chunkHeader.length;
+                }
+                break;
+            default:
+                // Unsupported chunk type
+                offset += chunkHeader.length;
+                break;
             }
 
-            offset += chunkHeader.length;
             chunkFooter.crc = ReadUint32(pngBuffer, offset);
         }
 
@@ -268,8 +313,8 @@ void PNGDecoder::ProcessBuffer(AZStd::vector<char>* pngBuffer, AZStd::vector<uin
     {
         height = ihdr.height;
         width = ihdr.width;
-        pixelBuffer.reserve(ihdr.width* ihdr.height);
         pixelBuffer.clear();
+        pixelBuffer.reserve(ihdr.width * ihdr.height);
 
 
         auto GetDecodedPixel = [](uint32_t* decodedData, int bufferHeight, int bufferWidth, int x, int y)
@@ -282,42 +327,61 @@ void PNGDecoder::ProcessBuffer(AZStd::vector<char>* pngBuffer, AZStd::vector<uin
             return (decodedData[(bufferWidth * y) + x]);
         };
 
-        auto GetPixel = [](char* rawBuffer, int bufferHeight, int bufferWidth, int x, int y)
+        auto GetPixel = [palette, entriesPerPixel](char* rawBuffer, int bufferHeight, int bufferWidth, int x, int y, uint8_t colorType)
         {
             if ((x < 0) || (x >= bufferWidth) || (y < 0) || (y >= bufferHeight))
             {
                 return static_cast<uint32_t>(0);
             }
 
-            uint32_t offset = (((bufferWidth * 3) + 1) * y) + (x * 3) + 1;
+            uint32_t offset = (((bufferWidth * entriesPerPixel[colorType]) + 1) * y) + (x * entriesPerPixel[colorType]) + 1;
+            switch (colorType)
+            {
+            case 2:
+                // Each pixel is 3 bytes, an RGB triplet.
+                {
 
-            return static_cast<uint32_t>((static_cast<uint8_t>(rawBuffer[offset + 0]) << 0) +
-                (static_cast<uint8_t>(rawBuffer[offset + 1]) << 8) +
-                (static_cast<uint8_t>(rawBuffer[offset + 2]) << 16) +
-                (0));
+                    return static_cast<uint32_t>(
+                        (static_cast<uint8_t>(rawBuffer[offset + 0]) << 0) + (static_cast<uint8_t>(rawBuffer[offset + 1]) << 8) +
+                        (static_cast<uint8_t>(rawBuffer[offset + 2]) << 16) + (0));
+                }
+            case 3:
+                // Each pixel is 1 byte, an index into the palette.
+                {
+                    uint8_t paletteIndex = rawBuffer[offset];
+
+                    return static_cast<uint32_t>(
+                        (static_cast<uint8_t>(palette[paletteIndex].red) << 0) +
+                        (static_cast<uint8_t>(palette[paletteIndex].green) << 8) +
+                        (static_cast<uint8_t>(palette[paletteIndex].blue) << 16) +
+                        (0));
+                }
+            default:
+                return static_cast<uint32_t>(0);
+            }
         };
 
 
 
-        auto GetFilterType = [](char* rawBuffer, int bufferHeight, int bufferWidth, int y)
+        auto GetFilterType = [entriesPerPixel](char* rawBuffer, int bufferHeight, int bufferWidth, int y, uint8_t colorType)
         {
             if ((y < 0) || (y >= bufferHeight))
             {
                 return static_cast<uint8_t>(0);
             }
 
-            uint32_t offset = ((bufferWidth * 3) + 1) * y;
+            uint32_t offset = ((bufferWidth * entriesPerPixel[colorType]) + 1) * y;
 
             return static_cast<uint8_t>(rawBuffer[offset]);
         };
 
         for (uint32_t y = 0; y < ihdr.height; y++)
         {
-            uint8_t filterType = GetFilterType(uncompressedRawPixels, ihdr.height, ihdr.width, y);
+            uint8_t filterType = GetFilterType(uncompressedRawPixels, ihdr.height, ihdr.width, y, ihdr.colorType);
 
             for (uint32_t x = 0; x < ihdr.width; x++)
             {
-                uint32_t pixelValue = GetPixel(uncompressedRawPixels, ihdr.height, ihdr.width, x, y);
+                uint32_t pixelValue = GetPixel(uncompressedRawPixels, ihdr.height, ihdr.width, x, y, ihdr.colorType);
 
                 switch (filterType)
                 {
@@ -405,4 +469,3 @@ void PNGDecoder::ProcessBuffer(AZStd::vector<char>* pngBuffer, AZStd::vector<uin
 
     delete[] uncompressedRawPixels;
 }
-
