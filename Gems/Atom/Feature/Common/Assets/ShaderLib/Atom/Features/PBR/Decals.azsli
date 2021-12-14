@@ -19,10 +19,11 @@
 #include <Atom/RPI/TangentSpace.azsli>
 
 void ApplyDecal(uint currDecalIndex, inout Surface surface);
+void ApplyDecalHalf(uint currDecalIndex, inout Surface surface);
 
 void ApplyDecals(inout LightCullingTileIterator tileIterator, inout Surface surface)
 {
-    /*tileIterator.LoadAdvance();
+    tileIterator.LoadAdvance();
     
     while( !tileIterator.IsDone() )
     {
@@ -30,10 +31,14 @@ void ApplyDecals(inout LightCullingTileIterator tileIterator, inout Surface surf
         tileIterator.LoadAdvance();
         
         ApplyDecal(currDecalIndex, surface);
-    }*/
+    }
+}
+
+void ApplyDecalsHalf(inout LightCullingTileIterator tileIterator, inout Surface surface)
+{
     for(uint i = 0; i < ViewSrg::m_decalCount; i++)
     {
-        ApplyDecal(i, surface);
+        ApplyDecalHalf(i, surface);
     }    
 }
 
@@ -43,6 +48,16 @@ float GetDecalAttenuation(float3 surfNormal, float3 decalUp, float decalAngleAtt
     float dotAtten = dot(surfNormal, decalUp);
     dotAtten = clamp(dotAtten, DecalClampAngle, 1.0);
     dotAtten = smoothstep(DecalClampAngle, 1.0f, dotAtten);
+     
+    return lerp(1, dotAtten, decalAngleAttenutation);
+}
+
+half GetDecalAttenuationHalf(half3 surfNormal, half3 decalUp, half decalAngleAttenutation)
+{ 
+    const half DecalClampAngle = 0.55h;
+    half dotAtten = dot(surfNormal, decalUp);
+    dotAtten = clamp(dotAtten, DecalClampAngle, 1.0h);
+    dotAtten = smoothstep(DecalClampAngle, 1.0h, dotAtten);
      
     return lerp(1, dotAtten, decalAngleAttenutation);
 }
@@ -104,6 +119,67 @@ void ApplyDecal(uint currDecalIndex, inout Surface surface)
         surface.albedo = lerp(surface.albedo, baseMap.rgb, opacity);      
       
         float3 normalMapWS = GetWorldSpaceNormal(normalMap, decalRot[2], decalRot[0], decalRot[1], 1.0f);      
+        surface.normal = normalize(lerp(surface.normal, normalMapWS, opacity));
+    }
+}
+
+void ApplyDecalHalf(uint currDecalIndex, inout Surface surface)
+{
+    ViewSrg::Decal decal = ViewSrg::m_decals[currDecalIndex];
+
+    half3x3 decalRot = MatrixFromQuaternion(decal.m_quaternion);
+    decalRot = transpose(decalRot);
+    
+    half3 localPos = surface.position - decal.m_position;
+    localPos = mul(decalRot, localPos);
+
+    half3 decalUVW = localPos * rcp(decal.m_halfSize);
+    if(decalUVW.x >= -1.0h && decalUVW.x <= 1.0h &&
+       decalUVW.y >= -1.0h && decalUVW.y <= 1.0h &&
+       decalUVW.z >= -1.0h && decalUVW.z <= 1.0h)
+    {
+        // [GFX TODO][ATOM-13798] Investigate using SampleGrad in the decal shader
+        const uint textureArrayIndex = decal.m_textureArrayIndex;
+        const uint textureIndex = decal.m_textureIndex;
+        
+        decalUVW.y *= -1;
+
+        half3 decalUV = half3(decalUVW.xy * 0.5h + 0.5h, textureIndex);
+         
+        half3 decalSample;
+
+        half4 baseMap = 0.0h;
+        half2 normalMap = 0.0h;
+        // Each texture array handles a size permutation. 
+        // e.g. it could be that tex array 0 handles 256x256 and tex array 1 handles 512x64, etc.
+        switch(textureArrayIndex)
+        {
+            case 0:
+                baseMap = ViewSrg::m_decalTextureArrayDiffuse0.Sample(PassSrg::LinearSampler, decalUV);
+                normalMap = ViewSrg::m_decalTextureArrayNormalMaps0.Sample(PassSrg::LinearSampler, decalUV);
+            break;
+            case 1:
+                baseMap = ViewSrg::m_decalTextureArrayDiffuse1.Sample(PassSrg::LinearSampler, decalUV);
+                normalMap = ViewSrg::m_decalTextureArrayNormalMaps1.Sample(PassSrg::LinearSampler, decalUV);
+            break;
+            case 2:
+                baseMap = ViewSrg::m_decalTextureArrayDiffuse2.Sample(PassSrg::LinearSampler, decalUV);
+                normalMap = ViewSrg::m_decalTextureArrayNormalMaps2.Sample(PassSrg::LinearSampler, decalUV);
+            break;
+            case 3:
+                baseMap = ViewSrg::m_decalTextureArrayDiffuse3.Sample(PassSrg::LinearSampler, decalUV);
+                normalMap = ViewSrg::m_decalTextureArrayNormalMaps3.Sample(PassSrg::LinearSampler, decalUV);
+            break;
+            case 4:
+                baseMap = ViewSrg::m_decalTextureArrayDiffuse4.Sample(PassSrg::LinearSampler, decalUV);
+                normalMap = ViewSrg::m_decalTextureArrayNormalMaps4.Sample(PassSrg::LinearSampler, decalUV);
+            break;            
+        }
+        
+        half opacity = baseMap.a * decal.m_opacity * GetDecalAttenuationHalf(half3(surface.normal), decalRot[2], half(decal.m_angleAttenuation));
+        surface.albedo = lerp(surface.albedo, baseMap.rgb, opacity);      
+      
+        half normalMapWS = GetWorldSpaceNormalHalf(half2(normalMap), half3(decalRot[2]), half3(decalRot[0]), half3(decalRot[1]), 1.0h);      
         surface.normal = normalize(lerp(surface.normal, normalMapWS, opacity));
     }
 }

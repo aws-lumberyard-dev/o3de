@@ -69,10 +69,10 @@ void Surface::CalculateRoughnessA()
     roughnessA = max(roughnessLinear * roughnessLinear, MinRoughnessA);
 
     roughnessA2 = roughnessA * roughnessA;
-    if(o_applySpecularAA)
+    /*if(o_applySpecularAA)
     {
         ApplySpecularAA();
-    }
+    }*/
 }
 
 void Surface::SetAlbedoAndSpecularF0(float3 baseColor, float specularF0Factor, float metallic)
@@ -121,10 +121,10 @@ void Surface::ApplySpecularAA()
     const half varianceThresh = 0.18h;
 
     // Specular Anti-Aliasing
-    half3 dndu = ddx_fine( normal );
-    half3 dndv = ddy_fine( normal );
+    half3 dndu = half3(ddx_fine( float3(normal) ));
+    half3 dndv = half3(ddy_fine( float3(normal) ));
     half variance = screenVariance * (dot( dndu , dndu ) + dot( dndv , dndv ));
-    half kernelRoughnessA2 = min(2.0 * variance , varianceThresh );
+    half kernelRoughnessA2 = min(2.0h * variance , varianceThresh );
     half filteredRoughnessA2 = saturate ( roughnessA2 + kernelRoughnessA2 );
     roughnessA2 = filteredRoughnessA2;
 }
@@ -140,10 +140,10 @@ void Surface::CalculateRoughnessA()
     roughnessA = min(max(roughnessLinear * roughnessLinear, 0.0005h), 1.0h);
 
     roughnessA2 = roughnessA * roughnessA;
-    /*if(o_applySpecularAA)
+    if(o_applySpecularAA)
     {
         ApplySpecularAA();
-    }*/
+    }
 }
 
 void Surface::SetAlbedoAndSpecularF0(half3 baseColor, half specularF0Factor, half metallic)

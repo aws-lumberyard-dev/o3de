@@ -370,23 +370,6 @@ PbrLightingOutputHalf ForwardPassPS_CommonHalf(VSOutput IN, bool isFrontFace, ou
     // ------- Roughness -------
 
     float2 roughnessUv = IN.m_uv[MaterialSrg::m_roughnessMapUvIndex];
-#if 0
-    float roughnessLinear = GetRoughnessInput(
-        MaterialSrg::m_roughnessMap, 
-        MaterialSrg::m_sampler, 
-        roughnessUv, 
-        MaterialSrg::m_roughnessFactor,
-        MaterialSrg::m_roughnessLowerBound, 
-        MaterialSrg::m_roughnessUpperBound, 
-        o_roughness_useTexture);
-    
-    float roughnessA = roughnessLinear * roughnessLinear;
-    float roughnessA2 = roughnessA * roughnessA;
-    surface.roughnessLinear = half(roughnessLinear);
-    surface.roughnessA = half(roughnessA);
-    surface.roughnessA2 = half(min(max(roughnessA2, 1.0f), 0.001f));
-#endif // #if 0
-
     surface.roughnessLinear = GetRoughnessInputHalf(
         MaterialSrg::m_roughnessMap, 
         MaterialSrg::m_sampler, 
@@ -430,7 +413,7 @@ PbrLightingOutputHalf ForwardPassPS_CommonHalf(VSOutput IN, bool isFrontFace, ou
     // ------- Lighting Calculation -------
 
     // Apply Decals
-    ApplyDecals(lightingData.tileIterator, surface);
+    ApplyDecalsHalf(lightingData.tileIterator, surface);
 
     // Apply Direct Lighting
     ApplyDirectLightingHalf(surface, lightingData);
