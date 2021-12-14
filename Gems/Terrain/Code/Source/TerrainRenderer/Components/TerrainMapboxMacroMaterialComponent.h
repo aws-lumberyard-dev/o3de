@@ -45,8 +45,11 @@ namespace Terrain
         AZ_RTTI(TerrainMapboxMacroMaterialConfig, "{046BD6E2-3D9F-4E69-9445-5A96A17D377E}", AZ::ComponentConfig);
         static void Reflect(AZ::ReflectContext* context);
 
-        int m_tileX = 9101;
-        int m_tileY = 12352;
+        float m_topLatitude = { 30.428292f };
+        float m_leftLongitude = { -97.930687f };
+        float m_bottomLatitude = { 30.381758f };
+        float m_rightLongitude = { -97.857713f };
+        bool m_enableRefresh = false;
         AZStd::string m_mapboxApiKey;
     };
 
@@ -82,18 +85,19 @@ namespace Terrain
         // ShapeComponentNotificationsBus
         void OnShapeChanged(ShapeComponentNotifications::ShapeChangeReasons reasons) override;
 
-        void HandleMaterialStateChange();
+        void LatLongToTerrainTile(float latitudeDegrees, float longitudeDegrees, int zoom, float& xTile, float& yTile);
+        void TerrainTileToLatLong(float xTile, float yTile, int zoom, float& latitudeDegrees, float& longitudeDegrees);
 
-        void RefreshImage();
+        void HandleMaterialStateChange();
 
         TerrainMapboxMacroMaterialConfig m_configuration;
         AZ::Aabb m_cachedShapeBounds;
         bool m_macroMaterialActive{ false };
         AZ::Data::Instance<AZ::RPI::AttachmentImage> m_downloadedImage;
-        AZStd::vector<uint32_t> m_cachedPixels;
 
-        const int m_imageWidth = 512;
-        const int m_imageHeight = 512;
+        AZStd::vector<uint32_t> m_cachedPixels;
+        int m_cachedPixelsHeight = 0;
+        int m_cachedPixelsWidth = 0;
 
         void DownloadSatelliteImage();
         AZ::Job* DownloadAndStitchSatelliteImage(const AZStd::string& url, int tileStartX, int tileStartY, int stitchStartX, int stitchStartY);

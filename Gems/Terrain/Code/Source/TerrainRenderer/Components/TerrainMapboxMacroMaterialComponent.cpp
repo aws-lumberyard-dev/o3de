@@ -38,8 +38,11 @@ namespace Terrain
         {
             serialize->Class<TerrainMapboxMacroMaterialConfig, AZ::ComponentConfig>()
                 ->Version(1)
-                ->Field("TileX", &TerrainMapboxMacroMaterialConfig::m_tileX)
-                ->Field("TileY", &TerrainMapboxMacroMaterialConfig::m_tileY)
+                ->Field("TopLatitude", &TerrainMapboxMacroMaterialConfig::m_topLatitude)
+                ->Field("LeftLongitude", &TerrainMapboxMacroMaterialConfig::m_leftLongitude)
+                ->Field("BottomLatitude", &TerrainMapboxMacroMaterialConfig::m_bottomLatitude)
+                ->Field("RightLongitude", &TerrainMapboxMacroMaterialConfig::m_rightLongitude)
+                ->Field("EnableRefresh", &TerrainMapboxMacroMaterialConfig::m_enableRefresh)
                 ->Field("ApiKey", &TerrainMapboxMacroMaterialConfig::m_mapboxApiKey)
                 ;
 
@@ -52,12 +55,11 @@ namespace Terrain
                     ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly)
                     ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
 
-                    ->DataElement(
-                        AZ::Edit::UIHandlers::Default, &TerrainMapboxMacroMaterialConfig::m_tileX, "Tile X",
-                        "The X value for the tile to download at zoom level 15.")
-                    ->DataElement(
-                        AZ::Edit::UIHandlers::Default, &TerrainMapboxMacroMaterialConfig::m_tileY, "Tile Y",
-                        "The Y value for the tile to download at zoom level 15.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &TerrainMapboxMacroMaterialConfig::m_topLatitude, "Top Latitude", "")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &TerrainMapboxMacroMaterialConfig::m_leftLongitude, "Left Longitude", "")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &TerrainMapboxMacroMaterialConfig::m_bottomLatitude, "Bottom Latitude", "")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &TerrainMapboxMacroMaterialConfig::m_rightLongitude, "Right Longitude", "")
+                    ->DataElement(AZ::Edit::UIHandlers::CheckBox, &TerrainMapboxMacroMaterialConfig::m_enableRefresh, "Enable Refresh", "")
                     ->DataElement(
                         AZ::Edit::UIHandlers::Default, &TerrainMapboxMacroMaterialConfig::m_mapboxApiKey, "API Key",
                         "The Mapbox API key to use.")
@@ -108,17 +110,10 @@ namespace Terrain
         // Clear out our shape bounds.
         m_cachedShapeBounds = AZ::Aabb::CreateNull();
 
-        // Create the initial buffer for the downloaded color data
-        const AZ::Data::Instance<AZ::RPI::AttachmentImagePool> imagePool =
-            AZ::RPI::ImageSystemInterface::Get()->GetSystemAttachmentPool();
-        AZ::RHI::ImageDescriptor imageDescriptor = AZ::RHI::ImageDescriptor::Create2D(
-            AZ::RHI::ImageBindFlags::ShaderRead, m_imageWidth, m_imageHeight, AZ::RHI::Format::R8G8B8A8_UNORM);
-
-        const AZ::Name DownloadedImageName = AZ::Name("DownloadedImage");
-        m_downloadedImage = AZ::RPI::AttachmentImage::Create(*imagePool.get(), imageDescriptor, DownloadedImageName, nullptr, nullptr);
-        AZ_Error("Terrain", m_downloadedImage, "Failed to initialize the downloaded image buffer.");
-
-        DownloadSatelliteImage();
+        if (m_configuration.m_enableRefresh)
+        {
+            DownloadSatelliteImage();
+        }
     }
 
     void TerrainMapboxMacroMaterialComponent::Deactivate()
@@ -129,50 +124,6 @@ namespace Terrain
         m_cachedPixels.clear();
 
         // Send out any notifications as appropriate based on the macro material destruction.
-        HandleMaterialStateChange();
-    }
-
-    void TerrainMapboxMacroMaterialComponent::RefreshImage()
-    {
-        if (!m_downloadedImage)
-        {
-            return;
-        }
-
-        AZStd::vector<uint32_t> pixels;
-        pixels.reserve(m_imageWidth * m_imageHeight);
-
-        for (int32_t y = 0; y < m_imageHeight; y++)
-        {
-            for (int32_t x = 0; x < m_imageWidth; x++)
-            {
-                uint32_t pixel = 0xFFFFFFFF;
-
-                if (x & 0x8)
-                {
-                    pixel = 0xFF00FF00;
-                }
-
-                pixels.push_back(pixel);
-            }
-        }
-
-        constexpr uint32_t BytesPerPixel = sizeof(uint32_t);
-
-        AZ::RHI::ImageUpdateRequest imageUpdateRequest;
-        imageUpdateRequest.m_imageSubresourcePixelOffset.m_left = 0;
-        imageUpdateRequest.m_imageSubresourcePixelOffset.m_top = 0;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerRow = m_imageWidth * BytesPerPixel;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerImage = m_imageWidth * m_imageHeight * BytesPerPixel;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_rowCount = m_imageHeight;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_width = m_imageWidth;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_height = m_imageHeight;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_depth = 1;
-        imageUpdateRequest.m_sourceData = pixels.data();
-        imageUpdateRequest.m_image = m_downloadedImage->GetRHIImage();
-
-        m_downloadedImage->UpdateImageContents(imageUpdateRequest);
-
         HandleMaterialStateChange();
     }
 
@@ -287,36 +238,107 @@ namespace Terrain
         return macroMaterial;
     }
 
+    void TerrainMapboxMacroMaterialComponent::LatLongToTerrainTile(
+        float latitudeDegrees, float longitudeDegrees, int zoom, float& xTile, float& yTile)
+    {
+        // Tile calculation math found here - http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames
+        float latitudeRadians = AZ::DegToRad(latitudeDegrees);
+
+        double n = pow(2.0f, zoom);
+        xTile = static_cast<float>(n * ((longitudeDegrees + 180.0f) / 360.0f));
+        yTile = static_cast<float>(n * (1.0f - (log(tan(latitudeRadians) + (1.0f / cos(latitudeRadians))) / AZ::Constants::Pi)) / 2.0f);
+    }
+
+    void TerrainMapboxMacroMaterialComponent::TerrainTileToLatLong(
+        float xTile, float yTile, int zoom, float& latitudeDegrees, float& longitudeDegrees)
+    {
+        // Tile calculation math found here - http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames
+        double n = pow(2.0f, zoom);
+        longitudeDegrees = static_cast<float>(xTile / n * 360.0f - 180.0f);
+        float latitudeRadians = static_cast<float>(atan(sinh(AZ::Constants::Pi * (1.0f - 2.0f * yTile / n))));
+        latitudeDegrees = AZ::RadToDeg(latitudeRadians);
+    }
+
+
 
     void TerrainMapboxMacroMaterialComponent::DownloadSatelliteImage()
     {
-        if (!m_downloadedImage)
-        {
-            return;
-        }
-
-        m_cachedPixels.clear();
-        m_cachedPixels.resize(m_imageWidth * m_imageHeight);
-
-
-        // We will always download the satellite macro color data at zoom level 15.  This matches the highest level of resolution
-        // we can get from the satellite DEM height data.
+        // Mapbox raster images requested at 2x are 512 x 512 in size.
+        // https://docs.mapbox.com/api/maps/raster-tiles/#example-request-retrieve-raster-tiles
+        const int tileSize = 512;
+        // Zoom goes from 0-20, but we'll use 15 to align with the terrain height data.
+        // https://github.com/tilezen/joerd/blob/master/docs/use-service.md
         const int zoom = 15;
+        const int maxCachedPixelSize = 4096;
+
+        float top = m_configuration.m_topLatitude;
+        float left = m_configuration.m_leftLongitude;
+        float bottom = m_configuration.m_bottomLatitude;
+        float right = m_configuration.m_rightLongitude;
+
+        float xTileLeft = 0.0f, yTileTop = 0.0f;
+        float xTileRight = 0.0f, yTileBottom = 0.0f;
+
+        // Based on the lat / long coordinates and zoom level, get the top left tile XY name.
+        LatLongToTerrainTile(top, left, zoom, xTileLeft, yTileTop);
+
+        // This would default to the correct right/bottom values for a heightmap of a given size.
+        // xTileRight = xTileLeft + (m_pHeightmap->GetWidth() / tileSize) - 1;
+        // yTileBottom = yTileTop + (m_pHeightmap->GetHeight() / tileSize) - 1;
+        // TerrainTileToLatLong(xTileRight, yTileBottom, zoom, bottom, right);
+
+        // Based on the lat / long coordinates and zoom level, get the bottom right tile XY name.
+        LatLongToTerrainTile(bottom, right, zoom, xTileRight, yTileBottom);
+
+        // Clamp to a max of 4k x 4k pixels by controlling the number of tiles we load in our grid in each direction.
+        xTileRight = AZStd::GetMin((xTileLeft + (maxCachedPixelSize / tileSize)), xTileRight);
+        yTileBottom = AZStd::GetMin((yTileTop + (maxCachedPixelSize / tileSize)), yTileBottom);
+
+        // TODO: Account for fractional offsets.  Right now, we force things to 256x256 tile boundaries.
+        xTileLeft = floorf(xTileLeft);
+        xTileRight = floorf(xTileRight);
+        yTileTop = floorf(yTileTop);
+        yTileBottom = floorf(yTileBottom);
+
+        // Create the temp pixel buffer to store all the tile data in
+        m_cachedPixels.clear();
+        m_cachedPixelsHeight = static_cast<int>((yTileBottom - yTileTop + 1) * tileSize);
+        m_cachedPixelsWidth = static_cast<int>((xTileRight - xTileLeft + 1) * tileSize);
+        m_cachedPixels.resize(m_cachedPixelsHeight * m_cachedPixelsWidth);
+
+        // Create the initial buffer for the downloaded color data
+        const AZ::Data::Instance<AZ::RPI::AttachmentImagePool> imagePool = AZ::RPI::ImageSystemInterface::Get()->GetSystemAttachmentPool();
+        AZ::RHI::ImageDescriptor imageDescriptor = AZ::RHI::ImageDescriptor::Create2D(
+            AZ::RHI::ImageBindFlags::ShaderRead, m_cachedPixelsWidth, m_cachedPixelsHeight, AZ::RHI::Format::R8G8B8A8_UNORM);
+
+        const AZ::Name DownloadedImageName = AZ::Name("DownloadedImage");
+        m_downloadedImage = AZ::RPI::AttachmentImage::Create(*imagePool.get(), imageDescriptor, DownloadedImageName, nullptr, nullptr);
+        AZ_Error("Terrain", m_downloadedImage, "Failed to initialize the downloaded image buffer.");
+
 
         // Download the tiles and copy them into the right place in the stitched image
         AZStd::string url;
 
         AZ::JobCompletion jobCompletion;
 
-        //
-        url = AZStd::string::format("https://api.mapbox.com/v4/mapbox.satellite/%d/%d/%d@2x.png256?access_token=%s",
-            zoom, m_configuration.m_tileX, m_configuration.m_tileY, m_configuration.m_mapboxApiKey.c_str());
-        AZ::Job* job = DownloadAndStitchSatelliteImage(url, 0, 0, 0, 0);
+        for (int yTile = static_cast<int>(yTileTop); yTile <= static_cast<int>(yTileBottom); yTile++)
+        {
+            for (int xTile = static_cast<int>(xTileLeft); xTile <= static_cast<int>(xTileRight); xTile++)
+            {
+                url = AZStd::string::format(
+                    "https://api.mapbox.com/v4/mapbox.satellite/%d/%d/%d@2x.png256?access_token=%s",
+                    zoom, xTile, yTile, m_configuration.m_mapboxApiKey.c_str());
+                AZ::Job* job = DownloadAndStitchSatelliteImage(
+                    url, 0, 0, static_cast<int>((xTile - xTileLeft) * tileSize), static_cast<int>((yTile - yTileTop) * tileSize));
 
-        job->SetDependent(&jobCompletion);
-        job->Start();
+                job->SetDependent(&jobCompletion);
+                job->Start();
 
-        // TODO:  Change this to let the jobs run asynchronously, and just set color image to dirty when it's all done.
+                // TODO:  error handling!!!
+            }
+        }
+
+        // TODO:  Change this to let the jobs run asynchronously, and just set terrain heightfield to dirty when they're all done.
         jobCompletion.StartAndWaitForCompletion();
 
 
@@ -325,11 +347,11 @@ namespace Terrain
         AZ::RHI::ImageUpdateRequest imageUpdateRequest;
         imageUpdateRequest.m_imageSubresourcePixelOffset.m_left = 0;
         imageUpdateRequest.m_imageSubresourcePixelOffset.m_top = 0;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerRow = m_imageWidth * BytesPerPixel;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerImage = m_imageWidth * m_imageHeight * BytesPerPixel;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_rowCount = m_imageHeight;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_width = m_imageWidth;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_height = m_imageHeight;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerRow = m_cachedPixelsWidth * BytesPerPixel;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerImage = m_cachedPixelsWidth * m_cachedPixelsHeight * BytesPerPixel;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_rowCount = m_cachedPixelsHeight;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_width = m_cachedPixelsWidth;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_height = m_cachedPixelsHeight;
         imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_depth = 1;
         imageUpdateRequest.m_sourceData = m_cachedPixels.data();
         imageUpdateRequest.m_image = m_downloadedImage->GetRHIImage();
@@ -337,8 +359,6 @@ namespace Terrain
         m_downloadedImage->UpdateImageContents(imageUpdateRequest);
 
         HandleMaterialStateChange();
-
-
     }
 
 
@@ -428,8 +448,8 @@ namespace Terrain
             int srcHeight = pngHeight;
             int srcWidth = pngWidth;
 
-            int dstHeight = m_imageHeight;
-            int dstWidth = m_imageWidth;
+            int dstHeight = m_cachedPixelsHeight;
+            int dstWidth = m_cachedPixelsWidth;
 
             int copyWidth = AZStd::GetMin(srcWidth - tileStartX, dstWidth - stitchStartX);
             int copyHeight = AZStd::GetMin(srcHeight - tileStartY, dstHeight - stitchStartY);
