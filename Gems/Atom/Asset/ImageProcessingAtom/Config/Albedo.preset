@@ -39,7 +39,7 @@
                     "_bc",
                     "_diffuse"
                 ],
-                "PixelFormat": "ASTC_6x6",
+                "PixelFormat": "ASTC_4x4",
                 "MaxTextureSize": 2048,
                 "DiscardAlpha": true,
                 "IsPowerOf2": true,

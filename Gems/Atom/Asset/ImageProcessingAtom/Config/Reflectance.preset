@@ -57,7 +57,7 @@
                     "_roughness",
                     "_rough"
                 ],
-                "PixelFormat": "ASTC_6x6",
+                "PixelFormat": "ASTC_4x4",
                 "MaxTextureSize": 2048,
                 "IsPowerOf2": true,
                 "MipMapSetting": {

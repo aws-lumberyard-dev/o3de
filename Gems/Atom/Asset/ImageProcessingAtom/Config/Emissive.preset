@@ -29,7 +29,7 @@
                     "_em",
                     "_emit"
                 ],
-                "PixelFormat": "ASTC_6x6",
+                "PixelFormat": "ASTC_4x4",
                 "MaxTextureSize": 2048,
                 "DiscardAlpha": true
             },
