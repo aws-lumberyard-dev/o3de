@@ -10,7 +10,6 @@
 #include <AzCore/Module/Module.h>
 
 #include <TerrainModule.h>
-#include <Components/AwsHeightmapComponent.h>
 #include <Components/TerrainSystemComponent.h>
 #include <Components/TerrainWorldComponent.h>
 #include <Components/TerrainWorldDebuggerComponent.h>
@@ -22,6 +21,9 @@
 #include <Components/TerrainPhysicsColliderComponent.h>
 #include <TerrainRenderer/Components/TerrainSurfaceMaterialsListComponent.h>
 #include <TerrainRenderer/Components/TerrainMacroMaterialComponent.h>
+
+#include <Components/AwsHeightmapComponent.h>
+#include <TerrainRenderer/Components/TerrainMapboxMacroMaterialComponent.h>
 
 namespace Terrain
 {
@@ -40,7 +42,9 @@ namespace Terrain
                 TerrainSurfaceGradientListComponent::CreateDescriptor(),
                 TerrainSurfaceDataSystemComponent::CreateDescriptor(),
                 TerrainPhysicsColliderComponent::CreateDescriptor(),
-                AwsHeightmapComponent::CreateDescriptor()
+
+                AwsHeightmapComponent::CreateDescriptor(),
+                TerrainMapboxMacroMaterialComponent::CreateDescriptor(),
             });
     }
 

@@ -27,11 +27,10 @@
 #include <AzCore/Jobs/JobCompletion.h>
 #include <AzCore/Jobs/JobManagerBus.h>
 
-#include <AzCore/Compression/Compression.h>
+#include <Atom/Utils/PngFile.h>
 
 #include <AzFramework/Terrain/TerrainDataRequestBus.h>
 
-#include <PngDecoder.h>
 
 namespace Terrain
 {
@@ -322,22 +321,27 @@ namespace Terrain
 
     void AwsHeightmapComponent::ProcessTerrainTile(Aws::IOStream& responseBody, int tileStartX, int tileStartY, int stitchStartX, int stitchStartY)
     {
-        AZStd::vector<char> pngBuffer;
-        AZStd::vector<uint32_t> pixelBuffer;
+        AZStd::vector<uint8_t> pngBuffer;
         uint32_t pngWidth = 0;
         uint32_t pngHeight = 0;
 
         // Copy the PNG data out of our response into a memory buffer
         AZStd::copy(std::istreambuf_iterator<char>(responseBody), std::istreambuf_iterator<char>(), AZStd::back_inserter(pngBuffer));
 
-        PNGDecoder::ProcessBuffer(&pngBuffer, pixelBuffer, pngHeight, pngWidth);
+        AZ::Utils::PngFile pngFile = AZ::Utils::PngFile::LoadFromBuffer(pngBuffer);
+        pngWidth = pngFile.GetWidth();
+        pngHeight = pngFile.GetHeight();
+        auto pixelBuffer = pngFile.GetBuffer();
+        auto pixelBufferFormat = pngFile.GetBufferFormat();
 
-        AZ_Assert(pixelBuffer.size() == (pngWidth * pngHeight), "Unexpected pixel buffer size.");
+
+        AZ_Assert(pixelBufferFormat == AZ::Utils::PngFile::Format::RGB, "Unexpected pixel buffer format: %d.", pixelBufferFormat);
+        AZ_Assert(pixelBuffer.size() == (pngWidth * pngHeight * 3),
+            "Unexpected pixel buffer size: %d (expected %d * %d * 3)", pixelBuffer.size(), pngWidth, pngHeight);
 
         {
             float minHeight = 32768.0f;
             float maxHeight = -32768.0f;
-            uint32_t* srcPixel = pixelBuffer.begin();
 
             int srcHeight = pngHeight;
             int srcWidth = pngWidth;
@@ -352,15 +356,16 @@ namespace Terrain
             {
                 for (int width = 0; width < copyWidth; width++)
                 {
-                    uint32_t curSrcPixel = srcPixel[((height + tileStartY) * srcWidth) + width + tileStartX];
+                    const int bytesPerPixel = 3;
+                    uint8_t* curSrcPixel = &pixelBuffer[(((height + tileStartY) * srcWidth) + width + tileStartX) * bytesPerPixel];
 
                     // The terrarium format stores heights in a fixed-point 16.8 format in RGB.  The conversion formula is the following:
                     // (R*256) + G + (B/256) - 32768
                     // This gives a range of -32768 to 32768 meters, at 1/256 m (~4 mm) precision.
                     float terrainHeight =
-                          ((float)((curSrcPixel >> 0)  & 0xFF) * 256.0f)   // red
-                        +  (float)((curSrcPixel >> 8)  & 0xFF)             // green
-                        + ((float)((curSrcPixel >> 16) & 0xFF) / 256.0f)   // blue
+                          (float)((curSrcPixel[0] & 0xFF) * 256.0f)   // red
+                        + (float) (curSrcPixel[1] & 0xFF)             // green
+                        + (float)((curSrcPixel[2] & 0xFF) / 256.0f)   // blue
                         - 32768.0f;
 
                     // When storing in the image, we can either make (0,0) represent the "top left" of the data we downloaded, or

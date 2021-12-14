@@ -7,8 +7,6 @@
 #
 
 set(FILES
-    Source/EditorComponents/EditorAwsHeightmapComponent.cpp
-    Source/EditorComponents/EditorAwsHeightmapComponent.h
     Source/EditorComponents/EditorTerrainHeightGradientListComponent.cpp
     Source/EditorComponents/EditorTerrainHeightGradientListComponent.h
     Source/EditorComponents/EditorTerrainLayerSpawnerComponent.cpp
@@ -33,4 +31,9 @@ set(FILES
     Source/TerrainRenderer/EditorComponents/EditorTerrainSurfaceMaterialsListComponent.h
     Source/TerrainRenderer/EditorComponents/EditorTerrainMacroMaterialComponent.cpp
     Source/TerrainRenderer/EditorComponents/EditorTerrainMacroMaterialComponent.h
+
+    Source/EditorComponents/EditorAwsHeightmapComponent.cpp
+    Source/EditorComponents/EditorAwsHeightmapComponent.h
+    Source/TerrainRenderer/EditorComponents/EditorTerrainMapboxMacroMaterialComponent.cpp
+    Source/TerrainRenderer/EditorComponents/EditorTerrainMapboxMacroMaterialComponent.h
 )
