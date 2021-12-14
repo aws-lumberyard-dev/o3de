@@ -358,9 +358,9 @@ namespace Terrain
                     // (R*256) + G + (B/256) - 32768
                     // This gives a range of -32768 to 32768 meters, at 1/256 m (~4 mm) precision.
                     float terrainHeight =
-                          ((float)GetRValue(curSrcPixel) * 256.0f)
-                        +  (float)GetGValue(curSrcPixel)
-                        + ((float)GetBValue(curSrcPixel) / 256.0f)
+                          ((float)((curSrcPixel >> 0)  & 0xFF) * 256.0f)   // red
+                        +  (float)((curSrcPixel >> 8)  & 0xFF)             // green
+                        + ((float)((curSrcPixel >> 16) & 0xFF) / 256.0f)   // blue
                         - 32768.0f;
 
                     // When storing in the image, we can either make (0,0) represent the "top left" of the data we downloaded, or
