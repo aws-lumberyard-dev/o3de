@@ -117,11 +117,15 @@ namespace Terrain
         const float degreesToMeters = 111139.0f;
         const float metersToDegrees = 1.0f / degreesToMeters;
 
-        float bottomLatitude = (worldAabb.GetMin().GetX() * metersToDegrees / m_configuration.m_scale) + m_configuration.m_originLatLong.GetX();
-        float leftLongitude = (worldAabb.GetMin().GetY() * metersToDegrees / m_configuration.m_scale) + m_configuration.m_originLatLong.GetY();
+        float leftLongitude =
+            (worldAabb.GetMin().GetX() * metersToDegrees / m_configuration.m_scale) + m_configuration.m_originLatLong.GetY();
+        float bottomLatitude =
+            (worldAabb.GetMin().GetY() * metersToDegrees / m_configuration.m_scale) + m_configuration.m_originLatLong.GetX();
 
-        float topLatitude = (worldAabb.GetMax().GetX() * metersToDegrees / m_configuration.m_scale) + m_configuration.m_originLatLong.GetX();
-        float rightLongitude = (worldAabb.GetMax().GetY() * metersToDegrees / m_configuration.m_scale) + m_configuration.m_originLatLong.GetY();
+        float rightLongitude =
+            (worldAabb.GetMax().GetX() * metersToDegrees / m_configuration.m_scale) + m_configuration.m_originLatLong.GetY();
+        float topLatitude =
+            (worldAabb.GetMax().GetY() * metersToDegrees / m_configuration.m_scale) + m_configuration.m_originLatLong.GetX();
 
         LatLongToSlippyTile(topLatitude, leftLongitude, zoomLevel, leftTile, topTile);
         LatLongToSlippyTile(bottomLatitude, rightLongitude, zoomLevel, rightTile, bottomTile);
