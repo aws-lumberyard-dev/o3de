@@ -81,9 +81,6 @@ namespace Terrain
         // ShapeComponentNotificationsBus
         void OnShapeChanged(ShapeComponentNotifications::ShapeChangeReasons reasons) override;
 
-        void LatLongToTerrainTile(float latitudeDegrees, float longitudeDegrees, int zoom, float& xTile, float& yTile);
-        void TerrainTileToLatLong(float xTile, float yTile, int zoom, float& latitudeDegrees, float& longitudeDegrees);
-
         void HandleMaterialStateChange();
 
         TerrainMapboxMacroMaterialConfig m_configuration;

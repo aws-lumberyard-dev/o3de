@@ -147,14 +147,6 @@ namespace Terrain
             return;
         }
 
-        float top = 0.0f;
-        float left = 0.0f;
-        float bottom = 0.0f;
-        float right = 0.0f;
-
-        CoordinateMapperRequestBus::Broadcast(&CoordinateMapperRequestBus::Events::ConvertWorldAabbToLatLong, m_cachedShapeBounds, top, left, bottom, right);
-
-
         // This component uses https://registry.opendata.aws/terrain-tiles/ as a way to download real-world height data
         // directly into Lumberyard terrain.
         // Use https://www.openstreetmap.org/export#map=15/30.4019/-97.8937 as a way to get lat / long values
@@ -166,21 +158,17 @@ namespace Terrain
         // According to TileZen docs, zoom goes from 0-20, but 15 is the highest value with unique data.
         // https://github.com/tilezen/joerd/blob/master/docs/use-service.md
         const int zoom = 15;
+
         const int maxHeightmapSize = 4096;
+
 
         float xTileLeft = 0.0f, yTileTop = 0.0f;
         float xTileRight = 0.0f, yTileBottom = 0.0f;
 
-        // Based on the lat / long coordinates and zoom level, get the top left tile XY name.
-        LatLongToTerrainTile(top, left, zoom, xTileLeft, yTileTop);
+        CoordinateMapperRequestBus::Broadcast(
+            &CoordinateMapperRequestBus::Events::ConvertWorldAabbToTileNums,
+            m_cachedShapeBounds, zoom, yTileTop, xTileLeft, yTileBottom, xTileRight);
 
-        // This would default to the correct right/bottom values for a heightmap of a given size.
-        //xTileRight = xTileLeft + (m_pHeightmap->GetWidth() / tileSize) - 1;
-        //yTileBottom = yTileTop + (m_pHeightmap->GetHeight() / tileSize) - 1;
-        //TerrainTileToLatLong(xTileRight, yTileBottom, zoom, bottom, right);
-
-        // Based on the lat / long coordinates and zoom level, get the bottom right tile XY name.
-        LatLongToTerrainTile(bottom, right, zoom, xTileRight, yTileBottom);
 
         // Clamp to a max of 4k x 4k pixels by controlling the number of tiles we load in our grid in each direction.
         xTileRight = AZStd::GetMin((xTileLeft + (maxHeightmapSize / tileSize)), xTileRight);
@@ -189,15 +177,15 @@ namespace Terrain
         // Calculate the heightmap XY resolution in the data we've downloaded.  This isn't needed for the component to run,
         // but it's useful to understand the max quality level we'll get from this data.
         // (Math found here - http://wiki.openstreetmap.org/wiki/Zoom_levels )
-        const float equatorCircumferenceMeters = 40075017;
-        const float tileMetersPerPixel = (equatorCircumferenceMeters * cos(AZ::DegToRad(top)) / pow(2.0f, zoom + 8.0f));
-        AZ_TracePrintf("Terrain", "The terrain tile resolution has %.3f meters per pixel.", tileMetersPerPixel);
+        //const float equatorCircumferenceMeters = 40075017;
+        //const float tileMetersPerPixel = (equatorCircumferenceMeters * cos(AZ::DegToRad(top)) / pow(2.0f, zoom + 8.0f));
+        //AZ_TracePrintf("Terrain", "The terrain tile resolution has %.3f meters per pixel.", tileMetersPerPixel);
 
         //TODO: Account for fractional offsets.  Right now, we force things to 256x256 tile boundaries.
         xTileLeft = floorf(xTileLeft);
-        xTileRight = floorf(xTileRight);
+        xTileRight = ceilf(xTileRight);
         yTileTop = floorf(yTileTop);
-        yTileBottom = floorf(yTileBottom);
+        yTileBottom = ceilf(yTileBottom);
 
         // Create the temp heightmap buffer to store all the tile data in
         m_heightmapData.clear();
@@ -230,26 +218,6 @@ namespace Terrain
         // TODO:  Change this to let the jobs run asynchronously, and just set terrain heightfield to dirty when they're all done.
         jobCompletion.StartAndWaitForCompletion();
     }
-
-    void AwsHeightmapComponent::LatLongToTerrainTile(float latitudeDegrees, float longitudeDegrees, int zoom, float& xTile, float& yTile)
-    {
-        // Tile calculation math found here - http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames 
-        float latitudeRadians = AZ::DegToRad(latitudeDegrees);
-
-        double n = pow(2.0f, zoom);
-        xTile = static_cast<float>(n * ((longitudeDegrees + 180.0f) / 360.0f));
-        yTile = static_cast<float>(n * (1.0f - (log(tan(latitudeRadians) + (1.0f / cos(latitudeRadians))) / AZ::Constants::Pi)) / 2.0f);
-    }
-
-    void AwsHeightmapComponent::TerrainTileToLatLong(float xTile, float yTile, int zoom, float& latitudeDegrees, float& longitudeDegrees)
-    {
-        // Tile calculation math found here - http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames 
-        double n = pow(2.0f, zoom);
-        longitudeDegrees = static_cast<float>(xTile / n * 360.0f - 180.0f);
-        float latitudeRadians = static_cast<float>(atan(sinh(AZ::Constants::Pi * (1.0f - 2.0f * yTile / n))));
-        latitudeDegrees = AZ::RadToDeg(latitudeRadians);
-    }
-
 
 
     AZ::Job* AwsHeightmapComponent::DownloadAndStitchTerrainTile(const AZStd::string& url, int tileStartX, int tileStartY, int stitchStartX, int stitchStartY)

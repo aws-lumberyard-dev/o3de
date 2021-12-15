@@ -240,43 +240,12 @@ namespace Terrain
         return macroMaterial;
     }
 
-    void TerrainMapboxMacroMaterialComponent::LatLongToTerrainTile(
-        float latitudeDegrees, float longitudeDegrees, int zoom, float& xTile, float& yTile)
-    {
-        // Tile calculation math found here - http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames
-        float latitudeRadians = AZ::DegToRad(latitudeDegrees);
-
-        double n = pow(2.0f, zoom);
-        xTile = static_cast<float>(n * ((longitudeDegrees + 180.0f) / 360.0f));
-        yTile = static_cast<float>(n * (1.0f - (log(tan(latitudeRadians) + (1.0f / cos(latitudeRadians))) / AZ::Constants::Pi)) / 2.0f);
-    }
-
-    void TerrainMapboxMacroMaterialComponent::TerrainTileToLatLong(
-        float xTile, float yTile, int zoom, float& latitudeDegrees, float& longitudeDegrees)
-    {
-        // Tile calculation math found here - http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames
-        double n = pow(2.0f, zoom);
-        longitudeDegrees = static_cast<float>(xTile / n * 360.0f - 180.0f);
-        float latitudeRadians = static_cast<float>(atan(sinh(AZ::Constants::Pi * (1.0f - 2.0f * yTile / n))));
-        latitudeDegrees = AZ::RadToDeg(latitudeRadians);
-    }
-
-
-
     void TerrainMapboxMacroMaterialComponent::DownloadSatelliteImage()
     {
         if (!m_cachedShapeBounds.IsValid())
         {
             return;
         }
-
-        float top = 0.0f;
-        float left = 0.0f;
-        float bottom = 0.0f;
-        float right = 0.0f;
-
-        CoordinateMapperRequestBus::Broadcast(
-            &CoordinateMapperRequestBus::Events::ConvertWorldAabbToLatLong, m_cachedShapeBounds, top, left, bottom, right);
 
         // Mapbox raster images requested at 2x are 512 x 512 in size.
         // https://docs.mapbox.com/api/maps/raster-tiles/#example-request-retrieve-raster-tiles
@@ -289,16 +258,10 @@ namespace Terrain
         float xTileLeft = 0.0f, yTileTop = 0.0f;
         float xTileRight = 0.0f, yTileBottom = 0.0f;
 
-        // Based on the lat / long coordinates and zoom level, get the top left tile XY name.
-        LatLongToTerrainTile(top, left, zoom, xTileLeft, yTileTop);
+        CoordinateMapperRequestBus::Broadcast(
+            &CoordinateMapperRequestBus::Events::ConvertWorldAabbToTileNums, m_cachedShapeBounds, zoom, yTileTop, xTileLeft, yTileBottom,
+            xTileRight);
 
-        // This would default to the correct right/bottom values for a heightmap of a given size.
-        // xTileRight = xTileLeft + (m_pHeightmap->GetWidth() / tileSize) - 1;
-        // yTileBottom = yTileTop + (m_pHeightmap->GetHeight() / tileSize) - 1;
-        // TerrainTileToLatLong(xTileRight, yTileBottom, zoom, bottom, right);
-
-        // Based on the lat / long coordinates and zoom level, get the bottom right tile XY name.
-        LatLongToTerrainTile(bottom, right, zoom, xTileRight, yTileBottom);
 
         // Clamp to a max of 4k x 4k pixels by controlling the number of tiles we load in our grid in each direction.
         xTileRight = AZStd::GetMin((xTileLeft + (maxCachedPixelSize / tileSize)), xTileRight);
@@ -306,9 +269,9 @@ namespace Terrain
 
         // TODO: Account for fractional offsets.  Right now, we force things to 256x256 tile boundaries.
         xTileLeft = floorf(xTileLeft);
-        xTileRight = floorf(xTileRight);
+        xTileRight = ceilf(xTileRight);
         yTileTop = floorf(yTileTop);
-        yTileBottom = floorf(yTileBottom);
+        yTileBottom = ceilf(yTileBottom);
 
         // Create the temp pixel buffer to store all the tile data in
         m_cachedPixels.clear();

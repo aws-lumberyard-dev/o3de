@@ -111,17 +111,32 @@ namespace Terrain
         return false;
     }
 
-    void CoordinateMapperComponent::ConvertWorldAabbToLatLong(
-        const AZ::Aabb& worldAabb, float& topLatitude, float& leftLongitude, float& bottomLatitude, float& rightLongitude)
+    void CoordinateMapperComponent::ConvertWorldAabbToTileNums(
+        const AZ::Aabb& worldAabb, int zoomLevel, float& topTile, float& leftTile, float& bottomTile, float& rightTile)
     {
         const float degreesToMeters = 111139.0f;
         const float metersToDegrees = 1.0f / degreesToMeters;
 
-        bottomLatitude = (worldAabb.GetMin().GetX() * metersToDegrees / m_configuration.m_scale) + m_configuration.m_originLatLong.GetX();
-        leftLongitude = (worldAabb.GetMin().GetY() * metersToDegrees / m_configuration.m_scale) + m_configuration.m_originLatLong.GetY();
+        float bottomLatitude = (worldAabb.GetMin().GetX() * metersToDegrees / m_configuration.m_scale) + m_configuration.m_originLatLong.GetX();
+        float leftLongitude = (worldAabb.GetMin().GetY() * metersToDegrees / m_configuration.m_scale) + m_configuration.m_originLatLong.GetY();
 
-        topLatitude = (worldAabb.GetMax().GetX() * metersToDegrees / m_configuration.m_scale) + m_configuration.m_originLatLong.GetX();
-        rightLongitude = (worldAabb.GetMax().GetY() * metersToDegrees / m_configuration.m_scale) + m_configuration.m_originLatLong.GetY();
+        float topLatitude = (worldAabb.GetMax().GetX() * metersToDegrees / m_configuration.m_scale) + m_configuration.m_originLatLong.GetX();
+        float rightLongitude = (worldAabb.GetMax().GetY() * metersToDegrees / m_configuration.m_scale) + m_configuration.m_originLatLong.GetY();
+
+        LatLongToSlippyTile(topLatitude, leftLongitude, zoomLevel, leftTile, topTile);
+        LatLongToSlippyTile(bottomLatitude, rightLongitude, zoomLevel, rightTile, bottomTile);
+    }
+
+
+    void CoordinateMapperComponent::LatLongToSlippyTile(
+        float latitudeDegrees, float longitudeDegrees, int zoom, float& latTile, float& longTile)
+    {
+        // Tile calculation math found here - http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames
+        float latitudeRadians = AZ::DegToRad(latitudeDegrees);
+
+        double n = pow(2.0f, zoom);
+        latTile = static_cast<float>(n * ((longitudeDegrees + 180.0f) / 360.0f));
+        longTile = static_cast<float>(n * (1.0f - (log(tan(latitudeRadians) + (1.0f / cos(latitudeRadians))) / AZ::Constants::Pi)) / 2.0f);
     }
 
 

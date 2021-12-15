@@ -32,8 +32,8 @@ namespace Terrain
 
         virtual ~CoordinateMapperRequests() = default;
 
-        virtual void ConvertWorldAabbToLatLong(const AZ::Aabb& worldAabb,
-            float& topLatitude, float& leftLongitude, float& bottomLatitude, float& rightLongitude) = 0;
+        virtual void ConvertWorldAabbToTileNums(const AZ::Aabb& worldAabb, int zoomLevel,
+            float& topTile, float& leftTile, float& bottomTile, float& rightTile) = 0;
     };
 
     using CoordinateMapperRequestBus = AZ::EBus<CoordinateMapperRequests>;

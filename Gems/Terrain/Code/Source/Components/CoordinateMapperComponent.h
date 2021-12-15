@@ -60,10 +60,12 @@ namespace Terrain
         bool ReadInConfig(const AZ::ComponentConfig* baseConfig) override;
         bool WriteOutConfig(AZ::ComponentConfig* outBaseConfig) const override;
 
-        void ConvertWorldAabbToLatLong(
-            const AZ::Aabb& worldAabb, float& topLatitude, float& leftLongitude, float& bottomLatitude, float& rightLongitude) override;
+        void ConvertWorldAabbToTileNums(
+            const AZ::Aabb& worldAabb, int zoomLevel, float& topTile, float& leftTile, float& bottomTile, float& rightTile) override;
 
     private:
         CoordinateMapperConfig m_configuration;
+
+        void LatLongToSlippyTile(float latitudeDegrees, float longitudeDegrees, int zoom, float& xTile, float& yTile);
     };
 }
