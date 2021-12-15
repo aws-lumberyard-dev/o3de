@@ -39,8 +39,11 @@ set(FILES
     Source/TerrainSystem/TerrainSystem.h
     Source/TerrainSystem/TerrainSystemBus.h
 
+    Include/Terrain/Ebuses/CoordinateMapperRequestBus.h
     Source/Components/AwsHeightmapComponent.cpp
     Source/Components/AwsHeightmapComponent.h
+    Source/Components/CoordinateMapperComponent.cpp
+    Source/Components/CoordinateMapperComponent.h
     Source/TerrainRenderer/Components/TerrainMapboxMacroMaterialComponent.cpp
     Source/TerrainRenderer/Components/TerrainMapboxMacroMaterialComponent.h
 )

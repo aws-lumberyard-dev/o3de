@@ -23,6 +23,7 @@
 #include <TerrainRenderer/Components/TerrainMacroMaterialComponent.h>
 
 #include <Components/AwsHeightmapComponent.h>
+#include <Components/CoordinateMapperComponent.h>
 #include <TerrainRenderer/Components/TerrainMapboxMacroMaterialComponent.h>
 
 namespace Terrain
@@ -44,6 +45,7 @@ namespace Terrain
                 TerrainPhysicsColliderComponent::CreateDescriptor(),
 
                 AwsHeightmapComponent::CreateDescriptor(),
+                CoordinateMapperComponent::CreateDescriptor(),
                 TerrainMapboxMacroMaterialComponent::CreateDescriptor(),
             });
     }

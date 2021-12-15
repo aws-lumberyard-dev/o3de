@@ -31,6 +31,8 @@
 
 #include <AzFramework/Terrain/TerrainDataRequestBus.h>
 
+#include <Terrain/Ebuses/CoordinateMapperRequestBus.h>
+
 
 namespace Terrain
 {
@@ -41,10 +43,6 @@ namespace Terrain
         {
             serialize->Class<AwsHeightmapConfig, AZ::ComponentConfig>()
                 ->Version(1)
-                ->Field("TopLatitude", &AwsHeightmapConfig::m_topLatitude)
-                ->Field("LeftLongitude", &AwsHeightmapConfig::m_leftLongitude)
-                ->Field("BottomLatitude", &AwsHeightmapConfig::m_bottomLatitude)
-                ->Field("RightLongitude", &AwsHeightmapConfig::m_rightLongitude)
                 ->Field("EnableRefresh", &AwsHeightmapConfig::m_enableRefresh)
                 ;
 
@@ -57,10 +55,6 @@ namespace Terrain
                     ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly)
                     ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
 
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &AwsHeightmapConfig::m_topLatitude, "Top Latitude", "")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &AwsHeightmapConfig::m_leftLongitude, "Left Longitude", "")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &AwsHeightmapConfig::m_bottomLatitude, "Bottom Latitude", "")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &AwsHeightmapConfig::m_rightLongitude, "Right Longitude", "")
                     ->DataElement(AZ::Edit::UIHandlers::CheckBox, &AwsHeightmapConfig::m_enableRefresh, "Enable Refresh", "")
                     ;
             }
@@ -94,21 +88,6 @@ namespace Terrain
                 ->Version(0)
                 ->Field("Configuration", &AwsHeightmapComponent::m_configuration)
                 ;
-
-            /*
-            if (auto editContext = serializeContext->GetEditContext())
-            {
-                editContext->Class<EditorAwsHeightmapComponent>(
-                    "Aws Heightmap", "")
-                    ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
-                    ->Attribute(AZ::Edit::Attributes::Category, "Terrain")
-                    ->UIElement(AZ::Edit::UIHandlers::Button, "DownloadHeightmap", "Download heightmap data")
-                    ->Attribute(AZ::Edit::Attributes::NameLabelOverride, "")
-                    ->Attribute(AZ::Edit::Attributes::ButtonText, "Download Height Data")
-                    ->Attribute(AZ::Edit::Attributes::ChangeNotify, &EditorAwsHeightmapComponent::OnImportTerrainTiles)
-                    ;
-            }
-            */
         }
     }
 
@@ -163,6 +142,19 @@ namespace Terrain
 
     void AwsHeightmapComponent::OnImportTerrainTiles()
     {
+        if (!m_cachedShapeBounds.IsValid())
+        {
+            return;
+        }
+
+        float top = 0.0f;
+        float left = 0.0f;
+        float bottom = 0.0f;
+        float right = 0.0f;
+
+        CoordinateMapperRequestBus::Broadcast(&CoordinateMapperRequestBus::Events::ConvertWorldAabbToLatLong, m_cachedShapeBounds, top, left, bottom, right);
+
+
         // This component uses https://registry.opendata.aws/terrain-tiles/ as a way to download real-world height data
         // directly into Lumberyard terrain.
         // Use https://www.openstreetmap.org/export#map=15/30.4019/-97.8937 as a way to get lat / long values
@@ -175,11 +167,6 @@ namespace Terrain
         // https://github.com/tilezen/joerd/blob/master/docs/use-service.md
         const int zoom = 15;
         const int maxHeightmapSize = 4096;
-
-        float top = m_configuration.m_topLatitude;
-        float left = m_configuration.m_leftLongitude;
-        float bottom = m_configuration.m_bottomLatitude;
-        float right = m_configuration.m_rightLongitude;
 
         float xTileLeft = 0.0f, yTileTop = 0.0f;
         float xTileRight = 0.0f, yTileBottom = 0.0f;
@@ -462,12 +449,14 @@ namespace Terrain
     {
         m_refreshHeightData = true;
         RefreshMinMaxHeights();
+        OnImportTerrainTiles();
     }
 
     void AwsHeightmapComponent::OnShapeChanged(ShapeChangeReasons /*changeReason*/)
     {
         m_refreshHeightData = true;
         RefreshMinMaxHeights();
+        OnImportTerrainTiles();
     }
 
     void AwsHeightmapComponent::RefreshMinMaxHeights()

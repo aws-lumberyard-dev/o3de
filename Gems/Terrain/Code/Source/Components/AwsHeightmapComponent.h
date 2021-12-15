@@ -56,14 +56,6 @@ namespace Terrain
         AZ_RTTI(AwsHeightmapConfig, "{1ABD721A-4957-4F64-91AA-2B362B098BE7}", AZ::ComponentConfig);
         static void Reflect(AZ::ReflectContext* context);
 
-        float m_topLatitude = { 30.428292f };
-        float m_leftLongitude = { -97.930687f };
-        float m_bottomLatitude = { 30.381758f };
-        float m_rightLongitude = { -97.857713f };
-        //float m_topLatitude = { 20.2705f };
-        //float m_leftLongitude = { -155.9313f };
-        //float m_bottomLatitude = { 19.9623f };
-        //float m_rightLongitude = { -155.5619f };
         bool m_enableRefresh = false;
     };
 

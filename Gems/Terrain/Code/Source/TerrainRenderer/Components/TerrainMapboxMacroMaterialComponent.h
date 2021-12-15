@@ -45,10 +45,6 @@ namespace Terrain
         AZ_RTTI(TerrainMapboxMacroMaterialConfig, "{046BD6E2-3D9F-4E69-9445-5A96A17D377E}", AZ::ComponentConfig);
         static void Reflect(AZ::ReflectContext* context);
 
-        float m_topLatitude = { 30.428292f };
-        float m_leftLongitude = { -97.930687f };
-        float m_bottomLatitude = { 30.381758f };
-        float m_rightLongitude = { -97.857713f };
         bool m_enableRefresh = false;
         AZStd::string m_mapboxApiKey;
     };

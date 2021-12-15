@@ -28,6 +28,8 @@
 
 #include <AzCore/IO/SystemFile.h>
 
+#include <Terrain/Ebuses/CoordinateMapperRequestBus.h>
+
 #pragma optimize("", off)
 
 namespace Terrain
@@ -38,10 +40,6 @@ namespace Terrain
         {
             serialize->Class<TerrainMapboxMacroMaterialConfig, AZ::ComponentConfig>()
                 ->Version(1)
-                ->Field("TopLatitude", &TerrainMapboxMacroMaterialConfig::m_topLatitude)
-                ->Field("LeftLongitude", &TerrainMapboxMacroMaterialConfig::m_leftLongitude)
-                ->Field("BottomLatitude", &TerrainMapboxMacroMaterialConfig::m_bottomLatitude)
-                ->Field("RightLongitude", &TerrainMapboxMacroMaterialConfig::m_rightLongitude)
                 ->Field("EnableRefresh", &TerrainMapboxMacroMaterialConfig::m_enableRefresh)
                 ->Field("ApiKey", &TerrainMapboxMacroMaterialConfig::m_mapboxApiKey)
                 ;
@@ -55,10 +53,6 @@ namespace Terrain
                     ->Attribute(AZ::Edit::Attributes::Visibility, AZ::Edit::PropertyVisibility::ShowChildrenOnly)
                     ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
 
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &TerrainMapboxMacroMaterialConfig::m_topLatitude, "Top Latitude", "")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &TerrainMapboxMacroMaterialConfig::m_leftLongitude, "Left Longitude", "")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &TerrainMapboxMacroMaterialConfig::m_bottomLatitude, "Bottom Latitude", "")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &TerrainMapboxMacroMaterialConfig::m_rightLongitude, "Right Longitude", "")
                     ->DataElement(AZ::Edit::UIHandlers::CheckBox, &TerrainMapboxMacroMaterialConfig::m_enableRefresh, "Enable Refresh", "")
                     ->DataElement(
                         AZ::Edit::UIHandlers::Default, &TerrainMapboxMacroMaterialConfig::m_mapboxApiKey, "API Key",
@@ -109,6 +103,9 @@ namespace Terrain
 
         // Clear out our shape bounds.
         m_cachedShapeBounds = AZ::Aabb::CreateNull();
+
+        LmbrCentral::ShapeComponentRequestsBus::EventResult(
+            m_cachedShapeBounds, GetEntityId(), &LmbrCentral::ShapeComponentRequestsBus::Events::GetEncompassingAabb);
 
         if (m_configuration.m_enableRefresh)
         {
@@ -161,6 +158,11 @@ namespace Terrain
         TerrainMacroMaterialNotificationBus::Broadcast(
             &TerrainMacroMaterialNotificationBus::Events::OnTerrainMacroMaterialRegionChanged,
             GetEntityId(), oldShapeBounds, m_cachedShapeBounds);
+
+        if (m_configuration.m_enableRefresh)
+        {
+            DownloadSatelliteImage();
+        }
     }
 
     void TerrainMapboxMacroMaterialComponent::HandleMaterialStateChange()
@@ -263,6 +265,19 @@ namespace Terrain
 
     void TerrainMapboxMacroMaterialComponent::DownloadSatelliteImage()
     {
+        if (!m_cachedShapeBounds.IsValid())
+        {
+            return;
+        }
+
+        float top = 0.0f;
+        float left = 0.0f;
+        float bottom = 0.0f;
+        float right = 0.0f;
+
+        CoordinateMapperRequestBus::Broadcast(
+            &CoordinateMapperRequestBus::Events::ConvertWorldAabbToLatLong, m_cachedShapeBounds, top, left, bottom, right);
+
         // Mapbox raster images requested at 2x are 512 x 512 in size.
         // https://docs.mapbox.com/api/maps/raster-tiles/#example-request-retrieve-raster-tiles
         const int tileSize = 512;
@@ -270,11 +285,6 @@ namespace Terrain
         // https://github.com/tilezen/joerd/blob/master/docs/use-service.md
         const int zoom = 15;
         const int maxCachedPixelSize = 4096;
-
-        float top = m_configuration.m_topLatitude;
-        float left = m_configuration.m_leftLongitude;
-        float bottom = m_configuration.m_bottomLatitude;
-        float right = m_configuration.m_rightLongitude;
 
         float xTileLeft = 0.0f, yTileTop = 0.0f;
         float xTileRight = 0.0f, yTileBottom = 0.0f;
