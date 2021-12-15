@@ -33,7 +33,6 @@
 
 #include <Terrain/Ebuses/CoordinateMapperRequestBus.h>
 
-
 namespace Terrain
 {
     void AwsHeightmapConfig::Reflect(AZ::ReflectContext* context)
@@ -148,9 +147,7 @@ namespace Terrain
         }
 
         // This component uses https://registry.opendata.aws/terrain-tiles/ as a way to download real-world height data
-        // directly into Lumberyard terrain.
-        // Use https://www.openstreetmap.org/export#map=15/30.4019/-97.8937 as a way to get lat / long values
-
+        // directly into o3de terrain.
 
         // AWS Terrarium format tiles only come in 256x256 tile sizes:
         // https://github.com/tilezen/joerd/blob/master/docs/use-service.md
@@ -161,6 +158,8 @@ namespace Terrain
 
         const int maxHeightmapSize = 4096;
 
+        // Clamp to a max of 4k x 4k pixels by controlling the number of tiles we load in our grid in each direction.
+        const int maxTilesToLoad = maxHeightmapSize / tileSize;
 
         float xTileLeft = 0.0f, yTileTop = 0.0f;
         float xTileRight = 0.0f, yTileBottom = 0.0f;
@@ -169,29 +168,28 @@ namespace Terrain
             &CoordinateMapperRequestBus::Events::ConvertWorldAabbToTileNums,
             m_cachedShapeBounds, zoom, yTileTop, xTileLeft, yTileBottom, xTileRight);
 
+        if (((xTileRight - xTileLeft) <= 0.0f) && ((yTileBottom - yTileTop) <= 0.0f))
+        {
+            return;
+        }
 
         // Clamp to a max of 4k x 4k pixels by controlling the number of tiles we load in our grid in each direction.
-        xTileRight = AZStd::GetMin((xTileLeft + (maxHeightmapSize / tileSize)), xTileRight);
-        yTileBottom = AZStd::GetMin((yTileTop + (maxHeightmapSize / tileSize)), yTileBottom);
+        xTileRight = AZStd::GetMin(xTileLeft + maxTilesToLoad, xTileRight);
+        yTileBottom = AZStd::GetMin(yTileTop + maxTilesToLoad, yTileBottom);
 
-        // Calculate the heightmap XY resolution in the data we've downloaded.  This isn't needed for the component to run,
-        // but it's useful to understand the max quality level we'll get from this data.
-        // (Math found here - http://wiki.openstreetmap.org/wiki/Zoom_levels )
-        //const float equatorCircumferenceMeters = 40075017;
-        //const float tileMetersPerPixel = (equatorCircumferenceMeters * cos(AZ::DegToRad(top)) / pow(2.0f, zoom + 8.0f));
-        //AZ_TracePrintf("Terrain", "The terrain tile resolution has %.3f meters per pixel.", tileMetersPerPixel);
+        float xTileLeftInt, xTileLeftFrac, xTileRightInt, xTileRightFrac;
+        float yTileTopInt, yTileTopFrac, yTileBottomInt, yTileBottomFrac;
 
-        //TODO: Account for fractional offsets.  Right now, we force things to 256x256 tile boundaries.
-        xTileLeft = floorf(xTileLeft);
-        xTileRight = ceilf(xTileRight);
-        yTileTop = floorf(yTileTop);
-        yTileBottom = ceilf(yTileBottom);
+        xTileLeftFrac = modf(xTileLeft, &xTileLeftInt);
+        xTileRightFrac = modf(xTileRight, &xTileRightInt);
+        yTileTopFrac = modf(yTileTop, &yTileTopInt);
+        yTileBottomFrac = modf(yTileBottom, &yTileBottomInt);
 
         // Create the temp heightmap buffer to store all the tile data in
         m_heightmapData.clear();
-        m_heightmapHeight = static_cast<int>((yTileBottom - yTileTop + 1) * tileSize);
-        m_heightmapWidth = static_cast<int>((xTileRight - xTileLeft + 1) * tileSize);
-        m_heightmapData.resize(m_heightmapHeight * m_heightmapWidth);
+        m_rawHeightmapHeight = static_cast<int>((yTileBottomInt - yTileTopInt + 1) * tileSize);
+        m_rawHeightmapWidth = static_cast<int>((xTileRightInt - xTileLeftInt + 1) * tileSize);
+        m_heightmapData.resize(m_rawHeightmapHeight * m_rawHeightmapWidth);
 
         // Download the tiles and copy them into the right place in the stitched image
         AZStd::string url;
@@ -201,12 +199,12 @@ namespace Terrain
 
         AZ::JobCompletion jobCompletion;
 
-        for (int yTile = static_cast<int>(yTileTop); yTile <= static_cast<int>(yTileBottom); yTile++)
+        for (int yTile = static_cast<int>(yTileTopInt); yTile <= static_cast<int>(yTileBottomInt); yTile++)
         {
-            for (int xTile = static_cast<int>(xTileLeft); xTile <= static_cast<int>(xTileRight); xTile++)
+            for (int xTile = static_cast<int>(xTileLeftInt); xTile <= static_cast<int>(xTileRightInt); xTile++)
             {
                 url = AZStd::string::format("https://s3.amazonaws.com/elevation-tiles-prod/terrarium/%d/%d/%d.png", zoom, xTile, yTile);
-                AZ::Job* job = DownloadAndStitchTerrainTile(url, 0, 0, static_cast<int>((xTile - xTileLeft) * tileSize), static_cast<int>((yTile - yTileTop) * tileSize));
+                AZ::Job* job = DownloadAndStitchTerrainTile(url, 0, 0, static_cast<int>((xTile - xTileLeftInt) * tileSize), static_cast<int>((yTile - yTileTopInt) * tileSize));
 
                 job->SetDependent(&jobCompletion);
                 job->Start();
@@ -217,6 +215,11 @@ namespace Terrain
 
         // TODO:  Change this to let the jobs run asynchronously, and just set terrain heightfield to dirty when they're all done.
         jobCompletion.StartAndWaitForCompletion();
+
+        m_heightmapLeft = aznumeric_cast<uint32_t>(xTileLeftFrac * tileSize);
+        m_heightmapTop = aznumeric_cast<uint32_t>(yTileTopFrac * tileSize);
+        m_heightmapWidth = aznumeric_cast<uint32_t>((xTileRight - xTileLeft) * tileSize);
+        m_heightmapHeight = aznumeric_cast<uint32_t>((yTileBottom - yTileTop) * tileSize);
     }
 
 
@@ -301,8 +304,8 @@ namespace Terrain
             int srcHeight = pngHeight;
             int srcWidth = pngWidth;
 
-            int dstHeight = m_heightmapHeight;
-            int dstWidth = m_heightmapWidth;
+            int dstHeight = m_rawHeightmapHeight;
+            int dstWidth = m_rawHeightmapWidth;
 
             int copyWidth = AZStd::GetMin(srcWidth - tileStartX, dstWidth - stitchStartX);
             int copyHeight = AZStd::GetMin(srcHeight - tileStartY, dstHeight - stitchStartY);
@@ -399,7 +402,7 @@ namespace Terrain
                 const int xSampleLookup = AZStd::GetMin(xLookup + xSample, m_heightmapWidth - 1);
                 const int ySampleLookup = AZStd::GetMin(yLookup + ySample, m_heightmapHeight - 1);
 
-                srcHeights[xSample][ySample] = m_heightmapData[(ySampleLookup * m_heightmapWidth) + xSampleLookup];
+                srcHeights[xSample][ySample] = m_heightmapData[((ySampleLookup + m_heightmapTop) * m_rawHeightmapWidth) + (xSampleLookup + m_heightmapLeft)];
             }
         }
 
@@ -437,4 +440,3 @@ namespace Terrain
         }
     }
 }
-

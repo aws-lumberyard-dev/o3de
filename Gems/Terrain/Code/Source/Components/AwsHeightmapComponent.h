@@ -109,13 +109,26 @@ namespace Terrain
 
         AwsHeightmapConfig m_configuration;
 
+        // This buffer contains full tile-sized chunks of data, but we generally need only partial tiles on the boundaries.
+        // We'll use offsets to control the valid usable window of data inside this buffer.
         AZStd::vector<float> m_heightmapData;
-        int m_heightmapHeight = 0;
-        int m_heightmapWidth = 0;
+
+        // This is the size of the full buffer above.
+        int m_rawHeightmapHeight = 0;
+        int m_rawHeightmapWidth = 0;
+
+        // These are the min/max height values found in the data, used for auto-scaling.
         float m_heightmapMinHeight = 0.0f;
         float m_heightmapMaxHeight = 0.0f;
 
         AZ::Aabb m_cachedShapeBounds;
         bool m_refreshHeightData = true;
+
+        // Window of usable values within the raw heightmap data buffer.
+        int m_heightmapLeft = 0;
+        int m_heightmapTop = 0;
+        int m_heightmapWidth = 0;
+        int m_heightmapHeight = 0;
+
     };
 }

@@ -30,8 +30,6 @@
 
 #include <Terrain/Ebuses/CoordinateMapperRequestBus.h>
 
-#pragma optimize("", off)
-
 namespace Terrain
 {
     void TerrainMapboxMacroMaterialConfig::Reflect(AZ::ReflectContext* context)
@@ -253,7 +251,10 @@ namespace Terrain
         // Zoom goes from 0-20, but we'll use 15 to align with the terrain height data.
         // https://github.com/tilezen/joerd/blob/master/docs/use-service.md
         const int zoom = 15;
-        const int maxCachedPixelSize = 4096;
+        const int maxCachedPixelSize = 8192;
+
+        // Clamp to a max of 4k x 4k pixels by controlling the number of tiles we load in our grid in each direction.
+        const int maxTilesToLoad = maxCachedPixelSize / tileSize;
 
         float xTileLeft = 0.0f, yTileTop = 0.0f;
         float xTileRight = 0.0f, yTileBottom = 0.0f;
@@ -262,27 +263,41 @@ namespace Terrain
             &CoordinateMapperRequestBus::Events::ConvertWorldAabbToTileNums, m_cachedShapeBounds, zoom, yTileTop, xTileLeft, yTileBottom,
             xTileRight);
 
+        if (((xTileRight - xTileLeft) <= 0.0f) && ((yTileBottom - yTileTop) <= 0.0f))
+        {
+            return;
+        }
 
-        // Clamp to a max of 4k x 4k pixels by controlling the number of tiles we load in our grid in each direction.
-        xTileRight = AZStd::GetMin((xTileLeft + (maxCachedPixelSize / tileSize)), xTileRight);
-        yTileBottom = AZStd::GetMin((yTileTop + (maxCachedPixelSize / tileSize)), yTileBottom);
+        // Clamp to a max of 8k x 8k pixels by controlling the number of tiles we load in our grid in each direction.
+        xTileRight = AZStd::GetMin(xTileLeft + maxTilesToLoad, xTileRight);
+        yTileBottom = AZStd::GetMin(yTileTop + maxTilesToLoad, yTileBottom);
 
-        // TODO: Account for fractional offsets.  Right now, we force things to 256x256 tile boundaries.
-        xTileLeft = floorf(xTileLeft);
-        xTileRight = ceilf(xTileRight);
-        yTileTop = floorf(yTileTop);
-        yTileBottom = ceilf(yTileBottom);
+        float xTileLeftInt, xTileLeftFrac, xTileRightInt, xTileRightFrac;
+        float yTileTopInt, yTileTopFrac, yTileBottomInt, yTileBottomFrac;
+
+        xTileLeftFrac = modf(xTileLeft, &xTileLeftInt);
+        xTileRightFrac = modf(xTileRight, &xTileRightInt);
+        yTileTopFrac = modf(yTileTop, &yTileTopInt);
+        yTileBottomFrac = modf(yTileBottom, &yTileBottomInt);
 
         // Create the temp pixel buffer to store all the tile data in
         m_cachedPixels.clear();
-        m_cachedPixelsHeight = static_cast<int>((yTileBottom - yTileTop + 1) * tileSize);
-        m_cachedPixelsWidth = static_cast<int>((xTileRight - xTileLeft + 1) * tileSize);
+        m_cachedPixelsHeight = static_cast<int>((yTileBottomInt - yTileTopInt + 1) * tileSize);
+        m_cachedPixelsWidth = static_cast<int>((xTileRightInt - xTileLeftInt + 1) * tileSize);
         m_cachedPixels.resize(m_cachedPixelsHeight * m_cachedPixelsWidth);
+
+        uint32_t pixelWidth = aznumeric_cast<uint32_t>((xTileRight - xTileLeft) * tileSize);
+        uint32_t pixelHeight = aznumeric_cast<uint32_t>((yTileBottom - yTileTop) * tileSize);
+
+        // Because of the way our images are stored vs our coordinates, the X offset is from the left,
+        // but the top Y offset needs to skip the bottom fraction of pixels, not the top fraction.
+        uint32_t xPixelLeft = aznumeric_cast<uint32_t>(xTileLeftFrac * tileSize);
+        uint32_t yPixelTop = (m_cachedPixelsHeight - pixelHeight) - aznumeric_cast<uint32_t>(yTileTopFrac * tileSize);
 
         // Create the initial buffer for the downloaded color data
         const AZ::Data::Instance<AZ::RPI::AttachmentImagePool> imagePool = AZ::RPI::ImageSystemInterface::Get()->GetSystemAttachmentPool();
         AZ::RHI::ImageDescriptor imageDescriptor = AZ::RHI::ImageDescriptor::Create2D(
-            AZ::RHI::ImageBindFlags::ShaderRead, m_cachedPixelsWidth, m_cachedPixelsHeight, AZ::RHI::Format::R8G8B8A8_UNORM);
+            AZ::RHI::ImageBindFlags::ShaderRead, pixelWidth, pixelHeight, AZ::RHI::Format::R8G8B8A8_UNORM);
 
         const AZ::Name DownloadedImageName = AZ::Name("DownloadedImage");
         m_downloadedImage = AZ::RPI::AttachmentImage::Create(*imagePool.get(), imageDescriptor, DownloadedImageName, nullptr, nullptr);
@@ -294,15 +309,15 @@ namespace Terrain
 
         AZ::JobCompletion jobCompletion;
 
-        for (int yTile = static_cast<int>(yTileTop); yTile <= static_cast<int>(yTileBottom); yTile++)
+        for (int yTile = static_cast<int>(yTileTopInt); yTile <= static_cast<int>(yTileBottomInt); yTile++)
         {
-            for (int xTile = static_cast<int>(xTileLeft); xTile <= static_cast<int>(xTileRight); xTile++)
+            for (int xTile = static_cast<int>(xTileLeftInt); xTile <= static_cast<int>(xTileRightInt); xTile++)
             {
                 url = AZStd::string::format(
                     "https://api.mapbox.com/v4/mapbox.satellite/%d/%d/%d@2x.png256?access_token=%s",
                     zoom, xTile, yTile, m_configuration.m_mapboxApiKey.c_str());
                 AZ::Job* job = DownloadAndStitchSatelliteImage(
-                    url, 0, 0, static_cast<int>((xTile - xTileLeft) * tileSize), static_cast<int>((yTile - yTileTop) * tileSize));
+                    url, 0, 0, static_cast<int>((xTile - xTileLeftInt) * tileSize), static_cast<int>((yTile - yTileTopInt) * tileSize));
 
                 job->SetDependent(&jobCompletion);
                 job->Start();
@@ -314,19 +329,27 @@ namespace Terrain
         // TODO:  Change this to let the jobs run asynchronously, and just set terrain heightfield to dirty when they're all done.
         jobCompletion.StartAndWaitForCompletion();
 
-
         constexpr uint32_t BytesPerPixel = sizeof(uint32_t);
+
+        AZStd::vector<uint32_t> cachedPixelSubRegion;
+        cachedPixelSubRegion.resize(pixelWidth * pixelHeight);
+        for (uint32_t line = 0; line < pixelHeight; line++)
+        {
+            uint32_t* srcLineStart = &(m_cachedPixels[(line + yPixelTop) * m_cachedPixelsWidth]);
+            uint32_t* subregionLineStart = &(cachedPixelSubRegion[line * pixelWidth]);
+            memcpy(subregionLineStart, &(srcLineStart[xPixelLeft]), pixelWidth * BytesPerPixel);
+        }
 
         AZ::RHI::ImageUpdateRequest imageUpdateRequest;
         imageUpdateRequest.m_imageSubresourcePixelOffset.m_left = 0;
         imageUpdateRequest.m_imageSubresourcePixelOffset.m_top = 0;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerRow = m_cachedPixelsWidth * BytesPerPixel;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerImage = m_cachedPixelsWidth * m_cachedPixelsHeight * BytesPerPixel;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_rowCount = m_cachedPixelsHeight;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_width = m_cachedPixelsWidth;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_height = m_cachedPixelsHeight;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerRow = pixelWidth * BytesPerPixel;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerImage = pixelWidth * pixelHeight * BytesPerPixel;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_rowCount = pixelHeight;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_width = pixelWidth;
+        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_height = pixelHeight;
         imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_depth = 1;
-        imageUpdateRequest.m_sourceData = m_cachedPixels.data();
+        imageUpdateRequest.m_sourceData = cachedPixelSubRegion.data();
         imageUpdateRequest.m_image = m_downloadedImage->GetRHIImage();
 
         m_downloadedImage->UpdateImageContents(imageUpdateRequest);
@@ -371,6 +394,7 @@ namespace Terrain
                 auto& body = httpResponse->GetResponseBody();
 
                 // Debug code to save the downloaded PNG
+                /*
                 {
                     AZStd::vector<char> pngBuffer;
                     AZ::IO::SystemFile debugFile;
@@ -389,6 +413,7 @@ namespace Terrain
                     body.clear();
                     body.seekg(0, std::ios::beg);
                 }
+                */
 
                 ProcessSatelliteImage(body, tileStartX, tileStartY, stitchStartX, stitchStartY);
 
@@ -474,4 +499,3 @@ namespace Terrain
 
 } // namespace Terrain
 
-#pragma optimize("", on)
