@@ -248,5 +248,12 @@ namespace AZ
             }
         }
 
+        void RasterPass::UpdateViewport(float width, float height)
+        {
+            m_viewportState.m_maxX = width;
+            m_viewportState.m_maxY = height;
+            m_overrideViewportState = true;
+        }
+
     }   // namespace RPI
 }   // namespace AZ

@@ -987,7 +987,16 @@ namespace AZ
             // This involves getting the format and calculating the size from the source attachment
             for (Ptr<PassAttachment>& attachment: m_ownedAttachments)
             {
-                attachment->Update();
+                attachment->Update(GetName());
+            }
+        }
+
+        void Pass::UpdateAttachmentScale(float widthMultiplier, float heightMultiplier)
+        {
+            for(Ptr<PassAttachment>& attachment : m_ownedAttachments)
+            {
+                attachment->m_sizeMultipliers.m_widthMultiplier = widthMultiplier;
+                attachment->m_sizeMultipliers.m_heightMultiplier = heightMultiplier;
             }
         }
 

@@ -140,6 +140,8 @@ namespace AZ::Render
 
         UpdateFramerate();
 
+DrawFramerate();
+
         const AtomBridge::ViewportInfoDisplayState displayLevel = GetDisplayState();
         if (displayLevel == AtomBridge::ViewportInfoDisplayState::NoInfo)
         {
@@ -294,5 +296,24 @@ namespace AZ::Render
                 averageFrameMs,
                 frameIntervalSeconds),
             AZ::Colors::Yellow);
+
+        static uint32_t siCount = 0;
+        if(siCount > 0 && siCount % 100 == 0)
+        {
+            AZ_TracePrintf("WTF", 
+                "FPS %.1f [%.0f..%.0f], %.1fms/frame, avg over %.1fs",
+                averageFPS,
+                minFPS,
+                maxFPS,
+                averageFrameMs,
+                frameIntervalSeconds);
+
+            siCount = 0;
+        }
+        else 
+        {
+            ++siCount;
+        }
+
     }
 } // namespace AZ::Render

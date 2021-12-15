@@ -45,6 +45,8 @@ namespace AZ
 
             uint32_t GetDrawItemCount();
 
+            void UpdateViewport(float width, float height);
+
         protected:
             explicit RasterPass(const PassDescriptor& descriptor);
 

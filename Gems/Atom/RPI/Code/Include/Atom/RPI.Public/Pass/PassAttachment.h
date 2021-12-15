@@ -51,7 +51,7 @@ namespace AZ
 
             //! Updates the size and format of this attachment using the sources below if specified
             //! @param updateImportedAttachments - Imported attchments will only update if this is true.
-            void Update(bool updateImportedAttachments = false);
+            void Update(Name const& passName, bool updateImportedAttachments = false);
 
             //! Sets all formats to nearest device supported formats and warns if changes where made
             void ValidateDeviceFormats(const AZStd::vector<RHI::Format>& formatFallbacks, RHI::FormatCapabilities capabilities = RHI::FormatCapabilities::None);

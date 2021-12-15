@@ -419,6 +419,13 @@ void android_main(android_app* appState)
     mainInfo.m_printSink = &g_androidPrintSink;
 #endif // defined(ENABLE_LOGGING)
 
+mainInfo.AddArgument("+LoadLevel");
+mainInfo.AddArgument("singleplayer_opt");
+//mainInfo.AddArgument("r_DisplayInfo");
+//mainInfo.AddArgument("1");
+//mainInfo.AddArgument("r_resolution_scale");
+//mainInfo.AddArgument("85");
+
     ReturnCode status = Run(mainInfo);
 
     AZ::Android::AndroidEnv::Destroy();

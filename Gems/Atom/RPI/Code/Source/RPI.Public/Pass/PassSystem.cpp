@@ -24,8 +24,10 @@
 #include <Atom/RPI.Public/Pass/FullscreenTrianglePass.h>
 #include <Atom/RPI.Public/Pass/PassDefines.h>
 #include <Atom/RPI.Public/Pass/PassFactory.h>
+#include <Atom/RPI.Public/Pass/PassFilter.h>
 #include <Atom/RPI.Public/Pass/PassSystem.h>
 #include <Atom/RPI.Public/Pass/PassLibrary.h>
+#include <Atom/RPI.Public/Pass/RasterPass.h>
 #include <Atom/RPI.Public/Pass/Specific/SwapChainPass.h>
 #include <Atom/RPI.Public/RenderPipeline.h>
 
@@ -41,10 +43,20 @@
 #include <Atom/RPI.Reflect/Pass/RasterPassData.h>
 #include <Atom/RPI.Reflect/Pass/RenderPassData.h>
 
+#include <AzCore/Console/IConsole.h>
+
 namespace AZ
 {
     namespace RPI
     {
+        AZ_CVAR(
+            int,
+            r_resolution_scale,
+            100,
+            nullptr,
+            AZ::ConsoleFunctorFlags::DontReplicate,
+            "Scale resolution"
+        );
 
         PassSystemInterface* PassSystemInterface::Get()
         {
@@ -314,6 +326,46 @@ namespace AZ
             {
                 AZ_PROFILE_SCOPE(RPI, "Pass: FrameBegin");
                 m_rootPass->FrameBegin(params);
+            }
+
+static int siLastResolution = 100;
+
+            if(siLastResolution != r_resolution_scale)
+            {
+                AZStd::vector<Name> names;
+                names.push_back(Name("DepthPrePass"));
+                names.push_back(Name("DepthMSAAPass"));
+                names.push_back(Name("MeshMotionVectorPass"));
+                names.push_back(Name("DepthTransparentMinPass"));
+                names.push_back(Name("DepthTransparentMaxPass"));
+                names.push_back(Name("ForwardMSAAPass"));
+                names.push_back(Name("ForwardSubsurfaceMSAAPass"));
+                names.push_back(Name("ForwardPass"));
+
+                float attachmentScale = float(r_resolution_scale) * 0.01f;
+                for(auto const& name : names)
+                {
+                    AZStd::vector<Name> passName({ name });
+                    AZ::RPI::PassFilter filter = AZ::RPI::PassFilter::CreateWithPassHierarchy(passName);
+
+                    AZStd::vector<Pass*> foundPasses;
+                    m_passLibrary.ForEachPass(filter, [&foundPasses, attachmentScale](RPI::Pass* pass) -> PassFilterExecutionFlow
+                        {
+                            AZ::RPI::SwapChainPass* rootPass = static_cast<AZ::RPI::SwapChainPass*>(pass->GetRenderPipeline()->GetRootPass()->AsParent());
+                            float screenWidth = rootPass->GetViewport().GetWidth();
+                            float screenHeight = rootPass->GetViewport().GetHeight();
+
+                            float width = screenWidth * attachmentScale;
+                            float height = screenHeight * attachmentScale;
+                            AZ::RPI::RasterPass* rasterPass = static_cast<AZ::RPI::RasterPass*>(pass);
+                            rasterPass->UpdateViewport(width, height);
+                            pass->UpdateAttachmentScale(attachmentScale, attachmentScale);
+                            foundPasses.push_back(pass);
+                            return PassFilterExecutionFlow::ContinueVisitingPasses;
+                        });
+                }
+
+                siLastResolution = r_resolution_scale;
             }
         }
 

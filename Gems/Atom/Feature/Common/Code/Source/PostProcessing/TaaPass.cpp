@@ -150,7 +150,7 @@ namespace AZ::Render
         }
 
         // update the image attachment descriptor to sync up size and format
-        attachment->Update(true);
+        attachment->Update(GetName(), true);
         RHI::ImageDescriptor& imageDesc = attachment->m_descriptor.m_image;
         RPI::AttachmentImage* currentImage = azrtti_cast<RPI::AttachmentImage*>(attachment->m_importedResource.get());
 

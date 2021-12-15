@@ -60,20 +60,7 @@
                                 "Attachment": "SwapChainOutput"
                             }
                         }
-                    ],
-                    "PassData": {
-                        "$type": "RasterPassData",
-                        "DrawListTag": "depth",
-                        "PipelineViewTag": "MainCamera",
-                        "Viewport": {
-                            "m_minX": 0.0,
-                            "m_maxX": 1632.0,
-                            "m_minY": 0.0,
-                            "m_maxY": 901.0,
-                            "m_minZ": 0.0,
-                            "m_maxZ": 1.0
-                        }
-                    }
+                    ]
                 },
                 {
                     "Name": "MotionVectorPass",

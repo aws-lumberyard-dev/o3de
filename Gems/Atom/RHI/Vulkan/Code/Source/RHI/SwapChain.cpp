@@ -244,7 +244,7 @@ namespace AZ
                 // VK_SUBOPTIMAL_KHR is treated as success, but we better update the surface info as well.
                 if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR)
                 {
-                    m_pendingRecreation = true;
+                    //m_pendingRecreation = true;
                 }
                 else
                 {

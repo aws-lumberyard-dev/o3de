@@ -289,6 +289,8 @@ namespace AZ
             // Update output bindings on this pass that are connected to bindings on other passes
             void UpdateConnectedOutputBindings();
 
+            void UpdateAttachmentScale(float widthMultiplier, float heightMultiplier);
+
         protected:
             explicit Pass(const PassDescriptor& descriptor);
 

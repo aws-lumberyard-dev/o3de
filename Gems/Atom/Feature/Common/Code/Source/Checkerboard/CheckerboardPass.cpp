@@ -59,7 +59,7 @@ namespace AZ
                     if (attachment->m_descriptor.m_type == RHI::AttachmentType::Image)
                     {
                         // Force update image attachment descriptor to sync up size and format
-                        attachment->Update();
+                        attachment->Update(GetName());
 
                         attachment->m_lifetime = RHI::AttachmentLifetimeType::Imported;
 

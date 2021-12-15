@@ -12,6 +12,8 @@
 #include <Atom/RPI.Public/ViewportContextManager.h>
 #include <Atom/RPI.Public/View.h>
 
+#include <AzCore/Console/IConsole.h>
+
 namespace AZ
 {
     namespace RPI

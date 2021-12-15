@@ -110,7 +110,7 @@ namespace AZ
             return RHI::TransientBufferDescriptor(GetAttachmentId(), m_descriptor.m_buffer);
         }
 
-        void PassAttachment::Update(bool updateImportedAttachments)
+        void PassAttachment::Update([[maybe_unused]] Name const& passName, bool updateImportedAttachments)
         {
             if (m_descriptor.m_type == RHI::AttachmentType::Image && (m_lifetime == RHI::AttachmentLifetimeType::Transient || updateImportedAttachments == true))
             {
@@ -142,11 +142,10 @@ namespace AZ
                 {
                     RHI::Size sourceSize = m_sizeSource->m_attachment->m_descriptor.m_image.m_size;
 
-                    if (m_sizeSource && strstr(m_sizeSource->m_name.GetCStr(), "SwapChainOutput"))
-                    {
-                        m_sizeMultipliers.m_widthMultiplier = 0.85f;
-                        m_sizeMultipliers.m_heightMultiplier = 0.85f;
-                    }
+//if (m_sizeSource && strstr(m_sizeSource->m_name.GetCStr(), "SwapChainOutput"))
+//{
+//    AZ_TracePrintf("WTF", "with swapchain output : %s\n", passName.GetCStr());
+//}
                     
                     m_descriptor.m_image.m_size = m_sizeMultipliers.ApplyModifiers(sourceSize);
                 }

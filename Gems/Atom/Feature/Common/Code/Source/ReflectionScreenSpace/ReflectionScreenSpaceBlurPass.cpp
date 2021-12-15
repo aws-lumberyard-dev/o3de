@@ -121,7 +121,7 @@ namespace AZ
             RPI::Ptr<RPI::PassAttachment> reflectionImageAttachment = m_ownedAttachments[0];
             
             // update the image attachment descriptor to sync up size and format
-            reflectionImageAttachment->Update();
+            reflectionImageAttachment->Update(GetName());
             
             // change the lifetime since we want it to live between frames
             reflectionImageAttachment->m_lifetime = RHI::AttachmentLifetimeType::Imported;
