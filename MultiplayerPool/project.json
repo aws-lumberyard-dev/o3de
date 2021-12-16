@@ -1,0 +1,17 @@
+{
+    "project_name": "NewProject",
+    "project_id": "{cec655a8-ec90-4a11-adee-2df2bf426f98}",
+    "origin": "The primary repo for NewProject goes here: i.e. http://www.mydomain.com",
+    "license": "What license NewProject uses goes here: i.e. https://opensource.org/licenses/MIT",
+    "display_name": "MultiplayerPool",
+    "summary": "A short description of NewProject.",
+    "canonical_tags": [
+        "Project"
+    ],
+    "user_tags": [
+        "NewProject"
+    ],
+    "icon_path": "preview.png",
+    "engine": "o3de",
+    "external_subdirectories": []
+}

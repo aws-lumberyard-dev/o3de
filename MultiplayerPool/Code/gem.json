@@ -1,0 +1,16 @@
+{
+    "gem_name": "NewProject",
+    "display_name": "NewProject",
+    "license": "What license NewProject uses goes here: i.e. https://opensource.org/licenses/MIT",
+    "origin": "The primary repo for NewProject goes here: i.e. http://www.mydomain.com",
+    "type": "Code",
+    "summary": "A short description of NewProject.",
+    "canonical_tags": [
+        "Gem"
+    ],
+    "user_tags": [
+        "NewProject"
+    ],
+    "icon_path": "preview.png",
+    "requirements": ""
+}
