@@ -12,26 +12,23 @@
 
 #include <Components/AwsHeightmapComponent.h>
 
-#include <AzCore/Component/Entity.h>
 #include <AzCore/Asset/AssetManager.h>
-#include <AzCore/RTTI/BehaviorContext.h>
-#include <AzCore/Serialization/EditContext.h>
-#include <AzCore/Serialization/SerializeContext.h>
-
-#include <AzCore/Math/Aabb.h>
-#include <AzCore/std/smart_ptr/make_shared.h>
-
-#include <AzCore/Math/MathUtils.h>
+#include <AzCore/Component/Entity.h>
 #include <AzCore/Jobs/JobContext.h>
 #include <AzCore/Jobs/JobFunction.h>
 #include <AzCore/Jobs/JobCompletion.h>
 #include <AzCore/Jobs/JobManagerBus.h>
+#include <AzCore/Math/Aabb.h>
+#include <AzCore/Math/MathUtils.h>
+#include <AzCore/RTTI/BehaviorContext.h>
+#include <AzCore/Serialization/EditContext.h>
+#include <AzCore/Serialization/SerializeContext.h>
+#include <AzCore/std/smart_ptr/make_shared.h>
 
 #include <Atom/Utils/PngFile.h>
 
 #include <AzFramework/Terrain/TerrainDataRequestBus.h>
-
-#include <Terrain/Ebuses/CoordinateMapperRequestBus.h>
+#include <LmbrCentral/Dependency/DependencyNotificationBus.h>
 
 namespace Terrain
 {
@@ -97,9 +94,10 @@ namespace Terrain
 
     void AwsHeightmapComponent::Activate()
     {
+        CoordinateMapperNotificationBus::Handler::BusConnect();
+
         if (m_configuration.m_enableRefresh)
         {
-            m_refreshHeightData = true;
             RefreshMinMaxHeights();
             OnImportTerrainTiles();
 
@@ -116,6 +114,7 @@ namespace Terrain
 
         AZ::TransformNotificationBus::Handler::BusDisconnect();
         LmbrCentral::ShapeComponentNotificationsBus::Handler::BusDisconnect();
+        CoordinateMapperNotificationBus::Handler::BusDisconnect();
     }
 
     bool AwsHeightmapComponent::ReadInConfig(const AZ::ComponentConfig* baseConfig)
@@ -220,6 +219,16 @@ namespace Terrain
         m_heightmapTop = aznumeric_cast<uint32_t>(yTileTopFrac * tileSize);
         m_heightmapWidth = aznumeric_cast<uint32_t>((xTileRight - xTileLeft) * tileSize);
         m_heightmapHeight = aznumeric_cast<uint32_t>((yTileBottom - yTileTop) * tileSize);
+
+        AZ::Vector2 minMaxHeights(0.0f);
+        CoordinateMapperRequestBus::BroadcastResult(minMaxHeights, &CoordinateMapperRequestBus::Events::GetMinMaxWorldHeights);
+        AZ_Assert(
+            (minMaxHeights.GetX() <= m_heightmapMinHeight) && (minMaxHeights.GetY() >= m_heightmapMaxHeight),
+            "Real-world data is outside the bounds of the Coordinate Mapper World Scale.  World Scale: (%.3f, %.3f).  Region Heights: "
+            "(%.3f, %.3f)",
+            minMaxHeights.GetX(), minMaxHeights.GetY(), m_heightmapMinHeight, m_heightmapMaxHeight);
+        m_heightmapMinHeight = minMaxHeights.GetX();
+        m_heightmapMaxHeight = minMaxHeights.GetY();
     }
 
 
@@ -418,16 +427,29 @@ namespace Terrain
 
     void AwsHeightmapComponent::OnTransformChanged(const AZ::Transform& /*local*/, const AZ::Transform& /* world*/)
     {
-        m_refreshHeightData = true;
         RefreshMinMaxHeights();
         OnImportTerrainTiles();
+
+        LmbrCentral::DependencyNotificationBus::Event(GetEntityId(), &LmbrCentral::DependencyNotificationBus::Events::OnCompositionChanged);
     }
 
     void AwsHeightmapComponent::OnShapeChanged(ShapeChangeReasons /*changeReason*/)
     {
-        m_refreshHeightData = true;
         RefreshMinMaxHeights();
         OnImportTerrainTiles();
+
+        LmbrCentral::DependencyNotificationBus::Event(GetEntityId(), &LmbrCentral::DependencyNotificationBus::Events::OnCompositionChanged);
+    }
+
+    void AwsHeightmapComponent::OnCoordinateMappingsChanged()
+    {
+        if (m_configuration.m_enableRefresh)
+        {
+            OnImportTerrainTiles();
+
+            LmbrCentral::DependencyNotificationBus::Event(
+                GetEntityId(), &LmbrCentral::DependencyNotificationBus::Events::OnCompositionChanged);
+        }
     }
 
     void AwsHeightmapComponent::RefreshMinMaxHeights()

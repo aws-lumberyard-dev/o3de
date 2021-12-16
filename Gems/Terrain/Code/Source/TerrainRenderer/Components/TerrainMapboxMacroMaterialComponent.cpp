@@ -28,7 +28,6 @@
 
 #include <AzCore/IO/SystemFile.h>
 
-#include <Terrain/Ebuses/CoordinateMapperRequestBus.h>
 
 namespace Terrain
 {
@@ -96,6 +95,8 @@ namespace Terrain
 
     void TerrainMapboxMacroMaterialComponent::Activate()
     {
+        CoordinateMapperNotificationBus::Handler::BusConnect();
+
         // Don't mark our material as active until it's finished loading and is valid.
         m_macroMaterialActive = false;
 
@@ -120,6 +121,8 @@ namespace Terrain
 
         // Send out any notifications as appropriate based on the macro material destruction.
         HandleMaterialStateChange();
+
+        CoordinateMapperNotificationBus::Handler::BusDisconnect();
     }
 
     bool TerrainMapboxMacroMaterialComponent::ReadInConfig(const AZ::ComponentConfig* baseConfig)
@@ -162,6 +165,15 @@ namespace Terrain
             DownloadSatelliteImage();
         }
     }
+
+    void TerrainMapboxMacroMaterialComponent::OnCoordinateMappingsChanged()
+    {
+        if (m_configuration.m_enableRefresh)
+        {
+            DownloadSatelliteImage();
+        }
+    }
+
 
     void TerrainMapboxMacroMaterialComponent::HandleMaterialStateChange()
     {

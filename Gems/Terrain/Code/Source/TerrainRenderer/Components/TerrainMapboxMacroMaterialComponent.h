@@ -29,6 +29,8 @@ AZ_POP_DISABLE_WARNING
 #include <AzCore/Jobs/JobFunction.h>
 #include <AzCore/Jobs/JobManagerBus.h>
 
+#include <Terrain/Ebuses/CoordinateMapperRequestBus.h>
+
 namespace LmbrCentral
 {
     template<typename, typename>
@@ -53,6 +55,7 @@ namespace Terrain
         : public AZ::Component
         , public TerrainMacroMaterialRequestBus::Handler
         , private LmbrCentral::ShapeComponentNotificationsBus::Handler
+        , private CoordinateMapperNotificationBus::Handler
     {
     public:
         template<typename, typename>
@@ -77,6 +80,9 @@ namespace Terrain
         MacroMaterialData GetTerrainMacroMaterialData() override;
 
     private:
+        // CoordinateMapperNotificationBus
+        void OnCoordinateMappingsChanged() override;
+
         ////////////////////////////////////////////////////////////////////////
         // ShapeComponentNotificationsBus
         void OnShapeChanged(ShapeComponentNotifications::ShapeChangeReasons reasons) override;

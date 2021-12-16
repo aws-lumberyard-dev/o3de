@@ -35,6 +35,7 @@ AZ_POP_DISABLE_WARNING
 #include <AzCore/Jobs/JobManagerBus.h>
 #include <AzCore/Jobs/JobFunction.h>
 
+#include <Terrain/Ebuses/CoordinateMapperRequestBus.h>
 
 
 // This component uses https://registry.opendata.aws/terrain-tiles/ as a way to download real-world height data
@@ -65,6 +66,7 @@ namespace Terrain
         , private GradientSignal::GradientRequestBus::Handler
         , private AZ::TransformNotificationBus::Handler
         , private LmbrCentral::ShapeComponentNotificationsBus::Handler
+        , private CoordinateMapperNotificationBus::Handler
     {
     public:
         template<typename, typename> friend class LmbrCentral::EditorWrappedComponentBase;
@@ -98,6 +100,9 @@ namespace Terrain
         void OnShapeChanged(ShapeChangeReasons changeReason) override;
 
     private:
+        // CoordinateMapperNotificationBus
+        void OnCoordinateMappingsChanged() override;
+
         float GetBilinearZ(float x, float y) const;
 
         void RefreshMinMaxHeights();
@@ -122,7 +127,6 @@ namespace Terrain
         float m_heightmapMaxHeight = 0.0f;
 
         AZ::Aabb m_cachedShapeBounds;
-        bool m_refreshHeightData = true;
 
         // Window of usable values within the raw heightmap data buffer.
         int m_heightmapLeft = 0;

@@ -34,7 +34,25 @@ namespace Terrain
 
         virtual void ConvertWorldAabbToTileNums(const AZ::Aabb& worldAabb, int zoomLevel,
             float& topTile, float& leftTile, float& bottomTile, float& rightTile) = 0;
+
+        virtual AZ::Vector2 GetMinMaxWorldHeights() = 0;
     };
 
     using CoordinateMapperRequestBus = AZ::EBus<CoordinateMapperRequests>;
-}
+
+     //! Notifications for when the coordinate mapping settings change
+    class CoordinateMapperNotifications : public AZ::EBusTraits
+    {
+    public:
+        //////////////////////////////////////////////////////////////////////////
+        // EBusTraits overrides
+        static const AZ::EBusHandlerPolicy HandlerPolicy = AZ::EBusHandlerPolicy::Multiple;
+        static const AZ::EBusAddressPolicy AddressPolicy = AZ::EBusAddressPolicy::Single;
+        //////////////////////////////////////////////////////////////////////////
+
+        virtual void OnCoordinateMappingsChanged()
+        {
+        }
+    };
+    using CoordinateMapperNotificationBus = AZ::EBus<CoordinateMapperNotifications>;
+} // namespace Terrain

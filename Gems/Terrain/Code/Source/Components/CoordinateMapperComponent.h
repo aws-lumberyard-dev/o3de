@@ -32,6 +32,9 @@ namespace Terrain
         static void Reflect(AZ::ReflectContext* context);
 
         AZ::Vector2 m_originLatLong{ 0.0f, 0.0f };
+
+        // NOTE:  The lowest and highest points on Earth are -10911 m at the Mariana Trench, and 8848 m on top of Mt Everest.
+        AZ::Vector2 m_minMaxWorldHeights{ 0.0f, 1024.0f };
         float m_scale = 1.0f;
     };
 
@@ -62,6 +65,8 @@ namespace Terrain
 
         void ConvertWorldAabbToTileNums(
             const AZ::Aabb& worldAabb, int zoomLevel, float& topTile, float& leftTile, float& bottomTile, float& rightTile) override;
+
+        AZ::Vector2 GetMinMaxWorldHeights() override;
 
     private:
         CoordinateMapperConfig m_configuration;

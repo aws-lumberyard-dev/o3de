@@ -23,8 +23,9 @@ namespace Terrain
         if (serialize)
         {
             serialize->Class<CoordinateMapperConfig, AZ::ComponentConfig>()
-                ->Version(1)
+                ->Version(2)
                 ->Field("OriginLatLong", &CoordinateMapperConfig::m_originLatLong)
+                ->Field("MinMaxHeights", &CoordinateMapperConfig::m_minMaxWorldHeights)
                 ->Field("Scale", &CoordinateMapperConfig::m_scale)
             ;
 
@@ -38,7 +39,10 @@ namespace Terrain
                     ->Attribute(AZ::Edit::Attributes::AutoExpand, true)
 
                     ->DataElement(AZ::Edit::UIHandlers::Default, &CoordinateMapperConfig::m_originLatLong, "Lat / Long", "Latitude and Longitude at the origin")
-                    ->DataElement(AZ::Edit::UIHandlers::Default, &CoordinateMapperConfig::m_scale, "Scale (m)", "")
+                    ->DataElement(
+                        AZ::Edit::UIHandlers::Default, &CoordinateMapperConfig::m_minMaxWorldHeights, "Min/Max Height",
+                        "Minimum and maximum world heights, used to consistently scale height data across terrain tiles.")
+                    ->DataElement(AZ::Edit::UIHandlers::Default, &CoordinateMapperConfig::m_scale, "Scale (m)", "The number of game world meters for 1 real-world meter")
                 ;
             }
         }
@@ -84,6 +88,8 @@ namespace Terrain
     void CoordinateMapperComponent::Activate()
     {
         CoordinateMapperRequestBus::Handler::BusConnect();
+
+        CoordinateMapperNotificationBus::Broadcast(&CoordinateMapperNotificationBus::Events::OnCoordinateMappingsChanged);
     }
 
     void CoordinateMapperComponent::Deactivate()
@@ -143,5 +149,9 @@ namespace Terrain
         longTile = static_cast<float>(n * (1.0f - (log(tan(latitudeRadians) + (1.0f / cos(latitudeRadians))) / AZ::Constants::Pi)) / 2.0f);
     }
 
+    AZ::Vector2 CoordinateMapperComponent::GetMinMaxWorldHeights()
+    {
+        return m_configuration.m_minMaxWorldHeights;
+    }
 
 } // namespace Terrain
