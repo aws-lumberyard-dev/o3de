@@ -5,7 +5,7 @@
     "ClassData": {
         "m_scriptCanvas": {
             "Id": {
-                "id": 7869354367899369576
+                "id": 8791337177944314556
             },
             "Name": "Script Canvas Graph",
             "Components": {
@@ -4074,17 +4074,12 @@
                         },
                         {
                             "Key": {
-                                "id": 7869354367899369576
+                                "id": 8791337177944314556
                             },
                             "Value": {
                                 "ComponentData": {
                                     "{5F84B500-8C45-40D1-8EFC-A5306B241444}": {
-                                        "$type": "SceneComponentSaveData",
-                                        "ViewParams": {
-                                            "Scale": 0.7224999999999999,
-                                            "AnchorX": 1505.88232421875,
-                                            "AnchorY": -359.8616027832031
-                                        }
+                                        "$type": "SceneComponentSaveData"
                                     }
                                 }
                             }
