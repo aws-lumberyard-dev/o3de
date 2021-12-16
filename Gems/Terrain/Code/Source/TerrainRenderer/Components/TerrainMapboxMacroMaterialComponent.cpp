@@ -309,7 +309,7 @@ namespace Terrain
         // Create the initial buffer for the downloaded color data
         const AZ::Data::Instance<AZ::RPI::AttachmentImagePool> imagePool = AZ::RPI::ImageSystemInterface::Get()->GetSystemAttachmentPool();
         AZ::RHI::ImageDescriptor imageDescriptor = AZ::RHI::ImageDescriptor::Create2D(
-            AZ::RHI::ImageBindFlags::ShaderRead, pixelWidth, pixelHeight, AZ::RHI::Format::R8G8B8A8_UNORM);
+            AZ::RHI::ImageBindFlags::ShaderRead, pixelWidth, pixelHeight, AZ::RHI::Format::R8G8B8A8_UNORM_SRGB);
 
         const AZ::Name DownloadedImageName = AZ::Name("DownloadedImage");
         m_downloadedImage = AZ::RPI::AttachmentImage::Create(*imagePool.get(), imageDescriptor, DownloadedImageName, nullptr, nullptr);
