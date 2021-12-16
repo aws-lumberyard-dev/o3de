@@ -12,6 +12,9 @@
 
 #include <AzCore/Component/Component.h>
 #include <AzCore/Component/TickBus.h>
+#include <AzCore/Asset/AssetCommon.h>
+#include <AtomCore/Instance/Instance.h>
+#include <Atom/RPI.Public/Image/StreamingImage.h>
 #include <Ocean/OceanBus.h>
 
 namespace Ocean
@@ -34,6 +37,8 @@ namespace Ocean
         OceanSystemComponent();
         ~OceanSystemComponent();
 
+        AZ::Data::Instance<AZ::RPI::StreamingImage> GetGaussian256ImageAsset();
+
     protected:
         ////////////////////////////////////////////////////////////////////////
         // OceanRequestBus interface implementation
@@ -51,6 +56,9 @@ namespace Ocean
         // AZTickBus interface implementation
         void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
         ////////////////////////////////////////////////////////////////////////
+
+    private:
+        AZ::Data::Instance<AZ::RPI::StreamingImage> m_gaussianNoise256Image;
     };
 
 } // namespace Ocean

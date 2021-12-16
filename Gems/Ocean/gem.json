@@ -1,16 +1,23 @@
 {
     "gem_name": "Ocean",
     "display_name": "Ocean",
-    "license": "What license Ocean uses goes here: i.e. Apache-2.0 Or MIT",
-    "license_url": "",
-    "origin": "The primary repo for Ocean goes here: i.e. http://www.mydomain.com",
+    "license": "Apache-2.0 Or MIT",
+    "license_url": "https://github.com/o3de/o3de/blob/development/LICENSE.txt",
+    "origin": "Open 3D Engine - o3de.org",
     "type": "Code",
-    "summary": "A short description of Ocean.",
+    "summary": "Synthesizes an ocean surface",
     "canonical_tags": [
         "Gem"
     ],
     "user_tags": [
-        "Ocean"
+        "Ocean",
+        "Water"
+    ],
+    "dependencies": [
+        "Atom_RPI",
+        "Atom",
+        "GradientSignal",
+        "LmbrCentral"
     ],
     "icon_path": "preview.png",
     "requirements": "",
