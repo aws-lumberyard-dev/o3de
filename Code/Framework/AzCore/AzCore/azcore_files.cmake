@@ -122,6 +122,10 @@ set(FILES
     DOM/Backends/JSON/JsonBackend.h
     DOM/Backends/JSON/JsonSerializationUtils.cpp
     DOM/Backends/JSON/JsonSerializationUtils.h
+    DOM/Backends/YAML/YamlBackend.cpp
+    DOM/Backends/YAML/YamlBackend.h
+    DOM/Backends/YAML/YamlUtils.cpp
+    DOM/Backends/YAML/YamlUtils.h
     EBus/BusImpl.h
     EBus/EBus.h
     EBus/EBusEnvironment.cpp
@@ -640,6 +644,8 @@ set(FILES
     Time/ITime.h
     Time/TimeSystem.cpp
     Time/TimeSystem.h
+    Yaml/ryml.h
+    Yaml/ryml_std.h
 )
 
 # Prevent the following files from being grouped in UNITY builds

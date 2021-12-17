@@ -214,6 +214,7 @@ set(FILES
     AZStd/VectorAndArray.cpp
     DOM/DomJsonTests.cpp
     DOM/DomJsonBenchmarks.cpp
+    DOM/DomYamlTests.cpp
 )
 
 # Prevent the following files from being grouped in UNITY builds

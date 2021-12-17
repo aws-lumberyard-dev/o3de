@@ -39,6 +39,7 @@ ly_add_target(
             3rdParty::Lua
             3rdParty::RapidJSON
             3rdParty::RapidXML
+            3rdParty::RapidYAML
             3rdParty::ZLIB
             3rdParty::zstd
             3rdParty::cityhash
