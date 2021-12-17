@@ -36,6 +36,7 @@ AZ_POP_DISABLE_WARNING
 #include <AzCore/Jobs/JobFunction.h>
 
 #include <Terrain/Ebuses/CoordinateMapperRequestBus.h>
+#include <AzCore/Component/TickBus.h>
 
 
 // This component uses https://registry.opendata.aws/terrain-tiles/ as a way to download real-world height data
@@ -67,6 +68,7 @@ namespace Terrain
         , private AZ::TransformNotificationBus::Handler
         , private LmbrCentral::ShapeComponentNotificationsBus::Handler
         , private CoordinateMapperNotificationBus::Handler
+        , private AZ::TickBus::Handler
     {
     public:
         template<typename, typename> friend class LmbrCentral::EditorWrappedComponentBase;
@@ -100,6 +102,11 @@ namespace Terrain
         void OnShapeChanged(ShapeChangeReasons changeReason) override;
 
     private:
+        //////////////////////////////////////////////////////////////////////////
+        // AZ::TickBus
+        void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
+        void QueueRefresh();
+
         // CoordinateMapperNotificationBus
         void OnCoordinateMappingsChanged() override;
 

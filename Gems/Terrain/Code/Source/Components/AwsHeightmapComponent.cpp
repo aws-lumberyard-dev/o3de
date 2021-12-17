@@ -98,8 +98,7 @@ namespace Terrain
 
         if (m_configuration.m_enableRefresh)
         {
-            RefreshMinMaxHeights();
-            OnImportTerrainTiles();
+            QueueRefresh();
 
             AZ::TransformNotificationBus::Handler::BusConnect(GetEntityId());
             LmbrCentral::ShapeComponentNotificationsBus::Handler::BusConnect(GetEntityId());
@@ -110,12 +109,37 @@ namespace Terrain
 
     void AwsHeightmapComponent::Deactivate()
     {
+        AZ::TickBus::Handler::BusDisconnect();
+
         GradientSignal::GradientRequestBus::Handler::BusDisconnect();
 
         AZ::TransformNotificationBus::Handler::BusDisconnect();
         LmbrCentral::ShapeComponentNotificationsBus::Handler::BusDisconnect();
         CoordinateMapperNotificationBus::Handler::BusDisconnect();
     }
+
+    void AwsHeightmapComponent::QueueRefresh()
+    {
+        if (!AZ::TickBus::Handler::BusIsConnected())
+        {
+            AZ::TickBus::Handler::BusConnect();
+        }
+    }
+
+    void AwsHeightmapComponent::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
+    {
+        if (m_configuration.m_enableRefresh)
+        {
+            RefreshMinMaxHeights();
+            OnImportTerrainTiles();
+
+            LmbrCentral::DependencyNotificationBus::Event(
+                GetEntityId(), &LmbrCentral::DependencyNotificationBus::Events::OnCompositionChanged);
+        }
+
+        AZ::TickBus::Handler::BusDisconnect();
+    }
+
 
     bool AwsHeightmapComponent::ReadInConfig(const AZ::ComponentConfig* baseConfig)
     {
@@ -427,29 +451,17 @@ namespace Terrain
 
     void AwsHeightmapComponent::OnTransformChanged(const AZ::Transform& /*local*/, const AZ::Transform& /* world*/)
     {
-        RefreshMinMaxHeights();
-        OnImportTerrainTiles();
-
-        LmbrCentral::DependencyNotificationBus::Event(GetEntityId(), &LmbrCentral::DependencyNotificationBus::Events::OnCompositionChanged);
+        QueueRefresh();
     }
 
     void AwsHeightmapComponent::OnShapeChanged(ShapeChangeReasons /*changeReason*/)
     {
-        RefreshMinMaxHeights();
-        OnImportTerrainTiles();
-
-        LmbrCentral::DependencyNotificationBus::Event(GetEntityId(), &LmbrCentral::DependencyNotificationBus::Events::OnCompositionChanged);
+        QueueRefresh();
     }
 
     void AwsHeightmapComponent::OnCoordinateMappingsChanged()
     {
-        if (m_configuration.m_enableRefresh)
-        {
-            OnImportTerrainTiles();
-
-            LmbrCentral::DependencyNotificationBus::Event(
-                GetEntityId(), &LmbrCentral::DependencyNotificationBus::Events::OnCompositionChanged);
-        }
+        QueueRefresh();
     }
 
     void AwsHeightmapComponent::RefreshMinMaxHeights()

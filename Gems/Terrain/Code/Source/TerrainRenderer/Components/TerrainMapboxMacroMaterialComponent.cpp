@@ -106,14 +106,31 @@ namespace Terrain
         LmbrCentral::ShapeComponentRequestsBus::EventResult(
             m_cachedShapeBounds, GetEntityId(), &LmbrCentral::ShapeComponentRequestsBus::Events::GetEncompassingAabb);
 
+        QueueRefresh();
+    }
+
+    void TerrainMapboxMacroMaterialComponent::QueueRefresh()
+    {
+        if (!AZ::TickBus::Handler::BusIsConnected())
+        {
+            AZ::TickBus::Handler::BusConnect();
+        }
+    }
+
+    void TerrainMapboxMacroMaterialComponent::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
+    {
         if (m_configuration.m_enableRefresh)
         {
             DownloadSatelliteImage();
         }
+
+        AZ::TickBus::Handler::BusDisconnect();
     }
+
 
     void TerrainMapboxMacroMaterialComponent::Deactivate()
     {
+        AZ::TickBus::Handler::BusDisconnect();
         TerrainMacroMaterialRequestBus::Handler::BusDisconnect();
 
         m_downloadedImage.reset();
@@ -160,18 +177,12 @@ namespace Terrain
             &TerrainMacroMaterialNotificationBus::Events::OnTerrainMacroMaterialRegionChanged,
             GetEntityId(), oldShapeBounds, m_cachedShapeBounds);
 
-        if (m_configuration.m_enableRefresh)
-        {
-            DownloadSatelliteImage();
-        }
+        QueueRefresh();
     }
 
     void TerrainMapboxMacroMaterialComponent::OnCoordinateMappingsChanged()
     {
-        if (m_configuration.m_enableRefresh)
-        {
-            DownloadSatelliteImage();
-        }
+        QueueRefresh();
     }
 
 

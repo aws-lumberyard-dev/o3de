@@ -30,6 +30,7 @@ AZ_POP_DISABLE_WARNING
 #include <AzCore/Jobs/JobManagerBus.h>
 
 #include <Terrain/Ebuses/CoordinateMapperRequestBus.h>
+#include <AzCore/Component/TickBus.h>
 
 namespace LmbrCentral
 {
@@ -56,6 +57,7 @@ namespace Terrain
         , public TerrainMacroMaterialRequestBus::Handler
         , private LmbrCentral::ShapeComponentNotificationsBus::Handler
         , private CoordinateMapperNotificationBus::Handler
+        , private AZ::TickBus::Handler
     {
     public:
         template<typename, typename>
@@ -80,6 +82,11 @@ namespace Terrain
         MacroMaterialData GetTerrainMacroMaterialData() override;
 
     private:
+        //////////////////////////////////////////////////////////////////////////
+        // AZ::TickBus
+        void OnTick(float deltaTime, AZ::ScriptTimePoint time) override;
+        void QueueRefresh();
+
         // CoordinateMapperNotificationBus
         void OnCoordinateMappingsChanged() override;
 
