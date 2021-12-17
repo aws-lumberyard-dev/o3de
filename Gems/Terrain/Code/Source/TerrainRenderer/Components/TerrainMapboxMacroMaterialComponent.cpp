@@ -312,10 +312,8 @@ namespace Terrain
         uint32_t pixelWidth = aznumeric_cast<uint32_t>((xTileRight - xTileLeft) * tileSize);
         uint32_t pixelHeight = aznumeric_cast<uint32_t>((yTileBottom - yTileTop) * tileSize);
 
-        // Because of the way our images are stored vs our coordinates, the X offset is from the left,
-        // but the top Y offset needs to skip the bottom fraction of pixels, not the top fraction.
         uint32_t xPixelLeft = aznumeric_cast<uint32_t>(xTileLeftFrac * tileSize);
-        uint32_t yPixelTop = (m_cachedPixelsHeight - pixelHeight) - aznumeric_cast<uint32_t>(yTileTopFrac * tileSize);
+        uint32_t yPixelTop = aznumeric_cast<uint32_t>(yTileTopFrac * tileSize);
 
         // Create the initial buffer for the downloaded color data
         const AZ::Data::Instance<AZ::RPI::AttachmentImagePool> imagePool = AZ::RPI::ImageSystemInterface::Get()->GetSystemAttachmentPool();

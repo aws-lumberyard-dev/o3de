@@ -239,10 +239,13 @@ namespace Terrain
         // TODO:  Change this to let the jobs run asynchronously, and just set terrain heightfield to dirty when they're all done.
         jobCompletion.StartAndWaitForCompletion();
 
-        m_heightmapLeft = aznumeric_cast<uint32_t>(xTileLeftFrac * tileSize);
-        m_heightmapTop = aznumeric_cast<uint32_t>(yTileTopFrac * tileSize);
         m_heightmapWidth = aznumeric_cast<uint32_t>((xTileRight - xTileLeft) * tileSize);
         m_heightmapHeight = aznumeric_cast<uint32_t>((yTileBottom - yTileTop) * tileSize);
+
+        // Because of the way our images are stored vs our coordinates, the X offset is from the left,
+        // but the top Y offset needs to skip the bottom fraction of pixels, not the top fraction.
+        m_heightmapLeft = aznumeric_cast<uint32_t>(xTileLeftFrac * tileSize);
+        m_heightmapTop = (m_rawHeightmapHeight - m_heightmapHeight) - aznumeric_cast<uint32_t>(yTileTopFrac * tileSize);
 
         AZ::Vector2 minMaxHeights(0.0f);
         CoordinateMapperRequestBus::BroadcastResult(minMaxHeights, &CoordinateMapperRequestBus::Events::GetMinMaxWorldHeights);
