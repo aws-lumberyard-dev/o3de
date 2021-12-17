@@ -176,6 +176,7 @@ namespace AZ::Dom::Tests
         m_document->SetObject();
         AddValue("double_min", AZStd::numeric_limits<double>::min());
         AddValue("double_max", AZStd::numeric_limits<double>::max());
+        AddValue("concise_value", 0.25);
         PerformSerializationChecks();
     }
 

@@ -28,6 +28,11 @@ namespace AZ::Dom::Yaml
         {
             AZStd::string_view value(node.val().data(), node.val().size());
 
+            if (value.empty() && node.is_val_quoted())
+            {
+                return m_visitor.String("", Lifetime::Persistent);
+            }
+
             AZStd::match_results<const char*> match;
             if (value.empty() || AZStd::regex_search(value.data(), match, m_nullPattern))
             {
@@ -53,14 +58,16 @@ namespace AZ::Dom::Yaml
             {
                 return m_visitor.Uint64(strtoull(value.data(), nullptr, 0));
             }
-            else if (nodeVal.is_unsigned_integer())
+            else if (nodeVal.is_integer())
             {
                 return m_visitor.Int64(strtoll(value.data(), nullptr, 0));
             }
-            else
+            else if (nodeVal.is_real())
             {
                 return m_visitor.Double(strtod(value.data(), nullptr));
             }
+
+            return m_visitor.String(value, m_lifetime);
         }
 
         Visitor::Result VisitNode(ryml::NodeRef node)
@@ -159,7 +166,9 @@ namespace AZ::Dom::Yaml
 
         Result Double(double value) override
         {
-            CurrentNode() << value;
+            // Ensure double gets full-precision formatted
+            AZStd::string serializedVal = AZStd::string::format("%.17g", value);
+            CurrentNode() << c4::to_csubstr(serializedVal);
             return VisitorSuccess();
         }
 
