@@ -1,0 +1,17 @@
+{
+    "project_name": "LBC",
+    "origin": "The primary repo for LBC goes here: i.e. http://www.mydomain.com",
+    "license": "What license LBC uses goes here: i.e. https://opensource.org/licenses/MIT",
+    "display_name": "LBC",
+    "summary": "A short description of LBC.",
+    "canonical_tags": [
+        "Project"
+    ],
+    "user_tags": [
+        "LBC"
+    ],
+    "icon_path": "preview.png",
+    "engine": "o3de",
+    "external_subdirectories": [],
+    "project_id": "{e18ea7ab-584e-4475-94b3-5855e8bd75db}"
+}

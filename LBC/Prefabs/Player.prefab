@@ -1,0 +1,176 @@
+{
+    "ContainerEntity": {
+        "Id": "ContainerEntity",
+        "Name": "Player",
+        "Components": {
+            "Component_[1262321359173862809]": {
+                "$type": "EditorEntitySortComponent",
+                "Id": 1262321359173862809,
+                "Child Entity Order": [
+                    "Entity_[384067586371]"
+                ]
+            },
+            "Component_[12821906672025701487]": {
+                "$type": "EditorDisabledCompositionComponent",
+                "Id": 12821906672025701487
+            },
+            "Component_[12970171065709101604]": {
+                "$type": "EditorInspectorComponent",
+                "Id": 12970171065709101604
+            },
+            "Component_[2452722878407144880]": {
+                "$type": "EditorEntityIconComponent",
+                "Id": 2452722878407144880
+            },
+            "Component_[4040788097315351612]": {
+                "$type": "EditorVisibilityComponent",
+                "Id": 4040788097315351612
+            },
+            "Component_[5461292604844054632]": {
+                "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                "Id": 5461292604844054632,
+                "Parent Entity": ""
+            },
+            "Component_[6180792945421300122]": {
+                "$type": "EditorOnlyEntityComponent",
+                "Id": 6180792945421300122
+            },
+            "Component_[6369248577457375206]": {
+                "$type": "SelectionComponent",
+                "Id": 6369248577457375206
+            },
+            "Component_[6868264398166296680]": {
+                "$type": "EditorLockComponent",
+                "Id": 6868264398166296680
+            },
+            "Component_[7019488022695571804]": {
+                "$type": "EditorPendingCompositionComponent",
+                "Id": 7019488022695571804
+            },
+            "Component_[8426856953509384298]": {
+                "$type": "EditorPrefabComponent",
+                "Id": 8426856953509384298
+            }
+        }
+    },
+    "Entities": {
+        "Entity_[384067586371]": {
+            "Id": "Entity_[384067586371]",
+            "Name": "Player",
+            "Components": {
+                "Component_[11895140916889160460]": {
+                    "$type": "EditorEntityIconComponent",
+                    "Id": 11895140916889160460
+                },
+                "Component_[12559944038284685767]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 12559944038284685767,
+                    "m_template": {
+                        "$type": "InputConfigurationComponent",
+                        "Input Event Bindings": {
+                            "assetId": {
+                                "guid": "{A94F40D7-EE9E-5D29-8514-75E8D2B4E12D}"
+                            },
+                            "assetHint": "assets/input/ball2.inputbindings"
+                        }
+                    }
+                },
+                "Component_[13390639255998758841]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 13390639255998758841,
+                    "m_template": {
+                        "$type": "Multiplayer::LocalPredictionPlayerInputComponent"
+                    }
+                },
+                "Component_[13666553904776151887]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 13666553904776151887,
+                    "m_template": {
+                        "$type": "LBC::NetworkBallMovementComponent"
+                    }
+                },
+                "Component_[15853862406250438052]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 15853862406250438052,
+                    "m_template": {
+                        "$type": "Multiplayer::NetworkTransformComponent"
+                    }
+                },
+                "Component_[17187464423780271193]": {
+                    "$type": "EditorLockComponent",
+                    "Id": 17187464423780271193
+                },
+                "Component_[17495696818315413311]": {
+                    "$type": "EditorEntitySortComponent",
+                    "Id": 17495696818315413311
+                },
+                "Component_[18086214374043522055]": {
+                    "$type": "{27F1E1A1-8D9D-4C3B-BD3A-AFB9762449C0} TransformComponent",
+                    "Id": 18086214374043522055,
+                    "Parent Entity": "ContainerEntity"
+                },
+                "Component_[18387556550380114975]": {
+                    "$type": "SelectionComponent",
+                    "Id": 18387556550380114975
+                },
+                "Component_[2654521436129313160]": {
+                    "$type": "EditorVisibilityComponent",
+                    "Id": 2654521436129313160
+                },
+                "Component_[3359088538317370343]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 3359088538317370343,
+                    "m_template": {
+                        "$type": "NetBindComponent"
+                    }
+                },
+                "Component_[5265045084611556958]": {
+                    "$type": "EditorDisabledCompositionComponent",
+                    "Id": 5265045084611556958
+                },
+                "Component_[7169798125182238623]": {
+                    "$type": "EditorPendingCompositionComponent",
+                    "Id": 7169798125182238623
+                },
+                "Component_[8528933606472745897]": {
+                    "$type": "GenericComponentWrapper",
+                    "Id": 8528933606472745897,
+                    "m_template": {
+                        "$type": "InputConfigurationComponent",
+                        "Input Event Bindings": {
+                            "assetId": {
+                                "guid": "{AF33EC84-5FE1-52ED-AE55-6A25CADAC011}"
+                            },
+                            "assetHint": "assets/input/ball.inputbindings"
+                        }
+                    }
+                },
+                "Component_[8866210352157164042]": {
+                    "$type": "EditorInspectorComponent",
+                    "Id": 8866210352157164042,
+                    "ComponentOrderEntryArray": [
+                        {
+                            "ComponentId": 18086214374043522055
+                        },
+                        {
+                            "ComponentId": 7255796294953281766,
+                            "SortIndex": 1
+                        },
+                        {
+                            "ComponentId": 16880285896855930892,
+                            "SortIndex": 2
+                        },
+                        {
+                            "ComponentId": 4339442788849490138,
+                            "SortIndex": 3
+                        }
+                    ]
+                },
+                "Component_[9129253381063760879]": {
+                    "$type": "EditorOnlyEntityComponent",
+                    "Id": 9129253381063760879
+                }
+            }
+        }
+    }
+}

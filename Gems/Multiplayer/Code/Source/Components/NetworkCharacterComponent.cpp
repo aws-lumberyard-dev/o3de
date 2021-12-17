@@ -104,7 +104,7 @@ namespace Multiplayer
 
     void NetworkCharacterComponent::GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible)
     {
-        incompatible.push_back(AZ_CRC_CE("NetworkRigidBodyService"));
+        incompatible.push_back(AZ_CRC_CE("NetworkRigidBodyComponent"));
     }
 
     NetworkCharacterComponent::NetworkCharacterComponent()

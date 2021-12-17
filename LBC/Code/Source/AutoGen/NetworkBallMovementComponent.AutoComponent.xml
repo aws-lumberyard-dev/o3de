@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<Component
+    Name="NetworkBallMovementComponent" 
+    Namespace="LBC" 
+    OverrideComponent="false" 
+    OverrideController="true" 
+    OverrideInclude="Source/Components/NetworkBallMovementComponent.h"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <ComponentRelation Constraint="Required" HasController="true" Name="NetworkTransformComponent" Namespace="Multiplayer" Include="Multiplayer/Components/NetworkTransformComponent.h" />
+
+    <NetworkProperty Type="AZ::Vector3" Name="Force" Init="AZ::Vector3::CreateZero()" ReplicateFrom="Authority" ReplicateTo="Client" IsRewindable="true" IsPredictable="true" IsPublic="true" Container="Object" ExposeToEditor="false" ExposeToScript="true" GenerateEventBindings="true" Description="Current velocity of this player"/>
+
+    <NetworkInput Type="float" Name="Power" Init="0" />
+    <NetworkInput Type="AZ::Vector3" Name="TranslationDiff" Init="AZ::Vector3::CreateZero()" />
+    <NetworkInput Type="AZStd::string" Name="Mouse" Init="AZStd::string()" />
+    <NetworkInput Type="uint8_t"   Name="ResetCount"  Init="0" />
+
+</Component>
