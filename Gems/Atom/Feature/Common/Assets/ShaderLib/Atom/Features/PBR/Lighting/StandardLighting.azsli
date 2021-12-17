@@ -118,19 +118,16 @@ half GeometricShadowingMaskingGGXCorrelatedHalf(
 }
 
 half NormalDistributionGGXHalf(
-    const half NdotH, 
-    const half roughnessA2)
+    const float NdotH, 
+    const float roughnessA2)
 {
-    half roughnessClamped = max(roughnessA2, 0.0001h);
-
     // Walter equation 33, simplified given that the positive characteristic function is handled elsewhere
-    half b = (NdotH * roughnessClamped - NdotH) * NdotH + 1.0h;
-    half bClamped = max(b, 0.0001h);
-    return roughnessClamped / (3.14159h * bClamped * bClamped);
+    float b = (NdotH * roughnessA2 - NdotH) * NdotH + 1.0f;
+    return roughnessA2 / (3.14159f * b * b);
 }
 
 half3 SpecularGGXHalf( 
-    half3 dirToCamera, 
+    float3 dirToCamera, 
     half3 dirToLight, 
     half3 normal, 
     half3 specularF0, 
@@ -138,14 +135,14 @@ half3 SpecularGGXHalf(
     half roughnessA2, 
     half3 multiScatterCompensation )
 {
-    half3 halfVector = normalize(dirToLight + dirToCamera);
-    half NdotH = saturate(dot(normal, halfVector));
+    float3 halfVector = normalize(float3(dirToLight + dirToCamera));
+    float NdotH = saturate(dot(float3(normal), halfVector));
     half NdotL = saturate(dot(normal, dirToLight));
-    half HdotV = saturate(dot(halfVector, dirToCamera)); // Note that HdotL = HdotV, so we don't need to calculate both
+    half HdotV = saturate(dot(half3(halfVector), dirToCamera)); // Note that HdotL = HdotV, so we don't need to calculate both
 
     // D, G and F from the lighting equation
     // Note: the division by (4.0 * NdotL * NdotV) is already factored out in the G function as an optimization
-    half D = NormalDistributionGGXHalf(NdotH, roughnessA2);
+    half D = half(NormalDistributionGGXHalf(NdotH, float(roughnessA2)));
     half G = GeometricShadowingMaskingGGXCorrelatedHalf(NdotV, NdotL, roughnessA2);
     half3 F = FresnelSchlickHalf(HdotV, specularF0);
 

@@ -148,10 +148,10 @@ void LightingData::Init(half3 positionWS, half3 normal, half roughnessLinear)
     diffuseAmbientOcclusion = 1.0h;
     specularOcclusion = 1.0h;
 
-    dirToCamera = normalize(half3(ViewSrg::m_worldPosition.xyz) - half3(positionWS));
+    dirToCamera = normalize(half3(ViewSrg::m_worldPosition.xyz - positionWS));
 
     // sample BRDF map (indexed by smoothness values rather than roughness)
-    NdotV = saturate(dot(normal, dirToCamera));
+    NdotV = saturate(dot(normal, half3(dirToCamera)));
     half2 brdfUV = half2(NdotV, (1.0h - roughnessLinear));
     brdf = PassSrg::m_brdfMap.Sample(PassSrg::LinearSampler, brdfUV).rg;
 }
