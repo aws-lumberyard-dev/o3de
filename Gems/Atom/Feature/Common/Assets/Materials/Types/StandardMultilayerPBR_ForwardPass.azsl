@@ -482,6 +482,8 @@ PbrLightingOutput ForwardPassPS_Common(VSOutput IN, bool isFrontFace, out float 
 
     lightingData.CalculateMultiscatterCompensation(surface.specularF0, o_specularF0_enableMultiScatterCompensation);
 
+    lightingData.CalculateNormalMapOcclusion(surface.normal, surface.vertexNormal);
+
     // ------- Combine Clearcoat -------
     
     if(o_clearCoat_feature_enabled)

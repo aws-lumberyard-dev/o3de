@@ -52,6 +52,7 @@ class LightingData
     void CalculateMultiscatterCompensation(float3 specularF0, bool enabled);
     void FinalizeLighting();
     void FinalizeLighting(float3 transmissionTint);
+    void CalculateNormalMapOcclusion(float3 normalWS, float3 vertexNormalWS);
 };
 
 void LightingData::Init(float3 positionWS, float3 normal, float roughnessLinear)
@@ -70,6 +71,24 @@ void LightingData::Init(float3 positionWS, float3 normal, float roughnessLinear)
     NdotV = saturate(dot(normal, dirToCamera));
     float2 brdfUV = float2(NdotV, (1.0f - roughnessLinear));
     brdf = PassSrg::m_brdfMap.Sample(PassSrg::LinearSampler, brdfUV).rg;
+}
+
+void LightingData::CalculateNormalMapOcclusion(float3 normalWS, float3 vertexNormalWS)
+{
+    float3 reflectedDirection = reflect(dirToCamera, normalWS);
+
+    // Specular occlusion
+    float directionDotVertexNormal = dot(reflectedDirection, vertexNormalWS);
+    //float specOcclusion = saturate(directionDotVertexNormal * 50.0f + 0.5f);
+    float specOcclusion = saturate(directionDotVertexNormal * 20.0f - 0.05f);
+
+    // Diffuse occlusion
+    float normalDotVertexNormal = dot(normalWS, vertexNormalWS);
+    float diffuseOcclusion = saturate(normalDotVertexNormal * 0.5f + 0.5f);
+
+    // Maybe take the min instead of multiplying?
+    specularOcclusion *= specOcclusion;
+    diffuseAmbientOcclusion *= diffuseOcclusion;
 }
 
 void LightingData::CalculateMultiscatterCompensation(float3 specularF0, bool enabled)

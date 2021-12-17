@@ -79,36 +79,40 @@ PSOutput MainPS(VSOutput IN, in uint sampleIndex : SV_SampleIndex)
     
     float4 albedo = PassSrg::m_albedo.Load(IN.m_position.xy, sampleIndex);
     float specularOcclusion = albedo.a;
+    float3 specular = float3(0.0f, 0.0f, 0.0f);
 
-    // reconstruct world space position from the depth at this location in screenspace
-    float3 positionWS = ReconstructWorldPositionFromDepth(IN.m_position.xy, sampleIndex).xyz;
+    if(specularOcclusion > 0.0f)
+    {
+        // reconstruct world space position from the depth at this location in screenspace
+        float3 positionWS = ReconstructWorldPositionFromDepth(IN.m_position.xy, sampleIndex).xyz;
 
-    // sample blend weight at this location
-    float blendWeight = PassSrg::m_blendWeight.Load(IN.m_position.xy, sampleIndex).r;
+        // sample blend weight at this location
+        float blendWeight = PassSrg::m_blendWeight.Load(IN.m_position.xy, sampleIndex).r;
 
-    // blend weight for this pixel is the remainder of total blends for local probes
-    // E.g., 0.2f probes = 0.8f global, 0.0f probes = 1.0f global, >1.0f probes = 0.0f global
-    blendWeight = 1.0f - min(blendWeight, 1.0f);
+        // blend weight for this pixel is the remainder of total blends for local probes
+        // E.g., 0.2f probes = 0.8f global, 0.0f probes = 1.0f global, >1.0f probes = 0.0f global
+        blendWeight = 1.0f - min(blendWeight, 1.0f);
 
-    float3 specularF0 = PassSrg::m_specularF0.Load(IN.m_position.xy, sampleIndex).rgb;
-    float roughness = PassSrg::m_specularF0.Load(IN.m_position.xy, sampleIndex).a;
+        float3 specularF0 = PassSrg::m_specularF0.Load(IN.m_position.xy, sampleIndex).rgb;
+        float roughness = PassSrg::m_specularF0.Load(IN.m_position.xy, sampleIndex).a;
 
-    float3 dirToCamera = normalize(ViewSrg::m_worldPosition.xyz - positionWS);
-    float3 reflectDir = reflect(-dirToCamera, normal);
-    reflectDir = MultiplyVectorQuaternion(reflectDir, SceneSrg::m_iblOrientation);
-    float3 globalSpecular = SceneSrg::m_specularEnvMap.SampleLevel(SceneSrg::m_samplerEnv, GetCubemapCoords(reflectDir), GetRoughnessMip(roughness)).rgb;
+        float3 dirToCamera = normalize(ViewSrg::m_worldPosition.xyz - positionWS);
+        float3 reflectDir = reflect(-dirToCamera, normal);
+        reflectDir = MultiplyVectorQuaternion(reflectDir, SceneSrg::m_iblOrientation);
+        float3 globalSpecular = SceneSrg::m_specularEnvMap.SampleLevel(SceneSrg::m_samplerEnv, GetCubemapCoords(reflectDir), GetRoughnessMip(roughness)).rgb;
 
-    float NdotV = saturate(dot(normal, dirToCamera));
-    NdotV = max(NdotV, 0.01f);    // [GFX TODO][ATOM-4466] This is a current band-aid for specular noise at grazing angles.
-    float2 brdf = PassSrg::m_brdfMap.Sample(PassSrg::LinearSampler, GetBRDFTexCoords(roughness, NdotV)).rg;
-    float3 multiScatterCompensation = GetMultiScatterCompensation(specularF0, brdf, multiScatterCompensationEnabled);
-    float3 specular = blendWeight * globalSpecular * multiScatterCompensation * (specularF0 * brdf.x + brdf.y);
+        float NdotV = saturate(dot(normal, dirToCamera));
+        NdotV = max(NdotV, 0.01f);    // [GFX TODO][ATOM-4466] This is a current band-aid for specular noise at grazing angles.
+        float2 brdf = PassSrg::m_brdfMap.Sample(PassSrg::LinearSampler, GetBRDFTexCoords(roughness, NdotV)).rg;
+        float3 multiScatterCompensation = GetMultiScatterCompensation(specularF0, brdf, multiScatterCompensationEnabled);
+        specular = blendWeight * globalSpecular * multiScatterCompensation * (specularF0 * brdf.x + brdf.y);
 
-    // apply exposure setting
-    specular *= pow(2.0, SceneSrg::m_iblExposure);
+        // apply exposure setting
+        specular *= pow(2.0, SceneSrg::m_iblExposure);
 
-    // maybe attenuate the specular 
-    specular *= specularOcclusion;
+        // maybe attenuate the specular 
+        specular *= specularOcclusion;
+    }
 
     PSOutput OUT;
     OUT.m_color = float4(specular, 1.0f);
