@@ -1,0 +1,21 @@
+
+set(FILES
+    Include/TestHarness/TestCaseInfoBus.h
+    Include/TestHarness/RegistrationBus.h
+    Include/TestHarness/TestCaseRequestBus.h
+    Include/TestHarness/TestCaseEventBus.h
+    Include/TestHarness/TestCase.h
+    Source/TestHarnessModuleInterface.h
+    Source/Buses/RegistrationBus.cpp
+    Source/Buses/TestCaseEventBus.cpp
+    Source/Buses/TestCaseInfoBus.cpp
+    Source/Buses/TestCaseRequestBus.cpp
+    Source/Components/TestCaseComponent.h
+    Source/Components/TestCaseComponent.cpp
+    Source/Components/TestHarnessSystemComponent.h
+    Source/Components/TestHarnessSystemComponent.cpp
+    Source/TestHarnessSanityTest.cpp
+    Source/TestHarnessSanityTest.h
+    Source/TestHarnessInsanityTest.cpp
+    Source/TestHarnessInsanityTest.h
+)

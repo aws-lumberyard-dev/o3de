@@ -1,0 +1,12 @@
+The files in this branch are focused around porting old code in this gem.  While it currently compiles, multiple features are currently disabled. When this code is ready to merge, please delete this file.
+
+Steps before this is merge ready:
+1. Create a better pattern of creating and registering C++ based tests
+  * Add example C++ tests (Sanity, Insanity, Physics-example)
+2. Create node types to operate with ScriptCanvas
+3. Verify each workflow functions, with living example code:
+  * Tests can easily be started from PyTest
+  * Create a C++ test
+  * Create a Lua test
+  * Create a ScriptCanvas test
+4. Invite customers to a feature preview, to write new tests and provide feedback.

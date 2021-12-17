@@ -1,0 +1,18 @@
+{
+    "gem_name": "TestHarness",
+    "display_name": "TestHarness",
+    "license": "Apache-2.0",
+    "license_url": "",
+    "origin": "The primary repo for TestHarness goes here: i.e. http://www.mydomain.com",
+    "type": "Code",
+    "summary": "Scriptable in-game testing framework",
+    "canonical_tags": [
+        "Gem"
+    ],
+    "user_tags": [
+        "TestHarness"
+    ],
+    "icon_path": "preview.png",
+    "requirements": "",
+    "restricted_name": "TestHarness"
+}
