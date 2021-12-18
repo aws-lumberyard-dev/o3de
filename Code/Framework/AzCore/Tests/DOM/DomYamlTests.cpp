@@ -50,32 +50,48 @@ namespace AZ::Dom::Tests
 
         void PerformSerializationChecks()
         {
-            AZStd::string buffer = WriteToYaml();
+            AZStd::string serializedYaml = WriteToYaml();
+            AZStd::string serializedJson;
+            AZ::JsonSerializationUtils::WriteJsonString(*m_document, serializedJson);
 
-            // string -> Document
+            // yaml -> Document
             {
                 auto result = Json::WriteToRapidJsonDocument(
-                    [&buffer](AZ::Dom::Visitor& visitor)
+                    [&serializedYaml](AZ::Dom::Visitor& visitor)
                     {
                         YamlBackend backend;
-                        return Dom::Utils::ReadFromString(backend, buffer, Lifetime::Temporary, visitor);
+                        return Dom::Utils::ReadFromString(backend, serializedYaml, Lifetime::Temporary, visitor);
                     });
                 EXPECT_TRUE(result.IsSuccess());
                 EXPECT_EQ(AZ::JsonSerialization::Compare(*m_document, result.GetValue()), JsonSerializerCompareResult::Equal);
             }
 
-            // string -> string
+            // json -> yaml (deserializing json using the yaml parser)
             {
                 AZStd::string serializedDocument;
                 YamlBackend backend;
                 auto result = backend.WriteToBuffer(
                     serializedDocument,
-                    [&backend, &buffer](AZ::Dom::Visitor& visitor)
+                    [&backend, &serializedJson](AZ::Dom::Visitor& visitor)
                     {
-                        return Dom::Utils::ReadFromString(backend, buffer, Lifetime::Temporary, visitor);
+                        return Dom::Utils::ReadFromString(backend, serializedJson, Lifetime::Temporary, visitor);
                     });
                 EXPECT_TRUE(result.IsSuccess());
-                EXPECT_EQ(buffer, serializedDocument);
+                EXPECT_EQ(serializedYaml, serializedDocument);
+            }
+
+            // yaml -> yaml
+            {
+                AZStd::string serializedDocument;
+                YamlBackend backend;
+                auto result = backend.WriteToBuffer(
+                    serializedDocument,
+                    [&backend, &serializedYaml](AZ::Dom::Visitor& visitor)
+                    {
+                        return Dom::Utils::ReadFromString(backend, serializedYaml, Lifetime::Temporary, visitor);
+                    });
+                EXPECT_TRUE(result.IsSuccess());
+                EXPECT_EQ(serializedYaml, serializedDocument);
             }
         }
 

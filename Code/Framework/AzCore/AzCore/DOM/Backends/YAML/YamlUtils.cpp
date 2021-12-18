@@ -19,18 +19,18 @@ namespace AZ::Dom::Yaml
             : m_visitor(visitor)
             , m_lifetime(lifetime)
         {
-            m_truePattern = AZStd::regex("^([Yy][Ee]?[Ss]?)|([Tt][Rr][Uu][Ee])");
-            m_falsePattern = AZStd::regex("^([Nn][Oo]?)|([Ff][Aa][Ll][Ss][Ee])");
-            m_nullPattern = AZStd::regex("^(null)|(~)$");
+            m_truePattern = AZStd::regex("^((yes)|(true)|(y)|(t))", AZStd::regex_constants::icase | AZStd::regex_constants::optimize);
+            m_falsePattern = AZStd::regex("^((no)|(false)|(f)|(n))", AZStd::regex_constants::icase | AZStd::regex_constants::optimize);
+            m_nullPattern = AZStd::regex("^((null)|(~))", AZStd::regex_constants::icase | AZStd::regex_constants::optimize);
         }
 
         Visitor::Result ParseValue(ryml::NodeRef node)
         {
             AZStd::string_view value(node.val().data(), node.val().size());
 
-            if (value.empty() && node.is_val_quoted())
+            if (node.is_val_quoted())
             {
-                return m_visitor.String("", Lifetime::Persistent);
+                return m_visitor.String(value, m_lifetime);
             }
 
             AZStd::match_results<const char*> match;
@@ -92,6 +92,11 @@ namespace AZ::Dom::Yaml
                 m_visitor.StartObject();
                 for (ryml::NodeRef child : node.children())
                 {
+                    // We can get null entries when parsing JSON, discard them
+                    if (child.key() == "\0")
+                    {
+                        continue;
+                    }
                     VisitNode(child);
                     ++childCount;
                 }
@@ -104,6 +109,11 @@ namespace AZ::Dom::Yaml
                 m_visitor.StartArray();
                 for (ryml::NodeRef child : node.children())
                 {
+                    // We can get null entries when parsing JSON, discard them
+                    if (child.has_val() && child.val() == "\0")
+                    {
+                        continue;
+                    }
                     VisitNode(child);
                     ++childCount;
                 }
@@ -175,7 +185,7 @@ namespace AZ::Dom::Yaml
         Result String(AZStd::string_view value, Lifetime lifetime)
         {
             ryml::NodeRef entry = CurrentNode();
-            entry |= ryml::VALQUO ;
+            entry |= ryml::VALQUO;
             c4::csubstr valueStr(value.data(), value.size());
             if (lifetime == Lifetime::Persistent)
             {
