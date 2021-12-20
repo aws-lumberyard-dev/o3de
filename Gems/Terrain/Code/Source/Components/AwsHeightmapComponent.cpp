@@ -132,9 +132,6 @@ namespace Terrain
         {
             RefreshMinMaxHeights();
             OnImportTerrainTiles();
-
-            LmbrCentral::DependencyNotificationBus::Event(
-                GetEntityId(), &LmbrCentral::DependencyNotificationBus::Events::OnCompositionChanged);
         }
 
         AZ::TickBus::Handler::BusDisconnect();
@@ -220,7 +217,33 @@ namespace Terrain
         m_heightmapMinHeight = 32768.0f;
         m_heightmapMaxHeight = -32768.0f;
 
-        AZ::JobCompletion jobCompletion;
+        AZ::JobContext* jobContext{ nullptr };
+        AZ::JobManagerBus::BroadcastResult(jobContext, &AZ::JobManagerEvents::GetGlobalContext);
+        AZ::Job* finalJob = AZ::CreateJobFunction(
+            [=]()
+            {
+                m_heightmapWidth = aznumeric_cast<uint32_t>((xTileRight - xTileLeft) * tileSize);
+                m_heightmapHeight = aznumeric_cast<uint32_t>((yTileBottom - yTileTop) * tileSize);
+                // Because of the way our images are stored vs our coordinates, the X offset is from the left,
+                // but the top Y offset needs to skip the bottom fraction of pixels, not the top fraction.
+                m_heightmapLeft = aznumeric_cast<uint32_t>(xTileLeftFrac * tileSize);
+                m_heightmapTop = (m_rawHeightmapHeight - m_heightmapHeight) - aznumeric_cast<uint32_t>(yTileTopFrac * tileSize);
+
+                AZ::Vector2 minMaxHeights(0.0f);
+                CoordinateMapperRequestBus::BroadcastResult(minMaxHeights, &CoordinateMapperRequestBus::Events::GetMinMaxWorldHeights);
+                AZ_Assert(
+                    (minMaxHeights.GetX() <= m_heightmapMinHeight) && (minMaxHeights.GetY() >= m_heightmapMaxHeight),
+                    "Real-world data is outside the bounds of the Coordinate Mapper World Scale.  World Scale: (%.3f, %.3f).  Region "
+                    "Heights: "
+                    "(%.3f, %.3f)",
+                    minMaxHeights.GetX(), minMaxHeights.GetY(), m_heightmapMinHeight, m_heightmapMaxHeight);
+                m_heightmapMinHeight = minMaxHeights.GetX();
+                m_heightmapMaxHeight = minMaxHeights.GetY();
+
+                LmbrCentral::DependencyNotificationBus::Event(
+                    GetEntityId(), &LmbrCentral::DependencyNotificationBus::Events::OnCompositionChanged);
+            },
+            true, jobContext);
 
         for (int yTile = static_cast<int>(yTileTopInt); yTile <= static_cast<int>(yTileBottomInt); yTile++)
         {
@@ -229,33 +252,17 @@ namespace Terrain
                 url = AZStd::string::format("https://s3.amazonaws.com/elevation-tiles-prod/terrarium/%d/%d/%d.png", zoom, xTile, yTile);
                 AZ::Job* job = DownloadAndStitchTerrainTile(url, 0, 0, static_cast<int>((xTile - xTileLeftInt) * tileSize), static_cast<int>((yTile - yTileTopInt) * tileSize));
 
-                job->SetDependent(&jobCompletion);
+                job->SetDependent(finalJob);
                 job->Start();
 
                 // TODO:  error handling!!!
             }
         }
 
-        // TODO:  Change this to let the jobs run asynchronously, and just set terrain heightfield to dirty when they're all done.
-        jobCompletion.StartAndWaitForCompletion();
-
-        m_heightmapWidth = aznumeric_cast<uint32_t>((xTileRight - xTileLeft) * tileSize);
-        m_heightmapHeight = aznumeric_cast<uint32_t>((yTileBottom - yTileTop) * tileSize);
-
-        // Because of the way our images are stored vs our coordinates, the X offset is from the left,
-        // but the top Y offset needs to skip the bottom fraction of pixels, not the top fraction.
-        m_heightmapLeft = aznumeric_cast<uint32_t>(xTileLeftFrac * tileSize);
-        m_heightmapTop = (m_rawHeightmapHeight - m_heightmapHeight) - aznumeric_cast<uint32_t>(yTileTopFrac * tileSize);
-
-        AZ::Vector2 minMaxHeights(0.0f);
-        CoordinateMapperRequestBus::BroadcastResult(minMaxHeights, &CoordinateMapperRequestBus::Events::GetMinMaxWorldHeights);
-        AZ_Assert(
-            (minMaxHeights.GetX() <= m_heightmapMinHeight) && (minMaxHeights.GetY() >= m_heightmapMaxHeight),
-            "Real-world data is outside the bounds of the Coordinate Mapper World Scale.  World Scale: (%.3f, %.3f).  Region Heights: "
-            "(%.3f, %.3f)",
-            minMaxHeights.GetX(), minMaxHeights.GetY(), m_heightmapMinHeight, m_heightmapMaxHeight);
-        m_heightmapMinHeight = minMaxHeights.GetX();
-        m_heightmapMaxHeight = minMaxHeights.GetY();
+        // TODO: Running the final job on a separate thread will work some of the time, but not all of the time, due to timing.
+        // Need to figure out what specifically has issues with the update.
+        finalJob->Start();
+        //finalJob->StartAndWaitForCompletion();
     }
 
 

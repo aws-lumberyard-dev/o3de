@@ -328,7 +328,40 @@ namespace Terrain
         // Download the tiles and copy them into the right place in the stitched image
         AZStd::string url;
 
-        AZ::JobCompletion jobCompletion;
+        AZ::JobContext* jobContext{ nullptr };
+        AZ::JobManagerBus::BroadcastResult(jobContext, &AZ::JobManagerEvents::GetGlobalContext);
+        AZ::Job* finalJob = AZ::CreateJobFunction(
+            [=]()
+            {
+                constexpr uint32_t BytesPerPixel = sizeof(uint32_t);
+
+                AZStd::vector<uint32_t> cachedPixelSubRegion;
+                cachedPixelSubRegion.resize(pixelWidth * pixelHeight);
+                for (uint32_t line = 0; line < pixelHeight; line++)
+                {
+                    uint32_t* srcLineStart = &(m_cachedPixels[(line + yPixelTop) * m_cachedPixelsWidth]);
+                    uint32_t* subregionLineStart = &(cachedPixelSubRegion[line * pixelWidth]);
+                    memcpy(subregionLineStart, &(srcLineStart[xPixelLeft]), pixelWidth * BytesPerPixel);
+                }
+
+                AZ::RHI::ImageUpdateRequest imageUpdateRequest;
+                imageUpdateRequest.m_imageSubresourcePixelOffset.m_left = 0;
+                imageUpdateRequest.m_imageSubresourcePixelOffset.m_top = 0;
+                imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerRow = pixelWidth * BytesPerPixel;
+                imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerImage = pixelWidth * pixelHeight * BytesPerPixel;
+                imageUpdateRequest.m_sourceSubresourceLayout.m_rowCount = pixelHeight;
+                imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_width = pixelWidth;
+                imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_height = pixelHeight;
+                imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_depth = 1;
+                imageUpdateRequest.m_sourceData = cachedPixelSubRegion.data();
+                imageUpdateRequest.m_image = m_downloadedImage->GetRHIImage();
+
+                m_downloadedImage->UpdateImageContents(imageUpdateRequest);
+
+                HandleMaterialStateChange();
+            },
+            true, jobContext);
+
 
         for (int yTile = static_cast<int>(yTileTopInt); yTile <= static_cast<int>(yTileBottomInt); yTile++)
         {
@@ -340,42 +373,18 @@ namespace Terrain
                 AZ::Job* job = DownloadAndStitchSatelliteImage(
                     url, 0, 0, static_cast<int>((xTile - xTileLeftInt) * tileSize), static_cast<int>((yTile - yTileTopInt) * tileSize));
 
-                job->SetDependent(&jobCompletion);
+                job->SetDependent(finalJob);
                 job->Start();
 
                 // TODO:  error handling!!!
             }
         }
 
-        // TODO:  Change this to let the jobs run asynchronously, and just set terrain heightfield to dirty when they're all done.
-        jobCompletion.StartAndWaitForCompletion();
-
-        constexpr uint32_t BytesPerPixel = sizeof(uint32_t);
-
-        AZStd::vector<uint32_t> cachedPixelSubRegion;
-        cachedPixelSubRegion.resize(pixelWidth * pixelHeight);
-        for (uint32_t line = 0; line < pixelHeight; line++)
-        {
-            uint32_t* srcLineStart = &(m_cachedPixels[(line + yPixelTop) * m_cachedPixelsWidth]);
-            uint32_t* subregionLineStart = &(cachedPixelSubRegion[line * pixelWidth]);
-            memcpy(subregionLineStart, &(srcLineStart[xPixelLeft]), pixelWidth * BytesPerPixel);
-        }
-
-        AZ::RHI::ImageUpdateRequest imageUpdateRequest;
-        imageUpdateRequest.m_imageSubresourcePixelOffset.m_left = 0;
-        imageUpdateRequest.m_imageSubresourcePixelOffset.m_top = 0;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerRow = pixelWidth * BytesPerPixel;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_bytesPerImage = pixelWidth * pixelHeight * BytesPerPixel;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_rowCount = pixelHeight;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_width = pixelWidth;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_height = pixelHeight;
-        imageUpdateRequest.m_sourceSubresourceLayout.m_size.m_depth = 1;
-        imageUpdateRequest.m_sourceData = cachedPixelSubRegion.data();
-        imageUpdateRequest.m_image = m_downloadedImage->GetRHIImage();
-
-        m_downloadedImage->UpdateImageContents(imageUpdateRequest);
-
-        HandleMaterialStateChange();
+        // TODO: The finalJob can't run on a separate thread right now, since Atom doesn't handle updating the image in the midst
+        // of rendering.  The final update call to Atom needs to always be done from the main thread.
+        // Right now, running on a separate thread will work some of the time, but not all of the time, due to timing.
+        //finalJob->Start();
+        finalJob->StartAndWaitForCompletion();
     }
 
 
