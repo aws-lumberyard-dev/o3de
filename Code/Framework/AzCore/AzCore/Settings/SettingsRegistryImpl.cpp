@@ -20,6 +20,10 @@
 #include <AzCore/std/containers/variant.h>
 #include <AzCore/std/sort.h>
 #include <AzCore/std/parallel/scoped_lock.h>
+#include <AzCore/DOM/DomUtils.h>
+#include <AzCore/DOM/Backends/JSON/JsonSerializationUtils.h>
+#include <AzCore/DOM/Backends/YAML/YamlBackend.h>
+#include <AzCore/DOM/DomVisitor.h>
 
 namespace AZ::SettingsRegistryImplInternal
 {
@@ -51,6 +55,168 @@ namespace AZ::SettingsRegistryImplInternal
 
 namespace AZ
 {
+    static AZStd::string NormalizeJson(AZStd::string_view bufferStr)
+    {
+        const char* buffer = bufferStr.data();
+        AZStd::string normalized;
+        normalized.reserve(bufferStr.size());
+
+        char stringMatch = '\0';
+        bool clearComment = false;
+        char prev = '\0';
+        int json = 0;
+
+        for (size_t i = 0; i < bufferStr.size(); ++i)
+        {
+            const char cur = buffer[i];
+            if (clearComment)
+            {
+                if (cur == '\n' || cur == '\r')
+                {
+                    clearComment = false;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            else if (stringMatch)
+            {
+                if (stringMatch == cur && prev != '\\')
+                {
+                    stringMatch = '\0';
+                }
+            }
+            else
+            {
+                if (json && prev == ':')
+                {
+                    normalized += ' ';
+                }
+
+                if (cur == '"' || cur == '\'')
+                {
+                    stringMatch = cur;
+                }
+                else if (cur == '/' && prev == '/')
+                {
+                    clearComment = true;
+                    normalized.resize(normalized.size() - 1);
+                    continue;
+                }
+                else if (cur == '{' || cur == '[')
+                {
+                    if (!json &&
+                        AZStd::find_if(
+                            normalized.begin(), normalized.end(),
+                            [](char c)
+                            {
+                                return c != ' ' && c != '\r' && c != '\n' && c != '\t';
+                            }) == normalized.end())
+                    {
+                        normalized.clear();
+                    }
+                    ++json;
+                }
+                else if (cur == '}' || cur == ']')
+                {
+                    --json;
+                }
+            }
+
+            prev = cur;
+            if (json && !stringMatch)
+            {
+                if (cur == ' ' || cur == '\r' || cur == '\n' || cur == '\t')
+                {
+                    continue;
+                }
+            }
+            normalized += cur;
+        }
+        return normalized;
+    }
+
+    void ExpandKeys(rapidjson::Value& value, rapidjson::Value::AllocatorType& allocator)
+    {
+        if (value.IsObject())
+        {
+            AZStd::vector<AZStd::pair<AZStd::vector<AZStd::string_view>, rapidjson::Value>> entriesToAdd;
+
+            for (auto it = value.MemberBegin(); it != value.MemberEnd();)
+            {
+                ExpandKeys(it->value, allocator);
+
+                AZStd::string_view key;
+                AZStd::vector<AZStd::string_view> newKeys;
+                {
+                    const rapidjson::Value& keyValue = it->name;
+                    key = { keyValue.GetString(), keyValue.GetStringLength() };
+                }
+                size_t prevIndex = 0;
+                size_t splitIndex = key.find('/');
+                while (splitIndex != AZStd::string_view::npos)
+                {
+                    AZStd::string_view newKey = key.substr(prevIndex, splitIndex - prevIndex);
+                    newKeys.push_back(newKey);
+                }
+
+                if (newKeys.size() > 0)
+                {
+                    newKeys.push_back(key.substr(prevIndex));
+                    entriesToAdd.push_back({ AZStd::move(newKeys), AZStd::move(it->value) });
+                    it = value.RemoveMember(it);
+                }
+                else
+                {   
+                    ++it;
+                }
+            }
+
+            for (auto& entry : entriesToAdd)
+            {
+                rapidjson::Value& curValue = value;
+                for (AZStd::string_view key : entry.first)
+                {
+                    auto memberIt = curValue.MemberEnd();
+                    for (auto it = value.MemberBegin(); it != value.MemberEnd(); ++it)
+                    {
+                        AZStd::string_view curKey;
+                        AZStd::vector<AZStd::string_view> newKeys;
+                        {
+                            const rapidjson::Value& keyValue = it->name;
+                            curKey = { keyValue.GetString(), keyValue.GetStringLength() };
+                        }
+
+                        if (curKey == key)
+                        {
+                            memberIt = it;
+                            break;
+                        }
+                    }
+
+                    if (memberIt != curValue.MemberEnd())
+                    {
+                        curValue = memberIt->value;
+                    }
+                    else
+                    {
+                        curValue = curValue.AddMember(rapidjson::StringRef(key.data(), key.size()), rapidjson::Value(rapidjson::kObjectType), allocator);
+                    }
+                }
+
+                curValue = entry.second.Move();
+            }
+        }
+        else if (value.IsArray())
+        {
+            for (auto it = value.Begin(); it != value.End(); ++it)
+            {
+                ExpandKeys(*it, allocator);
+            }
+        }
+    }
+
     template<typename T>
     bool SettingsRegistryImpl::SetValueInternal(AZStd::string_view path, T value)
     {
@@ -637,13 +803,25 @@ namespace AZ
     {
         rapidjson::Document jsonPatch;
         constexpr int flags = rapidjson::kParseStopWhenDoneFlag | rapidjson::kParseCommentsFlag | rapidjson::kParseTrailingCommasFlag;
-        jsonPatch.Parse<flags>(data.data(), data.length());
+        auto parseResult = Dom::Json::WriteToRapidJsonDocument([&data](Dom::Visitor& visitor)
+            {
+                Dom::YamlBackend backend;
+                AZStd::string normalizedBuffer = NormalizeJson(data);
+                return backend.ReadFromBuffer(normalizedBuffer.data(), normalizedBuffer.size(), Dom::Lifetime::Temporary, visitor);
+            });
+        if (!parseResult.IsSuccess())
+        {
+            return false;
+        }
+        //jsonPatch.Parse<flags>(data.data(), data.length());
         if (jsonPatch.HasParseError())
         {
             AZ_Error("Settings Registry", false, R"(Unable to parse data due to json error "%s" at offset %llu.)",
                 GetParseError_En(jsonPatch.GetParseError()), jsonPatch.GetErrorOffset());
             return false;
         }
+        jsonPatch = parseResult.TakeValue();
+        //ExpandKeys(jsonPatch, jsonPatch.GetAllocator());
 
         JsonMergeApproach mergeApproach;
         switch (format)
@@ -1214,7 +1392,17 @@ namespace AZ
 
         rapidjson::Document jsonPatch;
         constexpr int flags = rapidjson::kParseStopWhenDoneFlag | rapidjson::kParseCommentsFlag | rapidjson::kParseTrailingCommasFlag;
-        jsonPatch.ParseInsitu<flags>(scratchBuffer.data());
+        auto parseResult = Dom::Json::WriteToRapidJsonDocument([&scratchBuffer](Dom::Visitor& visitor)
+            {
+                Dom::YamlBackend backend;
+                AZStd::string normalizedBuffer = NormalizeJson({scratchBuffer.data(), scratchBuffer.size()});
+                return backend.ReadFromBuffer(normalizedBuffer.data(), normalizedBuffer.size(), Dom::Lifetime::Temporary, visitor);
+            });
+        if (!parseResult.IsSuccess())
+        {
+            return false;
+        }
+        // jsonPatch.ParseInsitu<flags>(scratchBuffer.data());
         if (jsonPatch.HasParseError())
         {
             auto nativeUI = AZ::Interface<NativeUI::NativeUIRequests>::Get();
@@ -1244,6 +1432,8 @@ namespace AZ
                 .AddMember(StringRef("Offset"), aznumeric_cast<uint64_t>(jsonPatch.GetErrorOffset()), m_settings.GetAllocator());
             return false;
         }
+        jsonPatch = parseResult.TakeValue();
+        //ExpandKeys(jsonPatch, jsonPatch.GetAllocator());
 
         JsonMergeApproach mergeApproach;
         switch (format)
