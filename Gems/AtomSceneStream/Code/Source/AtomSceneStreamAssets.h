@@ -20,6 +20,11 @@
 
 namespace AZ
 {
+    namespace RPI
+    {
+        class MeshDrawPacket;
+    }
+
     namespace AtomSceneStream
     {
         #define  CM_TO_METERRS 0.01f
@@ -119,6 +124,17 @@ namespace AZ
             Umbra::ElementBuffer GetVertexDesc() { return m_vbStreamsDesc[UmbraVertexAttribute_Position]; }
             Umbra::ElementBuffer GetIndexDesc() { return m_ibDesc; }
 
+            void SetMeshDrawPacket(RPI::MeshDrawPacket* drawPacket)
+            {
+                m_drawPacket = drawPacket;
+            }
+
+            const RPI::MeshDrawPacket* GetMeshDrawPacket()
+            {
+                return m_drawPacket;
+            }
+
+
         protected:
             Data::Asset<RPI::BufferAsset> CreateBufferAsset(
                 const void* data,
@@ -149,6 +165,8 @@ namespace AZ
             Umbra::ElementBuffer m_ibDesc;
 
             AZStd::unordered_map<Name, Data::Asset<RPI::BufferAsset>> m_bufferAssets;
+
+            RPI::MeshDrawPacket* m_drawPacket = nullptr;
         };
 
     } // namespace AtomSceneStream

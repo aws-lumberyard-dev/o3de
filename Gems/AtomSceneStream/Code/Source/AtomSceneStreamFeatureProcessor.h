@@ -65,14 +65,14 @@ namespace AZ
 //            void OnRenderPipelinePassesChanged(RPI::RenderPipeline* renderPipeline) override;
 
             // Umbra driven functionality
+            bool CreateMeshDrawPacket(AtomSceneStream::Mesh* currentMesh, Transform& modelTransform);
+            void UpdateStreamingResources();
             void CleanResource();
             void RemoveAllActiveModels();
             void DebugDraw(RPI::AuxGeomDrawPtr auxGeom, AtomSceneStream::Mesh* currentMesh, Vector3& offset, const Color& debugColor);
             void DebugDrawMeshes(RPI::AuxGeomDrawPtr auxGeom, AtomSceneStream::Mesh* currentMesh, const Color& debugColor);
-            void UpdateStreamingResources();
             void UpdateUmbraViewCamera();
-            bool StartUmbraClient(); 
-            bool RegisterMeshForRender(AtomSceneStream::Mesh* currentMesh, Transform& modelTransform);
+            bool StartUmbraClient();
             bool LoadStreamedAssets();
             bool UnloadStreamedAssets();
             void HandleAssetsStreaming(float seconds);
@@ -82,8 +82,8 @@ namespace AZ
 
             Render::MeshFeatureProcessorInterface* m_meshFeatureProcessor = nullptr;
 //            ModelsMapByName m_modelsMapByName;
-            ModelsMapByName m_visibleModelsMapByName;
-//            ModelsMapByModel m_modelsMapByModel;
+//            ModelsMapByName m_visibleModelsMapByName;
+            ModelsMapByModel m_modelsMapByModel;
             ModelsMapByName m_hiddenModelsByName;
 
 //            AZStd::vector<Render::MeshFeatureProcessorInterface::MeshHandle> m_meshHandles;
@@ -99,6 +99,10 @@ namespace AZ
 
             bool m_readyForStreaming = false;
             bool m_isConnectedAndStreaming = false;
+
+            uint32_t m_modelsCreatedThisFrame;
+            uint32_t m_modelsRenderedThisFrame;
+            uint32_t m_modelsRequiredThisFrame;
         };
     } // namespace AtomSceneStream
 } // namespace AZ

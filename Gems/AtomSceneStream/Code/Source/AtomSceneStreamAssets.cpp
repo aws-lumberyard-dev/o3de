@@ -2,11 +2,13 @@
 
 #include <AzCore/Math/Aabb.h>
 
-#include <Atom/RPI.Reflect/Asset/AssetUtils.h>
-
 #include <Atom/RPI.Public/Image/StreamingImage.h>
 #include <Atom/RPI.Public/Image/ImageSystemInterface.h>
 
+#include <Atom/RPI.Public/Shader/ShaderResourceGroup.h>
+#include <Atom/RPI.Public/MeshDrawPacket.h>
+
+#include <Atom/RPI.Reflect/Asset/AssetUtils.h>
 #include <Atom/RPI.Reflect/Material/MaterialAsset.h>
 #include <Atom/RPI.Reflect/Buffer/BufferAssetCreator.h>
 #include <Atom/RPI.Reflect/ResourcePoolAssetCreator.h>
@@ -350,7 +352,7 @@ namespace AZ
                         vtx, m_vertexCount, positionV3->GetX(), positionV3->GetY(), positionV3->GetZ(), m_name.c_str());
             }
 
-            AZ_Error("AtomSceneStream", m_aabb.IsValid(), "Error --- Model [%] AABB is invalid - all [%d] vertices are corrupted",
+            AZ_Error("AtomSceneStream", m_aabb.IsValid(), "Error --- Model [%s] AABB is invalid - all [%d] vertices are corrupted",
                 m_name.c_str(), m_vertexCount);
             return m_aabb.IsValid() ? true : false;
         }
@@ -604,6 +606,7 @@ namespace AZ
         {
             free(m_buffersData);
             m_buffersData = nullptr;
+            delete[] m_drawPacket;
         }
 
     } // namespace AtomSceneStream
