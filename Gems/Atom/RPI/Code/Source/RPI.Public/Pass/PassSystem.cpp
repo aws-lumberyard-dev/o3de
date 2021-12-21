@@ -332,40 +332,100 @@ static int siLastResolution = 100;
 
             if(siLastResolution != r_resolution_scale)
             {
-                AZStd::vector<Name> names;
-                names.push_back(Name("DepthPrePass"));
-                names.push_back(Name("DepthMSAAPass"));
-                names.push_back(Name("MeshMotionVectorPass"));
-                names.push_back(Name("DepthTransparentMinPass"));
-                names.push_back(Name("DepthTransparentMaxPass"));
-                names.push_back(Name("ForwardMSAAPass"));
-                names.push_back(Name("ForwardSubsurfaceMSAAPass"));
-                names.push_back(Name("ForwardPass"));
+                // get the screen dimension
+                float screenWidth = 0.0f, screenHeight = 0.0f;
+                AZ::RPI::PassFilter forwardPassFilter = AZ::RPI::PassFilter::CreateWithPassHierarchy({ Name("ForwardMSAAPass") });
+                m_passLibrary.ForEachPass(forwardPassFilter, [&screenWidth, &screenHeight](RPI::Pass* pass)->PassFilterExecutionFlow
+                    {
+                        AZ::RPI::SwapChainPass* rootPass = static_cast<AZ::RPI::SwapChainPass*>(pass->GetRenderPipeline()->GetRootPass()->AsParent());
+                        screenWidth = rootPass->GetViewport().GetWidth();
+                        screenHeight = rootPass->GetViewport().GetHeight();
 
-                float attachmentScale = float(r_resolution_scale) * 0.01f;
-                for(auto const& name : names)
+                        return PassFilterExecutionFlow::StopVisitingPasses;
+                    });
+
+                if(screenWidth == 0.0f || screenHeight == 0.0f)
                 {
-                    AZStd::vector<Name> passName({ name });
-                    AZ::RPI::PassFilter filter = AZ::RPI::PassFilter::CreateWithPassHierarchy(passName);
-
-                    AZStd::vector<Pass*> foundPasses;
-                    m_passLibrary.ForEachPass(filter, [&foundPasses, attachmentScale](RPI::Pass* pass) -> PassFilterExecutionFlow
+                    forwardPassFilter = AZ::RPI::PassFilter::CreateWithPassHierarchy({ Name("ForwardPass") });
+                    m_passLibrary.ForEachPass(forwardPassFilter, [&screenWidth, &screenHeight](RPI::Pass* pass)->PassFilterExecutionFlow
                         {
                             AZ::RPI::SwapChainPass* rootPass = static_cast<AZ::RPI::SwapChainPass*>(pass->GetRenderPipeline()->GetRootPass()->AsParent());
-                            float screenWidth = rootPass->GetViewport().GetWidth();
-                            float screenHeight = rootPass->GetViewport().GetHeight();
+                            screenWidth = rootPass->GetViewport().GetWidth();
+                            screenHeight = rootPass->GetViewport().GetHeight();
 
-                            float width = screenWidth * attachmentScale;
-                            float height = screenHeight * attachmentScale;
-                            AZ::RPI::RasterPass* rasterPass = static_cast<AZ::RPI::RasterPass*>(pass);
-                            rasterPass->UpdateViewport(width, height);
-                            pass->UpdateAttachmentScale(attachmentScale, attachmentScale);
-                            foundPasses.push_back(pass);
-                            return PassFilterExecutionFlow::ContinueVisitingPasses;
+                            return PassFilterExecutionFlow::StopVisitingPasses;
                         });
                 }
 
-                siLastResolution = r_resolution_scale;
+                uint32_t iPassCount = 0;
+                float attachmentScale = float(r_resolution_scale) * 0.01f;
+
+                AZ::RPI::PassFilter filter;
+                m_passLibrary.ForEachPass(filter, [attachmentScale, screenWidth, screenHeight, &iPassCount](RPI::Pass* pass) -> PassFilterExecutionFlow
+                    {
+                        [[maybe_unused]] float width = screenWidth * attachmentScale;
+                        [[maybe_unused]] float height = screenHeight * attachmentScale;
+                        AZ::RPI::RasterPass* rasterPass = static_cast<AZ::RPI::RasterPass*>(pass);
+                        [[maybe_unused]] AZ::RPI::FullscreenTrianglePass* fullScreenTrianglePass = static_cast<AZ::RPI::FullscreenTrianglePass*>(pass);
+
+                        if(rasterPass)
+                        {
+                            // Scale attachments that are InputOutput, SwapChainOutput name, image type, and not getting size from pipeline 
+                            //AZ_TracePrintf("WTF", "\nSTART Pass: %s\n", pass->GetName().GetCStr());
+                            auto const& attachmentBindings = pass->GetAttachmentBindings();
+                            for(auto const& binding : attachmentBindings)
+                            {
+                                if(binding.m_attachment && binding.m_attachment->m_sizeSource)
+                                {
+                                    //AZ_TracePrintf("WTF", "\tbinding %s\n", binding.m_attachment->m_name.GetCStr());
+                                    if(binding.m_slotType == AZ::RPI::PassSlotType::Output || binding.m_slotType == AZ::RPI::PassSlotType::InputOutput)
+                                    {
+                                        if(binding.m_attachment->m_descriptor.m_type == AZ::RHI::AttachmentType::Image && binding.m_attachment->m_lifetime == RHI::AttachmentLifetimeType::Transient)
+                                        {
+                                            if(binding.m_attachment->m_settingFlags.m_getSizeFromPipeline == false || binding.m_attachment->m_renderPipelineSource == nullptr)
+                                            {
+                                                if(binding.m_attachment->m_sizeSource->m_name == Name("SwapChainOutput"))
+                                                {
+                                                    bool foundAttachment = false;
+                                                    auto const& ownedAttachments = pass->GetOwnedAttachments();
+                                                    for(auto const& attachment : ownedAttachments)
+                                                    {
+                                                        if(attachment == binding.m_attachment)
+                                                        {
+                                                            foundAttachment = true;
+                                                            break;
+                                                        }
+                                                    }
+
+                                                    if(foundAttachment)
+                                                    {
+                                                        AZ_TracePrintf("WTF", "scale pass: %s attachment: %s\n",
+                                                            pass->GetName().GetCStr(),
+                                                            binding.m_attachment->m_name.GetCStr());
+
+                                                        rasterPass->UpdateViewport(width, height);
+                                                        pass->UpdateAttachmentScale(attachmentScale, attachmentScale);
+                                                        ++iPassCount;
+
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            // AZ_TracePrintf("WTF", "\nEND Pass: %s\n\n", pass->GetName().GetCStr());
+                        }
+
+                        return PassFilterExecutionFlow::ContinueVisitingPasses;
+                    });
+
+                if(iPassCount > 1)
+                {
+                    siLastResolution = r_resolution_scale;
+                }
             }
         }
 

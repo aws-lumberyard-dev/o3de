@@ -149,7 +149,7 @@ namespace AZ
                 visitList(constItr->second, filterOptions);
                 return;
             }
-
+            
             // check againest every passes. This might be slow 
             AZ_PROFILE_SCOPE(RPI, "PassLibrary::ForEachPass");
             for (auto& namePasses : m_passNameMapping)

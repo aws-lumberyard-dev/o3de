@@ -348,6 +348,11 @@ namespace AZ
             return nullptr;
         }
 
+        AZStd::vector<Ptr<PassAttachment>> const& ParentPass::GetOwnedAttachments() const
+        {
+            return m_ownedAttachments;
+        }
+
         // --- Debug functions ---
 
         AZStd::array_view<Ptr<Pass>> ParentPass::GetChildren() const

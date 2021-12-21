@@ -54,6 +54,8 @@ namespace AZ
             //! Return owning attachment
             Ptr<PassAttachment> GetOwnedAttachment(const Name& attachmentName) const;
 
+            AZStd::vector<Ptr<PassAttachment>> const& GetOwnedAttachments() const;
+
             // --- Children related functions ---
 
             //! Adds pass to list of children

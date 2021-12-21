@@ -10,7 +10,7 @@
 
 #include <Atom/Features/PBR/ForwardPassSrg.azsli>
 //#include <Atom/Features/PBR/Lights/CapsuleLight.azsli>
-//#include <Atom/Features/PBR/Lights/DirectionalLight.azsli>
+#include <Atom/Features/PBR/Lights/DirectionalLight.azsli>
 //#include <Atom/Features/PBR/Lights/DiskLight.azsli>
 //#include <Atom/Features/PBR/Lights/PointLight.azsli>
 //#include <Atom/Features/PBR/Lights/PolygonLight.azsli>
@@ -41,5 +41,6 @@ void ApplyDirectLighting(Surface surface, inout LightingData lightingData)
 
 void ApplyDirectLightingHalf(Surface surface, inout LightingData lightingData)
 {
-   ApplySimplePointLightsHalf(surface, lightingData);
+    ApplyDirectionalLightsHalf(surface, lightingData);
+    ApplySimplePointLightsHalf(surface, lightingData);
 }

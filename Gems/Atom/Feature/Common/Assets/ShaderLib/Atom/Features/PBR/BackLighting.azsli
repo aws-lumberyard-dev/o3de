@@ -23,6 +23,12 @@ float3 TransmissionKernel(float t, float3 s)
     return 0.25 * (1.0 / exp(exponent) + 3.0 / exp(exponent / 3.0));
 }
 
+half3 TransmissionKernelHalf(half t, half3 s)
+{
+    half3 exponent = s * t;
+    return 0.25h * (1.0h / exp(exponent) + 3.0h / exp(exponent / 3.0h));
+}
+
 float3 GetBackLighting(Surface surface, LightingData lightingData, float3 lightIntensity, float3 dirToLight, float shadowRatio)
 {
     float3 result = float3(0.0, 0.0, 0.0);
@@ -54,6 +60,51 @@ float3 GetBackLighting(Surface surface, LightingData lightingData, float3 lightI
             if (litRatio)
             {
                 result = TransmissionKernel(surface.transmission.thickness * transmissionParams.w, rcp(transmissionParams.xyz)) * 
+                    saturate(dot(-surface.normal, dirToLight)) * lightIntensity * litRatio;
+            }
+
+            break;
+    }
+    
+    return result;
+}
+
+half3 GetBackLightingHalf(
+    Surface surface, 
+    LightingData lightingData, 
+    half3 lightIntensity, 
+    half3 dirToLight, 
+    half shadowRatio)
+{
+    half3 result = half3(0.0h, 0.0h, 0.0h);
+    half thickness = 0.0h; 
+    half4 transmissionParams = surface.transmission.transmissionParams;
+
+    switch(o_transmission_mode)
+    {
+        case TransmissionMode::None:
+            break;
+
+        case TransmissionMode::ThickObject: 
+            // Thick object mode, using back lighting approximation proposed by Brisebois B. C. and Bouchard M. 2011
+            // https://colinbarrebrisebois.com/2011/03/07/gdc-2011-approximating-translucency-for-a-fast-cheap-and-convincing-subsurface-scattering-look/
+
+            {
+                thickness = max(shadowRatio, surface.transmission.thickness);
+                half transmittance = pow( saturate( dot( lightingData.dirToCamera, -normalize( dirToLight + surface.normal * transmissionParams.z ) ) ), transmissionParams.y ) * transmissionParams.w;
+                half lamberAttenuation = exp(-thickness * transmissionParams.x) * saturate(1.0h - thickness);
+                result = transmittance * lamberAttenuation * lightIntensity;
+            }
+            break;
+
+        case TransmissionMode::ThinObject:
+            // Thin object mode, using thin-film assumption proposed by Jimenez J. et al, 2010, "Real-Time Realistic Skin Translucency"
+            // http://www.iryoku.com/translucency/downloads/Real-Time-Realistic-Skin-Translucency.pdf
+
+            half litRatio = 1.0h - shadowRatio;
+            if (litRatio)
+            {
+                result = TransmissionKernelHalf(surface.transmission.thickness * transmissionParams.w, rcp(transmissionParams.xyz)) * 
                     saturate(dot(-surface.normal, dirToLight)) * lightIntensity * litRatio;
             }
 

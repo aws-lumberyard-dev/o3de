@@ -291,6 +291,11 @@ namespace AZ
 
             void UpdateAttachmentScale(float widthMultiplier, float heightMultiplier);
 
+            AZStd::vector<Ptr<PassAttachment>> const& GetOwnedAttachments() const
+            {
+                return m_ownedAttachments;
+            }
+
         protected:
             explicit Pass(const PassDescriptor& descriptor);
 

@@ -77,3 +77,108 @@ void ApplyDirectionalLights(Surface surface, inout LightingData lightingData)
     }
 
 }
+
+half3 DiffuseLambertianHalf2(
+    half3 albedo, 
+    half3 normal, 
+    half3 dirToLight, 
+    half diffuseResponse)
+{
+    half NdotL = saturate(dot(normal, dirToLight));
+    return albedo * NdotL * 0.31830988h * diffuseResponse;
+}
+
+half3 GetDiffuseLightingHalf2(
+    Surface surface, 
+    LightingData lightingData, 
+    half3 lightIntensity, 
+    half3 dirToLight)
+{
+    //half3 albedoHalf = surface.albedo.xyz;
+    //half3 normalHalf = surface.normal.xyz;
+    //half3 dirToLightHalf = dirToLight.xyz;
+    //half diffuseResponseHalf = lightingData.diffuseResponse.x;
+
+    //half3 diffuse = DiffuseLambertianHalf2(albedoHalf, normalHalf, dirToLightHalf, diffuseResponseHalf);
+
+    half fX = surface.normal.x * dirToLight.x;
+    half fY = surface.normal.y * dirToLight.y;
+    half fZ = surface.normal.z * dirToLight.z;
+    half fDP = fX + fY + fZ;
+    //half3 diffuse = fDP * surface.albedo.xyz; // * surface.albedo.xyz * 0.3183h * lightingData.diffuseResponse.x;
+
+    //diffuse *= lightIntensity;
+    return half3(surface.albedo.x * fDP, surface.albedo.y * fDP, surface.albedo.z * fDP);
+
+    //return half3(1.0h, 1.0h, 1.0h) * diffuseResponseHalf;
+}
+
+
+void ApplyDirectionalLightsHalf(Surface surface, inout LightingData lightingData)
+{
+#if 0
+    // Shadowed check
+    //const uint shadowIndex = ViewSrg::m_shadowIndexDirectionalLight;
+    half litRatio = 1.0h;
+    half backShadowRatio = 0.0h;
+    if (o_enableShadows && shadowIndex <  SceneSrg::m_directionalLightCount)
+    {
+        litRatio = DirectionalLightShadow::GetVisibility(
+            shadowIndex,
+            lightingData.shadowCoords,
+            surface.vertexNormal,
+            debugInfo);
+            
+        if (o_transmission_mode == TransmissionMode::ThickObject)
+        {
+            backShadowRatio = DirectionalLightShadow::GetThickness(shadowIndex, lightingData.shadowCoords);
+        }
+    }
+#endif // #if 0
+
+    // Add the lighting contribution for each directional light
+    for (int index = 0; index < SceneSrg::m_directionalLightCount; index++)
+    {
+        SceneSrg::DirectionalLight light = SceneSrg::m_directionalLights[index];
+        half3 dirToLight = half3(normalize(-light.m_direction));
+
+        // Adjust the direction of the light based on its angular diameter.
+        half3 reflectionDir = reflect(-lightingData.dirToCamera, surface.normal);
+        half3 lightDirToReflectionDir = reflectionDir - dirToLight;
+        half lightDirToReflectionDirLen = length(lightDirToReflectionDir);
+        lightDirToReflectionDir = lightDirToReflectionDir / lightDirToReflectionDirLen; // normalize the length
+        lightDirToReflectionDirLen = min(half(light.m_angularRadius), lightDirToReflectionDirLen);
+        dirToLight += lightDirToReflectionDir * lightDirToReflectionDirLen;
+
+        // [GFX TODO][ATOM-2012] care of multiple directional light
+        // Currently shadow check is done only for index == shadowIndex.
+        half currentLitRatio = 1.0h;
+        half currentBackShadowRatio = 1.0h;
+#if 0
+        if (o_enableShadows)
+        {
+            currentLitRatio = (index == shadowIndex) ? litRatio : 1.0h;
+            
+            currentBackShadowRatio = 1.0h - currentLitRatio;
+            if (o_transmission_mode == TransmissionMode::ThickObject)
+            {
+                currentBackShadowRatio = (index == shadowIndex) ?  backShadowRatio : 0.0h;
+            }
+        }
+#endif // #if 0
+
+        //half fDP = dot(surface.normal.xyz, dirToLight);
+        //lightingData.diffuseLighting += (half3(
+        //    fDP * surface.albedo.x * 0.3183h * lightingData.diffuseResponse.x, 
+        //    fDP * surface.albedo.y * 0.3183h * lightingData.diffuseResponse.x, 
+        //    fDP * surface.albedo.z * 0.3183h * lightingData.diffuseResponse.x)); 
+
+        lightingData.diffuseLighting += GetDiffuseLightingHalf2(
+            surface, 
+            lightingData, 
+            half3(light.m_rgbIntensityLux), 
+            half3(dirToLight));
+        lightingData.specularLighting += GetSpecularLightingHalf(surface, lightingData, half3(light.m_rgbIntensityLux), dirToLight) * currentLitRatio;
+        lightingData.translucentBackLighting += GetBackLightingHalf(surface, lightingData, half3(light.m_rgbIntensityLux), dirToLight, currentBackShadowRatio);
+    }
+}
