@@ -41,11 +41,13 @@ namespace Ocean
     void OceanEditorSystemComponent::GetRequiredServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& required)
     {
         BaseSystemComponent::GetRequiredServices(required);
+        OceanSystemComponent::GetRequiredServices(required);
     }
 
     void OceanEditorSystemComponent::GetDependentServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& dependent)
     {
         BaseSystemComponent::GetDependentServices(dependent);
+        OceanSystemComponent::GetDependentServices(dependent);
     }
 
     void OceanEditorSystemComponent::Activate()

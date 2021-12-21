@@ -13,8 +13,12 @@
 #include <AzCore/Component/Component.h>
 #include <AzCore/Component/TickBus.h>
 #include <AzCore/Asset/AssetCommon.h>
+
 #include <AtomCore/Instance/Instance.h>
+
 #include <Atom/RPI.Public/Image/StreamingImage.h>
+#include <Atom/RPI.Public/Pass/PassSystem.h>
+
 #include <Ocean/OceanBus.h>
 
 namespace Ocean
@@ -37,7 +41,7 @@ namespace Ocean
         OceanSystemComponent();
         ~OceanSystemComponent();
 
-        AZ::Data::Instance<AZ::RPI::StreamingImage> GetGaussian256ImageAsset();
+        AZ::Data::Instance<AZ::RPI::StreamingImage> GetGaussianNoiseImage() override;
 
     protected:
         ////////////////////////////////////////////////////////////////////////
@@ -58,6 +62,12 @@ namespace Ocean
         ////////////////////////////////////////////////////////////////////////
 
     private:
+        
+        //! Used for loading the pass templates of the ocean gem.
+        AZ::RPI::PassSystemInterface::OnReadyLoadTemplatesEvent::Handler m_loadTemplatesHandler;
+
+        AZ::Data::Asset<AZ::RPI::StreamingImageAsset> CreateGaussian256ImageAsset();
+
         AZ::Data::Instance<AZ::RPI::StreamingImage> m_gaussianNoise256Image;
     };
 

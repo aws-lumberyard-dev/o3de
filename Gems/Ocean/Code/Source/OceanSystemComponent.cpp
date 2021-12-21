@@ -54,6 +54,9 @@ namespace Ocean
 
     void OceanSystemComponent::GetRequiredServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& required)
     {
+        required.push_back(AZ_CRC_CE("RPISystem"));
+        required.push_back(AZ_CRC_CE("CommonService"));
+        required.push_back(AZ_CRC_CE("BootstrapSystemComponent"));
     }
 
     void OceanSystemComponent::GetDependentServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& dependent)
@@ -84,6 +87,43 @@ namespace Ocean
     {
         OceanRequestBus::Handler::BusConnect();
         AZ::TickBus::Handler::BusConnect();
+
+        auto passSystem = AZ::RPI::PassSystemInterface::Get();
+        if (!passSystem)
+        {
+            AZ_Error("OceanSystemComponent", false, "Unable to load pass system to initialize ocean pass templates.")
+            return;
+        }
+
+        // Setup handler for load pass templates mappings
+        m_loadTemplatesHandler = AZ::RPI::PassSystemInterface::OnReadyLoadTemplatesEvent::Handler(
+            [&]()
+            {
+                const char* passTemplatesFile = "Passes/OceanPassTemplates.azasset";
+                passSystem->LoadPassTemplateMappings(passTemplatesFile);
+            });
+        passSystem->ConnectEvent(m_loadTemplatesHandler);
+
+    }
+
+    void OceanSystemComponent::Deactivate()
+    {
+        AZ::TickBus::Handler::BusDisconnect();
+        OceanRequestBus::Handler::BusDisconnect();
+    }
+
+    AZ::Data::Instance<AZ::RPI::StreamingImage> OceanSystemComponent::GetGaussianNoiseImage()
+    {
+        if (!m_gaussianNoise256Image)
+        {
+            m_gaussianNoise256Image = AZ::RPI::StreamingImage::FindOrCreate(CreateGaussian256ImageAsset());
+        }
+        return m_gaussianNoise256Image;
+    }
+
+    AZ::Data::Asset<AZ::RPI::StreamingImageAsset> OceanSystemComponent::CreateGaussian256ImageAsset()
+    {
+        AZ::Data::Asset<AZ::RPI::StreamingImageAsset> streamingImageAsset;
 
         // Build the random noise data
         constexpr uint32_t NoiseTextureSize = 256;
@@ -121,33 +161,21 @@ namespace Ocean
             if (!assetCreator.End(mipChainAsset))
             {
                 AZ_Error("StreamingImage", false, "Failed to initialize mip chain asset");
-                return;
+                return streamingImageAsset;
             }
         }
 
         // Construct the streaming image asset
-        AZ::Data::Asset<AZ::RPI::StreamingImageAsset> streamingImageAsset;
         {
             AZ::RPI::StreamingImageAssetCreator imageAssetCreator;
-            imageAssetCreator.Begin(AZ::Data::AssetId(AZ::Uuid::CreateName("GaussianNoise256x256Mip")));
+            imageAssetCreator.Begin(AZ::Data::AssetId(AZ::Uuid::CreateName("GaussianNoise256x256Image")));
             imageAssetCreator.SetImageDescriptor(imageDescriptor);
             imageAssetCreator.AddMipChainAsset(*mipChainAsset.Get());
             imageAssetCreator.End(streamingImageAsset);
         }
-        
         streamingImageAsset.SetHint("GaussianNoise256x256");
-        m_gaussianNoise256Image = AZ::RPI::StreamingImage::FindOrCreate(streamingImageAsset);
-    }
 
-    void OceanSystemComponent::Deactivate()
-    {
-        AZ::TickBus::Handler::BusDisconnect();
-        OceanRequestBus::Handler::BusDisconnect();
-    }
-
-    AZ::Data::Instance<AZ::RPI::StreamingImage> OceanSystemComponent::GetGaussian256ImageAsset()
-    {
-        return m_gaussianNoise256Image;
+        return streamingImageAsset;
     }
 
     void OceanSystemComponent::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)

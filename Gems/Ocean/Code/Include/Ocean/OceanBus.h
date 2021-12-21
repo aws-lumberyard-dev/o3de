@@ -12,6 +12,7 @@
 
 #include <AzCore/EBus/EBus.h>
 #include <AzCore/Interface/Interface.h>
+#include <Atom/RPI.Public/Image/StreamingImage.h>
 
 namespace Ocean
 {
@@ -20,7 +21,9 @@ namespace Ocean
     public:
         AZ_RTTI(OceanRequests, "{6a9fcb74-ed3a-4156-98e7-f4c630d496ea}");
         virtual ~OceanRequests() = default;
-        // Put your public methods here
+
+        virtual AZ::Data::Instance<AZ::RPI::StreamingImage> GetGaussianNoiseImage() = 0;
+
     };
     
     class OceanBusTraits

@@ -11,4 +11,6 @@ set(FILES
     Source/OceanModuleInterface.h
     Source/OceanSystemComponent.cpp
     Source/OceanSystemComponent.h
+    Source/FftParentPass.cpp
+    Source/FftParentPass.h
 )
