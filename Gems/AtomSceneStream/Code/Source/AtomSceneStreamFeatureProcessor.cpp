@@ -282,10 +282,10 @@ namespace AZ
             RPI::ModelLod& modelLod = *atomModel->GetLods()[0];
 
             {
-                Data::Instance<RPI::Material> createdMaterial = currentMesh->GetAtomMaterial();
-                currentMesh->GetMaterial()->SetProperties(createdMaterial);
+                currentMesh->GetMaterial()->PrepareMaterial();  // [Adi] - can it be that this including the compile should be placed after the srg object generation?
+                Data::Instance<RPI::Material> material = currentMesh->GetAtomMaterial();
 
-                const auto& materialAsset = createdMaterial->GetAsset();
+                const auto& materialAsset = material->GetAsset();
                 auto& objectSrgLayout = materialAsset->GetObjectSrgLayout();
                 if (!objectSrgLayout)
                 {
@@ -303,11 +303,15 @@ namespace AZ
                     return false;
                 }
 
+//                currentMesh->GetMaterial()->PrepareMaterial();  // [Adi] - can it be that this including the compile should be placed after the srg object generation?
+
                 // setup the mesh draw packet
-                RPI::MeshDrawPacket* drawPacket = new RPI::MeshDrawPacket(modelLod, 0, createdMaterial, meshObjectSrg);
+                RPI::MeshDrawPacket drawPacket(modelLod, 0, material, meshObjectSrg);
+
+//                currentMesh->GetMaterial()->PrepareMaterial();  // [Adi] - can it be that this including the compile should be placed after the srg object generation?
 
                 // set the shader option to select forward pass IBL specular if necessary
-                if (!drawPacket->SetShaderOption(AZ::Name("o_meshUseForwardPassIBLSpecular"), AZ::RPI::ShaderOptionValue{true}))
+                if (!drawPacket.SetShaderOption(AZ::Name("o_meshUseForwardPassIBLSpecular"), AZ::RPI::ShaderOptionValue{true}))
                 {
                     AZ_Warning("AtomSceneStream", false, "[%s] Failed to set o_meshUseForwardPassIBLSpecular on mesh draw packet",
                         currentMesh->GetName().c_str());
@@ -316,13 +320,14 @@ namespace AZ
                 // stencil bits
                 uint8_t stencilRef = Render::StencilRefs::UseIBLSpecularPass | Render::StencilRefs::UseDiffuseGIPass;
 
-                drawPacket->SetStencilRef(stencilRef);
-                drawPacket->SetSortKey(0);
+                drawPacket.SetStencilRef(stencilRef);
+                drawPacket.SetSortKey(0);
+
                 RPI::Scene* scene = GetParentScene();
-                if (!drawPacket->Update(*scene, false))
+                if (!drawPacket.Update(*scene, false) && printDebugAdd)
                 {   // [Adi] The question here is if to fail or to return as is, and try to update the draw packet
                     // at a later stage.
-                    AZ_Error("AtomSceneStream", false, "Warning -- [%s] Failed to update draw packet during creation - update will be postponed",
+                    AZ_Warning("AtomSceneStream", false, "Warning -- [%s] Failed to update draw packet during creation - update will be postponed",
                         currentMesh->GetName().c_str());
                 }
 
@@ -431,8 +436,8 @@ namespace AZ
                     }
 
                     // The draw packet failed to acquire the RHI Draw Packet - this will require update
-                    RPI::MeshDrawPacket* drawPacket = currentMesh->GetMeshDrawPacket();
-                    if (!drawPacket->GetRHIDrawPacket() && !drawPacket->Update(*scene, false))
+                    RPI::MeshDrawPacket& drawPacket = currentMesh->GetMeshDrawPacket();
+                    if (!drawPacket.GetRHIDrawPacket() && !drawPacket.Update(*scene, false))
                     {
                         AZ_Error("AtomSceneStream", false, "Warning -- Failed to create draw packet during Render - render will be skipped");
                         continue;
@@ -441,8 +446,8 @@ namespace AZ
                     // And add it to the views
                     for (auto& view : packet.m_views)
                     {
-                        currentMesh->GetMeshDrawPacket()->Update(*scene, false);
-                        view->AddDrawPacket(currentMesh->GetMeshDrawPacket()->GetRHIDrawPacket());
+//                        currentMesh->GetMeshDrawPacket()->Update(*scene, false);
+                        view->AddDrawPacket(currentMesh->GetMeshDrawPacket().GetRHIDrawPacket());
                     }
 
                     ++m_modelsRenderedThisFrame;
@@ -474,7 +479,7 @@ namespace AZ
                 creationSuccess = false;
             }
 
-            meshPtr->GetAtomMaterial()->Compile();
+            meshPtr->GetAtomMaterial()->Compile();  //  during the creation the material was set in the mesh
             if (creationSuccess && !CreateMeshDrawPacket(meshPtr))
             {
                 AZ_Warning("AtomSceneStream", false, "Error -- DrawPacket for Model [%s] was not created - deleting now", meshPtr->GetName().c_str());
@@ -593,7 +598,7 @@ namespace AZ
                         m_modelsMapByName.erase(iter);
 //                        m_modelsMapByModel.erase(iter);
                     }
-//                    delete meshForRemoval;    [Adi] - to do: requires postponed deletion (3 frames delay)
+                    delete meshForRemoval;    // [Adi] - to do: requires postponed deletion (3 frames delay)
                 }
                 break;
             }

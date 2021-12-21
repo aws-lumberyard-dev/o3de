@@ -65,7 +65,7 @@ namespace AZ
             // AZ::Data::AssetBus::Handler
             void OnAssetReady(AZ::Data::Asset<AZ::Data::AssetData> asset) override;
 
-            bool SetProperties(Data::Instance<RPI::Material> material);
+            bool PrepareMaterial();
 
             Data::Instance<RPI::Material> GetAtomMaterial()  { return m_atomMaterial; }
 
@@ -128,14 +128,14 @@ namespace AZ
             Umbra::ElementBuffer GetVertexDesc() { return m_vbStreamsDesc[UmbraVertexAttribute_Position]; }
             Umbra::ElementBuffer GetIndexDesc() { return m_ibDesc; }
 
-            void SetMeshDrawPacket(RPI::MeshDrawPacket* drawPacket)
+            void SetMeshDrawPacket(RPI::MeshDrawPacket& drawPacket)
             {
-                m_drawPacket = drawPacket;
+                m_drawPacket = AZStd::move(drawPacket);
             }
 
             bool Compile(RPI::Scene* scene);
 
-            RPI::MeshDrawPacket* GetMeshDrawPacket()
+            RPI::MeshDrawPacket& GetMeshDrawPacket()
             {
                 return m_drawPacket;
             }
@@ -171,7 +171,8 @@ namespace AZ
             Umbra::ElementBuffer m_vbStreamsDesc[UmbraVertexAttributeCount];
             Umbra::ElementBuffer m_ibDesc;
 
-            RPI::MeshDrawPacket* m_drawPacket = nullptr;
+//            RPI::MeshDrawPacket* m_drawPacket = nullptr;
+            RPI::MeshDrawPacket m_drawPacket;
         };
 
     } // namespace AtomSceneStream
