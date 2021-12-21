@@ -282,57 +282,15 @@ namespace AZ
             RPI::ModelLod& modelLod = *atomModel->GetLods()[0];
 
             {
-//Adi                const RPI::ModelLod::Mesh& mesh = modelLod.GetMeshes()[0];
-//Adi                Data::Instance<RPI::Material> material = mesh.m_material;
-//                Data::Instance<RPI::Material> material = currentMesh->GetAtomMaterial();
                 Data::Instance<RPI::Material> createdMaterial = currentMesh->GetAtomMaterial();
+                currentMesh->GetMaterial()->SetProperties(createdMaterial);
 
-                /*//Adi
-                if (!material)// || !material->CanCompile())
-                {
-                    material = currentMesh->GetAtomMaterial();
-//                    AZ_Warning("AtomSceneStream", material, "No mesh [%s] material instance or cannot be compiled", currentMesh->GetName().c_str());
-                    AZ_Warning("AtomSceneStream", material, "No mesh [%s] material instance", currentMesh->GetName().c_str());
-                    return false;
-                }
-                */
-//                if (material != createdMaterial)
-//                {
-//                    material = createdMaterial;
-//                    AZ_Warning("AtomSceneStream", material, "Warning -- Material set in the mesh and material created are not identical");
-//                }
-
-                /*
-                //////////////////
-                const auto& materialAsset = m_materialInstance->GetAsset();
-                const auto& shaderAsset = materialAsset->GetMaterialTypeAsset()->GetShaderAssetForObjectSrg();
-
-                for (float yPatch = yFirstPatchStart; yPatch <= yLastPatchStart; yPatch += GridMeters)
-                {
-                    for (float xPatch = xFirstPatchStart; xPatch <= xLastPatchStart; xPatch += GridMeters)
-                    {
-                        auto objectSrg = AZ::RPI::ShaderResourceGroup::Create(shaderAsset, materialAsset->GetObjectSrgLayout()->GetName());
-                        if (!objectSrg)
-                        {
-                            AZ_Warning("TerrainFeatureProcessor", false, "Failed to create a new shader resource group, skipping.");
-                            continue;
-                        }
-                ////////////////////
-                */
-
-//Adi                if (material != createdMaterial)
-                {
-                    currentMesh->GetMaterial()->SetProperties(createdMaterial);
-//Adi                    currentMesh->GetMaterial()->SetProperties(material);
-//                    AZ_Warning("AtomSceneStream", currentMesh->GetMaterial()->SetProperties(material), "Warning - material was not compiled for mesh [%s] after SetProperties()", currentMesh->GetName().c_str());
-                }
-
-//Adi                const auto& materialAsset = material->GetAsset();
                 const auto& materialAsset = createdMaterial->GetAsset();
                 auto& objectSrgLayout = materialAsset->GetObjectSrgLayout();
                 if (!objectSrgLayout)
                 {
-                    AZ_Warning("AtomSceneStream", false, "No per-object ShaderResourceGroup found for [%s].", currentMesh->GetName().c_str());
+                    AZ_Error("AtomSceneStream", false, "Error --  [%s] per-object ShaderResourceGroup NOT found.",
+                        currentMesh->GetName().c_str());
                     return false;
                 }
 
@@ -340,19 +298,19 @@ namespace AZ
                 Data::Instance<RPI::ShaderResourceGroup> meshObjectSrg = RPI::ShaderResourceGroup::Create(shaderAsset, objectSrgLayout->GetName());
                 if (!meshObjectSrg)
                 {
-                    AZ_Warning("AtomSceneStream", false, "Failed to create a new shader resource group.");
+                    AZ_Error("AtomSceneStream", false, "Error -- [%s] Failed to create a new shader resource group.",
+                        currentMesh->GetName().c_str());
                     return false;
                 }
 
                 // setup the mesh draw packet
                 RPI::MeshDrawPacket* drawPacket = new RPI::MeshDrawPacket(modelLod, 0, createdMaterial, meshObjectSrg);
-//                RPI::MeshDrawPacket* drawPacket = new RPI::MeshDrawPacket(modelLod, 0, material, meshObjectSrg);
-//                RPI::MeshDrawPacket* drawPacket = new RPI::MeshDrawPacket(modelLod, 0, nullptr, meshObjectSrg);
 
                 // set the shader option to select forward pass IBL specular if necessary
                 if (!drawPacket->SetShaderOption(AZ::Name("o_meshUseForwardPassIBLSpecular"), AZ::RPI::ShaderOptionValue{true}))
                 {
-                    AZ_Warning("AtomSceneStream", false, "Failed to set o_meshUseForwardPassIBLSpecular on mesh draw packet");
+                    AZ_Warning("AtomSceneStream", false, "[%s] Failed to set o_meshUseForwardPassIBLSpecular on mesh draw packet",
+                        currentMesh->GetName().c_str());
                 }
 
                 // stencil bits
@@ -361,18 +319,13 @@ namespace AZ
                 drawPacket->SetStencilRef(stencilRef);
                 drawPacket->SetSortKey(0);
                 RPI::Scene* scene = GetParentScene();
-                drawPacket->Update(*scene, false);
+                if (!drawPacket->Update(*scene, false))
+                {   // [Adi] The question here is if to fail or to return as is, and try to update the draw packet
+                    // at a later stage.
+                    AZ_Error("AtomSceneStream", false, "Warning -- [%s] Failed to update draw packet during creation - update will be postponed",
+                        currentMesh->GetName().c_str());
+                }
 
-                /*
-                if (material->CanCompile())
-                {
-                    material->Compile();
-                }
-                else
-                {
-                    AZ_Warning("AtomSceneStream", false, "Material for mesh [%s] was NOT compiled", currentMesh->GetName().c_str());
-                }
-                */
                 currentMesh->SetMeshDrawPacket(drawPacket);
             }
 
@@ -463,15 +416,27 @@ namespace AZ
                         AZ_Warning("AtomSceneStream", false, "Different model [%s] ptr between the map and Umbra", currentMesh->GetName().c_str());
                     }
 
-                    ++m_modelsRenderedThisFrame;
-
                     if (debugDraw)
                     {
                         DebugDraw(auxGeom, currentMesh, offset, Colors::Green);
 //                        DebugDrawMeshes(auxGeom, currentMesh, Colors::Green);
                     }
 
-                    currentMesh->Compile();
+                    // The material was not compiled yet - this is required for good data
+                    if (!currentMesh->Compile(scene))
+                    {
+                        AZ_Warning("AtomSceneStream", false, "Warning -- Model [%s] was not compiled - skipping render", currentMesh->GetName().c_str());
+                        DebugDraw(auxGeom, currentMesh, offset, Colors::Red);
+                        continue;
+                    }
+
+                    // The draw packet failed to acquire the RHI Draw Packet - this will require update
+                    RPI::MeshDrawPacket* drawPacket = currentMesh->GetMeshDrawPacket();
+                    if (!drawPacket->GetRHIDrawPacket() && !drawPacket->Update(*scene, false))
+                    {
+                        AZ_Error("AtomSceneStream", false, "Warning -- Failed to create draw packet during Render - render will be skipped");
+                        continue;
+                    }
 
                     // And add it to the views
                     for (auto& view : packet.m_views)
@@ -479,6 +444,8 @@ namespace AZ
                         currentMesh->GetMeshDrawPacket()->Update(*scene, false);
                         view->AddDrawPacket(currentMesh->GetMeshDrawPacket()->GetRHIDrawPacket());
                     }
+
+                    ++m_modelsRenderedThisFrame;
                 }
             }
 
@@ -497,7 +464,6 @@ namespace AZ
             if (!material || !material->GetAtomMaterial())
             {
                 AZ_Warning("AtomSceneStream", false, "Warning -- Mesh creation postponed until material is ready");
-                assetLoad.finish(UmbraAssetLoadResult_Failure);
                 return nullptr;
             }
 
@@ -518,13 +484,13 @@ namespace AZ
             if (!creationSuccess)
             {
                 delete meshPtr;
-                assetLoad.finish(UmbraAssetLoadResult_Failure);
                 return nullptr;
             }
+
             // Register the entry to mark that the model exists in the current frame.
             m_memoryUsage += meshPtr->GetMemoryUsage();
-//            m_modelsMapByModel[meshPtr] = Render::MeshFeatureProcessorInterface::MeshHandle();
             m_modelsMapByName[meshPtr->GetName()] = meshPtr;
+
             return meshPtr;
         }
 
@@ -565,6 +531,7 @@ namespace AZ
                 ptr = (void *) CreateMesh(assetLoad);
                 if (!ptr)
                 {
+                    assetLoad.finish(UmbraAssetLoadResult_Failure);
                     return true;    // the reason for returning true is to avoid breaking the streaming loop
                 }
                 break;

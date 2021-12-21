@@ -613,7 +613,7 @@ namespace AZ
             delete[] m_drawPacket;
         }
 
-        bool Mesh::Compile()
+        bool Mesh::Compile(RPI::Scene* scene)
         {
             if (!m_requiresCompile)
             {
@@ -627,14 +627,23 @@ namespace AZ
                 if (atomMaterial->NeedsCompile())
                 {
                     compiledSuccessfully = atomMaterial->Compile();
+                    AZ_Warning("AtomSceneStream", compiledSuccessfully, "Material [%s] for mesh [%s] FAILED compilation",
+                        m_material->GetName().c_str(), m_name.c_str());
+
+                    if (compiledSuccessfully && m_drawPacket && !m_drawPacket->GetRHIDrawPacket())
+                    {
+                        compiledSuccessfully = m_drawPacket->Update(*scene, false);
+                        AZ_Warning("AtomSceneStream", compiledSuccessfully, "Material [%s] for mesh [%s] FAILED to update drawPacket",
+                            m_material->GetName().c_str(), m_name.c_str() );      
+                    }
                 }
-                AZ_Warning("AtomSceneStream", false, "Material for mesh [%s] %s compilation", m_name.c_str(), compiledSuccessfully ? "finished" : "FAILED");
                 m_requiresCompile = !compiledSuccessfully;
                 return compiledSuccessfully;
             }
             else
             {
-                AZ_Warning("AtomSceneStream", false, "Material for mesh [%s] cannot be compiled at this time", m_name.c_str());
+                AZ_Warning("AtomSceneStream", false, "Material [%s] for mesh [%s] cannot be compiled at this time",
+                    m_material->GetName().c_str(), m_name.c_str());
             }
             return false;
         }

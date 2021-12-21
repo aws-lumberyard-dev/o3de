@@ -133,7 +133,7 @@ namespace AZ
                 m_drawPacket = drawPacket;
             }
 
-            bool Compile();
+            bool Compile(RPI::Scene* scene);
 
             RPI::MeshDrawPacket* GetMeshDrawPacket()
             {
@@ -170,8 +170,6 @@ namespace AZ
             // VB and IB Umbra descriptors for the streamer load
             Umbra::ElementBuffer m_vbStreamsDesc[UmbraVertexAttributeCount];
             Umbra::ElementBuffer m_ibDesc;
-
-            AZStd::unordered_map<Name, Data::Asset<RPI::BufferAsset>> m_bufferAssets;
 
             RPI::MeshDrawPacket* m_drawPacket = nullptr;
         };
