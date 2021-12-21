@@ -31,7 +31,7 @@ namespace AZ
     {
         class Mesh;
         using ModelsMapByModel = AZStd::unordered_map<AtomSceneStream::Mesh*, Render::MeshFeatureProcessorInterface::MeshHandle>;
-        using ModelsMapByName = AZStd::unordered_map<AZStd::string, Render::MeshFeatureProcessorInterface::MeshHandle>;
+        using ModelsMapByName = AZStd::unordered_map<AZStd::string, AtomSceneStream::Mesh*>;
 //        using ModelsMapByName = AZStd::unordered_map<AZStd::string, uint32_t>;
 
         const uint32_t GPU_MEMORY_LIMIT = 1024 * 1024 * 1024; // 1 GiB
@@ -65,8 +65,8 @@ namespace AZ
 //            void OnRenderPipelinePassesChanged(RPI::RenderPipeline* renderPipeline) override;
 
             // Umbra driven functionality
-            bool CreateMeshDrawPacket(AtomSceneStream::Mesh* currentMesh, Transform& modelTransform);
-            void UpdateStreamingResources();
+            bool CreateMeshDrawPacket(AtomSceneStream::Mesh* currentMesh);
+            AtomSceneStream::Mesh* CreateMesh(Umbra::AssetLoad& assetLoad);
             void CleanResource();
             void RemoveAllActiveModels();
             void DebugDraw(RPI::AuxGeomDrawPtr auxGeom, AtomSceneStream::Mesh* currentMesh, Vector3& offset, const Color& debugColor);
@@ -81,12 +81,8 @@ namespace AZ
             AZ_DISABLE_COPY_MOVE(AtomSceneStreamFeatureProcessor);
 
             Render::MeshFeatureProcessorInterface* m_meshFeatureProcessor = nullptr;
-//            ModelsMapByName m_modelsMapByName;
-//            ModelsMapByName m_visibleModelsMapByName;
-            ModelsMapByModel m_modelsMapByModel;
-            ModelsMapByName m_hiddenModelsByName;
-
-//            AZStd::vector<Render::MeshFeatureProcessorInterface::MeshHandle> m_meshHandles;
+            ModelsMapByName m_modelsMapByName;
+//            ModelsMapByModel m_modelsMapByModel;
 
             float m_quality = 0.5f;     // adjusted based on memory consumption
             uint32_t m_memoryUsage = 0;

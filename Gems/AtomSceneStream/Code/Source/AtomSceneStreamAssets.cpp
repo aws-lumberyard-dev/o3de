@@ -132,32 +132,32 @@ namespace AZ
         uint32_t Material::s_MaterialNumber = 0;
         bool Material::s_useTextures = true;
 
-        void Material::OnAssetReady(AZ::Data::Asset<AZ::Data::AssetData> materialAsset)
+        bool Material::SetProperties(Data::Instance<RPI::Material> material)
         {
-            m_atomMaterial = RPI::Material::Create(materialAsset);
-
             if (!m_atomMaterial)
             {
                 AZ_Error("AtomSceneStream", false, "Error -- Material was not created");
-                return;
+                return false;
             }
 
+            RPI::Material* rpiMaterial = (material != m_atomMaterial) ? material.get() : m_atomMaterial.get();
+
             // Adding the textures
-            RPI::MaterialPropertyIndex useDiffTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.useTexture"));
-            RPI::MaterialPropertyIndex useNormTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.useTexture"));
-            RPI::MaterialPropertyIndex useSpecTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("specularF0.useTexture"));
+            RPI::MaterialPropertyIndex useDiffTextureIndex = rpiMaterial->FindPropertyIndex(AZ::Name("baseColor.useTexture"));
+            RPI::MaterialPropertyIndex useNormTextureIndex = rpiMaterial->FindPropertyIndex(AZ::Name("normal.useTexture"));
+            RPI::MaterialPropertyIndex useSpecTextureIndex = rpiMaterial->FindPropertyIndex(AZ::Name("specularF0.useTexture"));
             if (s_useTextures)
             {
-                RPI::MaterialPropertyIndex diffTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.textureMap"));
+                RPI::MaterialPropertyIndex diffTextureIndex = rpiMaterial->FindPropertyIndex(AZ::Name("baseColor.textureMap"));
                 if (m_diffuse->GetStreamingImage() && diffTextureIndex.IsValid() && useDiffTextureIndex.IsValid())
                 {
-                    m_atomMaterial->SetPropertyValue(diffTextureIndex, m_diffuse->GetStreamingImage());
-                    m_atomMaterial->SetPropertyValue(useDiffTextureIndex, true);
+                    rpiMaterial->SetPropertyValue(diffTextureIndex, m_diffuse->GetStreamingImage());
+                    rpiMaterial->SetPropertyValue(useDiffTextureIndex, true);
 
-                    RPI::MaterialPropertyIndex colorFlipYIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.flipY"));
+                    RPI::MaterialPropertyIndex colorFlipYIndex = rpiMaterial->FindPropertyIndex(AZ::Name("baseColor.flipY"));
                     if (colorFlipYIndex.IsValid())
                     {   // This does not seem to be valid for some reason
-                        m_atomMaterial->SetPropertyValue(colorFlipYIndex, true);
+                        rpiMaterial->SetPropertyValue(colorFlipYIndex, true);
                     }
                 }
                 else if (!m_diffuse->GetStreamingImage())
@@ -165,34 +165,34 @@ namespace AZ
                     AZ_Warning("AtomSceneStream", false, "Warning -- Material [%s] Missing Diffuse Texture", m_name.c_str());
                 }
 
-                RPI::MaterialPropertyIndex normTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.textureMap"));
+                RPI::MaterialPropertyIndex normTextureIndex = rpiMaterial->FindPropertyIndex(AZ::Name("normal.textureMap"));
                 if (m_normal->GetStreamingImage() && normTextureIndex.IsValid() && useNormTextureIndex.IsValid())
                 {
-                    m_atomMaterial->SetPropertyValue(normTextureIndex, m_normal->GetStreamingImage());
-                    m_atomMaterial->SetPropertyValue(useNormTextureIndex, true);
+                    rpiMaterial->SetPropertyValue(normTextureIndex, m_normal->GetStreamingImage());
+                    rpiMaterial->SetPropertyValue(useNormTextureIndex, true);
 
-                    RPI::MaterialPropertyIndex normFlipYIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.flipY"));
+                    RPI::MaterialPropertyIndex normFlipYIndex = rpiMaterial->FindPropertyIndex(AZ::Name("normal.flipY"));
                     if (normFlipYIndex.IsValid())
                     {   // This does not seem to be valid for some reason
-                        m_atomMaterial->SetPropertyValue(normFlipYIndex, true);
+                        rpiMaterial->SetPropertyValue(normFlipYIndex, true);
                     }
                 }
                 else if (!m_normal->GetStreamingImage())
                 {
                     AZ_Warning("AtomSceneStream", false, "Warning -- Material [%s] Missing Normal Texture", m_name.c_str());
-                }            
-                m_atomMaterial->SetPropertyValue(useNormTextureIndex, false);
+                }
+                rpiMaterial->SetPropertyValue(useNormTextureIndex, false);
 
-                RPI::MaterialPropertyIndex specTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("specularF0.textureMap"));
+                RPI::MaterialPropertyIndex specTextureIndex = rpiMaterial->FindPropertyIndex(AZ::Name("specularF0.textureMap"));
                 if (m_specular->GetStreamingImage() && specTextureIndex.IsValid() && useSpecTextureIndex.IsValid())
                 {
-                    m_atomMaterial->SetPropertyValue(specTextureIndex, m_specular->GetStreamingImage());
-                    m_atomMaterial->SetPropertyValue(useSpecTextureIndex, true);
+                    rpiMaterial->SetPropertyValue(specTextureIndex, m_specular->GetStreamingImage());
+                    rpiMaterial->SetPropertyValue(useSpecTextureIndex, true);
 
-                    RPI::MaterialPropertyIndex specFlipYIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("specularF0.flipY"));
+                    RPI::MaterialPropertyIndex specFlipYIndex = rpiMaterial->FindPropertyIndex(AZ::Name("specularF0.flipY"));
                     if (specFlipYIndex.IsValid())
                     {   // This does not seem to be valid for some reason
-                        m_atomMaterial->SetPropertyValue(specFlipYIndex, true);
+                        rpiMaterial->SetPropertyValue(specFlipYIndex, true);
                     }
                 }
                 else if (!m_specular->GetStreamingImage())
@@ -202,44 +202,44 @@ namespace AZ
             }
             else
             {
-                m_atomMaterial->SetPropertyValue(useDiffTextureIndex, false);
-                m_atomMaterial->SetPropertyValue(useNormTextureIndex, false);
-                m_atomMaterial->SetPropertyValue(useSpecTextureIndex, false);
+                rpiMaterial->SetPropertyValue(useDiffTextureIndex, false);
+                rpiMaterial->SetPropertyValue(useNormTextureIndex, false);
+                rpiMaterial->SetPropertyValue(useSpecTextureIndex, false);
 
                 // And setting a dummy color
-                RPI::MaterialPropertyIndex colorIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.color"));
+                RPI::MaterialPropertyIndex colorIndex = rpiMaterial->FindPropertyIndex(AZ::Name("baseColor.color"));
                 if (colorIndex.IsValid())
                 {
                     const Color dummyColor = Color(1.0f, 0.5f, 0.5f, 1.0f);
-                    m_atomMaterial->SetPropertyValue(colorIndex, dummyColor);
+                    rpiMaterial->SetPropertyValue(colorIndex, dummyColor);
                 }
             }
 
-
-            RPI::MaterialPropertyIndex useRoughTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("roughness.useTexture"));
-            m_atomMaterial->SetPropertyValue(useRoughTextureIndex, false);
-            RPI::MaterialPropertyIndex roughnessFactorIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("roughness.factor"));
-            m_atomMaterial->SetPropertyValue(roughnessFactorIndex, 0.5f);
+            RPI::MaterialPropertyIndex useRoughTextureIndex = rpiMaterial->FindPropertyIndex(AZ::Name("roughness.useTexture"));
+            rpiMaterial->SetPropertyValue(useRoughTextureIndex, false);
+            RPI::MaterialPropertyIndex roughnessFactorIndex = rpiMaterial->FindPropertyIndex(AZ::Name("roughness.factor"));
+            rpiMaterial->SetPropertyValue(roughnessFactorIndex, 0.5f);
 
             if (m_isTransparent)
             {
-                RPI::MaterialPropertyIndex opacityModeIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("opacity.mode"));
-                RPI::MaterialPropertyIndex factorModeIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("opacity.factor"));
+                RPI::MaterialPropertyIndex opacityModeIndex = rpiMaterial->FindPropertyIndex(AZ::Name("opacity.mode"));
+                RPI::MaterialPropertyIndex factorModeIndex = rpiMaterial->FindPropertyIndex(AZ::Name("opacity.factor"));
                 if (opacityModeIndex.IsValid() && factorModeIndex.IsValid())
                 {
                     int opaqueMode = 3; // TintedTransparent
-                    m_atomMaterial->SetPropertyValue(opacityModeIndex, opaqueMode);
-                    m_atomMaterial->SetPropertyValue(factorModeIndex, 0.7f);
+                    rpiMaterial->SetPropertyValue(opacityModeIndex, opaqueMode);
+                    rpiMaterial->SetPropertyValue(factorModeIndex, 0.7f);
                 }
             }
-//            RPI::MaterialPropertyIndex doubleSidedIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("general.doubleSided"));
-//            if (doubleSidedIndex.IsValid())
-//            {
-//                const bool doubleSided = true; 
-//                m_atomMaterial->SetPropertyValue(doubleSidedIndex, doubleSided);
-//            }
 
-            m_atomMaterial->Compile();
+            return rpiMaterial->Compile();
+        }
+
+        void Material::OnAssetReady(AZ::Data::Asset<AZ::Data::AssetData> materialAsset)
+        {
+            m_atomMaterial = RPI::Material::Create(materialAsset);
+
+            SetProperties(m_atomMaterial);
 
             if (printCreationMessages)
                 AZ_Warning("AtomSceneStream", false, " Material [%s] was created with Textures: [%s]   [%s]   [%s]",
@@ -348,8 +348,11 @@ namespace AZ
                     m_aabb.AddPoint(*positionV3);
                 }
                 else
-                    AZ_Error("AtomSceneStream", false, "Error -- vertex [%d:%d] out of bound (%.2f, %.2f, %.2f) in model [%s]",
+                {   // This can happen with Umbra that migth skip last vertices for proper packing and not include them
+                    // in the index references
+                    AZ_Warning("AtomSceneStream", false, "Warning -- vertex [%d:%d] out of bound (%.2f, %.2f, %.2f) in model [%s]",
                         vtx, m_vertexCount, positionV3->GetX(), positionV3->GetY(), positionV3->GetZ(), m_name.c_str());
+                }
             }
 
             AZ_Error("AtomSceneStream", m_aabb.IsValid(), "Error --- Model [%s] AABB is invalid - all [%d] vertices are corrupted",
@@ -434,7 +437,7 @@ namespace AZ
                         modelLodAssetCreator.SetMeshAabb(AZStd::move(m_aabb));
                         modelLodAssetCreator.SetMeshName(Name{ m_name.c_str() });
                     }
-
+/*
                     // And finally add the material associated with the streaming model
                     if (m_material && m_material->GetAtomMaterial())
                     {
@@ -449,6 +452,7 @@ namespace AZ
                         AZStd::string messageStr = m_material ? "Error -- Missing Atom Material [" : " Error -- Missing Umbra Material [" + m_name + "]";
                         AZ_Warning("AtomSceneStream", false, messageStr.c_str());
                     }
+                    */
                 }
                 modelLodAssetCreator.EndMesh();
 
@@ -607,6 +611,32 @@ namespace AZ
             free(m_buffersData);
             m_buffersData = nullptr;
             delete[] m_drawPacket;
+        }
+
+        bool Mesh::Compile()
+        {
+            if (!m_requiresCompile)
+            {
+                return true;
+            }
+
+            Data::Instance<RPI::Material> atomMaterial = m_material->GetAtomMaterial();
+            if (atomMaterial->CanCompile())
+            {
+                bool compiledSuccessfully = true;
+                if (atomMaterial->NeedsCompile())
+                {
+                    compiledSuccessfully = atomMaterial->Compile();
+                }
+                AZ_Warning("AtomSceneStream", false, "Material for mesh [%s] %s compilation", m_name.c_str(), compiledSuccessfully ? "finished" : "FAILED");
+                m_requiresCompile = !compiledSuccessfully;
+                return compiledSuccessfully;
+            }
+            else
+            {
+                AZ_Warning("AtomSceneStream", false, "Material for mesh [%s] cannot be compiled at this time", m_name.c_str());
+            }
+            return false;
         }
 
     } // namespace AtomSceneStream

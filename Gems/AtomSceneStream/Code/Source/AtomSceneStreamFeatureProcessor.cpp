@@ -124,18 +124,8 @@ namespace AZ
 
         void AtomSceneStreamFeatureProcessor::RemoveAllActiveModels()
         {
-//            auto iter = m_visibleModelsMapByName.begin();
-//            while (iter != m_visibleModelsMapByName.end())
-            auto iter = m_modelsMapByModel.begin();
-            while (iter != m_modelsMapByModel.end())
-            {
-                Render::MeshFeatureProcessorInterface::MeshHandle& modelHandle = iter->second;
-                [[maybe_unused]] bool meshReleased = m_meshFeatureProcessor->ReleaseMesh(modelHandle);
-                ++iter;
-            }
-            m_modelsMapByModel.clear();
-//            m_visibleModelsMapByName.clear();
-            m_hiddenModelsByName.clear();
+//            m_modelsMapByModel.clear();
+            m_modelsMapByName.clear();
         }
 
         AtomSceneStreamFeatureProcessor::~AtomSceneStreamFeatureProcessor()
@@ -199,7 +189,7 @@ namespace AZ
 //            RPI::ViewPtr currentView = this->GetParentScene()->Get GetView();
 //            Camera::CameraRequestBus::EventResult(viewWidth, m_cameraEntityId, &Camera::CameraRequestBus::Events::GetFrustumWidth);
 
-            float nearDist = AZStd::min(config.m_nearClipDistance, 0.01f);
+            float nearDist = AZStd::min(config.m_nearClipDistance, 0.002f);
             float farDist = config.m_farClipDistance;
             // [Adi] - the following aspect is a hack since the aspect is bogus per the code in GetActiveCameraConfiguration
             float aspectRatio = 1.35f * config.m_frustumWidth / config.m_frustumHeight; 
@@ -285,116 +275,68 @@ namespace AZ
             auxGeom->DrawPoints(drawArgs);
         }
 
-        void AtomSceneStreamFeatureProcessor::UpdateStreamingResources()
-        {
-            if (!m_runtime)
-                return;
-
-            // run the streaming load for 20 msec - ideally this should be done on another thread!
-            HandleAssetsStreaming(0.025f);
-
-            // Can be removed?
-            Render::MeshFeatureProcessorInterface* currentMeshFeatureProcessor = GetParentScene()->GetFeatureProcessor<Render::MeshFeatureProcessorInterface>();
-            if (!currentMeshFeatureProcessor || (currentMeshFeatureProcessor != m_meshFeatureProcessor))
-            {   // Ignore previous stored models - they need to be registered again on the current mesh feature processor
-                m_modelsMapByModel.clear();
-//                m_visibleModelsMapByName.clear();    // Do we need to clean any memory? probably not since Umbra manages it indirectly.
-                m_hiddenModelsByName.clear();
-                m_meshFeatureProcessor = currentMeshFeatureProcessor;
-
-                if (!m_meshFeatureProcessor)
-                {
-                    AZ_Warning("AtomSceneStream", false, "MeshFeatureProcessor was not acquired.");
-                    return;
-                }
-            }
-
-            UpdateUmbraViewCamera();
-
-            m_runtime->update();
-
-            RPI::Scene* scene = GetParentScene();
-            RPI::AuxGeomDrawPtr auxGeom = AZ::RPI::AuxGeomFeatureProcessorInterface::GetDrawQueueForScene(scene);
-            m_modelsCreatedThisFrame = 0;
-            for (;;)
-            {
-                Umbra::Renderable batch[128];
-                int num = m_view.nextRenderables(batch, sizeof(batch) / sizeof(batch[0]));
-                if (!num)
-                    break;
-
-                for (int i = 0; i < num; i++)
-                {
-                    AtomSceneStream::Mesh* currentMesh = (AtomSceneStream::Mesh*)batch[i].mesh;
-
-                    if (!currentMesh->IsReady())
-                    {
-                        AZ_Warning("AtomSceneStream", false, "Model [%s] not ready yet - prep will be skipped", currentMesh->GetName().c_str());
-                        continue;
-                    }
-
-                    const float* matrixValues = (const float*)&batch[i].transform.v[0].v[0];
-                    Matrix3x4 modelMatrix = Matrix3x4::CreateFromColumnMajorFloat16(matrixValues);
-                    Transform modelTransform = Transform::CreateFromMatrix3x4(modelMatrix);
-                    Vector3 offset = modelMatrix.GetTranslation();
-                    Transform positionTransform = AZ::Transform::CreateIdentity();
-                    positionTransform.SetTranslation(offset);
-
-                    // Next remove all meshes already registered / with DrawPacket
-                    if (m_modelsMapByModel.find(currentMesh) != m_modelsMapByModel.end())
-                    {
-                        continue;
-                    }
-
-                    currentMesh->GetAtomMaterial()->Compile();
-                    if (!CreateMeshDrawPacket(currentMesh, positionTransform))
-                    {
-                        AZ_Warning("AtomSceneStream", false, "DrawPacket for Model [%s] was not created", currentMesh->GetName().c_str());
-                        DebugDraw(auxGeom, currentMesh, offset, Colors::Red);
-                        continue;
-                    }
-
-                    if (debugDraw)
-                    {
-                        DebugDraw(auxGeom, currentMesh, offset, Colors::White);
-//                        DebugDrawMeshes(auxGeom, currentMesh, Colors::Green);
-                    }
-
-                    // Register the entry to mark that the model exists in the current frame.
-                    m_modelsMapByModel[currentMesh] = Render::MeshFeatureProcessorInterface::MeshHandle();
-                    ++m_modelsCreatedThisFrame;
-                }
-            }
-
-        }
-
         // based on         void ModelDataInstance::BuildDrawPacketList(size_t modelLodIndex)
-        bool AtomSceneStreamFeatureProcessor::CreateMeshDrawPacket(
-            AtomSceneStream::Mesh* currentMesh, [[maybe_unused]] Transform& modelTransform)
+        bool AtomSceneStreamFeatureProcessor::CreateMeshDrawPacket(AtomSceneStream::Mesh* currentMesh)
         {
             Data::Instance<RPI::Model> atomModel = currentMesh->GetAtomModel();
             RPI::ModelLod& modelLod = *atomModel->GetLods()[0];
 
             {
-                const RPI::ModelLod::Mesh& mesh = modelLod.GetMeshes()[0];
-                Data::Instance<RPI::Material> material = mesh.m_material;
+//Adi                const RPI::ModelLod::Mesh& mesh = modelLod.GetMeshes()[0];
+//Adi                Data::Instance<RPI::Material> material = mesh.m_material;
+//                Data::Instance<RPI::Material> material = currentMesh->GetAtomMaterial();
+                Data::Instance<RPI::Material> createdMaterial = currentMesh->GetAtomMaterial();
 
-                if (!material)
+                /*//Adi
+                if (!material)// || !material->CanCompile())
                 {
                     material = currentMesh->GetAtomMaterial();
-                    AZ_Warning("AtomSceneStream", material, "No material provided for mesh.");
+//                    AZ_Warning("AtomSceneStream", material, "No mesh [%s] material instance or cannot be compiled", currentMesh->GetName().c_str());
+                    AZ_Warning("AtomSceneStream", material, "No mesh [%s] material instance", currentMesh->GetName().c_str());
                     return false;
                 }
+                */
+//                if (material != createdMaterial)
+//                {
+//                    material = createdMaterial;
+//                    AZ_Warning("AtomSceneStream", material, "Warning -- Material set in the mesh and material created are not identical");
+//                }
 
-                auto& objectSrgLayout = material->GetAsset()->GetObjectSrgLayout();
+                /*
+                //////////////////
+                const auto& materialAsset = m_materialInstance->GetAsset();
+                const auto& shaderAsset = materialAsset->GetMaterialTypeAsset()->GetShaderAssetForObjectSrg();
 
+                for (float yPatch = yFirstPatchStart; yPatch <= yLastPatchStart; yPatch += GridMeters)
+                {
+                    for (float xPatch = xFirstPatchStart; xPatch <= xLastPatchStart; xPatch += GridMeters)
+                    {
+                        auto objectSrg = AZ::RPI::ShaderResourceGroup::Create(shaderAsset, materialAsset->GetObjectSrgLayout()->GetName());
+                        if (!objectSrg)
+                        {
+                            AZ_Warning("TerrainFeatureProcessor", false, "Failed to create a new shader resource group, skipping.");
+                            continue;
+                        }
+                ////////////////////
+                */
+
+//Adi                if (material != createdMaterial)
+                {
+                    currentMesh->GetMaterial()->SetProperties(createdMaterial);
+//Adi                    currentMesh->GetMaterial()->SetProperties(material);
+//                    AZ_Warning("AtomSceneStream", currentMesh->GetMaterial()->SetProperties(material), "Warning - material was not compiled for mesh [%s] after SetProperties()", currentMesh->GetName().c_str());
+                }
+
+//Adi                const auto& materialAsset = material->GetAsset();
+                const auto& materialAsset = createdMaterial->GetAsset();
+                auto& objectSrgLayout = materialAsset->GetObjectSrgLayout();
                 if (!objectSrgLayout)
                 {
-                    AZ_Warning("AtomSceneStream", false, "No per-object ShaderResourceGroup found.");
+                    AZ_Warning("AtomSceneStream", false, "No per-object ShaderResourceGroup found for [%s].", currentMesh->GetName().c_str());
                     return false;
                 }
 
-                auto& shaderAsset = material->GetAsset()->GetMaterialTypeAsset()->GetShaderAssetForObjectSrg();
+                auto& shaderAsset = materialAsset->GetMaterialTypeAsset()->GetShaderAssetForObjectSrg();
                 Data::Instance<RPI::ShaderResourceGroup> meshObjectSrg = RPI::ShaderResourceGroup::Create(shaderAsset, objectSrgLayout->GetName());
                 if (!meshObjectSrg)
                 {
@@ -403,7 +345,9 @@ namespace AZ
                 }
 
                 // setup the mesh draw packet
-                RPI::MeshDrawPacket* drawPacket = new RPI::MeshDrawPacket(modelLod, 0, material, meshObjectSrg);
+                RPI::MeshDrawPacket* drawPacket = new RPI::MeshDrawPacket(modelLod, 0, createdMaterial, meshObjectSrg);
+//                RPI::MeshDrawPacket* drawPacket = new RPI::MeshDrawPacket(modelLod, 0, material, meshObjectSrg);
+//                RPI::MeshDrawPacket* drawPacket = new RPI::MeshDrawPacket(modelLod, 0, nullptr, meshObjectSrg);
 
                 // set the shader option to select forward pass IBL specular if necessary
                 if (!drawPacket->SetShaderOption(AZ::Name("o_meshUseForwardPassIBLSpecular"), AZ::RPI::ShaderOptionValue{true}))
@@ -419,6 +363,16 @@ namespace AZ
                 RPI::Scene* scene = GetParentScene();
                 drawPacket->Update(*scene, false);
 
+                /*
+                if (material->CanCompile())
+                {
+                    material->Compile();
+                }
+                else
+                {
+                    AZ_Warning("AtomSceneStream", false, "Material for mesh [%s] was NOT compiled", currentMesh->GetName().c_str());
+                }
+                */
                 currentMesh->SetMeshDrawPacket(drawPacket);
             }
 
@@ -435,7 +389,30 @@ namespace AZ
             }
             else
             {
-                UpdateStreamingResources();
+                if (!m_runtime)
+                    return;
+
+                // run the streaming load for 20 msec - ideally this should be done on another thread!
+                HandleAssetsStreaming(0.025f);
+
+                // Can be removed?
+                Render::MeshFeatureProcessorInterface* currentMeshFeatureProcessor = GetParentScene()->GetFeatureProcessor<Render::MeshFeatureProcessorInterface>();
+                if (!currentMeshFeatureProcessor || (currentMeshFeatureProcessor != m_meshFeatureProcessor))
+                {   // Ignore previous stored models - they need to be registered again on the current mesh feature processor
+//                    m_modelsMapByModel.clear();
+                    m_modelsMapByName.clear();
+                    m_meshFeatureProcessor = currentMeshFeatureProcessor;
+
+                    if (!m_meshFeatureProcessor)
+                    {
+                        AZ_Warning("AtomSceneStream", false, "MeshFeatureProcessor was not acquired.");
+                        return;
+                    }
+                }
+
+                UpdateUmbraViewCamera();
+
+                m_runtime->update();
             }
 
             AZ_UNUSED(packet);
@@ -444,6 +421,9 @@ namespace AZ
         void AtomSceneStreamFeatureProcessor::Render([[maybe_unused]] const RPI::FeatureProcessor::RenderPacket& packet)
         {
             AZ_PROFILE_FUNCTION(AzRender);
+
+            if (!m_runtime)
+                return;
 
             RPI::Scene* scene = GetParentScene();
             RPI::AuxGeomDrawPtr auxGeom = AZ::RPI::AuxGeomFeatureProcessorInterface::GetDrawQueueForScene(scene);
@@ -468,12 +448,19 @@ namespace AZ
 
                     ++m_modelsRequiredThisFrame;
 
-                    if (m_modelsMapByModel.find(currentMesh) == m_modelsMapByModel.end())
+//                    if (m_modelsMapByModel.find(currentMesh) == m_modelsMapByModel.end())
+                    auto iter = m_modelsMapByName.find(currentMesh->GetName());
+                    if (iter == m_modelsMapByName.end())
                     {
                         offset += Vector3(0.01f, 0.01f, 0.01f);
                         AZ_Warning("AtomSceneStream", false, "Model [%s] is not in the registered map yet - Render will be skipped", currentMesh->GetName().c_str());
                         DebugDraw(auxGeom, currentMesh, offset, Colors::Yellow);
                         continue;
+                    }
+
+                    if (currentMesh != iter->second)
+                    {
+                        AZ_Warning("AtomSceneStream", false, "Different model [%s] ptr between the map and Umbra", currentMesh->GetName().c_str());
                     }
 
                     ++m_modelsRenderedThisFrame;
@@ -484,9 +471,12 @@ namespace AZ
 //                        DebugDrawMeshes(auxGeom, currentMesh, Colors::Green);
                     }
 
+                    currentMesh->Compile();
+
                     // And add it to the views
                     for (auto& view : packet.m_views)
                     {
+                        currentMesh->GetMeshDrawPacket()->Update(*scene, false);
                         view->AddDrawPacket(currentMesh->GetMeshDrawPacket()->GetRHIDrawPacket());
                     }
                 }
@@ -494,9 +484,48 @@ namespace AZ
 
             if (printDebugInfo && printDebugStats)// && modelsRemoved)
             {
-                AZ_Warning("AtomSceneStream", false, "\n======================\nModels Stats - Total[%d] - Created[%d] - Rendered[%d]\n==================== = \n",
-                    m_modelsRequiredThisFrame, m_modelsCreatedThisFrame, m_modelsRenderedThisFrame);
+                AZ_Warning("AtomSceneStream", false, "\n-------------------\nModels Stats - Total[%d] - Rendered[%d]\n-------------------\n",
+                    m_modelsRequiredThisFrame, m_modelsRenderedThisFrame);
             }
+        }
+
+        AtomSceneStream::Mesh* AtomSceneStreamFeatureProcessor::CreateMesh(Umbra::AssetLoad& assetLoad)
+        {
+            bool creationSuccess = true;
+            Umbra::MeshInfo info = assetLoad.getMeshInfo();
+            AtomSceneStream::Material* material = (AtomSceneStream::Material*)info.material;
+            if (!material || !material->GetAtomMaterial())
+            {
+                AZ_Warning("AtomSceneStream", false, "Warning -- Mesh creation postponed until material is ready");
+                assetLoad.finish(UmbraAssetLoadResult_Failure);
+                return nullptr;
+            }
+
+            AtomSceneStream::Mesh* meshPtr = new AtomSceneStream::Mesh(assetLoad);
+            if (!meshPtr->IsReady())
+            {
+                AZ_Error("AtomSceneStream", false, "Error -- Mesh %s FAILED creation - deleting now", meshPtr->GetName().c_str());
+                creationSuccess = false;
+            }
+
+            meshPtr->GetAtomMaterial()->Compile();
+            if (creationSuccess && !CreateMeshDrawPacket(meshPtr))
+            {
+                AZ_Warning("AtomSceneStream", false, "Error -- DrawPacket for Model [%s] was not created - deleting now", meshPtr->GetName().c_str());
+                creationSuccess = false;
+            }
+
+            if (!creationSuccess)
+            {
+                delete meshPtr;
+                assetLoad.finish(UmbraAssetLoadResult_Failure);
+                return nullptr;
+            }
+            // Register the entry to mark that the model exists in the current frame.
+            m_memoryUsage += meshPtr->GetMemoryUsage();
+//            m_modelsMapByModel[meshPtr] = Render::MeshFeatureProcessorInterface::MeshHandle();
+            m_modelsMapByName[meshPtr->GetName()] = meshPtr;
+            return meshPtr;
         }
 
         // AssetLoad tells that an asset should be loaded into GPU. This function loads a single asset
@@ -533,23 +562,11 @@ namespace AZ
 
             case UmbraAssetType_Mesh:
             {
-                Umbra::MeshInfo info = assetLoad.getMeshInfo();
-                AtomSceneStream::Material* material = (AtomSceneStream::Material*)info.material;
-                if (!material || !material->GetAtomMaterial())
+                ptr = (void *) CreateMesh(assetLoad);
+                if (!ptr)
                 {
-                    AZ_Warning("AtomSceneStream", false, "Warning -- Mesh creation postponed until material is ready");
-                    break;
+                    return true;    // the reason for returning true is to avoid breaking the streaming loop
                 }
-                ptr = new AtomSceneStream::Mesh(assetLoad);
-                AtomSceneStream::Mesh* meshPtr = (AtomSceneStream::Mesh*) ptr;
-                if (!meshPtr->IsReady())
-                {
-                    AZ_Error("AtomSceneStream", false, "Error -- Mesh %s FAILED creation - deleting now", meshPtr->GetName().c_str());
-//                    delete meshPtr;
-                    assetLoad.finish(UmbraAssetLoadResult_Failure);
-                    return true;    // the reason to return true is to avoid breaking the streaming loop
-                }
-                m_memoryUsage += ((AtomSceneStream::Mesh*)ptr)->GetMemoryUsage();
                 break;
             }
 
@@ -596,27 +613,23 @@ namespace AZ
                 if (m_meshFeatureProcessor && meshForRemoval)
                 {
                     m_memoryUsage -= meshForRemoval->GetMemoryUsage();
-                    auto iter = m_modelsMapByModel.find(meshForRemoval);
-                    if (iter != m_modelsMapByModel.end())
-//                    auto iter = m_visibleModelsMapByName.find(meshForRemoval->GetName());
-//                    if (iter != m_visibleModelsMapByName.end())
+//                    auto iter = m_modelsMapByModel.find(meshForRemoval);
+//                    if (iter != m_modelsMapByModel.end())
+                    auto iter = m_modelsMapByName.find(meshForRemoval->GetName());
+                    if (iter != m_modelsMapByName.end())
                     {
                         if (printDebugInfo && printDebugRemoval)
                         {
                             AZStd::string errorMessage = "--- Mesh (Streamer) Removal [" + meshForRemoval->GetName() + "]";
                             AZ_Warning("AtomSceneStream", false, errorMessage.c_str());
                         }
-
-                        Render::MeshFeatureProcessorInterface::MeshHandle& modelHandle = iter->second;
-                        [[maybe_unused]] bool meshReleased = m_meshFeatureProcessor->ReleaseMesh(modelHandle);
-//                        iter = m_visibleModelsMapByName.erase(iter);     // erase from map and advance iterator
-                        m_modelsMapByModel.erase(iter); 
+                        m_modelsMapByName.erase(iter);
+//                        m_modelsMapByModel.erase(iter);
                     }
+//                    delete meshForRemoval;    [Adi] - to do: requires postponed deletion (3 frames delay)
                 }
-//                delete meshForRemoval; [Adi] - adibugbug
                 break;
             }
-
             default: break;
             }
 
@@ -648,13 +661,14 @@ namespace AZ
         {
             m_readyForStreaming = true;
             RemoveAllActiveModels();
-
+            m_isConnectedAndStreaming = false;
         }
 
         void AtomSceneStreamFeatureProcessor::OnRenderPipelineRemoved([[maybe_unused]]RPI::RenderPipeline* renderPipeline)
         {
             m_readyForStreaming = false;
             RemoveAllActiveModels();
+            m_isConnectedAndStreaming;
         }
 
     } // namespace AtomSceneStream

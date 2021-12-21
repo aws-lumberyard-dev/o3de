@@ -65,6 +65,8 @@ namespace AZ
             // AZ::Data::AssetBus::Handler
             void OnAssetReady(AZ::Data::Asset<AZ::Data::AssetData> asset) override;
 
+            bool SetProperties(Data::Instance<RPI::Material> material);
+
             Data::Instance<RPI::Material> GetAtomMaterial()  { return m_atomMaterial; }
 
             AZStd::string GetName() { return m_name; }
@@ -114,6 +116,8 @@ namespace AZ
                 return (m_material ? m_material->GetAtomMaterial() : nullptr);
             }
 
+            Material* GetMaterial() { return m_material;  }
+
             uint32_t GetMemoryUsage() { return m_allocatedSize; }
             AZStd::string& GetName() { return m_name;  }
             const Aabb& GetAABB() { return m_aabb;  }
@@ -129,7 +133,9 @@ namespace AZ
                 m_drawPacket = drawPacket;
             }
 
-            const RPI::MeshDrawPacket* GetMeshDrawPacket()
+            bool Compile();
+
+            RPI::MeshDrawPacket* GetMeshDrawPacket()
             {
                 return m_drawPacket;
             }
@@ -159,6 +165,7 @@ namespace AZ
             Data::Instance<RPI::Model> m_atomModel;
             AZStd::string m_name;
             bool m_modelReady = false;
+            bool m_requiresCompile = true;
 
             // VB and IB Umbra descriptors for the streamer load
             Umbra::ElementBuffer m_vbStreamsDesc[UmbraVertexAttributeCount];
