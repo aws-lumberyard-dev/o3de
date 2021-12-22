@@ -8,6 +8,7 @@
 
 #include <Atom/Utils/PngFile.h>
 #include <png.h>
+#include <AzCore/IO/SystemFile.h>
 
 namespace AZ
 {
@@ -114,16 +115,17 @@ namespace AZ
                 };
             }
 
-            FILE* fp = NULL;
-            azfopen(&fp, path, "rb"); // return type differs across platforms so can't do inside if
-            if (!fp)
+            AZ::IO::SystemFile file;
+            file.Open(path, AZ::IO::SystemFile::SF_OPEN_READ_ONLY);
+            if (!file.IsOpen())
             {
                 loadSettings.m_errorHandler("Cannot open file.");
                 return {};
             }
+            constexpr bool StreamOwnsFilePointer = true;
+            AZ::IO::SystemFileStream fileLoadStream(&file, StreamOwnsFilePointer);
 
-            auto pngFile = LoadInternal(fp, {}, loadSettings);
-            fclose(fp);
+            auto pngFile = LoadInternal(fileLoadStream, loadSettings);
             return pngFile;
         }
 
@@ -143,17 +145,19 @@ namespace AZ
                 return {};
             }
 
-            return LoadInternal(nullptr, data, loadSettings);
+            AZ::IO::MemoryStream memStream(data.data(), data.size());
+
+            return LoadInternal(memStream, loadSettings);
         }
 
-        PngFile PngFile::LoadInternal(FILE* filePtr, AZStd::array_view<uint8_t> data, LoadSettings loadSettings)
+        PngFile PngFile::LoadInternal(AZ::IO::GenericStream& dataStream, LoadSettings loadSettings)
         {
             // For documentation of this code, see http://www.libpng.org/pub/png/libpng-1.4.0-manual.pdf chapter 3
 
-            // Verify that we've passed in either a valid filePtr or a valid data buffer, but not both.
-            if (!filePtr && data.empty())
+            // Verify that we've passed in a valid data stream.
+            if (!dataStream.IsOpen()  || !dataStream.CanRead())
             {
-                loadSettings.m_errorHandler("No data was provided to PngFile.");
+                loadSettings.m_errorHandler("Data stream isn't valid.");
                 return {};
             }
             if (filePtr && !data.empty())
@@ -169,7 +173,6 @@ namespace AZ
 
             // This is the one I/O read that occurs outside of the png library, so either read from the file or the buffer and
             // verify the results.
-            headerBytesRead = filePtr ? fread(header, 1, HeaderSize, filePtr) : reader.ReadData(header, HeaderSize);
             if (headerBytesRead != HeaderSize)
             {
                 loadSettings.m_errorHandler("Invalid png header.");
@@ -210,27 +213,31 @@ namespace AZ
                 return {};
             }
 
-            AZ_PUSH_DISABLE_WARNING(
-                4611, "-Wunknown-warning-option") // Disables "interaction between '_setjmp' and C++ object destruction is non-portable".
-                                                  // See https://docs.microsoft.com/en-us/cpp/preprocessor/warning?view=msvc-160
+// Disables "interaction between '_setjmp' and C++ object destruction is non-portable".
+// See https://docs.microsoft.com/en-us/cpp/preprocessor/warning?view=msvc-160
+AZ_PUSH_DISABLE_WARNING(4611, "-Wunknown-warning-option") 
             if (setjmp(png_jmpbuf(png_ptr)))
             {
                 png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
                 // We don't report an error message here because the user_error_fn should have done that already.
                 return {};
             }
-            AZ_POP_DISABLE_WARNING
+AZ_POP_DISABLE_WARNING
 
-            // If we have a file pointer, let libpng handle the file I/O.  Otherwise, provide a custom function for reading data
-            // from the array_view.
-            if (filePtr)
+            auto genericStreamReader = [](png_structp pngPtr, png_bytep data, png_size_t length)
             {
-                png_init_io(png_ptr, filePtr);
-            }
-            else
-            {
-                png_set_read_fn(png_ptr, &reader, ArrayViewReader::PngReadFn);
-            }
+                // Here we get our IO pointer back from the read struct.
+                // This should be the GenericStream pointer we passed to the png_set_read_fn() function.
+                png_voidp ioPtr = png_get_io_ptr(pngPtr);
+
+                if (ioPtr != nullptr)
+                {
+                    AZ::IO::GenericStream* genericStream = static_cast<AZ::IO::GenericStream*>(ioPtr);
+                    genericStream->Read(length, data);
+                }
+            };
+
+            png_set_read_fn(png_ptr, &dataStream, genericStreamReader);
 
             png_set_sig_bytes(png_ptr, HeaderSize);
 
