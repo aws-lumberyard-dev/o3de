@@ -215,6 +215,8 @@ namespace AZ
             //! Note: this function SHOULD ONLY be used when you are certain you only need to handle the first pass found
             virtual Pass* FindFirstPass(const PassFilter& filter) = 0;
 
+            virtual void RescaleAttachments() = 0;
+
         private:
             // These functions are only meant to be used by the Pass class
 

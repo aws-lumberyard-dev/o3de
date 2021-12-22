@@ -116,12 +116,11 @@ half3 GetDiffuseLightingHalf2(
 
 void ApplyDirectionalLightsHalf(Surface surface, inout LightingData lightingData)
 {
-#if 0
     // Shadowed check
     //const uint shadowIndex = ViewSrg::m_shadowIndexDirectionalLight;
     half litRatio = 1.0h;
     half backShadowRatio = 0.0h;
-    if (o_enableShadows && shadowIndex <  SceneSrg::m_directionalLightCount)
+    /*if (o_enableShadows && shadowIndex <  SceneSrg::m_directionalLightCount)
     {
         litRatio = DirectionalLightShadow::GetVisibility(
             shadowIndex,
@@ -133,8 +132,7 @@ void ApplyDirectionalLightsHalf(Surface surface, inout LightingData lightingData
         {
             backShadowRatio = DirectionalLightShadow::GetThickness(shadowIndex, lightingData.shadowCoords);
         }
-    }
-#endif // #if 0
+    }*/
 
     // Add the lighting contribution for each directional light
     for (int index = 0; index < SceneSrg::m_directionalLightCount; index++)
@@ -154,8 +152,7 @@ void ApplyDirectionalLightsHalf(Surface surface, inout LightingData lightingData
         // Currently shadow check is done only for index == shadowIndex.
         half currentLitRatio = 1.0h;
         half currentBackShadowRatio = 1.0h;
-#if 0
-        if (o_enableShadows)
+        /*if (o_enableShadows)
         {
             currentLitRatio = (index == shadowIndex) ? litRatio : 1.0h;
             
@@ -164,8 +161,7 @@ void ApplyDirectionalLightsHalf(Surface surface, inout LightingData lightingData
             {
                 currentBackShadowRatio = (index == shadowIndex) ?  backShadowRatio : 0.0h;
             }
-        }
-#endif // #if 0
+        }*/
 
         //half fDP = dot(surface.normal.xyz, dirToLight);
         //lightingData.diffuseLighting += (half3(

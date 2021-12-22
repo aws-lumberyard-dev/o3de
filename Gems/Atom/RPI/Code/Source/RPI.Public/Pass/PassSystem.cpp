@@ -328,10 +328,10 @@ namespace AZ
                 m_rootPass->FrameBegin(params);
             }
 
-static int siLastResolution = 100;
-
-            if(siLastResolution != r_resolution_scale)
+            if(m_rescale_attachments)
             {
+                m_rescale_attachments = false;
+
                 // get the screen dimension
                 float screenWidth = 0.0f, screenHeight = 0.0f;
                 AZ::RPI::PassFilter forwardPassFilter = AZ::RPI::PassFilter::CreateWithPassHierarchy({ Name("ForwardMSAAPass") });
@@ -397,7 +397,7 @@ static int siLastResolution = 100;
                                                         }
                                                     }
 
-                                                    if(foundAttachment)
+                                                    if(foundAttachment && pass->GetName() != Name("RHISamplePass"))
                                                     {
                                                         AZ_TracePrintf("WTF", "scale pass: %s attachment: %s\n",
                                                             pass->GetName().GetCStr(),
@@ -421,11 +421,6 @@ static int siLastResolution = 100;
 
                         return PassFilterExecutionFlow::ContinueVisitingPasses;
                     });
-
-                if(iPassCount > 1)
-                {
-                    siLastResolution = r_resolution_scale;
-                }
             }
         }
 
@@ -627,6 +622,11 @@ static int siLastResolution = 100;
                 }
             }
             return nullptr;
+        }
+
+        void PassSystem::RescaleAttachments()
+        {
+            m_rescale_attachments = true;
         }
 
     }   // namespace RPI

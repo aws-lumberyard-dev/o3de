@@ -265,3 +265,317 @@ void ApplyQuadLights(Surface surface, inout LightingData lightingData)
         }
     }
 }
+
+
+
+
+
+
+
+
+half2 GetHammersleyPointHalf(
+    uint pointIndex, 
+    uint totalPointCount)
+{
+    return half2(half(pointIndex) / half(totalPointCount), half(GetVanDerCorputRadicalInverse(pointIndex)));
+}
+
+void AddSampleContributionHalf(
+    in Surface surface,
+    in LightingData lightingData,
+    in half3 lightSamplePoint,
+    in half3 lightSampleDirection,
+    in half bothDirectionsFactor,
+    inout half3 diffuseAcc,
+    inout half3 specularAcc,
+    inout half3 translucentAcc)
+{
+    half3 posToLightSample = lightSamplePoint - surface.position;
+    half distanceToLight2 = dot(posToLightSample, posToLightSample);
+    half3 posToLightSampleDir = normalize(posToLightSample);
+
+    // Lambertian emitter
+    half intensity = dot(-lightSampleDirection, posToLightSampleDir);
+    // Handle if the light emits from both sides
+    intensity = abs(clamp(intensity, bothDirectionsFactor, 1.0h));
+    // Attenuate with distance
+    intensity /= distanceToLight2;
+
+    half3 intensityRgb = half3(intensity, intensity, intensity);
+
+    diffuseAcc += GetDiffuseLightingHalf(surface, lightingData, intensityRgb, posToLightSampleDir);
+    translucentAcc += GetBackLightingHalf(surface, lightingData, intensityRgb, posToLightSampleDir, 0.0);
+    specularAcc += GetSpecularLightingHalf(surface, lightingData, intensityRgb, posToLightSampleDir);
+}
+
+
+half RectangleSolidAngleHalf(
+    half3 v0, 
+    half3 v1, 
+    half3 v2, 
+    half3 v3)
+{
+    half3 n0 = normalize(cross(v0, v1));
+    half3 n1 = normalize(cross(v1, v2));
+    half3 n2 = normalize(cross(v2, v3));
+    half3 n3 = normalize(cross(v3, v0));
+    
+    half g0 = acos(dot (-n0, n1));
+    half g1 = acos(dot (-n1, n2));
+    half g2 = acos(dot (-n2, n3));
+    half g3 = acos(dot (-n3, n0));
+
+    return max(0.0h, g0 + g1 + g2 + g3 - 2.0h * 3.14159h);
+}
+
+// Unlike standard ray-plane intersection, this version is made for light planes to avoid discontinuities when the
+// reflection vector is going away from a light plane.
+half3 RayLightPlaneIntersectionHalf(
+    in half3 pos, 
+    in half3 rayDirection, 
+    in half3 lightOrigin, 
+    in half3 lightDirection)
+{
+    half3 lightToPos = pos - lightOrigin;
+    half reflectionDotLight = dot(rayDirection, -lightDirection);
+    
+    half distanceToPlane = dot(lightToPos, lightDirection);
+    if (reflectionDotLight >= 0.0001)
+    {
+        // Reflection going towards the light
+        return pos + rayDirection * distanceToPlane / reflectionDotLight;
+    }
+    else
+    {
+        // Reflection going away from the light. Choose a point far off and project it on the plane,
+        // then treat that as the reflection plane intersection.
+        half3 posToFarOffPoint = rayDirection * distanceToPlane * 10000.0h;
+        half3 lightToFarOffPoint = lightToPos + posToFarOffPoint;
+        // Here "intersection" refers to the projection of the far off point onto the light plane.
+        half3 intersectionToFarOffPoint = dot(lightToFarOffPoint, lightDirection) * lightDirection;
+        return pos + posToFarOffPoint - intersectionToFarOffPoint;
+    }
+}
+
+half3 ClosestPointRectHalf(
+    in half3 pos, 
+    in half3 planeOrigin, 
+    in half3 left, 
+    in half3 up, 
+    in half2 halfSize)
+{
+    half3 dir = pos - planeOrigin;
+    half2 dist2D = half2(dot(dir, left), dot(dir, up));
+    dist2D = clamp(dist2D, -halfSize, halfSize);
+    return planeOrigin + dist2D.x * left + dist2D.y * up;
+}
+
+half3 GetSpecularDominantDirectionHalf(
+    half3 normal, 
+    half3 reflection, 
+    half roughness)
+{
+    half lerpFactor = 1.0h - roughness;
+    return normalize(lerp(normal, reflection, lerpFactor));
+}
+
+// Quad light approximation. Diffuse portion based on https://seblagarde.files.wordpress.com/2015/07/course_notes_moving_frostbite_to_pbr_v32.pdf Pages 49-50.
+void ApplyQuadLightHalf(
+    ViewSrg::QuadLight light, 
+    Surface surface, 
+    inout LightingData lightingData)
+{
+    half3 lightDirection = cross(light.m_leftDir, light.m_upDir); // left and up are already normalized.
+
+    half3 posToLight = light.m_position - surface.position;
+    half posToLightDotLightDirection = dot(posToLight, -lightDirection);
+
+    half distanceToLight2 = dot(posToLight, posToLight); // light distance squared
+    half falloff = distanceToLight2 * light.m_invAttenuationRadiusSquared;
+
+    bool doubleSided = (light.m_flags & QuadLightFlag::EmitsBothDirections) > 0;
+    if (doubleSided)
+    {
+        lightDirection *= sign(posToLightDotLightDirection);
+        posToLightDotLightDirection = abs(posToLightDotLightDirection);
+    }
+
+    if(falloff < 1.0h && posToLightDotLightDirection > 0.0h)
+    {
+        // Smoothly adjusts the light intensity so it reaches 0 at light.m_attenuationRadius distance
+        half radiusAttenuation = 1.0h - (falloff * falloff);
+        radiusAttenuation = radiusAttenuation * radiusAttenuation;
+
+        half3 left = light.m_leftDir * light.m_halfWidth;
+        half3 up = light.m_upDir * light.m_halfHeight;
+
+        // Calculation positions for 4 corners relative to the surface
+        half3 p0 = posToLight + -left +  up;
+        half3 p1 = posToLight + -left + -up;
+        half3 p2 = posToLight +  left + -up;
+        half3 p3 = posToLight +  left +  up;
+
+        /*bool useFastApproximation = (light.m_flags & QuadLightFlag::UseFastApproximation) > 0;
+        if (!useFastApproximation)
+        {
+            half3 p[4] = {p0, p1, p2, p3};
+            
+            half2 ltcCoords = LtcCoords(dot(surface.normal, lightingData.dirToCamera), surface.roughnessLinear);
+            half3x3 ltcMat = LtcMatrix(SceneSrg::m_ltcMatrix, ltcCoords);
+            
+            half diffuse = 0.0h;
+            half specular = 0.0h;
+            LtcQuadEvaluate(
+                surface.normal, 
+                lightingData.dirToCamera, 
+                ltcMat, 
+                p, 
+                doubleSided, float(diffuse), float(specular));
+
+            // Apply BRDF scale terms (BRDF magnitude and Schlick Fresnel)
+            half2 schlick = SceneSrg::m_ltcAmplification.Sample(PassSrg::LinearSampler, ltcCoords).xy;
+            half3 specularRGB = specular * (schlick.x + (1.0 - surface.specularF0) * schlick.y);
+
+            // Scale by inverse surface area of hemisphere (1/2pi), attenuation, and light intensity
+            half3 intensity = 0.5 * INV_PI * radiusAttenuation * light.m_rgbIntensityNits;
+
+            lightingData.diffuseLighting += surface.albedo * diffuse * intensity;
+            lightingData.specularLighting += surface.specularF0 * specularRGB * intensity;
+        }
+        else*/
+        {
+            // Calculate solid angle of light
+            half solidAngle = RectangleSolidAngleHalf(p0, p1, p2, p3);
+
+            // Update positions to corners to be directions
+            p0 = normalize(p0);
+            p1 = normalize(p1);
+            p2 = normalize(p2);
+            p3 = normalize(p3);
+
+            half3 dirToLightCenter = normalize(posToLight);
+
+            // Intensity is the solid angle times the brightness of the light surface.
+            // Each position contributes 1/5 of the light (4 corners + center)
+            half3 intensity = solidAngle * 0.2h * radiusAttenuation * light.m_rgbIntensityNits;
+
+            lightingData.diffuseLighting += 
+            (
+                GetDiffuseLightingHalf(surface, lightingData, intensity, p0) +
+                GetDiffuseLightingHalf(surface, lightingData, intensity, p1) +
+                GetDiffuseLightingHalf(surface, lightingData, intensity, p2) +
+                GetDiffuseLightingHalf(surface, lightingData, intensity, p3) +
+                GetDiffuseLightingHalf(surface, lightingData, intensity, dirToLightCenter)
+            );
+            
+            lightingData.translucentBackLighting +=
+            (
+                GetBackLightingHalf(surface, lightingData, intensity, p0, 0.0) +
+                GetBackLightingHalf(surface, lightingData, intensity, p1, 0.0) +
+                GetBackLightingHalf(surface, lightingData, intensity, p2, 0.0) +
+                GetBackLightingHalf(surface, lightingData, intensity, p3, 0.0) +
+                GetBackLightingHalf(surface, lightingData, intensity, dirToLightCenter, 0.0)
+            );
+            
+            // Calculate specular by choosing a single representative point on the light's surface based on the reflection ray
+            // Then adjusting it's brightness based on different factors.
+
+            // Calculate the reflection ray from the view direction and surface normal
+            half3 reflectionDir = reflect(-lightingData.dirToCamera, surface.normal);
+            
+            // First find the reflection-plane intersection, then find the closest point on the rectangle to that intersection.
+            half2 halfSize = half2(light.m_halfWidth, light.m_halfHeight);
+            half3 positionOnPlane = RayLightPlaneIntersectionHalf(surface.position, reflectionDir, light.m_position, lightDirection);
+            half3 lightPositionWorld = ClosestPointRectHalf(positionOnPlane, light.m_position, light.m_leftDir, light.m_upDir, halfSize);
+            half3 lightPositionLocal = lightPositionWorld - surface.position;
+
+            // It's possible that the reflection-plane intersection is far from where the reflection ray passes the light when the light
+            // is at a grazing angle. This can cause the "closest" point to tend towards the corners of the rectangle. To correct this,
+            // we find the closest point on the reflection line to this first attempt, and use it for a second attempt.
+            half3 localPositionOnLine = reflectionDir * dot(reflectionDir, lightPositionLocal);
+            lightPositionLocal = ClosestPointRectHalf(localPositionOnLine, posToLight, light.m_leftDir, light.m_upDir, halfSize);
+
+            half3 dirToLight = normalize(lightPositionLocal);
+            half lightPositionDist2 = dot(lightPositionLocal, lightPositionLocal);
+
+            // Adjust the specular intensity based on the roughness, solid angle, and distance to the light.
+            // The following are approximations that attempt to mimic ground truth results
+
+            // Rough surfaces reflect light from their entire hemisphere, so they should use the solid angle. This causes nearby quad lights to look more
+            // accurate at the cost of far away quad lights having dimmer specular than they should.
+            half rough = surface.roughnessA; // shorten the name for readability.
+            half roughnessAdjustment = lerp(0.0h, solidAngle, pow(rough, 1.5h));
+            // Decrease intensity when the light position doesn't line up well with the dominant reflection direction.
+            half3 dominantDir = GetSpecularDominantDirectionHalf(surface.normal, reflectionDir, rough);
+            roughnessAdjustment *= max(0.0h, dot(dirToLight, dominantDir)) * half(INV_PI); // INV_PI is here to make brightness match ground truth result more accurately for nearby lights.
+            // Smooth surfaces need to increase light intensity with distance to maintain constant perceptual
+            // intensity depending on the solid angle of the light.
+            half solidAngleCoverage = solidAngle / (2.0h * half(PI)); // Adjust solid angle to 0-1 range of how much of the hemisphere is covered.
+            half distanceAdjustment = 1.0h + sqrt(lightPositionDist2) * (1.0h - rough * rough * solidAngleCoverage);
+
+            half3 specularintensity = light.m_rgbIntensityNits * roughnessAdjustment * distanceAdjustment;
+            lightingData.specularLighting += GetSpecularLightingHalf(surface, lightingData, specularintensity, dirToLight) * radiusAttenuation;
+        }
+    }
+}
+
+half3 SampleRectangleHalf(
+    half2 randomPoint, 
+    ViewSrg::QuadLight light)
+{
+    randomPoint = randomPoint * 2.0h - 1.0h; // transform to -1 to 1 range.
+    randomPoint *= half2(light.m_halfWidth, light.m_halfHeight);
+    // Random point on light surface
+    half3 outPoint = light.m_position + light.m_leftDir * randomPoint.x + light.m_upDir * randomPoint.y;
+
+    return outPoint;
+}
+
+void ValidateQuadLightHalf(
+    ViewSrg::QuadLight light, 
+    Surface surface, 
+    inout LightingData lightingData)
+{
+    half3 lightDirection = cross(light.m_leftDir, light.m_upDir); // left and up are already normalized.
+
+    const uint sampleCount = 512;
+
+    half3 diffuseAcc =     half3(0.0h, 0.0h, 0.0h);
+    half3 specularAcc =    half3(0.0h, 0.0h, 0.0h);
+    half3 translucentAcc = half3(0.0h, 0.0h, 0.0h);
+
+    bool emitsBothDirections = (light.m_flags & QuadLightFlag::EmitsBothDirections) > 0;
+    half bothDirectionsFactor = emitsBothDirections ? -1.0h : 0.0h;
+
+    for (min16uint i = 0; i < min16uint(sampleCount); ++i)
+    {
+        float2 randomPoint = GetHammersleyPoint(i, sampleCount);
+        float3 samplePoint = SampleRectangle(randomPoint, light);
+        AddSampleContributionHalf(
+            surface, 
+            lightingData, 
+            half3(samplePoint), 
+            lightDirection, 
+            bothDirectionsFactor, 
+            diffuseAcc, 
+            specularAcc, 
+            translucentAcc);
+    }
+
+    half area = light.m_halfWidth * light.m_halfHeight * 4.0h;
+    half3 intensityCandelas = light.m_rgbIntensityNits * area;
+
+    lightingData.diffuseLighting += (diffuseAcc / half(sampleCount)) * intensityCandelas;
+    lightingData.translucentBackLighting += (translucentAcc / half(sampleCount)) * intensityCandelas;
+    lightingData.specularLighting += (specularAcc / half(sampleCount)) * intensityCandelas;
+}
+
+void ApplyQuadLightsHalf(
+    Surface surface, 
+    inout LightingData lightingData)
+{
+    for(min16int i = 0; i < min16int(ViewSrg::m_quadLightCount); i++)
+    {
+        ApplyQuadLightHalf(ViewSrg::m_quadLights[i], surface, lightingData);
+    }
+}

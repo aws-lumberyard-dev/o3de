@@ -101,6 +101,8 @@ namespace AZ
             void ForEachPass(const PassFilter& filter, AZStd::function<PassFilterExecutionFlow(Pass*)> passFunction) override;
             Pass* FindFirstPass(const PassFilter& filter) override;
 
+            void RescaleAttachments() override;
+
         private:
             // Returns the root of the pass tree hierarchy
             const Ptr<ParentPass>& GetRootPass() override;
@@ -160,6 +162,10 @@ namespace AZ
 
             // Counters used to gather statistics about the frame
             PassSystemFrameStatistics m_frameStatistics;
+
+
+            bool m_rescale_attachments = false;
+
         };
     }   // namespace RPI
 }   // namespace AZ
