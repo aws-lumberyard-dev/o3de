@@ -5,6 +5,7 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
+#include <AzCore/Module/Environment.h>
 #include "utilities/BatchApplicationManager.h"
 
 
@@ -44,7 +45,10 @@ int main(int argc, char* argv[])
     }
     
     bool ranUnitTests;
+
+    AZ::Environment::Create(nullptr);
     int result = RunUnitTests(argc, argv, ranUnitTests);
+    AZ::Environment::Destroy();
 
     if (ranUnitTests)
     {
