@@ -1,0 +1,101 @@
+/*
+ * Copyright (c) Contributors to the Open 3D Engine Project.
+ * For complete copyright and license terms please see the LICENSE at the root of this distribution.
+ *
+ * SPDX-License-Identifier: Apache-2.0 OR MIT
+ *
+ */
+
+#pragma once
+
+#include <AzCore/Name/Name.h>
+#include <AzCore/std/containers/variant.h>
+#include <AzCore/std/containers/vector.h>
+
+namespace AZ::Dom
+{
+    class PathEntry final
+    {
+    public:
+        PathEntry() = default;
+        PathEntry(const PathEntry&) = default;
+        PathEntry(PathEntry&&) = default;
+        explicit PathEntry(size_t value);
+        explicit PathEntry(AZ::Name value);
+        explicit PathEntry(AZStd::string_view value);
+
+        PathEntry& operator=(const PathEntry&) = default;
+        PathEntry& operator=(PathEntry&&) = default;
+        PathEntry& operator=(size_t value);
+        PathEntry& operator=(AZ::Name value);
+        PathEntry& operator=(AZStd::string_view value);
+
+        bool operator==(const PathEntry& other) const;
+        bool operator==(size_t index) const;
+        bool operator==(const AZ::Name& key) const;
+        bool operator==(AZStd::string_view key) const;
+
+        bool IsIndex() const;
+        bool IsKey() const;
+
+        size_t GetIndex() const;
+        const AZ::Name& GetKey() const;
+
+    private:
+        AZStd::variant<size_t, AZ::Name> m_value;
+    };
+
+    class Path final
+    {
+    public:
+        using ContainerType = AZStd::vector<PathEntry>;
+        static constexpr char PathSeparator = '/';
+        static constexpr char EscapeCharacter = '~';
+        static constexpr char TildeSequence = '0';
+        static constexpr char ForwardSlashSequence = '1';
+
+        Path() = default;
+        Path(const Path&) = default;
+        Path(Path&&) = default;
+        Path(AZStd::initializer_list<PathEntry> init);
+        Path(AZStd::string_view pathString);
+
+        template<class InputIterator>
+        Path(InputIterator first, InputIterator last)
+            : m_entries(first, last)
+        {
+        }
+
+        Path& operator=(const Path&) = default;
+        Path& operator=(Path&&) = default;
+
+        bool operator==(const Path&) const;
+
+        const ContainerType& GetEntries() const;
+        void Push(PathEntry entry);
+        void Push(size_t entry);
+        void Push(AZ::Name entry);
+        void Push(AZStd::string_view key);
+        void Pop();
+        void Clear();
+        PathEntry At(size_t index) const;
+
+        PathEntry& operator[](size_t index);
+        const PathEntry& operator[](size_t index) const;
+
+        ContainerType::iterator begin();
+        ContainerType::iterator end();
+        ContainerType::const_iterator begin() const;
+        ContainerType::const_iterator end() const;
+        ContainerType::const_iterator cbegin() const;
+        ContainerType::const_iterator cend() const;
+
+        size_t GetStringSize() const;
+        void FormatString(char* stringBuffer, size_t bufferSize) const;
+        AZStd::string ToString() const;
+        void FromString(AZStd::string_view pathString);
+
+    private:
+        ContainerType m_entries;
+    };
+} // namespace AZ::Dom

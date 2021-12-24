@@ -214,6 +214,9 @@ set(FILES
     AZStd/VectorAndArray.cpp
     DOM/DomJsonTests.cpp
     DOM/DomJsonBenchmarks.cpp
+    DOM/DomPathTests.cpp
+    DOM/DomPatchTests.cpp
+    DOM/DomPatchBenchmarks.cpp
     DOM/DomValueTests.cpp
     DOM/DomValueBenchmarks.cpp
 )
