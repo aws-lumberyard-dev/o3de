@@ -29,7 +29,7 @@ namespace AZ
     namespace AtomSceneStream
     {
         static bool printDebugInfo = true;
-        static bool printDebugStats = true;
+        static bool printDebugStats = false;
         static bool printDebugRemoval = true;
         static bool printDebugRunTimeHiding = false;
         static bool printDebugAdd = false;
@@ -192,13 +192,18 @@ namespace AZ
             float nearDist = AZStd::min(config.m_nearClipDistance, 0.002f);
             float farDist = config.m_farClipDistance;
             // [Adi] - the following aspect is a hack since the aspect is bogus per the code in GetActiveCameraConfiguration
-            float aspectRatio = 1.35f * config.m_frustumWidth / config.m_frustumHeight; 
+            static float aspectMult = 1.2f;
+            static float fovMult = 1.2f;
+            static float nearMult = 1.0f;
+            float aspectRatio = aspectMult * config.m_frustumWidth / config.m_frustumHeight; 
             Matrix4x4 viewToClipMatrix;
-            MakePerspectiveFovMatrixRH(viewToClipMatrix, config.m_fovRadians, aspectRatio, nearDist, farDist);
+            MakePerspectiveFovMatrixRH(viewToClipMatrix, config.m_fovRadians * fovMult, aspectRatio, nearMult * nearDist, farDist);
 
             //---------- Setting the ViewInfo for the streaming data query -----------
             // Camera position
-            Vector3 cameraPos = cameraMatrix.GetTranslation();
+            static Vector3 positionAdd = Vector3(0, 0, -60);    // [Adi] - this is strange, difference of ~60 with Umbra?!
+            Vector3 cameraPos = cameraMatrix.GetTranslation() + positionAdd;
+
             UmbraFloat3 umbraCameraPos;
             umbraCameraPos.v[0] = cameraPos.GetX();
             umbraCameraPos.v[1] = cameraPos.GetY();
@@ -430,7 +435,8 @@ namespace AZ
                     // The material was not compiled yet - this is required for good data
                     if (!currentMesh->Compile(scene))
                     {
-                        AZ_Warning("AtomSceneStream", false, "Warning -- Model [%s] was not compiled - skipping render", currentMesh->GetName().c_str());
+                        AZ_Warning("AtomSceneStream", false, "Warning -- Model [%s] with Material [%s] was not compiled - skipping render",
+                            currentMesh->GetMaterial()->GetName().c_str(), currentMesh->GetName().c_str());
                         DebugDraw(auxGeom, currentMesh, offset, Colors::Red);
                         continue;
                     }
