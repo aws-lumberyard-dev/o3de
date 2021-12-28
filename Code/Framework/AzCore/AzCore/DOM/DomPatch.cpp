@@ -7,6 +7,7 @@
  */
 
 #include <AzCore/DOM/DomPatch.h>
+#include <AzCore/std/containers/unordered_set.h>
 
 namespace AZ::Dom
 {
@@ -344,7 +345,8 @@ namespace AZ::Dom
         return AZ::Failure<AZStd::string>("Unable to invert DOM patch, unknown type specified");
     }
 
-    AZ::Outcome<PatchOperation::PathContext, AZStd::string> PatchOperation::LookupPath(Value& rootElement, const Path& path, bool checkExistence)
+    AZ::Outcome<PatchOperation::PathContext, AZStd::string> PatchOperation::LookupPath(
+        Value& rootElement, const Path& path, bool checkExistence)
     {
         Path target = path;
         if (target.Size() == 0)
@@ -357,17 +359,14 @@ namespace AZ::Dom
         Value* targetValue = rootElement.FindMutableChild(target);
         if (targetValue == nullptr)
         {
-            return AZ::Failure(
-                AZStd::string::format("Path not found (%s)", target.ToString().data()));
+            return AZ::Failure(AZStd::string::format("Path not found (%s)", target.ToString().data()));
         }
 
         if (destinationIndex.IsIndex() || destinationIndex.IsEndOfArray())
         {
             if (!targetValue->IsArray() && !targetValue->IsNode())
             {
-                return AZ::Failure<AZStd::string>(
-                    "Array index specified for a value that is not an array or node"
-                );
+                return AZ::Failure<AZStd::string>("Array index specified for a value that is not an array or node");
             }
 
             if (destinationIndex.IsIndex() && destinationIndex.GetIndex() >= targetValue->Size())
@@ -391,7 +390,7 @@ namespace AZ::Dom
             }
         }
 
-        return AZ::Success<PathContext>({*targetValue, AZStd::move(destinationIndex)});
+        return AZ::Success<PathContext>({ *targetValue, AZStd::move(destinationIndex) });
     }
 
     PatchOperation::PatchOutcome PatchOperation::ApplyAdd(Value& rootElement) const
@@ -525,5 +524,299 @@ namespace AZ::Dom
         }
 
         return AZ::Success();
+    }
+
+    namespace PatchStrategy
+    {
+        void HaltOnFailure(PatchingState& state)
+        {
+            if (!state.m_outcome.IsSuccess())
+            {
+                state.m_shouldContinue = false;
+            }
+        }
+
+        void IgnoreFailureAndContinue([[maybe_unused]] PatchingState& state)
+        {
+        }
+    } // namespace PatchStrategy
+
+    Patch::Patch(AZStd::initializer_list<PatchOperation> init)
+        : m_operations(init)
+    {
+    }
+
+    const Patch::OperationsContainer& Patch::GetOperations() const
+    {
+        return m_operations;
+    }
+
+    void Patch::Push(PatchOperation op)
+    {
+        m_operations.push_back(op);
+    }
+
+    void Patch::Pop()
+    {
+        m_operations.pop_back();
+    }
+
+    void Patch::Clear()
+    {
+        m_operations.clear();
+    }
+
+    const PatchOperation& Patch::At(size_t index) const
+    {
+        return m_operations[index];
+    }
+
+    size_t Patch::Size() const
+    {
+        return m_operations.size();
+    }
+
+    PatchOperation& Patch::operator[](size_t index)
+    {
+        return m_operations[index];
+    }
+
+    const PatchOperation& Patch::operator[](size_t index) const
+    {
+        return m_operations[index];
+    }
+
+    Patch::OperationsContainer::iterator Patch::begin()
+    {
+        return m_operations.begin();
+    }
+
+    Patch::OperationsContainer::iterator Patch::end()
+    {
+        return m_operations.end();
+    }
+
+    Patch::OperationsContainer::const_iterator Patch::begin() const
+    {
+        return m_operations.cbegin();
+    }
+
+    Patch::OperationsContainer::const_iterator Patch::end() const
+    {
+        return m_operations.cend();
+    }
+
+    Patch::OperationsContainer::const_iterator Patch::cbegin() const
+    {
+        return m_operations.cbegin();
+    }
+
+    Patch::OperationsContainer::const_iterator Patch::cend() const
+    {
+        return m_operations.cend();
+    }
+
+    AZ::Outcome<Value, AZStd::string> Patch::Apply(Value rootElement, StrategyFunctor strategy) const
+    {
+        auto result = ApplyInPlace(rootElement, strategy);
+        if (!result.IsSuccess())
+        {
+            return AZ::Failure(result.TakeError());
+        }
+        return AZ::Success(AZStd::move(rootElement));
+    }
+
+    AZ::Outcome<void, AZStd::string> Patch::ApplyInPlace(Value& rootElement, StrategyFunctor strategy) const
+    {
+        PatchingState state;
+        state.m_currentState = &rootElement;
+        state.m_patch = this;
+
+        for (const PatchOperation& operation : m_operations)
+        {
+            state.m_lastOperation = &operation;
+            state.m_outcome = operation.ApplyInPlace(rootElement);
+            strategy(state);
+            if (!state.m_shouldContinue)
+            {
+                break;
+            }
+        }
+        return state.m_outcome;
+    }
+
+    Value Patch::GetDomRepresentation() const
+    {
+        Value domValue(Dom::Type::Array);
+        for (const PatchOperation& operation : m_operations)
+        {
+            domValue.PushBack(operation.GetDomRepresentation());
+        }
+        return domValue;
+    }
+
+    AZ::Outcome<Patch, AZStd::string> Patch::CreateFromDomRepresentation(Value domValue)
+    {
+        if (!domValue.IsArray())
+        {
+            return AZ::Failure<AZStd::string>("Patch must be an array");
+        }
+
+        Patch patch;
+        for (auto it = domValue.Begin(); it != domValue.End(); ++it)
+        {
+            auto operationLoadResult = PatchOperation::CreateFromDomRepresentation(*it);
+            if (!operationLoadResult.IsSuccess())
+            {
+                return AZ::Failure(operationLoadResult.TakeError());
+            }
+            patch.Push(operationLoadResult.TakeValue());
+        }
+        return AZ::Success(AZStd::move(patch));
+    }
+
+    PatchOperation Patch::AddOperation(Path destinationPath, Value value)
+    {
+        return PatchOperation(destinationPath, PatchOperation::Type::Add, value);
+    }
+
+    PatchOperation Patch::RemoveOperation(Path pathToRemove)
+    {
+        return PatchOperation(pathToRemove, PatchOperation::Type::Remove);
+    }
+
+    PatchOperation Patch::ReplaceOperation(Path destinationPath, Value value)
+    {
+        return PatchOperation(destinationPath, PatchOperation::Type::Replace, value);
+    }
+
+    PatchOperation Patch::CopyOperation(Path destinationPath, Path sourcePath)
+    {
+        return PatchOperation(destinationPath, PatchOperation::Type::Copy, sourcePath);
+    }
+
+    PatchOperation Patch::MoveOperation(Path destinationPath, Path sourcePath)
+    {
+        return PatchOperation(destinationPath, PatchOperation::Type::Move, sourcePath);
+    }
+
+    PatchOperation Patch::TestOperation(Path testPath, Value value)
+    {
+        return PatchOperation(testPath, PatchOperation::Type::Test, value);
+    }
+
+    PatchInfo GenerateHierarchicalDeltaPatch(const Value& beforeState, const Value& afterState)
+    {
+        PatchInfo patches;
+
+        auto AddPatch = [&patches](PatchOperation op, PatchOperation inverse)
+        {
+            patches.m_forwardPatches.Push(AZStd::move(op));
+            patches.m_inversePatches.Push(AZStd::move(inverse));
+        };
+
+        AZStd::function<void(const Path&, const Value&, const Value&)> CompareValues;
+
+        auto CompareObjects = [&](const Path& path, const Value& before, const Value& after)
+        {
+            AZStd::unordered_set<AZ::Name::Hash> desiredKeys;
+            Path subPath = path;
+            for (auto it = after.MemberBegin(); it != after.MemberEnd(); ++it)
+            {
+                desiredKeys.insert(it->first.GetHash());
+                subPath.Push(it->first);
+                auto beforeIt = before.FindMember(it->first);
+                if (beforeIt == before.MemberEnd())
+                {
+                    AddPatch(Patch::AddOperation(subPath, it->second), Patch::RemoveOperation(subPath));
+                }
+                else
+                {
+                    CompareValues(subPath, beforeIt->second, it->second);
+                }
+                subPath.Pop();
+            }
+
+            for (auto it = before.MemberBegin(); it != before.MemberEnd(); ++it)
+            {
+                if (!desiredKeys.contains(it->first.GetHash()))
+                {
+                    subPath.Push(it->first);
+                    AddPatch(Patch::RemoveOperation(subPath), Patch::AddOperation(subPath, it->second));
+                    subPath.Pop();
+                }
+            }
+        };
+
+        auto CompareArrays = [&](const Path& path, const Value& before, const Value& after)
+        {
+            const size_t beforeSize = before.Size();
+            const size_t afterSize = after.Size();
+            Path subPath = path;
+            for (size_t i = 0; i < afterSize; ++i)
+            {
+                if (i >= beforeSize)
+                {
+                    subPath.Push(PathEntry(PathEntry::EndOfArrayIndex));
+                    AddPatch(Patch::AddOperation(subPath, after[i]), Patch::RemoveOperation(subPath));
+                    subPath.Pop();
+                }
+                else
+                {
+                    subPath.Push(PathEntry(i));
+                    CompareValues(subPath, before[i], after[i]);
+                    subPath.Pop();
+                }
+            }
+
+            if (beforeSize > afterSize)
+            {
+                subPath.Push(PathEntry(PathEntry::EndOfArrayIndex));
+                for (size_t i = beforeSize; i > afterSize; --i)
+                {
+                    AddPatch(Patch::RemoveOperation(subPath), Patch::AddOperation(subPath, before[i-1]));
+                }
+            }
+        };
+
+        auto CompareNodes = [&](const Path& path, const Value& before, const Value& after)
+        {
+            if (before.GetNodeName() != after.GetNodeName())
+            {
+                AddPatch(Patch::ReplaceOperation(path, after), Patch::ReplaceOperation(path, before));
+            }
+            else
+            {
+                CompareObjects(path, before, after);
+                CompareArrays(path, before, after);
+            }
+        };
+
+        CompareValues = [&](const Path& path, const Value& before, const Value& after)
+        {
+            if (before.GetType() != after.GetType())
+            {
+                AddPatch(Patch::ReplaceOperation(path, after), Patch::ReplaceOperation(path, before));
+            }
+            else if (before.IsObject())
+            {
+                CompareObjects(path, before, after);
+            }
+            else if (before.IsArray())
+            {
+                CompareArrays(path, before, after);
+            }
+            else if (before.IsNode())
+            {
+                CompareNodes(path, before, after);
+            }
+            else if (before != after)
+            {
+                AddPatch(Patch::ReplaceOperation(path, after), Patch::ReplaceOperation(path, before));
+            }
+        };
+
+        CompareValues(Path(), beforeState, afterState);
+        return patches;
     }
 } // namespace AZ::Dom

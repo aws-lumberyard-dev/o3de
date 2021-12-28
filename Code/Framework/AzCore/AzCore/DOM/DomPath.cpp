@@ -125,6 +125,38 @@ namespace AZ::Dom
         FromString(pathString);
     }
 
+    Path Path::operator/(const PathEntry& entry) const
+    {
+        Path newPath(*this);
+        newPath.Push(entry);
+        return newPath;
+    }
+
+    Path Path::operator/(size_t index) const
+    {
+        return *this / PathEntry(index);
+    }
+
+    Path Path::operator/(AZ::Name key) const
+    {
+        return *this / PathEntry(key);
+    }
+
+    Path Path::operator/(AZStd::string_view key) const
+    {
+        return *this / PathEntry(key);
+    }
+
+    Path Path::operator+(const Path& other) const
+    {
+        Path newPath(*this);
+        for (const PathEntry& entry : other)
+        {
+            newPath.Push(entry);
+        }
+        return newPath;
+    }
+
     bool Path::operator==(const Path& other) const
     {
         return m_entries == other.m_entries;

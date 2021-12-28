@@ -83,9 +83,10 @@ namespace AZ::Dom
 
     struct PatchingState
     {
-        const Patch& m_patch;
+        const Patch* m_patch = nullptr;
+        const PatchOperation* m_lastOperation = nullptr;
         PatchOperation::PatchOutcome m_outcome;
-        Value& m_currentState;
+        Value* m_currentState = nullptr;
         bool m_shouldContinue = true;
     };
 
@@ -99,6 +100,38 @@ namespace AZ::Dom
     {
     public:
         using StrategyFunctor = AZStd::function<void(PatchingState&)>;
+        using OperationsContainer = AZStd::vector<PatchOperation>;
+
+        Patch() = default;
+        Patch(const Patch&) = default;
+        Patch(Patch&&) = default;
+        Patch(AZStd::initializer_list<PatchOperation> init);
+
+        template <class InputIterator>
+        Patch(InputIterator first, InputIterator last)
+            : m_operations(first, last)
+        {
+        }
+
+        Patch& operator=(const Patch&) = default;
+        Patch& operator=(Patch&&) = default;
+
+        const OperationsContainer& GetOperations() const;
+        void Push(PatchOperation op);
+        void Pop();
+        void Clear();
+        const PatchOperation& At(size_t index) const;
+        size_t Size() const;
+
+        PatchOperation& operator[](size_t index);
+        const PatchOperation& operator[](size_t index) const;
+
+        OperationsContainer::iterator begin();
+        OperationsContainer::iterator end();
+        OperationsContainer::const_iterator begin() const;
+        OperationsContainer::const_iterator end() const;
+        OperationsContainer::const_iterator cbegin() const;
+        OperationsContainer::const_iterator cend() const;
 
         AZ::Outcome<Value, AZStd::string> Apply(Value rootElement, StrategyFunctor strategy = PatchStrategy::HaltOnFailure) const;
         AZ::Outcome<void, AZStd::string> ApplyInPlace(Value& rootElement, StrategyFunctor strategy = PatchStrategy::HaltOnFailure) const;
@@ -114,7 +147,7 @@ namespace AZ::Dom
         static PatchOperation TestOperation(Path testPath, Value value);
 
     private:
-        AZStd::vector<PatchOperation> m_operations;
+        OperationsContainer m_operations;
     };
 
     //! A set of patches for applying a change and doing the inverse operation (i.e. undoing it).
