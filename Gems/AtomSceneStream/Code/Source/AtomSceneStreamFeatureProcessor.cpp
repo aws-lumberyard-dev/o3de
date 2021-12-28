@@ -119,6 +119,9 @@ namespace AZ
                 info.bounds.mx.v[0], info.bounds.mx.v[1], info.bounds.mx.v[2]
             );
 
+            // [Adi] The following is the Umbra camera offset for correct culling - investigate why it is required.
+            m_heightOffset = -0.5f * (info.bounds.mx.v[2] + info.bounds.mn.v[2]);
+
             return true;
         }
 
@@ -201,7 +204,7 @@ namespace AZ
 
             //---------- Setting the ViewInfo for the streaming data query -----------
             // Camera position
-            static Vector3 positionAdd = Vector3(0, 0, -60);    // [Adi] - this is strange, difference of ~60 with Umbra?!
+            static Vector3 positionAdd = Vector3(0, 0, m_heightOffset);    // [Adi] - this is strange, difference of ~60 with Umbra?!
             Vector3 cameraPos = cameraMatrix.GetTranslation() + positionAdd;
 
             UmbraFloat3 umbraCameraPos;
@@ -356,7 +359,18 @@ namespace AZ
                     return;
 
                 // run the streaming load for 20 msec - ideally this should be done on another thread!
-                HandleAssetsStreaming(0.025f);
+                if (m_useMultiThreadStreming)
+                {
+                    if (m_readyForStreaming && !m_isStreaming)
+                    {
+                        StartStreamingThread();
+                    }
+                }
+                else
+                {
+                    const float streamingTimeSlot = 0.025f;
+                    HandleAssetsStreaming(streamingTimeSlot);
+                }
 
                 // Can be removed?
                 Render::MeshFeatureProcessorInterface* currentMeshFeatureProcessor = GetParentScene()->GetFeatureProcessor<Render::MeshFeatureProcessorInterface>();
@@ -615,6 +629,59 @@ namespace AZ
             return true;
         }
 
+        bool AtomSceneStreamFeatureProcessor::StartStreamingThread()
+        {
+            if (!m_runtime)
+                return false;
+
+            if (!m_isStreaming)
+            {
+                m_isStreaming = true;
+                m_streamerThreadDesc.m_name = "AtomSceneStream - Streamer";
+                m_streamerThread = AZStd::thread(
+                    m_streamerThreadDesc,
+                    [this]()
+                {
+                    HandleAssetsStreamingInThread();
+                });
+
+                return true;
+            }
+            return false;
+        }
+
+        void AtomSceneStreamFeatureProcessor::StopStreamingThread()
+        {
+            if (m_isStreaming)
+            {
+                m_streamerThread.join();
+            }
+            m_isStreaming = false;
+        }
+
+        void AtomSceneStreamFeatureProcessor::HandleAssetsStreamingInThread()
+        {
+            const float deltaTime = 0.02;   // delta time for each operation
+
+            while (m_isStreaming)
+            {
+                auto startTime = AZStd::chrono::system_clock::now();
+                int workTimeMilliseconds = int(deltaTime * 1000.0f + 0.5f);
+                auto endTime = startTime + AZStd::chrono::milliseconds(workTimeMilliseconds);
+
+                // First unload old assets to make room for new ones
+                while (AZStd::chrono::system_clock::now() < endTime)
+                    if (!UnloadStreamedAssets())
+                        break;
+
+                // Giving both equal chance to work
+                endTime = AZStd::chrono::system_clock::now() + AZStd::chrono::milliseconds(workTimeMilliseconds);
+                while (AZStd::chrono::system_clock::now() < endTime)
+                    if (!LoadStreamedAssets())
+                        break;
+            }
+        }
+
         // Perform asset streaming work until time budget is reached
         void AtomSceneStreamFeatureProcessor::HandleAssetsStreaming(float seconds)
         {
@@ -637,16 +704,18 @@ namespace AZ
 
         void AtomSceneStreamFeatureProcessor::OnRenderPipelineAdded([[maybe_unused]]RPI::RenderPipelinePtr renderPipeline)
         {
-            m_readyForStreaming = true;
+            StopStreamingThread();
             RemoveAllActiveModels();
             m_isConnectedAndStreaming = false;
+            m_readyForStreaming = true;
         }
 
         void AtomSceneStreamFeatureProcessor::OnRenderPipelineRemoved([[maybe_unused]]RPI::RenderPipeline* renderPipeline)
         {
-            m_readyForStreaming = false;
+            StopStreamingThread();
             RemoveAllActiveModels();
-            m_isConnectedAndStreaming;
+            m_isConnectedAndStreaming = false;
+            m_readyForStreaming = true;
         }
 
     } // namespace AtomSceneStream

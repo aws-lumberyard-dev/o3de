@@ -3,6 +3,7 @@
 #include <AzCore/base.h>
 #include <AzCore/std/containers/unordered_map.h>
 #include <AzCore/std/containers/list.h>
+#include <AzCore/std/parallel/thread.h>
 #include <AzCore/Component/TickBus.h>
 
 #include <AtomCore/Instance/Instance.h>
@@ -64,7 +65,8 @@ namespace AZ
             void OnRenderPipelineRemoved(RPI::RenderPipeline* renderPipeline) override;
 //            void OnRenderPipelinePassesChanged(RPI::RenderPipeline* renderPipeline) override;
 
-            // Umbra driven functionality
+
+        protected:
             bool CreateMeshDrawPacket(AtomSceneStream::Mesh* currentMesh);
             AtomSceneStream::Mesh* CreateMesh(Umbra::AssetLoad& assetLoad);
             void CleanResource();
@@ -77,6 +79,11 @@ namespace AZ
             bool UnloadStreamedAssets();
             void HandleAssetsStreaming(float seconds);
 
+            bool StartStreamingThread();
+            void StopStreamingThread();
+            void HandleAssetsStreamingInThread();
+
+
         private:
             AZ_DISABLE_COPY_MOVE(AtomSceneStreamFeatureProcessor);
 
@@ -84,7 +91,11 @@ namespace AZ
             ModelsMapByName m_modelsMapByName;
 //            ModelsMapByModel m_modelsMapByModel;
 
-            float m_quality = 0.5f;     // adjusted based on memory consumption
+            float m_quality = 0.6f;     // adjusted based on memory consumption
+            // The Umbra scene is centered around X and Y but starting at 0 for Z. For this reason
+            // it seems that Umbra camera requires this offset to properly do the culling?!
+            // [Adi] - investigate with Umbra team
+            float m_heightOffset = 0;   
             uint32_t m_memoryUsage = 0;
 
             Umbra::EnvironmentInfo m_env;
@@ -93,8 +104,14 @@ namespace AZ
             Umbra::Scene m_scene;
             Umbra::View m_view;
 
+            // Thread management
+            AZStd::thread m_streamerThread;
+            AZStd::thread_desc m_streamerThreadDesc;
+            AZStd::atomic_bool m_isStreaming{ false };
+
             bool m_readyForStreaming = false;
             bool m_isConnectedAndStreaming = false;
+            bool m_useMultiThreadStreming = false;  // currently Umbra doesn't seem to support multi threading.
 
             uint32_t m_modelsCreatedThisFrame;
             uint32_t m_modelsRenderedThisFrame;
