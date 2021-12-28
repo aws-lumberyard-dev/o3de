@@ -146,4 +146,31 @@ namespace AZ::Dom::Tests
         p.Pop();
         EXPECT_EQ(p.ToString(), "/foo/0/another_key");
     }
+
+    TEST_F(DomPathTests, OperatorOverloads_Concatenate)
+    {
+        EXPECT_EQ(Path("/foo/bar"), Path("/foo") + Path("/bar"));
+        EXPECT_EQ(Path("/foo"), Path("/foo") + Path());
+        EXPECT_EQ(Path("/foo/1/bar/0"), Path("/foo/1") + Path("/bar/0"));
+    }
+
+    TEST_F(DomPathTests, OperatorOverloads_Append)
+    {
+        EXPECT_EQ(Path("/foo") / 0, Path("/foo/0"));
+        EXPECT_EQ(Path() / "foo" / "bar", Path("/foo/bar"));
+        EXPECT_EQ(Path("/foo") / "bar" / "baz", Path("/foo/bar/baz"));
+    }
+
+    TEST_F(DomPathTests, EndOfArray_FromString)
+    {
+        EXPECT_FALSE(Path("/foo/-")[0].IsEndOfArray());
+        EXPECT_TRUE(Path("/foo/-")[1].IsEndOfArray());
+        EXPECT_TRUE(Path("/foo/-/-")[2].IsEndOfArray());
+    }
+
+    TEST_F(DomPathTests, EndOfArray_ToString)
+    {
+        EXPECT_EQ(Path("/-").ToString(), "/-");
+        EXPECT_EQ(Path("/0/-").ToString(), "/0/-");
+    }
 } // namespace AZ::Dom::Tests
