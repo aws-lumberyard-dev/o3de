@@ -22,6 +22,8 @@
 
 namespace AZ::Dom
 {
+    class PathEntry;
+    class Path;
     using KeyType = AZ::Name;
 
     //! The type of underlying value stored in a value. \see Value
@@ -248,8 +250,8 @@ namespace AZ::Dom
 
         Object::ConstIterator MemberBegin() const;
         Object::ConstIterator MemberEnd() const;
-        Object::Iterator MemberBegin();
-        Object::Iterator MemberEnd();
+        Object::Iterator MutableMemberBegin();
+        Object::Iterator MutableMemberEnd();
 
         Object::Iterator FindMutableMember(KeyType name);
         Object::Iterator FindMutableMember(AZStd::string_view name);
@@ -293,8 +295,8 @@ namespace AZ::Dom
 
         Array::ConstIterator Begin() const;
         Array::ConstIterator End() const;
-        Array::Iterator Begin();
-        Array::Iterator End();
+        Array::Iterator MutableBegin();
+        Array::Iterator MutableEnd();
 
         Value& Reserve(size_t newCapacity);
         Value& PushBack(Value value);
@@ -374,6 +376,18 @@ namespace AZ::Dom
         Visitor::Result Accept(Visitor& visitor, bool copyStrings) const;
         AZStd::unique_ptr<Visitor> GetWriteHandler();
 
+        // Path API...
+        Value& operator[](const PathEntry& entry);
+        const Value& operator[](const PathEntry& entry) const;
+        Value& operator[](const Path& path);
+        const Value& operator[](const Path& path) const;
+
+        const Value* FindChild(const PathEntry& entry) const;
+        Value* FindMutableChild(const PathEntry& entry);
+        const Value* FindChild(const Path& path) const;
+        Value* FindMutableChild(const Path& path);
+
+        // Utility API...
         bool DeepCompareIsEqual(const Value& other) const;
         Value DeepCopy(bool copyStrings = true) const;
 

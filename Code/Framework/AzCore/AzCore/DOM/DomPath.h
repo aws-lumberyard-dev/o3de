@@ -17,6 +17,8 @@ namespace AZ::Dom
     class PathEntry final
     {
     public:
+        static constexpr size_t EndOfArrayIndex = size_t(-1);
+
         PathEntry() = default;
         PathEntry(const PathEntry&) = default;
         PathEntry(PathEntry&&) = default;
@@ -34,7 +36,14 @@ namespace AZ::Dom
         bool operator==(size_t index) const;
         bool operator==(const AZ::Name& key) const;
         bool operator==(AZStd::string_view key) const;
+        bool operator!=(const PathEntry& other) const;
+        bool operator!=(size_t index) const;
+        bool operator!=(const AZ::Name& key) const;
+        bool operator!=(AZStd::string_view key) const;
 
+        void SetEndOfArray();
+
+        bool IsEndOfArray() const;
         bool IsIndex() const;
         bool IsKey() const;
 
@@ -53,6 +62,7 @@ namespace AZ::Dom
         static constexpr char EscapeCharacter = '~';
         static constexpr char TildeSequence = '0';
         static constexpr char ForwardSlashSequence = '1';
+        static constexpr char EndOfArrayCharacter = '-';
 
         Path() = default;
         Path(const Path&) = default;
@@ -79,6 +89,7 @@ namespace AZ::Dom
         void Pop();
         void Clear();
         PathEntry At(size_t index) const;
+        size_t Size() const;
 
         PathEntry& operator[](size_t index);
         const PathEntry& operator[](size_t index) const;

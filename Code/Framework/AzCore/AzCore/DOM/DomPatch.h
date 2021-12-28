@@ -6,6 +6,8 @@
  *
  */
 
+#pragma once
+
 #include <AzCore/DOM/DomPath.h>
 #include <AzCore/DOM/DomValue.h>
 
@@ -29,7 +31,9 @@ namespace AZ::Dom
         PatchOperation() = default;
         PatchOperation(const PatchOperation&) = default;
         PatchOperation(PatchOperation&&) = default;
-        explicit PatchOperation(Path path, Type type, Value value);
+        explicit PatchOperation(Path destinationPath, Type type, Value value);
+        explicit PatchOperation(Path destionationPath, Type type, Path sourcePath);
+        explicit PatchOperation(Path path, Type type);
 
         PatchOperation& operator=(const PatchOperation&) = default;
         PatchOperation& operator=(PatchOperation&&) = default;
@@ -52,11 +56,26 @@ namespace AZ::Dom
         Value GetDomRepresentation() const;
         static AZ::Outcome<PatchOperation, AZStd::string> CreateFromDomRepresentation(Value domValue);
 
-        PatchOperation GetInverse() const;
+        AZ::Outcome<PatchOperation, AZStd::string> GetInverse(Value stateBeforeApplication) const;
 
     private:
+        struct PathContext
+        {
+            Value& m_value;
+            PathEntry m_key;
+        };
+
+        static AZ::Outcome<PathContext, AZStd::string> LookupPath(Value& rootElement, const Path& path, bool checkExistence);
+
+        PatchOutcome ApplyAdd(Value& rootElement) const;
+        PatchOutcome ApplyRemove(Value& rootElement) const;
+        PatchOutcome ApplyReplace(Value& rootElement) const;
+        PatchOutcome ApplyCopy(Value& rootElement) const;
+        PatchOutcome ApplyMove(Value& rootElement) const;
+        PatchOutcome ApplyTest(Value& rootElement) const;
+
         Path m_domPath;
-        Type m_operation;
+        Type m_type;
         AZStd::variant<AZStd::monostate, Value, Path> m_value;
     };
 
@@ -72,8 +91,8 @@ namespace AZ::Dom
 
     namespace PatchStrategy
     {
-        void IgnorePatchFailureAndContinue(PatchingState& state);
         void HaltOnFailure(PatchingState& state);
+        void IgnoreFailureAndContinue(PatchingState& state);
     } // namespace PatchStrategy
 
     class Patch final
@@ -87,6 +106,13 @@ namespace AZ::Dom
         Value GetDomRepresentation() const;
         static AZ::Outcome<Patch, AZStd::string> CreateFromDomRepresentation(Value domValue);
 
+        static PatchOperation AddOperation(Path destinationPath, Value value);
+        static PatchOperation RemoveOperation(Path pathToRemove);
+        static PatchOperation ReplaceOperation(Path destinationPath, Value value);
+        static PatchOperation CopyOperation(Path destinationPath, Path sourcePath);
+        static PatchOperation MoveOperation(Path destinationPath, Path sourcePath);
+        static PatchOperation TestOperation(Path testPath, Value value);
+
     private:
         AZStd::vector<PatchOperation> m_operations;
     };
@@ -98,11 +124,8 @@ namespace AZ::Dom
         Patch m_inversePatches;
     };
 
-    //! Generates a set of patches such that m_forwardPatches.Apply(beforeState) shall
-    //! produce a document equivalent to afterState, and a subsequent m_inversePatches.Apply(beforeState)
-    //! shall produce the original document.
-    //! This patch generation strategy does a hierarchical comparison and is not
-    //! guaranteed to create the minimal set of patches required to transform
-    //! between the two states.
+    //! Generates a set of patches such that m_forwardPatches.Apply(beforeState) shall produce a document equivalent to afterState, and
+    //! a subsequent m_inversePatches.Apply(beforeState) shall produce the original document. This patch generation strategy does a
+    //! hierarchical comparison and is not guaranteed to create the minimal set of patches required to transform between the two states.
     PatchInfo GenerateHierarchicalDeltaPatch(const Value& beforeState, const Value& afterState);
 } // namespace AZ::Dom

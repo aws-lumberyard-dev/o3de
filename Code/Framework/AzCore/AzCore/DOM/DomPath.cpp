@@ -62,12 +62,42 @@ namespace AZ::Dom
 
     bool PathEntry::operator==(AZStd::string_view key) const
     {
-        return IsKey() && GetKey().GetStringView() == key;
+        return IsKey() && GetKey() == AZ::Name(key);
+    }
+
+    bool PathEntry::operator!=(const PathEntry& other) const
+    {
+        return m_value != other.m_value;
+    }
+
+    bool PathEntry::operator!=(size_t value) const
+    {
+        return !IsIndex() || GetIndex() != value;
+    }
+
+    bool PathEntry::operator!=(const AZ::Name& key) const
+    {
+        return !IsKey() || GetKey() != key;
+    }
+
+    bool PathEntry::operator!=(AZStd::string_view key) const
+    {
+        return !IsKey() || GetKey() != AZ::Name(key);
+    }
+
+    void PathEntry::SetEndOfArray()
+    {
+        m_value = EndOfArrayIndex;
+    }
+
+    bool PathEntry::IsEndOfArray() const
+    {
+        return AZStd::holds_alternative<size_t>(m_value) && AZStd::get<size_t>(m_value) == EndOfArrayIndex;
     }
 
     bool PathEntry::IsIndex() const
     {
-        return AZStd::holds_alternative<size_t>(m_value);
+        return AZStd::holds_alternative<size_t>(m_value) && AZStd::get<size_t>(m_value) != EndOfArrayIndex;
     }
 
     bool PathEntry::IsKey() const
@@ -144,6 +174,11 @@ namespace AZ::Dom
         return {};
     }
 
+    size_t Path::Size() const
+    {
+        return m_entries.size();
+    }
+
     PathEntry& Path::operator[](size_t index)
     {
         return m_entries[index];
@@ -190,7 +225,11 @@ namespace AZ::Dom
         for (const PathEntry& entry : m_entries)
         {
             ++size;
-            if (entry.IsIndex())
+            if (entry.IsEndOfArray())
+            {
+                size += 1;
+            }
+            else if (entry.IsIndex())
             {
                 const size_t index = entry.GetIndex();
                 const double digitCount = index > 0 ? log10(aznumeric_cast<double>(index + 1)) : 1.0;
@@ -250,7 +289,11 @@ namespace AZ::Dom
         for (const PathEntry& entry : m_entries)
         {
             putChar(PathSeparator);
-            if (entry.IsIndex())
+            if (entry.IsEndOfArray())
+            {
+                putChar(EndOfArrayCharacter);
+            }
+            else if (entry.IsIndex())
             {
                 bufferIndex += sprintf_s(&stringBuffer[bufferIndex], bufferSize - bufferIndex, "%zu", entry.GetIndex());
             }
@@ -284,7 +327,13 @@ namespace AZ::Dom
                 if (i > 0)
                 {
                     AZStd::string_view section(&pathString.data()[pathIndex], i - pathIndex);
-                    if (isNumber && section.size() > 0)
+                    if (section.size() == 1 && section[0] == EndOfArrayCharacter)
+                    {
+                        PathEntry entry;
+                        entry.SetEndOfArray();
+                        m_entries.push_back(AZStd::move(entry));
+                    }
+                    else if (isNumber && section.size() > 0)
                     {
                         size_t index = 0;
                         sscanf_s(section.data(), "%zu", &index);
