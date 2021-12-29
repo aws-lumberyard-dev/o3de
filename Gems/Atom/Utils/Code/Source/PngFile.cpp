@@ -26,46 +26,6 @@ namespace AZ
             {
                 AZ_Warning("PngFile", false, "%s", warning_msg);
             }
-
-            // Convenience class for reading from an array_view into a buffer provided by libpng.
-            class ArrayViewReader
-            {
-            public:
-                ArrayViewReader(AZStd::array_view<uint8_t> data)
-                    : m_data(data)
-                    , m_curOffset(0)
-                {
-                }
-
-                // Copy the next numBytes bytes into destBuffer.  If there are less than numBytes left, just copy whatever is left.
-                // Returns the number of bytes actually copied.
-                size_t ReadData(uint8_t* destBuffer, size_t numBytes)
-                {
-                    size_t numBytesRead = AZStd::min(m_data.size() - m_curOffset, numBytes);
-
-                    if (numBytesRead > 0)
-                    {
-                        memcpy(destBuffer, m_data.data() + m_curOffset, numBytesRead);
-                        m_curOffset += numBytesRead;
-                    }
-                    return numBytesRead;
-                }
-
-                // Function to pass into png_set_read_fn to handle the custom I/O reads from ArrayViewReader.
-                static void PngReadFn(png_structp png_ptr, png_bytep outBytes, png_size_t byteCountToRead)
-                {
-                    png_voidp io_ptr = png_get_io_ptr(png_ptr);
-                    if (io_ptr != nullptr)
-                    {
-                        ArrayViewReader& arrayViewReader = *(ArrayViewReader*)io_ptr;
-                        arrayViewReader.ReadData(outBytes, byteCountToRead);
-                    }
-                };
-
-            private:
-                AZStd::array_view<uint8_t> m_data;
-                size_t m_curOffset = 0;
-            };
         }
 
         PngFile PngFile::Create(const RHI::Size& size, RHI::Format format, AZStd::array_view<uint8_t> data, ErrorHandler errorHandler)
@@ -160,19 +120,13 @@ namespace AZ
                 loadSettings.m_errorHandler("Data stream isn't valid.");
                 return {};
             }
-            if (filePtr && !data.empty())
-            {
-                loadSettings.m_errorHandler("Both a file and a buffer was provided to PngFile.  Only one or the other should be provided.");
-                return {};
-            }
-
-            ArrayViewReader reader(data);
 
             png_byte header[HeaderSize] = {};
             size_t headerBytesRead = 0;
 
             // This is the one I/O read that occurs outside of the png library, so either read from the file or the buffer and
             // verify the results.
+            headerBytesRead = dataStream.Read(HeaderSize, header);
             if (headerBytesRead != HeaderSize)
             {
                 loadSettings.m_errorHandler("Invalid png header.");
