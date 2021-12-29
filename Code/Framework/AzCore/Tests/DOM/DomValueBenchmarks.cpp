@@ -9,105 +9,12 @@
 #include <AzCore/DOM/DomValue.h>
 #include <AzCore/Name/NameDictionary.h>
 #include <AzCore/UnitTest/TestTypes.h>
-#include <cinttypes>
+#include <Tests/DOM/DomFixtures.h>
 
 namespace AZ::Dom::Benchmark
 {
-    class DomValueBenchmark : public UnitTest::AllocatorsBenchmarkFixture
+    class DomValueBenchmark : public Tests::DomBenchmarkFixture
     {
-    public:
-        void SetUp(const ::benchmark::State& st) override
-        {
-            UnitTest::AllocatorsBenchmarkFixture::SetUp(st);
-            AZ::NameDictionary::Create();
-            AZ::AllocatorInstance<ValueAllocator>::Create();
-        }
-
-        void SetUp(::benchmark::State& st) override
-        {
-            UnitTest::AllocatorsBenchmarkFixture::SetUp(st);
-            AZ::NameDictionary::Create();
-            AZ::AllocatorInstance<ValueAllocator>::Create();
-        }
-
-        void TearDown(::benchmark::State& st) override
-        {
-            AZ::AllocatorInstance<ValueAllocator>::Destroy();
-            AZ::NameDictionary::Destroy();
-            UnitTest::AllocatorsBenchmarkFixture::TearDown(st);
-        }
-
-        void TearDown(const ::benchmark::State& st) override
-        {
-            AZ::AllocatorInstance<ValueAllocator>::Destroy();
-            AZ::NameDictionary::Destroy();
-            UnitTest::AllocatorsBenchmarkFixture::TearDown(st);
-        }
-
-        Value GenerateDomBenchmarkPayload(int64_t entryCount, int64_t stringTemplateLength)
-        {
-            Value root(Type::Object);
-
-            AZStd::string entryTemplate;
-            while (entryTemplate.size() < static_cast<size_t>(stringTemplateLength))
-            {
-                entryTemplate += "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ";
-            }
-            entryTemplate.resize(stringTemplateLength);
-            AZStd::string buffer;
-
-            auto createString = [&](int n) -> Value
-            {
-                return Value(AZStd::string::format("#%i %s", n, entryTemplate.c_str()), true);
-            };
-
-            auto createEntry = [&](int n) -> Value
-            {
-                Value entry(Type::Object);
-                entry.AddMember("string", createString(n));
-                entry.AddMember("int", n);
-                entry.AddMember("double", static_cast<double>(n) * 0.5);
-                entry.AddMember("bool", n % 2 == 0);
-                entry.AddMember("null", Value(Type::Null));
-                return entry;
-            };
-
-            auto createArray = [&]() -> Value
-            {
-                Value array(Type::Array);
-                for (int i = 0; i < entryCount; ++i)
-                {
-                    array.PushBack(createEntry(i));
-                }
-                return array;
-            };
-
-            auto createObject = [&]() -> Value
-            {
-                Value object;
-                object.SetObject();
-                for (int i = 0; i < entryCount; ++i)
-                {
-                    buffer = AZStd::string::format("Key%i", i);
-                    object.AddMember(AZ::Name(buffer), createArray());
-                }
-                return object;
-            };
-
-            root["entries"] = createObject();
-
-            return root;
-        }
-
-        template<class T>
-        void TakeAndDiscardWithoutTimingDtor(T&& value, benchmark::State& state)
-        {
-            {
-                T instance = AZStd::move(value);
-                state.PauseTiming();
-            }
-            state.ResumeTiming();
-        }
     };
 
     BENCHMARK_DEFINE_F(DomValueBenchmark, AzDomValueMakeComplexObject)(benchmark::State& state)
@@ -119,12 +26,7 @@ namespace AZ::Dom::Benchmark
 
         state.SetItemsProcessed(state.range(0) * state.range(0) * state.iterations());
     }
-    BENCHMARK_REGISTER_F(DomValueBenchmark, AzDomValueMakeComplexObject)
-        ->Args({ 10, 5 })
-        ->Args({ 10, 500 })
-        ->Args({ 100, 5 })
-        ->Args({ 100, 500 })
-        ->Unit(benchmark::kMillisecond);
+    DOM_REGISTER_SERIALIZATION_BENCHMARK_MS(DomValueBenchmark, AzDomValueMakeComplexObject)
 
     BENCHMARK_DEFINE_F(DomValueBenchmark, AzDomValueShallowCopy)(benchmark::State& state)
     {
@@ -138,12 +40,7 @@ namespace AZ::Dom::Benchmark
 
         state.SetItemsProcessed(state.iterations());
     }
-    BENCHMARK_REGISTER_F(DomValueBenchmark, AzDomValueShallowCopy)
-        ->Args({ 10, 5 })
-        ->Args({ 10, 500 })
-        ->Args({ 100, 5 })
-        ->Args({ 100, 500 })
-        ->Unit(benchmark::kNanosecond);
+    DOM_REGISTER_SERIALIZATION_BENCHMARK_NS(DomValueBenchmark, AzDomValueShallowCopy)
 
     BENCHMARK_DEFINE_F(DomValueBenchmark, AzDomValueCopyAndMutate)(benchmark::State& state)
     {
@@ -158,12 +55,7 @@ namespace AZ::Dom::Benchmark
 
         state.SetItemsProcessed(state.iterations());
     }
-    BENCHMARK_REGISTER_F(DomValueBenchmark, AzDomValueCopyAndMutate)
-        ->Args({ 10, 5 })
-        ->Args({ 10, 500 })
-        ->Args({ 100, 5 })
-        ->Args({ 100, 500 })
-        ->Unit(benchmark::kNanosecond);
+    DOM_REGISTER_SERIALIZATION_BENCHMARK_MS(DomValueBenchmark, AzDomValueCopyAndMutate)
 
     BENCHMARK_DEFINE_F(DomValueBenchmark, AzDomValueDeepCopy)(benchmark::State& state)
     {
@@ -177,12 +69,7 @@ namespace AZ::Dom::Benchmark
 
         state.SetItemsProcessed(state.iterations());
     }
-    BENCHMARK_REGISTER_F(DomValueBenchmark, AzDomValueDeepCopy)
-        ->Args({ 10, 5 })
-        ->Args({ 10, 500 })
-        ->Args({ 100, 5 })
-        ->Args({ 100, 500 })
-        ->Unit(benchmark::kMillisecond);
+    DOM_REGISTER_SERIALIZATION_BENCHMARK_MS(DomValueBenchmark, AzDomValueDeepCopy)
 
     BENCHMARK_DEFINE_F(DomValueBenchmark, LookupMemberByName)(benchmark::State& state)
     {

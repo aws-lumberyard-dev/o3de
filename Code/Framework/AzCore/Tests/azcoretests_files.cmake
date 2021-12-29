@@ -212,6 +212,8 @@ set(FILES
     AZStd/Variant.cpp
     AZStd/VariantSerialization.cpp
     AZStd/VectorAndArray.cpp
+    DOM/DomFixtures.cpp
+    DOM/DomFixtures.h
     DOM/DomJsonTests.cpp
     DOM/DomJsonBenchmarks.cpp
     DOM/DomPathTests.cpp

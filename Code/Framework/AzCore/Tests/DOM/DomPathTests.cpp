@@ -8,24 +8,12 @@
 
 #include <AzCore/DOM/DomPath.h>
 #include <AzCore/Name/NameDictionary.h>
-#include <AzCore/UnitTest/TestTypes.h>
+#include <Tests/DOM/DomFixtures.h>
 
 namespace AZ::Dom::Tests
 {
-    class DomPathTests : public UnitTest::AllocatorsFixture
+    class DomPathTests : public DomTestFixture
     {
-    public:
-        void SetUp() override
-        {
-            UnitTest::AllocatorsFixture::SetUp();
-            NameDictionary::Create();
-        }
-
-        void TearDown() override
-        {
-            NameDictionary::Destroy();
-            UnitTest::AllocatorsFixture::TearDown();
-        }
     };
 
     TEST_F(DomPathTests, EmptyPath_IsEmpty)
