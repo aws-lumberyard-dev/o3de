@@ -23,7 +23,6 @@
 #include <LyShine/Bus/UiCanvasBus.h>
 #include <LyShine/UiSerializeHelpers.h>
 #include <LyShine/IRenderGraph.h>
-#include <LyShine/Draw2d.h>
 
 #include <ILocalizationManager.h>
 
@@ -33,6 +32,7 @@
 #include "StringUtfUtils.h"
 #include "UiLayoutHelpers.h"
 #include "RenderGraph.h"
+#include "Draw2d.h"
 
 #include <AtomLyIntegration/AtomFont/FFont.h>
 #include <Atom/RPI.Public/Image/ImageSystemInterface.h>

@@ -47,6 +47,9 @@ ly_add_target(
             Gem::LyShine.Static
             Legacy::CryCommon
             Gem::LmbrCentral
+        PUBLIC
+            Gem::Atom_RHI.Reflect
+            Gem::Atom_RPI.Public
     RUNTIME_DEPENDENCIES
         Gem::LmbrCentral
         Gem::TextureAtlas
@@ -55,6 +58,9 @@ ly_add_target(
 # by default, load the above "Gem::LyShine" module in Client and Server applications:
 ly_create_alias(NAME LyShine.Clients NAMESPACE Gem TARGETS Gem::LyShine)
 ly_create_alias(NAME LyShine.Servers NAMESPACE Gem TARGETS Gem::LyShine)
+# create an alias for other gems to depend on a LyShine public API (can be converted to a target in the future):
+ly_create_alias(NAME LyShine.Clients.API NAMESPACE Gem TARGETS Gem::LyShine.Clients)
+ly_create_alias(NAME LyShine.Servers.API NAMESPACE Gem TARGETS Gem::LyShine.Servers)
 
 if (PAL_TRAIT_BUILD_HOST_TOOLS)
     ly_add_target(
@@ -70,7 +76,6 @@ if (PAL_TRAIT_BUILD_HOST_TOOLS)
                 .
                 Source
                 Editor
-            PUBLIC
                 Include
         BUILD_DEPENDENCIES
             PRIVATE
@@ -109,7 +114,6 @@ if (PAL_TRAIT_BUILD_HOST_TOOLS)
                 .
                 Source
                 Editor
-            PUBLIC
                 Include
         BUILD_DEPENDENCIES
             PRIVATE

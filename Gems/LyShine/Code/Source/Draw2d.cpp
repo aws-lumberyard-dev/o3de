@@ -6,7 +6,7 @@
  *
  */
 
-#include <LyShine/Draw2d.h>
+#include "Draw2d.h"
 #include <LyShine/UiRenderFormats.h>
 #include "LyShinePassDataBus.h"
 
