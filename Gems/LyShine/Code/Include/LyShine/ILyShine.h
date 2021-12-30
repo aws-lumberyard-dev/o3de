@@ -32,7 +32,10 @@ class UiEntityContext;
 class ILyShine
 {
 public:
-    virtual ~ILyShine(){}
+    AZ_RTTI(ILyShine, "{652ED9D7-0782-44E8-BCE7-65DD38C90907}");
+
+    ILyShine() = default;
+    virtual ~ILyShine() = default;
 
     //! Delete this object
     virtual void Release() = 0;
