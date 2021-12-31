@@ -31,6 +31,7 @@ void PreviewActionLog::Activate(AZ::EntityId canvasEntityId)
 {
     // start listening for canvas actions from the given canvas
     UiCanvasNotificationBus::Handler::BusConnect(canvasEntityId);
+    UiCanvasManagerNotificationBus::Handler::BusConnect();
     m_canvasEntityId = canvasEntityId;
 
     // reset variables and clear the log
@@ -47,6 +48,7 @@ void PreviewActionLog::Deactivate()
         UiCanvasNotificationBus::Handler::BusDisconnect(m_canvasEntityId);
         m_canvasEntityId.SetInvalid();
     }
+    UiCanvasManagerNotificationBus::Handler::BusDisconnect();
 }
 
 void PreviewActionLog::OnAction(AZ::EntityId entityId, const LyShine::ActionName& actionName)
@@ -92,6 +94,17 @@ void PreviewActionLog::OnAction(AZ::EntityId entityId, const LyShine::ActionName
 
     append(message); // Adds the message to the widget
     verticalScrollBar()->setValue(verticalScrollBar()->maximum()); // Scrolls to the bottom
+}
+
+void PreviewActionLog::OnCanvasUnloaded(AZ::EntityId canvasEntityId)
+{
+    // In preview mode, the canvas can get unloaded by a script event
+    if (m_canvasEntityId == canvasEntityId)
+    {
+        // Stop listening for actions
+        UiCanvasNotificationBus::Handler::BusDisconnect(m_canvasEntityId);
+        m_canvasEntityId.SetInvalid();
+    }
 }
 
 QSize PreviewActionLog::sizeHint() const
