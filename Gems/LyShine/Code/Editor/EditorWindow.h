@@ -12,6 +12,7 @@
 
 #include "Animation/UiEditorAnimationBus.h"
 #include <LyShine/UiEditorDLLBus.h>
+#include <LyShine/Bus/UiCanvasManagerBus.h>
 #include "UiEditorInternalBus.h"
 #include "UiEditorEntityContext.h"
 #include "UiSliceManager.h"
@@ -44,6 +45,7 @@ class EditorWindow
     , public AzToolsFramework::EditorEvents::Bus::Handler
     , public FontNotificationBus::Handler
     , public AZ::Debug::TraceMessageBus::Handler
+    , public UiCanvasManagerNotificationBus::Handler
 {
     Q_OBJECT
 
@@ -114,10 +116,15 @@ public: // member functions
     // FontNotifications
     void OnFontsReloaded() override;
     // ~FontNotifications
+
     // TraceMessageEvents
     bool OnPreError(const char* /*window*/, const char* /*fileName*/, int /*line*/, const char* /*func*/, const char* message) override;
     bool OnPreWarning(const char* /*window*/, const char* /*fileName*/, int /*line*/, const char* /*func*/, const char* /*message*/) override;
     // ~TraceMessageEvents
+
+    // UiCanvasManagerNotifications
+    void OnCanvasUnloaded(AZ::EntityId canvasEntityId) override;
+    // ~UiCanvasManagerNotifications
 
     AZ::EntityId GetCanvas();
 

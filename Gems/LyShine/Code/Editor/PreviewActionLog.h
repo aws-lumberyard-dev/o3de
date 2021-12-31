@@ -10,6 +10,7 @@
 #if !defined(Q_MOC_RUN)
 #include <QTextEdit>
 #include <LyShine/Bus/UiCanvasBus.h>
+#include <LyShine/Bus/UiCanvasManagerBus.h>
 #endif
 
 class EditorWindow;
@@ -17,6 +18,7 @@ class EditorWindow;
 class PreviewActionLog
     : public QTextEdit
     , public UiCanvasNotificationBus::Handler
+    , public UiCanvasManagerNotificationBus::Handler
 {
     Q_OBJECT
 
@@ -36,6 +38,10 @@ private: // member functions
     // UiCanvasActionNotification
     void OnAction(AZ::EntityId entityId, const LyShine::ActionName& actionName) override;
     // ~UiCanvasActionNotification
+
+    // UiCanvasManagerNotifications
+    void OnCanvasUnloaded(AZ::EntityId canvasEntityId) override;
+    // ~UiCanvasManagerNotifications
 
     QSize sizeHint() const override;
 

@@ -268,6 +268,7 @@ EditorWindow::EditorWindow(QWidget* parent, Qt::WindowFlags flags)
 
     AzToolsFramework::EditorEvents::Bus::Handler::BusConnect();
     FontNotificationBus::Handler::BusConnect();
+    UiCanvasManagerNotificationBus::Handler::BusConnect();
 
     // Don't draw the viewport until the window is shown
     m_viewport->SetRedrawEnabled(false);
@@ -284,6 +285,7 @@ EditorWindow::~EditorWindow()
 
     AzToolsFramework::EditorEvents::Bus::Handler::BusDisconnect();
     FontNotificationBus::Handler::BusDisconnect();
+    UiCanvasManagerNotificationBus::Handler::BusDisconnect();
 
     QObject::disconnect(m_clipboardConnection);
 
@@ -560,6 +562,15 @@ bool EditorWindow::OnPreWarning(const char* /*window*/, const char* /*fileName*/
 {
     AddTraceMessage(message, m_warnings);
     return true;
+}
+
+void EditorWindow::OnCanvasUnloaded(AZ::EntityId canvasEntityId)
+{
+    // In preview mode, the canvas can get unloaded by a script event
+    if (GetEditorMode() == UiEditorMode::Preview && m_previewModeCanvasEntityId == canvasEntityId)
+    {
+        m_previewModeCanvasEntityId.SetInvalid();
+    }
 }
 
 void EditorWindow::DestroyCanvas(const UiCanvasMetadata& canvasMetadata)
