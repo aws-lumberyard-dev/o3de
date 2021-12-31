@@ -33,6 +33,7 @@ namespace AZ
         class Mesh;
         using ModelsMapByModel = AZStd::unordered_map<AtomSceneStream::Mesh*, Render::MeshFeatureProcessorInterface::MeshHandle>;
         using ModelsMapByName = AZStd::unordered_map<AZStd::string, AtomSceneStream::Mesh*>;
+        using ThreadMapByName = AZStd::unordered_map<AZStd::string, AZStd::thread>;
 //        using ModelsMapByName = AZStd::unordered_map<AZStd::string, uint32_t>;
 
         const uint32_t GPU_MEMORY_LIMIT = 1024 * 1024 * 1024; // 1 GiB
@@ -70,14 +71,16 @@ namespace AZ
             bool CreateMeshDrawPacket(AtomSceneStream::Mesh* currentMesh);
             AtomSceneStream::Mesh* CreateMesh(Umbra::AssetLoad& assetLoad);
             void CleanResource();
-            void RemoveAllActiveModels();
             void DebugDraw(RPI::AuxGeomDrawPtr auxGeom, AtomSceneStream::Mesh* currentMesh, Vector3& offset, const Color& debugColor);
             void DebugDrawMeshes(RPI::AuxGeomDrawPtr auxGeom, AtomSceneStream::Mesh* currentMesh, const Color& debugColor);
             void UpdateUmbraViewCamera();
             bool StartUmbraClient();
-            bool LoadStreamedAssets();
-            bool UnloadStreamedAssets();
+            bool LoadStreamedAsset();
+            bool UnloadStreamedAsset();
             void HandleAssetsStreaming(float seconds);
+
+            bool ParallelLoadStreamedAsset();
+            bool ParallelUnloadStreamedAsset();
 
             bool StartStreamingThread();
             void StopStreamingThread();
@@ -105,6 +108,7 @@ namespace AZ
             Umbra::View m_view;
 
             // Thread management
+            ThreadMapByName m_loadingThreads;
             AZStd::thread m_streamerThread;
             AZStd::thread_desc m_streamerThreadDesc;
             AZStd::atomic_bool m_isStreaming{ false };

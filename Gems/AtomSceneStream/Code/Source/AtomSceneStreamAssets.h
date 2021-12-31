@@ -157,12 +157,14 @@ namespace AZ
             uint32_t m_vertexCount = 0;
             uint32_t m_indexCount = 0;
             uint32_t m_indexBytes = 0;
-            Material* m_material = nullptr;
             bool m_isShaded = false;
 
             // VB streams and IB buffer combined - temporary for GPU buffer creation 
             void* m_buffersData = nullptr;
+
             Data::Instance<RPI::Model> m_atomModel;
+            Material* m_material = nullptr;
+
             AZStd::string m_name;
             bool m_modelReady = false;
             bool m_requiresCompile = true;

@@ -21,6 +21,23 @@
 
 #pragma optimize("", off)
 
+// All of these were taken with X <--> Y to remove Atom tweak on that
+// Y = true, X = false      --> 
+// Y = false, X = false     --> 
+// Y = false, X = true      --> 
+// Y = true, X = true       --> 
+
+// All of these were taken with X <--> Y as per Atom ==>
+//      All combinations failed and they seem green when supposed to be red, hence RG switch
+// Y = true, X = false      --> NO
+// Y = false, X = false     --> NO
+// Y = false, X = true      --> NO
+// Y = true, X = true       --> NO
+static bool flipY = true;  
+static bool flipX = false;
+static float normalScaleFactor = 3.0f;
+static bool disableNormalTexture = false;
+
 namespace AZ
 {
     namespace AtomSceneStream
@@ -153,12 +170,6 @@ namespace AZ
                 {
                     m_atomMaterial->SetPropertyValue(diffTextureIndex, m_diffuse->GetStreamingImage());
                     m_atomMaterial->SetPropertyValue(useDiffTextureIndex, true);
-
-                    RPI::MaterialPropertyIndex colorFlipYIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.flipY"));
-                    if (colorFlipYIndex.IsValid())
-                    {   // This does not seem to be valid for some reason
-                        m_atomMaterial->SetPropertyValue(colorFlipYIndex, true);
-                    }
                 }
                 else if (!m_diffuse->GetStreamingImage())
                 {
@@ -171,17 +182,38 @@ namespace AZ
                     m_atomMaterial->SetPropertyValue(normTextureIndex, m_normal->GetStreamingImage());
                     m_atomMaterial->SetPropertyValue(useNormTextureIndex, true);
 
-                    RPI::MaterialPropertyIndex normFlipYIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.flipY"));
-                    if (normFlipYIndex.IsValid())
-                    {   // This does not seem to be valid for some reason
-                        m_atomMaterial->SetPropertyValue(normFlipYIndex, true);
+                    if (flipX)
+                    {
+                        RPI::MaterialPropertyIndex normFlipXIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.flipX"));
+                        if (normFlipXIndex.IsValid())
+                        {   // This does not seem to be valid for some reason
+                            m_atomMaterial->SetPropertyValue(normFlipXIndex, true);
+                        }
+                    }
+
+                    if (flipY)
+                    {
+                        RPI::MaterialPropertyIndex normFlipYIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.flipY"));
+                        if (normFlipYIndex.IsValid())
+                        {   // This does not seem to be valid for some reason
+                            m_atomMaterial->SetPropertyValue(normFlipYIndex, true);
+                        }
+                    }
+
+                    RPI::MaterialPropertyIndex normalFactorIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.factor"));
+                    if (normalFactorIndex.IsValid())
+                    {
+                        m_atomMaterial->SetPropertyValue(normalFactorIndex, normalScaleFactor);
                     }
                 }
                 else if (!m_normal->GetStreamingImage())
                 {
                     AZ_Warning("AtomSceneStream", false, "Warning -- Material [%s] Missing Normal Texture", m_name.c_str());
                 }
-                m_atomMaterial->SetPropertyValue(useNormTextureIndex, false);
+                if (disableNormalTexture && useNormTextureIndex.IsValid())
+                {
+                    m_atomMaterial->SetPropertyValue(useNormTextureIndex, false);
+                }
 
                 RPI::MaterialPropertyIndex specTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("specularF0.textureMap"));
                 if (m_specular->GetStreamingImage() && specTextureIndex.IsValid() && useSpecTextureIndex.IsValid())
@@ -215,10 +247,13 @@ namespace AZ
                 }
             }
 
-            RPI::MaterialPropertyIndex useRoughTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("roughness.useTexture"));
-            m_atomMaterial->SetPropertyValue(useRoughTextureIndex, false);
             RPI::MaterialPropertyIndex roughnessFactorIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("roughness.factor"));
-            m_atomMaterial->SetPropertyValue(roughnessFactorIndex, 0.5f);
+            if (roughnessFactorIndex.IsValid())
+            {
+                m_atomMaterial->SetPropertyValue(roughnessFactorIndex, 0.5f);
+                RPI::MaterialPropertyIndex useRoughTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("roughness.useTexture"));
+                m_atomMaterial->SetPropertyValue(useRoughTextureIndex, false);
+            }
 
             if (m_isTransparent)
             {
@@ -261,6 +296,7 @@ namespace AZ
             m_isTransparent = !!info.transparent;
 
             // Create the base default Pbr material
+//            static constexpr const char DefaultPbrMaterialPath[] = "materials/minimalpbr_default.azmaterial";
             static constexpr const char DefaultPbrMaterialPath[] = "materials/defaultpbr.azmaterial";
             Data::Asset<RPI::MaterialAsset> materialAsset =
                 RPI::AssetUtils::GetAssetByProductPath<RPI::MaterialAsset>(DefaultPbrMaterialPath, RPI::AssetUtils::TraceLevel::Assert);

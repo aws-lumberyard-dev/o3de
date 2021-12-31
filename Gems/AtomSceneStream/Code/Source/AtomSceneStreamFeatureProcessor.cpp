@@ -42,6 +42,17 @@ namespace AZ
 
         void AtomSceneStreamFeatureProcessor::CleanResource()
         {
+            StopStreamingThread();
+
+            for (auto& assetThread : m_loadingThreads)
+            {   // The following will create a wait on all existing threads.  SHould we limit the amount?
+                assetThread.second.join();
+            }
+            m_loadingThreads.clear();
+
+//            m_modelsMapByModel.clear();
+            m_modelsMapByName.clear();
+
             m_view.destroy();
             m_scene.destroy();
             if (m_runtime)
@@ -123,12 +134,6 @@ namespace AZ
             m_heightOffset = -0.5f * (info.bounds.mx.v[2] + info.bounds.mn.v[2]);
 
             return true;
-        }
-
-        void AtomSceneStreamFeatureProcessor::RemoveAllActiveModels()
-        {
-//            m_modelsMapByModel.clear();
-            m_modelsMapByName.clear();
         }
 
         AtomSceneStreamFeatureProcessor::~AtomSceneStreamFeatureProcessor()
@@ -520,11 +525,8 @@ namespace AZ
         }
 
         // AssetLoad tells that an asset should be loaded into GPU. This function loads a single asset
-        bool AtomSceneStreamFeatureProcessor::LoadStreamedAssets()
+        bool AtomSceneStreamFeatureProcessor::LoadStreamedAsset()
         {
-            if (!m_runtime)
-                return false;
-
             Umbra::AssetLoad assetLoad = m_runtime->getNextAssetLoad();
             if (!assetLoad)
                 return false;
@@ -557,28 +559,28 @@ namespace AZ
                 if (!ptr)
                 {
                     assetLoad.finish(UmbraAssetLoadResult_Failure);
-                    return true;    // the reason for returning true is to avoid breaking the streaming loop
                 }
-                break;
+                else
+                {
+                    assetLoad.prepare((Umbra::UserPointer)ptr);
+                    assetLoad.finish(UmbraAssetLoadResult_Success);
+                }
+                return true;    // the reason for returning true is to avoid breaking the streaming loop
             }
 
             default: break;
             }
 
+            // This is for the texture and material - the mesh can be carried on a different thread.
             assetLoad.prepare((Umbra::UserPointer)ptr);
-
-            // Finish the job
             assetLoad.finish(UmbraAssetLoadResult_Success);
 
             return true;
         }
 
         // AssetUnloadJob tells that an asset can be freed from the GPU. This function frees a single asset
-        bool AtomSceneStreamFeatureProcessor::UnloadStreamedAssets()
+        bool AtomSceneStreamFeatureProcessor::UnloadStreamedAsset()
         {
-            if (!m_runtime)
-                return false;
-
             Umbra::AssetUnload assetUnload = m_runtime->getNextAssetUnload();
             if (!assetUnload)
                 return false;
@@ -605,8 +607,6 @@ namespace AZ
                 if (m_meshFeatureProcessor && meshForRemoval)
                 {
                     m_memoryUsage -= meshForRemoval->GetMemoryUsage();
-//                    auto iter = m_modelsMapByModel.find(meshForRemoval);
-//                    if (iter != m_modelsMapByModel.end())
                     auto iter = m_modelsMapByName.find(meshForRemoval->GetName());
                     if (iter != m_modelsMapByName.end())
                     {
@@ -616,7 +616,6 @@ namespace AZ
                             AZ_Warning("AtomSceneStream", false, errorMessage.c_str());
                         }
                         m_modelsMapByName.erase(iter);
-//                        m_modelsMapByModel.erase(iter);
                     }
                     delete meshForRemoval;    // [Adi] - to do: requires postponed deletion (3 frames delay)
                 }
@@ -628,6 +627,7 @@ namespace AZ
             assetUnload.finish();
             return true;
         }
+
 
         bool AtomSceneStreamFeatureProcessor::StartStreamingThread()
         {
@@ -671,14 +671,18 @@ namespace AZ
 
                 // First unload old assets to make room for new ones
                 while (AZStd::chrono::system_clock::now() < endTime)
-                    if (!UnloadStreamedAssets())
+                {
+                    if (!UnloadStreamedAsset())
                         break;
+                }
 
                 // Giving both equal chance to work
                 endTime = AZStd::chrono::system_clock::now() + AZStd::chrono::milliseconds(workTimeMilliseconds);
                 while (AZStd::chrono::system_clock::now() < endTime)
-                    if (!LoadStreamedAssets())
+                {
+                    if (!LoadStreamedAsset())
                         break;
+                }
             }
         }
 
@@ -694,26 +698,24 @@ namespace AZ
 
             // First unload old assets to make room for new ones
             while (AZStd::chrono::system_clock::now() < endTime)
-                if (!UnloadStreamedAssets())
+                if (!UnloadStreamedAsset())
                     break;
 
             while (AZStd::chrono::system_clock::now() < endTime)
-                if (!LoadStreamedAssets())
+                if (!LoadStreamedAsset())
                     break;
         }
 
         void AtomSceneStreamFeatureProcessor::OnRenderPipelineAdded([[maybe_unused]]RPI::RenderPipelinePtr renderPipeline)
         {
-            StopStreamingThread();
-            RemoveAllActiveModels();
+            CleanResource();
             m_isConnectedAndStreaming = false;
             m_readyForStreaming = true;
         }
 
         void AtomSceneStreamFeatureProcessor::OnRenderPipelineRemoved([[maybe_unused]]RPI::RenderPipeline* renderPipeline)
         {
-            StopStreamingThread();
-            RemoveAllActiveModels();
+            CleanResource();
             m_isConnectedAndStreaming = false;
             m_readyForStreaming = true;
         }
