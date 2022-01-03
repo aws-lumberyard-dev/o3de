@@ -267,12 +267,15 @@ namespace AZ::Dom
         {
         case Type::Add:
             {
-                // Add -> Replace (if value already existed) otherwise
+                // Add -> Replace (if value already existed in an object) otherwise
                 // Add -> Remove
-                const Value* existingValue = stateBeforeApplication.FindChild(m_domPath);
-                if (existingValue != nullptr)
+                if (m_domPath.Size() > 0 && m_domPath[m_domPath.Size() - 1].IsKey())
                 {
-                    return AZ::Success(Patch::ReplaceOperation(m_domPath, *existingValue));
+                    const Value* existingValue = stateBeforeApplication.FindChild(m_domPath);
+                    if (existingValue != nullptr)
+                    {
+                        return AZ::Success(Patch::ReplaceOperation(m_domPath, *existingValue));
+                    }
                 }
                 return AZ::Success(Patch::RemoveOperation(m_domPath));
             }
@@ -413,7 +416,8 @@ namespace AZ::Dom
             else
             {
                 const size_t index = destinationIndex.GetIndex();
-                targetValue[index] = GetValue();
+                auto& arrayToChange = targetValue.GetMutableArray();
+                arrayToChange.insert(arrayToChange.begin() + index, GetValue());
             }
         }
         else
@@ -437,11 +441,11 @@ namespace AZ::Dom
         if (destinationIndex.IsIndex() || destinationIndex.IsEndOfArray())
         {
             size_t index = destinationIndex.IsEndOfArray() ? targetValue.Size() - 1 : destinationIndex.GetIndex();
-            targetValue.Erase(targetValue.Begin() + index);
+            targetValue.Erase(targetValue.MutableBegin() + index);
         }
         else
         {
-            auto it = targetValue.FindMember(destinationIndex.GetKey());
+            auto it = targetValue.FindMutableMember(destinationIndex.GetKey());
             targetValue.EraseMember(it);
         }
         return AZ::Success();
@@ -499,7 +503,7 @@ namespace AZ::Dom
         }
         else if (sourceContext.m_key.IsIndex())
         {
-            sourceContext.m_value.Erase(sourceContext.m_value.Begin() + sourceContext.m_key.GetIndex());
+            sourceContext.m_value.Erase(sourceContext.m_value.MutableBegin() + sourceContext.m_key.GetIndex());
         }
         else
         {
@@ -774,7 +778,7 @@ namespace AZ::Dom
                 subPath.Push(PathEntry(PathEntry::EndOfArrayIndex));
                 for (size_t i = beforeSize; i > afterSize; --i)
                 {
-                    AddPatch(Patch::RemoveOperation(subPath), Patch::AddOperation(subPath, before[i-1]));
+                    AddPatch(Patch::RemoveOperation(subPath), Patch::AddOperation(subPath, before[i - 1]));
                 }
             }
         };
@@ -798,6 +802,12 @@ namespace AZ::Dom
             {
                 AddPatch(Patch::ReplaceOperation(path, after), Patch::ReplaceOperation(path, before));
             }
+            else if (before == after)
+            {
+                // If a shallow comparison succeeds we're pointing to an identical value or container
+                // and don't need to drill down.
+                return;
+            }
             else if (before.IsObject())
             {
                 CompareObjects(path, before, after);
@@ -810,7 +820,7 @@ namespace AZ::Dom
             {
                 CompareNodes(path, before, after);
             }
-            else if (before != after)
+            else
             {
                 AddPatch(Patch::ReplaceOperation(path, after), Patch::ReplaceOperation(path, before));
             }

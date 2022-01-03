@@ -663,12 +663,12 @@ namespace AZ::Dom
         return object.end();
     }
 
-    Object::Iterator Value::EraseMember(Object::ConstIterator pos)
+    Object::Iterator Value::EraseMember(Object::Iterator pos)
     {
         return GetObjectInternal().erase(pos);
     }
 
-    Object::Iterator Value::EraseMember(Object::ConstIterator first, Object::ConstIterator last)
+    Object::Iterator Value::EraseMember(Object::Iterator first, Object::Iterator last)
     {
         return GetObjectInternal().erase(first, last);
     }
@@ -779,12 +779,12 @@ namespace AZ::Dom
         return *this;
     }
 
-    Array::Iterator Value::Erase(Array::ConstIterator pos)
+    Array::Iterator Value::Erase(Array::Iterator pos)
     {
         return GetArrayInternal().erase(pos);
     }
 
-    Array::Iterator Value::Erase(Array::ConstIterator first, Array::ConstIterator last)
+    Array::Iterator Value::Erase(Array::Iterator first, Array::Iterator last)
     {
         return GetArrayInternal().erase(first, last);
     }
@@ -1322,12 +1322,12 @@ namespace AZ::Dom
 
     Value& Value::operator[](const Path& path)
     {
-        Value& value = *this;
+        Value* value = this;
         for (const PathEntry& entry : path)
         {
-            value = value[entry];
+            value = &value->operator[](entry);
         }
-        return value;
+        return *value;
     }
 
     const Value& Value::operator[](const Path& path) const

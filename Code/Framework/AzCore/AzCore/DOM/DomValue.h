@@ -271,8 +271,8 @@ namespace AZ::Dom
         void RemoveMember(KeyType name);
         void RemoveMember(AZStd::string_view name);
         Object::Iterator RemoveMember(Object::Iterator pos);
-        Object::Iterator EraseMember(Object::ConstIterator pos);
-        Object::Iterator EraseMember(Object::ConstIterator first, Object::ConstIterator last);
+        Object::Iterator EraseMember(Object::Iterator pos);
+        Object::Iterator EraseMember(Object::Iterator first, Object::Iterator last);
         Object::Iterator EraseMember(KeyType name);
         Object::Iterator EraseMember(AZStd::string_view name);
 
@@ -302,8 +302,8 @@ namespace AZ::Dom
         Value& PushBack(Value value);
         Value& PopBack();
 
-        Array::Iterator Erase(Array::ConstIterator pos);
-        Array::Iterator Erase(Array::ConstIterator first, Array::ConstIterator last);
+        Array::Iterator Erase(Array::Iterator pos);
+        Array::Iterator Erase(Array::Iterator first, Array::Iterator last);
 
         Array::ContainerType& GetMutableArray();
         const Array::ContainerType& GetArray() const;
