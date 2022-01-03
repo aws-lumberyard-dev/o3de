@@ -363,11 +363,10 @@ namespace AZ
                 AZ::RPI::PassFilter filter;
                 m_passLibrary.ForEachPass(filter, [attachmentScale, screenWidth, screenHeight, &iPassCount](RPI::Pass* pass) -> PassFilterExecutionFlow
                     {
-                        [[maybe_unused]] float width = screenWidth * attachmentScale;
-                        [[maybe_unused]] float height = screenHeight * attachmentScale;
+                        float width = screenWidth * attachmentScale;
+                        float height = screenHeight * attachmentScale;
                         AZ::RPI::RasterPass* rasterPass = static_cast<AZ::RPI::RasterPass*>(pass);
-                        [[maybe_unused]] AZ::RPI::FullscreenTrianglePass* fullScreenTrianglePass = static_cast<AZ::RPI::FullscreenTrianglePass*>(pass);
-
+                        
                         if(rasterPass)
                         {
                             // Scale attachments that are InputOutput, SwapChainOutput name, image type, and not getting size from pipeline 
