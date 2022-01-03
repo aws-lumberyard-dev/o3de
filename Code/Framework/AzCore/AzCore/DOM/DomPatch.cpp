@@ -354,8 +354,22 @@ namespace AZ::Dom
         Path target = path;
         if (target.Size() == 0)
         {
-            return AZ::Failure<AZStd::string>("Empty path specified");
+            Value wrapper(Dom::Type::Array);
+            wrapper.PushBack(rootElement);
+            return AZ::Success<PathContext>({ wrapper, PathEntry(0) });
         }
+
+        if (checkExistence)
+        {
+            for (const PathEntry& entry : path)
+            {
+                if (entry.IsEndOfArray())
+                {
+                    return AZ::Failure<AZStd::string>("Append to array index (\"-\") specified for path that must already exist");
+                }
+            }
+        }
+
         PathEntry destinationIndex = target[target.Size() - 1];
         target.Pop();
 
