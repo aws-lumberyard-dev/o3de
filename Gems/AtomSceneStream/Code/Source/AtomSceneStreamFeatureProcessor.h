@@ -31,9 +31,19 @@ namespace AZ
     namespace AtomSceneStream
     {
         class Mesh;
+
+        struct MeshCreationStruct
+        {
+            AZStd::string m_name;
+            AZStd::thread m_creationThread;
+//            UmbraAssetLoad* assetLoad = nullptr;
+            Umbra::AssetLoad assetLoad;
+            bool m_finished = false;
+        };
+
         using ModelsMapByModel = AZStd::unordered_map<AtomSceneStream::Mesh*, Render::MeshFeatureProcessorInterface::MeshHandle>;
         using ModelsMapByName = AZStd::unordered_map<AZStd::string, AtomSceneStream::Mesh*>;
-        using ThreadMapByName = AZStd::unordered_map<AZStd::string, AZStd::thread>;
+        using ThreadMapByName = AZStd::unordered_map<AZStd::string, MeshCreationStruct>;
 //        using ModelsMapByName = AZStd::unordered_map<AZStd::string, uint32_t>;
 
         const uint32_t GPU_MEMORY_LIMIT = 1024 * 1024 * 1024; // 1 GiB
@@ -70,6 +80,7 @@ namespace AZ
         protected:
             bool CreateMeshDrawPacket(AtomSceneStream::Mesh* currentMesh);
             AtomSceneStream::Mesh* CreateMesh(Umbra::AssetLoad& assetLoad);
+            bool CreateMeshFromAssetLoad(AZStd::string threadName, Umbra::AssetLoad& assetLoad);
             void CleanResource();
             void DebugDraw(RPI::AuxGeomDrawPtr auxGeom, AtomSceneStream::Mesh* currentMesh, Vector3& offset, const Color& debugColor);
             void DebugDrawMeshes(RPI::AuxGeomDrawPtr auxGeom, AtomSceneStream::Mesh* currentMesh, const Color& debugColor);
@@ -82,9 +93,11 @@ namespace AZ
             bool ParallelLoadStreamedAsset();
             bool ParallelUnloadStreamedAsset();
 
+//            bool StartMeshCreationThread(Umbra::AssetLoad& assetLoad);
+            bool StartAssetCreationThread();
             bool StartStreamingThread();
             void StopStreamingThread();
-            void HandleAssetsStreamingInThread();
+//            void HandleAssetsStreamingInThread();
 
 
         private:
@@ -109,13 +122,19 @@ namespace AZ
 
             // Thread management
             ThreadMapByName m_loadingThreads;
+            AZStd::mutex m_assetCreationMutex;
+            Umbra::AssetLoad m_nextAsset;
+
             AZStd::thread m_streamerThread;
             AZStd::thread_desc m_streamerThreadDesc;
             AZStd::atomic_bool m_isStreaming{ false };
 
             bool m_readyForStreaming = false;
             bool m_isConnectedAndStreaming = false;
-            bool m_useMultiThreadStreming = false;  // currently Umbra doesn't seem to support multi threading.
+//            bool m_useMultiThreadStreming = false;  // currently Umbra doesn't seem to support multi threading.
+
+//            bool m_useParallelMeshCreation = true;
+            bool m_multiThreadedAssetCreation = false;
 
             uint32_t m_modelsCreatedThisFrame;
             uint32_t m_modelsRenderedThisFrame;

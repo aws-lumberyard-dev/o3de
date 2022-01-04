@@ -36,7 +36,7 @@
 static bool flipY = true;  
 static bool flipX = false;
 static float normalScaleFactor = 3.0f;
-static bool disableNormalTexture = false;
+static bool disableNormalTexture = true;
 
 namespace AZ
 {
@@ -47,7 +47,7 @@ namespace AZ
         //======================================================================
         uint32_t Texture::s_TextureNumber = 0;
 
-        static bool printCreationMessages = false;
+        static bool printCreationMessages = true;
 
         Texture::Texture(Umbra::AssetLoad& job)
         {

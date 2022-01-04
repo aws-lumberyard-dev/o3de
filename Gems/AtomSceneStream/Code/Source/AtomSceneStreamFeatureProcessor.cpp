@@ -46,7 +46,7 @@ namespace AZ
 
             for (auto& assetThread : m_loadingThreads)
             {   // The following will create a wait on all existing threads.  SHould we limit the amount?
-                assetThread.second.join();
+                assetThread.second.m_creationThread.join();
             }
             m_loadingThreads.clear();
 
@@ -364,37 +364,35 @@ namespace AZ
                     return;
 
                 // run the streaming load for 20 msec - ideally this should be done on another thread!
-                if (m_useMultiThreadStreming)
-                {
-                    if (m_readyForStreaming && !m_isStreaming)
-                    {
-                        StartStreamingThread();
-                    }
-                }
-                else
+//                if (m_multiThreadedAssetCreation)
+//                {
+//                    if (m_readyForStreaming && !m_isStreaming)
+//                    {
+//                        StartStreamingThread();
+//                    }
+//                }
+//                else
                 {
                     const float streamingTimeSlot = 0.025f;
                     HandleAssetsStreaming(streamingTimeSlot);
                 }
 
-                // Can be removed?
-                Render::MeshFeatureProcessorInterface* currentMeshFeatureProcessor = GetParentScene()->GetFeatureProcessor<Render::MeshFeatureProcessorInterface>();
-                if (!currentMeshFeatureProcessor || (currentMeshFeatureProcessor != m_meshFeatureProcessor))
-                {   // Ignore previous stored models - they need to be registered again on the current mesh feature processor
-//                    m_modelsMapByModel.clear();
-                    m_modelsMapByName.clear();
-                    m_meshFeatureProcessor = currentMeshFeatureProcessor;
-
-                    if (!m_meshFeatureProcessor)
-                    {
-                        AZ_Warning("AtomSceneStream", false, "MeshFeatureProcessor was not acquired.");
-                        return;
-                    }
-                }
-
                 UpdateUmbraViewCamera();
 
                 m_runtime->update();
+
+                // Try to remove one free thread per frame.
+                AZStd::lock_guard<AZStd::mutex> lock(m_assetCreationMutex);
+                for (auto& meshStruct : m_loadingThreads)
+                {
+                    if (meshStruct.second.m_finished && meshStruct.second.m_creationThread.joinable())
+                    {
+                        AZ_Warning("AtomSceneStream", false, "Loading thread [%s] is now being deleted after completion", meshStruct.second.m_name.c_str());
+                        meshStruct.second.m_creationThread.join();
+                        m_loadingThreads.erase(meshStruct.first);
+                        break;
+                    }
+                }
             }
 
             AZ_UNUSED(packet);
@@ -486,6 +484,27 @@ namespace AZ
             }
         }
 
+        bool AtomSceneStreamFeatureProcessor::CreateMeshFromAssetLoad(AZStd::string threadName, Umbra::AssetLoad& assetLoad)
+        {
+            AtomSceneStream::Mesh* mesh = CreateMesh(assetLoad);
+            if (!mesh)
+            {
+                assetLoad.finish(UmbraAssetLoadResult_Failure);
+                AZ_Warning("AtomSceneStream", false, "Mesh thread FAILED in creation");
+            }
+            else
+            {
+                assetLoad.prepare((Umbra::UserPointer)mesh);
+                assetLoad.finish(UmbraAssetLoadResult_Success);
+                AZ_Warning("AtomSceneStream", false, "Mesh thread finished creation");
+            }
+
+            AZStd::lock_guard<AZStd::mutex> lock(m_assetCreationMutex);
+            m_loadingThreads[threadName].m_finished = true;
+            
+            return mesh ? true : false;
+        }
+
         AtomSceneStream::Mesh* AtomSceneStreamFeatureProcessor::CreateMesh(Umbra::AssetLoad& assetLoad)
         {
             bool creationSuccess = true;
@@ -527,9 +546,18 @@ namespace AZ
         // AssetLoad tells that an asset should be loaded into GPU. This function loads a single asset
         bool AtomSceneStreamFeatureProcessor::LoadStreamedAsset()
         {
-            Umbra::AssetLoad assetLoad = m_runtime->getNextAssetLoad();
-            if (!assetLoad)
-                return false;
+            Umbra::AssetLoad assetLoad;
+
+            {
+                AZStd::lock_guard<AZStd::mutex> lock(m_assetCreationMutex);
+                assetLoad = m_multiThreadedAssetCreation ? AZStd::move(m_nextAsset) : m_runtime->getNextAssetLoad();
+
+                if (!assetLoad)
+                {
+                    AZ_Warning("AtomSceneStream", false, "LoadStreamedAsset - no AssetLoad");
+                    return false;
+                }
+            }
 
             // If memory usage is too high, the job is finished with OutOfMemory. This tells Umbra to stop loading more. The
             // quality must be reduced so that loading can continue
@@ -555,15 +583,22 @@ namespace AZ
 
             case UmbraAssetType_Mesh:
             {
-                ptr = (void *) CreateMesh(assetLoad);
-                if (!ptr)
+//                if (m_useParallelMeshCreation)
+//                {
+//                    StartMeshCreationThread(assetLoad);
+//                }
+//                else
                 {
-                    assetLoad.finish(UmbraAssetLoadResult_Failure);
-                }
-                else
-                {
-                    assetLoad.prepare((Umbra::UserPointer)ptr);
-                    assetLoad.finish(UmbraAssetLoadResult_Success);
+                    ptr = (void *) CreateMesh(assetLoad);
+                    if (!ptr)
+                    {
+                        assetLoad.finish(UmbraAssetLoadResult_Failure);
+                    }
+                    else
+                    {
+                        assetLoad.prepare((Umbra::UserPointer)ptr);
+                        assetLoad.finish(UmbraAssetLoadResult_Success);
+                    }
                 }
                 return true;    // the reason for returning true is to avoid breaking the streaming loop
             }
@@ -571,16 +606,19 @@ namespace AZ
             default: break;
             }
 
-            // This is for the texture and material - the mesh can be carried on a different thread.
             assetLoad.prepare((Umbra::UserPointer)ptr);
             assetLoad.finish(UmbraAssetLoadResult_Success);
 
+            AZ_Warning("AtomSceneStream", false, "LoadStreamedAsset - SUCCESS");
             return true;
         }
 
         // AssetUnloadJob tells that an asset can be freed from the GPU. This function frees a single asset
         bool AtomSceneStreamFeatureProcessor::UnloadStreamedAsset()
         {
+            if (!m_runtime)
+                return false;
+
             Umbra::AssetUnload assetUnload = m_runtime->getNextAssetUnload();
             if (!assetUnload)
                 return false;
@@ -628,26 +666,67 @@ namespace AZ
             return true;
         }
 
+        
+//        bool AtomSceneStreamFeatureProcessor::StartStreamingThread()
+//        {
+//            if (!m_isStreaming)
+//            {
+//                m_isStreaming = true;
+//                m_streamerThreadDesc.m_name = "AtomSceneStream - Streamer";
+//                m_streamerThread = AZStd::thread( m_streamerThreadDesc, [this]() { HandleAssetsStreamingInThread(); });
+//
+//                return true;
+//            }
+//            return false;
+//        }
 
-        bool AtomSceneStreamFeatureProcessor::StartStreamingThread()
+        /*
+        bool AtomSceneStreamFeatureProcessor::StartMeshCreationThread(Umbra::AssetLoad& assetLoad)
         {
-            if (!m_runtime)
-                return false;
+            AZStd::thread_desc threadDesc;
+            AZStd::string threadName = "MeshCreation_" + AZStd::to_string(AtomSceneStream::Mesh::s_modelNumber + 1);
+            threadDesc.m_name = threadName.c_str();
 
-            if (!m_isStreaming)
+            // Hold a lock on the map until finished creation of the thread
+            AZStd::lock_guard<AZStd::mutex> lock(m_assetCreationMutex);
+
+            m_loadingThreads[threadName].m_finished = false;
+            m_loadingThreads[threadName].m_creationThread = AZStd::thread( threadDesc, [this]() { CreateMeshFromAssetLoad(threadName, assetLoad); });
+
+            return true;
+        }
+        */
+
+        bool AtomSceneStreamFeatureProcessor::StartAssetCreationThread()
+        {
+            // Hold a lock on the map until finished creation of the thread
+            AZStd::lock_guard<AZStd::mutex> lock(m_assetCreationMutex);
+
+//            UmbraAssetLoad* nextAssetLoad = m_runtime->getNextAssetLoad();
+//            Umbra::AssetLoad nextAssetLoad = m_runtime->getNextAssetLoad();
+            m_nextAsset = m_runtime->getNextAssetLoad();
+//            if (!nextAssetLoad)
+            if (!m_nextAsset)
             {
-                m_isStreaming = true;
-                m_streamerThreadDesc.m_name = "AtomSceneStream - Streamer";
-                m_streamerThread = AZStd::thread(
-                    m_streamerThreadDesc,
-                    [this]()
-                {
-                    HandleAssetsStreamingInThread();
-                });
-
-                return true;
+                return false;
             }
-            return false;
+
+            static uint32_t assetNumber = 0;
+            AZStd::thread_desc threadDesc;
+            AZStd::string threadName = "AssetCreation_" + AZStd::to_string(assetNumber++);
+            threadDesc.m_name = threadName.c_str();
+
+            MeshCreationStruct& meshCreatinoStruct = m_loadingThreads[threadName];
+            meshCreatinoStruct.m_name = threadName;
+            meshCreatinoStruct.m_finished = false;
+            // The following two lines can both exist as we only need the data and not the process and this point.
+//            meshCreatinoStruct.assetLoad = AZStd::move(nextAssetLoad);
+//            m_nextAsset = AZStd::move(nextAssetLoad);
+            meshCreatinoStruct.m_creationThread = AZStd::thread(threadDesc, [this]() { LoadStreamedAsset(); });
+
+            AZ_Warning("AtomSceneStream", false, "Thread [%s] was created", m_loadingThreads[threadName].m_name.c_str());
+
+            return true;
         }
 
         void AtomSceneStreamFeatureProcessor::StopStreamingThread()
@@ -659,32 +738,40 @@ namespace AZ
             m_isStreaming = false;
         }
 
-        void AtomSceneStreamFeatureProcessor::HandleAssetsStreamingInThread()
-        {
-            const float deltaTime = 0.02;   // delta time for each operation
-
-            while (m_isStreaming)
-            {
-                auto startTime = AZStd::chrono::system_clock::now();
-                int workTimeMilliseconds = int(deltaTime * 1000.0f + 0.5f);
-                auto endTime = startTime + AZStd::chrono::milliseconds(workTimeMilliseconds);
-
-                // First unload old assets to make room for new ones
-                while (AZStd::chrono::system_clock::now() < endTime)
-                {
-                    if (!UnloadStreamedAsset())
-                        break;
-                }
-
-                // Giving both equal chance to work
-                endTime = AZStd::chrono::system_clock::now() + AZStd::chrono::milliseconds(workTimeMilliseconds);
-                while (AZStd::chrono::system_clock::now() < endTime)
-                {
-                    if (!LoadStreamedAsset())
-                        break;
-                }
-            }
-        }
+//        void AtomSceneStreamFeatureProcessor::HandleAssetsStreamingInThread()
+//        {
+//            const float deltaTime = 0.02;   // delta time for each operation
+//
+//            while (m_isStreaming)
+//            {
+//                auto startTime = AZStd::chrono::system_clock::now();
+//                int workTimeMilliseconds = int(deltaTime * 1000.0f + 0.5f);
+//                auto endTime = startTime + AZStd::chrono::milliseconds(workTimeMilliseconds);
+//
+//                // First unload old assets to make room for new ones
+//                while (AZStd::chrono::system_clock::now() < endTime)
+//                {
+//                    if (!UnloadStreamedAsset())
+//                        break;
+//                }
+//
+//                // Giving both equal chance to work
+//                endTime = AZStd::chrono::system_clock::now() + AZStd::chrono::milliseconds(workTimeMilliseconds);
+//                while (AZStd::chrono::system_clock::now() < endTime)
+//                {
+//                    if (m_multiThreadedAssetCreation)
+//                    {
+//                        if (!StartAssetCreationThread())
+//                            break;
+//                    }
+//                    else
+//                    {
+//                        if (!LoadStreamedAsset())
+//                            break;
+//                    }
+//                }
+//            }
+//        }
 
         // Perform asset streaming work until time budget is reached
         void AtomSceneStreamFeatureProcessor::HandleAssetsStreaming(float seconds)
@@ -702,8 +789,18 @@ namespace AZ
                     break;
 
             while (AZStd::chrono::system_clock::now() < endTime)
-                if (!LoadStreamedAsset())
-                    break;
+            {
+                if (m_multiThreadedAssetCreation)
+                {
+                    if (!StartAssetCreationThread())
+                        break;
+                }
+                else
+                {
+                    if (!LoadStreamedAsset())
+                        break;
+                }
+            }
         }
 
         void AtomSceneStreamFeatureProcessor::OnRenderPipelineAdded([[maybe_unused]]RPI::RenderPipelinePtr renderPipeline)
