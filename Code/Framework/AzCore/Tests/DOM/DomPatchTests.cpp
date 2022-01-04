@@ -34,16 +34,34 @@ namespace AZ::Dom::Tests
             m_dataset["obj"].SetObject();
             m_dataset["obj"]["foo"] = true;
             m_dataset["obj"]["bar"] = false;
+
+            m_deltaDataset = m_dataset;
         }
 
         void TearDown() override
         {
-            m_dataset = Value();
+            m_dataset = m_deltaDataset = Value();
 
             DomTestFixture::TearDown();
         }
 
+        PatchInfo GenerateAndVerifyDelta()
+        {
+            PatchInfo info = GenerateHierarchicalDeltaPatch(m_dataset, m_deltaDataset);
+
+            auto result = info.m_forwardPatches.Apply(m_dataset);
+            EXPECT_TRUE(result.IsSuccess());
+            EXPECT_TRUE(result.GetValue().DeepCompareIsEqual(m_deltaDataset));
+
+            result = info.m_inversePatches.Apply(result.GetValue());
+            EXPECT_TRUE(result.IsSuccess());
+            EXPECT_TRUE(result.GetValue().DeepCompareIsEqual(m_dataset));
+
+            return info;
+        }
+
         Value m_dataset;
+        Value m_deltaDataset;
     };
 
     TEST_F(DomPatchTests, AddOperation_InsertInObject_Succeeds)
@@ -135,12 +153,12 @@ namespace AZ::Dom::Tests
         EXPECT_EQ(result.GetValue()["arr"][0].GetInt32(), 1);
     }
 
-    TEST_F(DomPatchTests, RemoveOperation_PopArray_Fails)
+    TEST_F(DomPatchTests, RemoveOperation_PopArray_Succeeds)
     {
         Path p("/arr/-");
         PatchOperation op = Patch::RemoveOperation(p);
         auto result = op.Apply(m_dataset);
-        ASSERT_FALSE(result.IsSuccess());
+        EXPECT_EQ(result.GetValue()["arr"].Size(), 4);
     }
 
     TEST_F(DomPatchTests, RemoveOperation_RemoveKeyFromNode_Succeeds)
@@ -162,12 +180,13 @@ namespace AZ::Dom::Tests
         EXPECT_EQ(result.GetValue()["node"][1].GetInt32(), 4);
     }
 
-    TEST_F(DomPatchTests, RemoveOperation_PopIndexFromNode_Fails)
+    TEST_F(DomPatchTests, RemoveOperation_PopIndexFromNode_Succeeds)
     {
         Path p("/node/-");
         PatchOperation op = Patch::RemoveOperation(p);
         auto result = op.Apply(m_dataset);
-        ASSERT_FALSE(result.IsSuccess());
+        ASSERT_TRUE(result.IsSuccess());
+        EXPECT_EQ(result.GetValue()["node"].Size(), 4);
     }
 
     TEST_F(DomPatchTests, RemoveOperation_RemoveKeyFromArray_Fails)
@@ -443,5 +462,36 @@ namespace AZ::Dom::Tests
         PatchOperation op = Patch::TestOperation(path, value);
         auto result = op.Apply(m_dataset);
         ASSERT_FALSE(result.IsSuccess());
+    }
+
+    TEST_F(DomPatchTests, Test_Patch_ReplaceArrayValue)
+    {
+        m_deltaDataset["arr"][0] = 5;
+        GenerateAndVerifyDelta();
+    }
+
+    TEST_F(DomPatchTests, Test_Patch_AppendArrayValue)
+    {
+        m_deltaDataset["arr"].PushBack(7);
+        auto result = GenerateAndVerifyDelta();
+
+        // Ensure the generated patch uses the array append operation
+        ASSERT_EQ(result.m_forwardPatches.Size(), 1);
+        EXPECT_TRUE(result.m_forwardPatches[0].GetDestinationPath()[1].IsEndOfArray());
+    }
+
+    TEST_F(DomPatchTests, Test_Patch_AppendArrayValues)
+    {
+        m_deltaDataset["arr"].PushBack(7);
+        m_deltaDataset["arr"].PushBack(8);
+        m_deltaDataset["arr"].PushBack(9);
+        GenerateAndVerifyDelta();
+    }
+
+    TEST_F(DomPatchTests, Test_Patch_InsertArrayValue)
+    {
+        auto& arr = m_deltaDataset["arr"].GetMutableArray();
+        arr.insert(arr.begin(), Value(42));
+        GenerateAndVerifyDelta();
     }
 } // namespace AZ::Dom::Tests

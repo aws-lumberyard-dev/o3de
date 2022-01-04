@@ -65,7 +65,11 @@ namespace AZ::Dom
             PathEntry m_key;
         };
 
-        static AZ::Outcome<PathContext, AZStd::string> LookupPath(Value& rootElement, const Path& path, bool checkExistence);
+        static constexpr AZ::u8 DefaultExistenceCheck = 0x0;
+        static constexpr AZ::u8 VerifyFullPath = 0x1;
+        static constexpr AZ::u8 AllowEndOfArray = 0x2;
+
+        static AZ::Outcome<PathContext, AZStd::string> LookupPath(Value& rootElement, const Path& path, AZ::u8 existenceCheckFlags = DefaultExistenceCheck);
 
         PatchOutcome ApplyAdd(Value& rootElement) const;
         PatchOutcome ApplyRemove(Value& rootElement) const;
@@ -117,7 +121,8 @@ namespace AZ::Dom
         Patch& operator=(Patch&&) = default;
 
         const OperationsContainer& GetOperations() const;
-        void Push(PatchOperation op);
+        void PushBack(PatchOperation op);
+        void PushFront(PatchOperation op);
         void Pop();
         void Clear();
         const PatchOperation& At(size_t index) const;
