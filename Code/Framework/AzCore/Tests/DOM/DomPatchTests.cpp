@@ -494,4 +494,58 @@ namespace AZ::Dom::Tests
         arr.insert(arr.begin(), Value(42));
         GenerateAndVerifyDelta();
     }
+
+    TEST_F(DomPatchTests, Test_Patch_InsertObjectKey)
+    {
+        m_deltaDataset["obj"]["newKey"].CopyFromString("test");
+        GenerateAndVerifyDelta();
+    }
+
+    TEST_F(DomPatchTests, Test_Patch_DeleteObjectKey)
+    {
+        m_deltaDataset["obj"].RemoveMember("foo");
+        GenerateAndVerifyDelta();
+    }
+
+    TEST_F(DomPatchTests, Test_Patch_AppendNodeValues)
+    {
+        m_deltaDataset["node"].PushBack(7);
+        m_deltaDataset["node"].PushBack(8);
+        m_deltaDataset["node"].PushBack(9);
+        GenerateAndVerifyDelta();
+    }
+
+    TEST_F(DomPatchTests, Test_Patch_InsertNodeValue)
+    {
+        auto& node = m_deltaDataset["node"].GetMutableNode();
+        node.GetChildren().insert(node.GetChildren().begin(), Value(42));
+        GenerateAndVerifyDelta();
+    }
+
+    TEST_F(DomPatchTests, Test_Patch_InsertNodeKey)
+    {
+        m_deltaDataset["node"]["newKey"].CopyFromString("test");
+        GenerateAndVerifyDelta();
+    }
+
+    TEST_F(DomPatchTests, Test_Patch_DeleteNodeKey)
+    {
+        m_deltaDataset["node"].RemoveMember("int");
+        GenerateAndVerifyDelta();
+    }
+
+    TEST_F(DomPatchTests, Test_Patch_RenameNode)
+    {
+        m_deltaDataset["node"].SetNodeName("RenamedNode");
+        GenerateAndVerifyDelta();
+    }
+
+    TEST_F(DomPatchTests, Test_Patch_ReplaceRoot)
+    {
+        m_deltaDataset = Value(Type::Array);
+        m_deltaDataset.PushBack(2);
+        m_deltaDataset.PushBack(4);
+        m_deltaDataset.PushBack(6);
+        GenerateAndVerifyDelta();
+    }
 } // namespace AZ::Dom::Tests

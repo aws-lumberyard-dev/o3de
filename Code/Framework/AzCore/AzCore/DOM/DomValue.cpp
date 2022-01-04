@@ -1212,8 +1212,8 @@ namespace AZ::Dom
                     for (size_t i = 0; i < ourValue->m_values.size(); ++i)
                     {
                         const Object::EntryType& lhs = ourValue->m_values[i];
-                        const Object::EntryType& rhs = theirValue->m_values[i];
-                        if (lhs.first != rhs.first || !lhs.second.DeepCompareIsEqual(rhs.second))
+                        auto rhsIt = other.FindMember(lhs.first);
+                        if (rhsIt == other.MemberEnd() || !lhs.second.DeepCompareIsEqual(rhsIt->second))
                         {
                             return false;
                         }
@@ -1266,8 +1266,8 @@ namespace AZ::Dom
                     for (size_t i = 0; i < ourProperties.size(); ++i)
                     {
                         const Object::EntryType& lhs = ourProperties[i];
-                        const Object::EntryType& rhs = theirProperties[i];
-                        if (lhs.first != rhs.first || !lhs.second.DeepCompareIsEqual(rhs.second))
+                        auto rhsIt = other.FindMember(lhs.first);
+                        if (rhsIt == other.MemberEnd() || !lhs.second.DeepCompareIsEqual(rhsIt->second))
                         {
                             return false;
                         }
