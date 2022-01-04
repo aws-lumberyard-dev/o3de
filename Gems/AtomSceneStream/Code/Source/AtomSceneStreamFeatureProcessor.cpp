@@ -28,9 +28,9 @@ namespace AZ
 {
     namespace AtomSceneStream
     {
-        static bool printDebugInfo = true;
+        static bool printDebugInfo = false;
         static bool printDebugStats = false;
-        static bool printDebugRemoval = true;
+        static bool printDebugRemoval = false;
         static bool printDebugRunTimeHiding = false;
         static bool printDebugAdd = false;
         static bool debugDraw = false;
@@ -66,6 +66,7 @@ namespace AZ
 
             SAFE_DELETE(m_runtime);
             SAFE_DELETE(m_client);
+            AZ_Warning("AtomSceneStream", false, "\n**********\nCLEANING ALL RESOURCES AND SHUTTING DOWN UMBRA\n**********");
         }
 
         bool AtomSceneStreamFeatureProcessor::StartUmbraClient()
@@ -96,7 +97,7 @@ namespace AZ
                 UmbraTextureSupportFlags_BC5 | UmbraTextureSupportFlags_Float;
 
             m_runtime = new Umbra::Runtime(**m_client, m_env);
-            if (!m_runtime)
+            if (!m_runtime || !*m_runtime)
             {
                 AZ_Error("AtomSceneStream", false, "Error creating Umbra run time");
                 CleanResource();
@@ -132,6 +133,8 @@ namespace AZ
 
             // [Adi] The following is the Umbra camera offset for correct culling - investigate why it is required.
             m_heightOffset = -0.5f * (info.bounds.mx.v[2] + info.bounds.mn.v[2]);
+
+            AZ_Warning("AtomSceneStream", false, "\n++++++++++++++\nSUCCESSFULLY STARTED UMBRA CLIENT\n+++++++++++++++");
 
             return true;
         }
@@ -360,7 +363,7 @@ namespace AZ
             }
             else
             {
-                if (!m_runtime)
+                if (!m_runtime || !*m_runtime)
                     return;
 
                 // run the streaming load for 20 msec - ideally this should be done on another thread!
@@ -402,7 +405,7 @@ namespace AZ
         {
             AZ_PROFILE_FUNCTION(AzRender);
 
-            if (!m_runtime)
+            if (!m_runtime || !*m_runtime)
                 return;
 
             RPI::Scene* scene = GetParentScene();
@@ -543,7 +546,8 @@ namespace AZ
             return meshPtr;
         }
 
-        // AssetLoad tells that an asset should be loaded into GPU. This function loads a single asset
+        //----------------------------------------------------------------------
+        // AssetLoad creates a single asset from streamed data.
         bool AtomSceneStreamFeatureProcessor::LoadStreamedAsset()
         {
             Umbra::AssetLoad assetLoad;
@@ -559,8 +563,8 @@ namespace AZ
                 }
             }
 
-            // If memory usage is too high, the job is finished with OutOfMemory. This tells Umbra to stop loading more. The
-            // quality must be reduced so that loading can continue
+            // If memory usage is too high, the job is finished with OutOfMemory. This tells Umbra
+            // to stop loading the current batch and by reducing the quality, the loading can continue.
             if (m_memoryUsage > GPU_MEMORY_LIMIT)
             {
                 m_quality *= 0.875f;
@@ -572,35 +576,49 @@ namespace AZ
 
             switch (assetLoad.getType())
             {
-            case UmbraAssetType_Material:
-                ptr = new AtomSceneStream::Material(assetLoad);
-                break;
-
             case UmbraAssetType_Texture:
                 ptr = new AtomSceneStream::Texture(assetLoad);
                 m_memoryUsage += ((AtomSceneStream::Texture*)ptr)->GetMemoryUsage();
                 break;
 
+            case UmbraAssetType_Material:
+                if (AtomSceneStream::Material::MaterialCanBeCreated(assetLoad))
+                {
+                    ptr = new AtomSceneStream::Material(assetLoad);
+                }
+                else
+                {   // The asset load failed due to missing dependencies.
+                    // Return failure and break the streaming until the required assets are
+                    // properly created and their pointer are set in the assets using them.
+                    assetLoad.finish(UmbraAssetLoadResult_Failure);
+                    return false;  
+                }
+                break;
+
             case UmbraAssetType_Mesh:
             {
-//                if (m_useParallelMeshCreation)
-//                {
-//                    StartMeshCreationThread(assetLoad);
-//                }
-//                else
-                {
-                    ptr = (void *) CreateMesh(assetLoad);
-                    if (!ptr)
-                    {
-                        assetLoad.finish(UmbraAssetLoadResult_Failure);
-                    }
-                    else
-                    {
-                        assetLoad.prepare((Umbra::UserPointer)ptr);
-                        assetLoad.finish(UmbraAssetLoadResult_Success);
-                    }
+                if (!AtomSceneStream::Mesh::MeshCanBeCreated(assetLoad))
+                {   // The asset load failed due to missing dependencies.
+                    // Return failure and break the streaming until the required assets are
+                    // properly created and their pointer are set in the assets using them.
+                    assetLoad.finish(UmbraAssetLoadResult_Failure);
+                    return false;
                 }
-                return true;    // the reason for returning true is to avoid breaking the streaming loop
+
+                ptr = (void*)CreateMesh(assetLoad);
+                if (!ptr)
+                {
+                    assetLoad.finish(UmbraAssetLoadResult_Failure);
+                }
+                else
+                {
+                    assetLoad.prepare((Umbra::UserPointer)ptr);
+                    assetLoad.finish(UmbraAssetLoadResult_Success);
+                }
+
+                // While the mesh creation failed, following assets can still be created, therfore return true
+                // to continue the streaming loop
+                return true;
             }
 
             default: break;
@@ -613,6 +631,7 @@ namespace AZ
             return true;
         }
 
+        //----------------------------------------------------------------------
         // AssetUnloadJob tells that an asset can be freed from the GPU. This function frees a single asset
         bool AtomSceneStreamFeatureProcessor::UnloadStreamedAsset()
         {

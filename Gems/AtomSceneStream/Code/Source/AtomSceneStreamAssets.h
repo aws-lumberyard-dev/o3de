@@ -69,6 +69,10 @@ namespace AZ
 
             Data::Instance<RPI::Material> GetAtomMaterial()  { return m_atomMaterial; }
 
+            // Use this method to test if material can be created - this will test if 
+            // the material dependencies pointers are already populated (the material's textures).
+            static bool MaterialCanBeCreated(Umbra::AssetLoad& job);
+
             AZStd::string GetName() { return m_name; }
 
 
@@ -140,6 +144,9 @@ namespace AZ
                 return m_drawPacket;
             }
 
+            // Use this method to test if the mesh can be created - test if the 
+            // mesh dependencies pointers are populated before the creation.
+            static bool MeshCanBeCreated(Umbra::AssetLoad& job);
 
         protected:
             Data::Asset<RPI::BufferAsset> CreateBufferAsset(

@@ -37,6 +37,7 @@ static bool flipY = true;
 static bool flipX = false;
 static float normalScaleFactor = 3.0f;
 static bool disableNormalTexture = true;
+static bool printCreationMessages = false;
 
 namespace AZ
 {
@@ -46,8 +47,6 @@ namespace AZ
         //                             Texture
         //======================================================================
         uint32_t Texture::s_TextureNumber = 0;
-
-        static bool printCreationMessages = true;
 
         Texture::Texture(Umbra::AssetLoad& job)
         {
@@ -129,7 +128,7 @@ namespace AZ
             if (!m_streamingImage)
             {
                 m_imageDataSize = 0;
-                AZ_Error("AtomSceneStream", false, "Error -- StreamingImage creation failed");
+                AZ_Error("AtomSceneStream", false, "Error -- StreamingImage [%s] creation failed", m_name.c_str());
             }
 
             m_name = "Texture_" + AZStd::to_string(s_TextureNumber++);
@@ -157,8 +156,6 @@ namespace AZ
                 return false;
             }
 
-//            RPI::Material* m_atomMaterial = (material != m_atomMaterial) ? material.get() : m_atomMaterial.get();
-
             // Adding the textures
             RPI::MaterialPropertyIndex useDiffTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.useTexture"));
             RPI::MaterialPropertyIndex useNormTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.useTexture"));
@@ -166,18 +163,18 @@ namespace AZ
             if (s_useTextures)
             {
                 RPI::MaterialPropertyIndex diffTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("baseColor.textureMap"));
-                if (m_diffuse->GetStreamingImage() && diffTextureIndex.IsValid() && useDiffTextureIndex.IsValid())
+                if (m_diffuse && m_diffuse->GetStreamingImage() && diffTextureIndex.IsValid() && useDiffTextureIndex.IsValid())
                 {
                     m_atomMaterial->SetPropertyValue(diffTextureIndex, m_diffuse->GetStreamingImage());
                     m_atomMaterial->SetPropertyValue(useDiffTextureIndex, true);
                 }
-                else if (!m_diffuse->GetStreamingImage())
+                else if (!m_diffuse || !m_diffuse->GetStreamingImage())
                 {
                     AZ_Warning("AtomSceneStream", false, "Warning -- Material [%s] Missing Diffuse Texture", m_name.c_str());
                 }
 
                 RPI::MaterialPropertyIndex normTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.textureMap"));
-                if (m_normal->GetStreamingImage() && normTextureIndex.IsValid() && useNormTextureIndex.IsValid())
+                if (m_normal && m_normal->GetStreamingImage() && normTextureIndex.IsValid() && useNormTextureIndex.IsValid())
                 {
                     m_atomMaterial->SetPropertyValue(normTextureIndex, m_normal->GetStreamingImage());
                     m_atomMaterial->SetPropertyValue(useNormTextureIndex, true);
@@ -206,7 +203,7 @@ namespace AZ
                         m_atomMaterial->SetPropertyValue(normalFactorIndex, normalScaleFactor);
                     }
                 }
-                else if (!m_normal->GetStreamingImage())
+                else if (!m_normal || !m_normal->GetStreamingImage())
                 {
                     AZ_Warning("AtomSceneStream", false, "Warning -- Material [%s] Missing Normal Texture", m_name.c_str());
                 }
@@ -216,7 +213,7 @@ namespace AZ
                 }
 
                 RPI::MaterialPropertyIndex specTextureIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("specularF0.textureMap"));
-                if (m_specular->GetStreamingImage() && specTextureIndex.IsValid() && useSpecTextureIndex.IsValid())
+                if (m_specular && m_specular->GetStreamingImage() && specTextureIndex.IsValid() && useSpecTextureIndex.IsValid())
                 {
                     m_atomMaterial->SetPropertyValue(specTextureIndex, m_specular->GetStreamingImage());
                     m_atomMaterial->SetPropertyValue(useSpecTextureIndex, true);
@@ -227,7 +224,7 @@ namespace AZ
                         m_atomMaterial->SetPropertyValue(specFlipYIndex, true);
                     }
                 }
-                else if (!m_specular->GetStreamingImage())
+                else if (!m_specular || !m_specular->GetStreamingImage())
                 {
                     AZ_Warning("AtomSceneStream", false, "Warning -- Material [%s] Missing Specular Texture", m_name.c_str());
                 }
@@ -281,6 +278,15 @@ namespace AZ
                     m_name.c_str(), m_diffuse->GetName().c_str(), m_specular->GetName().c_str(), m_normal->GetName().c_str());
             
             Data::AssetBus::MultiHandler::BusDisconnect(materialAsset.GetId());
+        }
+
+        bool Material::MaterialCanBeCreated(Umbra::AssetLoad& job)
+        {
+            Umbra::MaterialInfo info = job.getMaterialInfo();
+
+            return (info.textures[UmbraTextureType_Diffuse]
+                && info.textures[UmbraTextureType_Normal]
+                && info.textures[UmbraTextureType_Specular]) ? true : false;
         }
 
         // For samples look at cesium-main/Gems/Cesium/Code/Source/GltfRasterMaterialBuilder.cpp
@@ -488,7 +494,7 @@ namespace AZ
                         AZStd::string messageStr = m_material ? "Error -- Missing Atom Material [" : " Error -- Missing Umbra Material [" + m_name + "]";
                         AZ_Warning("AtomSceneStream", false, messageStr.c_str());
                     }
-                    */
+*/
                 }
                 modelLodAssetCreator.EndMesh();
 
@@ -593,6 +599,12 @@ namespace AZ
                 AZ_Error("AtomSceneStream", false, "Error -- creating model [%s] - Umbra model load failure", m_name.c_str());
             }
             return loadOk;
+        }
+
+        bool Mesh::MeshCanBeCreated(Umbra::AssetLoad& job)
+        {
+            Umbra::MeshInfo info = job.getMeshInfo();
+            return info.material ? true : false;
         }
 
         Mesh::Mesh(Umbra::AssetLoad& job)

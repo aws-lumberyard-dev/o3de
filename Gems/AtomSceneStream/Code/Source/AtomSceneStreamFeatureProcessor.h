@@ -125,16 +125,28 @@ namespace AZ
             AZStd::mutex m_assetCreationMutex;
             Umbra::AssetLoad m_nextAsset;
 
+            // The following was designed for creating a streaming thread running in parallel
+            // to the render thread.  This approach seems to fail since Umbra is highly dependent
+            // on status of streamed assets to maintain proper assets management.
             AZStd::thread m_streamerThread;
             AZStd::thread_desc m_streamerThreadDesc;
             AZStd::atomic_bool m_isStreaming{ false };
 
             bool m_readyForStreaming = false;
             bool m_isConnectedAndStreaming = false;
-//            bool m_useMultiThreadStreming = false;  // currently Umbra doesn't seem to support multi threading.
 
-//            bool m_useParallelMeshCreation = true;
-            bool m_multiThreadedAssetCreation = false;
+            // Current multi-threading approach is to open a thread on each asset creation. The
+            // problem here is that assets almost always depend on others (material depends on
+            // textures, and each mesh depends on its material).  The current direction is to
+            // test the pointer of the dependencies, and only if these are filled, continue with
+            // the asset creation, otherwise cancel the current streaming loop and try again in
+            // the next frame.
+            // Max gains:
+            // 1. the load time now depends on the longest asset load time (largest texture for
+            //      material), hence for material is can speed up up to 3 times.
+            // 2. For mesh, we now depend on material load, but several meshes can be loaded
+            //      in parallel and their materials and textures can be loaded in parallel.
+            bool m_multiThreadedAssetCreation = true;
 
             uint32_t m_modelsCreatedThisFrame;
             uint32_t m_modelsRenderedThisFrame;
