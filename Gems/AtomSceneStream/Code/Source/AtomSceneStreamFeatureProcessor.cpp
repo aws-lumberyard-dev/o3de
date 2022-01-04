@@ -168,17 +168,6 @@ namespace AZ
             TickBus::Handler::BusDisconnect();
         }
 
-        void AtomSceneStreamFeatureProcessor::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
-        {
-            // Turns out that this process is NOT thread safe (well, it will evacuate now but the render might
-            // still need the data?)
-//            if (!m_runtime)
-//                return;
-
-            // run the streaming load for 20 msec - ideally this should be done on another thread!
-//            HandleAssetsStreaming(0.025f);
-        }
-
         int AtomSceneStreamFeatureProcessor::GetTickOrder()
         {
             return AZ::TICK_PRE_RENDER;
@@ -353,6 +342,11 @@ namespace AZ
             return true;
         }
 
+        void AtomSceneStreamFeatureProcessor::OnTick([[maybe_unused]] float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
+        {
+            // OnTick can be used instead of the ::Simulate since it is set to be before the render
+        }
+
         void AtomSceneStreamFeatureProcessor::Simulate(const RPI::FeatureProcessor::SimulatePacket& packet)
         {
             AZ_PROFILE_FUNCTION(AzRender);
@@ -366,15 +360,6 @@ namespace AZ
                 if (!m_runtime || !*m_runtime)
                     return;
 
-                // run the streaming load for 20 msec - ideally this should be done on another thread!
-//                if (m_multiThreadedAssetCreation)
-//                {
-//                    if (m_readyForStreaming && !m_isStreaming)
-//                    {
-//                        StartStreamingThread();
-//                    }
-//                }
-//                else
                 {
                     const float streamingTimeSlot = 0.025f;
                     HandleAssetsStreaming(streamingTimeSlot);
@@ -685,37 +670,6 @@ namespace AZ
             return true;
         }
 
-        
-//        bool AtomSceneStreamFeatureProcessor::StartStreamingThread()
-//        {
-//            if (!m_isStreaming)
-//            {
-//                m_isStreaming = true;
-//                m_streamerThreadDesc.m_name = "AtomSceneStream - Streamer";
-//                m_streamerThread = AZStd::thread( m_streamerThreadDesc, [this]() { HandleAssetsStreamingInThread(); });
-//
-//                return true;
-//            }
-//            return false;
-//        }
-
-        /*
-        bool AtomSceneStreamFeatureProcessor::StartMeshCreationThread(Umbra::AssetLoad& assetLoad)
-        {
-            AZStd::thread_desc threadDesc;
-            AZStd::string threadName = "MeshCreation_" + AZStd::to_string(AtomSceneStream::Mesh::s_modelNumber + 1);
-            threadDesc.m_name = threadName.c_str();
-
-            // Hold a lock on the map until finished creation of the thread
-            AZStd::lock_guard<AZStd::mutex> lock(m_assetCreationMutex);
-
-            m_loadingThreads[threadName].m_finished = false;
-            m_loadingThreads[threadName].m_creationThread = AZStd::thread( threadDesc, [this]() { CreateMeshFromAssetLoad(threadName, assetLoad); });
-
-            return true;
-        }
-        */
-
         bool AtomSceneStreamFeatureProcessor::StartAssetCreationThread()
         {
             // Hold a lock on the map until finished creation of the thread
@@ -756,41 +710,6 @@ namespace AZ
             }
             m_isStreaming = false;
         }
-
-//        void AtomSceneStreamFeatureProcessor::HandleAssetsStreamingInThread()
-//        {
-//            const float deltaTime = 0.02;   // delta time for each operation
-//
-//            while (m_isStreaming)
-//            {
-//                auto startTime = AZStd::chrono::system_clock::now();
-//                int workTimeMilliseconds = int(deltaTime * 1000.0f + 0.5f);
-//                auto endTime = startTime + AZStd::chrono::milliseconds(workTimeMilliseconds);
-//
-//                // First unload old assets to make room for new ones
-//                while (AZStd::chrono::system_clock::now() < endTime)
-//                {
-//                    if (!UnloadStreamedAsset())
-//                        break;
-//                }
-//
-//                // Giving both equal chance to work
-//                endTime = AZStd::chrono::system_clock::now() + AZStd::chrono::milliseconds(workTimeMilliseconds);
-//                while (AZStd::chrono::system_clock::now() < endTime)
-//                {
-//                    if (m_multiThreadedAssetCreation)
-//                    {
-//                        if (!StartAssetCreationThread())
-//                            break;
-//                    }
-//                    else
-//                    {
-//                        if (!LoadStreamedAsset())
-//                            break;
-//                    }
-//                }
-//            }
-//        }
 
         // Perform asset streaming work until time budget is reached
         void AtomSceneStreamFeatureProcessor::HandleAssetsStreaming(float seconds)

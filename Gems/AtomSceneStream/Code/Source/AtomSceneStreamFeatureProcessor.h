@@ -146,7 +146,7 @@ namespace AZ
             //      material), hence for material is can speed up up to 3 times.
             // 2. For mesh, we now depend on material load, but several meshes can be loaded
             //      in parallel and their materials and textures can be loaded in parallel.
-            bool m_multiThreadedAssetCreation = true;
+            bool m_multiThreadedAssetCreation = false;
 
             uint32_t m_modelsCreatedThisFrame;
             uint32_t m_modelsRenderedThisFrame;
