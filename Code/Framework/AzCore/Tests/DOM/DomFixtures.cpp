@@ -153,7 +153,7 @@ namespace AZ::Dom::Tests
             Value array(Type::Array);
             for (int i = 0; i < entryCount; ++i)
             {
-                array.PushBack(createEntry(i));
+                array.ArrayPushBack(createEntry(i));
             }
             return array;
         };

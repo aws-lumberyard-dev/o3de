@@ -393,10 +393,6 @@ namespace AZ::Dom
         const Value* FindChild(const Path& path) const;
         Value* FindMutableChild(const Path& path);
 
-        // Utility API...
-        bool DeepCompareIsEqual(const Value& other) const;
-        Value DeepCopy(bool copyStrings = true) const;
-
         //! Gets the internal value of this Value. Note that this value's types may not correspond one-to-one with the Type enumeration,
         //! as internally the same type might have diff
         const ValueType& GetInternalValue() const;

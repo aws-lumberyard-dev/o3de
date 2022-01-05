@@ -27,8 +27,8 @@ namespace AZ::Dom::Tests
 
             for (int i = 0; i < 5; ++i)
             {
-                m_dataset["arr"].PushBack(i);
-                m_dataset["node"].PushBack(i * 2);
+                m_dataset["arr"].ArrayPushBack(i);
+                m_dataset["node"].ArrayPushBack(i * 2);
             }
 
             m_dataset["obj"].SetObject();
@@ -51,11 +51,11 @@ namespace AZ::Dom::Tests
 
             auto result = info.m_forwardPatches.Apply(m_dataset);
             EXPECT_TRUE(result.IsSuccess());
-            EXPECT_TRUE(result.GetValue().DeepCompareIsEqual(m_deltaDataset));
+            EXPECT_TRUE(Utils::DeepCompareIsEqual(result.GetValue(), m_deltaDataset));
 
             result = info.m_inversePatches.Apply(result.GetValue());
             EXPECT_TRUE(result.IsSuccess());
-            EXPECT_TRUE(result.GetValue().DeepCompareIsEqual(m_dataset));
+            EXPECT_TRUE(Utils::DeepCompareIsEqual(result.GetValue(), m_dataset));
 
             return info;
         }
@@ -149,7 +149,7 @@ namespace AZ::Dom::Tests
         PatchOperation op = Patch::RemoveOperation(p);
         auto result = op.Apply(m_dataset);
         ASSERT_TRUE(result.IsSuccess());
-        EXPECT_EQ(result.GetValue()["arr"].Size(), 4);
+        EXPECT_EQ(result.GetValue()["arr"].ArraySize(), 4);
         EXPECT_EQ(result.GetValue()["arr"][0].GetInt32(), 1);
     }
 
@@ -158,7 +158,7 @@ namespace AZ::Dom::Tests
         Path p("/arr/-");
         PatchOperation op = Patch::RemoveOperation(p);
         auto result = op.Apply(m_dataset);
-        EXPECT_EQ(result.GetValue()["arr"].Size(), 4);
+        EXPECT_EQ(result.GetValue()["arr"].ArraySize(), 4);
     }
 
     TEST_F(DomPatchTests, RemoveOperation_RemoveKeyFromNode_Succeeds)
@@ -176,7 +176,7 @@ namespace AZ::Dom::Tests
         PatchOperation op = Patch::RemoveOperation(p);
         auto result = op.Apply(m_dataset);
         ASSERT_TRUE(result.IsSuccess());
-        EXPECT_EQ(result.GetValue()["node"].Size(), 4);
+        EXPECT_EQ(result.GetValue()["node"].ArraySize(), 4);
         EXPECT_EQ(result.GetValue()["node"][1].GetInt32(), 4);
     }
 
@@ -186,7 +186,7 @@ namespace AZ::Dom::Tests
         PatchOperation op = Patch::RemoveOperation(p);
         auto result = op.Apply(m_dataset);
         ASSERT_TRUE(result.IsSuccess());
-        EXPECT_EQ(result.GetValue()["node"].Size(), 4);
+        EXPECT_EQ(result.GetValue()["node"].ArraySize(), 4);
     }
 
     TEST_F(DomPatchTests, RemoveOperation_RemoveKeyFromArray_Fails)
@@ -278,8 +278,8 @@ namespace AZ::Dom::Tests
         PatchOperation op = Patch::CopyOperation(dest, src);
         auto result = op.Apply(m_dataset);
         ASSERT_TRUE(result.IsSuccess());
-        EXPECT_TRUE(m_dataset[src].DeepCompareIsEqual(result.GetValue()[dest]));
-        EXPECT_TRUE(result.GetValue()[src].DeepCompareIsEqual(result.GetValue()[dest]));
+        EXPECT_TRUE(Utils::DeepCompareIsEqual(m_dataset[src], result.GetValue()[dest]));
+        EXPECT_TRUE(Utils::DeepCompareIsEqual(result.GetValue()[src], result.GetValue()[dest]));
     }
 
     TEST_F(DomPatchTests, CopyOperation_ObjectToArrayInRange_Succeeds)
@@ -289,8 +289,8 @@ namespace AZ::Dom::Tests
         PatchOperation op = Patch::CopyOperation(dest, src);
         auto result = op.Apply(m_dataset);
         ASSERT_TRUE(result.IsSuccess());
-        EXPECT_TRUE(m_dataset[src].DeepCompareIsEqual(result.GetValue()[dest]));
-        EXPECT_TRUE(result.GetValue()[src].DeepCompareIsEqual(result.GetValue()[dest]));
+        EXPECT_TRUE(Utils::DeepCompareIsEqual(m_dataset[src], result.GetValue()[dest]));
+        EXPECT_TRUE(Utils::DeepCompareIsEqual(result.GetValue()[src], result.GetValue()[dest]));
     }
 
     TEST_F(DomPatchTests, CopyOperation_ObjectToArrayOutOfRange_Fails)
@@ -309,8 +309,8 @@ namespace AZ::Dom::Tests
         PatchOperation op = Patch::CopyOperation(dest, src);
         auto result = op.Apply(m_dataset);
         ASSERT_TRUE(result.IsSuccess());
-        EXPECT_TRUE(m_dataset[src].DeepCompareIsEqual(result.GetValue()[dest]));
-        EXPECT_TRUE(result.GetValue()[src].DeepCompareIsEqual(result.GetValue()[dest]));
+        EXPECT_TRUE(Utils::DeepCompareIsEqual(m_dataset[src], result.GetValue()[dest]));
+        EXPECT_TRUE(Utils::DeepCompareIsEqual(result.GetValue()[src], result.GetValue()[dest]));
     }
 
     TEST_F(DomPatchTests, CopyOperation_ObjectToNodeChildOutOfRange_Fails)
@@ -347,7 +347,7 @@ namespace AZ::Dom::Tests
         PatchOperation op = Patch::MoveOperation(dest, src);
         auto result = op.Apply(m_dataset);
         ASSERT_TRUE(result.IsSuccess());
-        EXPECT_TRUE(m_dataset[src].DeepCompareIsEqual(result.GetValue()[dest]));
+        EXPECT_TRUE(Utils::DeepCompareIsEqual(m_dataset[src], result.GetValue()[dest]));
         EXPECT_FALSE(result.GetValue().HasMember("arr"));
     }
 
@@ -358,7 +358,7 @@ namespace AZ::Dom::Tests
         PatchOperation op = Patch::MoveOperation(dest, src);
         auto result = op.Apply(m_dataset);
         ASSERT_TRUE(result.IsSuccess());
-        EXPECT_TRUE(m_dataset[src].DeepCompareIsEqual(result.GetValue()[dest]));
+        EXPECT_TRUE(Utils::DeepCompareIsEqual(m_dataset[src], result.GetValue()[dest]));
         EXPECT_FALSE(result.GetValue().HasMember("obj"));
     }
 
@@ -378,7 +378,7 @@ namespace AZ::Dom::Tests
         PatchOperation op = Patch::MoveOperation(dest, src);
         auto result = op.Apply(m_dataset);
         ASSERT_TRUE(result.IsSuccess());
-        EXPECT_TRUE(m_dataset[src].DeepCompareIsEqual(result.GetValue()[dest]));
+        EXPECT_TRUE(Utils::DeepCompareIsEqual(m_dataset[src], result.GetValue()[dest]));
         EXPECT_FALSE(result.GetValue().HasMember("obj"));
     }
 
@@ -472,7 +472,7 @@ namespace AZ::Dom::Tests
 
     TEST_F(DomPatchTests, Test_Patch_AppendArrayValue)
     {
-        m_deltaDataset["arr"].PushBack(7);
+        m_deltaDataset["arr"].ArrayPushBack(7);
         auto result = GenerateAndVerifyDelta();
 
         // Ensure the generated patch uses the array append operation
@@ -482,9 +482,9 @@ namespace AZ::Dom::Tests
 
     TEST_F(DomPatchTests, Test_Patch_AppendArrayValues)
     {
-        m_deltaDataset["arr"].PushBack(7);
-        m_deltaDataset["arr"].PushBack(8);
-        m_deltaDataset["arr"].PushBack(9);
+        m_deltaDataset["arr"].ArrayPushBack(7);
+        m_deltaDataset["arr"].ArrayPushBack(8);
+        m_deltaDataset["arr"].ArrayPushBack(9);
         GenerateAndVerifyDelta();
     }
 
@@ -509,9 +509,9 @@ namespace AZ::Dom::Tests
 
     TEST_F(DomPatchTests, Test_Patch_AppendNodeValues)
     {
-        m_deltaDataset["node"].PushBack(7);
-        m_deltaDataset["node"].PushBack(8);
-        m_deltaDataset["node"].PushBack(9);
+        m_deltaDataset["node"].ArrayPushBack(7);
+        m_deltaDataset["node"].ArrayPushBack(8);
+        m_deltaDataset["node"].ArrayPushBack(9);
         GenerateAndVerifyDelta();
     }
 
@@ -543,9 +543,9 @@ namespace AZ::Dom::Tests
     TEST_F(DomPatchTests, Test_Patch_ReplaceRoot)
     {
         m_deltaDataset = Value(Type::Array);
-        m_deltaDataset.PushBack(2);
-        m_deltaDataset.PushBack(4);
-        m_deltaDataset.PushBack(6);
+        m_deltaDataset.ArrayPushBack(2);
+        m_deltaDataset.ArrayPushBack(4);
+        m_deltaDataset.ArrayPushBack(6);
         GenerateAndVerifyDelta();
     }
 } // namespace AZ::Dom::Tests

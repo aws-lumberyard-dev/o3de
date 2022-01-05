@@ -7,6 +7,7 @@
  */
 
 #include <AzCore/DOM/DomPatch.h>
+#include <AzCore/DOM/DomUtils.h>
 #include <AzCore/std/containers/unordered_set.h>
 
 namespace AZ::Dom
@@ -358,7 +359,7 @@ namespace AZ::Dom
         if (target.Size() == 0)
         {
             Value wrapper(Dom::Type::Array);
-            wrapper.PushBack(rootElement);
+            wrapper.ArrayPushBack(rootElement);
             return AZ::Success<PathContext>({ wrapper, PathEntry(0) });
         }
 
@@ -367,7 +368,7 @@ namespace AZ::Dom
             for (size_t i = 0; i < path.Size(); ++i)
             {
                 const PathEntry& entry = path[i];
-                if (entry.IsEndOfArray() && (!allowEndOfArray || i != path.Size() -1 ))
+                if (entry.IsEndOfArray() && (!allowEndOfArray || i != path.Size() - 1))
                 {
                     return AZ::Failure<AZStd::string>("Append to array index (\"-\") specified for path that must already exist");
                 }
@@ -390,7 +391,7 @@ namespace AZ::Dom
                 return AZ::Failure<AZStd::string>("Array index specified for a value that is not an array or node");
             }
 
-            if (destinationIndex.IsIndex() && destinationIndex.GetIndex() >= targetValue->Size())
+            if (destinationIndex.IsIndex() && destinationIndex.GetIndex() >= targetValue->ArraySize())
             {
                 return AZ::Failure<AZStd::string>("Array index out bounds");
             }
@@ -429,7 +430,7 @@ namespace AZ::Dom
         {
             if (destinationIndex.IsEndOfArray())
             {
-                targetValue.PushBack(GetValue());
+                targetValue.ArrayPushBack(GetValue());
             }
             else
             {
@@ -458,8 +459,8 @@ namespace AZ::Dom
 
         if (destinationIndex.IsIndex() || destinationIndex.IsEndOfArray())
         {
-            size_t index = destinationIndex.IsEndOfArray() ? targetValue.Size() - 1 : destinationIndex.GetIndex();
-            targetValue.Erase(targetValue.MutableBegin() + index);
+            size_t index = destinationIndex.IsEndOfArray() ? targetValue.ArraySize() - 1 : destinationIndex.GetIndex();
+            targetValue.ArrayErase(targetValue.MutableArrayBegin() + index);
         }
         else
         {
@@ -517,11 +518,11 @@ namespace AZ::Dom
         const PathContext& sourceContext = sourceLookup.GetValue();
         if (sourceContext.m_key.IsEndOfArray())
         {
-            sourceContext.m_value.PopBack();
+            sourceContext.m_value.ArrayPopBack();
         }
         else if (sourceContext.m_key.IsIndex())
         {
-            sourceContext.m_value.Erase(sourceContext.m_value.MutableBegin() + sourceContext.m_key.GetIndex());
+            sourceContext.m_value.ArrayErase(sourceContext.m_value.MutableArrayBegin() + sourceContext.m_key.GetIndex());
         }
         else
         {
@@ -540,7 +541,7 @@ namespace AZ::Dom
             return AZ::Failure(pathLookup.TakeError());
         }
 
-        if (!rootElement[m_domPath].DeepCompareIsEqual(GetValue()))
+        if (!Utils::DeepCompareIsEqual(rootElement[m_domPath], GetValue()))
         {
             return AZ::Failure<AZStd::string>("Test failed, values don't match");
         }
@@ -677,7 +678,7 @@ namespace AZ::Dom
         Value domValue(Dom::Type::Array);
         for (const PatchOperation& operation : m_operations)
         {
-            domValue.PushBack(operation.GetDomRepresentation());
+            domValue.ArrayPushBack(operation.GetDomRepresentation());
         }
         return domValue;
     }
@@ -690,7 +691,7 @@ namespace AZ::Dom
         }
 
         Patch patch;
-        for (auto it = domValue.Begin(); it != domValue.End(); ++it)
+        for (auto it = domValue.ArrayBegin(); it != domValue.ArrayEnd(); ++it)
         {
             auto operationLoadResult = PatchOperation::CreateFromDomRepresentation(*it);
             if (!operationLoadResult.IsSuccess())
@@ -777,8 +778,8 @@ namespace AZ::Dom
 
         auto CompareArrays = [&](const Path& path, const Value& before, const Value& after)
         {
-            const size_t beforeSize = before.Size();
-            const size_t afterSize = after.Size();
+            const size_t beforeSize = before.ArraySize();
+            const size_t afterSize = after.ArraySize();
             Path subPath = path;
             for (size_t i = 0; i < afterSize; ++i)
             {
