@@ -7,6 +7,7 @@
  */
 
 #include <AzCore/DOM/DomValue.h>
+#include <AzCore/DOM/DomUtils.h>
 #include <AzCore/Name/NameDictionary.h>
 #include <AzCore/UnitTest/TestTypes.h>
 #include <Tests/DOM/DomFixtures.h>
@@ -49,7 +50,7 @@ namespace AZ::Dom::Benchmark
         for (auto _ : state)
         {
             Value copy = original;
-            copy["entries"]["Key0"].PushBack(42);
+            copy["entries"]["Key0"].ArrayPushBack(42);
             TakeAndDiscardWithoutTimingDtor(AZStd::move(copy), state);
         }
 
@@ -63,7 +64,7 @@ namespace AZ::Dom::Benchmark
 
         for (auto _ : state)
         {
-            Value copy = original.DeepCopy();
+            Value copy = Utils::DeepCopy(original);
             TakeAndDiscardWithoutTimingDtor(AZStd::move(copy), state);
         }
 

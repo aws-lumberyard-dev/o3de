@@ -13,22 +13,22 @@
 
 namespace AZ::Dom
 {
-    template<class T>
-    AZStd::shared_ptr<T>& CheckCopyOnWrite(AZStd::shared_ptr<T>& refCountedPointer)
-    {
-        if (refCountedPointer.use_count() == 1)
-        {
-            return refCountedPointer;
-        }
-        else
-        {
-            refCountedPointer = AZStd::allocate_shared<T>(StdValueAllocator(), *refCountedPointer);
-            return refCountedPointer;
-        }
-    }
-
     namespace Internal
     {
+        template<class T>
+        AZStd::shared_ptr<T>& CheckCopyOnWrite(AZStd::shared_ptr<T>& refCountedPointer)
+        {
+            if (refCountedPointer.use_count() == 1)
+            {
+                return refCountedPointer;
+            }
+            else
+            {
+                refCountedPointer = AZStd::allocate_shared<T>(StdValueAllocator(), *refCountedPointer);
+                return refCountedPointer;
+            }
+        }
+
         template<class TestType>
         constexpr size_t GetTypeIndexInternal(size_t index = 0);
 
@@ -66,6 +66,16 @@ namespace AZ::Dom
     constexpr size_t GetTypeIndex()
     {
         return Internal::ExtractTypeArgs<Value::ValueType>::GetTypeIndex<T>();
+    }
+
+    const Array::ContainerType& Array::GetValues() const
+    {
+        return m_values;
+    }
+
+    const Object::ContainerType& Object::GetValues() const
+    {
+        return m_values;
     }
 
     Node::Node(AZ::Name name)
@@ -131,8 +141,8 @@ namespace AZ::Dom
         }
     }
 
-    Value::Value(const AZStd::any& value)
-        : m_value(AZStd::allocate_shared<AZStd::any>(StdValueAllocator(), value))
+    Value::Value(AZStd::any opaqueValue)
+        : m_value(AZStd::allocate_shared<AZStd::any>(StdValueAllocator(), AZStd::move(opaqueValue)))
     {
     }
 
@@ -289,107 +299,173 @@ namespace AZ::Dom
 
     Type Dom::Value::GetType() const
     {
-        switch (m_value.index())
-        {
-        case GetTypeIndex<AZStd::monostate>():
-            return Type::Null;
-        case GetTypeIndex<int64_t>():
-            return Type::Int64;
-        case GetTypeIndex<uint64_t>():
-            return Type::Uint64;
-        case GetTypeIndex<double>():
-            return Type::Double;
-        case GetTypeIndex<bool>():
-            return Type::Bool;
-        case GetTypeIndex<AZStd::string_view>():
-        case GetTypeIndex<SharedStringType>():
-        case GetTypeIndex<ShortStringType>():
-            return Type::String;
-        case GetTypeIndex<ObjectPtr>():
-            return Type::Object;
-        case GetTypeIndex<ArrayPtr>():
-            return Type::Array;
-        case GetTypeIndex<NodePtr>():
-            return Type::Node;
-        case GetTypeIndex<AZStd::shared_ptr<AZStd::any>>():
-            return Type::Opaque;
-        }
-        AZ_Assert(false, "AZ::Dom::Value::GetType: m_value has an unexpected type");
-        return Type::Null;
+        return AZStd::visit(
+            [](auto&& value) -> Type
+            {
+                using CurrentType = AZStd::decay_t<decltype(value)>;
+                if constexpr (AZStd::is_same_v<CurrentType, AZStd::monostate>)
+                {
+                    return Type::Null;
+                }
+                else if constexpr (AZStd::is_same_v<CurrentType, int64_t>)
+                {
+                    return Type::Int64;
+                }
+                else if constexpr (AZStd::is_same_v<CurrentType, uint64_t>)
+                {
+                    return Type::Uint64;
+                }
+                else if constexpr (AZStd::is_same_v<CurrentType, double>)
+                {
+                    return Type::Double;
+                }
+                else if constexpr (AZStd::is_same_v<CurrentType, bool>)
+                {
+                    return Type::Bool;
+                }
+                else if constexpr (AZStd::is_same_v<CurrentType, AZStd::string_view>)
+                {
+                    return Type::String;
+                }
+                else if constexpr (AZStd::is_same_v<CurrentType, SharedStringType>)
+                {
+                    return Type::String;
+                }
+                else if constexpr (AZStd::is_same_v<CurrentType, ShortStringType>)
+                {
+                    return Type::String;
+                }
+                else if constexpr (AZStd::is_same_v<CurrentType, ObjectPtr>)
+                {
+                    return Type::Object;
+                }
+                else if constexpr (AZStd::is_same_v<CurrentType, ArrayPtr>)
+                {
+                    return Type::Array;
+                }
+                else if constexpr (AZStd::is_same_v<CurrentType, NodePtr>)
+                {
+                    return Type::Node;
+                }
+                else if constexpr (AZStd::is_same_v<CurrentType, OpaqueStorageType>)
+                {
+                    return Type::Opaque;
+                }
+                else
+                {
+                    AZ_Assert(false, "AZ::Dom::Value::GetType: m_value has an unexpected type");
+                }
+            },
+            m_value);
     }
 
     bool Value::IsNull() const
     {
-        return GetType() == Type::Null;
+        return AZStd::holds_alternative<AZStd::monostate>(m_value);
     }
 
     bool Value::IsFalse() const
     {
-        return IsBool() && !AZStd::get<bool>(m_value);
+        const bool* value = AZStd::get_if<bool>(&m_value);
+        return value != nullptr ? !(*value) : false;
     }
 
     bool Value::IsTrue() const
     {
-        return IsBool() && AZStd::get<bool>(m_value);
+        const bool* value = AZStd::get_if<bool>(&m_value);
+        return value != nullptr ? *value : false;
     }
 
     bool Value::IsBool() const
     {
-        return GetType() == Type::Bool;
+        return AZStd::holds_alternative<bool>(m_value);
     }
 
     bool Value::IsNode() const
     {
-        return GetType() == Type::Node;
+        return AZStd::holds_alternative<NodePtr>(m_value);
     }
 
     bool Value::IsObject() const
     {
-        return GetType() == Type::Object;
+        return AZStd::holds_alternative<ObjectPtr>(m_value);
     }
 
     bool Value::IsArray() const
     {
-        return GetType() == Type::Array;
+        return AZStd::holds_alternative<ArrayPtr>(m_value);
     }
 
     bool Value::IsOpaqueValue() const
     {
-        return GetType() == Type::Opaque;
+        return AZStd::holds_alternative<OpaqueStorageType>(m_value);
     }
 
     bool Value::IsNumber() const
     {
-        switch (GetType())
-        {
-        case Type::Int64:
-            [[fallthrough]];
-        case Type::Uint64:
-            [[fallthrough]];
-        case Type::Double:
-            return true;
-        }
-        return false;
+        return AZStd::visit(
+            [](auto&& value) -> bool
+            {
+                using CurrentType = AZStd::decay_t<decltype(value)>;
+                if constexpr (AZStd::is_same_v<CurrentType, int64_t>)
+                {
+                    return true;
+                }
+                else if constexpr (AZStd::is_same_v<CurrentType, uint64_t>)
+                {
+                    return true;
+                }
+                else if constexpr (AZStd::is_same_v<CurrentType, double>)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            },
+            m_value);
     }
 
     bool Value::IsInt() const
     {
-        return GetType() == Type::Int64;
+        return AZStd::holds_alternative<int64_t>(m_value);
     }
 
     bool Value::IsUint() const
     {
-        return GetType() == Type::Uint64;
+        return AZStd::holds_alternative<uint64_t>(m_value);
     }
 
     bool Value::IsDouble() const
     {
-        return GetType() == Type::Double;
+        return AZStd::holds_alternative<double>(m_value);
     }
 
     bool Value::IsString() const
     {
-        return GetType() == Type::String;
+        return AZStd::visit(
+            [](auto&& value) -> bool
+            {
+                using CurrentType = AZStd::decay_t<decltype(value)>;
+                if constexpr (AZStd::is_same_v<CurrentType, AZStd::string_view>)
+                {
+                    return true;
+                }
+                else if constexpr (AZStd::is_same_v<CurrentType, SharedStringType>)
+                {
+                    return true;
+                }
+                else if constexpr (AZStd::is_same_v<CurrentType, ShortStringType>)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            },
+            m_value);
     }
 
     Value& Value::SetObject()
@@ -407,7 +483,7 @@ namespace AZ::Dom
     Node& Value::GetNodeInternal()
     {
         AZ_Assert(GetType() == Type::Node, "AZ::Dom::Value: attempted to retrieve a node from a non-node value");
-        return *CheckCopyOnWrite(AZStd::get<NodePtr>(m_value));
+        return *Internal::CheckCopyOnWrite(AZStd::get<NodePtr>(m_value));
     }
 
     const Object::ContainerType& Value::GetObjectInternal() const
@@ -434,11 +510,11 @@ namespace AZ::Dom
             "AZ::Dom::Value: attempted to retrieve an object from a value that isn't an object or a node");
         if (type == Type::Object)
         {
-            return CheckCopyOnWrite(AZStd::get<ObjectPtr>(m_value))->m_values;
+            return Internal::CheckCopyOnWrite(AZStd::get<ObjectPtr>(m_value))->m_values;
         }
         else
         {
-            return CheckCopyOnWrite(AZStd::get<NodePtr>(m_value))->GetProperties();
+            return Internal::CheckCopyOnWrite(AZStd::get<NodePtr>(m_value))->GetProperties();
         }
     }
 
@@ -466,11 +542,11 @@ namespace AZ::Dom
             "AZ::Dom::Value: attempted to retrieve an array from a value that isn't an array or node");
         if (type == Type::Array)
         {
-            return CheckCopyOnWrite(AZStd::get<ArrayPtr>(m_value))->m_values;
+            return Internal::CheckCopyOnWrite(AZStd::get<ArrayPtr>(m_value))->m_values;
         }
         else
         {
-            return CheckCopyOnWrite(AZStd::get<NodePtr>(m_value))->GetChildren();
+            return Internal::CheckCopyOnWrite(AZStd::get<NodePtr>(m_value))->GetChildren();
         }
     }
 
@@ -595,7 +671,9 @@ namespace AZ::Dom
     Value& Value::AddMember(KeyType name, const Value& value)
     {
         Object::ContainerType& object = GetObjectInternal();
-        object.reserve((object.size() / Object::ReserveIncrement + 1) * Object::ReserveIncrement);
+        // Reserve in ReserveIncremenet chunks instead of the default vector doubling strategy
+        // Profiling has found that this is an aggregate performance gain for typical workflows
+        object.reserve(AZ_SIZE_ALIGN_UP(object.size() + 1, Object::ReserveIncrement));
         if (auto memberIt = FindMutableMember(name); memberIt != object.end())
         {
             memberIt->second = value;
@@ -699,22 +777,22 @@ namespace AZ::Dom
         return *this;
     }
 
-    size_t Value::Size() const
+    size_t Value::ArraySize() const
     {
         return GetArrayInternal().size();
     }
 
-    size_t Value::Capacity() const
+    size_t Value::ArrayCapacity() const
     {
         return GetArrayInternal().capacity();
     }
 
-    bool Value::Empty() const
+    bool Value::IsArrayEmpty() const
     {
         return GetArrayInternal().empty();
     }
 
-    void Value::Clear()
+    void Value::ClearArray()
     {
         GetArrayInternal().clear();
     }
@@ -729,62 +807,64 @@ namespace AZ::Dom
         return GetArrayInternal()[index];
     }
 
-    Value& Value::MutableAt(size_t index)
+    Value& Value::MutableArrayAt(size_t index)
     {
         return operator[](index);
     }
 
-    const Value& Value::At(size_t index) const
+    const Value& Value::ArrayAt(size_t index) const
     {
         return operator[](index);
     }
 
-    Array::ConstIterator Value::Begin() const
+    Array::ConstIterator Value::ArrayBegin() const
     {
         return GetArrayInternal().begin();
     }
 
-    Array::ConstIterator Value::End() const
+    Array::ConstIterator Value::ArrayEnd() const
     {
         return GetArrayInternal().end();
     }
 
-    Array::Iterator Value::MutableBegin()
+    Array::Iterator Value::MutableArrayBegin()
     {
         return GetArrayInternal().begin();
     }
 
-    Array::Iterator Value::MutableEnd()
+    Array::Iterator Value::MutableArrayEnd()
     {
         return GetArrayInternal().end();
     }
 
-    Value& Value::Reserve(size_t newCapacity)
+    Value& Value::ArrayReserve(size_t newCapacity)
     {
         GetArrayInternal().reserve(newCapacity);
         return *this;
     }
 
-    Value& Value::PushBack(Value value)
+    Value& Value::ArrayPushBack(Value value)
     {
         Array::ContainerType& array = GetArrayInternal();
-        array.reserve((array.size() / Array::ReserveIncrement + 1) * Array::ReserveIncrement);
+        // Reserve in ReserveIncremenet chunks instead of the default vector doubling strategy
+        // Profiling has found that this is an aggregate performance gain for typical workflows
+        array.reserve(AZ_SIZE_ALIGN_UP(array.size() + 1, Array::ReserveIncrement));
         array.push_back(AZStd::move(value));
         return *this;
     }
 
-    Value& Value::PopBack()
+    Value& Value::ArrayPopBack()
     {
         GetArrayInternal().pop_back();
         return *this;
     }
 
-    Array::Iterator Value::Erase(Array::Iterator pos)
+    Array::Iterator Value::ArrayErase(Array::Iterator pos)
     {
         return GetArrayInternal().erase(pos);
     }
 
-    Array::Iterator Value::Erase(Array::Iterator first, Array::Iterator last)
+    Array::Iterator Value::ArrayErase(Array::Iterator first, Array::Iterator last)
     {
         return GetArrayInternal().erase(first, last);
     }
@@ -1008,13 +1088,6 @@ namespace AZ::Dom
 
     void Value::SetString(AZStd::string_view value)
     {
-        if (value.size() <= ShortStringSize)
-        {
-            ShortStringType buffer;
-            buffer.resize_no_construct(value.size());
-            memcpy(buffer.data(), value.data(), value.size());
-            m_value = buffer;
-        }
         m_value = value;
     }
 
@@ -1022,7 +1095,10 @@ namespace AZ::Dom
     {
         if (value.size() <= ShortStringSize)
         {
-            SetString(value);
+            ShortStringType buffer;
+            buffer.resize_no_construct(value.size());
+            memcpy(buffer.data(), value.data(), value.size());
+            m_value = buffer;
         }
         else
         {
@@ -1036,9 +1112,9 @@ namespace AZ::Dom
         return *AZStd::get<OpaqueStorageType>(m_value);
     }
 
-    void Value::SetOpaqueValue(const AZStd::any& value)
+    void Value::SetOpaqueValue(AZStd::any value)
     {
-        m_value = AZStd::allocate_shared<AZStd::any>(StdValueAllocator(), value);
+        m_value = AZStd::allocate_shared<AZStd::any>(StdValueAllocator(), AZStd::move(value));
     }
 
     void Value::SetNull()
@@ -1170,138 +1246,9 @@ namespace AZ::Dom
         return AZStd::make_unique<ValueWriter>(*this);
     }
 
-    bool Value::DeepCompareIsEqual(const Value& other) const
+    const Value::ValueType& Value::GetInternalValue() const
     {
-        if (IsString() && other.IsString())
-        {
-            // If we both hold the same ref counted string we don't need to do a full comparison
-            if (AZStd::holds_alternative<SharedStringType>(m_value) && m_value == other.m_value)
-            {
-                return true;
-            }
-            return GetString() == other.GetString();
-        }
-
-        if (m_value.index() != other.m_value.index())
-        {
-            return false;
-        }
-
-        return AZStd::visit(
-            [&](auto&& ourValue) -> bool
-            {
-                using Alternative = AZStd::decay_t<decltype(ourValue)>;
-                auto&& theirValue = AZStd::get<AZStd::remove_cvref_t<decltype(ourValue)>>(other.m_value);
-
-                if constexpr (AZStd::is_same_v<Alternative, AZStd::monostate>)
-                {
-                    return true;
-                }
-                else if constexpr (AZStd::is_same_v<Alternative, ObjectPtr>)
-                {
-                    if (ourValue == theirValue)
-                    {
-                        return true;
-                    }
-
-                    if (ourValue->m_values.size() != theirValue->m_values.size())
-                    {
-                        return false;
-                    }
-
-                    for (size_t i = 0; i < ourValue->m_values.size(); ++i)
-                    {
-                        const Object::EntryType& lhs = ourValue->m_values[i];
-                        auto rhsIt = other.FindMember(lhs.first);
-                        if (rhsIt == other.MemberEnd() || !lhs.second.DeepCompareIsEqual(rhsIt->second))
-                        {
-                            return false;
-                        }
-                    }
-
-                    return true;
-                }
-                else if constexpr (AZStd::is_same_v<Alternative, ArrayPtr>)
-                {
-                    if (ourValue == theirValue)
-                    {
-                        return true;
-                    }
-
-                    if (ourValue->m_values.size() != theirValue->m_values.size())
-                    {
-                        return false;
-                    }
-
-                    for (size_t i = 0; i < ourValue->m_values.size(); ++i)
-                    {
-                        const Value& lhs = ourValue->m_values[i];
-                        const Value& rhs = theirValue->m_values[i];
-                        if (!lhs.DeepCompareIsEqual(rhs))
-                        {
-                            return false;
-                        }
-                    }
-
-                    return true;
-                }
-                else if constexpr (AZStd::is_same_v<Alternative, NodePtr>)
-                {
-                    if (ourValue == theirValue)
-                    {
-                        return true;
-                    }
-
-                    const Node& ourNode = *ourValue;
-                    const Node& theirNode = *theirValue;
-
-                    const Object::ContainerType& ourProperties = ourNode.GetProperties();
-                    const Object::ContainerType& theirProperties = theirNode.GetProperties();
-
-                    if (ourProperties.size() != theirProperties.size())
-                    {
-                        return false;
-                    }
-
-                    for (size_t i = 0; i < ourProperties.size(); ++i)
-                    {
-                        const Object::EntryType& lhs = ourProperties[i];
-                        auto rhsIt = other.FindMember(lhs.first);
-                        if (rhsIt == other.MemberEnd() || !lhs.second.DeepCompareIsEqual(rhsIt->second))
-                        {
-                            return false;
-                        }
-                    }
-
-                    const Array::ContainerType& ourChildren = ourNode.GetChildren();
-                    const Array::ContainerType& theirChildren = theirNode.GetChildren();
-
-                    for (size_t i = 0; i < ourChildren.size(); ++i)
-                    {
-                        const Value& lhs = ourChildren[i];
-                        const Value& rhs = theirChildren[i];
-                        if (!lhs.DeepCompareIsEqual(rhs))
-                        {
-                            return false;
-                        }
-                    }
-
-                    return true;
-                }
-                else
-                {
-                    return ourValue == theirValue;
-                }
-            },
-            m_value);
-    }
-
-    Value Value::DeepCopy(bool copyStrings) const
-    {
-        Value newValue;
-        AZStd::unique_ptr<Visitor> writer = newValue.GetWriteHandler();
-        Accept(*writer, copyStrings);
-        return newValue;
+        return m_value;
     }
 
     Value& Value::operator[](const PathEntry& entry)

@@ -69,6 +69,9 @@ namespace AZ::Dom
         using Iterator = ContainerType::iterator;
         using ConstIterator = ContainerType::const_iterator;
         static constexpr const size_t ReserveIncrement = 4;
+        static_assert((ReserveIncrement & (ReserveIncrement - 1)) == 0, "ReserveIncremenet must be a power of 2");
+
+        const ContainerType& GetValues() const;
 
     private:
         ContainerType m_values;
@@ -88,6 +91,9 @@ namespace AZ::Dom
         using Iterator = ContainerType::iterator;
         using ConstIterator = ContainerType::const_iterator;
         static constexpr const size_t ReserveIncrement = 8;
+        static_assert((ReserveIncrement & (ReserveIncrement - 1)) == 0, "ReserveIncremenet must be a power of 2");
+
+        const ContainerType& GetValues() const;
 
     private:
         ContainerType m_values;
@@ -105,9 +111,9 @@ namespace AZ::Dom
     {
     public:
         Node() = default;
+        Node(const Node&) = default;
+        Node(Node&&) = default;
         explicit Node(AZ::Name name);
-        explicit Node(const Node&) = default;
-        explicit Node(Node&&) = default;
 
         Node& operator=(const Node&) = default;
         Node& operator=(Node&&) = default;
@@ -176,7 +182,7 @@ namespace AZ::Dom
             double,
             // Bool
             bool,
-            // StringType
+            // String
             AZStd::string_view,
             SharedStringType,
             ShortStringType,
@@ -282,28 +288,28 @@ namespace AZ::Dom
         // Array API (also used by Node)...
         Value& SetArray();
 
-        size_t Size() const;
-        size_t Capacity() const;
-        bool Empty() const;
-        void Clear();
+        size_t ArraySize() const;
+        size_t ArrayCapacity() const;
+        bool IsArrayEmpty() const;
+        void ClearArray();
 
         Value& operator[](size_t index);
         const Value& operator[](size_t index) const;
 
-        Value& MutableAt(size_t index);
-        const Value& At(size_t index) const;
+        Value& MutableArrayAt(size_t index);
+        const Value& ArrayAt(size_t index) const;
 
-        Array::ConstIterator Begin() const;
-        Array::ConstIterator End() const;
-        Array::Iterator MutableBegin();
-        Array::Iterator MutableEnd();
+        Array::ConstIterator ArrayBegin() const;
+        Array::ConstIterator ArrayEnd() const;
+        Array::Iterator MutableArrayBegin();
+        Array::Iterator MutableArrayEnd();
 
-        Value& Reserve(size_t newCapacity);
-        Value& PushBack(Value value);
-        Value& PopBack();
+        Value& ArrayReserve(size_t newCapacity);
+        Value& ArrayPushBack(Value value);
+        Value& ArrayPopBack();
 
-        Array::Iterator Erase(Array::Iterator pos);
-        Array::Iterator Erase(Array::Iterator first, Array::Iterator last);
+        Array::Iterator ArrayErase(Array::Iterator pos);
+        Array::Iterator ArrayErase(Array::Iterator first, Array::Iterator last);
 
         Array::ContainerType& GetMutableArray();
         const Array::ContainerType& GetArray() const;
@@ -367,7 +373,7 @@ namespace AZ::Dom
         //! serialize an opaque type into a DOM value instead, as serializers
         //! and other systems will have no means of dealing with fully arbitrary
         //! values.
-        void SetOpaqueValue(const AZStd::any&);
+        void SetOpaqueValue(AZStd::any);
 
         // Null API...
         void SetNull();
@@ -391,6 +397,10 @@ namespace AZ::Dom
         bool DeepCompareIsEqual(const Value& other) const;
         Value DeepCopy(bool copyStrings = true) const;
 
+        //! Gets the internal value of this Value. Note that this value's types may not correspond one-to-one with the Type enumeration,
+        //! as internally the same type might have diff
+        const ValueType& GetInternalValue() const;
+
     private:
         const Node& GetNodeInternal() const;
         Node& GetNodeInternal();
@@ -399,7 +409,7 @@ namespace AZ::Dom
         const Array::ContainerType& GetArrayInternal() const;
         Array::ContainerType& GetArrayInternal();
 
-        explicit Value(const AZStd::any& opaqueValue);
+        explicit Value(AZStd::any opaqueValue);
 
         static_assert(
             sizeof(ValueType) == sizeof(ShortStringType) + sizeof(size_t), "ValueType should have no members larger than ShortStringType");
