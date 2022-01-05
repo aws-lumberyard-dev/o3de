@@ -417,7 +417,9 @@ namespace ScriptCanvasBuilder
         {
             if (component->RTTI_GetType() == azrtti_typeid<GraphCanvas::SceneComponent>())
             {
-                buildEntity->RemoveComponent(component);
+                // @KB EntityComponentMemory TODO
+                //buildEntity->RemoveComponent(component);
+                buildEntity->DestroyComponent(component);
             }
         }
 

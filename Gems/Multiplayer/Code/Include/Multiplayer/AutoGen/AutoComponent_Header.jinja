@@ -525,9 +525,9 @@ namespace {{ Component.attrib['Namespace'] }}
         bool SerializeStateDeltaMessage(Multiplayer::ReplicationRecord& replicationRecord, AzNetworking::ISerializer& serializer) override;
         void NotifyStateDeltaChanges(Multiplayer::ReplicationRecord& replicationRecord) override;
         bool HasController() const override;
-        Multiplayer::MultiplayerController* GetController() override;
 
     protected:
+        Multiplayer::MultiplayerController* GetController() override;
         void ConstructController() override;
         void DestructController() override;
         void ActivateController(Multiplayer::EntityIsMigrating entityIsMigrating) override;

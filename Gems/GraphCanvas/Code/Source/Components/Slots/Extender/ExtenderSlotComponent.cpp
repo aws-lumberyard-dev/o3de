@@ -34,13 +34,11 @@ namespace GraphCanvas
     AZ::Entity* ExtenderSlotComponent::CreateExtenderSlot(const AZ::EntityId& nodeId, const ExtenderSlotConfiguration& extenderSlotConfiguration)
     {
         AZ::Entity* entity = SlotComponent::CreateCoreSlotEntity();
+        ExtenderSlotComponent* extenderSlot = entity->CreateComponent<ExtenderSlotComponent>(extenderSlotConfiguration);
 
-        ExtenderSlotComponent* extenderSlot = aznew ExtenderSlotComponent(extenderSlotConfiguration);
-
-        if (!entity->AddComponent(extenderSlot))
+        if (!extenderSlot)
         {
             AZ_Error("GraphCanvas", false, "Failed to add ExtenderSlotComponent to entity.");
-            delete extenderSlot;
             delete entity;
             return nullptr;
         }

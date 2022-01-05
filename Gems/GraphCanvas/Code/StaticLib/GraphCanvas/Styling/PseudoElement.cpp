@@ -28,10 +28,11 @@ namespace GraphCanvas
                 ;
         }
 
-        AZ::EntityId VirtualChildElement::Create(const AZ::EntityId& real, const AZStd::string& virtualChildElement)
+        AZ::EntityId VirtualChildElement::Create([[maybe_unused]] const AZ::EntityId& real, [[maybe_unused]] const AZStd::string& virtualChildElement)
         {
             AZ::Entity* entity = aznew AZ::Entity;
-            entity->AddComponent(new VirtualChildElement(real, virtualChildElement));
+            // @KB EntityComponentMemory TODO
+            //entity->CreateComponent<VirtualChildElement>(real, virtualChildElement);
             entity->Init();
             entity->Activate();
 

@@ -170,7 +170,7 @@ namespace LmbrCentral
     template<typename TComponent, typename TConfiguration>
     void EditorWrappedComponentBase<TComponent, TConfiguration>::BuildGameEntity(AZ::Entity* gameEntity)
     {
-        gameEntity->AddComponent(aznew TComponent(m_configuration));
+        gameEntity->CreateComponent<TComponent>(m_configuration);
     }
 
     template <typename TComponent, typename TConfiguration>

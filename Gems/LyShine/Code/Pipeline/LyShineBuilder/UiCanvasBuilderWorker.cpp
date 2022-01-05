@@ -351,15 +351,17 @@ namespace LyShine
             {
                 // The component is already runtime-ready. I.e. it is not an editor component.
                 // Clone the component and add it to the export entity
-                AZ::Component* clonedComponent = context->CloneObject(canvasEntityComponent);
-                exportCanvasEntity.AddComponent(clonedComponent);
+                // @KB EntityComponentMemory TODO
+                //AZ::Component* clonedComponent = context->CloneObject(canvasEntityComponent);
+                //exportCanvasEntity.AddComponent(clonedComponent);
             }
         }
 
         AZ::Data::Asset<AZ::SliceAsset> exportSliceAsset = sliceCompilationResult.GetValue();
         AZ::Entity* exportSliceAssetEntity = exportSliceAsset.Get()->GetEntity();
         AZ::SliceComponent* exportSliceComponent = exportSliceAssetEntity->FindComponent<AZ::SliceComponent>();
-        exportSliceAssetEntity->RemoveComponent(exportSliceComponent);
+        // @KB EntityComponentMemory TODO
+        //exportSliceAssetEntity->RemoveComponent(exportSliceComponent);
 
         UiSystemToolsBus::Broadcast(&UiSystemToolsInterface::ReplaceRootSliceSliceComponent, canvasAsset, exportSliceComponent);
         UiSystemToolsBus::Broadcast(&UiSystemToolsInterface::ReplaceCanvasEntity, canvasAsset, &exportCanvasEntity);

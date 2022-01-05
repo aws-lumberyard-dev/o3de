@@ -381,7 +381,7 @@ namespace EMotionFX
             cfg.m_parameterDefaults = m_parameterDefaults;
             cfg.m_visualize = m_visualize;
 
-            gameEntity->AddComponent(aznew AnimGraphComponent(&cfg));
+            gameEntity->CreateComponent<AnimGraphComponent>(&cfg);
         }
 
        

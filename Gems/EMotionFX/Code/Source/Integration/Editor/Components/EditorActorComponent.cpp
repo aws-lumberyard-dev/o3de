@@ -640,7 +640,7 @@ namespace EMotionFX
             cfg.m_bboxConfig = m_bboxConfig;
             cfg.m_forceUpdateJointsOOV = m_forceUpdateJointsOOV;
 
-            gameEntity->AddComponent(aznew ActorComponent(&cfg));
+            gameEntity->CreateComponent<ActorComponent>(&cfg);
         }
 
         AZ::EntityId EditorActorComponent::GetAttachedToEntityId() const

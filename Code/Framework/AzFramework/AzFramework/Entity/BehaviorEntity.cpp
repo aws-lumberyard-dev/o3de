@@ -333,13 +333,12 @@ namespace AzFramework
             return false;
         }
 
-        if (!component->GetEntity()->RemoveComponent(component))
+        if (!component->GetEntity()->DestroyComponent(component))
         {
             AZ_Warning("Entity", false, "Cannot destroy component. Failed to remove component (id=%llu) from entity (id=%s name='%s').", componentId, m_entityId.ToString().c_str(), component->GetEntity()->GetName().c_str());
             return false;
         }
 
-        delete component;
         return true;
     }
 

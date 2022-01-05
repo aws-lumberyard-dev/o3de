@@ -430,10 +430,8 @@ namespace GraphCanvas
             result.push_back(match.style);
         }
 
-        auto computed = new Styling::ComputedStyle(m_editorId, selectors, std::move(result));
-
         AZ::Entity* entity = new AZ::Entity;
-        entity->AddComponent(computed);
+        entity->CreateComponent<Styling::ComputedStyle>(m_editorId, selectors, std::move(result));
         entity->Init();
         entity->Activate();
 

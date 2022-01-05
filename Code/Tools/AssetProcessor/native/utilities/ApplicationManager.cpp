@@ -58,6 +58,10 @@ namespace AssetProcessor
         : public AzFramework::LogComponent
     {
     public:
+        AZ_RTTI(FilteredLogComponent, "{E95C51F8-5016-4E70-AE46-4303A440F4A8}", AzFramework::LogComponent);
+        AZ_COMPONENT_INTRUSIVE_DESCRIPTOR_TYPE(FilteredLogComponent);
+        AZ_COMPONENT_BASE(FilteredLogComponent, "{E95C51F8-5016-4E70-AE46-4303A440F4A8}");
+
         void OutputMessage(AzFramework::LogFile::SeverityLevel severity, const char* window, const char* message) override
         {
             // if we receive an exception it means we are likely to crash.  in that case, even if it occurred in a job thread
@@ -553,8 +557,7 @@ bool ApplicationManager::StartAZFramework()
     m_entity = aznew AZ::Entity("Application Entity");
     if (m_entity)
     {
-        AssetProcessor::FilteredLogComponent* logger = aznew AssetProcessor::FilteredLogComponent();
-        m_entity->AddComponent(logger);
+        AssetProcessor::FilteredLogComponent* logger = m_entity->CreateComponent<AssetProcessor::FilteredLogComponent>();
         if (logger)
         {
             // Prevent files overwriting each other if you run batch at same time as GUI (unit tests, for example)

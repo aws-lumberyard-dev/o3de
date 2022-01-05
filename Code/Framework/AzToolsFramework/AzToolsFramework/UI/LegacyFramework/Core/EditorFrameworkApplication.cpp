@@ -328,8 +328,7 @@ namespace LegacyFramework
                     AZ_Warning("EditorFramework", 0, "Attempt to remove a component %s (0x%08x) from the application entity when the application entity has already been activated\n", comp->RTTI_GetTypeName(), componentCRC);
                     return true;
                 }
-                m_applicationEntity->RemoveComponent(comp);
-                delete comp;
+                m_applicationEntity->DestroyComponent(comp);
                 return true;
             }
             return false;
@@ -344,8 +343,7 @@ namespace LegacyFramework
                     AZ_Warning("EditorFramework", 0, "Attempt to remove a component %s (0x%08x) from the system entity when the entity entity has already been activated\n", comp->RTTI_GetTypeName(), componentCRC);
                     return true;
                 }
-                m_ptrSystemEntity->RemoveComponent(comp);
-                delete comp;
+                m_ptrSystemEntity->DestroyComponent(comp);
                 return true;
             }
         }

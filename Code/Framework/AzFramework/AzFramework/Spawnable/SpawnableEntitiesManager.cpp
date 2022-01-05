@@ -361,11 +361,10 @@ namespace AzFramework
 
         for (const AZ::Component* component : componentPrototypes)
         {
-            AZ::Component* clone = AZ::IdUtils::Remapper<AZ::EntityId, allowDuplicateIds>::CloneObjectAndGenerateNewIdsAndFixRefs(
-                component, prototypeToCloneMap, &serializeContext);
+            AZ::Component* clone = target.CloneComponent(component);
             AZ_Assert(clone, "Unable to clone component for entity '%s' (%zu).", target.GetName().c_str(), target.GetId());
-            [[maybe_unused]] bool result = target.AddComponent(clone);
-            AZ_Assert(result, "Unable to add cloned component to entity '%s' (%zu).", target.GetName().c_str(), target.GetId());
+            AZ::IdUtils::Remapper<AZ::EntityId, allowDuplicateIds>::GenerateNewIdsAndFixRefs(
+                clone, prototypeToCloneMap, &serializeContext);
         }
     }
 

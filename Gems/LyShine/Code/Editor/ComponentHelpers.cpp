@@ -594,9 +594,7 @@ namespace Internal
                 const auto& entityComponents = entity->GetComponents();
                 if (AZStd::find(entityComponents.begin(), entityComponents.end(), componentToRemove) != entityComponents.end())
                 {
-                    entity->RemoveComponent(componentToRemove);
-
-                    delete componentToRemove;
+                    entity->DestroyComponent(componentToRemove);
                 }
             }
 
@@ -793,9 +791,7 @@ namespace ComponentHelpers
                             }
 
                             entity->Deactivate();
-                            AZ::Component* component;
-                            EBUS_EVENT_ID_RESULT(component, componentClass->m_typeId, AZ::ComponentDescriptorBus, CreateComponent);
-                            entity->AddComponent(component);
+                            entity->CreateComponent(componentClass->m_typeId);
                             entity->Activate();
                         }
                     }
@@ -996,7 +992,8 @@ namespace ComponentHelpers
                             }
 
                             // Add the component
-                            entity->AddComponent(component);
+                            // @KB EntityComponentMemory TODO
+                            //entity->AddComponent(component);
                         }
 
                         // Reactivate if we were previously active
@@ -1117,11 +1114,7 @@ namespace ComponentHelpers
         {
             const AZ::TypeId& componentType = pair.first;
             const AZ::Data::AssetId& assetId = pair.second;
-            
-            AZ::Component* component;
-            EBUS_EVENT_ID_RESULT(component, componentType, AZ::ComponentDescriptorBus, CreateComponent);
-            entity->AddComponent(component);
-
+            AZ::Component* component = entity->CreateComponent(componentType);
             newComponentAssetPairs.push_back(AZStd::make_pair(component, assetId));
         }
 

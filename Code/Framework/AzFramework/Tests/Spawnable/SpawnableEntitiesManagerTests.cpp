@@ -146,7 +146,7 @@ namespace UnitTest
             for (size_t i=0; i<numElements; ++i)
             {
                 auto entry = AZStd::make_unique<AZ::Entity>();
-                entry->AddComponent(aznew SourceSpawnableComponent());
+                entry->CreateComponent<SourceSpawnableComponent>();
                 entities.push_back(AZStd::move(entry));
             }
         }
@@ -161,7 +161,7 @@ namespace UnitTest
             for (size_t i = 0; i < numElements; ++i)
             {
                 auto entry = AZStd::make_unique<AZ::Entity>();
-                entry->AddComponent(aznew TargetSpawnableComponent());
+                entry->CreateComponent<TargetSpawnableComponent>();
                 entities.push_back(AZStd::move(entry));
             }
 

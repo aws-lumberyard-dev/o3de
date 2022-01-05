@@ -119,7 +119,12 @@ namespace AZ
 
         for (ComponentArrayType::reverse_iterator it = m_components.rbegin(); it != m_components.rend(); ++it)
         {
-            delete *it;
+            Component* component = *it;
+
+            ComponentDescriptor* componentDescriptor = nullptr;
+            EBUS_EVENT_ID_RESULT(componentDescriptor, component->RTTI_GetType(), ComponentDescriptorBus, GetDescriptor);
+
+            componentDescriptor->DestroyComponent(component);
         }
 
         m_components.clear();
@@ -284,7 +289,7 @@ namespace AZ
         {
             if (!AddComponent(component))
             {
-                delete component;
+                EBUS_EVENT_ID(componentTypeId, ComponentDescriptorBus, DestroyComponent, component);
                 component = nullptr;
             }
         }
@@ -308,6 +313,26 @@ namespace AZ
         }
 
         return nullptr;
+    }
+
+    Component* Entity::CloneComponent(const Component* component, SerializeContext* context)
+    {
+        if (!context)
+        {
+            AZ::ComponentApplicationBus::BroadcastResult(context, &AZ::ComponentApplicationRequests::GetSerializeContext);
+            if (!context)
+            {
+                AZ_Error("Serialization", false, "No serialize context provided and failed to get component application default serialize context. ComponentApp is not started or input serialize context should not be null.");
+                return nullptr;
+            }
+        }
+
+        Component* clone = CreateComponent(component->RTTI_GetType());
+        if (clone)
+        {
+            context->CloneObjectInplace(*clone, component);
+        }
+        return clone;
     }
 
     bool Entity::AddComponent(Component* component)
@@ -486,7 +511,17 @@ namespace AZ
         return true;
     }
 
-    bool Entity::SwapComponents(Component* componentToRemove, Component* componentToAdd)
+    bool Entity::DestroyComponent(Component* component)
+    {
+        if (RemoveComponent(component))
+        {
+            EBUS_EVENT_ID(component->RTTI_Type(), ComponentDescriptorBus, DestroyComponent, component);
+            return true;
+        }
+        return false;
+    }
+
+    bool Entity::ReplaceComponent(Component* componentToRemove, Component* componentToAdd)
     {
         AZ_Assert(componentToRemove && componentToAdd, "Invalid component");
         AZ_Assert(CanAddRemoveComponents(), "Can't remove component while the entity is active!");
@@ -521,6 +556,7 @@ namespace AZ
         }
 
         InvalidateDependencies(); // We need to re-evaluate dependencies
+        EBUS_EVENT_ID(componentToRemove->RTTI_Type(), ComponentDescriptorBus, DestroyComponent, componentToRemove);
         return true;
     }
 

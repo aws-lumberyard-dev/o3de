@@ -23,7 +23,7 @@ namespace AZ
         {
             if (entity->FindComponent<T>() == nullptr)
             {
-                entity->AddComponent(aznew T());
+                entity->CreateComponent<T>();
             }
         }
 

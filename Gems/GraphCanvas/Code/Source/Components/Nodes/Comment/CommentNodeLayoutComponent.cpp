@@ -104,9 +104,7 @@ namespace GraphCanvas
         if (!commentFrameComponent)
         {
             GeneralNodeFrameComponent* generalNodeFrameComponent = entity->FindComponent<GeneralNodeFrameComponent>();
-            entity->RemoveComponent(generalNodeFrameComponent);
-
-            delete generalNodeFrameComponent;
+            entity->DestroyComponent(generalNodeFrameComponent);
 
             entity->CreateComponent<CommentNodeFrameComponent>();
         }

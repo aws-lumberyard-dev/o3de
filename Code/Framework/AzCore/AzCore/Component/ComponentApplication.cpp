@@ -1457,9 +1457,7 @@ namespace AZ
     //=========================================================================
     void ComponentApplication::AddRequiredSystemComponents(AZ::Entity* systemEntity)
     {
-        //
         // Gather required system components from all modules and the application.
-        //
         for (const Uuid& componentId : GetRequiredSystemComponents())
         {
             ComponentDescriptor* componentDescriptor = nullptr;
@@ -1476,7 +1474,7 @@ namespace AZ
                 // add component if it's not already present
                 if (!systemEntity->FindComponent(componentId))
                 {
-                    systemEntity->AddComponent(componentDescriptor->CreateComponent());
+                    systemEntity->CreateComponent(componentId);
                 }
             }
         }

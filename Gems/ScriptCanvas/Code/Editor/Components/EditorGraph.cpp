@@ -724,12 +724,14 @@ namespace ScriptCanvasEditor
             return AZ::Failure();
         }
 
+        // @KB EntityComponentMemory TODO
+
         bool rollbackRequired = false;
         nodeEntity->Deactivate();
         RemoveNode(oldNode->GetEntityId());
-        nodeEntity->RemoveComponent(oldNode);
+        //nodeEntity->RemoveComponent(oldNode); //<
 
-        nodeEntity->AddComponent(newNode);
+        //nodeEntity->AddComponent(newNode); //<
         AddNode(newNode->GetEntityId());
         ScriptCanvas::NodeUtils::InitializeNode(newNode, nodeConfig);
 
@@ -739,10 +741,9 @@ namespace ScriptCanvasEditor
         if (rollbackRequired)
         {
             RemoveNode(newNode->GetEntityId());
-            nodeEntity->RemoveComponent(newNode);
-            delete newNode;
+            nodeEntity->DestroyComponent(newNode);
 
-            nodeEntity->AddComponent(oldNode);
+            //nodeEntity->AddComponent(oldNode); //<
             AddNode(oldNode->GetEntityId());
             nodeEntity->Activate();
             return AZ::Failure();
@@ -803,7 +804,7 @@ namespace ScriptCanvasEditor
                 }
             }
 
-            delete oldNode;
+            //delete oldNode; //<
             newNode->SignalReconfigurationEnd();
             return AZ::Success(newNode);
         }
@@ -3317,10 +3318,7 @@ namespace ScriptCanvasEditor
 
                 if (component)
                 {
-                    if (GetEntity()->RemoveComponent(component))
-                    {
-                        delete component;
-                    }
+                    GetEntity()->DestroyComponent(component);
                 }
             }
         }

@@ -201,7 +201,8 @@ namespace AzToolsFramework
             newTransaction->m_originalTargetAsset = asset;
             newTransaction->m_targetAsset = { aznew AZ::SliceAsset(asset.GetId()), AZ::Data::AssetLoadBehavior::Default };
             newTransaction->m_transactionType = TransactionType::OverwriteSlice;
-            entity->AddComponent(overwriteComponent.Clone(*serializeContext));
+            // @KB EntityComponentMemory TODO
+            entity->CloneComponent(&overwriteComponent, serializeContext);
 
             newTransaction->m_targetAsset.Get()->SetData(entity, entity->FindComponent<AZ::SliceComponent>());
 
@@ -231,7 +232,8 @@ namespace AzToolsFramework
 
             // Clone the asset in-memory for manipulation.
             AZ::Entity* entity = aznew AZ::Entity(asset.Get()->GetEntity()->GetId(), asset.Get()->GetEntity()->GetName().c_str());
-            entity->AddComponent(asset.Get()->GetComponent()->Clone(*serializeContext));
+            // @KB EntityComponentMemory TODO
+            entity->CloneComponent(asset.Get()->GetComponent(), serializeContext);
             newTransaction->m_originalTargetAsset = asset;
             newTransaction->m_targetAsset = { aznew AZ::SliceAsset(asset.GetId()), AZ::Data::AssetLoadBehavior::Default };
             newTransaction->m_targetAsset.Get()->SetData(entity, entity->FindComponent<AZ::SliceComponent>());
@@ -774,7 +776,8 @@ namespace AzToolsFramework
             // Clone the asset.
             AZ::Entity* finalSliceEntity = aznew AZ::Entity(m_targetAsset.Get()->GetEntity()->GetId(), m_targetAsset.Get()->GetEntity()->GetName().c_str());
             AZ::SliceComponent::SliceInstanceToSliceInstanceMap sourceToCloneSliceInstanceMap;
-            finalSliceEntity->AddComponent(m_targetAsset.Get()->GetComponent()->Clone(*m_serializeContext, &sourceToCloneSliceInstanceMap));
+            // @KB EntityComponentMemory TODO
+            //finalSliceEntity->AddComponent(m_targetAsset.Get()->GetComponent()->Clone(*m_serializeContext, &sourceToCloneSliceInstanceMap));
             AZ::Data::Asset<AZ::SliceAsset> finalAsset = AZ::Data::AssetManager::Instance().CreateAsset<AZ::SliceAsset>(AZ::Data::AssetId(AZ::Uuid::CreateRandom()), AZ::Data::AssetLoadBehavior::Default);
             finalAsset.Get()->SetData(finalSliceEntity, finalSliceEntity->FindComponent<AZ::SliceComponent>());
 

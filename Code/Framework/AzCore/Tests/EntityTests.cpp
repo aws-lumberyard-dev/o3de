@@ -642,8 +642,7 @@ namespace UnitTest
     TEST_F(EntityTests, EntityComponentList_ComponentWithDuplicateProvidedService_EntityInitializesCorrectly)
     {
         AZ::Entity entity;
-        DuplicateProvidedServiceComponent* duplicateServiceComponent = aznew DuplicateProvidedServiceComponent();
-        entity.AddComponent(duplicateServiceComponent);
+        entity.CreateComponent<DuplicateProvidedServiceComponent>();
         // No test condition here, EvaluateDependencies was previously crashing when duplicate services were provided.
         // The crash would be caught by the unit test system.
         entity.EvaluateDependencies();
@@ -652,10 +651,8 @@ namespace UnitTest
     TEST_F(EntityTests, EntityComponentList_ComponentDependingOnComponentWithDuplicateProvidedService_EntityInitializesCorrectly)
     {
         AZ::Entity entity;
-        DuplicateProvidedServiceComponent* duplicateServiceComponent = aznew DuplicateProvidedServiceComponent();
-        DependsOnDuplicateProvidedServiceComponent* dependantService = aznew DependsOnDuplicateProvidedServiceComponent();
-        entity.AddComponent(duplicateServiceComponent);
-        entity.AddComponent(dependantService);
+        entity.CreateComponent<DuplicateProvidedServiceComponent>(duplicateServiceComponent);
+        entity.CreateComponent<DependsOnDuplicateProvidedServiceComponent>(dependantService);
         // No test condition here, EvaluateDependencies was previously crashing when duplicate services were provided.
         // The crash would be caught by the unit test system.
         entity.EvaluateDependencies();
@@ -664,10 +661,8 @@ namespace UnitTest
     TEST_F(EntityTests, EntityComponentList_ComponentRequiringComponentWithDuplicateProvidedService_EntityInitializesCorrectly)
     {
         AZ::Entity entity;
-        DuplicateProvidedServiceComponent* duplicateServiceComponent = aznew DuplicateProvidedServiceComponent();
-        RequiresDuplicateProvidedServiceComponent* dependantService = aznew RequiresDuplicateProvidedServiceComponent();
-        entity.AddComponent(duplicateServiceComponent);
-        entity.AddComponent(dependantService);
+        entity.CreateComponent<DuplicateProvidedServiceComponent>();
+        entity.CreateComponent<RequiresDuplicateProvidedServiceComponent>();
         // No test condition here, EvaluateDependencies was previously crashing when duplicate services were provided.
         // The crash would be caught by the unit test system.
         entity.EvaluateDependencies();

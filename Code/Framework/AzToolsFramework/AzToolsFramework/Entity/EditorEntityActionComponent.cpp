@@ -518,7 +518,8 @@ namespace AzToolsFramework
             const auto& entityComponents = entity->GetComponents();
             if (AZStd::find(entityComponents.begin(), entityComponents.end(), componentToRemove) != entityComponents.end())
             {
-                entity->RemoveComponent(componentToRemove);
+                // @KB EntityComponentMemory TODO
+                //entity->RemoveComponent(componentToRemove);
                 return true;
             }
 
@@ -845,7 +846,8 @@ namespace AzToolsFramework
                             // Save the component ID since RemoveComponent will reset it
                             auto componentId = invalidComponent->GetId();
 
-                            entity->RemoveComponent(invalidComponent);
+                            // @KB EntityComponentMemory TODO
+                            //entity->RemoveComponent(invalidComponent);
 
                             // Restore the component ID and entity*
                             invalidComponent->SetId(componentId);
@@ -863,8 +865,7 @@ namespace AzToolsFramework
                                 "Built-in component '%s' from entity '%s' %s was removed during the load/reload/push process.\n"
                                 "This is generally benign, and often results from upgrades of old data that contains duplicate or deprecated components",
                                 GetComponentName(invalidComponent).c_str(), entity->GetName().c_str(), entity->GetId().ToString().c_str());
-                            entity->RemoveComponent(invalidComponent);
-                            delete invalidComponent;
+                            entity->DestroyComponent(invalidComponent);
                         }
                     }
 
@@ -962,10 +963,11 @@ namespace AzToolsFramework
                     // Restore the component id, in case it got changed
                     addedPendingComponent->SetId(componentId);
 
-                    if (entity->AddComponent(addedPendingComponent))
-                    {
-                        pendingCompositionHandler->RemovePendingComponent(addedPendingComponent);
-                    }
+                    // @KB EntityComponentMemory TODO
+                    //if (entity->AddComponent(addedPendingComponent))
+                    //{
+                    //    pendingCompositionHandler->RemovePendingComponent(addedPendingComponent);
+                    //}
                 }
 
                 if (undo)

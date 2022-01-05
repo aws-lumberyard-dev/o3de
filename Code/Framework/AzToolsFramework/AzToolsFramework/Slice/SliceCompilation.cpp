@@ -461,13 +461,14 @@ namespace AzToolsFramework
                     // Synchronize to source component Id, and add to the export entity.
                     runtimeComponent->SetId(component->GetId());
 
-                    if (!exportEntity->AddComponent(runtimeComponent))
-                    {
-                        return AZ::Failure(AZStd::string::format("Component \"%s\" could not be added to Entity \"%s\" [0x%llu].",
-                            runtimeComponent->RTTI_GetTypeName(),
-                            exportEntity->GetName().c_str(),
-                            static_cast<AZ::u64>(exportEntity->GetId())));
-                    }
+                    // @KB EntityComponentMemory TODO
+                    //if (!exportEntity->AddComponent(runtimeComponent))
+                    //{
+                    //    return AZ::Failure(AZStd::string::format("Component \"%s\" could not be added to Entity \"%s\" [0x%llu].",
+                    //        runtimeComponent->RTTI_GetTypeName(),
+                    //        exportEntity->GetName().c_str(),
+                    //        static_cast<AZ::u64>(exportEntity->GetId())));
+                    //}
                 }
             }
 

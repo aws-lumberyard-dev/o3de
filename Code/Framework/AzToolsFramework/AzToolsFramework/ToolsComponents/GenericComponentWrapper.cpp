@@ -235,7 +235,7 @@ namespace AzToolsFramework
             return RTTI_GetType();
         }
 
-        void GenericComponentWrapper::BuildGameEntity(AZ::Entity* gameEntity)
+        void GenericComponentWrapper::BuildGameEntity([[maybe_unused]] AZ::Entity* gameEntity)
         {
             if (m_template)
             {
@@ -246,8 +246,8 @@ namespace AzToolsFramework
                     AZ_Error("GenericComponentWrapper", false, "Can't get serialize context from component application.");
                     return;
                 }
-
-                gameEntity->AddComponent(context->CloneObject(m_template));
+                // @KB EntityComponentMemory TODO
+                //gameEntity->AddComponent(context->CloneObject(m_template));
             }
         }
 
@@ -294,7 +294,7 @@ namespace AzToolsFramework
         }
 
         class GenericComponentWrapperDescriptor
-            : public AZ::ComponentDescriptorHelper<GenericComponentWrapper>
+            : public AZ::ComponentDescriptorImplementation<GenericComponentWrapper>
         {
         public:
             AZ_CLASS_ALLOCATOR(GenericComponentWrapperDescriptor, AZ::SystemAllocator, 0);

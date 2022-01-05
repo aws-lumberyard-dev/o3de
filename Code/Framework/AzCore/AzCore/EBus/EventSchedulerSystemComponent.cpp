@@ -164,7 +164,7 @@ namespace AZ
         }
         else
         {
-            m_handles.resize(m_handles.size() + 1);
+            m_handles.emplace_back();
             result = &(m_handles.back());
         }
         return result;
@@ -180,7 +180,7 @@ namespace AZ
         }
         else
         {
-            m_ownedEvents.resize(m_ownedEvents.size() + 1);
+            m_ownedEvents.emplace_back();
             scheduledEvent = &(m_ownedEvents.back());
         }
         scheduledEvent->m_eventName = eventName;

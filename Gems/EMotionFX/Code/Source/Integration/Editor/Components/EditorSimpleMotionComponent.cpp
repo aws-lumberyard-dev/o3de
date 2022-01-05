@@ -181,7 +181,7 @@ namespace EMotionFX
 
         void EditorSimpleMotionComponent::BuildGameEntity(AZ::Entity* gameEntity)
         {
-            gameEntity->AddComponent(aznew SimpleMotionComponent(&m_configuration));
+            gameEntity->CreateComponent<SimpleMotionComponent>(&m_configuration);
         }
 
         void EditorSimpleMotionComponent::LoopMotion(bool enable)

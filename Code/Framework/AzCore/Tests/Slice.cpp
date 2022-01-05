@@ -281,18 +281,16 @@ namespace UnitTest
         // Test prefab without base prefab - aka root prefab
         /////////////////////////////////////////////////////////////////////////////
         sliceEntity = aznew AZ::Entity();
-        sliceComponent = aznew AZ::SliceComponent();
         sliceComponent->SetSerializeContext(&serializeContext);
-        sliceEntity->AddComponent(sliceComponent);
+        sliceComponent = sliceEntity->CreateComponent<AZ::SliceComponent>();
         sliceEntity->Init();
         sliceEntity->Activate();
 
         // Create an entity with a component to be part of the prefab
         entity1 = aznew AZ::Entity();
-        component1 = aznew MyTestComponent1();
+        component1 = entity1->CreateComponent<MyTestComponent1>();
         component1->m_float = 2.0f;
         component1->m_int = 11;
-        entity1->AddComponent(component1);
 
         sliceComponent->AddEntity(entity1);
 

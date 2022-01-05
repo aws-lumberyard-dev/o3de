@@ -544,8 +544,7 @@ namespace AzToolsFramework
             {
                 // The component is already runtime-ready. I.e. it is not an editor component.
                 // Clone the component and add it to the export entity
-                AZ::Component* clonedComponent = serializeContext->CloneObject(component);
-                target.AddComponent(clonedComponent);
+                target.CloneComponent(component, serializeContext);
             }
         }
     }

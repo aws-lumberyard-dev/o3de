@@ -181,7 +181,7 @@ namespace AZ
         //! To release ownership without destroying the component, use RemoveComponent().
         //! @return A pointer to the component. Returns a null pointer if
         //! the component could not be created.
-        template<class ComponentType, typename... Args>
+        template <class ComponentType, typename... Args>
         ComponentType* CreateComponent(Args&&... args);
 
         //! Creates a component and attaches the component to the entity.
@@ -197,11 +197,8 @@ namespace AZ
         /// @cond EXCLUDE_DOCS 
         //! @deprecated In tools, use AzToolsFramework::EntityCompositionRequestBus 
         //! to ensure component requirements are met. 
-        template<class ComponentType>
-        ComponentType* CreateComponentIfReady()
-        {
-            return static_cast<ComponentType*>(CreateComponentIfReady(AzTypeInfo<ComponentType>::Uuid()));
-        }
+        template <class ComponentType>
+        ComponentType* CreateComponentIfReady();
         /// @endcond
 
         /// @cond EXCLUDE_DOCS 
@@ -210,41 +207,24 @@ namespace AZ
         Component* CreateComponentIfReady(const Uuid& componentTypeId);
         /// @endcond
 
-        //! Attaches an existing component to the entity.        
-        //! You cannot attach a component to an entity when the entity is active
-        //! or in a transition state. After the component is attached 
-        //! to the entity, the entity owns the component. If you destroy the 
-        //! entity, the component is destroyed along with the entity. 
-        //! To release ownership without destroying the component, use RemoveComponent().
-        //! The component can be attached to only one entity at a time.
-        //! If the component is already attached to an entity, this code asserts.
-        //! @param component A pointer to the component to attach to the entity.
-        //! @return True if the component was successfully attached to the entity. Otherwise, false.
-        bool AddComponent(Component* component);
+        Component* CloneComponent(const Component* component, SerializeContext* context = nullptr);
 
         /// @cond EXCLUDE_DOCS 
         //! @deprecated In tools, use AzToolsFramework::EntityCompositionRequestBus 
         //! to ensure component requirements are met.
-        bool IsComponentReadyToAdd(const Component* component, ComponentDescriptor::DependencyArrayType* servicesNeededToBeAdded = nullptr, ComponentArrayType* incompatibleComponents = nullptr)
-        {
-            return IsComponentReadyToAdd(component->RTTI_GetType(), component, servicesNeededToBeAdded, incompatibleComponents);
-        }
+        bool IsComponentReadyToAdd(const Component* component, ComponentDescriptor::DependencyArrayType* servicesNeededToBeAdded = nullptr, ComponentArrayType* incompatibleComponents = nullptr);
         /// @endcond
 
         /// @cond EXCLUDE_DOCS 
         //! @deprecated In tools, use AzToolsFramework::EntityCompositionRequestBus 
         //! to ensure component requirements are met.
-        bool IsComponentReadyToAdd(const Uuid& componentTypeId, ComponentDescriptor::DependencyArrayType* servicesNeededToBeAdded = nullptr, ComponentArrayType* incompatibleComponents = nullptr)
-        {
-            return IsComponentReadyToAdd(componentTypeId, nullptr, servicesNeededToBeAdded, incompatibleComponents);
-        }
+        bool IsComponentReadyToAdd(const Uuid& componentTypeId, ComponentDescriptor::DependencyArrayType* servicesNeededToBeAdded = nullptr, ComponentArrayType* incompatibleComponents = nullptr);
         /// @endcond
 
         //! Removes a component from the entity.
-        //! After the component is removed from the entity, you are responsible for destroying the component.
         //! @param component A pointer to the component to remove from the entity.
         //! @return True if the component was removed from the entity. False if the component could not be removed.
-        bool RemoveComponent(Component* component);
+        bool DestroyComponent(Component* component);
 
         /// @cond EXCLUDE_DOCS 
         //! @deprecated In tools, use AzToolsFramework::EntityCompositionRequestBus 
@@ -260,7 +240,7 @@ namespace AZ
         //! @param componentToRemove The component to remove from the entity.
         //! @param componentToAdd The component to add to the entity.
         //! @return True if the components were swapped. False if the components could not be swapped.
-        bool SwapComponents(Component* componentToRemove, Component* componentToAdd);
+        bool ReplaceComponent(Component* componentToRemove, Component* componentToAdd);
         /// @endcond
 
         //! Gets all components registered with the entity.
@@ -285,34 +265,22 @@ namespace AZ
         //! @return A pointer to the component with the specified component ID.
         //! If a component with the specified ID cannot be found or the component
         //! type does not exist, the return value is a null pointer.
-        template<class ComponentType>
-        inline ComponentType* FindComponent(ComponentId id) const
-        {
-            return azrtti_cast<ComponentType*>(FindComponent(id));
-        }
+        template <class ComponentType>
+        ComponentType* FindComponent(ComponentId id) const;
 
         //! Finds the first component of the requested component type.
         //! @return A pointer to the first component of the requested type. Returns
         //! a null pointer if a component of the requested type cannot be found.
-        template<class ComponentType>
-        inline ComponentType* FindComponent() const
-        {
-            return azrtti_cast<ComponentType*>(FindComponent(AzTypeInfo<ComponentType>::Uuid()));
-        }
+        template <class ComponentType>
+        ComponentType* FindComponent() const;
 
         //! Return a vector of all the components of the specified type in an entity.
         //! @return a vector of all the components of the specified type.
         ComponentArrayType FindComponents(const Uuid& typeId) const;
 
         /// Return a vector of all the components of the specified type in an entity.
-        template<class ComponentType>
-        inline AZStd::vector<ComponentType*> FindComponents() const
-        {
-            ComponentArrayType componentArray = FindComponents(azrtti_typeid<ComponentType>());
-            AZStd::vector<ComponentType*> components(componentArray.size());
-            AZStd::transform(componentArray.begin(), componentArray.end(), components.begin(), [](Component* component) { return static_cast<ComponentType*>(component); });
-            return components;
-        }
+        template <class ComponentType>
+        AZStd::vector<ComponentType*> FindComponents() const;
 
         //! Indicates to the entity that dependencies among its components need
         //! to be evaluated.
@@ -375,6 +343,13 @@ namespace AZ
         //! Otherwise the outcome contains details on why the sort failed.
         static DependencySortOutcome DependencySort(ComponentArrayType& components);
 
+    private:
+        //! Internal helper used to attach a component to an entity.        
+        bool AddComponent(Component* component);
+
+        //! Internal helper used to remove a component from an entity.
+        bool RemoveComponent(Component* component);
+
     protected:
 
         /// @cond EXCLUDE_DOCS 
@@ -432,20 +407,58 @@ namespace AZ
         bool m_isRuntimeActiveByDefault;    ///< Indicates the entity should be activated on initial creation.
     };
 
-    template<class ComponentType, typename... Args>
+    template <class ComponentType, typename... Args>
     inline ComponentType* Entity::CreateComponent(Args&&... args)
     {
-        ComponentType* component = aznew ComponentType(AZStd::forward<Args>(args)...);
-        AZ_Assert(component, "Failed to create component: %s", AzTypeInfo<ComponentType>::Name());
+        using ComponentTypeDescriptor = ComponentDescriptorImplementation<ComponentType>;
+        ComponentTypeDescriptor* componentDescriptor = 
+            static_cast<ComponentTypeDescriptor*>(ComponentDescriptorBus::FindFirstHandler(AzTypeInfo<ComponentType>::Uuid()));
+        ComponentType* component = static_cast<ComponentType*>(componentDescriptor->CreateComponent(AZStd::forward<Args>(args)...));
         if (component)
         {
             if (!AddComponent(component))
             {
-                delete component;
+                componentDescriptor->DestroyComponent(component);
                 component = nullptr;
             }
         }
         return component;
     }
-} // namespace AZ
 
+    template <class ComponentType>
+    inline ComponentType* Entity::CreateComponentIfReady()
+    {
+        return static_cast<ComponentType*>(CreateComponentIfReady(AzTypeInfo<ComponentType>::Uuid()));
+    }
+
+    inline bool Entity::IsComponentReadyToAdd(const Component* component, ComponentDescriptor::DependencyArrayType* servicesNeededToBeAdded, ComponentArrayType* incompatibleComponents)
+    {
+        return IsComponentReadyToAdd(component->RTTI_GetType(), component, servicesNeededToBeAdded, incompatibleComponents);
+    }
+
+    inline bool Entity::IsComponentReadyToAdd(const Uuid& componentTypeId, ComponentDescriptor::DependencyArrayType* servicesNeededToBeAdded, ComponentArrayType* incompatibleComponents)
+    {
+        return IsComponentReadyToAdd(componentTypeId, nullptr, servicesNeededToBeAdded, incompatibleComponents);
+    }
+
+    template <class ComponentType>
+    inline ComponentType* Entity::FindComponent(ComponentId id) const
+    {
+        return azrtti_cast<ComponentType*>(FindComponent(id));
+    }
+
+    template <class ComponentType>
+    inline ComponentType* Entity::FindComponent() const
+    {
+        return azrtti_cast<ComponentType*>(FindComponent(AzTypeInfo<ComponentType>::Uuid()));
+    }
+
+    template <class ComponentType>
+    inline AZStd::vector<ComponentType*> Entity::FindComponents() const
+    {
+        ComponentArrayType componentArray = FindComponents(azrtti_typeid<ComponentType>());
+        AZStd::vector<ComponentType*> components(componentArray.size());
+        AZStd::transform(componentArray.begin(), componentArray.end(), components.begin(), [](Component* component) { return static_cast<ComponentType*>(component); });
+        return components;
+    }
+} // namespace AZ

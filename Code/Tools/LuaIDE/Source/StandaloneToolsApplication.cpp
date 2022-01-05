@@ -83,7 +83,7 @@ namespace StandaloneTools
             if (!userSettingsAdded[providerId])
             {
                 // Don't need to add one for global, that's added by someone else
-                m_applicationEntity->AddComponent(aznew AZ::UserSettingsComponent(providerId));
+                m_applicationEntity->CreateComponent<AZ::UserSettingsComponent>(providerId);
             }
         }
     }

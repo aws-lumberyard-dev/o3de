@@ -277,7 +277,7 @@ namespace AzToolsFramework
         }
         else
         {
-            m_rootInstance->m_containerEntity->AddComponent(aznew Prefab::EditorPrefabComponent());
+            m_rootInstance->m_containerEntity->CreateComponent<Prefab::EditorPrefabComponent>();
             HandleEntitiesAdded({ m_rootInstance->m_containerEntity.get() });
 
             AzToolsFramework::Prefab::PrefabDom dom;
@@ -332,7 +332,7 @@ namespace AzToolsFramework
             Prefab::Instance& addedInstance = instanceToParentUnder->get().AddInstance(
                 AZStd::move(createdPrefabInstance));
             AZ::Entity* containerEntity = addedInstance.m_containerEntity.get();
-            containerEntity->AddComponent(aznew Prefab::EditorPrefabComponent());
+            containerEntity->CreateComponent<Prefab::EditorPrefabComponent>();
             HandleEntitiesAdded({containerEntity});
             HandleEntitiesAdded(entities);
             return addedInstance;

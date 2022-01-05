@@ -394,12 +394,10 @@ namespace AzToolsFramework::Prefab::PrefabConversionUtils
                 component->RTTI_GetTypeName(),
                 validationResult.GetError().c_str())
             );
-
         }
 
         AZ::ExportedComponent exportComponent(component, false, false);
-        auto exportResult = ResolveExportedComponent(
-exportComponent, prefabProcessorContext);
+        auto exportResult = ResolveExportedComponent(exportComponent, prefabProcessorContext);
         if (!exportResult)
         {
             return AZ::Failure(AZStd::string::format(
@@ -482,16 +480,6 @@ exportComponent, prefabProcessorContext);
 
             // Synchronize to source component Id, and add to the export entity.
             runtimeComponent->SetId(component->GetId());
-
-            if (!exportEntity->AddComponent(runtimeComponent))
-            {
-                return AZ::Failure(AZStd::string::format(
-                    "Entity '%s' %s - component '%s' could not be added to this entity.",
-                    exportEntity->GetName().c_str(),
-                    exportEntity->GetId().ToString().c_str(),
-                    runtimeComponent->RTTI_GetTypeName())
-                );
-            }
         }
 
         return AZ::Success();

@@ -237,12 +237,12 @@ namespace ScriptCanvas
         {
             AZ::Entity* nodeEntity = nullptr;
             AZ::ComponentApplicationBus::BroadcastResult(nodeEntity, &AZ::ComponentApplicationRequests::FindEntity, entityId);
-            ScriptCanvas::Node* node = reinterpret_cast<ScriptCanvas::Node*>(classData->m_factory->Create(classData->m_name));
+            // @KB EntityComponentMemory TODO
+            ScriptCanvas::Node* node = nullptr;// reinterpret_cast<ScriptCanvas::Node*>(classData->m_factory->Create(classData->m_name));
             AZ_Assert(node, "ClassData (%s) does not correspond to a supported ScriptCanvas Node", classData->m_name);
             if (node && nodeEntity)
             {
                 nodeEntity->SetName(classData->m_name);
-                nodeEntity->AddComponent(node);
             }
 
             GraphRequestBus::Event(scriptCanvasId, &GraphRequests::AddNode, nodeEntity->GetId());

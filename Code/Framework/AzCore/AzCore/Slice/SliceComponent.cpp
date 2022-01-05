@@ -2976,9 +2976,9 @@ namespace AZ
         // Create new SliceAsset data based on our data. We don't want to update our own
         // data in place, but instead propagate through asset reloading. Otherwise data
         // patches are not maintained properly up the slice dependency chain.
-        SliceComponent* updatedAssetComponent = Clone(*m_serializeContext);
         Entity* updatedAssetEntity = aznew Entity();
-        updatedAssetEntity->AddComponent(updatedAssetComponent);
+        SliceComponent* updatedAssetComponent = updatedAssetEntity->CreateComponent<SliceComponent>();
+        m_serializeContext->CloneObjectInplace(*updatedAssetComponent, this);
 
         Data::Asset<SliceAsset> updatedAsset(m_myAsset->Clone(), AZ::Data::AssetLoadBehavior::Default);
         updatedAsset.Get()->SetData(updatedAssetEntity, updatedAssetComponent);

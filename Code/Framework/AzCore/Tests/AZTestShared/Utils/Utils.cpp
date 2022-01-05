@@ -101,7 +101,8 @@ namespace AZ
 
             if (assetComponent)
             {
-                contentEntity->AddComponent(assetComponent);
+                // @KB EntityComponentMemory TODO
+                //contentEntity->AddComponent(assetComponent);
             }
 
             auto sliceAsset = Data::AssetManager::Instance().CreateAsset<AZ::SliceAsset>(sliceAssetId, AZ::Data::AssetLoadBehavior::Default);

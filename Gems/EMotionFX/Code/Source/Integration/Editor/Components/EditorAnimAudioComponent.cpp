@@ -22,8 +22,7 @@ namespace EMotionFX
     {
         void EditorAnimAudioComponent::BuildGameEntity(AZ::Entity* gameEntity)
         {
-            auto animAudioComponent = aznew AnimAudioComponent;
-            gameEntity->AddComponent(animAudioComponent);
+            auto animAudioComponent = gameEntity->CreateComponent<AnimAudioComponent>();
 
             for (const auto& triggerEvent : m_editorTriggerEvents)
             {

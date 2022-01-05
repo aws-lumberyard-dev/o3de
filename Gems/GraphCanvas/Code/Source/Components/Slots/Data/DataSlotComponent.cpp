@@ -45,12 +45,10 @@ namespace GraphCanvas
     AZ::Entity* DataSlotComponent::CreateDataSlot(const AZ::EntityId& nodeId, const DataSlotConfiguration& dataSlotConfiguration)
     {
         AZ::Entity* entity = SlotComponent::CreateCoreSlotEntity();
+        DataSlotComponent* dataSlot = entity->CreateComponent<DataSlotComponent>(dataSlotConfiguration);
 
-        DataSlotComponent* dataSlot = aznew DataSlotComponent(dataSlotConfiguration);
-
-        if (!entity->AddComponent(dataSlot))
+        if (!dataSlot)
         {
-            delete dataSlot;
             delete entity;
             return nullptr;
         }

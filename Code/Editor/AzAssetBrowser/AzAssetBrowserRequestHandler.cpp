@@ -95,6 +95,31 @@ namespace AzAssetBrowserRequestHandlerPrivate
         return true;
     }
 
+    AZ::Component* CloneComponent(AZ::Component* component, AZ::SerializeContext* context = nullptr)
+    {
+        if (!context)
+        {
+            AZ::ComponentApplicationBus::BroadcastResult(context, &AZ::ComponentApplicationRequests::GetSerializeContext);
+            if (!context)
+            {
+                AZ_Error("Serialization", false, "No serialize context provided and failed to get component application default serialize context. ComponentApp is not started or input serialize context should not be null.");
+                return nullptr;
+            }
+        }
+
+        AZ::ComponentDescriptor* componentDescriptor = nullptr;
+        EBUS_EVENT_ID_RESULT(componentDescriptor, component->RTTI_GetType(), AZ::ComponentDescriptorBus, GetDescriptor);
+        if (!componentDescriptor)
+        {
+            return nullptr;
+        }
+
+        AZ::Component* clone = componentDescriptor->CreateComponent();
+        context->CloneObjectInplace(*clone, component);
+        return clone;
+    }
+
+
     void SpawnEntityAtPoint(const ProductAssetBrowserEntry* product, AzQtComponents::ViewportDragContext* viewportDragContext, EntityIdList& spawnList, AzFramework::SliceInstantiationTicket& spawnTicket)
     {
         // Calculate the drop location.
@@ -154,7 +179,6 @@ namespace AzAssetBrowserRequestHandlerPrivate
                 }
 
                 newEntity->SetName(entityName);
-
                 newEntity->Deactivate();
 
                 // Create component.
@@ -163,9 +187,10 @@ namespace AzAssetBrowserRequestHandlerPrivate
                 bool needsGenericWrapper = azrtti_cast<AzToolsFramework::Components::EditorComponentBase*>(newComponent) == nullptr;
                 if (needsGenericWrapper)
                 {
-                    newEntity->RemoveComponent(newComponent);
-                    newComponent = aznew AzToolsFramework::Components::GenericComponentWrapper(newComponent);
-                    newEntity->AddComponent(newComponent);
+                    AZ::Component* clonedComponent = aznew ;
+                    AZ::Component* wrapper = newEntity->CreateComponent<AzToolsFramework::Components::GenericComponentWrapper>(clonedComponent);
+                    newEntity->DestroyComponent(newComponent);
+                    newComponent = wrapper;
                 }
 
                 newEntity->Activate();

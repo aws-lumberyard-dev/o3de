@@ -265,7 +265,7 @@ namespace PhysX
     };
 
     class EditorColliderComponentDescriptor :
-        public AZ::ComponentDescriptorHelper<EditorColliderComponent>
+        public AZ::ComponentDescriptorImplementation<EditorColliderComponent>
     {
     public:
         AZ_CLASS_ALLOCATOR(EditorColliderComponentDescriptor, AZ::SystemAllocator, 0);

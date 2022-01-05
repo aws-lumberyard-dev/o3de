@@ -59,10 +59,7 @@ namespace AzToolsFramework
                 {
                     if (auto wrappedComponent = azrtti_cast<Components::EditorComponentBase*>(genericComponentWrapper->GetTemplate()))
                     {
-                        entity->SwapComponents(genericComponentWrapper, wrappedComponent);
-
-                        genericComponentWrapper->ReleaseTemplate();
-                        delete genericComponentWrapper;
+                        entity->ReplaceComponent(genericComponentWrapper, wrappedComponent);
                     }
                 }
 

@@ -1377,9 +1377,8 @@ namespace AzToolsFramework
                     auto& containerEntity = *containerEntityPtr.release();
                     auto editorPrefabComponent = containerEntity.FindComponent<EditorPrefabComponent>();
                     containerEntity.Deactivate();
-                    [[maybe_unused]] const bool editorPrefabComponentRemoved = containerEntity.RemoveComponent(editorPrefabComponent);
+                    [[maybe_unused]] const bool editorPrefabComponentRemoved = containerEntity.DestroyComponent(editorPrefabComponent);
                     AZ_Assert(editorPrefabComponentRemoved, "Remove EditorPrefabComponent failed.");
-                    delete editorPrefabComponent;
                     containerEntity.Activate();
 
                     [[maybe_unused]] const bool containerEntityAdded = parentInstance.AddEntity(containerEntity);

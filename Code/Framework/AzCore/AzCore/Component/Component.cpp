@@ -32,10 +32,10 @@ namespace AZ
     //=========================================================================
     Component::~Component()
     {
-        if (m_entity)
-        {
-            m_entity->RemoveComponent(this);
-        }
+        //if (m_entity)
+        //{
+        //    m_entity->RemoveComponent(this);
+        //}
     }
 
     //=========================================================================

@@ -161,10 +161,9 @@ namespace O3DE::ProjectManager
             m_entity = aznew AZ::Entity("Application Entity");
             if (m_entity)
             {
-                AzFramework::LogComponent* logger = aznew AzFramework::LogComponent();
+                AzFramework::LogComponent* logger = m_entity->CreateComponent<AzFramework::LogComponent>();
                 AZ_Assert(logger, "Failed to create LogComponent");
                 logger->SetLogFileBaseName(logName);
-                m_entity->AddComponent(logger);
                 m_entity->Init();
                 m_entity->Activate();
             }

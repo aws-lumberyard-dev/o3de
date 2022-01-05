@@ -129,7 +129,7 @@ namespace EMotionFX
 
         void EditorSimpleLODComponent::BuildGameEntity(AZ::Entity* gameEntity)
         {
-            gameEntity->AddComponent(aznew SimpleLODComponent(&m_configuration));
+            gameEntity->CreateComponent<SimpleLODComponent>(&m_configuration);
         }
     }
 }

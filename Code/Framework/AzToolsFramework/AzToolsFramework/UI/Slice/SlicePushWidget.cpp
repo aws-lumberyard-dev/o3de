@@ -2548,11 +2548,12 @@ namespace AzToolsFramework
     //=========================================================================
     SliceAssetPtr SlicePushWidget::CloneAsset(const SliceAssetPtr& asset) const
     {
-        AZ::Entity* clonedAssetEntity = aznew AZ::Entity(asset.Get()->GetEntity()->GetId());
-        AZ::SliceComponent* clonedSlice = asset.Get()->GetComponent()->Clone(*m_serializeContext);
-        clonedAssetEntity->AddComponent(clonedSlice);
+        // @KB EntityComponentMemory TODO
+        //AZ::Entity* clonedAssetEntity = aznew AZ::Entity(asset.Get()->GetEntity()->GetId());
+        //AZ::SliceComponent* clonedSlice = asset.Get()->GetComponent()->Clone(*m_serializeContext);
+        //clonedAssetEntity->AddComponent(clonedSlice);
         SliceAssetPtr clonedAsset(aznew AZ::SliceAsset(asset.GetId()), AZ::Data::AssetLoadBehavior::Default);
-        clonedAsset.Get()->SetData(clonedAssetEntity, clonedSlice);
+        //clonedAsset.Get()->SetData(clonedAssetEntity, clonedSlice);
         return clonedAsset;
     }
 

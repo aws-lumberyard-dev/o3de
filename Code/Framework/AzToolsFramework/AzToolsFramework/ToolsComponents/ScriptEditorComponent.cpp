@@ -880,7 +880,7 @@ namespace AzToolsFramework
             return nullptr;
         }
 
-        void ScriptEditorComponent::BuildGameEntity(AZ::Entity* gameEntity)
+        void ScriptEditorComponent::BuildGameEntity([[maybe_unused]] AZ::Entity* gameEntity)
         {
             AZ::SerializeContext* context = nullptr;
             AZ::ComponentApplicationBus::BroadcastResult(context, &AZ::ComponentApplicationBus::Events::GetSerializeContext);
@@ -890,7 +890,8 @@ namespace AzToolsFramework
                 return;
             }
 
-            gameEntity->AddComponent(context->CloneObject(&m_scriptComponent));
+            // @KB EntityComponentMemory TODO
+            //gameEntity->AddComponent(context->CloneObject(&m_scriptComponent));
         }
 
         void ScriptEditorComponent::SetPrimaryAsset(const AZ::Data::AssetId& assetId)

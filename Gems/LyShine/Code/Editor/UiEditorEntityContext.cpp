@@ -87,7 +87,8 @@ namespace Internal
         // Should be safe to remove components, because the entity hasn't been activated.
         for (auto componentToRemove : incompatibleComponents)
         {
-            entity->RemoveComponent(componentToRemove);
+            // @KB EntityComponentMemory TODO (make sure this was really a leak before and doesn't double delete)
+            entity->DestroyComponent(componentToRemove);
         }
 
         AZ_Error("UiCanvas", incompatibleComponents.empty(), "The following incompatible component(s) are removed from the entity %s:\n%s", entity->GetName().c_str(), incompatibleNames.c_str());
@@ -981,8 +982,7 @@ void UiEditorEntityContext::InitializeEntities(const AzFramework::EntityList& en
                 for (int i = 1; i < editorOnlyEntityComponents.size(); ++i)
                 {
                     AZ::Component* duplicateComponent = editorOnlyEntityComponents[i];
-                    entity->RemoveComponent(duplicateComponent);
-                    delete duplicateComponent;
+                    entity->DestroyComponent(duplicateComponent);
                 }
             }
 
