@@ -46,7 +46,7 @@ namespace AZ
         using ThreadMapByName = AZStd::unordered_map<AZStd::string, MeshCreationStruct>;
 //        using ModelsMapByName = AZStd::unordered_map<AZStd::string, uint32_t>;
 
-        const uint32_t GPU_MEMORY_LIMIT = 1024 * 1024 * 1024; // 1 GiB
+        const uint32_t GPU_MEMORY_LIMIT = 512 * 1024 * 1024; // 1 GiB
 
         class AtomSceneStreamFeatureProcessor final
             : public RPI::FeatureProcessor
@@ -75,7 +75,6 @@ namespace AZ
             void OnRenderPipelineAdded(RPI::RenderPipelinePtr renderPipeline) override;
             void OnRenderPipelineRemoved(RPI::RenderPipeline* renderPipeline) override;
 //            void OnRenderPipelinePassesChanged(RPI::RenderPipeline* renderPipeline) override;
-
 
         protected:
             bool CreateMeshDrawPacket(AtomSceneStream::Mesh* currentMesh);
@@ -107,7 +106,7 @@ namespace AZ
             ModelsMapByName m_modelsMapByName;
 //            ModelsMapByModel m_modelsMapByModel;
 
-            float m_quality = 0.6f;     // adjusted based on memory consumption
+            float m_quality = 0.5f;     // adjusted based on memory consumption
             // The Umbra scene is centered around X and Y but starting at 0 for Z. For this reason
             // it seems that Umbra camera requires this offset to properly do the culling?!
             // [Adi] - investigate with Umbra team
@@ -123,7 +122,8 @@ namespace AZ
             // Thread management
             ThreadMapByName m_loadingThreads;
             AZStd::mutex m_assetCreationMutex;
-            Umbra::AssetLoad m_nextAsset;
+//            Umbra::AssetLoad m_nextAsset;
+            UmbraAssetLoad* m_nextUmbraAsset = nullptr;
 
             // The following was designed for creating a streaming thread running in parallel
             // to the render thread.  This approach seems to fail since Umbra is highly dependent

@@ -186,7 +186,6 @@ namespace AZ
             Camera::ActiveCameraRequestBus::BroadcastResult(config,
                 &Camera::ActiveCameraRequestBus::Events::GetActiveCameraConfiguration);
 
-//            RPI::ViewPtr currentView = this->GetParentScene()->Get GetView();
 //            Camera::CameraRequestBus::EventResult(viewWidth, m_cameraEntityId, &Camera::CameraRequestBus::Events::GetFrustumWidth);
 
             float nearDist = AZStd::min(config.m_nearClipDistance, 0.002f);
@@ -539,13 +538,16 @@ namespace AZ
 
             {
                 AZStd::lock_guard<AZStd::mutex> lock(m_assetCreationMutex);
-                assetLoad = m_multiThreadedAssetCreation ? AZStd::move(m_nextAsset) : m_runtime->getNextAssetLoad();
+//                assetLoad = m_multiThreadedAssetCreation ? AZStd::move(m_nextAsset) : m_runtime->getNextAssetLoad();
+                assetLoad = m_multiThreadedAssetCreation ? Umbra::AssetLoad(m_nextUmbraAsset) : m_runtime->getNextAssetLoad();
 
                 if (!assetLoad)
                 {
-                    AZ_Warning("AtomSceneStream", false, "LoadStreamedAsset - no AssetLoad");
+                    AZ_Warning("AtomSceneStream", !m_multiThreadedAssetCreation, "LoadStreamedAsset - NO AssetLoad");
                     return false;
                 }
+
+                AZ_Warning("AtomSceneStream", !m_multiThreadedAssetCreation, "LoadStreamedAsset - STARTED AssetLoad");
             }
 
             // If memory usage is too high, the job is finished with OutOfMemory. This tells Umbra
@@ -558,7 +560,6 @@ namespace AZ
             }
 
             void* ptr = nullptr;
-
             switch (assetLoad.getType())
             {
             case UmbraAssetType_Texture:
@@ -612,7 +613,7 @@ namespace AZ
             assetLoad.prepare((Umbra::UserPointer)ptr);
             assetLoad.finish(UmbraAssetLoadResult_Success);
 
-            AZ_Warning("AtomSceneStream", false, "LoadStreamedAsset - SUCCESS");
+            AZ_Warning("AtomSceneStream", !m_multiThreadedAssetCreation, "LoadStreamedAsset - SUCCESS");
             return true;
         }
 
@@ -677,9 +678,12 @@ namespace AZ
 
 //            UmbraAssetLoad* nextAssetLoad = m_runtime->getNextAssetLoad();
 //            Umbra::AssetLoad nextAssetLoad = m_runtime->getNextAssetLoad();
-            m_nextAsset = m_runtime->getNextAssetLoad();
+//            m_nextAsset = m_runtime->getNextAssetLoad();
+
+            m_nextUmbraAsset = UmbraRuntimeNextAssetLoad(*m_runtime);
 //            if (!nextAssetLoad)
-            if (!m_nextAsset)
+//            if (!m_nextAsset)
+            if (!m_nextUmbraAsset)
             {
                 return false;
             }
