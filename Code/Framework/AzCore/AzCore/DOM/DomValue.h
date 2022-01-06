@@ -214,10 +214,6 @@ namespace AZ::Dom
         Value(double value);
         Value(bool value);
 
-        // Because we have an implicit bool constructor, fall-through to avoid accidental implicit conversions
-        template <class T>
-        Value(T arbitraryValue) = delete;
-
         explicit Value(Type type);
 
         static Value FromOpaqueValue(const AZStd::any& value);
