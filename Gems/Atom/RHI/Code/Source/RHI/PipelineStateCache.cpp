@@ -396,6 +396,10 @@ namespace AZ
                 resultCode = pipelineState->Init(*m_device, static_cast<const PipelineStateDescriptorForRayTracing&>(descriptor), pipelineLibrary);
                 break;
 
+            case PipelineStateType::MeshShading:
+                resultCode = pipelineState->Init(*m_device, static_cast<const PipelineStateDescriptorForMeshShading&>(descriptor), pipelineLibrary);
+                break;
+
             default:
                 AZ_Assert(false, "Invalid pipeline state descriptor type specified.");
             }
@@ -429,6 +433,10 @@ namespace AZ
             case PipelineStateType::RayTracing:
                 m_pipelineStateDescriptorVariant = static_cast<const AZ::RHI::PipelineStateDescriptorForRayTracing&>(descriptor);
                 break;
+
+            case PipelineStateType::MeshShading:
+                m_pipelineStateDescriptorVariant = static_cast<const AZ::RHI::PipelineStateDescriptorForMeshShading&>(descriptor);
+                break;
             }
         }
 
@@ -455,6 +463,14 @@ namespace AZ
             {
                 const AZ::RHI::PipelineStateDescriptorForRayTracing& lhsDesc = AZStd::get<PipelineStateDescriptorForRayTracing>(m_pipelineStateDescriptorVariant);
                 const AZ::RHI::PipelineStateDescriptorForRayTracing& rhsDesc = AZStd::get<PipelineStateDescriptorForRayTracing>(rhs.m_pipelineStateDescriptorVariant);
+
+                return lhsDesc == rhsDesc;
+            }
+            else if(AZStd::get_if<AZ::RHI::PipelineStateDescriptorForMeshShading>(&rhs.m_pipelineStateDescriptorVariant) &&
+                AZStd::get_if<AZ::RHI::PipelineStateDescriptorForMeshShading>(&m_pipelineStateDescriptorVariant))
+            {
+                const AZ::RHI::PipelineStateDescriptorForMeshShading& lhsDesc = AZStd::get<PipelineStateDescriptorForMeshShading>(m_pipelineStateDescriptorVariant);
+                const AZ::RHI::PipelineStateDescriptorForMeshShading& rhsDesc = AZStd::get<PipelineStateDescriptorForMeshShading>(rhs.m_pipelineStateDescriptorVariant);
 
                 return lhsDesc == rhsDesc;
             }

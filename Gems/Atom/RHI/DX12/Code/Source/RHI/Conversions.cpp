@@ -1192,7 +1192,7 @@ namespace AZ
                 // [GFX_TODO][ATOM-1696]The resource is unused. Not sure which stage to set here.
                 return D3D12_SHADER_VISIBILITY_ALL;
             case RHI::ShaderStageMask::Vertex:
-                return D3D12_SHADER_VISIBILITY_VERTEX;
+                return D3D12_SHADER_VISIBILITY_ALL;
             case RHI::ShaderStageMask::Tessellation:
                 return D3D12_SHADER_VISIBILITY_ALL;
             case RHI::ShaderStageMask::Fragment:

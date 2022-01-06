@@ -64,6 +64,8 @@ namespace AZ
              */
             ResultCode Init(Device& device, const PipelineStateDescriptorForRayTracing& descriptor, PipelineLibrary* pipelineLibrary = nullptr);
 
+            ResultCode Init(Device& device, const PipelineStateDescriptorForMeshShading& descriptor, PipelineLibrary* pipelineLibrary = nullptr);
+
             PipelineStateType GetType() const;
 
         private:
@@ -83,6 +85,8 @@ namespace AZ
 
             /// Called when a ray tracing PSO is being initialized.
             virtual ResultCode InitInternal(Device& device, const PipelineStateDescriptorForRayTracing& descriptor, PipelineLibrary* pipelineLibrary) = 0;
+
+            virtual ResultCode InitInternal(Device& device, const PipelineStateDescriptorForMeshShading& descriptor, PipelineLibrary* pipelineLibrary) = 0;
 
             /// Called when the PSO is being shutdown.
             virtual void ShutdownInternal() = 0;

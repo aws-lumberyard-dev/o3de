@@ -23,6 +23,7 @@ namespace AZ
             Draw = 0,
             Dispatch,
             RayTracing,
+            MeshShading,
             Count
         };
 
@@ -138,6 +139,34 @@ namespace AZ
 
             // The ray tracing shader byte code
             ConstPtr<ShaderStageFunction> m_rayTracingFunction;
+        };
+
+        class PipelineStateDescriptorForMeshShading final : public PipelineStateDescriptor
+        {
+        public:
+            AZ_RTTI(PipelineStateDescriptorForMeshShading, "{7E891C80-A04A-47B7-A7A7-83134CC55484}", PipelineStateDescriptor);
+
+            PipelineStateDescriptorForMeshShading();
+
+            //! Computes the hash value for this descriptor.
+            HashValue64 GetHash() const override;
+
+            bool operator==(const PipelineStateDescriptorForMeshShading& rhs) const;
+
+            // [Required] The mesh function to compile.
+            ConstPtr<ShaderStageFunction> m_meshFunction;
+
+            // The fragment function used to compile.
+            ConstPtr<ShaderStageFunction> m_fragmentFunction;
+
+            /// The input assembly vertex stream layout for the pipeline.
+            InputStreamLayout m_inputStreamLayout;
+
+            /// The render target configuration for the pipeline.
+            RenderAttachmentConfiguration m_renderAttachmentConfiguration;
+
+            /// Various render states for the pipeline.
+            RenderStates m_renderStates;
         };
     }
 }

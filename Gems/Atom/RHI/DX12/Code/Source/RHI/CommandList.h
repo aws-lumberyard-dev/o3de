@@ -322,8 +322,10 @@ namespace AZ
                         }
                         m_state.m_customSamplePositions = customSamplePositions;
                     }
-
-                    SetTopology(pipelineData.m_drawData.m_primitiveTopology);
+                    if (item.m_arguments.m_type != RHI::DrawType::Mesh)
+                    {
+                        SetTopology(pipelineData.m_drawData.m_primitiveTopology);
+                    }
                 }
 
                 // Pipeline layouts change when pipeline states do, just not as often. If the root

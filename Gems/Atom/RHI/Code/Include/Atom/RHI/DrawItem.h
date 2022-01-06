@@ -74,11 +74,28 @@ namespace AZ
 
         using DrawIndirect = IndirectArguments;
 
+        struct DrawMesh
+        {
+            DrawMesh() = default;
+
+            DrawMesh(uint32_t totalNumberOfThreadsX, uint32_t totalNumberOfThreadsY, uint32_t totalNumberOfThreadsZ):
+                m_totalNumberOfThreadsX(totalNumberOfThreadsX),
+                m_totalNumberOfThreadsY(totalNumberOfThreadsY),
+                m_totalNumberOfThreadsZ(totalNumberOfThreadsZ)
+            {
+            }
+
+            uint32_t m_totalNumberOfThreadsX = 1; // = numberOfGroupsX * m_threadsPerGroupX
+            uint32_t m_totalNumberOfThreadsY = 1; // = numberOfGroupsY * m_threadsPerGroupY
+            uint32_t m_totalNumberOfThreadsZ = 1; // = numberOfGroupsZ * m_threadsPerGroupZ
+        };
+
         enum class DrawType : uint8_t
         {
             Indexed = 0,
             Linear,
-            Indirect
+            Indirect,
+            Mesh
         };
 
         struct DrawArguments
@@ -103,12 +120,19 @@ namespace AZ
                 , m_indirect{ indirect }
             {}
 
+            DrawArguments(const DrawMesh& drawMesh)
+                : m_type{ DrawType::Mesh }
+                , m_drawMesh{ drawMesh }
+            {
+            }
+
             DrawType m_type;
             union
             {
                 DrawIndexed m_indexed;
                 DrawLinear m_linear;
                 DrawIndirect m_indirect;
+                DrawMesh m_drawMesh;
             };
         };
 

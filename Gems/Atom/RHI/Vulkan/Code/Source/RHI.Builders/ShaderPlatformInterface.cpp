@@ -19,6 +19,11 @@
 #include <RHI.Builders/ShaderPlatformInterface.h>
 #include <Vulkan_Traits_Platform.h>
 
+#include <cstdio>
+#include <fstream>
+#include <iostream>
+#include <string>
+
 namespace AZ
 {
     namespace Vulkan
@@ -137,6 +142,32 @@ namespace AZ
         {
             AZStd::vector<uint8_t> shaderByteCode;
 
+                        if (strstr(functionName.c_str(), "MainMS") != 0)
+            {
+                std::rename(shaderSourcePath.c_str(), "temp.txt");
+
+                std::ifstream old_file("temp.txt");
+                std::ofstream new_file(shaderSourcePath.c_str());
+
+                for (std::string contents_of_file; std::getline(old_file, contents_of_file);)
+                {
+                    std::string::size_type position = contents_of_file.find("out  ::MSvert");
+                    if (position != std::string::npos)
+                    {
+                        contents_of_file = contents_of_file.replace(position, 13, "out vertices ::MSvert");
+                    }
+
+                    position = contents_of_file.find("out  uint3");
+                    if (position != std::string::npos)
+                    {
+                        contents_of_file = contents_of_file.replace(position, 10, "out  indices uint3");
+                    }
+                    new_file << contents_of_file << '\n';
+                }
+                new_file.close();
+                old_file.close();
+            }
+
             // Compile HLSL shader to SPIRV byte code
             bool compiledSucessfully = CompileHLSLShader(
                 shaderSourcePath,                        // shader source filename
@@ -181,7 +212,12 @@ namespace AZ
             ByProducts& byProducts) const
         {
             // Shader compiler executable
-            static const char* dxcRelativePath = AZ_TRAIT_ATOM_SHADERBUILDER_DXC;
+            // static const char* dxcRelativePath = "Builders/DirectXShaderCompiler/bin/dxc.exe";
+            AZStd::string dxcRelativePath = "Builders/DirectXShaderCompiler/dxc.exe";
+            if (strstr(entryPoint.c_str(), "MainMS") != 0)
+            {
+                dxcRelativePath = "Builders/DirectXShaderCompiler/bin/dxc.exe";
+            }
 
             // -Fo "Output file"
             AZStd::string shaderOutputFile;
@@ -198,8 +234,12 @@ namespace AZ
             // Stage profile name parameter
             // Note: RayTracing shaders must be compiled with version 6_3, while the rest of the stages
             // are compiled with version 6_2, so RayTracing cannot share the version constant.
-            const AZStd::string shaderModelVersion = "6_2";
-            const AZStd::unordered_map<RHI::ShaderHardwareStage, AZStd::string> stageToProfileName =
+            AZStd::string shaderModelVersion = "6_2";
+            if (strstr(entryPoint.c_str(), "MainMS") != 0)
+            {
+                shaderModelVersion = "6_5";
+            }
+            AZStd::unordered_map<RHI::ShaderHardwareStage, AZStd::string> stageToProfileName =
             {
                 {RHI::ShaderHardwareStage::Vertex,                 "vs_" + shaderModelVersion},
                 {RHI::ShaderHardwareStage::Fragment,               "ps_" + shaderModelVersion},
@@ -209,6 +249,12 @@ namespace AZ
                 {RHI::ShaderHardwareStage::TessellationEvaluation, "ds_" + shaderModelVersion},
                 {RHI::ShaderHardwareStage::RayTracing,             "lib_6_3"}
             };
+
+            if (strstr(entryPoint.c_str(), "MainMS") != 0)
+            {
+                stageToProfileName[RHI::ShaderHardwareStage::Vertex] = "ms_" + shaderModelVersion;
+            }
+
             auto profileIt = stageToProfileName.find(shaderStageType);
             if (profileIt == stageToProfileName.end())
             {
@@ -225,8 +271,13 @@ namespace AZ
             case RHI::ShaderHardwareStage::Vertex:
             case RHI::ShaderHardwareStage::Geometry:
             case RHI::ShaderHardwareStage::TessellationEvaluation:
-                params += " -fvk-invert-y";
-                break;
+                {
+                    if (strstr(entryPoint.c_str(), "MainMS") == 0)
+                    {
+                        params += " -fvk-invert-y";
+                    }
+                    break;
+                }
             case RHI::ShaderHardwareStage::Fragment:
                 // Enable the use of subpass input. DXC doesn't compile if a SubpassInput is present
                 // when compiling a shader stage that is not the fragment shader (even if it's not being used).
@@ -301,7 +352,7 @@ namespace AZ
             //       therefore, the debug data is probably embedded in the spirv blob.
 
             // Run Shader Compiler
-            if (!RHI::ExecuteShaderCompiler(dxcRelativePath, dxcCommandOptions, shaderSourceFile, "DXC"))
+            if (!RHI::ExecuteShaderCompiler(dxcRelativePath.c_str(), dxcCommandOptions, shaderSourceFile, "DXC"))
             {
                 return false;
             }

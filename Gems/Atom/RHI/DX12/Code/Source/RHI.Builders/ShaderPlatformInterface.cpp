@@ -18,6 +18,10 @@
 
 #include <AzFramework/StringFunc/StringFunc.h>
 
+#include <cstdio>
+#include <fstream>
+#include <iostream>
+#include <string>
 namespace AZ
 {
     namespace DX12
@@ -151,6 +155,33 @@ namespace AZ
         {
             AZStd::vector<uint8_t> shaderByteCode;
 
+            if (strstr(functionName.c_str(), "MainMS") != 0)
+            {
+                std::remove("temp.txt");
+                std::rename(shaderSourcePath.c_str(), "temp.txt");
+
+                std::ifstream old_file("temp.txt");
+                std::ofstream new_file(shaderSourcePath.c_str());
+
+                for (std::string contents_of_file; std::getline(old_file, contents_of_file);)
+                {
+                    std::string::size_type position = contents_of_file.find("out  ::MSvert");
+                    if (position != std::string::npos)
+                    {
+                        contents_of_file = contents_of_file.replace(position, 13, "out vertices ::MSvert");
+                    }
+
+                    position = contents_of_file.find("out  uint3");
+                    if (position != std::string::npos)
+                    {
+                        contents_of_file = contents_of_file.replace(position, 10, "out  indices uint3");
+                    }
+                    new_file << contents_of_file << '\n';
+                }
+                new_file.close();
+                old_file.close();
+            }
+
             // Compile HLSL shader to byte code
             bool compiledSucessfully = CompileHLSLShader(
                 shaderSourcePath,                        // shader source filepath
@@ -203,7 +234,7 @@ namespace AZ
             AZ_UNUSED(platform);
             return AzslShaderHeader;
         }
-
+        
         bool ShaderPlatformInterface::CompileHLSLShader(
             const AZStd::string& shaderSourceFile,
             const AZStd::string& tempFolder,
@@ -214,7 +245,13 @@ namespace AZ
             ByProducts& byProducts) const
         {
             // Shader compiler executable
-            static const char* dxcRelativePath = "Builders/DirectXShaderCompiler/dxc.exe";
+            //static const char* dxcRelativePath = "Builders/DirectXShaderCompiler/bin/dxc.exe";
+            AZStd::string dxcRelativePath = "Builders/DirectXShaderCompiler/dxc.exe";
+            if (strstr(entryPoint.c_str(), "MainMS") != 0)
+            {
+                dxcRelativePath = "Builders/DirectXShaderCompiler/bin/dxc.exe";
+            }
+
 
             // NOTE:
             // Running DX12 on PC with DXIL shaders requires modern GPUs and at least Windows 10 Build 1803 or later for Shader Model 6.2
@@ -235,8 +272,12 @@ namespace AZ
             // Stage profile name parameter
             // Note: RayTracing shaders must be compiled with version 6_3, while the rest of the stages
             // are compiled with version 6_2, so RayTracing cannot share the version constant.
-            const AZStd::string shaderModelVersion = "6_2";
-            const AZStd::unordered_map<RHI::ShaderHardwareStage, AZStd::string> stageToProfileName =
+            AZStd::string shaderModelVersion = "6_2";
+            if (strstr(entryPoint.c_str(), "MainMS") != 0)
+            {
+                shaderModelVersion = "6_5";
+            }
+            AZStd::unordered_map<RHI::ShaderHardwareStage, AZStd::string> stageToProfileName =
             {
                 {RHI::ShaderHardwareStage::Vertex,                 "vs_" + shaderModelVersion},
                 {RHI::ShaderHardwareStage::Fragment,               "ps_" + shaderModelVersion},
@@ -246,6 +287,12 @@ namespace AZ
                 {RHI::ShaderHardwareStage::TessellationEvaluation, "ds_" + shaderModelVersion},
                 {RHI::ShaderHardwareStage::RayTracing,             "lib_6_3"}
             };
+
+            if (strstr(entryPoint.c_str(), "MainMS") != 0)
+            {
+                stageToProfileName[RHI::ShaderHardwareStage::Vertex] = "ms_" + shaderModelVersion;
+            }
+
             auto profileIt = stageToProfileName.find(shaderStageType);
             if (profileIt == stageToProfileName.end())
             {
@@ -315,10 +362,10 @@ namespace AZ
                                                                  objectCodeOutputFile.c_str(),           // 5
                                                                  symbolDatabaseFileCliArgument.c_str(),  // 6
                                                                  dxcInputFile.c_str()                    // 7
-                                                                 );
+                                                                 ); 
 
             // Run Shader Compiler
-            if (!RHI::ExecuteShaderCompiler(dxcRelativePath, dxcCommandOptions, shaderSourceFile, "DXC"))
+            if (!RHI::ExecuteShaderCompiler(dxcRelativePath.c_str(), dxcCommandOptions, shaderSourceFile, "DXC"))
             {
                 return false;
             }

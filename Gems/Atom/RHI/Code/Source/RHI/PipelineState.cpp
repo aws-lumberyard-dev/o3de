@@ -143,6 +143,24 @@ namespace AZ
             return resultCode;
         }
 
+        ResultCode PipelineState::Init(Device& device, const PipelineStateDescriptorForMeshShading& descriptor, PipelineLibrary* pipelineLibrary)
+        {
+            if (!ValidateNotInitialized())
+            {
+                return ResultCode::InvalidOperation;
+            }
+
+            const ResultCode resultCode = InitInternal(device, descriptor, pipelineLibrary);
+
+            if (resultCode == ResultCode::Success)
+            {
+                m_type = PipelineStateType::MeshShading;
+                DeviceObject::Init(device);
+            }
+
+            return resultCode;
+        }
+
         void PipelineState::Shutdown()
         {
             if (IsInitialized())

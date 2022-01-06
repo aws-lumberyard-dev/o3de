@@ -71,6 +71,16 @@ namespace AZ
                 descriptorForRayTracing.m_rayTracingFunction = m_shaderVariantAsset->GetShaderStageFunction(RHI::ShaderStage::RayTracing);
                 break;
             }
+            case RHI::PipelineStateType::MeshShading:
+            {
+                AZ_Assert(m_pipelineStateType == RHI::PipelineStateType::Draw, "ShaderVariant is not intended for the raster pipeline.");
+                AZ_Assert(m_renderStates, "Invalid RenderStates");
+                RHI::PipelineStateDescriptorForMeshShading& descriptorForMeshShading = static_cast<RHI::PipelineStateDescriptorForMeshShading&>(descriptor);
+                descriptorForMeshShading.m_meshFunction = m_shaderVariantAsset->GetShaderStageFunction(RHI::ShaderStage::Vertex);
+                descriptorForMeshShading.m_fragmentFunction = m_shaderVariantAsset->GetShaderStageFunction(RHI::ShaderStage::Fragment);
+                descriptorForMeshShading.m_renderStates = *m_renderStates;
+                break;
+            }
 
             default:
                 AZ_Assert(false, "Unexpected PipelineStateType");

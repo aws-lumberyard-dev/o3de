@@ -41,6 +41,10 @@ namespace AZ
             : PipelineStateDescriptor(PipelineStateType::RayTracing)
         {}
 
+        PipelineStateDescriptorForMeshShading::PipelineStateDescriptorForMeshShading()
+            : PipelineStateDescriptor(PipelineStateType::MeshShading)
+        {}
+
         AZ::HashValue64 PipelineStateDescriptorForDispatch::GetHash() const
         {
             AZ_Assert(m_pipelineLayoutDescriptor, "Pipeline layout descriptor is null.");
@@ -90,6 +94,25 @@ namespace AZ
             return seed;
         }
 
+        AZ::HashValue64 PipelineStateDescriptorForMeshShading::GetHash() const
+        {
+            AZ_Assert(m_pipelineLayoutDescriptor, "Pipeline layout descriptor is null.");
+
+            AZ::HashValue64 seed = AZ::HashValue64{ 0 };
+            seed = TypeHash64(m_pipelineLayoutDescriptor->GetHash(), seed);
+
+            if (m_meshFunction)
+            {
+                seed = TypeHash64(m_meshFunction->GetHash(), seed);
+            }
+            if (m_fragmentFunction)
+            {
+                seed = TypeHash64(m_fragmentFunction->GetHash(), seed);
+            }
+
+            return seed;
+        }
+
         bool PipelineStateDescriptorForDraw::operator == (const PipelineStateDescriptorForDraw& rhs) const
         {
             return m_fragmentFunction == rhs.m_fragmentFunction &&
@@ -111,6 +134,12 @@ namespace AZ
         {
             return m_pipelineLayoutDescriptor == rhs.m_pipelineLayoutDescriptor &&
                 m_rayTracingFunction == rhs.m_rayTracingFunction;
+        }
+
+        bool PipelineStateDescriptorForMeshShading::operator==(const PipelineStateDescriptorForMeshShading& rhs) const
+        {
+            return m_pipelineLayoutDescriptor == rhs.m_pipelineLayoutDescriptor && m_meshFunction == rhs.m_meshFunction &&
+                m_fragmentFunction == rhs.m_fragmentFunction;
         }
     }
 }

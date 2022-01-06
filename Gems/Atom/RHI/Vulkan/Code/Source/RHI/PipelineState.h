@@ -36,6 +36,14 @@ namespace AZ
             RHI::ResultCode InitInternal(RHI::Device& device, const RHI::PipelineStateDescriptorForDraw& descriptor, RHI::PipelineLibrary* pipelineLibrary) override;
             RHI::ResultCode InitInternal(RHI::Device& device, const RHI::PipelineStateDescriptorForDispatch& descriptor, RHI::PipelineLibrary* pipelineLibrary) override;
             RHI::ResultCode InitInternal(RHI::Device& device, const RHI::PipelineStateDescriptorForRayTracing& descriptor, RHI::PipelineLibrary* pipelineLibrary) override;
+            RHI::ResultCode InitInternal(
+                [[maybe_unused]] RHI::Device& device,
+                [[maybe_unused]] const RHI::PipelineStateDescriptorForMeshShading& descriptor,
+                [[maybe_unused]] RHI::PipelineLibrary* pipelineLibrary) override
+            {
+                return RHI::ResultCode::Fail;
+            };
+
             void ShutdownInternal() override;
             //////////////////////////////////////////////////////////////////////////
 

@@ -464,6 +464,16 @@ namespace AZ
                 ExecuteIndirect(drawItem.m_arguments.m_indirect);
                 break;
             }
+
+            case RHI::DrawType::Mesh:
+            {
+                ID3D12GraphicsCommandList6* commandList = static_cast<ID3D12GraphicsCommandList6*>(GetCommandList());
+                commandList->DispatchMesh(
+                    drawItem.m_arguments.m_drawMesh.m_totalNumberOfThreadsX,
+                    drawItem.m_arguments.m_drawMesh.m_totalNumberOfThreadsY,
+                    drawItem.m_arguments.m_drawMesh.m_totalNumberOfThreadsZ);
+                break;
+            }
             default:
                 AZ_Assert(false, "Invalid draw type %d", drawItem.m_arguments.m_type);
                 break;

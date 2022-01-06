@@ -171,7 +171,7 @@ namespace AZ
                 ConstPtr<PipelineState> m_pipelineState;
 
                 // pipeline state descriptor variant for dispatch, draw, and ray tracing
-                using PipelineStateDescriptorVariant = AZStd::variant<AZ::RHI::PipelineStateDescriptorForDraw, AZ::RHI::PipelineStateDescriptorForDispatch, AZ::RHI::PipelineStateDescriptorForRayTracing>;
+                using PipelineStateDescriptorVariant = AZStd::variant<AZ::RHI::PipelineStateDescriptorForDraw, AZ::RHI::PipelineStateDescriptorForDispatch, AZ::RHI::PipelineStateDescriptorForRayTracing, AZ::RHI::PipelineStateDescriptorForMeshShading>;
                 PipelineStateDescriptorVariant m_pipelineStateDescriptorVariant;
             };
 

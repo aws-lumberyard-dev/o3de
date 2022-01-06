@@ -64,7 +64,7 @@ using ID3D12CommandQueueX = ID3D12CommandQueue;
 using ID3D12DeviceX = ID3D12Device5;
 using ID3D12PipelineLibraryX = ID3D12PipelineLibrary1;
 using ID3D12PipelineStateX = ID3D12PipelineState;
-using ID3D12GraphicsCommandListX = ID3D12GraphicsCommandList4;
+using ID3D12GraphicsCommandListX = ID3D12GraphicsCommandList6;
 
 using IDXGIAdapterX = IDXGIAdapter3;
 using IDXGIFactoryX = IDXGIFactory6;
