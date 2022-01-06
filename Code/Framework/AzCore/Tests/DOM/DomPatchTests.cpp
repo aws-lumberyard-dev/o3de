@@ -57,6 +57,17 @@ namespace AZ::Dom::Tests
             EXPECT_TRUE(result.IsSuccess());
             EXPECT_TRUE(Utils::DeepCompareIsEqual(result.GetValue(), m_dataset));
 
+            // Verify serialization of the patches
+            auto VerifySerialization = [](const Patch& patch)
+            {
+                Value serializedPatch = patch.GetDomRepresentation();
+                auto deserializePatchResult = Patch::CreateFromDomRepresentation(serializedPatch);
+                EXPECT_TRUE(deserializePatchResult.IsSuccess());
+                EXPECT_EQ(deserializePatchResult.GetValue(), patch);
+            };
+            VerifySerialization(info.m_forwardPatches);
+            VerifySerialization(info.m_inversePatches);
+
             return info;
         }
 

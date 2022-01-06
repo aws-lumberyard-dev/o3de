@@ -38,6 +38,9 @@ namespace AZ::Dom
         PatchOperation& operator=(const PatchOperation&) = default;
         PatchOperation& operator=(PatchOperation&&) = default;
 
+        bool operator==(const PatchOperation& rhs) const;
+        bool operator!=(const PatchOperation& rhs) const;
+
         Type GetType() const;
         void SetType(Type type);
 
@@ -119,6 +122,9 @@ namespace AZ::Dom
 
         Patch& operator=(const Patch&) = default;
         Patch& operator=(Patch&&) = default;
+
+        bool operator==(const Patch& rhs) const;
+        bool operator!=(const Patch& rhs) const;
 
         const OperationsContainer& GetOperations() const;
         void PushBack(PatchOperation op);

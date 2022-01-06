@@ -32,6 +32,38 @@ namespace AZ::Dom
     {
     }
 
+    bool PatchOperation::operator==(const PatchOperation& rhs) const
+    {
+        if (m_type != rhs.m_type)
+        {
+            return false;
+        }
+
+        switch (m_type)
+        {
+        case Type::Add:
+            return m_domPath == rhs.m_domPath && Utils::DeepCompareIsEqual(GetValue(), rhs.GetValue());
+        case Type::Remove:
+            return m_domPath == rhs.m_domPath;
+        case Type::Replace:
+            return m_domPath == rhs.m_domPath && Utils::DeepCompareIsEqual(GetValue(), rhs.GetValue());
+        case Type::Copy:
+            return m_domPath == rhs.m_domPath && GetSourcePath() == rhs.GetSourcePath();
+        case Type::Move:
+            return m_domPath == rhs.m_domPath && GetSourcePath() == rhs.GetSourcePath();
+        case Type::Test:
+            return m_domPath == rhs.m_domPath && Utils::DeepCompareIsEqual(GetValue(), rhs.GetValue());
+        default:
+            AZ_Assert(false, "PatchOperation::GetDomRepresentation: invalid patch type specified");
+            return false;
+        }
+    }
+
+    bool PatchOperation::operator!=(const PatchOperation& rhs) const
+    {
+        return !operator==(rhs);
+    }
+
     PatchOperation::Type PatchOperation::GetType() const
     {
         return m_type;
@@ -108,31 +140,31 @@ namespace AZ::Dom
         switch (m_type)
         {
         case Type::Add:
-            serializedPatch["op"] = "add";
+            serializedPatch["op"].SetString("add");
             serializedPatch["path"].CopyFromString(GetDestinationPath().ToString());
             serializedPatch["value"] = GetValue();
             break;
         case Type::Remove:
-            serializedPatch["op"] = "remove";
+            serializedPatch["op"].SetString("remove");
             serializedPatch["path"].CopyFromString(GetDestinationPath().ToString());
             break;
         case Type::Replace:
-            serializedPatch["op"] = "replace";
+            serializedPatch["op"].SetString("replace");
             serializedPatch["path"].CopyFromString(GetDestinationPath().ToString());
             serializedPatch["value"] = GetValue();
             break;
         case Type::Copy:
-            serializedPatch["op"] = "copy";
+            serializedPatch["op"].SetString("copy");
             serializedPatch["from"].CopyFromString(GetSourcePath().ToString());
             serializedPatch["path"].CopyFromString(GetDestinationPath().ToString());
             break;
         case Type::Move:
-            serializedPatch["op"] = "move";
+            serializedPatch["op"].SetString("move");
             serializedPatch["from"].CopyFromString(GetSourcePath().ToString());
             serializedPatch["path"].CopyFromString(GetDestinationPath().ToString());
             break;
         case Type::Test:
-            serializedPatch["op"] = "test";
+            serializedPatch["op"].SetString("test");
             serializedPatch["path"].CopyFromString(GetDestinationPath().ToString());
             serializedPatch["value"] = GetValue();
             break;
@@ -567,6 +599,29 @@ namespace AZ::Dom
     Patch::Patch(AZStd::initializer_list<PatchOperation> init)
         : m_operations(init)
     {
+    }
+
+    bool Patch::operator==(const Patch& rhs) const
+    {
+        if (m_operations.size() != rhs.m_operations.size())
+        {
+            return false;
+        }
+
+        for (size_t i = 0; i < m_operations.size(); ++i)
+        {
+            if (m_operations[i] != rhs.m_operations[i])
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    bool Patch::operator!=(const Patch& rhs) const
+    {
+        return !operator==(rhs);
     }
 
     const Patch::OperationsContainer& Patch::GetOperations() const
