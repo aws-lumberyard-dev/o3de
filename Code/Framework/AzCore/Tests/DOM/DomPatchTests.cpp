@@ -475,13 +475,13 @@ namespace AZ::Dom::Tests
         ASSERT_FALSE(result.IsSuccess());
     }
 
-    TEST_F(DomPatchTests, Test_Patch_ReplaceArrayValue)
+    TEST_F(DomPatchTests, TestPatch_ReplaceArrayValue)
     {
         m_deltaDataset["arr"][0] = 5;
         GenerateAndVerifyDelta();
     }
 
-    TEST_F(DomPatchTests, Test_Patch_AppendArrayValue)
+    TEST_F(DomPatchTests, TestPatch_AppendArrayValue)
     {
         m_deltaDataset["arr"].ArrayPushBack(7);
         auto result = GenerateAndVerifyDelta();
@@ -491,7 +491,7 @@ namespace AZ::Dom::Tests
         EXPECT_TRUE(result.m_forwardPatches[0].GetDestinationPath()[1].IsEndOfArray());
     }
 
-    TEST_F(DomPatchTests, Test_Patch_AppendArrayValues)
+    TEST_F(DomPatchTests, TestPatch_AppendArrayValues)
     {
         m_deltaDataset["arr"].ArrayPushBack(7);
         m_deltaDataset["arr"].ArrayPushBack(8);
@@ -499,26 +499,26 @@ namespace AZ::Dom::Tests
         GenerateAndVerifyDelta();
     }
 
-    TEST_F(DomPatchTests, Test_Patch_InsertArrayValue)
+    TEST_F(DomPatchTests, TestPatch_InsertArrayValue)
     {
         auto& arr = m_deltaDataset["arr"].GetMutableArray();
         arr.insert(arr.begin(), Value(42));
         GenerateAndVerifyDelta();
     }
 
-    TEST_F(DomPatchTests, Test_Patch_InsertObjectKey)
+    TEST_F(DomPatchTests, TestPatch_InsertObjectKey)
     {
         m_deltaDataset["obj"]["newKey"].CopyFromString("test");
         GenerateAndVerifyDelta();
     }
 
-    TEST_F(DomPatchTests, Test_Patch_DeleteObjectKey)
+    TEST_F(DomPatchTests, TestPatch_DeleteObjectKey)
     {
         m_deltaDataset["obj"].RemoveMember("foo");
         GenerateAndVerifyDelta();
     }
 
-    TEST_F(DomPatchTests, Test_Patch_AppendNodeValues)
+    TEST_F(DomPatchTests, TestPatch_AppendNodeValues)
     {
         m_deltaDataset["node"].ArrayPushBack(7);
         m_deltaDataset["node"].ArrayPushBack(8);
@@ -526,32 +526,32 @@ namespace AZ::Dom::Tests
         GenerateAndVerifyDelta();
     }
 
-    TEST_F(DomPatchTests, Test_Patch_InsertNodeValue)
+    TEST_F(DomPatchTests, TestPatch_InsertNodeValue)
     {
         auto& node = m_deltaDataset["node"].GetMutableNode();
         node.GetChildren().insert(node.GetChildren().begin(), Value(42));
         GenerateAndVerifyDelta();
     }
 
-    TEST_F(DomPatchTests, Test_Patch_InsertNodeKey)
+    TEST_F(DomPatchTests, TestPatch_InsertNodeKey)
     {
         m_deltaDataset["node"]["newKey"].CopyFromString("test");
         GenerateAndVerifyDelta();
     }
 
-    TEST_F(DomPatchTests, Test_Patch_DeleteNodeKey)
+    TEST_F(DomPatchTests, TestPatch_DeleteNodeKey)
     {
         m_deltaDataset["node"].RemoveMember("int");
         GenerateAndVerifyDelta();
     }
 
-    TEST_F(DomPatchTests, Test_Patch_RenameNode)
+    TEST_F(DomPatchTests, TestPatch_RenameNode)
     {
         m_deltaDataset["node"].SetNodeName("RenamedNode");
         GenerateAndVerifyDelta();
     }
 
-    TEST_F(DomPatchTests, Test_Patch_ReplaceRoot)
+    TEST_F(DomPatchTests, TestPatch_ReplaceRoot)
     {
         m_deltaDataset = Value(Type::Array);
         m_deltaDataset.ArrayPushBack(2);

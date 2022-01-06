@@ -251,7 +251,7 @@ namespace AZ::Dom
         return m_entries.cend();
     }
 
-    size_t Path::GetStringSize() const
+    size_t Path::GetStringLength() const
     {
         size_t size = 0;
         for (const PathEntry& entry : m_entries)
@@ -341,7 +341,7 @@ namespace AZ::Dom
     AZStd::string Path::ToString() const
     {
         AZStd::string formattedString;
-        const size_t size = GetStringSize();
+        const size_t size = GetStringLength();
         formattedString.resize(size);
         FormatString(formattedString.data(), size + 1);
         return formattedString;

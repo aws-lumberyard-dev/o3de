@@ -14,6 +14,12 @@
 
 namespace AZ::Dom
 {
+    //! Represents the path to a direct descendant of a Value.
+    //! PathEntry may be one of the following:
+    //! - Index, a numerical index for indexing within Arrays and Nodes
+    //! - Key, a name for indexing within Objects and Nodes
+    //! - EndOfArray, a special-case indicator for representing the end of an array
+    //!   used by the patching system to represent push / pop back operations.
     class PathEntry final
     {
     public:
@@ -54,6 +60,7 @@ namespace AZ::Dom
         AZStd::variant<size_t, AZ::Name> m_value;
     };
 
+    //! Represents a path, represented as a series of PathEntry values, to a position in a Value.
     class Path final
     {
     public:
@@ -67,11 +74,13 @@ namespace AZ::Dom
         Path() = default;
         Path(const Path&) = default;
         Path(Path&&) = default;
-        Path(AZStd::initializer_list<PathEntry> init);
-        Path(AZStd::string_view pathString);
+        explicit Path(AZStd::initializer_list<PathEntry> init);
+        //! Creates a Path from a path string, a path string is formatted per the JSON pointer specification
+        //! and looks like "/path/to/value/0"
+        explicit Path(AZStd::string_view pathString);
 
         template<class InputIterator>
-        Path(InputIterator first, InputIterator last)
+        explicit Path(InputIterator first, InputIterator last)
             : m_entries(first, last)
         {
         }
@@ -106,9 +115,15 @@ namespace AZ::Dom
         ContainerType::const_iterator cbegin() const;
         ContainerType::const_iterator cend() const;
 
-        size_t GetStringSize() const;
+        //! Gets the length this path would require, if string-formatted.
+        //! The length includes the contents of the string but not a null terminator.
+        size_t GetStringLength() const;
+        //! Formats a JSON-pointer style path string into the target buffer.
+        //! This operation will fail if bufferSize < GetStringLength() + 1
         void FormatString(char* stringBuffer, size_t bufferSize) const;
+        //! Returns a JSON-pointer style path string for this path.
         AZStd::string ToString() const;
+        //! Reads a JSON-pointer style path from pathString and replaces this path's contents.
         void FromString(AZStd::string_view pathString);
 
     private:

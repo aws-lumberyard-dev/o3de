@@ -13,19 +13,22 @@
 
 namespace AZ::Dom
 {
+    //! A patch operation that represents an atomic operation for mutating or validating a Value.
+    //! PatchOperations can be created with helper methods in Patch. /see Patch
     class PatchOperation final
     {
     public:
         using PatchOutcome = AZ::Outcome<void, AZStd::string>;
 
+        //! The operation to perform.
         enum class Type
         {
-            Add,
-            Remove,
-            Replace,
-            Copy,
-            Move,
-            Test
+            Add, //! Inserts or replaces the value at DestinationPath with Value
+            Remove, //! Removes the entry at DestinationPath
+            Replace, //! Replaces the value at DestinationPath with Value
+            Copy, //! Copies the contents of SourcePath to DestinationPath
+            Move, //! Moves the contents of SourcePath to DestinationPath
+            Test //! Ensures the contents of DestinationPath match Value or fails, performs no mutations
         };
 
         PatchOperation() = default;
@@ -72,7 +75,8 @@ namespace AZ::Dom
         static constexpr AZ::u8 VerifyFullPath = 0x1;
         static constexpr AZ::u8 AllowEndOfArray = 0x2;
 
-        static AZ::Outcome<PathContext, AZStd::string> LookupPath(Value& rootElement, const Path& path, AZ::u8 existenceCheckFlags = DefaultExistenceCheck);
+        static AZ::Outcome<PathContext, AZStd::string> LookupPath(
+            Value& rootElement, const Path& path, AZ::u8 existenceCheckFlags = DefaultExistenceCheck);
 
         PatchOutcome ApplyAdd(Value& rootElement) const;
         PatchOutcome ApplyRemove(Value& rootElement) const;
@@ -88,21 +92,30 @@ namespace AZ::Dom
 
     class Patch;
 
+    //! The current state of a Patch application operation.
     struct PatchingState
     {
+        //! The patch being applied.
         const Patch* m_patch = nullptr;
+        //! The last operation attempted.
         const PatchOperation* m_lastOperation = nullptr;
+        //! The outcome of the last operation, may be overridden to produce a different failure outcome.
         PatchOperation::PatchOutcome m_outcome;
+        //! The current state of the value being patched, will be returned if the patch operation succeeds.
         Value* m_currentState = nullptr;
+        //! If set to false, the patch operation should halt.
         bool m_shouldContinue = true;
     };
 
     namespace PatchStrategy
     {
+        //! The default patching strategy. Applies all operations in a patch, but halts if any one operation fails.
         void HaltOnFailure(PatchingState& state);
+        //! Patching strategy that attemps to apply all operations in a patch, but ignores operation failures and continues.
         void IgnoreFailureAndContinue(PatchingState& state);
     } // namespace PatchStrategy
 
+    //! A set of operations that can be applied to a Value to produce a new Value.
     class Patch final
     {
     public:
@@ -114,7 +127,7 @@ namespace AZ::Dom
         Patch(Patch&&) = default;
         Patch(AZStd::initializer_list<PatchOperation> init);
 
-        template <class InputIterator>
+        template<class InputIterator>
         Patch(InputIterator first, InputIterator last)
             : m_operations(first, last)
         {
