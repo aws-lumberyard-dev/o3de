@@ -284,64 +284,33 @@ namespace AZ::Dom
 
     Type Dom::Value::GetType() const
     {
-        return AZStd::visit(
-            [](auto&& value) -> Type
-            {
-                using CurrentType = AZStd::decay_t<decltype(value)>;
-                if constexpr (AZStd::is_same_v<CurrentType, AZStd::monostate>)
-                {
-                    return Type::Null;
-                }
-                else if constexpr (AZStd::is_same_v<CurrentType, int64_t>)
-                {
-                    return Type::Int64;
-                }
-                else if constexpr (AZStd::is_same_v<CurrentType, uint64_t>)
-                {
-                    return Type::Uint64;
-                }
-                else if constexpr (AZStd::is_same_v<CurrentType, double>)
-                {
-                    return Type::Double;
-                }
-                else if constexpr (AZStd::is_same_v<CurrentType, bool>)
-                {
-                    return Type::Bool;
-                }
-                else if constexpr (AZStd::is_same_v<CurrentType, AZStd::string_view>)
-                {
-                    return Type::String;
-                }
-                else if constexpr (AZStd::is_same_v<CurrentType, SharedStringType>)
-                {
-                    return Type::String;
-                }
-                else if constexpr (AZStd::is_same_v<CurrentType, ShortStringType>)
-                {
-                    return Type::String;
-                }
-                else if constexpr (AZStd::is_same_v<CurrentType, ObjectPtr>)
-                {
-                    return Type::Object;
-                }
-                else if constexpr (AZStd::is_same_v<CurrentType, ArrayPtr>)
-                {
-                    return Type::Array;
-                }
-                else if constexpr (AZStd::is_same_v<CurrentType, NodePtr>)
-                {
-                    return Type::Node;
-                }
-                else if constexpr (AZStd::is_same_v<CurrentType, OpaqueStorageType>)
-                {
-                    return Type::Opaque;
-                }
-                else
-                {
-                    AZ_Assert(false, "AZ::Dom::Value::GetType: m_value has an unexpected type");
-                }
-            },
-            m_value);
+        switch (m_value.index())
+        {
+        case GetTypeIndex<AZStd::monostate>():
+            return Type::Null;
+        case GetTypeIndex<int64_t>():
+            return Type::Int64;
+        case GetTypeIndex<uint64_t>():
+            return Type::Uint64;
+        case GetTypeIndex<double>():
+            return Type::Double;
+        case GetTypeIndex<bool>():
+            return Type::Bool;
+        case GetTypeIndex<AZStd::string_view>():
+        case GetTypeIndex<SharedStringType>():
+        case GetTypeIndex<ShortStringType>():
+            return Type::String;
+        case GetTypeIndex<ObjectPtr>():
+            return Type::Object;
+        case GetTypeIndex<ArrayPtr>():
+            return Type::Array;
+        case GetTypeIndex<NodePtr>():
+            return Type::Node;
+        case GetTypeIndex<AZStd::shared_ptr<AZStd::any>>():
+            return Type::Opaque;
+        }
+        AZ_Assert(false, "AZ::Dom::Value::GetType: m_value has an unexpected type");
+        return Type::Null;
     }
 
     bool Value::IsNull() const

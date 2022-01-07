@@ -6,8 +6,8 @@
  *
  */
 
-#include <AzCore/DOM/DomValue.h>
 #include <AzCore/DOM/DomUtils.h>
+#include <AzCore/DOM/DomValue.h>
 #include <AzCore/Name/NameDictionary.h>
 #include <AzCore/UnitTest/TestTypes.h>
 #include <Tests/DOM/DomFixtures.h>
@@ -16,7 +16,119 @@ namespace AZ::Dom::Benchmark
 {
     class DomValueBenchmark : public Tests::DomBenchmarkFixture
     {
-        }    };
+    };
+
+    BENCHMARK_DEFINE_F(DomValueBenchmark, AzDomValueGetType_UsingVariantIndex)(benchmark::State& state)
+    {
+        Value intValue(5);
+        Value boolValue(true);
+        Value objValue(Type::Object);
+        Value nodeValue(Type::Node);
+        Value arrValue(Type::Array);
+        Value uintValue(5u);
+        Value doubleValue(4.0);
+        Value stringValue("foo", true);
+
+        for (auto _ : state)
+        {
+            benchmark::DoNotOptimize(intValue.GetType());
+            benchmark::DoNotOptimize(boolValue.GetType());
+            benchmark::DoNotOptimize(objValue.GetType());
+            benchmark::DoNotOptimize(nodeValue.GetType());
+            benchmark::DoNotOptimize(arrValue.GetType());
+            benchmark::DoNotOptimize(uintValue.GetType());
+            benchmark::DoNotOptimize(doubleValue.GetType());
+            benchmark::DoNotOptimize(stringValue.GetType());
+        }
+    }
+    BENCHMARK_REGISTER_F(DomValueBenchmark, AzDomValueGetType_UsingVariantIndex);
+
+    BENCHMARK_DEFINE_F(DomValueBenchmark, AzDomValueGetType_UsingVariantVisit)(benchmark::State& state)
+    {
+        Value intValue(5);
+        Value boolValue(true);
+        Value objValue(Type::Object);
+        Value nodeValue(Type::Node);
+        Value arrValue(Type::Array);
+        Value uintValue(5u);
+        Value doubleValue(4.0);
+        Value stringValue("foo", true);
+
+        auto getTypeViaVisit = [](const Value& value)
+        {
+            return AZStd::visit(
+                [](auto&& value) -> Type
+                {
+                    using CurrentType = AZStd::decay_t<decltype(value)>;
+                    if constexpr (AZStd::is_same_v<CurrentType, AZStd::monostate>)
+                    {
+                        return Type::Null;
+                    }
+                    else if constexpr (AZStd::is_same_v<CurrentType, int64_t>)
+                    {
+                        return Type::Int64;
+                    }
+                    else if constexpr (AZStd::is_same_v<CurrentType, uint64_t>)
+                    {
+                        return Type::Uint64;
+                    }
+                    else if constexpr (AZStd::is_same_v<CurrentType, double>)
+                    {
+                        return Type::Double;
+                    }
+                    else if constexpr (AZStd::is_same_v<CurrentType, bool>)
+                    {
+                        return Type::Bool;
+                    }
+                    else if constexpr (AZStd::is_same_v<CurrentType, AZStd::string_view>)
+                    {
+                        return Type::String;
+                    }
+                    else if constexpr (AZStd::is_same_v<CurrentType, Value::SharedStringType>)
+                    {
+                        return Type::String;
+                    }
+                    else if constexpr (AZStd::is_same_v<CurrentType, Value::ShortStringType>)
+                    {
+                        return Type::String;
+                    }
+                    else if constexpr (AZStd::is_same_v<CurrentType, ObjectPtr>)
+                    {
+                        return Type::Object;
+                    }
+                    else if constexpr (AZStd::is_same_v<CurrentType, ArrayPtr>)
+                    {
+                        return Type::Array;
+                    }
+                    else if constexpr (AZStd::is_same_v<CurrentType, NodePtr>)
+                    {
+                        return Type::Node;
+                    }
+                    else if constexpr (AZStd::is_same_v<CurrentType, Value::OpaqueStorageType>)
+                    {
+                        return Type::Opaque;
+                    }
+                    else
+                    {
+                        AZ_Assert(false, "AZ::Dom::Value::GetType: m_value has an unexpected type");
+                    }
+                },
+                value.GetInternalValue());
+        };
+
+        for (auto _ : state)
+        {
+            benchmark::DoNotOptimize(getTypeViaVisit(intValue));
+            benchmark::DoNotOptimize(getTypeViaVisit(boolValue));
+            benchmark::DoNotOptimize(getTypeViaVisit(objValue));
+            benchmark::DoNotOptimize(getTypeViaVisit(nodeValue));
+            benchmark::DoNotOptimize(getTypeViaVisit(arrValue));
+            benchmark::DoNotOptimize(getTypeViaVisit(uintValue));
+            benchmark::DoNotOptimize(getTypeViaVisit(doubleValue));
+            benchmark::DoNotOptimize(getTypeViaVisit(stringValue));
+        }
+    }
+    BENCHMARK_REGISTER_F(DomValueBenchmark, AzDomValueGetType_UsingVariantVisit);
 
     BENCHMARK_DEFINE_F(DomValueBenchmark, AzDomValueMakeComplexObject)(benchmark::State& state)
     {
