@@ -16,7 +16,7 @@ namespace AZ::Dom::Benchmark
 {
     class DomValueBenchmark : public Tests::DomBenchmarkFixture
     {
-    };
+        }    };
 
     BENCHMARK_DEFINE_F(DomValueBenchmark, AzDomValueMakeComplexObject)(benchmark::State& state)
     {
@@ -50,7 +50,7 @@ namespace AZ::Dom::Benchmark
         for (auto _ : state)
         {
             Value copy = original;
-            copy["entries"]["Key0"].ArrayPushBack(42);
+            copy["entries"]["Key0"].ArrayPushBack(Value(42));
             TakeAndDiscardWithoutTimingDtor(AZStd::move(copy), state);
         }
 

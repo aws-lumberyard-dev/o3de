@@ -60,7 +60,7 @@ namespace AZ::Dom::Tests
         {
             m_value.ArrayPushBack(Value(i));
             EXPECT_EQ(m_value.ArraySize(), i + 1);
-            EXPECT_EQ(m_value[i].GetInt32(), i);
+            EXPECT_EQ(m_value[i].GetInt64(), i);
         }
 
         PerformValueChecks();
@@ -68,6 +68,7 @@ namespace AZ::Dom::Tests
 
     TEST_F(DomValueTests, NestedArrays)
     {
+        Value x(5);
         m_value.SetArray();
         for (int j = 0; j < 5; ++j)
         {
@@ -85,7 +86,7 @@ namespace AZ::Dom::Tests
             EXPECT_EQ(m_value[i].ArraySize(), 5);
             for (int j = 0; j < 5; ++j)
             {
-                EXPECT_EQ(m_value[i][j].GetInt32(), j);
+                EXPECT_EQ(m_value[i][j].GetInt64(), j);
             }
         }
 
@@ -108,7 +109,7 @@ namespace AZ::Dom::Tests
             AZStd::string key = AZStd::string::format("Key%i", i);
             m_value.AddMember(key, Value(i));
             EXPECT_EQ(m_value.MemberCount(), i + 1);
-            EXPECT_EQ(m_value[key].GetInt32(), i);
+            EXPECT_EQ(m_value[key].GetInt64(), i);
         }
 
         PerformValueChecks();
@@ -134,7 +135,7 @@ namespace AZ::Dom::Tests
             EXPECT_EQ(nestedObject.MemberCount(), 5);
             for (int i = 0; i < 5; ++i)
             {
-                EXPECT_EQ(nestedObject[AZStd::string::format("Key%i", i)].GetInt32(), i);
+                EXPECT_EQ(nestedObject[AZStd::string::format("Key%i", i)].GetInt64(), i);
             }
         }
 
@@ -159,14 +160,14 @@ namespace AZ::Dom::Tests
         {
             m_value.ArrayPushBack(Value(i));
             EXPECT_EQ(m_value.ArraySize(), i + 1);
-            EXPECT_EQ(m_value[i].GetInt32(), i);
+            EXPECT_EQ(m_value[i].GetInt64(), i);
 
             if (i < 5)
             {
                 AZ::Name key = AZ::Name(AZStd::string::format("TwoTimes%i", i));
                 m_value.AddMember(key, Value(i * 2));
                 EXPECT_EQ(m_value.MemberCount(), i + 1);
-                EXPECT_EQ(m_value[key].GetInt32(), i * 2);
+                EXPECT_EQ(m_value[key].GetInt64(), i * 2);
             }
         }
 
@@ -183,9 +184,9 @@ namespace AZ::Dom::Tests
         {
             Value childNode(Type::Node);
             childNode.SetNodeName(childNodeName);
-            childNode.SetNodeValue(i);
+            childNode.SetNodeValue(Value(i));
 
-            childNode.AddMember("foo", i);
+            childNode.AddMember("foo", Value(i));
             childNode.AddMember("bar", Value("test", false));
 
             m_value.ArrayPushBack(childNode);
@@ -196,8 +197,8 @@ namespace AZ::Dom::Tests
         {
             const Value& childNode = m_value[i];
             EXPECT_EQ(childNode.GetNodeName(), childNodeName);
-            EXPECT_EQ(childNode.GetNodeValue().GetInt32(), i);
-            EXPECT_EQ(childNode["foo"].GetInt32(), i);
+            EXPECT_EQ(childNode.GetNodeValue().GetInt64(), i);
+            EXPECT_EQ(childNode["foo"].GetInt64(), i);
             EXPECT_EQ(childNode["bar"].GetString(), "test");
         }
 
@@ -326,8 +327,8 @@ namespace AZ::Dom::Tests
     TEST_F(DomValueTests, CopyOnWrite_Array)
     {
         Value v1(Type::Array);
-        v1.ArrayPushBack(1);
-        v1.ArrayPushBack(2);
+        v1.ArrayPushBack(Value(1));
+        v1.ArrayPushBack(Value(2));
 
         Value nestedArray(Type::Array);
         v1.ArrayPushBack(nestedArray);
@@ -341,7 +342,7 @@ namespace AZ::Dom::Tests
         EXPECT_NE(&v1.GetArray(), &v2.GetArray());
         EXPECT_EQ(&v1.ArrayAt(2).GetArray(), &v2.ArrayAt(2).GetArray());
 
-        v2[2].ArrayPushBack(42);
+        v2[2].ArrayPushBack(Value(42));
 
         EXPECT_NE(&v1.GetArray(), &v2.GetArray());
         EXPECT_NE(&v1.ArrayAt(2).GetArray(), &v2.ArrayAt(2).GetArray());
@@ -357,8 +358,8 @@ namespace AZ::Dom::Tests
         Value v1;
         v1.SetNode("TopLevel");
 
-        v1.ArrayPushBack(1);
-        v1.ArrayPushBack(2);
+        v1.ArrayPushBack(Value(1));
+        v1.ArrayPushBack(Value(2));
         v1["obj"].SetNode("Nested");
         Value v2 = v1;
 
@@ -370,7 +371,7 @@ namespace AZ::Dom::Tests
         EXPECT_NE(&v1.GetNode(), &v2.GetNode());
         EXPECT_EQ(&v1["obj"].GetNode(), &v2["obj"].GetNode());
 
-        v2["obj"].ArrayPushBack(42);
+        v2["obj"].ArrayPushBack(Value(42));
 
         EXPECT_NE(&v1.GetNode(), &v2.GetNode());
         EXPECT_NE(&v1["obj"].GetNode(), &v2["obj"].GetNode());
