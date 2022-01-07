@@ -129,13 +129,16 @@ void CDraw2d::OnBootstrapSceneReady(AZ::RPI::Scene* bootstrapScene)
     static const char textureIndexName[] = "m_texture";
     static const char worldToProjIndexName[] = "m_worldToProj";
     AZ::Data::Instance<AZ::RPI::ShaderResourceGroup> drawSrg = m_dynamicDraw->NewDrawSrg();
-    const AZ::RHI::ShaderResourceGroupLayout* layout = drawSrg->GetLayout();
-    m_shaderData.m_imageInputIndex = layout->FindShaderInputImageIndex(AZ::Name(textureIndexName));
-    AZ_Error("Draw2d", m_shaderData.m_imageInputIndex.IsValid(), "Failed to find shader input constant %s.",
-        textureIndexName);
-    m_shaderData.m_viewProjInputIndex = layout->FindShaderInputConstantIndex(AZ::Name(worldToProjIndexName));
-    AZ_Error("Draw2d", m_shaderData.m_viewProjInputIndex.IsValid(), "Failed to find shader input constant %s.",
-        worldToProjIndexName);
+    if (drawSrg)
+    {
+        const AZ::RHI::ShaderResourceGroupLayout* layout = drawSrg->GetLayout();
+        m_shaderData.m_imageInputIndex = layout->FindShaderInputImageIndex(AZ::Name(textureIndexName));
+        AZ_Error("Draw2d", m_shaderData.m_imageInputIndex.IsValid(), "Failed to find shader input constant %s.",
+            textureIndexName);
+        m_shaderData.m_viewProjInputIndex = layout->FindShaderInputConstantIndex(AZ::Name(worldToProjIndexName));
+        AZ_Error("Draw2d", m_shaderData.m_viewProjInputIndex.IsValid(), "Failed to find shader input constant %s.",
+            worldToProjIndexName);
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
