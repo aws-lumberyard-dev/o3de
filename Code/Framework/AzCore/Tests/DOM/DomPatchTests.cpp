@@ -27,8 +27,8 @@ namespace AZ::Dom::Tests
 
             for (int i = 0; i < 5; ++i)
             {
-                m_dataset["arr"].ArrayPushBack(i);
-                m_dataset["node"].ArrayPushBack(i * 2);
+                m_dataset["arr"].ArrayPushBack(Value(i));
+                m_dataset["node"].ArrayPushBack(Value(i * 2));
             }
 
             m_dataset["obj"].SetObject();
@@ -78,16 +78,16 @@ namespace AZ::Dom::Tests
     TEST_F(DomPatchTests, AddOperation_InsertInObject_Succeeds)
     {
         Path p("/obj/baz");
-        PatchOperation op = Patch::AddOperation(p, 42);
+        PatchOperation op = Patch::AddOperation(p, Value(42));
         auto result = op.Apply(m_dataset);
         ASSERT_TRUE(result.IsSuccess());
-        EXPECT_EQ(result.GetValue()[p].GetInt32(), 42);
+        EXPECT_EQ(result.GetValue()[p].GetInt64(), 42);
     }
 
     TEST_F(DomPatchTests, AddOperation_ReplaceInObject_Succeeds)
     {
         Path p("/obj/foo");
-        PatchOperation op = Patch::AddOperation(p, false);
+        PatchOperation op = Patch::AddOperation(p, Value(false));
         auto result = op.Apply(m_dataset);
         ASSERT_TRUE(result.IsSuccess());
         EXPECT_EQ(result.GetValue()[p].GetBool(), false);
@@ -96,7 +96,7 @@ namespace AZ::Dom::Tests
     TEST_F(DomPatchTests, AddOperation_InsertObjectKeyInArray_Fails)
     {
         Path p("/arr/key");
-        PatchOperation op = Patch::AddOperation(p, 999);
+        PatchOperation op = Patch::AddOperation(p, Value(999));
         auto result = op.Apply(m_dataset);
         ASSERT_FALSE(result.IsSuccess());
     }
@@ -104,43 +104,43 @@ namespace AZ::Dom::Tests
     TEST_F(DomPatchTests, AddOperation_AppendInArray_Succeeds)
     {
         Path p("/arr/-");
-        PatchOperation op = Patch::AddOperation(p, 42);
+        PatchOperation op = Patch::AddOperation(p, Value(42));
         auto result = op.Apply(m_dataset);
         ASSERT_TRUE(result.IsSuccess());
-        EXPECT_EQ(result.GetValue()["arr"][5].GetInt32(), 42);
+        EXPECT_EQ(result.GetValue()["arr"][5].GetInt64(), 42);
     }
 
     TEST_F(DomPatchTests, AddOperation_InsertKeyInNode_Succeeds)
     {
         Path p("/node/attr");
-        PatchOperation op = Patch::AddOperation(p, 500);
+        PatchOperation op = Patch::AddOperation(p, Value(500));
         auto result = op.Apply(m_dataset);
         ASSERT_TRUE(result.IsSuccess());
-        EXPECT_EQ(result.GetValue()[p].GetInt32(), 500);
+        EXPECT_EQ(result.GetValue()[p].GetInt64(), 500);
     }
 
     TEST_F(DomPatchTests, AddOperation_ReplaceIndexInNode_Succeeds)
     {
         Path p("/node/0");
-        PatchOperation op = Patch::AddOperation(p, 42);
+        PatchOperation op = Patch::AddOperation(p, Value(42));
         auto result = op.Apply(m_dataset);
         ASSERT_TRUE(result.IsSuccess());
-        EXPECT_EQ(result.GetValue()[p].GetInt32(), 42);
+        EXPECT_EQ(result.GetValue()[p].GetInt64(), 42);
     }
 
     TEST_F(DomPatchTests, AddOperation_AppendInNode_Succeeds)
     {
         Path p("/node/-");
-        PatchOperation op = Patch::AddOperation(p, 42);
+        PatchOperation op = Patch::AddOperation(p, Value(42));
         auto result = op.Apply(m_dataset);
         ASSERT_TRUE(result.IsSuccess());
-        EXPECT_EQ(result.GetValue()["node"][5].GetInt32(), 42);
+        EXPECT_EQ(result.GetValue()["node"][5].GetInt64(), 42);
     }
 
     TEST_F(DomPatchTests, AddOperation_InvalidPath_Fails)
     {
         Path p("/non/existent/path");
-        PatchOperation op = Patch::AddOperation(p, 0);
+        PatchOperation op = Patch::AddOperation(p, Value(0));
         auto result = op.Apply(m_dataset);
         ASSERT_FALSE(result.IsSuccess());
     }
@@ -161,7 +161,7 @@ namespace AZ::Dom::Tests
         auto result = op.Apply(m_dataset);
         ASSERT_TRUE(result.IsSuccess());
         EXPECT_EQ(result.GetValue()["arr"].ArraySize(), 4);
-        EXPECT_EQ(result.GetValue()["arr"][0].GetInt32(), 1);
+        EXPECT_EQ(result.GetValue()["arr"][0].GetInt64(), 1);
     }
 
     TEST_F(DomPatchTests, RemoveOperation_PopArray_Succeeds)
@@ -188,7 +188,7 @@ namespace AZ::Dom::Tests
         auto result = op.Apply(m_dataset);
         ASSERT_TRUE(result.IsSuccess());
         EXPECT_EQ(result.GetValue()["node"].ArraySize(), 4);
-        EXPECT_EQ(result.GetValue()["node"][1].GetInt32(), 4);
+        EXPECT_EQ(result.GetValue()["node"][1].GetInt64(), 4);
     }
 
     TEST_F(DomPatchTests, RemoveOperation_PopIndexFromNode_Succeeds)
@@ -219,7 +219,7 @@ namespace AZ::Dom::Tests
     TEST_F(DomPatchTests, ReplaceOperation_InsertInObject_Fails)
     {
         Path p("/obj/baz");
-        PatchOperation op = Patch::ReplaceOperation(p, 42);
+        PatchOperation op = Patch::ReplaceOperation(p, Value(42));
         auto result = op.Apply(m_dataset);
         ASSERT_FALSE(result.IsSuccess());
     }
@@ -227,7 +227,7 @@ namespace AZ::Dom::Tests
     TEST_F(DomPatchTests, ReplaceOperation_ReplaceInObject_Succeeds)
     {
         Path p("/obj/foo");
-        PatchOperation op = Patch::ReplaceOperation(p, false);
+        PatchOperation op = Patch::ReplaceOperation(p, Value(false));
         auto result = op.Apply(m_dataset);
         ASSERT_TRUE(result.IsSuccess());
         EXPECT_EQ(result.GetValue()[p].GetBool(), false);
@@ -236,7 +236,7 @@ namespace AZ::Dom::Tests
     TEST_F(DomPatchTests, ReplaceOperation_InsertObjectKeyInArray_Fails)
     {
         Path p("/arr/key");
-        PatchOperation op = Patch::ReplaceOperation(p, 999);
+        PatchOperation op = Patch::ReplaceOperation(p, Value(999));
         auto result = op.Apply(m_dataset);
         ASSERT_FALSE(result.IsSuccess());
     }
@@ -244,7 +244,7 @@ namespace AZ::Dom::Tests
     TEST_F(DomPatchTests, ReplaceOperation_AppendInArray_Fails)
     {
         Path p("/arr/-");
-        PatchOperation op = Patch::ReplaceOperation(p, 42);
+        PatchOperation op = Patch::ReplaceOperation(p, Value(42));
         auto result = op.Apply(m_dataset);
         ASSERT_FALSE(result.IsSuccess());
     }
@@ -252,7 +252,7 @@ namespace AZ::Dom::Tests
     TEST_F(DomPatchTests, ReplaceOperation_InsertKeyInNode_Fails)
     {
         Path p("/node/attr");
-        PatchOperation op = Patch::ReplaceOperation(p, 500);
+        PatchOperation op = Patch::ReplaceOperation(p, Value(500));
         auto result = op.Apply(m_dataset);
         ASSERT_FALSE(result.IsSuccess());
     }
@@ -260,16 +260,16 @@ namespace AZ::Dom::Tests
     TEST_F(DomPatchTests, ReplaceOperation_ReplaceIndexInNode_Succeeds)
     {
         Path p("/node/0");
-        PatchOperation op = Patch::ReplaceOperation(p, 42);
+        PatchOperation op = Patch::ReplaceOperation(p, Value(42));
         auto result = op.Apply(m_dataset);
         ASSERT_TRUE(result.IsSuccess());
-        EXPECT_EQ(result.GetValue()[p].GetInt32(), 42);
+        EXPECT_EQ(result.GetValue()[p].GetInt64(), 42);
     }
 
     TEST_F(DomPatchTests, ReplaceOperation_AppendInNode_Fails)
     {
         Path p("/node/-");
-        PatchOperation op = Patch::ReplaceOperation(p, 42);
+        PatchOperation op = Patch::ReplaceOperation(p, Value(42));
         auto result = op.Apply(m_dataset);
         ASSERT_FALSE(result.IsSuccess());
     }
@@ -277,7 +277,7 @@ namespace AZ::Dom::Tests
     TEST_F(DomPatchTests, ReplaceOperation_InvalidPath_Fails)
     {
         Path p("/non/existent/path");
-        PatchOperation op = Patch::ReplaceOperation(p, 0);
+        PatchOperation op = Patch::ReplaceOperation(p, Value(0));
         auto result = op.Apply(m_dataset);
         ASSERT_FALSE(result.IsSuccess());
     }
@@ -423,7 +423,7 @@ namespace AZ::Dom::Tests
     TEST_F(DomPatchTests, TestOperation_TestCorrectValue_Succeeds)
     {
         Path path("/arr/1");
-        Value value = 1;
+        Value value(1);
         PatchOperation op = Patch::TestOperation(path, value);
         auto result = op.Apply(m_dataset);
         ASSERT_TRUE(result.IsSuccess());
@@ -432,7 +432,7 @@ namespace AZ::Dom::Tests
     TEST_F(DomPatchTests, TestOperation_TestIncorrectValue_Fails)
     {
         Path path("/arr/1");
-        Value value = 55;
+        Value value(55);
         PatchOperation op = Patch::TestOperation(path, value);
         auto result = op.Apply(m_dataset);
         ASSERT_FALSE(result.IsSuccess());
@@ -469,7 +469,7 @@ namespace AZ::Dom::Tests
     TEST_F(DomPatchTests, TestOperation_TestInsertArrayPath_Fails)
     {
         Path path("/arr/-");
-        Value value = 4;
+        Value value(4);
         PatchOperation op = Patch::TestOperation(path, value);
         auto result = op.Apply(m_dataset);
         ASSERT_FALSE(result.IsSuccess());
@@ -483,7 +483,7 @@ namespace AZ::Dom::Tests
 
     TEST_F(DomPatchTests, TestPatch_AppendArrayValue)
     {
-        m_deltaDataset["arr"].ArrayPushBack(7);
+        m_deltaDataset["arr"].ArrayPushBack(Value(7));
         auto result = GenerateAndVerifyDelta();
 
         // Ensure the generated patch uses the array append operation
@@ -493,9 +493,9 @@ namespace AZ::Dom::Tests
 
     TEST_F(DomPatchTests, TestPatch_AppendArrayValues)
     {
-        m_deltaDataset["arr"].ArrayPushBack(7);
-        m_deltaDataset["arr"].ArrayPushBack(8);
-        m_deltaDataset["arr"].ArrayPushBack(9);
+        m_deltaDataset["arr"].ArrayPushBack(Value(7));
+        m_deltaDataset["arr"].ArrayPushBack(Value(8));
+        m_deltaDataset["arr"].ArrayPushBack(Value(9));
         GenerateAndVerifyDelta();
     }
 
@@ -520,9 +520,9 @@ namespace AZ::Dom::Tests
 
     TEST_F(DomPatchTests, TestPatch_AppendNodeValues)
     {
-        m_deltaDataset["node"].ArrayPushBack(7);
-        m_deltaDataset["node"].ArrayPushBack(8);
-        m_deltaDataset["node"].ArrayPushBack(9);
+        m_deltaDataset["node"].ArrayPushBack(Value(7));
+        m_deltaDataset["node"].ArrayPushBack(Value(8));
+        m_deltaDataset["node"].ArrayPushBack(Value(9));
         GenerateAndVerifyDelta();
     }
 
@@ -554,9 +554,9 @@ namespace AZ::Dom::Tests
     TEST_F(DomPatchTests, TestPatch_ReplaceRoot)
     {
         m_deltaDataset = Value(Type::Array);
-        m_deltaDataset.ArrayPushBack(2);
-        m_deltaDataset.ArrayPushBack(4);
-        m_deltaDataset.ArrayPushBack(6);
+        m_deltaDataset.ArrayPushBack(Value(2));
+        m_deltaDataset.ArrayPushBack(Value(4));
+        m_deltaDataset.ArrayPushBack(Value(6));
         GenerateAndVerifyDelta();
     }
 } // namespace AZ::Dom::Tests

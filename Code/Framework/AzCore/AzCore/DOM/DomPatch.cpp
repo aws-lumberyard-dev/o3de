@@ -835,6 +835,26 @@ namespace AZ::Dom
         {
             const size_t beforeSize = before.ArraySize();
             const size_t afterSize = after.ArraySize();
+
+            // If more than replaceThreshold values differ, do a replace operation instead
+            constexpr size_t replaceThreshold = 3;
+            size_t changedValueCount = 0;
+            for (size_t i = 0; i < afterSize; ++i)
+            {
+                if (i < beforeSize)
+                {
+                    if (before[i] != after[i])
+                    {
+                        ++changedValueCount;
+                        if (changedValueCount >= replaceThreshold)
+                        {
+                            AddPatch(Patch::ReplaceOperation(path, after), Patch::ReplaceOperation(path, before));
+                            return;
+                        }
+                    }
+                }
+            }
+
             Path subPath = path;
             for (size_t i = 0; i < afterSize; ++i)
             {

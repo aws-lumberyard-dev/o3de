@@ -141,9 +141,9 @@ namespace AZ::Dom::Tests
         {
             Value entry(Type::Object);
             entry.AddMember("string", createString(n));
-            entry.AddMember("int", n);
-            entry.AddMember("double", static_cast<double>(n) * 0.5);
-            entry.AddMember("bool", n % 2 == 0);
+            entry.AddMember("int", Value(n));
+            entry.AddMember("double", Value(static_cast<double>(n) * 0.5));
+            entry.AddMember("bool", Value(n % 2 == 0));
             entry.AddMember("null", Value(Type::Null));
             return entry;
         };
