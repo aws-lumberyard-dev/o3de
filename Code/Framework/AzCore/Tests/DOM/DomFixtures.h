@@ -24,8 +24,10 @@ namespace AZ::Dom::Tests
     class DomTestHarness
     {
     public:
-        void SetUpHarness();
-        void TearDownHarness();
+        virtual ~DomTestHarness() = default;
+
+        virtual void SetUpHarness();
+        virtual void TearDownHarness();
     };
 
     class DomBenchmarkFixture

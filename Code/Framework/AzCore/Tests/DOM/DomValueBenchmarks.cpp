@@ -31,14 +31,14 @@ namespace AZ::Dom::Benchmark
 
         for (auto _ : state)
         {
-            benchmark::DoNotOptimize(intValue.GetType());
-            benchmark::DoNotOptimize(boolValue.GetType());
-            benchmark::DoNotOptimize(objValue.GetType());
-            benchmark::DoNotOptimize(nodeValue.GetType());
-            benchmark::DoNotOptimize(arrValue.GetType());
-            benchmark::DoNotOptimize(uintValue.GetType());
-            benchmark::DoNotOptimize(doubleValue.GetType());
-            benchmark::DoNotOptimize(stringValue.GetType());
+            (intValue.GetType());
+            (boolValue.GetType());
+            (objValue.GetType());
+            (nodeValue.GetType());
+            (arrValue.GetType());
+            (uintValue.GetType());
+            (doubleValue.GetType());
+            (stringValue.GetType());
         }
     }
     BENCHMARK_REGISTER_F(DomValueBenchmark, AzDomValueGetType_UsingVariantIndex);
@@ -57,7 +57,7 @@ namespace AZ::Dom::Benchmark
         auto getTypeViaVisit = [](const Value& value)
         {
             return AZStd::visit(
-                [](auto&& value) -> Type
+                [](auto&& value) constexpr -> Type
                 {
                     using CurrentType = AZStd::decay_t<decltype(value)>;
                     if constexpr (AZStd::is_same_v<CurrentType, AZStd::monostate>)
@@ -118,14 +118,14 @@ namespace AZ::Dom::Benchmark
 
         for (auto _ : state)
         {
-            benchmark::DoNotOptimize(getTypeViaVisit(intValue));
-            benchmark::DoNotOptimize(getTypeViaVisit(boolValue));
-            benchmark::DoNotOptimize(getTypeViaVisit(objValue));
-            benchmark::DoNotOptimize(getTypeViaVisit(nodeValue));
-            benchmark::DoNotOptimize(getTypeViaVisit(arrValue));
-            benchmark::DoNotOptimize(getTypeViaVisit(uintValue));
-            benchmark::DoNotOptimize(getTypeViaVisit(doubleValue));
-            benchmark::DoNotOptimize(getTypeViaVisit(stringValue));
+            (getTypeViaVisit(intValue));
+            (getTypeViaVisit(boolValue));
+            (getTypeViaVisit(objValue));
+            (getTypeViaVisit(nodeValue));
+            (getTypeViaVisit(arrValue));
+            (getTypeViaVisit(uintValue));
+            (getTypeViaVisit(doubleValue));
+            (getTypeViaVisit(stringValue));
         }
     }
     BENCHMARK_REGISTER_F(DomValueBenchmark, AzDomValueGetType_UsingVariantVisit);

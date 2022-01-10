@@ -6,90 +6,139 @@
  *
  */
 
+#include <AzCore/DOM/DomPatch.h>
 #include <AzCore/DOM/DomUtils.h>
 #include <AzCore/DOM/DomValue.h>
 #include <AzCore/Name/NameDictionary.h>
 #include <AzCore/UnitTest/TestTypes.h>
 #include <Tests/DOM/DomFixtures.h>
-#include <AzCore/DOM/DomPatch.h>
 
 namespace AZ::Dom::Benchmark
 {
-    using DomPatchBenchmark = Tests::DomBenchmarkFixture;
-
-    BENCHMARK_DEFINE_F(DomPatchBenchmark, AzDomPatchApplySimpleReplace)(benchmark::State& state)
+    class DomPatchBenchmark : public Tests::DomBenchmarkFixture
     {
-        Value before = GenerateDomBenchmarkPayload(state.range(0), state.range(1));
-        Value after = before;
-        after["entries"]["Key0"] = Value("replacement string", true);
-
-        for (auto _ : state)
+    public:
+        void TearDownHarness() override
         {
-            auto patchInfo = GenerateHierarchicalDeltaPatch(before, after);
-            auto patchResult = patchInfo.m_forwardPatches.Apply(before);
-            benchmark::DoNotOptimize(patchResult);
+            m_before = {};
+            m_after = {};
+            Tests::DomBenchmarkFixture::TearDownHarness();
         }
-    }
-    DOM_REGISTER_SERIALIZATION_BENCHMARK_NS(DomPatchBenchmark, AzDomPatchApplySimpleReplace)
 
-    BENCHMARK_DEFINE_F(DomPatchBenchmark, AzDomPatchApplyTopLevelReplace)(benchmark::State& state)
+        void SimpleReplace(benchmark::State& state, bool deepCopy)
+        {
+            m_before = GenerateDomBenchmarkPayload(state.range(0), state.range(1));
+            m_after = deepCopy ? Utils::DeepCopy(m_before) : m_before;
+            m_after["entries"]["Key0"] = Value("replacement string", true);
+
+            BenchmarkPatchGenerateAndApply(state);
+        }
+
+        void TopLevelReplace(benchmark::State& state)
+        {
+            m_before = GenerateDomBenchmarkPayload(state.range(0), state.range(1));
+            m_after = Value(Type::Object);
+            m_after["UnrelatedKey"] = Value(42);
+
+            BenchmarkPatchGenerateAndApply(state);
+        }
+
+        void KeyRemove(benchmark::State& state, bool deepCopy)
+        {
+            m_before = GenerateDomBenchmarkPayload(state.range(0), state.range(1));
+            m_after = deepCopy ? Utils::DeepCopy(m_before) : m_before;
+            m_after["entries"].RemoveMember("Key1");
+
+            BenchmarkPatchGenerateAndApply(state);
+        }
+
+        void ArrayAppend(benchmark::State& state, bool deepCopy)
+        {
+            m_before = GenerateDomBenchmarkPayload(state.range(0), state.range(1));
+            m_after = deepCopy ? Utils::DeepCopy(m_before) : m_before;
+            m_after["entries"]["Key2"].ArrayPushBack(Value(0));
+
+            BenchmarkPatchGenerateAndApply(state);
+        }
+
+        void ArrayPrepend(benchmark::State& state, bool deepCopy)
+        {
+            m_before = GenerateDomBenchmarkPayload(state.range(0), state.range(1));
+            m_after = deepCopy ? Utils::DeepCopy(m_before) : m_before;
+            auto& arr = m_after["entries"]["Key2"].GetMutableArray();
+            arr.insert(arr.begin(), Value(42));
+
+            BenchmarkPatchGenerateAndApply(state);
+        }
+
+    private:
+        void BenchmarkPatchGenerateAndApply(benchmark::State&state)
+        {
+            for (auto _ : state)
+            {
+                auto patchInfo = GenerateHierarchicalDeltaPatch(m_before, m_after);
+                auto patchResult = patchInfo.m_forwardPatches.Apply(m_before);
+                benchmark::DoNotOptimize(patchResult);
+            }
+
+            state.SetItemsProcessed(state.iterations());
+        }
+
+        Value m_before;
+        Value m_after;
+    };
+
+    BENCHMARK_DEFINE_F(DomPatchBenchmark, AzDomPatch_SimpleReplace_ShallowCopy)(benchmark::State& state)
     {
-        Value before = GenerateDomBenchmarkPayload(state.range(0), state.range(1));
-        Value after = Value(Type::Object);
-        after["UnrelatedKey"] = Value(42);
-
-        for (auto _ : state)
-        {
-            auto patchInfo = GenerateHierarchicalDeltaPatch(before, after);
-            auto patchResult = patchInfo.m_forwardPatches.Apply(before);
-            benchmark::DoNotOptimize(patchResult);
-        }
+        SimpleReplace(state, false);
     }
-    DOM_REGISTER_SERIALIZATION_BENCHMARK_NS(DomPatchBenchmark, AzDomPatchApplyTopLevelReplace)
+    DOM_REGISTER_SERIALIZATION_BENCHMARK_MS(DomPatchBenchmark, AzDomPatch_SimpleReplace_ShallowCopy)
 
-    BENCHMARK_DEFINE_F(DomPatchBenchmark, AzDomPatchApplyKeyRemove)(benchmark::State& state)
+    BENCHMARK_DEFINE_F(DomPatchBenchmark, AzDomPatch_SimpleReplace_DeepCopy)(benchmark::State& state)
     {
-        Value before = GenerateDomBenchmarkPayload(state.range(0), state.range(1));
-        Value after = before;
-        before["entries"].RemoveMember("Key1");
-
-        for (auto _ : state)
-        {
-            auto patchInfo = GenerateHierarchicalDeltaPatch(before, after);
-            auto patchResult = patchInfo.m_forwardPatches.Apply(before);
-            benchmark::DoNotOptimize(patchResult);
-        }
+        SimpleReplace(state, true);
     }
-    DOM_REGISTER_SERIALIZATION_BENCHMARK_NS(DomPatchBenchmark, AzDomPatchApplyKeyRemove)
+    DOM_REGISTER_SERIALIZATION_BENCHMARK_MS(DomPatchBenchmark, AzDomPatch_SimpleReplace_DeepCopy)
 
-    BENCHMARK_DEFINE_F(DomPatchBenchmark, AzDomPatchApplyArrayAppend)(benchmark::State& state)
+    BENCHMARK_DEFINE_F(DomPatchBenchmark, AzDomPatch_TopLevelReplace)(benchmark::State& state)
     {
-        Value before = GenerateDomBenchmarkPayload(state.range(0), state.range(1));
-        Value after = before;
-        before["entries"]["Key2"].ArrayPushBack(Value(0));
-
-        for (auto _ : state)
-        {
-            auto patchInfo = GenerateHierarchicalDeltaPatch(before, after);
-            auto patchResult = patchInfo.m_forwardPatches.Apply(before);
-            benchmark::DoNotOptimize(patchResult);
-        }
+        TopLevelReplace(state);
     }
-    DOM_REGISTER_SERIALIZATION_BENCHMARK_NS(DomPatchBenchmark, AzDomPatchApplyArrayAppend)
+    DOM_REGISTER_SERIALIZATION_BENCHMARK_MS(DomPatchBenchmark, AzDomPatch_TopLevelReplace)
 
-    BENCHMARK_DEFINE_F(DomPatchBenchmark, AzDomPatchApplyArrayPrepend)(benchmark::State& state)
+    BENCHMARK_DEFINE_F(DomPatchBenchmark, AzDomPatch_KeyRemove_ShallowCopy)(benchmark::State& state)
     {
-        Value before = GenerateDomBenchmarkPayload(state.range(0), state.range(1));
-        Value after = before;
-        auto& arr = before["entries"]["Key2"].GetMutableArray();
-        arr.insert(arr.begin(), Value(42));
-
-        for (auto _ : state)
-        {
-            auto patchInfo = GenerateHierarchicalDeltaPatch(before, after);
-            auto patchResult = patchInfo.m_forwardPatches.Apply(before);
-            benchmark::DoNotOptimize(patchResult);
-        }
+        KeyRemove(state, false);
     }
-    DOM_REGISTER_SERIALIZATION_BENCHMARK_NS(DomPatchBenchmark, AzDomPatchApplyArrayPrepend)
-}
+    DOM_REGISTER_SERIALIZATION_BENCHMARK_MS(DomPatchBenchmark, AzDomPatch_KeyRemove_ShallowCopy)
+
+    BENCHMARK_DEFINE_F(DomPatchBenchmark, AzDomPatch_KeyRemove_DeepCopy)(benchmark::State& state)
+    {
+        KeyRemove(state, true);
+    }
+    DOM_REGISTER_SERIALIZATION_BENCHMARK_MS(DomPatchBenchmark, AzDomPatch_KeyRemove_DeepCopy)
+
+    BENCHMARK_DEFINE_F(DomPatchBenchmark, AzDomPatch_ArrayAppend_ShallowCopy)(benchmark::State& state)
+    {
+        ArrayAppend(state, false);
+    }
+    DOM_REGISTER_SERIALIZATION_BENCHMARK_MS(DomPatchBenchmark, AzDomPatch_ArrayAppend_ShallowCopy)
+
+    BENCHMARK_DEFINE_F(DomPatchBenchmark, AzDomPatch_ArrayAppend_DeepCopy)(benchmark::State& state)
+    {
+        ArrayAppend(state, true);
+    }
+    DOM_REGISTER_SERIALIZATION_BENCHMARK_MS(DomPatchBenchmark, AzDomPatch_ArrayAppend_DeepCopy)
+
+    BENCHMARK_DEFINE_F(DomPatchBenchmark, AzDomPatch_ArrayPrepend_ShallowCopy)(benchmark::State& state)
+    {
+        ArrayPrepend(state, false);
+    }
+    DOM_REGISTER_SERIALIZATION_BENCHMARK_MS(DomPatchBenchmark, AzDomPatch_ArrayPrepend_ShallowCopy)
+
+    BENCHMARK_DEFINE_F(DomPatchBenchmark, AzDomPatch_ArrayPrepend_DeepCopy)(benchmark::State& state)
+    {
+        ArrayPrepend(state, true);
+    }
+    DOM_REGISTER_SERIALIZATION_BENCHMARK_MS(DomPatchBenchmark, AzDomPatch_ArrayPrepend_DeepCopy)
+} // namespace AZ::Dom::Benchmark
