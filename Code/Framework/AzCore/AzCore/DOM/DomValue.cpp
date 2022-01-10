@@ -1083,6 +1083,10 @@ namespace AZ::Dom
                 {
                     result = visitor.RefCountedString(arg, copyStrings ? Lifetime::Temporary : Lifetime::Persistent);
                 }
+                else if constexpr (AZStd::is_same_v<Alternative, ShortStringType>)
+                {
+                    result = visitor.String(arg, copyStrings ? Lifetime::Temporary : Lifetime::Persistent);
+                }
                 else if constexpr (AZStd::is_same_v<Alternative, ObjectPtr>)
                 {
                     result = visitor.StartObject();
