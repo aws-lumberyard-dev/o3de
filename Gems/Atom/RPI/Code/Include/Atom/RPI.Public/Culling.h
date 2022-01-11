@@ -143,7 +143,7 @@ namespace AZ
 
             // UI Options
             bool m_enableStats = false;
-            bool m_enableFrustumCulling = true;
+            bool m_enableFrustumCulling = false;
             bool m_parallelOctreeTraversal = true;
             bool m_freezeFrustums = false;
             bool m_debugDraw = false;

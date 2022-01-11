@@ -36,6 +36,8 @@
 //Enable this to more easily see which jobs are associated with which view.
 //#define AZ_CULL_PROFILE_VERBOSE   
 
+#pragma optimize("",off)
+
 namespace AZ
 {
     namespace RPI
@@ -614,6 +616,7 @@ namespace AZ
                 }
             };
 
+            m_debugCtx.m_enableFrustumCulling = false;  // [Adi] - skip culling for now.
             if (m_debugCtx.m_enableFrustumCulling)
             {
                 m_visScene->Enumerate(frustum, nodeVisitorLambda);                    
@@ -673,7 +676,7 @@ namespace AZ
             switch (lodData.m_lodConfiguration.m_lodType)
             {
                 case Cullable::LodType::SpecificLod:
-                    if (lodData.m_lodConfiguration.m_lodOverride < lodData.m_lods.size())
+//                    if (lodData.m_lodConfiguration.m_lodOverride < lodData.m_lods.size())
                     {
                         addLodToDrawPacket(lodData.m_lods.at(lodData.m_lodConfiguration.m_lodOverride));
                     }
@@ -683,7 +686,7 @@ namespace AZ
                     for (const Cullable::LodData::Lod& lod : lodData.m_lods)
                     {
                         // Note that this supports overlapping lod ranges (to suport cross-fading lods, for example)
-                        if (approxScreenPercentage >= lod.m_screenCoverageMin && approxScreenPercentage <= lod.m_screenCoverageMax)
+//                        if (approxScreenPercentage >= lod.m_screenCoverageMin && approxScreenPercentage <= lod.m_screenCoverageMax)
                         {
                             addLodToDrawPacket(lod);
                         }
@@ -806,3 +809,5 @@ namespace AZ
 
     } // namespace RPI
 } // namespace AZ
+
+#pragma optimize("",on)

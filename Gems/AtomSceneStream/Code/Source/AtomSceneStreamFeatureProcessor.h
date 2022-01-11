@@ -46,7 +46,7 @@ namespace AZ
         using ThreadMapByName = AZStd::unordered_map<AZStd::string, MeshCreationStruct>;
 //        using ModelsMapByName = AZStd::unordered_map<AZStd::string, uint32_t>;
 
-        const uint32_t GPU_MEMORY_LIMIT = 512 * 1024 * 1024; // 1 GiB
+        const uint32_t GPU_MEMORY_LIMIT = 768 * 1024 * 1024; // 1 GiB
 
         class AtomSceneStreamFeatureProcessor final
             : public RPI::FeatureProcessor

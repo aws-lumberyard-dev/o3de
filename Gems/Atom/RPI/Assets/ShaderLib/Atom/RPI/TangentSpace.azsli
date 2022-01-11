@@ -43,7 +43,8 @@ float3 GetTangentSpaceNormal_Unnormalized(float2 normalMapSample, float normalSt
     float3 surfaceNormal;
 
     // [GFX TODO][ATOM-2404] For some reason, the image build pipeline swaps the R and G channels so we swap them back here.
-    surfaceNormal.xy = normalMapSample.yx;
+//    surfaceNormal.xy = normalMapSample.yx;
+    surfaceNormal.xy = normalMapSample.xy;
 
     // The image build pipeline drops the B channel so we have to reconstruct it here.
     surfaceNormal.z = sqrt(1 - dot(surfaceNormal.xy, surfaceNormal.xy));

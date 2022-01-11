@@ -436,13 +436,18 @@ namespace AZ
 //                        DebugDrawMeshes(auxGeom, currentMesh, Colors::Green);
                     }
 
+                    // The following two lines are not required unless one wants to change some of
+                    // the material's flags and inspect the render (normals direction, etc..)
+                    AtomSceneStream::Material* currentMaterial = currentMesh->GetMaterial();
+                    currentMaterial->PrepareMaterial();
+
                     // The material was not compiled yet - this is required for good data
                     if (!currentMesh->Compile(scene))
                     {
-                        AZ_Warning("AtomSceneStream", false, "Warning -- Model [%s] with Material [%s] was not compiled - skipping render",
+                        AZ_Warning("AtomSceneStream", false, "Warning -- Model [%s] with Material [%s] was not compiled",// - skipping render",
                             currentMesh->GetMaterial()->GetName().c_str(), currentMesh->GetName().c_str());
                         DebugDraw(auxGeom, currentMesh, offset, Colors::Red);
-                        continue;
+ //                       continue;
                     }
 
                     // The draw packet failed to acquire the RHI Draw Packet - this will require update
@@ -602,7 +607,7 @@ namespace AZ
                     assetLoad.finish(UmbraAssetLoadResult_Success);
                 }
 
-                // While the mesh creation failed, following assets can still be created, therfore return true
+                // While the mesh creation failed, following assets can still be created, therefore return true
                 // to continue the streaming loop
                 return true;
             }

@@ -21,21 +21,27 @@
 
 #pragma optimize("", off)
 
-// All of these were taken with X <--> Y to remove Atom tweak on that
-// Y = true, X = false      --> 
-// Y = false, X = false     --> 
-// Y = false, X = true      --> 
-// Y = true, X = true       --> 
+// For correctness of normals one needs to refer to the following Atom shader files:
+// - TangentSpace.azsli: in line 46 one need to decide of the XY should be kept or swizzled.
+//      Currently Atom is switching the channels: surfaceNormal.xy = normalMapSample.yx;
+// - NormalInput.azsli: Atom is keeping samples as they are without moving it to [-1..+1] space
+//      Added operation in SampleNormalXY can be: sampledValue.xyz =  (sampledValue.xyz * 2.0) - 1.0;
+//
+// XY = XY removing Atom switch
+// Y = true, X = false     
+// Y = false, X = false     -->  Yes based on normal render
+// Y = false, X = true     
+// Y = true, X = true       
 
-// All of these were taken with X <--> Y as per Atom ==>
+// Switch X <--> Y as per Atom ==> XY = YX
 //      All combinations failed and they seem green when supposed to be red, hence RG switch
-// Y = true, X = false      --> NO
-// Y = false, X = false     --> NO
-// Y = false, X = true      --> NO
-// Y = true, X = true       --> NO
-static bool flipY = true;  
-static bool flipX = false;
-static float normalScaleFactor = 3.0f;
+// Y = true, X = false      
+// Y = false, X = false     
+// Y = false, X = true      
+// Y = true, X = true       --> Yes based on normal render
+static bool flipY = false;  
+static bool flipX = true;
+static float normalScaleFactor = 1.0f;
 static bool disableNormalTexture = true;
 static bool printCreationMessages = false;
 
@@ -179,22 +185,16 @@ namespace AZ
                     m_atomMaterial->SetPropertyValue(normTextureIndex, m_normal->GetStreamingImage());
                     m_atomMaterial->SetPropertyValue(useNormTextureIndex, true);
 
-                    if (flipX)
-                    {
-                        RPI::MaterialPropertyIndex normFlipXIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.flipX"));
-                        if (normFlipXIndex.IsValid())
-                        {   // This does not seem to be valid for some reason
-                            m_atomMaterial->SetPropertyValue(normFlipXIndex, true);
-                        }
+                    RPI::MaterialPropertyIndex normFlipXIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.flipX"));
+                    if (normFlipXIndex.IsValid())
+                    {   // This does not seem to be valid for some reason
+                        m_atomMaterial->SetPropertyValue(normFlipXIndex, flipX);
                     }
 
-                    if (flipY)
-                    {
-                        RPI::MaterialPropertyIndex normFlipYIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.flipY"));
-                        if (normFlipYIndex.IsValid())
-                        {   // This does not seem to be valid for some reason
-                            m_atomMaterial->SetPropertyValue(normFlipYIndex, true);
-                        }
+                    RPI::MaterialPropertyIndex normFlipYIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.flipY"));
+                    if (normFlipYIndex.IsValid())
+                    {   // This does not seem to be valid for some reason
+                        m_atomMaterial->SetPropertyValue(normFlipYIndex, flipY);
                     }
 
                     RPI::MaterialPropertyIndex normalFactorIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("normal.factor"));
@@ -217,12 +217,6 @@ namespace AZ
                 {
                     m_atomMaterial->SetPropertyValue(specTextureIndex, m_specular->GetStreamingImage());
                     m_atomMaterial->SetPropertyValue(useSpecTextureIndex, true);
-
-                    RPI::MaterialPropertyIndex specFlipYIndex = m_atomMaterial->FindPropertyIndex(AZ::Name("specularF0.flipY"));
-                    if (specFlipYIndex.IsValid())
-                    {   // This does not seem to be valid for some reason
-                        m_atomMaterial->SetPropertyValue(specFlipYIndex, true);
-                    }
                 }
                 else if (!m_specular || !m_specular->GetStreamingImage())
                 {

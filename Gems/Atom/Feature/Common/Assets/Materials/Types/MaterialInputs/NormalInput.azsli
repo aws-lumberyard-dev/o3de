@@ -32,6 +32,8 @@ option bool prefix##o_normal_useTexture;
 float2 SampleNormalXY(Texture2D map, sampler mapSampler, float2 uv)
 {
     float4 sampledValue = map.Sample(mapSampler, uv);
+
+    sampledValue.xyz =  (sampledValue.xyz * 2.0) - 1.0;
     
 #if AZ_TRAIT_ASTC_COMPRESSION
     //Astc compression is unorm (0 to 1) so we need to accomodate for that. We are using BC5_SNORM (-1 - +1)for other platforms like pc
@@ -50,7 +52,6 @@ float2 SampleNormalXY(Texture2D map, sampler mapSampler, float2 uv, bool flipX, 
 {
     float2 sampledValue = SampleNormalXY(map, mapSampler, uv);
 
-    // [GFX TODO][ATOM-2404] For some reason, the image build pipeline swaps the R and G channels
     if(flipX)
     {
         sampledValue.y = -sampledValue.y;
