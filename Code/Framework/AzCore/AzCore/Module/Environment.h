@@ -142,6 +142,18 @@ namespace AZ
 
         /// Returns true if an environment is attached to this module
         bool IsReady();
+
+        class EnvironmentCallback
+        {
+        public:
+            virtual void Attached() = 0;
+            virtual void WillDetach() = 0;
+            virtual void Created() = 0;
+            virtual void WillDestroy() = 0;
+        };
+
+        void AddCallback(EnvironmentCallback* callback);
+        void RemoveCallback(EnvironmentCallback* callback);
     };
 
     namespace Internal

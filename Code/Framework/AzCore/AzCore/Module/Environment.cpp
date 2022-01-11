@@ -111,9 +111,26 @@ namespace AZ
                 allocator->DeAllocate(this);
             }
         }
-
+       
         // instance of the environment
         EnvironmentInterface* EnvironmentInterface::s_environment = nullptr;
+
+        class ModuleAllocator : public Environment::AllocatorInterface
+        {
+        public:
+            void* Allocate(size_t byteSize, size_t alignment) override
+            {
+                return AZ_OS_MALLOC(byteSize, alignment);
+            }
+
+            void DeAllocate(void* address) override
+            {
+                AZ_OS_FREE(address);
+            }
+        };
+
+        ModuleAllocator s_moduleAllocator;
+        AZStd::vector<Environment::EnvironmentCallback*, OSStdAllocator> s_environmentCallbacks(&s_moduleAllocator);
 
         /**
          *
@@ -373,11 +390,15 @@ namespace AZ
                 }
             }
 
+            static CleanUp& GetInstance()
+            {
+                static CleanUp s_environmentCleanUp;
+                return s_environmentCleanUp;
+            }
+
             bool m_isOwner;        ///< This is not really needed just to make sure the compiler doesn't optimize the code out.
             bool m_isAttached;     ///< True if this environment is attached in anyway.
         };
-
-        static CleanUp      g_environmentCleanUp;
 
         EnvironmentInterface* EnvironmentImpl::Get()
         {
@@ -415,15 +436,24 @@ namespace AZ
                 }
             }
 
-            g_environmentCleanUp.m_isAttached = true;
+            CleanUp::GetInstance().m_isAttached = true;
+            for (Environment::EnvironmentCallback* callback : Internal::s_environmentCallbacks)
+            {
+                callback->Attached();
+            }
         }
 
         void EnvironmentImpl::Detach()
         {
-            if (s_environment && g_environmentCleanUp.m_isAttached)
+            if (s_environment && CleanUp::GetInstance().m_isAttached)
             {
+                for (Environment::EnvironmentCallback* callback : Internal::s_environmentCallbacks)
+                {
+                    callback->WillDetach();
+                }
+
                 AZStd::lock_guard<AZStd::recursive_mutex> lock(s_environment->GetLock());
-                if (g_environmentCleanUp.m_isOwner)
+                if (CleanUp::GetInstance().m_isOwner)
                 {
                     if (s_environment->GetFallback())
                     {
@@ -431,13 +461,11 @@ namespace AZ
                         s_environment->DetachFallback();
                     }
                 }
-                else
-                {
-                    s_environment->ReleaseRef();
-                    s_environment = nullptr;
-                }
 
-                g_environmentCleanUp.m_isAttached = false;
+                s_environment->ReleaseRef();
+                s_environment = nullptr;
+
+                CleanUp::GetInstance().m_isAttached = false;
             }
         }
 
@@ -469,6 +497,18 @@ namespace AZ
             return Internal::EnvironmentInterface::s_environment != nullptr;
         }
 
+        void AddCallback(EnvironmentCallback* callback)
+        {
+            Internal::s_environmentCallbacks.emplace_back(callback);
+        }
+
+        void RemoveCallback(EnvironmentCallback* callback)
+        {
+            Internal::s_environmentCallbacks.erase(
+                AZStd::remove(Internal::s_environmentCallbacks.begin(), Internal::s_environmentCallbacks.end(), callback),
+                Internal::s_environmentCallbacks.end());
+        }
+
         EnvironmentInstance GetInstance()
         {
             return Internal::EnvironmentImpl::Get();
@@ -476,17 +516,8 @@ namespace AZ
 
         void* GetModuleId()
         {
-            return &Internal::g_environmentCleanUp;
+            return &Internal::CleanUp::GetInstance();
         }
-
-        class ModuleAllocator
-            : public AllocatorInterface
-        {
-        public:
-            void* Allocate(size_t byteSize, size_t alignment) override { return AZ_OS_MALLOC(byteSize, alignment); }
-
-            void DeAllocate(void* address) override { AZ_OS_FREE(address); }
-        };
 
         bool Create(AllocatorInterface* allocator)
         {
@@ -497,23 +528,33 @@ namespace AZ
 
             if (!allocator)
             {
-                static ModuleAllocator s_moduleAllocator;
+                static Internal::ModuleAllocator s_moduleAllocator;
                 allocator = &s_moduleAllocator;
             }
 
             Internal::EnvironmentImpl::s_environment = new(allocator->Allocate(sizeof(Internal::EnvironmentImpl), AZStd::alignment_of<Internal::EnvironmentImpl>::value)) Internal::EnvironmentImpl(allocator);
             AZ_Assert(Internal::EnvironmentImpl::s_environment, "We failed to allocate memory from the OS for environment storage %d bytes!", sizeof(Internal::EnvironmentImpl));
-            Internal::g_environmentCleanUp.m_isOwner = true;
+            Internal::CleanUp::GetInstance().m_isOwner = true;
+
+            for (Environment::EnvironmentCallback* callback : Internal::s_environmentCallbacks)
+            {
+                callback->Created();
+            }
 
             return true;
         }
 
         void Destroy()
         {
-            if (!Internal::g_environmentCleanUp.m_isAttached && Internal::g_environmentCleanUp.m_isOwner)
+            if (!Internal::CleanUp::GetInstance().m_isAttached && Internal::CleanUp::GetInstance().m_isOwner)
             {
-                Internal::g_environmentCleanUp.m_isOwner = false;
-                Internal::g_environmentCleanUp.m_isAttached = false;
+                for (Environment::EnvironmentCallback* callback : Internal::s_environmentCallbacks)
+                {
+                    callback->WillDestroy();
+                }
+
+                Internal::CleanUp::GetInstance().m_isOwner = false;
+                Internal::CleanUp::GetInstance().m_isAttached = false;
 
                 Internal::EnvironmentImpl::s_environment->DeleteThis();
                 Internal::EnvironmentImpl::s_environment = nullptr;
