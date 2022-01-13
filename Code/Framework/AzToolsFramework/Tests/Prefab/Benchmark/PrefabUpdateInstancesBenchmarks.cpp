@@ -127,7 +127,7 @@ namespace Benchmark
 
                 state.ResumeTiming();
 
-                m_instanceUpdateExecutorInterface->AddTemplateInstancesToQueue(templateToInstantiateId);
+                m_instanceUpdateExecutorInterface->AddTemplateInstancesToQueue(templateToInstantiateId, *nestedInstance);
                 m_instanceUpdateExecutorInterface->UpdateTemplateInstancesInQueue();
 
                 state.PauseTiming();
