@@ -27,12 +27,21 @@ namespace Benchmark
         for (auto _ : state)
         {
             state.PauseTiming();
-
+            /*
             AZ::Entity* entity = CreateEntity("Entity");
             AZStd::unique_ptr<Instance> nestedInstance = m_prefabSystemComponent->CreatePrefab(
                 { entity },
                 {},
-                nestedTemplatePath);
+                nestedTemplatePath);*/
+
+            AZStd::vector<AZ::Entity*> entities;
+            for (int i = 0; i < 99; i++)
+            {
+                entities.emplace_back(CreateEntity("Entity"));
+            }
+            AZ::Entity* entity = CreateEntity("Entity");
+            entities.emplace_back(entity);
+            AZStd::unique_ptr<Instance> nestedInstance = m_prefabSystemComponent->CreatePrefab(entities, {}, nestedTemplatePath);
 
             AZStd::unique_ptr<Instance> enclosingInstance = m_prefabSystemComponent->CreatePrefab(
                 {},
@@ -73,6 +82,68 @@ namespace Benchmark
         state.SetComplexityN(numInstances);
     }
     BENCHMARK_REGISTER_F(BM_PrefabUpdateInstances, UpdateInstances_SingeEntityInstances)
+        ->RangeMultiplier(10)
+        ->Range(100, 10000)
+        ->Unit(benchmark::kMillisecond)
+        ->Complexity();
+
+    BENCHMARK_DEFINE_F(BM_PrefabUpdateInstances, UpdateInstances_MultipleEntityInstances)(::benchmark::State& state)
+    {
+        const unsigned int numInstances = 1;
+        const unsigned int numEntities = static_cast<unsigned int>(state.range());
+
+        CreateFakePaths(1);
+        const auto& nestedTemplatePath = m_paths.front();
+
+        for (auto _ : state)
+        {
+            state.PauseTiming();
+
+            AZStd::vector<AZ::Entity*> entities;
+            for (unsigned int i = 1; i < numEntities; i++)
+            {
+                entities.emplace_back(CreateEntity("Entity"));
+            }
+            AZ::Entity* entity = CreateEntity("Entity");
+            entities.emplace_back(entity);
+            AZStd::unique_ptr<Instance> nestedInstance = m_prefabSystemComponent->CreatePrefab(entities, {}, nestedTemplatePath);
+            TemplateId templateToInstantiateId = nestedInstance->GetTemplateId();
+            AZStd::unique_ptr<Instance> instanceToUseForPropagation = m_prefabSystemComponent->InstantiatePrefab(templateToInstantiateId);
+            {
+                /*
+                AZStd::vector<AZStd::unique_ptr<Instance>> newInstances;
+                newInstances.reserve(numInstances);
+                for (unsigned int instanceCounter = 0; instanceCounter < numInstances; instanceCounter++)
+                {
+                    newInstances[instanceCounter] = m_prefabSystemComponent->InstantiatePrefab(templateToInstantiateId);
+                }*/
+                
+                entity->SetName("Updated Entity");
+
+                PrefabDom updatedPrefabDom;
+                PrefabDomUtils::StoreInstanceInPrefabDom(*nestedInstance, updatedPrefabDom);
+                PrefabDom& enclosingTemplatePrefabDom = m_prefabSystemComponent->FindTemplateDom(templateToInstantiateId);
+                enclosingTemplatePrefabDom.CopyFrom(updatedPrefabDom, enclosingTemplatePrefabDom.GetAllocator());
+
+                state.ResumeTiming();
+
+                m_instanceUpdateExecutorInterface->AddTemplateInstancesToQueue(templateToInstantiateId);
+                m_instanceUpdateExecutorInterface->UpdateTemplateInstancesInQueue();
+
+                state.PauseTiming();
+            }
+
+            nestedInstance.reset();
+            instanceToUseForPropagation.reset();
+
+            ResetPrefabSystem();
+
+            state.ResumeTiming();
+        }
+
+        state.SetComplexityN(numEntities);
+    }
+    BENCHMARK_REGISTER_F(BM_PrefabUpdateInstances, UpdateInstances_MultipleEntityInstances)
         ->RangeMultiplier(10)
         ->Range(100, 10000)
         ->Unit(benchmark::kMillisecond)
@@ -127,7 +198,12 @@ namespace Benchmark
         }
 
         state.SetComplexityN(numInstances);
-    }
+    } /*
+    BENCHMARK_REGISTER_F(BM_PrefabUpdateInstances, UpdateInstances_SingleLinearNestingOfInstances)
+        ->RangeMultiplier(10)
+        ->Range(10, 1000)
+        ->Unit(benchmark::kMillisecond)
+        ->Complexity();*/
 
     BENCHMARK_DEFINE_F(BM_PrefabUpdateInstances, UpdateInstances_MultipleLinearNestingOfInstances)(::benchmark::State& state)
     {
@@ -188,7 +264,12 @@ namespace Benchmark
         }
 
         state.SetComplexityN(numInstances);
-    }
+    } /*
+    BENCHMARK_REGISTER_F(BM_PrefabUpdateInstances, UpdateInstances_MultipleLinearNestingOfInstances)
+        ->RangeMultiplier(10)
+        ->Range(10, 1000)
+        ->Unit(benchmark::kMillisecond)
+        ->Complexity();*/
 
     BENCHMARK_DEFINE_F(BM_PrefabUpdateInstances, UpdateInstances_BinaryTreeNestedInstanceHierarchy)(::benchmark::State& state)
     {
