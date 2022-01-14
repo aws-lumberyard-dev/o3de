@@ -31,7 +31,7 @@ namespace AZ
     //!
     //! The dictionary must be initialized before Name objects are created.
     //! A Name instance must not be statically declared.
-    class Name
+    class Name final
     {
         friend NameDictionary;
         friend UnitTest::NameTest;
@@ -47,7 +47,7 @@ namespace AZ
         Name(Name&& name);
         Name& operator=(const Name&);
         Name& operator=(Name&&);
-
+        ~Name();
 
         //! Creates an instance of a name from a string. 
         //! The name string is used as a key to lookup an entry in the dictionary, and is not 
@@ -92,6 +92,10 @@ namespace AZ
         //! Returns the string's hash that is used as the key in the NameDictionary.
         Hash GetHash() const
         {
+            if (m_hash == 0)
+            {
+                const_cast<Name*>(this)->SetName(m_view);
+            }
             return m_hash;
         }
 

@@ -66,6 +66,12 @@ namespace AZ
         return s_instance.IsConstructed();
     }
 
+    bool NameDictionary::IsCreated()
+    {
+        using namespace NameDictionaryInternal;
+        return s_instance.IsConstructed();
+    }
+
     NameDictionary& NameDictionary::Instance()
     {
         using namespace NameDictionaryInternal;
@@ -90,23 +96,8 @@ namespace AZ
         for (const auto& keyValue : m_dictionary)
         {
             Internal::NameData* nameData = keyValue.second;
-            const int useCount = keyValue.second->m_useCount;
-            [[maybe_unused]] const bool hadCollision = keyValue.second->m_hashCollision;
-
-            if (useCount == 0)
-            {
-                // Entries that had resolved hash collisions are allowed to remain in the dictionary until shutdown.
-                AZ_Assert(hadCollision, "Only colliding names are allowed to remain in the dictionary");
-                delete nameData;
-            }
-            else
-            {
-                leaksDetected = true;
-                AZ_TracePrintf("NameDictionary", "\tLeaked Name [%3d reference(s)]: hash 0x%08X, '%.*s'\n", useCount, keyValue.first, AZ_STRING_ARG(keyValue.second->GetName()));
-            }
+            delete nameData;
         }
-
-        AZ_Assert(!leaksDetected, "AZ::NameDictionary still has active name references. See debug output for the list of leaked names.");
     }
 
     Name NameDictionary::FindName(Name::Hash hash) const

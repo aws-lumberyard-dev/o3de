@@ -498,20 +498,44 @@ namespace UnitTest
 
     TEST_F(NameTest, ReportLeakedNames)
     {
-        AZ::Internal::NameData* leakedNameData = nullptr;
+        //AZ::Internal::NameData* leakedNameData = nullptr;
         {
             AZ::Name leakedName{ "hello" };
-            AZ_TEST_START_TRACE_SUPPRESSION;
+            //AZ_TEST_START_TRACE_SUPPRESSION;
             AZ::NameDictionary::Destroy();
-            AZ_TEST_STOP_TRACE_SUPPRESSION(1);
+            //AZ_TEST_STOP_TRACE_SUPPRESSION(1);
 
-            leakedNameData = GetNameData(leakedName);
+            // leakedNameData = GetNameData(leakedName);
+
+            // EXPECT_TRUE(leakedName.GetStringView() == "hello");
 
             // Create the dictionary again to avoid crash when the intrusive_ptr in Name tries to access NameDictionary to free it
-            AZ::NameDictionary::Create();
-        } 
+            // AZ::NameDictionary::Create();
+        }
         
-        FreeMemoryFromNameData(leakedNameData); // free it to avoid memory system reporting the leak
+        // FreeMemoryFromNameData(leakedNameData); // free it to avoid memory system reporting the leak
+    }
+
+    static AZ::Name globalName{ "globalName" };
+
+    TEST_F(NameTest, CreateNameBeforeDictionary)
+    {
+        EXPECT_EQ(globalName.GetStringView(), "globalName");
+
+        AZ::NameDictionary::Destroy();
+
+        EXPECT_EQ(globalName.GetStringView(), "globalName");
+
+        AZ::Name earlyInitializedName{ "test" };
+        EXPECT_TRUE(earlyInitializedName.GetStringView() == "test");
+        EXPECT_EQ(earlyInitializedName.GetHash(), 0);
+
+        AZ::NameDictionary::Create();
+        EXPECT_TRUE(earlyInitializedName.GetStringView() == "test");
+        EXPECT_NE(earlyInitializedName.GetHash(), 0);
+
+        EXPECT_EQ(globalName.GetStringView(), "globalName");
+        EXPECT_EQ(globalName, AZ::Name("globalName"));
     }
 
     TEST_F(NameTest, NullTerminatedTest)

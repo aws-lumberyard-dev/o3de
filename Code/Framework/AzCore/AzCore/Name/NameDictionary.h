@@ -61,6 +61,7 @@ namespace AZ
 
         static void Destroy();
         static bool IsReady();
+        static bool IsCreated();
         static NameDictionary& Instance();
 
         //! Makes a Name from the provided raw string. If an entry already exists in the dictionary, it is shared.

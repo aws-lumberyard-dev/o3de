@@ -114,13 +114,27 @@ namespace AZ
     {
         if (!name.empty())
         {
-            AZ_Assert(NameDictionary::IsReady(), "Attempted to initialize Name '%.*s' before the NameDictionary is ready.", AZ_STRING_ARG(name));
+            if (!NameDictionary::IsCreated())
+            {
+                m_view = name;
+                m_hash = 0;
+                return;
+            }
 
             *this = AZStd::move(NameDictionary::Instance().MakeName(name));
         }
         else
         {
             *this = Name();
+        }
+    }
+
+    Name::~Name()
+    {
+        // If the name dictionary is no longer around, we should no longer try to ref count our data
+        if (!NameDictionary::IsReady())
+        {
+            memset(&m_data, 0, sizeof(m_data));
         }
     }
     
