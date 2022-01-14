@@ -358,8 +358,8 @@ set(FILES
     Math/ToString.cpp
     Memory/AllocationRecords.cpp
     Memory/AllocationRecords.h
-    Memory/AllocatorBase.cpp
-    Memory/AllocatorBase.h
+    Memory/AllocatorInterface.h
+    Memory/AllocatorInstance.h
     Memory/AllocatorManager.cpp
     Memory/AllocatorManager.h
     Memory/AllocatorWrapper.h
@@ -368,13 +368,14 @@ set(FILES
     Memory/BestFitExternalMapAllocator.h
     Memory/BestFitExternalMapSchema.cpp
     Memory/BestFitExternalMapSchema.h
+    Memory/ChildAllocatorSchema.h
     Memory/Config.h
     Memory/dlmalloc.inl
     Memory/HeapSchema.h
+    Memory/HphaAllocator.cpp
+    Memory/HphaAllocator.h
     Memory/HphaSchema.cpp
     Memory/HphaSchema.h
-    Memory/IAllocator.cpp
-    Memory/IAllocator.h
     Memory/MallocSchema.cpp
     Memory/MallocSchema.h
     Memory/Memory.cpp
@@ -391,6 +392,7 @@ set(FILES
     Memory/PoolSchema.cpp
     Memory/PoolSchema.h
     Memory/SimpleSchemaAllocator.h
+    Memory/StdAllocator.h
     Memory/SystemAllocator.cpp
     Memory/SystemAllocator.h
     Module/DynamicModuleHandle.cpp

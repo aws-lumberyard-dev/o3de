@@ -149,6 +149,10 @@ namespace AZ
             : Base(name, desc)
         {
         }
+
+        void Merge([[maybe_unused]] PoolAllocator* aOther)
+        {
+        }
     };
 
     template<class Allocator>
@@ -173,6 +177,9 @@ namespace AZ
         }
 
         //////////////////////////////////////////////////////////////////////////
+        void Merge([[maybe_unused]] ThreadPoolAllocator* aOther)
+        {
+        }
     };
 }
 

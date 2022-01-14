@@ -13,10 +13,6 @@
 #endif
 
 #define AZ_GLOBAL_NEW_AND_DELETE_DEFINED
-[[nodiscard]] void* operator new(std::size_t size, const AZ::Internal::AllocatorDummy*) { return AZ::OperatorNew(size); }
-[[nodiscard]] void* operator new[](std::size_t size, const AZ::Internal::AllocatorDummy*) { return AZ::OperatorNewArray(size); }
-[[nodiscard]] void* operator new(std::size_t size, const char* fileName, int lineNum, const char* name, const AZ::Internal::AllocatorDummy*) { return AZ::OperatorNew(size, fileName, lineNum, name); }
-[[nodiscard]] void* operator new[](std::size_t size, const char* fileName, int lineNum, const char* name, const AZ::Internal::AllocatorDummy*) { return AZ::OperatorNewArray(size, fileName, lineNum, name); }
 [[nodiscard]] void* operator new(std::size_t size) { return AZ::OperatorNew(size); }
 [[nodiscard]] void* operator new[](std::size_t size) { return AZ::OperatorNewArray(size); }
 [[nodiscard]] void* operator new(size_t size, const std::nothrow_t&) noexcept { return AZ::OperatorNew(size); }
@@ -35,7 +31,6 @@ void operator delete[](void* ptr, [[maybe_unused]] const char* fileName, [[maybe
 //an http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0035r4.html
 [[nodiscard]] void* operator new(std::size_t size, std::align_val_t align) { return AZ::OperatorNew(size, align); }
 [[nodiscard]] void* operator new(std::size_t size, std::align_val_t align, const std::nothrow_t&) noexcept { return AZ::OperatorNew(size, align); }
-[[nodiscard]] void* operator new(std::size_t size, std::align_val_t align, const char* fileName, int lineNum, const char* name, const AZ::Internal::AllocatorDummy*) { return AZ::OperatorNew(size, align, fileName, lineNum, name); }
 [[nodiscard]] void* operator new[](std::size_t size, std::align_val_t align) { return AZ::OperatorNewArray(size, align); }
 [[nodiscard]] void* operator new[](std::size_t size, std::align_val_t align, const std::nothrow_t&) noexcept { return AZ::OperatorNewArray(size, align); }
 [[nodiscard]] void* operator new[](std::size_t size, std::align_val_t align, const char* fileName, int lineNum, const char* name) { return AZ::OperatorNewArray(size, align, fileName, lineNum, name); }

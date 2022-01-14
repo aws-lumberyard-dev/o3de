@@ -627,6 +627,10 @@ namespace UnitTest
                 : Base("MyThreadPoolAllocator", "Fast thread 1024 byte allocator")
             {
             }
+
+            void Merge([[maybe_unused]] MyThreadPoolAllocator* aOther)
+            {
+            }
         };
 
         void run()

@@ -44,11 +44,4 @@ namespace AZ
     };
 
     using StdLegacyAllocator = AZStdAlloc<LegacyAllocator>;
-
-    // Specialize for the LegacyAllocator to provide one per module that does not use the
-    // environment for its storage
-    template <>
-    class AllocatorInstance<LegacyAllocator> : public Internal::AllocatorInstanceBase<LegacyAllocator>
-    {
-    };
 }

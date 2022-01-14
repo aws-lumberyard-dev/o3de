@@ -168,6 +168,10 @@ namespace Benchmark
         MallocSchemaAllocator()
             : AZ::SimpleSchemaAllocator<AZ::MallocSchema>("MallocSchemaAllocator", "")
         {}
+
+        void Merge([[maybe_unused]] MallocSchemaAllocator* aOther)
+        {
+        }
     };
 
     // We use both this HphaSchemaAllocator and the SystemAllocator configured with Hpha because the SystemAllocator
@@ -180,6 +184,10 @@ namespace Benchmark
         HphaSchemaAllocator()
             : AZ::SimpleSchemaAllocator<AZ::HphaSchema>("TestHphaSchemaAllocator", "")
         {}
+
+        void Merge([[maybe_unused]] HphaSchemaAllocator* aOther)
+        {
+        }
     };
 
     // For the SystemAllocator we inherit so we have a different stack. The SystemAllocator is used globally so we dont want
@@ -191,6 +199,10 @@ namespace Benchmark
 
         TestSystemAllocator()
             : AZ::SystemAllocator()
+        {
+        }
+
+        void Merge([[maybe_unused]] TestSystemAllocator* aOther)
         {
         }
     };

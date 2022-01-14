@@ -16,6 +16,7 @@
 #include <AzCore/std/typetraits/remove_extent.h>
 #include <AzCore/std/utils.h>
 #include <AzCore/Memory/Memory.h>
+#include <AzCore/RTTI/TypeInfo.h>
 #include <memory>
 
 namespace AZStd
@@ -39,13 +40,7 @@ namespace AZStd
     };
 
     template<typename T, typename... Args>
-    AZStd::enable_if_t<!AZStd::is_array<T>::value && AZ::HasAZClassAllocator<T>::value, unique_ptr<T>> make_unique(Args&&... args)
-    {
-        return AZStd::unique_ptr<T>(aznew T(AZStd::forward<Args>(args)...));
-    }
-
-    template<typename T, typename... Args>
-    AZStd::enable_if_t<!AZStd::is_array<T>::value && !AZ::HasAZClassAllocator<T>::value, unique_ptr<T>> make_unique(Args&&... args)
+    AZStd::enable_if_t<!AZStd::is_array<T>::value, unique_ptr<T>> make_unique(Args&&... args)
     {
         return AZStd::unique_ptr<T>(new T(AZStd::forward<Args>(args)...));
     }

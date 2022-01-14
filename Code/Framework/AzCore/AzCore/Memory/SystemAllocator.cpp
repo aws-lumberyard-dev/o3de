@@ -292,9 +292,13 @@ namespace AZ
     //=========================================================================
     SystemAllocator::size_type SystemAllocator::AllocationSize(pointer_type ptr)
     {
-    size_type allocSize = MemorySizeAdjustedDown(m_schema->AllocationSize(ptr));
-
+        size_type allocSize = MemorySizeAdjustedDown(m_schema->AllocationSize(ptr));
         return allocSize;
+    }
+
+    void SystemAllocator::Merge([[maybe_unused]] SystemAllocator& aOther)
+    {
+
     }
 
 } // namespace AZ

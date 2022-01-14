@@ -80,10 +80,10 @@ namespace AZStd
 
         AZ_TYPE_INFO(allocator, "{E9F5A3BE-2B3D-4C62-9E6B-4E00A13AB452}");
 
-        typedef void*               pointer_type;
-        typedef AZStd::size_t       size_type;
-        typedef AZStd::ptrdiff_t    difference_type;
-        typedef AZStd::false_type   allow_memory_leaks;
+        using pointer_type = void*;
+        using size_type = AZStd::size_t;
+        using difference_type = AZStd::ptrdiff_t;
+        using allow_memory_leaks = AZStd::false_type;
 
         AZ_FORCE_INLINE allocator(const char* name = "AZStd::allocator")
             : m_name(name) {}

@@ -8,101 +8,31 @@
 
 #include <AzCore/Memory/OSAllocator.h>
 
+// OS Allocations macros AZ_OS_MALLOC/AZ_OS_FREE
+#include <AzCore/Memory/OSAllocator_Platform.h>
+
 namespace AZ
 {
-    //=========================================================================
-    // OSAllocator
-    // [9/2/2009]
-    //=========================================================================
     OSAllocator::OSAllocator()
-        : AllocatorBase(this, "OSAllocator", "OS allocator, allocating memory directly from the OS (C heap)!")
-        , m_custom(nullptr)
-        , m_numAllocatedBytes(0)
     {
     }
 
-    //=========================================================================
-    // ~OSAllocator
-    // [9/2/2009]
-    //=========================================================================
     OSAllocator::~OSAllocator()
     {
     }
 
-    //=========================================================================
-    // Create
-    // [9/2/2009]
-    //=========================================================================
-    bool OSAllocator::Create(const Descriptor& desc)
+    OSAllocator::pointer OSAllocator::allocate(size_type byteSize, align_type alignment)
     {
-        m_custom = desc.m_custom;
-        m_numAllocatedBytes = 0;
-        return true;
+        return AZ_OS_MALLOC(byteSize, static_cast<AZStd::size_t>(alignment));
     }
 
-    //=========================================================================
-    // Destroy
-    // [9/2/2009]
-    //=========================================================================
-    void OSAllocator::Destroy()
+    void OSAllocator::deallocate(pointer ptr, size_type)
     {
+        AZ_OS_FREE(ptr);
     }
 
-    //=========================================================================
-    // GetDebugConfig
-    // [10/14/2018]
-    //=========================================================================
-    AllocatorDebugConfig OSAllocator::GetDebugConfig()
+    OSAllocator::pointer OSAllocator::reallocate(pointer ptr, size_type newSize, align_type newAlignment)
     {
-        return AllocatorDebugConfig().ExcludeFromDebugging();
+        return AZ_OS_REALLOC(ptr, newSize, static_cast<AZStd::size_t>(newAlignment));
     }
-
-    //=========================================================================
-    // Allocate
-    // [9/2/2009]
-    //=========================================================================
-    OSAllocator::pointer_type
-    OSAllocator::Allocate(size_type byteSize, size_type alignment, int flags, const char* name, const char* fileName, int lineNum, unsigned int suppressStackRecord)
-    {
-        OSAllocator::pointer_type address;
-        if (m_custom)
-        {
-            address = m_custom->Allocate(byteSize, alignment, flags, name, fileName, lineNum, suppressStackRecord);
-        }
-        else
-        {
-            address = AZ_OS_MALLOC(byteSize, alignment);
-        }
-
-        if (address == nullptr && byteSize > 0)
-        {
-            AZ_Printf("Memory", "======================================================\n");
-            AZ_Printf("Memory", "OSAllocator run out of system memory!\nWe can't track the debug allocator, since it's used for tracking and pipes trought the OS... here are the other allocator status:\n");
-            OnOutOfMemory(byteSize, alignment, flags, name, fileName, lineNum);
-        }
-
-        m_numAllocatedBytes += byteSize;
-
-        return address;
-    }
-
-    //=========================================================================
-    // DeAllocate
-    // [9/2/2009]
-    //=========================================================================
-    void OSAllocator::DeAllocate(pointer_type ptr, size_type byteSize, size_type alignment)
-    {
-        (void)alignment;
-        if (m_custom)
-        {
-            m_custom->DeAllocate(ptr);
-        }
-        else
-        {
-            AZ_OS_FREE(ptr);
-        }
-
-        m_numAllocatedBytes -= byteSize;
-    }
-
 }

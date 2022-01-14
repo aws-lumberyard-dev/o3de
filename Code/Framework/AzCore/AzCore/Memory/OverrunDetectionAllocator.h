@@ -89,6 +89,10 @@ namespace AZ
         size_type GetMaxContiguousAllocationSize() const override;
         void GarbageCollect() override;
 
+        void Merge([[maybe_unused]] PlatformAllocator* aOther)
+        {
+        }
+
     private:
         OverrunDetectionSchemaImpl* m_impl;
     };
@@ -110,6 +114,10 @@ namespace AZ
 
         OverrunDetectionAllocator()
             : Base("OverrunDetectionAllocator", "Debug allocator for detecting memory overruns")
+        {
+        }
+
+        void Merge([[maybe_unused]] OverrunDetectionAllocator* aOther)
         {
         }
     };

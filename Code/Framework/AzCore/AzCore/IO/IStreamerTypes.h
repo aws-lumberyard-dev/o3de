@@ -9,7 +9,6 @@
 #pragma once
 
 #include <AzCore/base.h>
-#include <AzCore/Memory/IAllocator.h>
 #include <AzCore/Memory/Memory.h>
 #include <AzCore/std/chrono/chrono.h>
 #include <AzCore/std/parallel/atomic.h>

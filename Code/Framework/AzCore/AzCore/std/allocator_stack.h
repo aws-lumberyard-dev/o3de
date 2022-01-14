@@ -17,14 +17,6 @@
 
 #define AZ_ALLOCA(_Size)    alloca(_Size)
 
-namespace AZ
-{
-    namespace Internal
-    {
-        struct AllocatorDummy;
-    }
-}
-
 namespace AZStd
 {
     /**
@@ -92,10 +84,6 @@ namespace AZStd
 
     private:
         // Prevent heap allocation
-        void*  operator new(std::size_t size, const AZ::Internal::AllocatorDummy*);
-        void   operator delete(void* ptr, const AZ::Internal::AllocatorDummy*);
-        void*  operator new[](std::size_t size, const AZ::Internal::AllocatorDummy*);
-        void   operator delete[](void* ptr, const AZ::Internal::AllocatorDummy*);
         void* operator new      (size_t);
         void* operator new[]    (size_t);
         void   operator delete   (void*);

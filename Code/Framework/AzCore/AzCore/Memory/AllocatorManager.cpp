@@ -8,7 +8,6 @@
 
 #include <AzCore/Memory/AllocatorManager.h>
 #include <AzCore/Memory/Memory.h>
-#include <AzCore/Memory/IAllocator.h>
 
 #include <AzCore/Memory/OSAllocator.h>
 #include <AzCore/Memory/AllocationRecords.h>

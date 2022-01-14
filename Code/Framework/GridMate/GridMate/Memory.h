@@ -29,6 +29,10 @@ namespace GridMate
         GridMateAllocator()
             : GridMateAllocator::Base("GridMate Allocator", "GridMate fundamental generic memory allocator")
         {}
+
+        void Merge([[maybe_unused]] GridMateAllocator& aOther)
+        {
+        }
     };
 
     /**
@@ -51,6 +55,10 @@ namespace GridMate
         // TODO: We have an aggressive memory policy in the Carrier. We have 2 ways to fix it.
         // Either keep a cap and sacrifice performance or create a carrier->GarbageCollection and call it from here
         //virtual void          GarbageCollect()                 { EBUS_EVENT(CarrierBus,GarbageCollect); m_allocator->GarbageCollect(); }
+
+        void Merge([[maybe_unused]] GridMateAllocatorMP& aOther)
+        {
+        }
     };
 
     //! GridMate system container allocator.

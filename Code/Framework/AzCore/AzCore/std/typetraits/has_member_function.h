@@ -9,6 +9,8 @@
 #define AZSTD_TYPE_TRAITS_HAS_MEMBER_FUNCTION_INCLUDED
 
 #include <AzCore/std/typetraits/is_class.h>
+#include <AzCore/std/typetraits/integral_constant.h>
+#include <AzCore/std/typetraits/remove_const.h>
 
 /**
 * Helper to create checkers for member function inside a class.

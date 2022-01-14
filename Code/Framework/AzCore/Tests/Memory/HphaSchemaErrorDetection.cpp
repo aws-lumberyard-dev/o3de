@@ -61,6 +61,10 @@ namespace UnitTest
         HphaSchemaErrorDetection_TestAllocator()
             : Base("HphaSchemaErrorDetection_TestAllocator", "Allocator for Test")
         {}
+
+        void Merge([[maybe_unused]] HphaSchemaErrorDetection_TestAllocator* aOther)
+        {
+        }
     };
 
     // Another allocator to test allocating/deallocating with different allocators
@@ -76,6 +80,10 @@ namespace UnitTest
         AnotherTestAllocator()
             : Base("AnotherTestAllocator", "Another allocator for Test")
         {}
+
+        void Merge([[maybe_unused]] AnotherTestAllocator* aOther)
+        {
+        }
     };
 
     // Dummy test class with configurable size

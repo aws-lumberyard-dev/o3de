@@ -64,6 +64,10 @@ namespace AZ
         size_type       GetMaxContiguousAllocationSize() const override;
         //////////////////////////////////////////////////////////////////////////
 
+        void Merge([[maybe_unused]] BestFitExternalMapAllocator* aOther)
+        {
+        }
+
     protected:
         BestFitExternalMapAllocator(const BestFitExternalMapAllocator&);
         BestFitExternalMapAllocator& operator=(const BestFitExternalMapAllocator&);

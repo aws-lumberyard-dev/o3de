@@ -22,6 +22,10 @@ public:
     HphaSchema_TestAllocator()
         : Base("HphaSchema_TestAllocator", "Allocator for Test")
     {}
+
+    void Merge([[maybe_unused]] HphaSchema_TestAllocator* aOther)
+    {
+    }
 };
 
 static const size_t s_kiloByte = 1024;
