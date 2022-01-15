@@ -7,7 +7,7 @@
  */
 
 #include <AzCore/Memory/AllocatorManager.h>
-#include <AzCore/Memory/MallocSchema.h>
+#include <AzCore/Memory/OSAllocator.h>
 #include <AzCore/UnitTest/TestTypes.h>
 
 using namespace AZ;
@@ -79,7 +79,7 @@ namespace UnitTest
             m_systemAllocator = nullptr;
         }
 
-        MallocSchema m_mallocSchema;
+        OSAllocator m_osAllocator;
         AllocatorManager* m_manager = nullptr;
         IAllocator* m_systemAllocator = nullptr;
     };

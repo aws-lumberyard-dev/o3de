@@ -553,7 +553,7 @@ namespace AZStd
             {
                 pointer toDestroy = &newNode->m_value;
                 Internal::destroy<pointer>::single(toDestroy);
-                deallocate_node(newNode, allocator::allow_memory_leaks());
+                deallocate_node(newNode);
             }
             return result;
         }
@@ -573,7 +573,7 @@ namespace AZStd
             {
                 pointer toDestroy = &newNode->m_value;
                 Internal::destroy<pointer>::single(toDestroy);
-                deallocate_node(newNode, allocator::allow_memory_leaks());
+                deallocate_node(newNode);
             }
             return result;
         }
@@ -588,7 +588,7 @@ namespace AZStd
             {
                 pointer toDestroy = &newNode->m_value;
                 Internal::destroy<pointer>::single(toDestroy);
-                deallocate_node(newNode, allocator::allow_memory_leaks());
+                deallocate_node(newNode);
             }
             return result;
         }
@@ -722,7 +722,7 @@ namespace AZStd
             {
                 pointer toDestroy = &newNode->m_value;
                 Internal::destroy<pointer>::single(toDestroy);
-                deallocate_node(newNode, allocator::allow_memory_leaks());
+                deallocate_node(newNode);
             }
             return result;
         }
@@ -799,7 +799,7 @@ namespace AZStd
 
             pointer toDestroy = &nodeToErase->m_value;
             Internal::destroy<pointer>::single(toDestroy);
-            deallocate_node(nodeToErase, allocator::allow_memory_leaks());
+            deallocate_node(nodeToErase);
             --m_numElements;
             return next;
         }
@@ -1587,7 +1587,7 @@ namespace AZStd
 #endif
                 pointer toDestroy = &nodeToErase->m_value;
                 Internal::destroy<pointer>::single(toDestroy);
-                deallocate_node(nodeToErase, allocator::allow_memory_leaks());
+                deallocate_node(nodeToErase);
                 node = y;
             }
         }
@@ -1609,12 +1609,7 @@ namespace AZStd
             }
         }
 
-        AZ_FORCE_INLINE void    deallocate_node(node_ptr_type node, const true_type& /* allocator::allow_memory_leaks */)
-        {
-            (void)node;
-        }
-
-        AZ_FORCE_INLINE void    deallocate_node(node_ptr_type node, const false_type& /* !allocator::allow_memory_leaks */)
+        AZ_FORCE_INLINE void deallocate_node(node_ptr_type node)
         {
             m_allocator.deallocate(node, sizeof(node_type), alignment_of<node_type>::value);
         }

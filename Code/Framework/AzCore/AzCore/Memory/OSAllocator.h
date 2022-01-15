@@ -17,12 +17,21 @@ namespace AZ
      * The OSAllocator is a wrapper to direct OS allocation, it simply wraps OS allocation into our
      * memory system framework
      */
-    class OSAllocator
+    class OSAllocator : public AllocatorInterface
     {
     public:
         AZ_TYPE_INFO(OSAllocator, "{9F835EE3-F23C-454E-B4E3-011E2F3C8118}")
 
-        AZ_ALLOCATOR_INTERFACE(OSAllocator)
+        OSAllocator() = default;
+        virtual ~OSAllocator() = default;
+
+        pointer allocate(size_type byteSize, align_type alignment = 1) override;
+        void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0) override;
+        pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1) override;
+
+        void Merge(AllocatorInterface* aOther) override;
+
+        AZ_DISABLE_COPY_MOVE(OSAllocator)
     };
 
     // For backwards compatibility, now that allocators respect the std interface, there is no longer a need to wrap them

@@ -1710,7 +1710,7 @@ namespace AZ
         struct InstanceFactory<T, false, false>
             : public SerializeContext::IObjectFactory
         {
-            void* Create(const char* name) override
+            void* Create([[maybe_unused]] const char* name) override
             {
                 return new(azmalloc(sizeof(T), AZStd::alignment_of<T>::value, AZ::SystemAllocator, name))T;
             }

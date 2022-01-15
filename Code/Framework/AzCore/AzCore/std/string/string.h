@@ -174,7 +174,7 @@ namespace AZStd
         inline ~basic_string()
         {
             // destroy the string
-            deallocate_memory(m_data, 0, typename allocator_type::allow_memory_leaks());
+            deallocate_memory(m_data, 0);
         }
 
         operator AZStd::basic_string_view<Element, Traits>() const
@@ -304,7 +304,7 @@ namespace AZStd
             {
                 if (SSO_BUF_SIZE <= m_capacity)
                 {
-                    deallocate_memory(m_data, 0, typename allocator_type::allow_memory_leaks());
+                    deallocate_memory(m_data, 0);
                 }
 
                 Traits::move(m_buffer, rhs.m_buffer, sizeof(m_buffer));
@@ -1268,7 +1268,7 @@ namespace AZStd
                     Traits::copy(newData, data, m_size + 1);  // copy elements and terminator
 
                     // Free memory (if needed).
-                    deallocate_memory(data, 0, typename allocator_type::allow_memory_leaks());
+                    deallocate_memory(data, 0);
                     m_allocator = newAllocator;
 
 #ifdef AZSTD_HAS_CHECKED_ITERATORS
@@ -1367,7 +1367,7 @@ namespace AZStd
                         {
                             Traits::copy(m_buffer /*, SSO_BUF_SIZE*/, ptr, numElements);
                         }
-                        deallocate_memory(ptr, 0, typename allocator_type::allow_memory_leaks());
+                        deallocate_memory(ptr, 0);
                         m_capacity = SSO_BUF_SIZE - 1;
                     }
 
@@ -1402,7 +1402,7 @@ namespace AZStd
                     }
                     if (m_capacity >= SSO_BUF_SIZE)
                     {
-                        deallocate_memory(m_data, expandedSize, typename allocator_type::allow_memory_leaks());
+                        deallocate_memory(m_data, expandedSize);
                     }
 
                     m_data = newData;
@@ -1696,21 +1696,7 @@ namespace AZStd
             }
             if (newCapacity >= SSO_BUF_SIZE)
             {
-                size_type expandedSize = 0;
-                if (m_capacity >= SSO_BUF_SIZE)
-                {
-                    expandedSize = m_allocator.resize(m_data, sizeof(node_type) * (newCapacity + 1));
-                    // our memory managers allocate on 8+ bytes boundary and our node type should be less than that in general, otherwise
-                    // we need to take care when we compute the size on deallocate.
-                    AZ_Assert(expandedSize % sizeof(node_type) == 0, "Expanded size not a multiply of node type. This should not happen");
-                    size_type expandedCapacity = expandedSize / sizeof(node_type);
-                    if (expandedCapacity > newCapacity)
-                    {
-                        m_capacity = expandedCapacity - 1;
-                        return;
-                    }
-                }
-
+                // TODO: here we can use reallocate, if possible, reallocate will extend the current allocation
                 pointer newData = reinterpret_cast<pointer>(m_allocator.allocate(sizeof(node_type) * (newCapacity + 1), alignment_of<node_type>::value));
                 AZSTD_CONTAINER_ASSERT(newData != 0, "AZStd::string allocation failed!");
                 if (newData)
@@ -1722,7 +1708,7 @@ namespace AZStd
                     }
                     if (m_capacity >= SSO_BUF_SIZE)
                     {
-                        deallocate_memory(m_data, expandedSize, typename allocator_type::allow_memory_leaks());
+                        deallocate_memory(m_data, 0);
                     }
 
                     m_data = newData;
@@ -1748,10 +1734,7 @@ namespace AZStd
             return (0 < newSize);   // return true only if more work to do
         }
 
-        inline void deallocate_memory(pointer, size_type, const true_type& /* allocator::allow_memory_leaks */)
-        {}
-
-        inline void deallocate_memory(pointer data, size_type expandedSize, const false_type& /* !allocator::allow_memory_leaks */)
+        inline void deallocate_memory(pointer data, size_type expandedSize)
         {
             if (m_capacity >= SSO_BUF_SIZE)
             {

@@ -6,6 +6,7 @@
  *
  */
 #include <AzCore/EBus/EBus.h>
+#include <AzCore/Memory/OSAllocator_Platform.h>
 
 namespace AZ
 {
@@ -66,25 +67,33 @@ namespace AZ
         }
 
         EBusEnvironmentAllocator::EBusEnvironmentAllocator()
-            : m_name("EBusEnvironmentAllocator")
         {
             m_allocator = Environment::GetInstance()->GetAllocator();
         }
 
         EBusEnvironmentAllocator::EBusEnvironmentAllocator(const EBusEnvironmentAllocator& rhs)
-            : m_name(rhs.m_name)
-            , m_allocator(rhs.m_allocator)
+            : m_allocator(rhs.m_allocator)
         {
         }
 
-        EBusEnvironmentAllocator::pointer_type EBusEnvironmentAllocator::allocate(size_t byteSize, size_t alignment, int)
+        EBusEnvironmentAllocator::pointer EBusEnvironmentAllocator::allocate(size_type byteSize, align_type alignment)
         {
-            return m_allocator->Allocate(byteSize, alignment);
+            return m_allocator->allocate(byteSize, alignment);
         }
         
-        void EBusEnvironmentAllocator::deallocate(pointer_type ptr, size_type, size_type)
+        void EBusEnvironmentAllocator::deallocate(pointer ptr, size_type byteSize, align_type alignment)
         {
-            m_allocator->DeAllocate(ptr);
+            m_allocator->deallocate(ptr, byteSize, alignment);
+        }
+
+        EBusEnvironmentAllocator::pointer EBusEnvironmentAllocator::reallocate(pointer ptr, size_type newSize, align_type newAlignment)
+        {
+            return m_allocator->reallocate(ptr, newSize, newAlignment);
+        }
+
+        void EBusEnvironmentAllocator::Merge(AllocatorInterface* aOther)
+        {
+            m_allocator->Merge(aOther);
         }
 
     } // namespace Internal

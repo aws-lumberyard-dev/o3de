@@ -364,20 +364,11 @@ set(FILES
     Memory/AllocatorManager.h
     Memory/AllocatorWrapper.h
     Memory/AllocatorScope.h
-    Memory/BestFitExternalMapAllocator.cpp
-    Memory/BestFitExternalMapAllocator.h
-    Memory/BestFitExternalMapSchema.cpp
-    Memory/BestFitExternalMapSchema.h
     Memory/ChildAllocatorSchema.h
     Memory/Config.h
     Memory/dlmalloc.inl
-    Memory/HeapSchema.h
     Memory/HphaAllocator.cpp
     Memory/HphaAllocator.h
-    Memory/HphaSchema.cpp
-    Memory/HphaSchema.h
-    Memory/MallocSchema.cpp
-    Memory/MallocSchema.h
     Memory/Memory.cpp
     Memory/Memory.h
     Memory/MemoryComponent.cpp
@@ -386,14 +377,10 @@ set(FILES
     Memory/NewAndDelete.inl
     Memory/OSAllocator.cpp
     Memory/OSAllocator.h
-    Memory/OverrunDetectionAllocator.cpp
-    Memory/OverrunDetectionAllocator.h
+    Memory/PoolAllocator.cpp
     Memory/PoolAllocator.h
-    Memory/PoolSchema.cpp
-    Memory/PoolSchema.h
     Memory/SimpleSchemaAllocator.h
     Memory/StdAllocator.h
-    Memory/SystemAllocator.cpp
     Memory/SystemAllocator.h
     Module/DynamicModuleHandle.cpp
     Module/DynamicModuleHandle.h
@@ -613,7 +600,6 @@ set(FILES
     Utils/Utils.cpp
     Utils/Utils.h
     Script/lua/lua.h
-    Memory/HeapSchema.cpp
     PlatformId/PlatformDefaults.h
     PlatformId/PlatformDefaults.cpp
     PlatformId/PlatformId.h
@@ -642,10 +628,4 @@ set(FILES
     Time/ITime.h
     Time/TimeSystem.cpp
     Time/TimeSystem.h
-)
-
-# Prevent the following files from being grouped in UNITY builds
-set(SKIP_UNITY_BUILD_INCLUSION_FILES
-    # In some platforms, dlmalloc.inl gives issues when compiled in unity because there is a getpagesize defined differently
-    Memory/HeapSchema.cpp
 )

@@ -40,7 +40,6 @@ namespace Internal
 
 #define DEBUG_ALLOCATOR
 #include <AzCore/Memory/HphaSchema.cpp>
-#include <AzCore/Memory/MallocSchema.cpp>
 #undef DEBUG_ALLOCATOR
 } // namespace Internal
 

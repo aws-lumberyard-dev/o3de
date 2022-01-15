@@ -10,6 +10,7 @@
 
 #include <AzCore/std/base.h>
 #include <AzCore/std/typetraits/integral_constant.h>
+#include <AzCore/std/typetraits/alignment_of.h>
 #include <AzCore/RTTI/TypeInfoSimple.h>
 
 namespace AZStd
@@ -45,13 +46,6 @@ namespace AZStd
      *  void         deallocate(pointer_type ptr, size_type byteSize, size_type alignment);
      *  /// Tries to resize an existing memory chunck. Returns the resized memory block or 0 if resize is not supported.
      *  size_type    resize(pointer_type ptr, size_type newSize);
-     *
-     *  const char* get_name() const;
-     *  void        set_name(const char* name);
-     *
-     *  // Returns theoretical maximum size of a single contiguous allocation from this allocator.
-     *  size_type               max_size() const;
-     *  <optional> size_type    get_allocated_size() const;
      * };
      *
      * bool operator==(const allocator& a, const allocator& b);
@@ -77,52 +71,52 @@ namespace AZStd
     class allocator
     {
     public:
-
         AZ_TYPE_INFO(allocator, "{E9F5A3BE-2B3D-4C62-9E6B-4E00A13AB452}");
 
-        using pointer_type = void*;
+        using value_type = void;
+        using pointer = void*;
         using size_type = AZStd::size_t;
         using difference_type = AZStd::ptrdiff_t;
-        using allow_memory_leaks = AZStd::false_type;
+        using align_type = AZStd::size_t;
+        using propagate_on_container_move_assignment = AZStd::true_type;
 
-        AZ_FORCE_INLINE allocator(const char* name = "AZStd::allocator")
-            : m_name(name) {}
-        AZ_FORCE_INLINE allocator(const allocator& rhs)
-            : m_name(rhs.m_name)    {}
-        AZ_FORCE_INLINE allocator(const allocator& rhs, const char* name)
-            : m_name(name) { (void)rhs; }
+        AZ_FORCE_INLINE allocator()
+        {
+        }
+        AZ_FORCE_INLINE allocator(const allocator&)
+        {
+        }
 
-        AZ_FORCE_INLINE allocator& operator=(const allocator& rhs)      { m_name = rhs.m_name; return *this; }
+        AZ_FORCE_INLINE allocator& operator=(const allocator&)
+        {
+            return *this;
+        }
 
-        AZ_FORCE_INLINE const char*  get_name() const                   { return m_name; }
-        AZ_FORCE_INLINE void         set_name(const char* name)         { m_name = name; }
+        pointer allocate(size_type byteSize, align_type alignment = 1);
+        void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0);
+        pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1);
 
-        pointer_type    allocate(size_type byteSize, size_type alignment, int flags = 0);
-        void            deallocate(pointer_type ptr, size_type byteSize, size_type alignment);
-        size_type       resize(pointer_type ptr, size_type newSize);
-        // max_size actually returns the true maximum size of a single allocation
-        size_type       max_size() const;
-        size_type       get_allocated_size() const;
-
-        AZ_FORCE_INLINE bool is_lock_free()                             { return false; }
-        AZ_FORCE_INLINE bool is_stale_read_allowed()                    { return false; }
-        AZ_FORCE_INLINE bool is_delayed_recycling()                     { return false; }
-
-    private:
-        const char* m_name;
+        AZ_FORCE_INLINE bool is_lock_free()
+        {
+            return false;
+        }
+        AZ_FORCE_INLINE bool is_stale_read_allowed()
+        {
+            return false;
+        }
+        AZ_FORCE_INLINE bool is_delayed_recycling()
+        {
+            return false;
+        }
     };
 
-    AZ_FORCE_INLINE bool operator==(const AZStd::allocator& a, const AZStd::allocator& b)
+    AZ_FORCE_INLINE bool operator==(const AZStd::allocator&, const AZStd::allocator&)
     {
-        (void)a;
-        (void)b;
         return true;
     }
 
-    AZ_FORCE_INLINE bool operator!=(const AZStd::allocator& a, const AZStd::allocator& b)
+    AZ_FORCE_INLINE bool operator!=(const AZStd::allocator&, const AZStd::allocator&)
     {
-        (void)a;
-        (void)b;
         return false;
     }
 
@@ -140,29 +134,20 @@ namespace AZStd
     class no_default_allocator
     {
     public:
-        typedef void*               pointer_type;
-        typedef AZStd::size_t       size_type;
-        typedef AZStd::ptrdiff_t    difference_type;
-        typedef AZStd::false_type   allow_memory_leaks;
+        using value_type = void;
+        using pointer = void*;
+        using size_type = AZStd::size_t;
+        using difference_type = AZStd::ptrdiff_t;
+        using align_type = AZStd::size_t;
+        using propagate_on_container_move_assignment = AZStd::true_type;
 
-        AZ_FORCE_INLINE no_default_allocator(const char* name = "Invalid allocator") { (void)name; }
         AZ_FORCE_INLINE no_default_allocator(const allocator&) {}
-        AZ_FORCE_INLINE no_default_allocator(const allocator&, const char*) {}
 
         // none of this functions are implemented we should get a link error if we use them!
         AZ_FORCE_INLINE allocator& operator=(const allocator& rhs);
-        AZ_FORCE_INLINE pointer_type allocate(size_type byteSize, size_type alignment, int flags = 0);
-        AZ_FORCE_INLINE void  deallocate(pointer_type ptr, size_type byteSize, size_type alignment);
-        AZ_FORCE_INLINE size_type    resize(pointer_type ptr, size_type newSize);
-
-        AZ_FORCE_INLINE const char*  get_name() const;
-        AZ_FORCE_INLINE void         set_name(const char* name);
-
-        AZ_FORCE_INLINE size_type   max_size() const;
-
-        AZ_FORCE_INLINE bool is_lock_free();
-        AZ_FORCE_INLINE bool is_stale_read_allowed();
-        AZ_FORCE_INLINE bool is_delayed_recycling();
+        AZ_FORCE_INLINE pointer allocate(size_type byteSize, align_type alignment = 1);
+        AZ_FORCE_INLINE void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0);
+        AZ_FORCE_INLINE pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1);
     };
 }
 

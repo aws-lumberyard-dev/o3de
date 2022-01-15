@@ -53,14 +53,6 @@ namespace AZ
         {
             AllocatorInstance<Allocator>::Get().DeAllocate(ptr, byteSize, alignment);
         }
-        AZ_FORCE_INLINE const char* get_name() const            { return m_name; }
-        AZ_FORCE_INLINE void        set_name(const char* name)  { m_name = name; }
-        size_type                   max_size() const            { return AllocatorInstance<Allocator>::Get().GetMaxContiguousAllocationSize(); }
-        size_type                   get_allocated_size() const  { return AllocatorInstance<Allocator>::Get().NumAllocatedBytes(); }
-
-        AZ_FORCE_INLINE bool is_lock_free()                     { return AllocatorInstance<Allocator>::Get().is_lock_free(); }
-        AZ_FORCE_INLINE bool is_stale_read_allowed()            { return AllocatorInstance<Allocator>::Get().is_stale_read_allowed(); }
-        AZ_FORCE_INLINE bool is_delayed_recycling()             { return AllocatorInstance<Allocator>::Get().is_delayed_recycling(); }
     private:
         const char* m_name;
     };
@@ -81,46 +73,46 @@ namespace AZ
     class AZStdIAllocator
     {
     public:
-        typedef void*               pointer_type;
-        typedef AZStd::size_t       size_type;
-        typedef AZStd::ptrdiff_t    difference_type;
-        typedef AZStd::false_type   allow_memory_leaks;         ///< Regular allocators should not leak.
+        using value_type = void;
+        using pointer = void*;
+        using size_type = AZStd::size_t;
+        using difference_type = AZStd::ptrdiff_t;
+        using align_type = AZStd::size_t;
+        using propagate_on_container_move_assignment = AZStd::true_type;
 
-        AZ_FORCE_INLINE AZStdIAllocator(IAllocator* allocator, const char* name = "AZ::AZStdIAllocator")
+        AZ_FORCE_INLINE AZStdIAllocator(IAllocator* allocator)
             : m_allocator(allocator)
-            , m_name(name)
         {
             AZ_Assert(m_allocator != NULL, "You must provide a valid allocator!");
         }
         AZ_FORCE_INLINE AZStdIAllocator(const AZStdIAllocator& rhs)
             : m_allocator(rhs.m_allocator)
-            , m_name(rhs.m_name)  {}
-        AZ_FORCE_INLINE AZStdIAllocator(const AZStdIAllocator& rhs, const char* name)
-            : m_allocator(rhs.m_allocator)
-            , m_name(name) { (void)rhs; }
-        AZ_FORCE_INLINE AZStdIAllocator& operator=(const AZStdIAllocator& rhs) { m_allocator = rhs.m_allocator; m_name = rhs.m_name; return *this; }
-        AZ_FORCE_INLINE pointer_type allocate(size_t byteSize, size_t alignment, int flags = 0)
         {
-            return m_allocator->Allocate(byteSize, alignment, flags, m_name, __FILE__, __LINE__, 1);
         }
-        AZ_FORCE_INLINE size_type resize(pointer_type ptr, size_t newSize)
+        AZ_FORCE_INLINE AZStdIAllocator& operator=(const AZStdIAllocator& rhs)
         {
-            return m_allocator->Resize(ptr, newSize);
+            m_allocator = rhs.m_allocator;
+            return *this;
         }
-        AZ_FORCE_INLINE void deallocate(pointer_type ptr, size_t byteSize, size_t alignment)
+        AZ_FORCE_INLINE pointer allocate(size_type byteSize, align_type alignment = 1)
         {
-            m_allocator->DeAllocate(ptr, byteSize, alignment);
+            return m_allocator->allocate(byteSize, alignment);
         }
-        AZ_FORCE_INLINE const char* get_name() const { return m_name; }
-        AZ_FORCE_INLINE void        set_name(const char* name) { m_name = name; }
-        size_type                   max_size() const { return m_allocator->GetMaxContiguousAllocationSize(); }
-        size_type                   get_allocated_size() const { return m_allocator->NumAllocatedBytes(); }
+        AZ_FORCE_INLINE void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0)
+        {
+            m_allocator->deallocate(ptr, byteSize, alignment);
+        }
+        AZ_FORCE_INLINE bool operator==(const AZStdIAllocator& rhs) const
+        {
+            return m_allocator == rhs.m_allocator;
+        }
+        AZ_FORCE_INLINE bool operator!=(const AZStdIAllocator& rhs) const
+        {
+            return m_allocator != rhs.m_allocator;
+        }
 
-        AZ_FORCE_INLINE bool operator==(const AZStdIAllocator& rhs) const { return m_allocator == rhs.m_allocator; }
-        AZ_FORCE_INLINE bool operator!=(const AZStdIAllocator& rhs) const { return m_allocator != rhs.m_allocator; }
     private:
         IAllocator* m_allocator;
-        const char* m_name;
     };
 
     /**

@@ -11,7 +11,6 @@
 
 #include <AzCore/Memory/OSAllocator.h>
 #include <AzCore/Memory/AllocationRecords.h>
-#include <AzCore/Memory/MallocSchema.h>
 
 #include <AzCore/std/parallel/lock.h>
 #include <AzCore/std/smart_ptr/make_shared.h>

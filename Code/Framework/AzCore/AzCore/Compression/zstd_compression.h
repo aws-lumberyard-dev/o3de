@@ -16,8 +16,6 @@
 
 namespace AZ
 {
-    class IAllocator;
-
     class ZStd
     {
     public:

@@ -11,7 +11,6 @@
 #include <AzCore/std/base.h>
 #include <AzCore/std/typetraits/aligned_storage.h>
 #include <AzCore/std/typetraits/alignment_of.h>
-#include <AzCore/Memory/AllocatorBase.h>
 #include <AzCore/Debug/MemoryProfiler.h>
 
 namespace AZ

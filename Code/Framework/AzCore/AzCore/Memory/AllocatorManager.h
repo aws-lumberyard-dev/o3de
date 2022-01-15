@@ -32,7 +32,6 @@ namespace AZ
     class AllocatorManager
     {
         friend IAllocator;
-        friend class AllocatorBase;
         friend class Debug::AllocationRecords;
         template<typename T, typename... Args> friend constexpr auto AZStd::construct_at(T*, Args&&... args)
             ->AZStd::enable_if_t<AZStd::is_void_v<AZStd::void_t<decltype(new (AZStd::declval<void*>()) T(AZStd::forward<Args>(args)...))>>, T*>;

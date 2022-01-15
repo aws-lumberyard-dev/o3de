@@ -37,9 +37,9 @@ namespace rapidjson_ly_internal
 
 #define RAPIDJSON_NEW(x)  new(azmalloc(sizeof(x), alignof(x), AZ::SystemAllocator, "RapidJSON")) x
 #define RAPIDJSON_DELETE(x) rapidjson_ly_internal::Delete(x)
-#define RAPIDJSON_MALLOC(_size) AZ::AllocatorInstance<AZ::SystemAllocator>::Get().Allocate(_size, 16, 0, "RapidJson", __FILE__, __LINE__, 0)
-#define RAPIDJSON_REALLOC(_ptr, _newSize) _ptr ? AZ::AllocatorInstance<AZ::SystemAllocator>::Get().ReAllocate(_ptr, _newSize, 16) : RAPIDJSON_MALLOC(_newSize)
-#define RAPIDJSON_FREE(_ptr) if (_ptr) { AZ::AllocatorInstance<AZ::SystemAllocator>::Get().DeAllocate(_ptr, 0, 0); }
+#define RAPIDJSON_MALLOC(_size) AZ::AllocatorInstance<AZ::SystemAllocator>::Get().allocate(_size, 16)
+#define RAPIDJSON_REALLOC(_ptr, _newSize) _ptr ? AZ::AllocatorInstance<AZ::SystemAllocator>::Get().reallocate(_ptr, _newSize, 16) : RAPIDJSON_MALLOC(_newSize)
+#define RAPIDJSON_FREE(_ptr) if (_ptr) { AZ::AllocatorInstance<AZ::SystemAllocator>::Get().deallocate(_ptr); }
 #define RAPIDJSON_CLASS_ALLOCATOR(_class) AZ_CLASS_ALLOCATOR(_class, AZ::SystemAllocator, 0)
 
 // Set custom namespace for AzCore's rapidjson to avoid various collisions.

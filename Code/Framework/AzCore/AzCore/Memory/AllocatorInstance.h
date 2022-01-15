@@ -188,5 +188,14 @@ namespace AZ
             static StaticMembers statics;
             return statics.Get();
         }
+
+        // Kept for backwards compatibility
+        ////////////////////////////////////////////
+        static bool IsReady()
+        {
+            return true;
+        }
+
+        ////////////////////////////////////////////
     };
 }

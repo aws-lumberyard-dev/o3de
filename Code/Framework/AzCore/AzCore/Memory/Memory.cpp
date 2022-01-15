@@ -16,7 +16,7 @@ namespace AZ
         return AllocatorInstance<SystemAllocator>::Get().allocate(size, AZCORE_GLOBAL_NEW_ALIGNMENT);
     }
 
-    void* OperatorNew(std::size_t size, std::align_val_t align)
+    void* OperatorNew(std::size_t size, std::size_t align)
     {
         return AllocatorInstance<SystemAllocator>::Get().allocate(size, align);
     }
@@ -31,9 +31,9 @@ namespace AZ
         AllocatorInstance<SystemAllocator>::Get().deallocate(ptr, size);
     }
 
-    void OperatorDelete(void* ptr, std::size_t size, std::align_val_t)
+    void OperatorDelete(void* ptr, std::size_t size, std::size_t align)
     {
-        AllocatorInstance<SystemAllocator>::Get().deallocate(ptr, size);
+        AllocatorInstance<SystemAllocator>::Get().deallocate(ptr, size, align);
     }
 
     void* OperatorNewArray(std::size_t size)
@@ -41,7 +41,7 @@ namespace AZ
         return AllocatorInstance<SystemAllocator>::Get().allocate(size, AZCORE_GLOBAL_NEW_ALIGNMENT);
     }
 
-    void* OperatorNewArray(std::size_t size, std::align_val_t align)
+    void* OperatorNewArray(std::size_t size, std::size_t align)
     {
         return AllocatorInstance<SystemAllocator>::Get().allocate(size, align);
     }
@@ -54,5 +54,10 @@ namespace AZ
     void OperatorDeleteArray(void* ptr, std::size_t size)
     {
         AllocatorInstance<SystemAllocator>::Get().deallocate(ptr, size);
+    }
+
+    void OperatorDeleteArray(void* ptr, AZStd::size_t size, AZStd::size_t align)
+    {
+        AllocatorInstance<SystemAllocator>::Get().deallocate(ptr, size, align);
     }
 }

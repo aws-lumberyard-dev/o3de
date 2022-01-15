@@ -13,14 +13,6 @@
 
 namespace AZ
 {
-    OSAllocator::OSAllocator()
-    {
-    }
-
-    OSAllocator::~OSAllocator()
-    {
-    }
-
     OSAllocator::pointer OSAllocator::allocate(size_type byteSize, align_type alignment)
     {
         return AZ_OS_MALLOC(byteSize, static_cast<AZStd::size_t>(alignment));
@@ -34,5 +26,10 @@ namespace AZ
     OSAllocator::pointer OSAllocator::reallocate(pointer ptr, size_type newSize, align_type newAlignment)
     {
         return AZ_OS_REALLOC(ptr, newSize, static_cast<AZStd::size_t>(newAlignment));
+    }
+
+    void OSAllocator::Merge([[maybe_unused]] AllocatorInterface* aOther)
+    {
+        // Nothing to do, all allocations end up managed by the OS, no matter which instance
     }
 }

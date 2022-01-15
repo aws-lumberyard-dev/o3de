@@ -7,87 +7,56 @@
  */
 #pragma once
 
-#include <AzCore/base.h>
-#include <AzCore/std/typetraits/alignment_of.h>
-#include <AzCore/std/typetraits/aligned_storage.h>
-#include <AzCore/std/utils.h>
+#include <AzCore/Memory/AllocatorInterface.h>
 
 namespace AZ
 {
     /**
-    * Safe wrapper for an instance of an allocator.
-    *
-    * Generally it is preferred to use AllocatorInstance<> for allocator singletons over this wrapper,
-    * but you may want to use this wrapper in particular when scoping a custom allocator to the lifetime 
-    * of some other object.
-    */
-    template<class Allocator>
-    class AllocatorWrapper
+     * Wrapper for a virtual interface of an allocator.
+     *
+     */
+    class AllocatorWrapper : public AllocatorInterface
     {
+        friend bool operator==(const AllocatorWrapper&, const AllocatorWrapper&);
+
     public:
-        using Descriptor = typename Allocator::Descriptor;
-
-        AllocatorWrapper()
+        AllocatorWrapper(AllocatorInterface* allocator)
+            : m_allocator(allocator)
         {
         }
+        ~AllocatorWrapper() override = default;
 
-        ~AllocatorWrapper()
+        AllocatorWrapper(const AllocatorWrapper& aOther)
         {
-            Destroy();
+            m_allocator = aOther.m_allocator;
         }
 
-        AllocatorWrapper(const Allocator&) = delete;
-
-        /// Creates the wrapped allocator. You may pass any custom arguments to the allocator's constructor.
-        template<typename... Args>
-        void Create(const Descriptor& desc, Args&&... args)
+        pointer allocate(size_type byteSize, align_type alignment = 1) override
         {
-            Destroy();
-
-            m_allocator = new (&m_storage) Allocator(AZStd::forward<Args>(args)...);
-            m_allocator->Create(desc);
-            m_allocator->PostCreate();
+            return m_allocator->allocate(byteSize, alignment);
         }
 
-        /// Destroys the wrapped allocator.
-        void Destroy()
+        void deallocate(pointer ptr, size_type byteSize = 0, align_type = 0) override
         {
-            if (m_allocator)
-            {
-                m_allocator->PreDestroy();
-                m_allocator->Destroy();
-                m_allocator->~Allocator();
-            }
-
-            m_allocator = nullptr;
+            m_allocator->deallocate(ptr, byteSize);
         }
 
-        /// Provides access to the wrapped allocator.
-        Allocator* Get() const
+        pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1) override
         {
-            return m_allocator;
+            return m_allocator->reallocate(ptr, newSize, newAlignment);
         }
 
-        /// Provides access to the wrapped allocator.
-        Allocator& operator*() const
+        void Merge(AllocatorInterface* aOther) override
         {
-            return *m_allocator;
-        }
-
-        /// Provides access to the wrapped allocator.
-        Allocator* operator->() const
-        {
-            return m_allocator;
-        }
-
-        /// Support for conversion to a boolean, returns true if the allocator has been created.
-        operator bool() const
-        {
-            return m_allocator != nullptr;
+            m_allocator->Merge(aOther);
         }
 
     private:
-        Allocator* m_allocator = nullptr;
-        typename AZStd::aligned_storage<sizeof(Allocator), AZStd::alignment_of<Allocator>::value>::type m_storage;
+        AllocatorInterface* m_allocator;
     };
+
+    bool operator==(const AllocatorWrapper& a, const AllocatorWrapper& b)
+    {
+        return a.m_allocator == b.m_allocator;
+    }
 }

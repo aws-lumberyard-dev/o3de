@@ -1263,10 +1263,10 @@ namespace AZ
         HphaAllocatorPimpl(AllocatorInterface& subAllocator);
         ~HphaAllocatorPimpl() override;
 
-        pointer allocate(size_type byteSize, align_type alignment = align_type(1)) override;
-        void deallocate(pointer ptr, size_type byteSize) override;
+        pointer allocate(size_type byteSize, align_type alignment = 1) override;
+        void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0) override;
 
-        pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = align_type(1)) override;
+        pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1) override;
 
         void Merge(AllocatorInterface* aOther) override;
 
@@ -1497,7 +1497,7 @@ namespace AZ
     void* HphaAllocatorPimpl::bucket_system_alloc()
     {
         void* ptr;
-        ptr = m_subAllocator.allocate(m_poolPageSize, align_type(m_poolPageSize));
+        ptr = m_subAllocator.allocate(m_poolPageSize, m_poolPageSize);
         mTotalCapacitySizeBuckets += m_poolPageSize;
         HPPA_ASSERT(((size_t)ptr & (m_poolPageSize - 1)) == 0);
         return ptr;
@@ -1797,7 +1797,7 @@ namespace AZ
     {
         size_t allocSize = AZ::SizeAlignUp(size, OS_VIRTUAL_PAGE_SIZE);
         mTotalCapacitySizeTree += allocSize;
-        return m_subAllocator.allocate(size, align_type(m_treePageAlignment));
+        return m_subAllocator.allocate(size, m_treePageAlignment);
     }
 
     void HphaAllocatorPimpl::tree_system_free(void* ptr, size_t size)
@@ -2653,7 +2653,7 @@ namespace AZ
         return address;
     }
 
-    void HphaAllocatorPimpl::deallocate(pointer ptr, size_type byteSize)
+    void HphaAllocatorPimpl::deallocate(pointer ptr, size_type byteSize, align_type alignment)
     {
         if (ptr == nullptr)
         {
@@ -2663,9 +2663,13 @@ namespace AZ
         {
             free(ptr);
         }
-        else
+        else if (alignment == 0)
         {
             free(ptr, byteSize);
+        }
+        else
+        {
+            free(ptr, byteSize, alignment);
         }
     }
 
@@ -2690,7 +2694,7 @@ namespace AZ
     AZ::AllocatorInterface* CreateHphaAllocatorPimpl(AZ::AllocatorInterface& subAllocator)
     {
         HphaAllocatorPimpl* allocatorMemory = reinterpret_cast<HphaAllocatorPimpl*>(
-            subAllocator.allocate(sizeof(HphaAllocatorPimpl), HphaAllocatorPimpl::align_type(AZStd::alignment_of<HphaAllocatorPimpl>::value)));
+            subAllocator.allocate(sizeof(HphaAllocatorPimpl), AZStd::alignment_of<HphaAllocatorPimpl>::value));
         return new(allocatorMemory)HphaAllocatorPimpl(subAllocator);
     }
 

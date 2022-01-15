@@ -247,7 +247,7 @@ namespace AZStd
             {
                 ti->~thread_info();
                 AZStd::allocator a;
-                a.deallocate(ti, 0, 0);
+                a.deallocate(ti);
                 ti = 0;
             }
         }

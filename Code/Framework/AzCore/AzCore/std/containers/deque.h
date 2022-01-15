@@ -636,7 +636,7 @@ namespace AZStd
             {   // free storage for a block and destroy pointer
                 if (*(m_map + --i) != 0)
                 {
-                    deallocate_memory(*(m_map + i), sizeof(block_node_type), alignment_of<block_node_type>::value, typename allocator_type::allow_memory_leaks());
+                    deallocate_memory(*(m_map + i), sizeof(block_node_type), alignment_of<block_node_type>::value);
                 }
                 map_node_ptr_type toDestroy = m_map + i;
                 Internal::destroy<map_node_ptr_type>::single(toDestroy);
@@ -644,7 +644,7 @@ namespace AZStd
 
             if (m_map)
             {
-                deallocate_memory(m_map, sizeof(map_node_type) * m_mapSize, alignment_of<map_node_type>::value, typename allocator_type::allow_memory_leaks());
+                deallocate_memory(m_map, sizeof(map_node_type) * m_mapSize, alignment_of<map_node_type>::value);
                 m_map = 0;
             }
 
@@ -1000,13 +1000,7 @@ namespace AZStd
             insert(iterator(AZSTD_CHECKED_ITERATOR_2(iterator_impl, m_firstOffset, this)), first, last);
         }
 
-        AZ_FORCE_INLINE void    deallocate_memory(void* ptr, size_type size, size_type alignment, const true_type& /* allocator::allow_memory_leaks */)
-        {
-            (void)ptr;
-            (void)size;
-            (void)alignment;
-        }
-        AZ_FORCE_INLINE void    deallocate_memory(void* ptr, size_type size, size_type alignment, const false_type& /* !allocator::allow_memory_leaks */)
+        AZ_FORCE_INLINE void deallocate_memory(void* ptr, size_type size, size_type alignment)
         {
             m_allocator.deallocate(ptr, size, alignment);
         }
@@ -1048,7 +1042,7 @@ namespace AZStd
                 map_node_ptr_type toDestroyStart = m_map + offset;
                 map_node_ptr_type toDestroyEnd = m_map + m_mapSize;
                 Internal::destroy<map_node_ptr_type>::range(toDestroyStart, toDestroyEnd);
-                deallocate_memory(m_map, sizeof(map_node_type) * m_mapSize, alignment_of<map_node_type>::value, typename allocator_type::allow_memory_leaks());
+                deallocate_memory(m_map, sizeof(map_node_type) * m_mapSize, alignment_of<map_node_type>::value);
             }
 
             m_map = newMap;

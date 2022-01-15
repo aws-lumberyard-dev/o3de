@@ -8,7 +8,7 @@
 
 #include <AzCore/Module/Environment.h>
 
-#include <AzCore/Memory/OSAllocator.h>
+#include <AzCore/Memory/AllocatorWrapper.h>
 #include <AzCore/std/containers/unordered_map.h>
 #include <AzCore/Math/Crc.h>
 #include <AzCore/std/parallel/scoped_lock.h>
@@ -17,65 +17,6 @@ namespace AZ
 {
     namespace Internal
     {
-        /**
-        * AZStd allocator wrapper for the global variables. Don't expose to external code, this allocation are NOT
-        * tracked, etc. These are only for global environment variables.
-        */
-        class OSStdAllocator
-        {
-        public:
-            using pointer_type = void *;
-            using size_type = AZStd::size_t;
-            using difference_type = AZStd::ptrdiff_t;
-            using allow_memory_leaks = AZStd::false_type;         ///< Regular allocators should not leak.
-
-            OSStdAllocator(Environment::AllocatorInterface* allocator)
-                : m_name("GlobalEnvironmentAllocator")
-                , m_allocator(allocator)
-            {
-            }
-
-            OSStdAllocator(const OSStdAllocator& rhs)
-                : m_name(rhs.m_name)
-                , m_allocator(rhs.m_allocator)
-            {
-            }
-
-            pointer_type allocate(size_t byteSize, size_t alignment, int flags = 0)
-            {
-                (void)flags;
-                return m_allocator->Allocate(byteSize, alignment);
-            }
-            size_type resize(pointer_type ptr, size_type newSize)
-            {
-                (void)ptr;
-                (void)newSize;
-                return 0; // no resize
-            }
-            void deallocate(pointer_type ptr, size_type byteSize, size_type alignment)
-            {
-                (void)byteSize;
-                (void)alignment;
-                m_allocator->DeAllocate(ptr);
-            }
-
-            const char* get_name() const            { return m_name; }
-            void        set_name(const char* name)  { m_name = name; }
-            constexpr size_type max_size() const    { return AZ_CORE_MAX_ALLOCATOR_SIZE; }
-            size_type   get_allocated_size() const  { return 0; }
-
-            bool is_lock_free()                     { return false; }
-            bool is_stale_read_allowed()            { return false; }
-            bool is_delayed_recycling()             { return false; }
-
-        private:
-            const char* m_name;
-            Environment::AllocatorInterface* m_allocator;
-        };
-
-        bool operator==(const OSStdAllocator& a, const OSStdAllocator& b) { (void)a; (void)b; return true; }
-        bool operator!=(const OSStdAllocator& a, const OSStdAllocator& b) { (void)a; (void)b; return false; }
-
         void EnvironmentVariableHolderBase::UnregisterAndDestroy(DestructFunc destruct, bool moduleRelease)
         {
             const bool releaseByUseCount = (--m_useCount == 0);
@@ -105,7 +46,7 @@ namespace AZ
             if (releaseByUseCount)
             {
                 // m_mutex is unlocked before this is deleted
-                Environment::AllocatorInterface* allocator = m_allocator;
+                AllocatorInterface* allocator = m_allocator;
                 // Call child class dtor and clear the memory
                 destruct(this, DestroyTarget::Self);
                 allocator->DeAllocate(this);
@@ -115,22 +56,7 @@ namespace AZ
         // instance of the environment
         EnvironmentInterface* EnvironmentInterface::s_environment = nullptr;
 
-        class ModuleAllocator : public Environment::AllocatorInterface
-        {
-        public:
-            void* Allocate(size_t byteSize, size_t alignment) override
-            {
-                return AZ_OS_MALLOC(byteSize, alignment);
-            }
-
-            void DeAllocate(void* address) override
-            {
-                AZ_OS_FREE(address);
-            }
-        };
-
-        ModuleAllocator s_moduleAllocator;
-        AZStd::vector<Environment::EnvironmentCallback*, OSStdAllocator> s_environmentCallbacks(&s_moduleAllocator);
+        AZStd::vector<Environment::EnvironmentCallback*, OSAllocator> s_environmentCallbacks;
 
         /**
          *
@@ -139,14 +65,14 @@ namespace AZ
             : public EnvironmentInterface
         {
         public:
-            using MapType = AZStd::unordered_map<u32, void *, AZStd::hash<u32>, AZStd::equal_to<u32>, OSStdAllocator>;
+            using MapType = AZStd::unordered_map<u32, void *, AZStd::hash<u32>, AZStd::equal_to<u32>, AllocatorWrapper>;
 
             static EnvironmentInterface* Get();
             static void Attach(EnvironmentInstance sourceEnvironment, bool useAsGetFallback);
             static void Detach();
 
-            EnvironmentImpl(Environment::AllocatorInterface* allocator)
-                : m_variableMap(MapType::hasher(), MapType::key_eq(), OSStdAllocator(allocator))
+            EnvironmentImpl(AllocatorInterface* allocator)
+                : m_variableMap(MapType::hasher(), MapType::key_eq(), AllocatorWrapper(allocator))
                 , m_numAttached(0)
                 , m_fallback(nullptr)
                 , m_allocator(allocator)
@@ -343,12 +269,12 @@ namespace AZ
 
             void DeleteThis() override
             {
-                Environment::AllocatorInterface* allocator = m_allocator;
+                AllocatorInterface* allocator = m_allocator;
                 this->~EnvironmentImpl();
                 allocator->DeAllocate(this);
             }
 
-            Environment::AllocatorInterface* GetAllocator() override
+            AllocatorInterface* GetAllocator() override
             {
                 return m_allocator;
             }
@@ -359,7 +285,7 @@ namespace AZ
 
             unsigned int                m_numAttached; ///< used for "correctness" checks.
             EnvironmentInterface*       m_fallback;    ///< If set we will use the fallback environment for GetVariable operations.
-            Environment::AllocatorInterface* m_allocator;
+            AllocatorInterface*         m_allocator;
         };
 
 
@@ -479,7 +405,7 @@ namespace AZ
             return EnvironmentImpl::Get()->GetVariable(guid);
         }
 
-        Environment::AllocatorInterface* GetAllocator()
+        AllocatorInterface* GetAllocator()
         {
             return EnvironmentImpl::Get()->GetAllocator();
         }
@@ -519,7 +445,7 @@ namespace AZ
             return &Internal::CleanUp::GetInstance();
         }
 
-        bool Create(AllocatorInterface* allocator)
+        bool Create(OSAllocator* allocator)
         {
             if (Internal::EnvironmentImpl::s_environment)
             {
@@ -528,8 +454,7 @@ namespace AZ
 
             if (!allocator)
             {
-                static Internal::ModuleAllocator s_moduleAllocator;
-                allocator = &s_moduleAllocator;
+                allocator = &AZ::AllocatorInstance<AZ::OSAllocator>::Get();
             }
 
             Internal::EnvironmentImpl::s_environment = new(allocator->Allocate(sizeof(Internal::EnvironmentImpl), AZStd::alignment_of<Internal::EnvironmentImpl>::value)) Internal::EnvironmentImpl(allocator);
