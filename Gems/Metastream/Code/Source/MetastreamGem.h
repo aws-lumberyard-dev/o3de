@@ -10,7 +10,6 @@
 #include <AzCore/Component/Component.h>
 #include <Metastream/MetastreamBus.h>
 #include <AzCore/Memory/AllocatorScope.h>
-#include <LegacyAllocator.h>
 #include <CryCommon/IConsole.h>
 
 #include <IGem.h>
@@ -29,10 +28,6 @@ namespace Metastream
         void Activate() override {}
         void Deactivate() override {}
     };
-
-    // Metastream makes use of the CryEngine legacy allocators due to its use of std containers
-    // and CryHooksModule
-    using MetastreamAllocatorScope = AZ::AllocatorScope<AZ::LegacyAllocator>;
 
     class MetastreamGem
         : public CryHooksModule

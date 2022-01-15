@@ -54,7 +54,7 @@ protected:
     }
 
 private:
-    AZ::AllocatorScope<AZ::OSAllocator, AZ::SystemAllocator, AZ::LegacyAllocator> m_allocatorScope;
+    AZ::AllocatorScope<AZ::OSAllocator, AZ::SystemAllocator> m_allocatorScope;
     SSystemGlobalEnvironment m_stubEnv;
     AZ::IO::LocalFileIO m_fileIO;
     NiceMock<CryPakMock>* m_cryPak;

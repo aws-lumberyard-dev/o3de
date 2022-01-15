@@ -27,10 +27,6 @@
 
 namespace LyShine
 {
-    // LyShine depends on the LegacyAllocator. This will be managed
-    // by the LyShineSystemComponent
-    using LyShineAllocatorScope = AZ::AllocatorScope<AZ::LegacyAllocator>;
-
     class LyShineSystemComponent
         : public AZ::Component
         , protected UiSystemBus::Handler

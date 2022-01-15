@@ -26,7 +26,6 @@
 #include <AzGameFramework/Application/GameApplication.h>
 
 #include <ISystem.h>
-#include <LegacyAllocator.h>
 
 #include <Launcher_Traits_Platform.h>
 

@@ -12,7 +12,6 @@
 #pragma once
 
 #include "ISystem.h"
-#include <CryCommon/CryLegacyAllocator.h>
 #include <StlUtils.h>
 
 //TODO: Pull most of this into a cpp file!

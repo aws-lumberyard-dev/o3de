@@ -11,7 +11,6 @@
 #include <AzCore/Preprocessor/Sequences.h>
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/Memory/PoolAllocator.h>
-#include <AzCore/Memory/AllocatorBase.h>
 
 namespace EMotionFX
 {

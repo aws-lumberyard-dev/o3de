@@ -81,12 +81,9 @@
 
 namespace LmbrCentral
 {
-    using LmbrCentralAllocatorScope = AZ::AllocatorScope<AZ::LegacyAllocator>;
-
     // This component boots the required allocators for LmbrCentral everywhere but AssetBuilders
     class LmbrCentralAllocatorComponent
         : public AZ::Component
-        , protected LmbrCentralAllocatorScope
     {
     public:
         AZ_COMPONENT(LmbrCentralAllocatorComponent, "{B0512A75-AC4A-423A-BB55-C3355C0B186A}", AZ::Component);
@@ -340,12 +337,6 @@ namespace LmbrCentral
 
     void LmbrCentralSystemComponent::Activate()
     {
-        if (!AZ::AllocatorInstance<AZ::LegacyAllocator>::IsReady())
-        {
-            AZ::AllocatorInstance<AZ::LegacyAllocator>::Create();
-            m_allocatorShutdowns.push_back([]() { AZ::AllocatorInstance<AZ::LegacyAllocator>::Destroy(); });
-        }
-
         // Register asset handlers. Requires "AssetDatabaseService"
         AZ_Assert(AZ::Data::AssetManager::IsReady(), "Asset manager isn't ready!");
 

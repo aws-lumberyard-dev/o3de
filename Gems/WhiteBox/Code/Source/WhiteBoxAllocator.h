@@ -8,7 +8,6 @@
 
 #pragma once
 
-#include <AzCore/Memory/AllocatorBase.h>
 #include <AzCore/Memory/SystemAllocator.h>
 
 namespace WhiteBox
