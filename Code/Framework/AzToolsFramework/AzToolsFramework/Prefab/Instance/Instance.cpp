@@ -343,6 +343,20 @@ namespace AzToolsFramework
             return true;
         }
 
+        bool Instance::UnregisterEntity(AZ::EntityId entityId)
+        {
+            EntityAlias entityAliasToRemove;
+            auto instanceToTemplateEntityIdIterator = m_instanceToTemplateEntityIdMap.find(entityId);
+            if (instanceToTemplateEntityIdIterator != m_instanceToTemplateEntityIdMap.end())
+            {
+                entityAliasToRemove = instanceToTemplateEntityIdIterator->second;
+                return (
+                    m_instanceEntityMapper->UnregisterEntity(entityId) && m_templateToInstanceEntityIdMap.erase(entityAliasToRemove) &&
+                    m_instanceToTemplateEntityIdMap.erase(entityId));
+            }
+            return true;
+        }
+
         Instance& Instance::AddInstance(AZStd::unique_ptr<Instance> instance)
         {
             AZ_Assert(instance.get(), "instance argument is nullptr");
@@ -826,9 +840,23 @@ namespace AzToolsFramework
         {
             if (m_containerEntity)
             {
-                m_instanceEntityMapper->UnregisterEntity(m_containerEntity->GetId());
-            }
+                UnregisterEntity(m_containerEntity->GetId());
+            };
             return AZStd::move(m_containerEntity);
+        }
+
+        PrefabDomValueConstReference Instance::GetCachedInstanceDomInRootInstance() const
+        {
+            if (m_cachedInstanceDomInRootInstance.IsNull())
+            {
+                return AZStd::nullopt;
+            }
+            return m_cachedInstanceDomInRootInstance;
+        }
+
+        void Instance::SetCachedInstanceDomInRootInstance(PrefabDomValueConstReference instanceDomInRootInstance)
+        {
+            m_cachedInstanceDomInRootInstance.CopyFrom(instanceDomInRootInstance->get(), m_cachedInstanceDomInRootInstance.GetAllocator());
         }
     }
 }

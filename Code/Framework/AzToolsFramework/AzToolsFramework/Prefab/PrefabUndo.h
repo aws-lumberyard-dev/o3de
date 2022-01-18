@@ -34,6 +34,9 @@ namespace AzToolsFramework
             PrefabDom m_redoPatch;
             PrefabDom m_undoPatch;
 
+            PrefabDom m_redoMergePatch;
+            PrefabDom m_undoMergePatch;
+
             InstanceToTemplateInterface* m_instanceToTemplateInterface = nullptr;
 
             bool m_changed;

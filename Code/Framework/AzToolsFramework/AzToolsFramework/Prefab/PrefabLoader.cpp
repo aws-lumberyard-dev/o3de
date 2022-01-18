@@ -6,7 +6,7 @@
  *
  */
 
-
+ #pragma optimize("", off)
 #include <AzToolsFramework/Prefab/PrefabLoader.h>
 
 #include <AzCore/Component/Entity.h>
@@ -724,3 +724,4 @@ namespace AzToolsFramework
 
     } // namespace Prefab
 } // namespace AzToolsFramework
+#pragma optimize("", on)

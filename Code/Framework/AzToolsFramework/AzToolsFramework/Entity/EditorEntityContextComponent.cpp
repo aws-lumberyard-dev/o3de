@@ -6,7 +6,7 @@
  *
  */
 
-
+ #pragma optimize("", off)
 #include <AzToolsFramework/Entity/EditorEntityContextComponent.h>
 
 #include <AzCore/Component/Entity.h>
@@ -471,13 +471,22 @@ namespace AzToolsFramework
     {
         if (loadedSuccessfully)
         {
-            EntityList entities;
-            m_entityOwnershipService->GetAllEntities(entities);
+            bool prefabSystemEnabled = false;
+            AzFramework::ApplicationRequests::Bus::BroadcastResult(
+                prefabSystemEnabled, &AzFramework::ApplicationRequests::IsPrefabSystemEnabled);
 
-            AzFramework::SliceEntityOwnershipServiceRequestBus::Event(GetContextId(),
-                &AzFramework::SliceEntityOwnershipServiceRequests::SetIsDynamic, true);
+            // Adding the required editor components will be taken care by prefab propagation.
+            if (!prefabSystemEnabled)
+            {
+                EntityList entities;
+                m_entityOwnershipService->GetAllEntities(entities);
 
-            SetupEditorEntities(entities);
+                AzFramework::SliceEntityOwnershipServiceRequestBus::Event(
+                    GetContextId(), &AzFramework::SliceEntityOwnershipServiceRequests::SetIsDynamic, true);
+
+                SetupEditorEntities(entities);
+            }
+
             EditorEntityContextNotificationBus::Broadcast(
                 &EditorEntityContextNotification::OnEntityStreamLoadSuccess);
         }
@@ -807,3 +816,4 @@ namespace AzToolsFramework
     }
 
 } // namespace AzToolsFramework
+#pragma optimize("", on)

@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-
+#pragma optimize("", off)
 #include <AzCore/Interface/Interface.h>
 #include <AzToolsFramework/Prefab/Instance/Instance.h>
 #include <Prefab/PrefabUndo.h>
@@ -90,6 +90,16 @@ namespace AzToolsFramework
             m_instanceToTemplateInterface->AppendEntityAliasToPatchPaths(m_redoPatch, entityId);
             m_instanceToTemplateInterface->GeneratePatch(m_undoPatch, endState, initialState);
             m_instanceToTemplateInterface->AppendEntityAliasToPatchPaths(m_undoPatch, entityId);
+
+
+            AZ::JsonSerialization::CreatePatch(
+                m_undoMergePatch, m_undoMergePatch.GetAllocator(), endState, initialState, AZ::JsonMergeApproach::JsonMergePatch);
+
+            AZ::JsonSerialization::CreatePatch(
+                m_redoMergePatch, m_redoMergePatch.GetAllocator(), initialState, endState, AZ::JsonMergeApproach::JsonMergePatch);
+
+            PrefabDomUtils::PrintPrefabDomValue("Undo merge patch is ",  m_undoMergePatch);
+            PrefabDomUtils::PrintPrefabDomValue("Redo merge patch is ", m_redoMergePatch);
         }
 
         void PrefabUndoEntityUpdate::Undo()
@@ -339,4 +349,5 @@ namespace AzToolsFramework
             m_prefabSystemComponentInterface->SetTemplateDirtyFlag(link->get().GetTargetTemplateId(), true);
         }
     }
-}
+} // namespace AzToolsFramework
+#pragma optimize("", on)

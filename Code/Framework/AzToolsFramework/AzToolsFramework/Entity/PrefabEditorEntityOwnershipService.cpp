@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-
+#pragma optimize("", off)
 #include <AzCore/Component/Entity.h>
 #include <AzCore/Component/TransformBus.h>
 #include <AzCore/Script/ScriptSystemBus.h>
@@ -183,7 +183,10 @@ namespace AzToolsFramework
         AZ_Assert(m_entitiesAddedCallback, "Callback function for AddEntity has not been set.");
         for (const AZ::Entity* entity : entities)
         {
-            AzFramework::SliceEntityRequestBus::MultiHandler::BusConnect(entity->GetId());
+            if (entity != nullptr)
+            {
+                AzFramework::SliceEntityRequestBus::MultiHandler::BusConnect(entity->GetId());
+            }
         }
         m_entitiesAddedCallback(entities);
     }
@@ -654,4 +657,5 @@ namespace AzToolsFramework
         AZ_Assert(!m_shouldAssertForLegacySlicesUsage, "Slice usage with Prefab code enabled");
         return nullptr;
     }
-}
+} // namespace AzToolsFramework
+#pragma optimize("", on)

@@ -27,7 +27,8 @@ namespace AzToolsFramework
 
         bool InstanceEntityMapper::RegisterEntityToInstance(const AZ::EntityId& entityId, Instance& instance)
         {
-            return m_entityToInstanceMap.emplace(AZStd::make_pair(entityId, &instance)).second;
+            m_entityToInstanceMap[entityId] = &instance;
+            return true;
         }
 
         bool InstanceEntityMapper::UnregisterEntity(const AZ::EntityId& entityId)
