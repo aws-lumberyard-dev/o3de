@@ -196,6 +196,13 @@ namespace AZ
             return true;
         }
 
+        static void Create()
+        {
+        }
+
+        static void Destroy()
+        {
+        }
         ////////////////////////////////////////////
     };
 }

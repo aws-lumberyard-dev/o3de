@@ -9,7 +9,6 @@
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/Memory/PoolAllocator.h>
 
-#include <AzCore/Memory/AllocationRecords.h>
 #include <AzCore/Debug/StackTracer.h>
 #include <AzCore/UnitTest/TestTypes.h>
 
@@ -38,13 +37,9 @@ namespace UnitTest
     public:
         void SetUp() override
         {
-            AZ::AllocatorManager::Instance().SetDefaultTrackingMode(AZ::Debug::AllocationRecords::RECORD_FULL);
-            AZ::AllocatorManager::Instance().EnterProfilingMode();
         }
         void TearDown() override
         {
-            AZ::AllocatorManager::Instance().ExitProfilingMode();
-            AZ::AllocatorManager::Instance().SetDefaultTrackingMode(AZ::Debug::AllocationRecords::RECORD_NO_RECORDS);
         }
     };
 
@@ -178,7 +173,7 @@ namespace UnitTest
             EXPECT_TRUE(sysAllocator.NumAllocatedBytes() >= 100000); // we requested 100 * 1000 so we should have at least this much allocated
 
 // If tracking and recording is enabled, we can verify that the alloc info is valid
-#if defined(AZ_DEBUG_BUILD)
+#if defined(AZ_DEBUG_BUILD) && 0
             sysAllocator.GetRecords()->lock();
             EXPECT_TRUE(sysAllocator.GetRecords());
             const Debug::AllocationRecordsType& records = sysAllocator.GetRecords()->GetMap();

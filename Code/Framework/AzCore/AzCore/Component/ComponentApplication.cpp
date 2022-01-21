@@ -19,8 +19,6 @@
 
 #include <AzCore/Debug/LocalFileEventLogger.h>
 
-#include <AzCore/Memory/AllocationRecords.h>
-
 #include <AzCore/Memory/AllocatorManager.h>
 
 #include <AzCore/NativeUI/NativeUIRequests.h>
@@ -144,7 +142,6 @@ namespace AZ
         m_memoryBlocksByteSize = 0;
         m_reservedOS = 0;
         m_reservedDebug = 0;
-        m_recordingMode = Debug::AllocationRecords::RECORD_STACK_IF_NO_FILE_LINE;
         m_stackRecordLevels = 5;
     }
 
@@ -152,18 +149,6 @@ namespace AZ
     {
         if (node.GetVersion() < 2)
         {
-            int nodeIdx = node.FindElement(AZ_CRC("recordsMode", 0x764c147a));
-            if (nodeIdx != -1)
-            {
-                auto& subNode = node.GetSubElement(nodeIdx);
-
-                char oldValue = 0;
-                subNode.GetData(oldValue);
-                subNode.Convert<Debug::AllocationRecords::Mode>(serialize);
-                subNode.SetData<Debug::AllocationRecords::Mode>(serialize, aznumeric_caster(oldValue));
-                subNode.SetName("recordingMode");
-            }
-
             nodeIdx = node.FindElement(AZ_CRC("stackRecordLevels", 0xf8492566));
             if (nodeIdx != -1)
             {
@@ -320,11 +305,6 @@ namespace AZ
 
             if (EditContext* ec = serializeContext->GetEditContext())
             {
-                ec->Enum<Debug::AllocationRecords::Mode>("Debug::AllocationRecords::Mode", "Allocator recording mode")
-                    ->Value("No records", Debug::AllocationRecords::RECORD_NO_RECORDS)
-                    ->Value("No stack trace", Debug::AllocationRecords::RECORD_STACK_NEVER)
-                    ->Value("Stack trace when file/line missing", Debug::AllocationRecords::RECORD_STACK_IF_NO_FILE_LINE)
-                    ->Value("Stack trace always", Debug::AllocationRecords::RECORD_FULL);
                 ec->Class<Descriptor>("System memory settings", "Settings for managing application memory usage")
                     ->ClassElement(Edit::ClassElements::EditorData, "")
                         ->Attribute(Edit::Attributes::AutoExpand, true)
@@ -332,7 +312,6 @@ namespace AZ
                     ->DataElement(Edit::UIHandlers::CheckBox, &Descriptor::m_allocationRecords, "Record allocations", "Collect information on each allocation made for debugging purposes (ignored in Release builds)")
                     ->DataElement(Edit::UIHandlers::CheckBox, &Descriptor::m_allocationRecordsSaveNames, "Record allocations with name saving", "Saves names/filenames information on each allocation made, useful for tracking down leaks in dynamic modules (ignored in Release builds)")
                     ->DataElement(Edit::UIHandlers::CheckBox, &Descriptor::m_allocationRecordsAttemptDecodeImmediately, "Record allocations and attempt immediate decode", "Decode callstacks for each allocation when they occur, used for tracking allocations that fail decoding. Very expensive. (ignored in Release builds)")
-                    ->DataElement(Edit::UIHandlers::ComboBox, &Descriptor::m_recordingMode, "Stack recording mode", "Stack record mode. (Ignored in final builds)")
                     ->DataElement(Edit::UIHandlers::SpinBox, &Descriptor::m_stackRecordLevels, "Stack entries to record", "Number of stack levels to record for each allocation (ignored in Release builds)")
                         ->Attribute(Edit::Attributes::Step, 1)
                         ->Attribute(Edit::Attributes::Max, 1024)
@@ -863,16 +842,6 @@ namespace AZ
             desc.m_stackRecordLevels = aznumeric_caster(m_descriptor.m_stackRecordLevels);
             AZ::AllocatorInstance<AZ::SystemAllocator>::Create(desc);
             AZ::Debug::Trace::Instance().Init();
-
-            AZ::Debug::AllocationRecords* records = AllocatorInstance<SystemAllocator>::Get().GetRecords();
-            if (records)
-            {
-                records->SetMode(m_descriptor.m_recordingMode);
-                records->SetSaveNames(m_descriptor.m_allocationRecordsSaveNames);
-                records->SetDecodeImmediately(m_descriptor.m_allocationRecordsAttemptDecodeImmediately);
-                records->AutoIntegrityCheck(m_descriptor.m_autoIntegrityCheck);
-                records->MarkUallocatedMemory(m_descriptor.m_markUnallocatedMemory);
-            }
 
             m_isSystemAllocatorOwner = true;
         }

@@ -367,7 +367,7 @@ namespace AZ
     };
 
     //////////////////////////////////////////////////////////////////////////
-    class HphaAllocatorPimpl : public AZ::AllocatorInterface
+    class HphaAllocatorPimpl : public AZ::IAllocator
     {
     public:
         // the guard size controls how many extra bytes are stored after
@@ -1260,7 +1260,7 @@ namespace AZ
         }
 
     public:
-        HphaAllocatorPimpl(AllocatorInterface& subAllocator);
+        HphaAllocatorPimpl(IAllocator& subAllocator);
         ~HphaAllocatorPimpl() override;
 
         pointer allocate(size_type byteSize, align_type alignment = 1) override;
@@ -1268,7 +1268,7 @@ namespace AZ
 
         pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1) override;
 
-        void Merge(AllocatorInterface* aOther) override;
+        void Merge(IAllocator* aOther) override;
 
         /// returns allocation size for the pointer if it belongs to the allocator. result is undefined if the pointer doesn't belong to the
         /// allocator.
@@ -1291,7 +1291,7 @@ namespace AZ
         mutable AZStd::recursive_mutex mTreeMutex;
 #endif
 
-        AllocatorInterface& m_subAllocator;
+        IAllocator& m_subAllocator;
 
         size_t mTotalAllocatedSizeBuckets = 0;
         size_t mTotalCapacitySizeBuckets = 0;
@@ -1350,7 +1350,7 @@ namespace AZ
 #endif
 
     //////////////////////////////////////////////////////////////////////////
-    HphaAllocatorPimpl::HphaAllocatorPimpl(AllocatorInterface& subAllocator)
+    HphaAllocatorPimpl::HphaAllocatorPimpl(IAllocator& subAllocator)
         // m_treePageAlignment should be OS_VIRTUAL_PAGE_SIZE in all cases with this trait as we work
         // with virtual memory addresses when the tree grows and we cannot specify an alignment in all cases
         : m_treePageSize(OS_VIRTUAL_PAGE_SIZE)
@@ -2684,21 +2684,21 @@ namespace AZ
         return address;
     }
 
-    void HphaAllocatorPimpl::Merge([[maybe_unused]] AllocatorInterface* aOther)
+    void HphaAllocatorPimpl::Merge([[maybe_unused]] IAllocator* aOther)
     {
         // HphaAllocatorPimpl* other = dynamic_cast<HphaAllocatorPimpl*>(aOther);
         // Transfer the buckets
         // Transfer tree
     } 
 
-    AZ::AllocatorInterface* CreateHphaAllocatorPimpl(AZ::AllocatorInterface& subAllocator)
+    IAllocator* CreateHphaAllocatorPimpl(IAllocator& subAllocator)
     {
         HphaAllocatorPimpl* allocatorMemory = reinterpret_cast<HphaAllocatorPimpl*>(
             subAllocator.allocate(sizeof(HphaAllocatorPimpl), AZStd::alignment_of<HphaAllocatorPimpl>::value));
         return new(allocatorMemory)HphaAllocatorPimpl(subAllocator);
     }
 
-    void DestroyHphaAllocatorPimpl(AZ::AllocatorInterface& subAllocator, AZ::AllocatorInterface* allocator)
+    void DestroyHphaAllocatorPimpl(IAllocator& subAllocator, IAllocator* allocator)
     {
         HphaAllocatorPimpl* allocatorImpl = dynamic_cast<HphaAllocatorPimpl*>(allocator);
         allocatorImpl->~HphaAllocatorPimpl();

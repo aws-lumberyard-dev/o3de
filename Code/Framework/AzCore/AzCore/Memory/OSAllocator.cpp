@@ -18,7 +18,7 @@ namespace AZ
         return AZ_OS_MALLOC(byteSize, static_cast<AZStd::size_t>(alignment));
     }
 
-    void OSAllocator::deallocate(pointer ptr, size_type)
+    void OSAllocator::deallocate(pointer ptr, size_type, align_type)
     {
         AZ_OS_FREE(ptr);
     }
@@ -28,7 +28,7 @@ namespace AZ
         return AZ_OS_REALLOC(ptr, newSize, static_cast<AZStd::size_t>(newAlignment));
     }
 
-    void OSAllocator::Merge([[maybe_unused]] AllocatorInterface* aOther)
+    void OSAllocator::Merge([[maybe_unused]] IAllocator* aOther)
     {
         // Nothing to do, all allocations end up managed by the OS, no matter which instance
     }

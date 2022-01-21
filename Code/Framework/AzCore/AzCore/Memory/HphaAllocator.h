@@ -8,20 +8,20 @@
 
 #pragma once
 
-#include <AzCore/Memory/AllocatorInterface.h>
+#include <AzCore/Memory/IAllocator.h>
 #include <AzCore/Memory/OSAllocator.h>
 
 namespace AZ
 {
-    AllocatorInterface* CreateHphaAllocatorPimpl(AllocatorInterface& mSubAllocator);
-    void DestroyHphaAllocatorPimpl(AllocatorInterface& mSubAllocator, AllocatorInterface* allocator);
+    IAllocator* CreateHphaAllocatorPimpl(IAllocator& mSubAllocator);
+    void DestroyHphaAllocatorPimpl(IAllocator& mSubAllocator, IAllocator* allocator);
 
     /**
     * Heap allocator schema, based on Dimitar Lazarov "High Performance Heap Allocator".
     * SubAllocator defines the allocator to be used underneath to do allocations
     */
     template<typename SubAllocatorType = OSAllocator>
-    class HphaAllocator : public AllocatorInterface
+    class HphaAllocator : public IAllocator
     {
     public:
         AZ_TYPE_INFO(HphaAllocator, "{1ED481B0-53E2-4DCD-B016-4251D1A5AA8D}")
@@ -52,7 +52,7 @@ namespace AZ
             return m_allocatorPimpl->reallocate(ptr, newSize, newAlignment);
         }
 
-        void Merge(AllocatorInterface* aOther) override
+        void Merge(IAllocator* aOther) override
         {
             m_allocatorPimpl->Merge(aOther);
         }
@@ -61,6 +61,6 @@ namespace AZ
         AZ_DISABLE_COPY_MOVE(HphaAllocator)
 
         // Due the complexity of this allocator, we create a pimpl implementation
-        AllocatorInterface* m_allocatorPimpl;
+        IAllocator* m_allocatorPimpl;
     };
 }

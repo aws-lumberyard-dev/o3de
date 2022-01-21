@@ -18,7 +18,7 @@
 
 namespace AZ
 {
-    class AllocatorInterface;
+    class IAllocator;
 
     namespace Internal
     {
@@ -110,7 +110,7 @@ namespace AZ
          * two environments will end up on different heaps.
          * \returns true if Create was successful, false if environment is already created/attached.
          */
-        bool Create(AllocatorInterface* allocator);
+        bool Create(IAllocator* allocator);
 
         /**
          * Explicit Destroy, you don't have to call it unless you want to control order. It will be called when the module is unloaded.
@@ -191,7 +191,7 @@ namespace AZ
 
             virtual void ReleaseRef() = 0;
 
-            virtual AllocatorInterface* GetAllocator() = 0;
+            virtual IAllocator* GetAllocator() = 0;
 
             virtual void DeleteThis() = 0;
 
@@ -208,7 +208,8 @@ namespace AZ
                 Self
             };
         public:
-            EnvironmentVariableHolderBase(u32 guid, AZ::Internal::EnvironmentInterface* environmentOwner, bool canOwnershipTransfer, AllocatorInterface* allocator)
+            EnvironmentVariableHolderBase(
+                u32 guid, AZ::Internal::EnvironmentInterface* environmentOwner, bool canOwnershipTransfer, IAllocator* allocator)
                 : m_environmentOwner(environmentOwner)
                 , m_moduleOwner(nullptr)
                 , m_canTransferOwnership(canOwnershipTransfer)
@@ -244,7 +245,7 @@ namespace AZ
             bool m_canTransferOwnership; ///< True if variable can be allocated in one module and freed in other. Usually true for POD types when they share allocator.
             bool m_isConstructed; ///< When we can't transfer the ownership, and the owning module is destroyed we have to "destroy" the variable.
             u32 m_guid;
-            AllocatorInterface* m_allocator;
+            IAllocator* m_allocator;
             int m_useCount;
             AZStd::spin_mutex m_mutex;
         };
@@ -283,7 +284,7 @@ namespace AZ
             #endif
             }
         public:
-            EnvironmentVariableHolder(u32 guid, bool isOwnershipTransfer, AllocatorInterface* allocator)
+            EnvironmentVariableHolder(u32 guid, bool isOwnershipTransfer, IAllocator* allocator)
                 : EnvironmentVariableHolderBase(guid, Environment::GetInstance(), isOwnershipTransfer, allocator)
             {
             }
@@ -343,7 +344,7 @@ namespace AZ
         EnvironmentVariableResult GetVariable(u32 guid);
 
         /// Returns the allocator used by the current environment.
-        AllocatorInterface* GetAllocator();
+        IAllocator* GetAllocator();
 
         /// Converts a string name to an ID (using Crc32 function)
         u32  EnvironmentVariableNameToId(const char* uniqueName);

@@ -8,7 +8,6 @@
 
 #include <AzCore/PlatformIncl.h>
 #include <AzCore/Memory/PoolAllocator.h>
-#include <AzCore/Memory/AllocationRecords.h>
 #include <AzCore/std/containers/intrusive_list.h>
 #include <AzCore/std/containers/intrusive_slist.h>
 #include <AzCore/std/parallel/containers/lock_free_intrusive_stack.h>
@@ -46,7 +45,7 @@ namespace AZ
         void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0);
         pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1);
 
-        void Merge(AllocatorInterface* aOther);
+        void Merge(IAllocator* aOther);
 
         // if isForceFreeAllPages is true we will free all pages even if they have allocations in them.
         void GarbageCollect(bool isForceFreeAllPages = false);
@@ -192,7 +191,7 @@ namespace AZ
     // [9/09/2009]
     //=========================================================================
     template<class Allocator>
-    void PoolAllocation<Allocator>::deallocate(pointer ptr, [[maybe_unused]] size_type byteSize)
+    void PoolAllocation<Allocator>::deallocate(pointer ptr, [[maybe_unused]] size_type byteSize, [[maybe_unused]] align_type alignment)
     {
         PageType* page = m_allocator->PageFromAddress(ptr);
         if (page == nullptr)
@@ -273,10 +272,10 @@ namespace AZ
     /**
      * PoolSchema Private Implementation... to keep the header clean.
      */
-    class PoolSchemaPimpl : public AllocatorInterface
+    class PoolSchemaPimpl : public IAllocator
     {
     public:
-        PoolSchemaPimpl(AllocatorInterface* subAllocator);
+        PoolSchemaPimpl(IAllocator* subAllocator);
         ~PoolSchemaPimpl() override;
 
         pointer allocate(size_type byteSize, align_type alignment = 1) override;
@@ -357,13 +356,13 @@ namespace AZ
         }
 
         using AllocatorType = PoolAllocation<PoolSchemaPimpl>;
-        AllocatorInterface* m_pageAllocator;
+        IAllocator* m_pageAllocator;
         AllocatorType m_allocator;
         size_t m_pageSize;
         Bucket::PageListType m_freePages;
     };
 
-    PoolSchemaPimpl::PoolSchemaPimpl(AllocatorInterface* subAllocator)
+    PoolSchemaPimpl::PoolSchemaPimpl(IAllocator* subAllocator)
         : m_pageAllocator(subAllocator)
         , m_allocator(this, POOL_ALLOCATION_PAGE_SIZE, POOL_ALLOCATION_MIN_ALLOCATION_SIZE, POOL_ALLOCATION_MAX_ALLOCATION_SIZE)
         , m_pageSize(POOL_ALLOCATION_PAGE_SIZE)
@@ -439,7 +438,7 @@ namespace AZ
     /**
      * Thread safe pool allocator.
      */
-    class ThreadPoolSchemaPimpl : public AllocatorInterface
+    class ThreadPoolSchemaPimpl : public IAllocator
     {
     public:
         AZ_CLASS_ALLOCATOR(ThreadPoolSchemaPimpl, SystemAllocator, 0)
@@ -488,7 +487,7 @@ namespace AZ
         typedef ThreadPoolData* (*GetThreadPoolData)();
         typedef void (*SetThreadPoolData)(ThreadPoolData*);
 
-        ThreadPoolSchemaPimpl(AllocatorInterface* subAllocator, GetThreadPoolData threadPoolGetter, SetThreadPoolData threadPoolSetter);
+        ThreadPoolSchemaPimpl(IAllocator* subAllocator, GetThreadPoolData threadPoolGetter, SetThreadPoolData threadPoolSetter);
         ~ThreadPoolSchemaPimpl();
 
         pointer allocate(size_type byteSize, align_type alignment = 1) override;
@@ -549,7 +548,7 @@ namespace AZ
         FreePagesType m_freePages;
         AZStd::vector<ThreadPoolData*> m_threads; ///< Array with all separate thread data. Used to traverse end free elements.
 
-        AllocatorInterface* m_pageAllocator;
+        IAllocator* m_pageAllocator;
         size_t m_pageSize;
         size_t m_minAllocationSize;
         size_t m_maxAllocationSize;
@@ -575,7 +574,7 @@ namespace AZ
         FreedElementsStack m_freedElements;
     };
    
-    ThreadPoolSchemaPimpl::ThreadPoolSchemaPimpl(AllocatorInterface* subAllocator, GetThreadPoolData threadPoolGetter, SetThreadPoolData threadPoolSetter)
+    ThreadPoolSchemaPimpl::ThreadPoolSchemaPimpl(IAllocator* subAllocator, GetThreadPoolData threadPoolGetter, SetThreadPoolData threadPoolSetter)
         : m_threadPoolGetter(threadPoolGetter)
         , m_threadPoolSetter(threadPoolSetter)
         , m_pageAllocator(subAllocator)

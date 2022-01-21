@@ -356,19 +356,17 @@ set(FILES
     Math/ColorSerializer.cpp
     Math/ToString.h
     Math/ToString.cpp
-    Memory/AllocationRecords.cpp
-    Memory/AllocationRecords.h
-    Memory/AllocatorInterface.h
     Memory/AllocatorInstance.h
     Memory/AllocatorManager.cpp
     Memory/AllocatorManager.h
-    Memory/AllocatorWrapper.h
+    Memory/AllocatorWrappers.h
     Memory/AllocatorScope.h
     Memory/ChildAllocatorSchema.h
     Memory/Config.h
     Memory/dlmalloc.inl
     Memory/HphaAllocator.cpp
     Memory/HphaAllocator.h
+    Memory/IAllocator.h
     Memory/Memory.cpp
     Memory/Memory.h
     Memory/MemoryComponent.cpp

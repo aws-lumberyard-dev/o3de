@@ -9,8 +9,9 @@
 
 #include <AzCore/base.h>
 #include <AzCore/Memory/Config.h>
-#include <AzCore/Memory/AllocatorInterface.h>
+#include <AzCore/Memory/IAllocator.h>
 #include <AzCore/std/typetraits/alignment_of.h>
+#include <AzCore/std/typetraits/has_member_function.h>
 
 /**
  * AZ Memory allocation supports all best know allocation schemes. Even though we highly recommend using the

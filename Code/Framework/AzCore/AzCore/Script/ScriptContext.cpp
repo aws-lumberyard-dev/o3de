@@ -7,6 +7,7 @@
  */
 #include <AzCore/Script/ScriptContext.h>
 #include <AzCore/Casting/numeric_cast.h>
+#include <AzCore/Memory/AllocatorWrappers.h>
 #include <AzCore/RTTI/BehaviorContext.h>
 #include <AzCore/RTTI/BehaviorContextUtilities.h>
 #include <AzCore/Script/ScriptContextDebug.h>
@@ -363,24 +364,11 @@ namespace AZ
 
         ///////////////////////////////////////////////////////////////////////////////////////////////
         class LuaSystemAllocator final
-            : public AZ::SystemAllocator
+            : public AllocatorGlobalWrapper<AZ::SystemAllocator>
         {
         public:
             AZ_CLASS_ALLOCATOR(LuaSystemAllocator, AZ::SystemAllocator, 0);
             AZ_TYPE_INFO(LuaSystemAllocator, "{7BEFB496-76EC-43DB-AB82-5ABA524FEF7F}");
-
-            ///////////////////////////////////////////////////////////////////////////////////////////
-            // IAllocator
-            const char* GetName() const override
-            {
-                return "LuaSystemAllocator";
-            }
-
-            const char* GetDescription() const override
-            {
-                return "Generic allocator for use in the Lua System.";
-            }
-            ///////////////////////////////////////////////////////////////////////////////////////////
         };
 
         //=========================================================================
@@ -2310,7 +2298,7 @@ LUA_API const Node* lua_getDummyNode()
                     bool usedBackupAlloc = false;
                     if (backupAllocator != nullptr && sizeof(T) > AZStd::allocator_traits<decltype(tempAllocator)>::max_size(tempAllocator))
                     {
-                        value.m_value = backupAllocator->allocate(sizeof(T), AZStd::alignment_of<T>::value, 0);
+                        value.m_value = backupAllocator->allocate(sizeof(T), AZStd::alignment_of<T>::value);
                         usedBackupAlloc = true;
                     }
                     else
@@ -2344,7 +2332,7 @@ LUA_API const Node* lua_getDummyNode()
                     bool usedBackupAlloc = false;
                     if (backupAllocator != nullptr && valueClass->m_size > AZStd::allocator_traits<decltype(tempAllocator)>::max_size(tempAllocator))
                     {
-                        value.m_value = backupAllocator->allocate(valueClass->m_size, valueClass->m_alignment, 0);
+                        value.m_value = backupAllocator->allocate(valueClass->m_size, valueClass->m_alignment);
                         usedBackupAlloc = true;
                     }
                     else
@@ -4313,11 +4301,7 @@ LUA_API const Node* lua_getDummyNode()
                 {
                     if (!allocator)
                     {
-                        Internal::LuaSystemAllocator::Descriptor desc;
-                        // Prevent allocator from growing in small chunks
-                        desc.m_heap.m_systemChunkSize = 1024 * 1024;
-                        m_luaAllocator.Create(desc);
-                        allocator = m_luaAllocator.Get();
+                        allocator = &m_luaAllocator;
                     }
                     m_lua = lua_newstate(&LuaMemoryHook, allocator);
                     AZ_Assert(m_lua, "Failed to create new LUA state!");
@@ -5824,7 +5808,7 @@ LUA_API const Node* lua_getDummyNode()
             AZStd::vector< ScriptTypeFactory >  m_scriptPropertyFactories;
             AZStd::vector< ScriptTypeFactory >  m_scriptPropertyArrayFactories;
             ScriptTypeFactory                   m_scriptPropertyTableFactory;
-            AllocatorWrapper<Internal::LuaSystemAllocator> m_luaAllocator;
+            AllocatorGlobalWrapper<Internal::LuaSystemAllocator> m_luaAllocator;
             AZStd::thread::id m_ownerThreadId; // Check if Lua methods (including EBus handlers) are called from background threads.
         };
 

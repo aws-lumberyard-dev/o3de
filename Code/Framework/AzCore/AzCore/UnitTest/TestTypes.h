@@ -13,7 +13,6 @@
 
 #include <AzCore/Debug/BudgetTracker.h>
 #include <AzCore/Memory/SystemAllocator.h>
-#include <AzCore/Memory/AllocationRecords.h>
 
 #if defined(HAVE_BENCHMARK)
 
@@ -44,9 +43,6 @@ namespace UnitTest
 
         void SetupAllocator(const AZ::SystemAllocator::Descriptor& allocatorDesc = {})
         {
-            AZ::AllocatorManager::Instance().EnterProfilingMode();
-            AZ::AllocatorManager::Instance().SetDefaultTrackingMode(AZ::Debug::AllocationRecords::RECORD_FULL);
-
             // Only create the SystemAllocator if it s not ready
             if (!AZ::AllocatorInstance<AZ::SystemAllocator>::IsReady())
             {
@@ -64,9 +60,6 @@ namespace UnitTest
                 AZ::AllocatorInstance<AZ::SystemAllocator>::Destroy();
             }
             m_ownsAllocator = false;
-
-            AZ::AllocatorManager::Instance().SetDefaultTrackingMode(AZ::Debug::AllocationRecords::RECORD_NO_RECORDS);
-            AZ::AllocatorManager::Instance().ExitProfilingMode();
         }
     };
 

@@ -91,7 +91,7 @@ namespace AZ
             return m_allocator->reallocate(ptr, newSize, newAlignment);
         }
 
-        void EBusEnvironmentAllocator::Merge(AllocatorInterface* aOther)
+        void EBusEnvironmentAllocator::Merge(IAllocator* aOther)
         {
             m_allocator->Merge(aOther);
         }

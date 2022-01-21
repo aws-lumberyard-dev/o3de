@@ -10,7 +10,6 @@
 #include <AzCore/Module/Module.h>
 #include <AzCore/PlatformIncl.h>
 #include <AzCore/Module/ModuleManagerBus.h>
-#include <AzCore/Memory/AllocationRecords.h>
 #include <AzCore/UnitTest/TestTypes.h>
 #include "ModuleTestBus.h"
 
@@ -130,7 +129,6 @@ namespace UnitTest
             // Create application descriptor
             ComponentApplication::Descriptor appDesc;
             appDesc.m_memoryBlocksByteSize = 10 * 1024 * 1024;
-            appDesc.m_recordingMode = Debug::AllocationRecords::RECORD_FULL;
 
             // AZCoreTestDLL will load as a dynamic module
             appDesc.m_modules.push_back();

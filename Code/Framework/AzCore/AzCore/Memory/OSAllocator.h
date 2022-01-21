@@ -9,7 +9,8 @@
 #pragma once
 
 #include <AzCore/RTTI/TypeInfoSimple.h>
-#include <AzCore/Memory/AllocatorInterface.h>
+#include <AzCore/Memory/IAllocator.h>
+#include <AzCore/Memory/AllocatorWrappers.h>
 
 namespace AZ
 {
@@ -17,7 +18,7 @@ namespace AZ
      * The OSAllocator is a wrapper to direct OS allocation, it simply wraps OS allocation into our
      * memory system framework
      */
-    class OSAllocator : public AllocatorInterface
+    class OSAllocator : public IAllocator
     {
     public:
         AZ_TYPE_INFO(OSAllocator, "{9F835EE3-F23C-454E-B4E3-011E2F3C8118}")
@@ -29,11 +30,11 @@ namespace AZ
         void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0) override;
         pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1) override;
 
-        void Merge(AllocatorInterface* aOther) override;
+        void Merge(IAllocator* aOther) override;
 
         AZ_DISABLE_COPY_MOVE(OSAllocator)
     };
 
     // For backwards compatibility, now that allocators respect the std interface, there is no longer a need to wrap them
-    using OSStdAllocator = OSAllocator;
+    using OSStdAllocator = AllocatorGlobalWrapper<OSAllocator>;
 }

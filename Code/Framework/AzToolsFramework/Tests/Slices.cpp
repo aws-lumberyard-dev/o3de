@@ -11,7 +11,6 @@
 #include <AzCore/Component/ComponentApplication.h>
 #include <AzCore/Component/Entity.h>
 #include <AzCore/Component/Component.h>
-#include <AzCore/Memory/AllocationRecords.h>
 #include <AzCore/Serialization/SerializeContext.h>
 #include <AzCore/Slice/SliceComponent.h>
 #include <AzCore/Slice/SliceAsset.h>

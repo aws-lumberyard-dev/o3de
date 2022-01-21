@@ -9,9 +9,9 @@
 #define AZSTD_ALLOCATOR_H 1
 
 #include <AzCore/std/base.h>
-#include <AzCore/std/typetraits/integral_constant.h>
-#include <AzCore/std/typetraits/alignment_of.h>
 #include <AzCore/RTTI/TypeInfoSimple.h>
+#include <AzCore/Memory/AllocatorWrappers.h>
+#include <AzCore/Memory/SystemAllocator.h>
 
 namespace AZStd
 {
@@ -44,7 +44,7 @@ namespace AZStd
      *
      *  pointer_type allocate(size_type byteSize, size_type alignment, int flags = 0);
      *  void         deallocate(pointer_type ptr, size_type byteSize, size_type alignment);
-     *  /// Tries to resize an existing memory chunck. Returns the resized memory block or 0 if resize is not supported.
+     *  /// Tries to resize an existing memory chunk. Returns the resized memory block or 0 if resize is not supported.
      *  size_type    resize(pointer_type ptr, size_type newSize);
      * };
      *
@@ -68,33 +68,10 @@ namespace AZStd
     /**
      * All allocation will be piped to AZ::SystemAllocator, make sure it is created!
      */
-    class allocator
+    class allocator : public AZ::AllocatorGlobalWrapper<AZ::SystemAllocator>
     {
     public:
         AZ_TYPE_INFO(allocator, "{E9F5A3BE-2B3D-4C62-9E6B-4E00A13AB452}");
-
-        using value_type = void;
-        using pointer = void*;
-        using size_type = AZStd::size_t;
-        using difference_type = AZStd::ptrdiff_t;
-        using align_type = AZStd::size_t;
-        using propagate_on_container_move_assignment = AZStd::true_type;
-
-        AZ_FORCE_INLINE allocator()
-        {
-        }
-        AZ_FORCE_INLINE allocator(const allocator&)
-        {
-        }
-
-        AZ_FORCE_INLINE allocator& operator=(const allocator&)
-        {
-            return *this;
-        }
-
-        pointer allocate(size_type byteSize, align_type alignment = 1);
-        void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0);
-        pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1);
 
         AZ_FORCE_INLINE bool is_lock_free()
         {
@@ -148,6 +125,7 @@ namespace AZStd
         AZ_FORCE_INLINE pointer allocate(size_type byteSize, align_type alignment = 1);
         AZ_FORCE_INLINE void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0);
         AZ_FORCE_INLINE pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1);
+        AZ_FORCE_INLINE size_type max_size() const;
     };
 }
 

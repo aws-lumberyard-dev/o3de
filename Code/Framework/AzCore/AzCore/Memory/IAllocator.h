@@ -13,17 +13,12 @@
 #include <AzCore/std/typetraits/integral_constant.h>
 #include <AzCore/std/typetraits/alignment_of.h>
 
-#include <AzCore/Memory/AllocatorInstance.h>
-#include <AzCore/RTTI/TypeInfoSimple.h>
-
 namespace AZ
 {
     /**
-     * Allocator interface base class used by AllocatorInterfaceImpl to wrap an allocator in a virtual
-     * interface to be able to not depend on the implementation. Useful for allocators to be able to configure
-     * sub allocators through templates but avoid having the implementation of the class in the header.
+     * Allocator interface base class
      */
-    class AllocatorInterface
+    class IAllocator
     {
     public:
         using value_type = void;
@@ -33,15 +28,18 @@ namespace AZ
         using align_type = AZStd::size_t;
         using propagate_on_container_move_assignment = AZStd::true_type;
 
-        AllocatorInterface() = default;
-        AllocatorInterface(AllocatorInterface&) {}
-        virtual ~AllocatorInterface() = default;
+        IAllocator() = default;
+        virtual ~IAllocator() = default;
 
         virtual pointer allocate(size_type byteSize, align_type alignment = 1) = 0;
         virtual void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0) = 0;
         virtual pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1) = 0;
+        virtual size_type max_size() const
+        {
+            return AZ_TRAIT_OS_MEMORY_MAX_ALLOCATOR_SIZE;
+        }
 
-        virtual void Merge(AllocatorInterface* aOther) = 0;
+        virtual void Merge(IAllocator* aOther) = 0;
 
         // Convenient functions
         template<typename TType>
@@ -56,7 +54,7 @@ namespace AZ
             return deallocate(ptr, sizeof(TType), static_cast<align_type>(AZStd::alignment_of<TType>::value));
         }
 
-        AZ_DISABLE_COPY_MOVE(AllocatorInterface)
+        AZ_DISABLE_COPY_MOVE(IAllocator)
 
         // Kept for backwards-compatibility reasons
         /////////////////////////////////////////////
@@ -143,32 +141,4 @@ namespace AZ
         /////////////////////////////////////////////
     };
 
-    using IAllocator = AllocatorInterface;
-
 } // namespace AZ
-
-
-#define DECLARE_AZ_ALLOCATOR_WITH_SUBALLOCATOR(AllocatorName, UUIDValue, ...)                                                              \
-    class AllocatorName : public AllocatorInterface                                                                                        \
-    {                                                                                                                                      \
-        friend class AllocatorInstance;                                                                                                    \
-                                                                                                                                           \
-    public:                                                                                                                                \
-        AZ_TYPE_INFO(AllocatorName, UUIDValue)                                                                                             \
-                                                                                                                                           \
-        pointer allocate(size_type byteSize, align_type alignment = 1) override;                                                           \
-        void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0) override;                                           \
-        pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1) override;                                          \
-                                                                                                                                           \
-        void Merge(AllocatorInterface* aOther) override;                                                                                   \
-                                                                                                                                           \
-    private:                                                                                                                               \
-        AllocatorName();                                                                                                                   \
-        ~AllocatorName();                                                                                                                  \
-        AZ_DISABLE_COPY_MOVE(AllocatorName)                                                                                                \
-                                                                                                                                           \
-        AllocatorInterface* Create();                                                                                                      \
-        void Destroy(AllocatorInterface* allocator);                                                                                       \
-                                                                                                                                           \
-        SubAllocator m_subAllocator;                                                                                                       \
-    }

@@ -8,7 +8,7 @@
 
 #include <AzCore/Module/Environment.h>
 
-#include <AzCore/Memory/AllocatorWrapper.h>
+#include <AzCore/Memory/AllocatorWrappers.h>
 #include <AzCore/std/containers/unordered_map.h>
 #include <AzCore/Math/Crc.h>
 #include <AzCore/std/parallel/scoped_lock.h>
@@ -46,7 +46,7 @@ namespace AZ
             if (releaseByUseCount)
             {
                 // m_mutex is unlocked before this is deleted
-                AllocatorInterface* allocator = m_allocator;
+                IAllocator* allocator = m_allocator;
                 // Call child class dtor and clear the memory
                 destruct(this, DestroyTarget::Self);
                 allocator->DeAllocate(this);
@@ -65,14 +65,14 @@ namespace AZ
             : public EnvironmentInterface
         {
         public:
-            using MapType = AZStd::unordered_map<u32, void *, AZStd::hash<u32>, AZStd::equal_to<u32>, AllocatorWrapper>;
+            using MapType = AZStd::unordered_map<u32, void *, AZStd::hash<u32>, AZStd::equal_to<u32>, AllocatorPointerWrapper>;
 
             static EnvironmentInterface* Get();
             static void Attach(EnvironmentInstance sourceEnvironment, bool useAsGetFallback);
             static void Detach();
 
-            EnvironmentImpl(AllocatorInterface* allocator)
-                : m_variableMap(MapType::hasher(), MapType::key_eq(), AllocatorWrapper(allocator))
+            EnvironmentImpl(IAllocator* allocator)
+                : m_variableMap(MapType::hasher(), MapType::key_eq(), AllocatorPointerWrapper(allocator))
                 , m_numAttached(0)
                 , m_fallback(nullptr)
                 , m_allocator(allocator)
@@ -269,12 +269,12 @@ namespace AZ
 
             void DeleteThis() override
             {
-                AllocatorInterface* allocator = m_allocator;
+                IAllocator* allocator = m_allocator;
                 this->~EnvironmentImpl();
                 allocator->DeAllocate(this);
             }
 
-            AllocatorInterface* GetAllocator() override
+            IAllocator* GetAllocator() override
             {
                 return m_allocator;
             }
@@ -285,7 +285,7 @@ namespace AZ
 
             unsigned int                m_numAttached; ///< used for "correctness" checks.
             EnvironmentInterface*       m_fallback;    ///< If set we will use the fallback environment for GetVariable operations.
-            AllocatorInterface*         m_allocator;
+            IAllocator*                 m_allocator;
         };
 
 
@@ -405,7 +405,7 @@ namespace AZ
             return EnvironmentImpl::Get()->GetVariable(guid);
         }
 
-        AllocatorInterface* GetAllocator()
+        IAllocator* GetAllocator()
         {
             return EnvironmentImpl::Get()->GetAllocator();
         }

@@ -269,9 +269,6 @@ namespace UnitTest
 
         void SetUp() override
         {
-            AZ::AllocatorManager::Instance().EnterProfilingMode();
-            AZ::AllocatorManager::Instance().SetDefaultTrackingMode(AZ::Debug::AllocationRecords::RECORD_FULL);
-
             if (azrtti_typeid<AllocatorType>() != azrtti_typeid<AZ::SystemAllocator>()) // simplifies instead of template specialization
             {
                 // Other allocators need the SystemAllocator in order to work

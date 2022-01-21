@@ -157,8 +157,6 @@ namespace AZ
         }
         constexpr const char* get_name() const { return m_name; }
         void set_name(const char* name) { m_name = name; }
-        size_type max_size() const { return m_allocatorFunctor().GetMaxContiguousAllocationSize(); }
-        size_type get_allocated_size() const { return m_allocatorFunctor().NumAllocatedBytes(); }
 
         constexpr bool operator==(const AZStdFunctorAllocator& rhs) const { return m_allocatorFunctor == rhs.m_allocatorFunctor; }
         constexpr bool operator!=(const AZStdFunctorAllocator& rhs) const { return m_allocatorFunctor != rhs.m_allocatorFunctor; }

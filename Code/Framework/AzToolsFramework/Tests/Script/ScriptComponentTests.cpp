@@ -40,8 +40,6 @@ namespace UnitTest
         {        
             ComponentApplication::Descriptor appDesc;
             appDesc.m_memoryBlocksByteSize = 100 * 1024 * 1024;
-            //appDesc.m_recordsMode = AllocationRecords::RECORD_FULL;
-            //appDesc.m_stackRecordLevels = 20;
             Entity* systemEntity = m_app.Create(appDesc);
 
             systemEntity->CreateComponent<MemoryComponent>();

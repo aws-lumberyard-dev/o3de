@@ -16,7 +16,6 @@
 #include <AzCore/UnitTest/UnitTest.h>
 
 #include <AzCore/Memory/OSAllocator.h>
-#include <AzCore/Memory/AllocationRecords.h>
 
 #include <GridMate/Carrier/Carrier.h>
 
@@ -54,13 +53,6 @@ namespace UnitTest
             //desc.m_autoInitPlatformNetModules = false;
             m_gridMate = GridMateCreate(desc);
             AZ_TEST_ASSERT(m_gridMate != NULL);
-
-            AZ::AllocatorManager::Instance().EnterProfilingMode();
-            AZ::Debug::AllocationRecords* records = AZ::AllocatorInstance<GridMate::GridMateAllocator>::GetAllocator().GetRecords();
-            if (records)
-            {
-                records->SetMode(AZ::Debug::AllocationRecords::RECORD_FULL);
-            }
 
             Platform::Construct();
         }
@@ -113,12 +105,6 @@ namespace UnitTest
                 }
 #endif
                 AZ::AllocatorInstance<GridMate::GridMateAllocatorMP>::Create();
-
-                AZ::Debug::AllocationRecords* records = AZ::AllocatorInstance<GridMate::GridMateAllocatorMP>::GetAllocator().GetRecords();
-                if (records)
-                {
-                    records->SetMode(AZ::Debug::AllocationRecords::RECORD_FULL);
-                }
             }
         }
 

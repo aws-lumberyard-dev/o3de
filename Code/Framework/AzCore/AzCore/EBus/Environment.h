@@ -72,7 +72,7 @@ namespace AZ
             static AZ_THREAD_LOCAL EBusEnvironment* s_tlsCurrentEnvironment; ///< Pointer to the current environment for the current thread.
         };
 
-        class EBusEnvironmentAllocator : public AllocatorInterface
+        class EBusEnvironmentAllocator : public IAllocator
         {
             /**
             * AZStd allocator wrapper for the EBus context internals. Don't expose to external code, this allocation are NOT
@@ -86,14 +86,14 @@ namespace AZ
             void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0) override;
             pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1) override;
 
-            void Merge(AllocatorInterface* aOther) override;
+            void Merge(IAllocator* aOther) override;
 
             bool operator==(const EBusEnvironmentAllocator&) { return true; }
             bool operator!=(const EBusEnvironmentAllocator&) { return false; }
             EBusEnvironmentAllocator& operator=(const EBusEnvironmentAllocator&) { return *this; }
 
         private:
-            AllocatorInterface* m_allocator;
+            IAllocator* m_allocator;
         };
     }
 

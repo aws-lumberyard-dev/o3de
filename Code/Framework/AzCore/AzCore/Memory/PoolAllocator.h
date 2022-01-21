@@ -8,13 +8,14 @@
 
 #pragma once
 
-#include <AzCore/Memory/AllocatorInterface.h>
+#include <AzCore/Memory/IAllocator.h>
 #include <AzCore/Memory/OSAllocator.h>
+#include <AzCore/Memory/SystemAllocator.h>
 
 namespace AZ
 {
-    AllocatorInterface* CreatePoolAllocatorPimpl(AllocatorInterface& mSubAllocator);
-    void DestroyPoolAllocatorPimpl(AllocatorInterface& mSubAllocator, AllocatorInterface* allocator);
+    IAllocator* CreatePoolAllocatorPimpl(IAllocator& mSubAllocator);
+    void DestroyPoolAllocatorPimpl(IAllocator& mSubAllocator, IAllocator* allocator);
 
     /*!
      * Pool allocator
@@ -23,17 +24,15 @@ namespace AZ
      * use PoolAllocatorThreadSafe or do the sync yourself.
      */
     template<typename SubAllocatorType = OSAllocator>
-    class PoolAllocator : public AllocatorInterface
+    class PoolAllocatorType : public IAllocator
     {
     public:
-        AZ_TYPE_INFO(PoolAllocator, "{D3DC61AF-0949-4BFA-87E0-62FA03A4C025}")
-
-        PoolAllocator()
+        PoolAllocatorType()
         {
             m_allocatorPimpl = CreatePoolAllocatorPimpl(AZ::AllocatorInstance<SubAllocatorType>::Get());
         }
 
-        ~PoolAllocator() override
+        ~PoolAllocatorType() override
         {
             DestroyPoolAllocatorPimpl(AZ::AllocatorInstance<SubAllocatorType>::Get(), m_allocatorPimpl);
             m_allocatorPimpl = nullptr;
@@ -54,37 +53,41 @@ namespace AZ
             return m_allocatorPimpl->reallocate(ptr, newSize, newAlignment);
         }
 
-        void Merge(AllocatorInterface* aOther) override
+        void Merge(IAllocator* aOther) override
         {
             m_allocatorPimpl->Merge(aOther);
         }
 
     private:
-        AZ_DISABLE_COPY_MOVE(PoolAllocator)
+        AZ_DISABLE_COPY_MOVE(PoolAllocatorType)
 
         // Due the complexity of this allocator, we create a pimpl implementation
-        AllocatorInterface* m_allocatorPimpl;
+        IAllocator* m_allocatorPimpl;
     };
 
-    AllocatorInterface* CreateThreadPoolAllocatorPimpl(AllocatorInterface& mSubAllocator);
-    void DestroyThreadPoolAllocatorPimpl(AllocatorInterface& mSubAllocator, AllocatorInterface* allocator);
+    AZ_TYPE_INFO_TEMPLATE(PoolAllocatorType, "{D3DC61AF-0949-4BFA-87E0-62FA03A4C025}", AZ_TYPE_INFO_TYPENAME);
+
+    using PoolAllocator = PoolAllocatorType<SystemAllocator>;
+
+    IAllocator* CreateThreadPoolAllocatorPimpl(IAllocator& mSubAllocator);
+    void DestroyThreadPoolAllocatorPimpl(IAllocator& mSubAllocator, IAllocator* allocator);
 
     /*!
      * Thread safe pool allocator. If you want to create your own thread pool heap,
      * inherit from ThreadPoolBase, as we need unique static variable for allocator type.
      */
     template<typename SubAllocatorType = OSAllocator>
-    class ThreadPoolAllocator : public AllocatorInterface
+    class ThreadPoolAllocatorType : public IAllocator
     {
     public:
         AZ_TYPE_INFO(ThreadPoolAllocator, "{05B4857F-CD06-4942-99FD-CA6A7BAE855A}")
 
-        ThreadPoolAllocator()
+        ThreadPoolAllocatorType()
         {
             m_allocatorPimpl = CreateHphaAllocatorPimpl(AZ::AllocatorInstance<SubAllocatorType>::Get());
         }
 
-        ~ThreadPoolAllocator() override
+        ~ThreadPoolAllocatorType() override
         {
             DestroyHphaAllocatorPimpl(AZ::AllocatorInstance<SubAllocatorType>::Get(), m_allocatorPimpl);
             m_allocatorPimpl = nullptr;
@@ -105,15 +108,19 @@ namespace AZ
             return m_allocatorPimpl->reallocate(ptr, newSize, newAlignment);
         }
 
-        void Merge(AllocatorInterface* aOther) override
+        void Merge(IAllocator* aOther) override
         {
             m_allocatorPimpl->Merge(aOther);
         }
 
     private:
-        AZ_DISABLE_COPY_MOVE(ThreadPoolAllocator)
+        AZ_DISABLE_COPY_MOVE(ThreadPoolAllocatorType)
 
         // Due the complexity of this allocator, we create a pimpl implementation
-        AllocatorInterface* m_allocatorPimpl;
+        IAllocator* m_allocatorPimpl;
     };
+
+    AZ_TYPE_INFO_TEMPLATE(ThreadPoolAllocatorType, "{05B4857F-CD06-4942-99FD-CA6A7BAE855A}", AZ_TYPE_INFO_TYPENAME);
+
+    using ThreadPoolAllocator = ThreadPoolAllocatorType<SystemAllocator>;
 }

@@ -22,7 +22,6 @@
 #include <AzCore/UserSettings/UserSettingsComponent.h>
 #include <AzCore/IO/SystemFile.h>
 
-#include <AzCore/Memory/AllocationRecords.h>
 #include <AzCore/UnitTest/TestTypes.h>
 
 #include <AzCore/std/parallel/containers/concurrent_unordered_set.h>
@@ -45,7 +44,6 @@ TEST(ComponentApplication, Test)
     // Create application environment code driven
     ComponentApplication::Descriptor appDesc;
     appDesc.m_memoryBlocksByteSize = 10 * 1024 * 1024;
-    appDesc.m_recordingMode = AllocationRecords::RECORD_FULL;
     appDesc.m_stackRecordLevels = 20;
     Entity* systemEntity = app.Create(appDesc);
 

@@ -6,7 +6,6 @@
  *
  */
 
-#include <AzCore/Memory/AllocationRecords.h>
 #include <AzCore/Memory/MemoryComponent.h>
 #include <AzCore/IO/Streamer/StreamerComponent.h>
 #include <AzCore/Asset/AssetManagerComponent.h>
@@ -164,7 +163,6 @@ namespace UnitTest
         {
             AZ::ComponentApplication::Descriptor desc;
             desc.m_allocationRecords = true;
-            desc.m_recordingMode = AZ::Debug::AllocationRecords::RECORD_FULL;
             desc.m_stackRecordLevels = 10;
             desc.m_useExistingAllocator = true;
             m_componentApplication = aznew TestbedApplication(*this);

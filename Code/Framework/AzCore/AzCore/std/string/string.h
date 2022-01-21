@@ -1376,21 +1376,7 @@ namespace AZStd
                 }
                 else
                 {
-                    size_type expandedSize = 0;
-                    if (m_capacity >= SSO_BUF_SIZE)
-                    {
-                        expandedSize = m_allocator.resize(m_data, sizeof(node_type) * (numElements + 1));
-                        // our memory managers allocate on 8+ bytes boundary and our node type should be less than that in general, otherwise
-                        // we need to take care when we compute the size on deallocate.
-                        AZ_Assert(expandedSize % sizeof(node_type) == 0, "Expanded size not a multiply of node type. This should not happen");
-                        size_type expandedCapacity = expandedSize / sizeof(node_type);
-                        if (expandedCapacity > numElements)
-                        {
-                            m_capacity = expandedCapacity - 1;
-                            return;
-                        }
-                    }
-
+                    // TODO: reallocate could be used here
                     pointer newData = reinterpret_cast<pointer>(m_allocator.allocate(sizeof(node_type) * (numElements + 1), alignment_of<node_type>::value));
                     AZSTD_CONTAINER_ASSERT(newData != 0, "AZStd::string allocation failed!");
 
@@ -1402,7 +1388,7 @@ namespace AZStd
                     }
                     if (m_capacity >= SSO_BUF_SIZE)
                     {
-                        deallocate_memory(m_data, expandedSize);
+                        deallocate_memory(m_data, 0);
                     }
 
                     m_data = newData;
