@@ -10,7 +10,6 @@
 
 #include <AzCore/RTTI/TypeInfoSimple.h>
 #include <AzCore/Memory/IAllocator.h>
-#include <AzCore/Memory/AllocatorWrappers.h>
 
 namespace AZ
 {
@@ -34,7 +33,4 @@ namespace AZ
 
         AZ_DISABLE_COPY_MOVE(OSAllocator)
     };
-
-    // For backwards compatibility, now that allocators respect the std interface, there is no longer a need to wrap them
-    using OSStdAllocator = AllocatorGlobalWrapper<OSAllocator>;
 }

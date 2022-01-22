@@ -8,6 +8,7 @@
 
 set(FILES
     algorithm.h
+    allocator.cpp
     allocator.h
     allocator_ref.h
     allocator_stack.h

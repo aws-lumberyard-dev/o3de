@@ -19,7 +19,7 @@ namespace AZStd
     template<class Allocator>
     class allocator_ref
     {
-        typedef allocator_ref<Allocator> this_type;
+        using this_type = allocator_ref<Allocator>;
     public:
         using value_type = typename Allocator::value_type;
         using pointer = typename Allocator::pointer;

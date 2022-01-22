@@ -90,7 +90,7 @@ namespace AZ
 
         z_stream_s* m_strDeflate;
         z_stream_s* m_strInflate;
-        IAllocatorSchema* m_workMemoryAllocator;
+        IAllocator* m_workMemoryAllocator;
     };
 }
 

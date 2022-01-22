@@ -5,13 +5,11 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-#ifndef AZSTD_ALLOCATOR_H
-#define AZSTD_ALLOCATOR_H 1
+
+#pragma once
 
 #include <AzCore/std/base.h>
 #include <AzCore/RTTI/TypeInfoSimple.h>
-#include <AzCore/Memory/AllocatorWrappers.h>
-#include <AzCore/Memory/SystemAllocator.h>
 
 namespace AZStd
 {
@@ -68,19 +66,41 @@ namespace AZStd
     /**
      * All allocation will be piped to AZ::SystemAllocator, make sure it is created!
      */
-    class allocator : public AZ::AllocatorGlobalWrapper<AZ::SystemAllocator>
+    class allocator
     {
     public:
         AZ_TYPE_INFO(allocator, "{E9F5A3BE-2B3D-4C62-9E6B-4E00A13AB452}");
+
+        using value_type = void;
+        using pointer = void*;
+        using size_type = AZStd::size_t;
+        using difference_type = AZStd::ptrdiff_t;
+        using align_type = AZStd::size_t;
+        using propagate_on_container_move_assignment = AZStd::true_type;
+
+        allocator() = default;
+        allocator(const allocator& rhs) = default;
+        allocator& operator=(const allocator& rhs) = default;
+
+        pointer allocate(size_type byteSize, align_type alignment = 1);
+        void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0);
+        pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1);
+
+        size_type max_size() const
+        {
+            return AZ_TRAIT_OS_MEMORY_MAX_ALLOCATOR_SIZE;
+        }
 
         AZ_FORCE_INLINE bool is_lock_free()
         {
             return false;
         }
+
         AZ_FORCE_INLINE bool is_stale_read_allowed()
         {
             return false;
         }
+
         AZ_FORCE_INLINE bool is_delayed_recycling()
         {
             return false;
@@ -128,6 +148,3 @@ namespace AZStd
         AZ_FORCE_INLINE size_type max_size() const;
     };
 }
-
-#endif // AZSTD_ALLOCATOR_H
-#pragma once

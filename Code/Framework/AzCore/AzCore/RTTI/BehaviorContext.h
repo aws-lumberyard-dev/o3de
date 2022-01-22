@@ -1401,10 +1401,9 @@ namespace AZ
         template<class T>
         struct DefaultAllocator
         {
-            static void* Allocate(void* userData)
+            static void* Allocate([[maybe_unused]] void* userData)
             {
-                (void)userData;
-                return T::AZ_CLASS_ALLOCATOR_Allocate();
+                return new T::AZ_CLASS_ALLOCATOR_Allocate();
             }
 
             static void DeAllocate(void* address, void* userData)

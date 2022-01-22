@@ -26,7 +26,7 @@ ZLib::ZLib(IAllocator* workMemAllocator)
     : m_strDeflate(nullptr)
     , m_strInflate(nullptr)
 {
-    m_workMemoryAllocator = workMemAllocator->GetSchema();
+    m_workMemoryAllocator = workMemAllocator;
     if (!m_workMemoryAllocator)
     {
         m_workMemoryAllocator = &AllocatorInstance<SystemAllocator>::Get();

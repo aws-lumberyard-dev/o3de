@@ -12,6 +12,21 @@
 
 namespace AZStd
 {
+    stateless_allocator::pointer stateless_allocator::allocate(size_type byteSize, align_type alignment)
+    {
+        return AZ::AllocatorInstance<AZ::OSAllocator>::Get().allocate(byteSize, alignment);
+    }
+
+    void stateless_allocator::deallocate(pointer ptr, size_type byteSize, align_type alignment)
+    {
+        return AZ::AllocatorInstance<AZ::OSAllocator>::Get().deallocate(ptr, byteSize, alignment);
+    }
+
+    stateless_allocator::pointer stateless_allocator::reallocate(pointer ptr, size_type newSize, align_type newAlignment)
+    {
+        return AZ::AllocatorInstance<AZ::OSAllocator>::Get().reallocate(ptr, newSize, newAlignment);
+    }
+
     bool stateless_allocator::is_lock_free()
     {
         return false;
