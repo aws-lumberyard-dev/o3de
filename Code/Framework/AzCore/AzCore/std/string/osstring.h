@@ -9,7 +9,7 @@
 #define AZCORE_OS_STRING_H
 
 #include <AzCore/std/string/string.h>
-#include <AzCore/Memory/OSAllocator.h>
+#include <AzCore/Memory/OSStdAllocator.h>
 
 namespace AZ
 {

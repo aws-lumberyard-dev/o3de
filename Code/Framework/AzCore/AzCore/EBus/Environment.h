@@ -10,6 +10,7 @@
 #include <AzCore/Module/Environment.h>
 
 #include <AzCore/Memory/OSAllocator_Platform.h> // Needed for Context allocation from the OS
+#include <AzCore/Memory/OSStdAllocator.h>
 #include <AzCore/RTTI/RTTI.h> // Context dynamic casting
 #include <AzCore/std/containers/vector.h> // Environment context array
 
