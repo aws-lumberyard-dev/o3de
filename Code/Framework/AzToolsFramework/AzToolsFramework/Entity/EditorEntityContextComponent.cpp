@@ -6,7 +6,6 @@
  *
  */
 
- #pragma optimize("", off)
 #include <AzToolsFramework/Entity/EditorEntityContextComponent.h>
 
 #include <AzCore/Component/Entity.h>
@@ -816,4 +815,3 @@ namespace AzToolsFramework
     }
 
 } // namespace AzToolsFramework
-#pragma optimize("", on)

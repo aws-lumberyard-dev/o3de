@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-#pragma optimize("", off)
+
 #include <AzCore/Component/Entity.h>
 #include <AzCore/Component/TransformBus.h>
 #include <AzCore/Script/ScriptSystemBus.h>
@@ -658,4 +658,3 @@ namespace AzToolsFramework
         return nullptr;
     }
 } // namespace AzToolsFramework
-#pragma optimize("", on)

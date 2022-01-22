@@ -5,7 +5,6 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-#pragma optimize("", off)
 #include <AzCore/Interface/Interface.h>
 #include <AzToolsFramework/Prefab/Instance/Instance.h>
 #include <Prefab/PrefabUndo.h>
@@ -350,4 +349,3 @@ namespace AzToolsFramework
         }
     }
 } // namespace AzToolsFramework
-#pragma optimize("", on)

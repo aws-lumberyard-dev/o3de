@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-#pragma optimize("", off)
+
 #include <AzCore/std/containers/map.h>
 #include <AzCore/Component/Entity.h>
 #include <AzCore/Component/EntityIdSerializer.h>
@@ -211,4 +211,3 @@ namespace AZ
         }
     }
 } // namespace AZ
-#pragma optimize("", on)
