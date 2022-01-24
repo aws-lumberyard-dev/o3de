@@ -9,7 +9,7 @@
 #define AZCORE_SERIALIZE_AZSTD_CONTAINERS_INL
 
 #include <AzCore/Outcome/Outcome.h>
-#include <AzCore/Memory/OSAllocator.h>
+#include <AzCore/Memory/OSStdAllocator.h>
 #include <AzCore/std/containers/stack.h>
 #include <AzCore/std/smart_ptr/unique_ptr.h>
 #include <AzCore/std/tuple.h>

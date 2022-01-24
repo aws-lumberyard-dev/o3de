@@ -1403,12 +1403,11 @@ namespace AZ
         {
             static void* Allocate([[maybe_unused]] void* userData)
             {
-                return new T::AZ_CLASS_ALLOCATOR_Allocate();
+                return T::AZ_CLASS_ALLOCATOR_Allocate();
             }
 
-            static void DeAllocate(void* address, void* userData)
+            static void DeAllocate(void* address, [[maybe_unused]] void* userData)
             {
-                (void)userData;
                 T::AZ_CLASS_ALLOCATOR_DeAllocate(address);
             }
         };

@@ -123,23 +123,7 @@ namespace AZ
 
             Descriptor();
 
-            bool            m_useExistingAllocator;     //!< True if the user is creating the system allocation and setup tracking modes, if this is true all other parameters are IGNORED. (default: false)
-            bool            m_grabAllMemory;            //!< True if we want to grab all available memory minus reserved fields. (default: false)
-            bool            m_allocationRecords;        //!< True if we want to track memory allocations, otherwise false. (default: true)
-            bool            m_allocationRecordsSaveNames; //!< True if we want to allocate space for saving the name/filename of each allocation so unloaded module memory leaks have valid names to read, otherwise false. (default: false, automatically true with recording mode FULL)
-            bool            m_allocationRecordsAttemptDecodeImmediately; ///< True if we want to attempt decoding frames at time of allocation, otherwise false. Very expensive, used specifically for debugging allocations that fail to decode. (default: false)
-            bool            m_autoIntegrityCheck;       //!< True to check the heap integrity on each allocation/deallocation. (default: false)
-            bool            m_markUnallocatedMemory;    //!< True to mark all memory with 0xcd when it's freed. (default: true)
-            bool            m_doNotUsePools;            //!< True of we want to pipe all allocation to a generic allocator (not pools), this can help debugging a memory stomp. (default: false)
             bool            m_enableScriptReflection;   //!< True if we want to enable reflection to the script context.
-
-            unsigned int    m_pageSize;                 //!< Page allocation size must be 1024 bytes aligned. (default: SystemAllocator::Descriptor::Heap::m_defaultPageSize)
-            unsigned int    m_poolPageSize;             //!< Page size used to small memory allocations. Must be less or equal to m_pageSize and a multiple of it. (default: SystemAllocator::Descriptor::Heap::m_defaultPoolPageSize)
-            unsigned int    m_memoryBlockAlignment;     //!< Alignment of memory block. (default: SystemAllocator::Descriptor::Heap::m_memoryBlockAlignment)
-            AZ::u64         m_memoryBlocksByteSize;     //!< Memory block size in bytes if. This parameter is ignored if m_grabAllMemory is set to true. (default: 0 - use memory on demand, no preallocation)
-            AZ::u64         m_reservedOS;               //!< Reserved memory for the OS in bytes. Used only when m_grabAllMemory is set to true. (default: 0)
-            AZ::u64         m_reservedDebug;            //!< Reserved memory for Debugging (allocation,etc.). Used only when m_grabAllMemory is set to true. (default: 0)
-            AZ::u64         m_stackRecordLevels;        //!< If stack recording is enabled, how many stack levels to record. (default: 5)
 
             ModuleDescriptorList m_modules;             //!< Dynamic modules used by the application.
                                                         //!< These will be loaded on startup.
@@ -189,7 +173,6 @@ namespace AZ
          */
         virtual Entity* Create(const Descriptor& descriptor, const StartupParameters& startupParameters = StartupParameters());
         virtual void Destroy();
-        virtual void DestroyAllocator(); // Called at the end of Destroy(). Applications can override to do tear down work right before allocator is destroyed.
 
         //////////////////////////////////////////////////////////////////////////
         // ComponentApplicationRequests
@@ -308,12 +291,6 @@ namespace AZ
         /// Common logic shared between the multiple Create(...) functions.
         void        CreateCommon();
 
-        /// Create the operating system allocator if not supplied in the StartupParameters
-        void        CreateOSAllocator();
-
-        /// Create the system allocator using the data in the m_descriptor
-        void        CreateSystemAllocator();
-
         virtual void MergeSettingsToRegistry(SettingsRegistryInterface& registry);
 
         //! Sets the specializations that will be used when loading the Settings Registry. Extend this in derived
@@ -362,11 +339,7 @@ namespace AZ
         AZ::IConsole*                               m_console{};
         Descriptor                                  m_descriptor;
         bool                                        m_isStarted{ false };
-        bool                                        m_isSystemAllocatorOwner{ false };
-        bool                                        m_isOSAllocatorOwner{ false };
         bool                                        m_ownsConsole{};
-        void*                                       m_fixedMemoryBlock{ nullptr }; //!< Pointer to the memory block allocator, so we can free it OnDestroy.
-        IAllocator*                                 m_osAllocator{ nullptr };
         EntitySetType                               m_entities;
 
         AZ::SettingsRegistryInterface::NotifyEventHandler m_projectPathChangedHandler;

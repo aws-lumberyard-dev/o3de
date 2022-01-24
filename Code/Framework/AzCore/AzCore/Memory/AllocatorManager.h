@@ -22,6 +22,9 @@ namespace AZ
     class AllocatorManager
     {
     public:
+        AllocatorManager() = default;
+        ~AllocatorManager() = default;
+
         static AllocatorManager& Instance();
 
         AZ_FORCE_INLINE size_t GetNumAllocators() const
@@ -45,9 +48,6 @@ namespace AZ
         AZStd::array<IAllocator*, s_maxNumAllocators> m_allocators;
         size_t m_numAllocators = 0;
         AZStd::mutex m_allocatorListMutex;
-
-        AllocatorManager() = default;
-        ~AllocatorManager() = default;
 
         static AllocatorManager g_allocMgr; ///< The single instance of the allocator manager
     };

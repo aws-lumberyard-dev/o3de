@@ -15,7 +15,6 @@
 #include <AzCore/std/typetraits/extent.h>
 #include <AzCore/std/typetraits/remove_extent.h>
 #include <AzCore/std/utils.h>
-#include <AzCore/Memory/Memory.h>
 #include <AzCore/RTTI/TypeInfo.h>
 #include <memory>
 

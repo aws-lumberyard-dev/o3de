@@ -7,6 +7,7 @@
  */
 #pragma once
 
+#include <AzCore/Memory/Memory.h>
 #include <AzCore/Memory/HphaAllocator.h>
 #include <AzCore/Memory/OSAllocator.h>
 

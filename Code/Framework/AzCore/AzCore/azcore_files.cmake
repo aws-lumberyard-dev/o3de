@@ -356,6 +356,7 @@ set(FILES
     Math/ColorSerializer.cpp
     Math/ToString.h
     Math/ToString.cpp
+    Memory/AllocatorDebug.h
     Memory/AllocatorInstance.h
     Memory/AllocatorManager.cpp
     Memory/AllocatorManager.h

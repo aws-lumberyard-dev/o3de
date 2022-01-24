@@ -8,6 +8,8 @@
 
 #include <AzCore/PlatformIncl.h>
 #include <AzCore/Memory/PoolAllocator.h>
+#include <AzCore/Memory/AllocatorDebug.h>
+#include <AzCore/std/containers/vector.h>
 #include <AzCore/std/containers/intrusive_list.h>
 #include <AzCore/std/containers/intrusive_slist.h>
 #include <AzCore/std/parallel/containers/lock_free_intrusive_stack.h>

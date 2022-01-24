@@ -56,7 +56,7 @@ namespace AZ
         IAllocator* m_allocator;
     };
 
-    bool operator==(const AllocatorPointerWrapper& a, const AllocatorPointerWrapper& b)
+    AZ_FORCE_INLINE bool operator==(const AllocatorPointerWrapper& a, const AllocatorPointerWrapper& b)
     {
         return a.m_allocator == b.m_allocator;
     }
@@ -93,6 +93,18 @@ namespace AZ
             AllocatorInstance<Allocator>::Get().Merge(aOther);
         }
     };
+
+    template<typename Allocator>
+    AZ_FORCE_INLINE bool operator==(const AllocatorGlobalWrapper<Allocator>&, const AllocatorGlobalWrapper<Allocator>&)
+    {
+        return true;
+    }
+
+    template<typename Allocator>
+    AZ_FORCE_INLINE bool operator!=(const AllocatorGlobalWrapper<Allocator>&, const AllocatorGlobalWrapper<Allocator>&)
+    {
+        return false;
+    }
 
     AZ_TYPE_INFO_TEMPLATE(AllocatorGlobalWrapper, "{0994AE22-B98C-427B-A8EC-110F50D1ECC1}", AZ_TYPE_INFO_TYPENAME);
 }
