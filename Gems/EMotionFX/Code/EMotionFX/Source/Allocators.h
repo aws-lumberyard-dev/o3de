@@ -16,7 +16,7 @@ namespace EMotionFX
 {
     /*
      * Every time we create a new allocator we need:
-     * 1) to create a class that inherits from an another allocator type e.g. AZ::AllocatorBase<AZ::ChildAllocatorSchema<AZ::SystemAllocator>>,  AZ::AllocatorBase<AZ::ChildAllocatorSchema<AZ::PoolAllocator>>
+     * 1) to create a class that uses a global allocator type e.g. AZ::AllocatorGlobalWrapper<AZAZ::SystemAllocator>
      * 2) that class will contain the UUID
      * 3) we need to create the implementation of the GetDescription method in the cpp file, this is so we don't end up with copies of these strings across compilation units
      * 4) we need to add them to the "Create" method so they are created during component creation
