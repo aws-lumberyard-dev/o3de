@@ -56,8 +56,6 @@ namespace AZ
         // instance of the environment
         EnvironmentInterface* EnvironmentInterface::s_environment = nullptr;
 
-        AZStd::vector<Environment::EnvironmentCallback*, OSAllocator> s_environmentCallbacks;
-
         /**
          *
          */
@@ -279,6 +277,12 @@ namespace AZ
                 return m_allocator;
             }
 
+            static AZStd::vector<Environment::EnvironmentCallback*, OSAllocator>& GetEnvironmentCallbacks()
+            {
+                static AZStd::vector<Environment::EnvironmentCallback*, OSAllocator> s_environmentCallbacks;
+                return s_environmentCallbacks;
+            }
+
             MapType m_variableMap;
 
             AZStd::recursive_mutex                m_globalLock;  ///< Mutex that controls access to all environment resources.
@@ -363,7 +367,7 @@ namespace AZ
             }
 
             CleanUp::GetInstance().m_isAttached = true;
-            for (Environment::EnvironmentCallback* callback : Internal::s_environmentCallbacks)
+            for (Environment::EnvironmentCallback* callback : GetEnvironmentCallbacks())
             {
                 callback->Attached();
             }
@@ -373,7 +377,7 @@ namespace AZ
         {
             if (s_environment && CleanUp::GetInstance().m_isAttached)
             {
-                for (Environment::EnvironmentCallback* callback : Internal::s_environmentCallbacks)
+                for (Environment::EnvironmentCallback* callback : GetEnvironmentCallbacks())
                 {
                     callback->WillDetach();
                 }
@@ -425,14 +429,14 @@ namespace AZ
 
         void AddCallback(EnvironmentCallback* callback)
         {
-            Internal::s_environmentCallbacks.emplace_back(callback);
+            Internal::EnvironmentImpl::GetEnvironmentCallbacks().emplace_back(callback);
         }
 
         void RemoveCallback(EnvironmentCallback* callback)
         {
-            Internal::s_environmentCallbacks.erase(
-                AZStd::remove(Internal::s_environmentCallbacks.begin(), Internal::s_environmentCallbacks.end(), callback),
-                Internal::s_environmentCallbacks.end());
+            auto& environmentCallbacks = Internal::EnvironmentImpl::GetEnvironmentCallbacks();
+            environmentCallbacks.erase(
+                AZStd::remove(environmentCallbacks.begin(), environmentCallbacks.end(), callback), environmentCallbacks.end());
         }
 
         EnvironmentInstance GetInstance()
@@ -461,7 +465,7 @@ namespace AZ
             AZ_Assert(Internal::EnvironmentImpl::s_environment, "We failed to allocate memory from the OS for environment storage %d bytes!", sizeof(Internal::EnvironmentImpl));
             Internal::CleanUp::GetInstance().m_isOwner = true;
 
-            for (Environment::EnvironmentCallback* callback : Internal::s_environmentCallbacks)
+            for (Environment::EnvironmentCallback* callback : Internal::EnvironmentImpl::GetEnvironmentCallbacks())
             {
                 callback->Created();
             }
@@ -473,7 +477,7 @@ namespace AZ
         {
             if (!Internal::CleanUp::GetInstance().m_isAttached && Internal::CleanUp::GetInstance().m_isOwner)
             {
-                for (Environment::EnvironmentCallback* callback : Internal::s_environmentCallbacks)
+                for (Environment::EnvironmentCallback* callback : Internal::EnvironmentImpl::GetEnvironmentCallbacks())
                 {
                     callback->WillDestroy();
                 }
