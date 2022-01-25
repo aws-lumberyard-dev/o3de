@@ -467,7 +467,7 @@ namespace AZ
             if (convertedAddress && convertedAddress != sourceAddress) // if we converted as we have a different address
             {
                 // allocate temp storage and store it
-                targetAddress = tempAllocator.allocate(sizeof(void*), AZStd::alignment_of<void*>::value, 0);
+                targetAddress = tempAllocator.allocate(sizeof(void*), AZStd::alignment_of<void*>::value);
                 *reinterpret_cast<void**>(targetAddress) = convertedAddress;
             }
             return convertedAddress != nullptr;
@@ -2248,7 +2248,7 @@ namespace AZ
     inline void BehaviorValueParameter::StoreInTempData(T&& value)
     {
         AZ::Internal::SetParameters<T>(this);
-        m_value = m_tempData.allocate(sizeof(T), AZStd::alignment_of<T>::value, 0);
+        m_value = m_tempData.allocate(sizeof(T), AZStd::alignment_of<T>::value);
         AZStd::construct_at(reinterpret_cast<AZStd::decay_t<T>*>(m_value), AZStd::forward<T>(value));
     }
 

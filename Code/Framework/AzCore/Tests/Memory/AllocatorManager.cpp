@@ -65,15 +65,7 @@ namespace UnitTest
 
         void TearDownAllocatorManagerTest()
         {
-            if (AllocatorInstance<SystemAllocator>::IsReady())
-            {
-                AllocatorInstance<SystemAllocator>::Destroy();
-            }
-
-            if (AllocatorManager::IsReady())
-            {
-                AllocatorManager::Destroy();
-            }
+            AllocatorInstance<SystemAllocator>::Destroy();
 
             m_manager = nullptr;
             m_systemAllocator = nullptr;

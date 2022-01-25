@@ -220,8 +220,8 @@ namespace UnitTest
         static_buffer_16KB_type myMemoryManager1;
         static_buffer_16KB_type myMemoryManager2;
         typedef allocator_ref<static_buffer_16KB_type> static_allocator_ref_type;
-        static_allocator_ref_type allocator1(myMemoryManager1, "Mystack allocator 1");
-        static_allocator_ref_type allocator2(myMemoryManager2, "Mystack allocator 2");
+        static_allocator_ref_type allocator1(myMemoryManager1);
+        static_allocator_ref_type allocator2(myMemoryManager2);
 
         typedef deque<int, static_allocator_ref_type> int_deque_myalloc_type;
         int_deque_myalloc_type int_deque10(100, 13, allocator1); /// Allocate 100 elements using memory manager 1

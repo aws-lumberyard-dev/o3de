@@ -300,7 +300,6 @@ namespace UnitTest
 
             m_app.reset(aznew AzFramework::Application());
             AZ::ComponentApplication::Descriptor desc;
-            desc.m_useExistingAllocator = true;
             
             AZ::SettingsRegistryInterface* registry = AZ::SettingsRegistry::Get();
             auto projectPathKey =

@@ -13,17 +13,5 @@
 
 namespace EMotionFX
 {
-    class PropertyWidgetAllocator
-        : public AZ::SimpleSchemaAllocator<AZ::ChildAllocatorSchema<AZ::SystemAllocator>>
-    {
-    public:
-        AZ_TYPE_INFO(PropertyWidgetAllocator, "{5A2780C1-3660-4F47-A529-8E4F7B2B2F84}");
-        using Base = AZ::SimpleSchemaAllocator<AZ::ChildAllocatorSchema<AZ::SystemAllocator>>;
-        using Descriptor = Base::Descriptor;
-
-        PropertyWidgetAllocator() : Base("PropertyWidgetAllocator", "EMotion FX property widget allocator")
-        {
-        }
-    };
-
-} // namespace EMotionFX
+    AZ_ALLOCATOR_DEFAULT_GLOBAL_WRAPPER(PropertyWidgetAllocator, AZ::SystemAllocator, "{5A2780C1-3660-4F47-A529-8E4F7B2B2F84}")
+}

@@ -28,7 +28,6 @@ namespace AZ { namespace Android
             template<typename Allocator>
             Object<Allocator>::Object(const char* classPath, const char* className /* = nullptr */)
                 : m_className()
-                , m_stdAllocator()
 
                 , m_classRef(nullptr)
                 , m_objectRef(nullptr)
@@ -59,7 +58,6 @@ namespace AZ { namespace Android
             template<typename Allocator>
             Object<Allocator>::Object(jclass classRef, jobject objectRef, bool takeOwnership /* = false */)
                 : m_className()
-                , m_stdAllocator()
 
                 , m_classRef(classRef)
                 , m_objectRef(objectRef)
@@ -121,7 +119,7 @@ namespace AZ { namespace Android
                     return false;
                 }
 
-                JMethodCachePtr newMethod = AZStd::allocate_shared<JMethodCache>(m_stdAllocator);
+                JMethodCachePtr newMethod = AZStd::allocate_shared<JMethodCache>(Allocator());
                 newMethod->m_methodId = methodId;
 
             #if defined(JNI_SIGNATURE_VALIDATION)
@@ -151,7 +149,7 @@ namespace AZ { namespace Android
                     return false;
                 }
 
-                JMethodCachePtr newMethod = AZStd::allocate_shared<JMethodCache>(m_stdAllocator);
+                JMethodCachePtr newMethod = AZStd::allocate_shared<JMethodCache>(Allocator());
                 newMethod->m_methodId = methodId;
 
             #if defined(JNI_SIGNATURE_VALIDATION)
@@ -201,7 +199,7 @@ namespace AZ { namespace Android
                     return false;
                 }
 
-                JFieldCachePtr newField = AZStd::allocate_shared<JFieldCache>(m_stdAllocator);
+                JFieldCachePtr newField = AZStd::allocate_shared<JFieldCache>(Allocator());
                 newField->m_fieldId = fieldId;
 
             #if defined(JNI_SIGNATURE_VALIDATION)
@@ -231,7 +229,7 @@ namespace AZ { namespace Android
                     return false;
                 }
 
-                JFieldCachePtr newField = AZStd::allocate_shared<JFieldCache>(m_stdAllocator);
+                JFieldCachePtr newField = AZStd::allocate_shared<JFieldCache>(Allocator());
                 newField->m_fieldId = fieldId;
 
             #if defined(JNI_SIGNATURE_VALIDATION)
@@ -272,7 +270,7 @@ namespace AZ { namespace Android
 
             #if defined(JNI_SIGNATURE_VALIDATION)
                 {
-                    JMethodCachePtr newMethod = AZStd::allocate_shared<JMethodCache>(m_stdAllocator);
+                    JMethodCachePtr newMethod = AZStd::allocate_shared<JMethodCache>(Allocator());
                     SetMethodSignature(newMethod, "<inti>", constructorSignature);
 
                     SignatureOutcome outcome = ValidateSignature(newMethod->m_argumentSignature, AZStd::forward<Args>(parameters)...);

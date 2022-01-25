@@ -13,6 +13,17 @@
 #include <AzCore/std/typetraits/integral_constant.h>
 #include <AzCore/std/typetraits/alignment_of.h>
 
+#define AZ_ALLOCATOR_TRAITS(VALUETYPE)                                                                                                     \
+    using value_type = VALUETYPE;                                                                                                          \
+    using pointer = VALUETYPE*;                                                                                                            \
+    using size_type = AZStd::size_t;                                                                                                       \
+    using difference_type = AZStd::ptrdiff_t;                                                                                              \
+    using align_type = AZStd::size_t;                                                                                                      \
+    using propagate_on_container_copy_assignment = AZStd::true_type;                                                                       \
+    using propagate_on_container_move_assignment = AZStd::true_type;
+
+#define AZ_ALLOCATOR_DEFAULT_TRAITS AZ_ALLOCATOR_TRAITS(void)
+
 namespace AZ
 {
     /**
@@ -21,12 +32,7 @@ namespace AZ
     class IAllocator
     {
     public:
-        using value_type = void;
-        using pointer = void*;
-        using size_type = AZStd::size_t;
-        using difference_type = AZStd::ptrdiff_t;
-        using align_type = AZStd::size_t;
-        using propagate_on_container_move_assignment = AZStd::true_type;
+        AZ_ALLOCATOR_DEFAULT_TRAITS
 
         IAllocator() = default;
         virtual ~IAllocator() = default;

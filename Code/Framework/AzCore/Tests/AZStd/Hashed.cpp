@@ -1398,11 +1398,11 @@ namespace UnitTest
     template<template <typename, typename, typename, typename> class ContainerTemplate>
     struct HashedSetWithCustomAllocatorConfig
     {
-        using ContainerType = ContainerTemplate<int32_t, AZStd::hash<int32_t>, AZStd::equal_to<int32_t>, AZ::AZStdIAllocator>;
+        using ContainerType = ContainerTemplate<int32_t, AZStd::hash<int32_t>, AZStd::equal_to<int32_t>, AZ::AllocatorPointerWrapper>;
 
         static ContainerType Create(std::initializer_list<typename ContainerType::value_type> intList, AZ::IAllocator* allocatorInstance)
         {
-            ContainerType allocatorSet(intList, AZStd::hash<int32_t>{}, AZStd::equal_to<int32_t>{}, AZ::AZStdIAllocator{ allocatorInstance });
+            ContainerType allocatorSet(intList, AZStd::hash<int32_t>{}, AZStd::equal_to<int32_t>{}, AZ::AllocatorPointerWrapper{ allocatorInstance });
             return allocatorSet;
         }
     };
@@ -1796,11 +1796,11 @@ namespace UnitTest
     template<template <typename, typename, typename, typename, typename> class ContainerTemplate>
     struct HashedMapWithCustomAllocatorConfig
     {
-        using ContainerType = ContainerTemplate<int32_t, int32_t, AZStd::hash<int32_t>, AZStd::equal_to<int32_t>, AZ::AZStdIAllocator>;
+        using ContainerType = ContainerTemplate<int32_t, int32_t, AZStd::hash<int32_t>, AZStd::equal_to<int32_t>, AZ::AllocatorPointerWrapper>;
 
         static ContainerType Create(std::initializer_list<typename ContainerType::value_type> intList, AZ::IAllocator* allocatorInstance)
         {
-            ContainerType allocatorMap(intList, AZStd::hash<int32_t>{}, AZStd::equal_to<int32_t>{}, AZ::AZStdIAllocator{ allocatorInstance });
+            ContainerType allocatorMap(intList, AZStd::hash<int32_t>{}, AZStd::equal_to<int32_t>{}, AZ::AllocatorPointerWrapper{ allocatorInstance });
             return allocatorMap;
         }
     };

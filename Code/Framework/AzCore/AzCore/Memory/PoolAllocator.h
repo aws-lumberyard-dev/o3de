@@ -14,8 +14,8 @@
 
 namespace AZ
 {
-    IAllocator* CreatePoolAllocatorPimpl(IAllocator& mSubAllocator);
-    void DestroyPoolAllocatorPimpl(IAllocator& mSubAllocator, IAllocator* allocator);
+    IAllocator* CreatePoolAllocatorPimpl(IAllocator& subAllocator);
+    void DestroyPoolAllocatorPimpl(IAllocator& subAllocator, IAllocator* allocator);
 
     /*!
      * Pool allocator
@@ -69,8 +69,8 @@ namespace AZ
 
     using PoolAllocator = PoolAllocatorType<SystemAllocator>;
 
-    IAllocator* CreateThreadPoolAllocatorPimpl(IAllocator& mSubAllocator);
-    void DestroyThreadPoolAllocatorPimpl(IAllocator& mSubAllocator, IAllocator* allocator);
+    IAllocator* CreateThreadPoolAllocatorPimpl(IAllocator& subAllocator);
+    void DestroyThreadPoolAllocatorPimpl(IAllocator& subAllocator, IAllocator* allocator);
 
     /*!
      * Thread safe pool allocator. If you want to create your own thread pool heap,
@@ -84,12 +84,12 @@ namespace AZ
 
         ThreadPoolAllocatorType()
         {
-            m_allocatorPimpl = CreateHphaAllocatorPimpl(AZ::AllocatorInstance<SubAllocatorType>::Get());
+            m_allocatorPimpl = CreateThreadPoolAllocatorPimpl(AZ::AllocatorInstance<SubAllocatorType>::Get());
         }
 
         ~ThreadPoolAllocatorType() override
         {
-            DestroyHphaAllocatorPimpl(AZ::AllocatorInstance<SubAllocatorType>::Get(), m_allocatorPimpl);
+            DestroyThreadPoolAllocatorPimpl(AZ::AllocatorInstance<SubAllocatorType>::Get(), m_allocatorPimpl);
             m_allocatorPimpl = nullptr;
         }
 

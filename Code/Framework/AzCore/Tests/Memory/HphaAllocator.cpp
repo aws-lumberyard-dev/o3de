@@ -7,25 +7,13 @@
  */
 #include <AzCore/UnitTest/TestTypes.h>
 #include <AzCore/PlatformIncl.h>
-#include <AzCore/Memory/HphaSchema.h>
+#include <AzCore/Memory/HphaAllocator.h>
 #include <AzCore/std/containers/vector.h>
 
-class HphaSchema_TestAllocator
-    : public AZ::SimpleSchemaAllocator<AZ::HphaSchema>
+class HphaSchema_TestAllocator : public AZ::HphaAllocator<AZ::OSAllocator>
 {
 public:
     AZ_TYPE_INFO(HphaSchema_TestAllocator, "{ACE2D6E5-4EB8-4DD2-AE95-6BDFD0476801}");
-
-    using Base = AZ::SimpleSchemaAllocator<AZ::HphaSchema>;
-    using Descriptor = Base::Descriptor;
-
-    HphaSchema_TestAllocator()
-        : Base("HphaSchema_TestAllocator", "Allocator for Test")
-    {}
-
-    void Merge([[maybe_unused]] HphaSchema_TestAllocator* aOther)
-    {
-    }
 };
 
 static const size_t s_kiloByte = 1024;
@@ -68,7 +56,7 @@ namespace UnitTest
 
     TEST_P(HphaSchemaTestFixture, Allocate)
     {
-        AZStd::vector<void*, AZ::AZStdAlloc<AZ::OSAllocator>> allocations;
+        AZStd::vector<void*, AZ::AllocatorGlobalWrapper<AZ::OSAllocator>> allocations;
         const HphaSchemaTestParameters& testParameters = GetParam();
         const size_t totalNumberOfAllocations = testParameters.m_allocationSizes.size() * testParameters.m_numberOfAllocationsPerSize;
         for (size_t i = 0; i < totalNumberOfAllocations; ++i)

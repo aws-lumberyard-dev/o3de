@@ -38,20 +38,12 @@ namespace AZ { namespace Android
             //! references directly with the raw JNIEnv pointer.
             //! \tparam Allocator The type of allocator used for both it self and all it's internal
             //!         allocations.  Defaults to AZ::SystemAllocator
-            template<typename Allocator = AZ::SystemAllocator>
+            template<typename Allocator = AZ::AllocatorGlobalWrapper<AZ::SystemAllocator>>
             class Object final
             {
-            private:
-                //! special case if we are using the SystemAllocator to use the default AZStd::allocator instead of wrapping
-                //! the allocator in AZStdAlloc.  This way the known string types (AZStd::string and AZ::OSString) are correctly
-                //! typedefed internally.
-                typedef typename AZStd::conditional<AZStd::is_same<Allocator, AZ::SystemAllocator>::value, AZStd::allocator, AZStdAlloc<Allocator>>::type AZStdAllocator;
-
-
             public:
-                typedef AZStd::basic_string<char, AZStd::char_traits<char>, AZStdAllocator> string_type;
-                typedef AZStd::vector<JNINativeMethod, AZStdAllocator> vector_type;
-
+                typedef AZStd::basic_string<char, AZStd::char_traits<char>, Allocator> string_type;
+                typedef AZStd::vector<JNINativeMethod, Allocator> vector_type;
 
                 AZ_CLASS_ALLOCATOR(Object<Allocator>, Allocator, 0);
 
@@ -331,7 +323,7 @@ namespace AZ { namespace Android
                 typedef AZStd::shared_ptr<JFieldCache> JFieldCachePtr;
 
                 template<typename ValueType>
-                using CacheMap = AZStd::unordered_map<string_type, ValueType, AZStd::hash<string_type>, AZStd::equal_to<string_type>, AZStdAllocator>;
+                using CacheMap = AZStd::unordered_map<string_type, ValueType, AZStd::hash<string_type>, AZStd::equal_to<string_type>, Allocator>;
 
                 typedef CacheMap<JMethodCachePtr> JMethodMap;
                 typedef CacheMap<JFieldCachePtr> JFieldMap;
@@ -457,8 +449,6 @@ namespace AZ { namespace Android
                 // ----
 
                 string_type m_className; //!< The simple name of the Java class, used for debugging
-
-                AZStdAllocator m_stdAllocator; //!< Allocator instance used for allocating the JMethodCachePtr/JFieldCachePtr shared pointers
 
                 jclass m_classRef; //!< A global reference to the java class, used for method/filed extraction, static method invocation
                 jobject m_objectRef; //!< A global reference to the java object instance, used for instance method invocation, field access

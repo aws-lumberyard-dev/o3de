@@ -393,7 +393,7 @@ namespace UnitTest
 
         TEST_F(VariantTest, InPlaceTypeConstructorWithInitializerListSucceeds)
         {
-            AZStd::variant<int32_t, double, AZStd::vector<int32_t>, bool> inplaceIndexVariant(AZStd::in_place_type_t<AZStd::vector<int32_t>>{}, { 1, 2, 3 }, AZStd::allocator("Variant in_place_type allocator "));
+            AZStd::variant<int32_t, double, AZStd::vector<int32_t>, bool> inplaceIndexVariant(AZStd::in_place_type_t<AZStd::vector<int32_t>>{}, { 1, 2, 3 });
             EXPECT_EQ(2, inplaceIndexVariant.index());
             auto& vectorAlt = AZStd::get<2>(inplaceIndexVariant);
             ASSERT_EQ(3, vectorAlt.size());
@@ -413,7 +413,7 @@ namespace UnitTest
 
         TEST_F(VariantTest, InPlaceIndexConstructorWithInitializerListSucceeds)
         {
-            AZStd::variant<float, AZStd::vector<int32_t>> inplaceIndexVariant(AZStd::in_place_index_t<1>{}, { 1, 2, 3 }, AZStd::allocator("Variant in_place_index allocator "));
+            AZStd::variant<float, AZStd::vector<int32_t>> inplaceIndexVariant(AZStd::in_place_index_t<1>{}, { 1, 2, 3 });
             EXPECT_EQ(1, inplaceIndexVariant.index());
             auto& vectorAlt = AZStd::get<1>(inplaceIndexVariant);
             ASSERT_EQ(3, vectorAlt.size());
@@ -456,7 +456,7 @@ namespace UnitTest
             EXPECT_EQ(2, emplaceIndexVariant.index());
             EXPECT_TRUE(AZStd::get<2>(emplaceIndexVariant).empty());
             // Update current alternative
-            auto& updatedVector= emplaceIndexVariant.emplace<AZStd::vector<int32_t>>({ 2, 4, 6 }, AZStd::allocator("Variant emplace allocator"));
+            auto& updatedVector= emplaceIndexVariant.emplace<AZStd::vector<int32_t>>({ 2, 4, 6 });
             EXPECT_EQ(2, emplaceIndexVariant.index());
 
             EXPECT_EQ(3, updatedVector.size());
@@ -471,7 +471,7 @@ namespace UnitTest
             EXPECT_EQ(0, emplaceIndexVariant.index());
             EXPECT_EQ(110, AZStd::get<0>(emplaceIndexVariant));
             // Update different alternative
-            auto& updatedVector = emplaceIndexVariant.emplace<AZStd::vector<int32_t>>({ 1, 2, 3 }, AZStd::allocator("Variant emplace allocator"));
+            auto& updatedVector = emplaceIndexVariant.emplace<AZStd::vector<int32_t>>({ 1, 2, 3 });
             EXPECT_EQ(2, emplaceIndexVariant.index());
 
             ASSERT_EQ(3, updatedVector.size());
@@ -526,7 +526,7 @@ namespace UnitTest
             EXPECT_EQ(0, emplaceIndexVariant.index());
             EXPECT_EQ(110, AZStd::get<0>(emplaceIndexVariant));
             // Update different alternative
-            auto& updatedVector = emplaceIndexVariant.emplace<2>({ 1, 2, 3 }, AZStd::allocator("Variant emplace allocator"));
+            auto& updatedVector = emplaceIndexVariant.emplace<2>({ 1, 2, 3 });
             EXPECT_EQ(2, emplaceIndexVariant.index());
 
             ASSERT_EQ(3, updatedVector.size());

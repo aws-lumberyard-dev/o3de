@@ -401,7 +401,6 @@ namespace UnitTest
         {
             AllocatorsFixture::SetUp();
             AZ::ComponentApplication::Descriptor desc;
-            desc.m_useExistingAllocator = true;
             m_app.reset(aznew AZ::ComponentApplication);
             m_app->Create(desc);
         }

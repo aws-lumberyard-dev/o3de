@@ -92,7 +92,6 @@ namespace PhysX
         // Create application and descriptor
         m_application = aznew PhysXApplication;
         AZ::ComponentApplication::Descriptor appDesc;
-        appDesc.m_useExistingAllocator = true;
 
         // Set up gems other than PhysX for loading
         AZ::DynamicModuleDescriptor dynamicModuleDescriptor;

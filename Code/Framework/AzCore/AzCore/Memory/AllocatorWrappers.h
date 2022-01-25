@@ -19,10 +19,16 @@ namespace AZ
     class AllocatorPointerWrapper : public IAllocator
     {
         friend bool operator==(const AllocatorPointerWrapper&, const AllocatorPointerWrapper&);
+        friend bool operator!=(const AllocatorPointerWrapper&, const AllocatorPointerWrapper&);
 
     public:
-        AllocatorPointerWrapper(IAllocator* allocator)
+        AllocatorPointerWrapper(IAllocator* allocator = nullptr)
             : m_allocator(allocator)
+        {
+        }
+
+        AllocatorPointerWrapper(IAllocator& allocator)
+            : m_allocator(&allocator)
         {
         }
         ~AllocatorPointerWrapper() override = default;
@@ -52,6 +58,23 @@ namespace AZ
             m_allocator->Merge(aOther);
         }
 
+        AllocatorPointerWrapper& operator=(IAllocator* allocator)
+        {
+            m_allocator = allocator;
+            return *this;
+        }
+
+        AllocatorPointerWrapper& operator=(IAllocator& allocator)
+        {
+            m_allocator = &allocator;
+            return *this;
+        }
+
+        AllocatorPointerWrapper& operator=(const AllocatorPointerWrapper& allocator)
+        {
+            m_allocator = allocator.m_allocator;
+            return *this;
+        }
     private:
         IAllocator* m_allocator;
     };
@@ -59,6 +82,11 @@ namespace AZ
     AZ_FORCE_INLINE bool operator==(const AllocatorPointerWrapper& a, const AllocatorPointerWrapper& b)
     {
         return a.m_allocator == b.m_allocator;
+    }
+
+    AZ_FORCE_INLINE bool operator!=(const AllocatorPointerWrapper& a, const AllocatorPointerWrapper& b)
+    {
+        return a.m_allocator != b.m_allocator;
     }
 
     /**
@@ -107,4 +135,11 @@ namespace AZ
     }
 
     AZ_TYPE_INFO_TEMPLATE(AllocatorGlobalWrapper, "{0994AE22-B98C-427B-A8EC-110F50D1ECC1}", AZ_TYPE_INFO_TYPENAME);
-}
+} // namespace AZ
+
+#define AZ_ALLOCATOR_DEFAULT_GLOBAL_WRAPPER(AllocatorName, AllocatorGlobalType, AllocatorGUID)                                             \
+    class AllocatorName : public AZ::AllocatorGlobalWrapper<AllocatorGlobalType>                                                           \
+    {                                                                                                                                      \
+    public:                                                                                                                                \
+        AZ_TYPE_INFO(AllocatorName, AllocatorGUID);                                                                                        \
+    };

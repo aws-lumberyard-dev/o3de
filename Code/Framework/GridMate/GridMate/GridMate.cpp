@@ -84,7 +84,7 @@ IGridMate* GridMate::GridMateCreate(const GridMateDesc& desc)
     }
     else
     {
-        AZ::AllocatorInstance<GridMateAllocator>::Create(desc.m_allocatorDesc);
+        AZ::AllocatorInstance<GridMateAllocator>::Create();
     }
 
     GridMateImpl::s_info.m_numGridMates++;

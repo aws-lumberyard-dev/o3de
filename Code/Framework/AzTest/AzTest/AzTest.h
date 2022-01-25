@@ -23,6 +23,7 @@ AZ_POP_DISABLE_WARNING;
 #endif
 
 #include <AzCore/Memory/OSAllocator.h>
+#include <AzCore/Module/Environment.h>
 
 #define AZTEST_DLL_PUBLIC AZ_DLL_EXPORT
 #define AZTEST_EXPORT extern "C" AZTEST_DLL_PUBLIC

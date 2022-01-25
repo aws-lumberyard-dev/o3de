@@ -32,9 +32,9 @@ namespace AZStd
     template< class Node, AZStd::size_t NumNodes >
     class static_pool_concurrent_allocator
     {
-        typedef static_pool_concurrent_allocator<Node, NumNodes> this_type;
+        using this_type = static_pool_concurrent_allocator<Node, NumNodes>;
 
-        typedef int32_t            index_type;
+        using index_type = int32_t;
 
         union  pool_node
         {
@@ -45,11 +45,13 @@ namespace AZStd
         static constexpr index_type invalid_index = index_type(-1);
 
     public:
-        typedef Node                value_type;
-        typedef Node*               pointer_type;
-        typedef AZStd::size_t       size_type;
-        typedef AZStd::ptrdiff_t    difference_type;
-        typedef AZStd::false_type   allow_memory_leaks;
+        using value_type = Node;
+        using pointer = Node*;
+        using size_type = AZStd::size_t;
+        using difference_type = AZStd::ptrdiff_t;
+        using align_type = AZStd::size_t;
+        using propagate_on_container_copy_assignment = AZStd::true_type;
+        using propagate_on_container_move_assignment = AZStd::true_type;
 
         AZ_FORCE_INLINE static_pool_concurrent_allocator(const char* name = "AZStd::static_pool_concurrent_allocator")
             : m_name(name)
@@ -104,11 +106,10 @@ namespace AZStd
             }
         }
 
-        inline pointer_type allocate(size_type byteSize, size_type alignment, int flags = 0)
+        inline pointer allocate(size_type byteSize, align_type alignment)
         {
             (void)alignment;
             (void)byteSize;
-            (void)flags;
 
             AZ_Assert(alignment > 0 && (alignment & (alignment - 1)) == 0, "AZStd::static_pool_concurrent_allocator::allocate - alignment must be > 0 and power of 2");
             AZ_Assert(byteSize == sizeof(Node), "AZStd::static_pool_concurrent_allocator - We can allocate only node sizes from the pool!");
@@ -134,7 +135,7 @@ namespace AZStd
             --m_numOfAllocatedNodes;
         }
 
-        inline void  deallocate(pointer_type ptr, size_type byteSize, size_type alignment)
+        inline void  deallocate(pointer ptr, size_type byteSize, align_type alignment)
         { 
             (void)byteSize;
             (void)alignment;
@@ -143,7 +144,7 @@ namespace AZStd
             deallocate(reinterpret_cast<Node*>(ptr));
         }
 
-        AZ_FORCE_INLINE size_type    resize(pointer_type ptr, size_type newSize)
+        AZ_FORCE_INLINE size_type    resize(pointer ptr, align_type newSize)
         {
             (void)ptr;
             (void)newSize;

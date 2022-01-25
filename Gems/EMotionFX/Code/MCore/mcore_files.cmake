@@ -102,7 +102,6 @@ set(FILES
     Source/Random.h
     Source/Ray.cpp
     Source/Ray.h
-    Source/StaticAllocator.cpp
     Source/StaticAllocator.h
     Source/StaticString.h
     Source/StandardHeaders.h

@@ -11,7 +11,10 @@
 #include <AzCore/PlatformIncl.h>
 #include <AzCore/IO/SystemFile.h>
 #include <AzCore/RTTI/TypeInfo.h>
+#include <AzCore/Memory/AllocatorWrappers.h>
+#include <AzCore/Memory/HphaAllocator.h>
 #include <AzCore/Memory/OSAllocator.h>
+#include <AzCore/Memory/OSAllocator_Platform.h>
 #include <AzCore/Memory/SystemAllocator.h>
 #include <AzCore/std/containers/array.h>
 #include <AzCore/std/containers/vector.h>
@@ -151,39 +154,6 @@ namespace Benchmark
 
     private:
          inline static size_t s_numAllocatedBytes = 0;
-    };
-
-    // We use both this HphaSchemaAllocator and the SystemAllocator configured with Hpha because the SystemAllocator
-    // has extra things
-    class HphaSchemaAllocator : public AZ::SimpleSchemaAllocator<AZ::HphaSchema>
-    {
-    public:
-        AZ_TYPE_INFO(HphaSchemaAllocator, "{6563AB4B-A68E-4499-8C98-D61D640D1F7F}");
-
-        HphaSchemaAllocator()
-            : AZ::SimpleSchemaAllocator<AZ::HphaSchema>("TestHphaSchemaAllocator", "")
-        {}
-
-        void Merge([[maybe_unused]] HphaSchemaAllocator* aOther)
-        {
-        }
-    };
-
-    // For the SystemAllocator we inherit so we have a different stack. The SystemAllocator is used globally so we dont want
-    // to get that data affecting the benchmark
-    class TestSystemAllocator : public AZ::SystemAllocator
-    {
-    public:
-        AZ_TYPE_INFO(TestSystemAllocator, "{360D4DAA-D65D-4D5C-A6FA-1A4C5261C35C}");
-
-        TestSystemAllocator()
-            : AZ::SystemAllocator()
-        {
-        }
-
-        void Merge([[maybe_unused]] TestSystemAllocator* aOther)
-        {
-        }
     };
 
     // Allocated bytes reported by the allocator
@@ -562,8 +532,8 @@ namespace Benchmark
     BM_REGISTER_ALLOCATOR(WarmUpAllocator, RawMallocAllocator);
 
     BM_REGISTER_ALLOCATOR(RawMallocAllocator, RawMallocAllocator);
-    BM_REGISTER_ALLOCATOR(HphaSchemaAllocator, HphaSchemaAllocator);
-    BM_REGISTER_ALLOCATOR(SystemAllocator, TestSystemAllocator);
+    BM_REGISTER_ALLOCATOR(HphaAllocator, AZ::AllocatorGlobalWrapper<AZ::HphaAllocator<AZ::OSAllocator>>);
+    BM_REGISTER_ALLOCATOR(SystemAllocator, AZ::SystemAllocator);
     
     // BM_REGISTER_ALLOCATOR(OSAllocator, OSAllocator); // Requires special treatment to initialize since it will be already initialized, maybe creating a different instance?
 

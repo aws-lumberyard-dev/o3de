@@ -121,7 +121,7 @@
 /// azfree(pointer,allocator,size)
 #define azfree_3(_1, _2, _3)        do { if (_1) { AZ::AllocatorInstance< _2 >::Get().deallocate(_1, _3); } }                while (0)
 /// azfree(pointer,allocator,size,alignment)
-#define azfree_4(_1, _2, _3, _4)    do { if (_1) { AZ::AllocatorInstance< _2 >::Get().deallocate(_1, _3); } }                while (0)
+#define azfree_4(_1, _2, _3, _4)    do { if (_1) { AZ::AllocatorInstance< _2 >::Get().deallocate(_1, _3); AZ_UNUSED(_4); } } while (0)
 
 /**
  * azfree is equivalent to ::free(...). Is should be used with corresponding azmalloc call.

@@ -43,8 +43,6 @@ TEST(ComponentApplication, Test)
     //////////////////////////////////////////////////////////////////////////
     // Create application environment code driven
     ComponentApplication::Descriptor appDesc;
-    appDesc.m_memoryBlocksByteSize = 10 * 1024 * 1024;
-    appDesc.m_stackRecordLevels = 20;
     Entity* systemEntity = app.Create(appDesc);
 
     systemEntity->CreateComponent<MemoryComponent>();
@@ -172,7 +170,6 @@ namespace UnitTest
         SimpleComponentDescriptor descriptor;
         ComponentApplication componentApp;
         ComponentApplication::Descriptor desc;
-        desc.m_useExistingAllocator = true;
         ComponentApplication::StartupParameters startupParams;
         startupParams.m_allocator = &AZ::AllocatorInstance<AZ::SystemAllocator>::Get();
         Entity* systemEntity = componentApp.Create(desc, startupParams);
@@ -627,7 +624,6 @@ namespace UnitTest
             m_componentApp = aznew ComponentApplication();
 
             ComponentApplication::Descriptor desc;
-            desc.m_useExistingAllocator = true;
 
             ComponentApplication::StartupParameters startupParams;
             startupParams.m_allocator = &AZ::AllocatorInstance<AZ::SystemAllocator>::Get();
@@ -1106,7 +1102,6 @@ namespace UnitTest
         //////////////////////////////////////////////////////////////////////////
         // Create application environment code driven
         ComponentApplication::Descriptor appDesc;
-        appDesc.m_memoryBlocksByteSize = 10 * 1024 * 1024;
         Entity* systemEntity = app.Create(appDesc);
         app.UserSettingsFileLocatorBus::Handler::BusConnect();
 
@@ -1973,7 +1968,6 @@ namespace Benchmark
         ComponentApplication componentApp;
 
         ComponentApplication::Descriptor desc;
-        desc.m_useExistingAllocator = true;
 
         ComponentApplication::StartupParameters startupParams;
         startupParams.m_allocator = &AZ::AllocatorInstance<AZ::SystemAllocator>::Get();

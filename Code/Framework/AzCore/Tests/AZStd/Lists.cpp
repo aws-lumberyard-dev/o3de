@@ -400,8 +400,8 @@ namespace UnitTest
         static_buffer_16KB_type myMemoryManager1;
         static_buffer_16KB_type myMemoryManager2;
         typedef allocator_ref<static_buffer_16KB_type> static_allocator_ref_type;
-        static_allocator_ref_type allocator1(myMemoryManager1, "Mystack allocator 1");
-        static_allocator_ref_type allocator2(myMemoryManager2, "Mystack allocator 2");
+        static_allocator_ref_type allocator1(myMemoryManager1);
+        static_allocator_ref_type allocator2(myMemoryManager2);
 
         typedef list<MyClass, static_allocator_ref_type> stack_myclass_list_type;
         stack_myclass_list_type int_list10(allocator1);
@@ -851,8 +851,8 @@ namespace UnitTest
         static_buffer_16KB_type myMemoryManager1;
         static_buffer_16KB_type myMemoryManager2;
         typedef allocator_ref<static_buffer_16KB_type> static_allocator_ref_type;
-        static_allocator_ref_type allocator1(myMemoryManager1, "Mystack allocator 1");
-        static_allocator_ref_type allocator2(myMemoryManager2, "Mystack allocator 2");
+        static_allocator_ref_type allocator1(myMemoryManager1);
+        static_allocator_ref_type allocator2(myMemoryManager2);
 
         typedef forward_list<MyClass, static_allocator_ref_type> stack_myclass_slist_type;
         stack_myclass_slist_type   int_slist10(allocator1);

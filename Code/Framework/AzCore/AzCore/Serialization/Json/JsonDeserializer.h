@@ -92,7 +92,7 @@ namespace AZ
             const SerializeContext::ClassData& classData, const rapidjson::Value& inputValue, JsonDeserializerContext& context);
 
         static AZStd::string ReportAvailableEnumOptions(AZStd::string_view message,
-            const AZStd::vector<AttributeSharedPair, AZStdFunctorAllocator>& attributes, bool signedValues);
+            const AZStd::vector<AttributeSharedPair, AZ::AllocatorPointerWrapper>& attributes, bool signedValues);
 
         //! Fills out a pointer if needed based on the information in the provide json value. If FullyProcessed is returned
         //! there's no more information to process and if ContinueProcessing is returned the pointer needs to be further loaded.

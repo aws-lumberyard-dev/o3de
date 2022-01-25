@@ -245,7 +245,6 @@ namespace GraphModelIntegrationTest
         // Create application and descriptor
         m_application = aznew AZ::ComponentApplication;
         AZ::ComponentApplication::Descriptor appDesc;
-        appDesc.m_useExistingAllocator = true;
 
         // Create basic system entity
         AZ::ComponentApplication::StartupParameters startupParams;

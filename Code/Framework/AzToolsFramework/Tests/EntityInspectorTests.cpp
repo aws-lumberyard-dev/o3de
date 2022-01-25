@@ -266,7 +266,6 @@ namespace UnitTest
         void SetUp() override
         {
             AZ::ComponentApplication::Descriptor componentApplicationDesc;
-            componentApplicationDesc.m_useExistingAllocator = true;
             m_application = aznew ToolsTestApplication("ComponentPaletteTests");
             m_application->Start(componentApplicationDesc);
             // Without this, the user settings component would attempt to save on finalize/shutdown. Since the file is

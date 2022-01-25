@@ -20,6 +20,11 @@ namespace AZ
     static EnvironmentVariable<AllocatorManager> s_allocManager = nullptr;
     static AllocatorManager* s_allocManagerDebug = nullptr; // For easier viewing in crash dumps
 
+    AllocatorManager::~AllocatorManager()
+    {
+        AZ_Assert(m_numAllocators == 0, "All allocators should be unregistered");
+    }
+
     // The only allocator manager instance.
     AllocatorManager& AllocatorManager::Instance()
     {

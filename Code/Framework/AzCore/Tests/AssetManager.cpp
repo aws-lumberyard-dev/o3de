@@ -155,7 +155,6 @@ namespace UnitTest
         static inline const AZ::Uuid MyAsset6Id{ "{B2F139C3-5032-4B52-ADCA-D52A8F88E043}" };
 
         DataDrivenHandlerAndCatalog* m_assetHandlerAndCatalog;
-        bool m_leakExpected = false;
 
         // Initialize the Job Manager with 2 threads for the Asset Manager to use.
         size_t GetNumJobManagerThreads() const override { return 2; }
@@ -195,26 +194,14 @@ namespace UnitTest
             WriteAssetToDisk("MyAsset4.txt", MyAsset4Id.ToString<AZStd::string>().c_str());
             WriteAssetToDisk("MyAsset5.txt", MyAsset5Id.ToString<AZStd::string>().c_str());
             WriteAssetToDisk("MyAsset6.txt", MyAsset6Id.ToString<AZStd::string>().c_str());
-
-            m_leakExpected = false;
-        }
+       }
 
         void TearDown() override
         {
             // There is no call to AssetManager::Destroy here because it will be called by the various unit tests using this class.
             // Also, m_assetHandlerAndCatalog will either get deleted in the unit tests or by AssetManager::Destroy.
 
-            if (m_leakExpected)
-            {
-                AZ::AllocatorManager::Instance().SetAllocatorLeaking(true);
-            }
-
             BaseAssetManagerTest::TearDown();
-        }
-
-        void SetLeakExpected()
-        {
-            m_leakExpected = true;
         }
     };
 
@@ -310,8 +297,6 @@ namespace UnitTest
 
         // destroy asset manager
         AssetManager::Destroy();
-
-        SetLeakExpected();
     }
 
 

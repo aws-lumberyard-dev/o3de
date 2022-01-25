@@ -36,30 +36,18 @@ namespace UnitTest
     */
     class AllocatorsBase
     {
-        bool m_ownsAllocator{};
     public:
 
         virtual ~AllocatorsBase() = default;
 
-        void SetupAllocator(const AZ::SystemAllocator::Descriptor& allocatorDesc = {})
+        void SetupAllocator()
         {
-            // Only create the SystemAllocator if it s not ready
-            if (!AZ::AllocatorInstance<AZ::SystemAllocator>::IsReady())
-            {
-                AZ::AllocatorInstance<AZ::SystemAllocator>::Create(allocatorDesc);
-                m_ownsAllocator = true;
-            }
+            AZ::AllocatorInstance<AZ::SystemAllocator>::Create();
         }
 
         void TeardownAllocator()
         {
-            // Don't destroy the SystemAllocator if it is not ready aand was not created by
-            // the AllocatorsBase
-            if (m_ownsAllocator && AZ::AllocatorInstance<AZ::SystemAllocator>::IsReady())
-            {
-                AZ::AllocatorInstance<AZ::SystemAllocator>::Destroy();
-            }
-            m_ownsAllocator = false;
+            AZ::AllocatorInstance<AZ::SystemAllocator>::Destroy();
         }
     };
 
@@ -74,7 +62,6 @@ namespace UnitTest
     {
     public:
         ScopedAllocatorSetupFixture() { SetupAllocator(); }
-        explicit ScopedAllocatorSetupFixture(const AZ::SystemAllocator::Descriptor& allocatorDesc) { SetupAllocator(allocatorDesc); }
         ~ScopedAllocatorSetupFixture() { TeardownAllocator(); }
     };
 

@@ -35,15 +35,13 @@ namespace EMotionFX
      * 5) a Description of the allocator
      */
 
-    using SystemAllocatorBase = AZ::SimpleSchemaAllocator<AZ::ChildAllocatorSchema<AZ::SystemAllocator>>;
-
-    // Allocator name,                          Allocator type,      UUID,                                     Description
+    // Allocator name,                            Allocator type,      UUID,                                     Description
 #define EMOTIONFX_ALLOCATORS \
-    ((ActorAllocator)                            (SystemAllocatorBase) ("{7719384C-BC31-4E95-B60C-BA64F5F1D5E9}")("EMotionFX actor memory allocator")) \
-    ((AnimGraphAllocator)                        (SystemAllocatorBase) ("{386F92FD-0660-4A4A-8AA8-A748B650279F}")("EMotionFX anim graph memory allocator")) \
-    ((CommandAllocator)                          (SystemAllocatorBase) ("{5258FFBC-8E1E-451B-9FD7-073B9C409001}")("EMotionFX commands allocator")) \
-    ((GeneralAllocator)                          (SystemAllocatorBase) ("{E259DA95-75DB-4A59-A190-6FB2433D348B}")("EMotionFX general memory allocator")) \
-    ((MotionAllocator)                           (SystemAllocatorBase) ("{CAF0B1DB-665F-418B-BEEC-870D8C91C235}")("EMotionFX motion memory allocator")) \
+    ((ActorAllocator)                            (AZ::SystemAllocator) ("{7719384C-BC31-4E95-B60C-BA64F5F1D5E9}")("EMotionFX actor memory allocator")) \
+    ((AnimGraphAllocator)                        (AZ::SystemAllocator) ("{386F92FD-0660-4A4A-8AA8-A748B650279F}")("EMotionFX anim graph memory allocator")) \
+    ((CommandAllocator)                          (AZ::SystemAllocator) ("{5258FFBC-8E1E-451B-9FD7-073B9C409001}")("EMotionFX commands allocator")) \
+    ((GeneralAllocator)                          (AZ::SystemAllocator) ("{E259DA95-75DB-4A59-A190-6FB2433D348B}")("EMotionFX general memory allocator")) \
+    ((MotionAllocator)                           (AZ::SystemAllocator) ("{CAF0B1DB-665F-418B-BEEC-870D8C91C235}")("EMotionFX motion memory allocator")) \
     ((ActorInstanceAllocator)                    (ActorAllocator)     ("{AF2485D0-93B7-4A45-9ACB-A3EFEAAB1746}")("EMotionFX actor instance memory allocator")) \
     ((ActorManagerAllocator)                     (ActorAllocator)     ("{E251E70B-C010-4D21-9521-9A53FE8B9C39}")("EMotionFX actor manager memory allocator")) \
     ((ActorUpdateAllocator)                      (ActorAllocator)     ("{03E10078-F8BC-4F5C-B70B-82B87D15E6B6}")("EMotionFX actor update memory allocator")) \
@@ -73,7 +71,7 @@ namespace EMotionFX
     ((ThreadDataAllocator)                       (GeneralAllocator)   ("{E5598A5D-D129-476F-BA46-B316AD491F44}")("EMotionFX thread data memory allocator")) \
     ((TransformDataAllocator)                    (ActorAllocator)     ("{2EFFDE9B-EC69-4F3F-A7F6-F1F47437DF91}")("EMotionFX transform data memory allocator")) \
     ((PoseAllocator)                             (ActorAllocator)     ("{12284635-9AE3-40BD-A0AF-899CE0152352}")("EMotionFX pose memory allocator")) \
-    ((EditorAllocator)                           (SystemAllocatorBase)("{7E3FA59C-EFE5-4CFC-959F-153CF8B48605}")("EMotionFX editor allocator")) \
+    ((EditorAllocator)                           (AZ::SystemAllocator)("{7E3FA59C-EFE5-4CFC-959F-153CF8B48605}")("EMotionFX editor allocator")) \
 
     // if it exceeds 50, needs adjustments in AzCore/Preprocessor/Sequences.h
 
@@ -95,76 +93,37 @@ namespace EMotionFX
 #define EMOTIONFX_ALLOCATOR_SEQ_GET_DESCRIPTION(X) EMOTIONFX_SEQ_HEAD_4(X)
 
 #define EMOTIONFX_ALLOCATOR_DECL(ALLOCATOR_SEQUENCE) \
-    class EMOTIONFX_ALLOCATOR_SEQ_GET_NAME(ALLOCATOR_SEQUENCE) \
-        : public EMOTIONFX_ALLOCATOR_SEQ_GET_TYPE(ALLOCATOR_SEQUENCE) \
-    { \
-        friend class AZ::AllocatorInstance<EMOTIONFX_ALLOCATOR_SEQ_GET_NAME(ALLOCATOR_SEQUENCE)>; \
-    public: \
-        AZ_TYPE_INFO(EMOTIONFX_ALLOCATOR_SEQ_GET_NAME(ALLOCATOR_SEQUENCE), EMOTIONFX_ALLOCATOR_SEQ_GET_UUID(ALLOCATOR_SEQUENCE)); \
-        using Base = EMOTIONFX_ALLOCATOR_SEQ_GET_TYPE(ALLOCATOR_SEQUENCE); \
-        using Descriptor = Base::Descriptor; \
-        EMOTIONFX_ALLOCATOR_SEQ_GET_NAME(ALLOCATOR_SEQUENCE)() \
-            : Base(TYPEINFO_Name(), EMOTIONFX_ALLOCATOR_SEQ_GET_DESCRIPTION(ALLOCATOR_SEQUENCE)) \
-        { \
-        } \
-        EMOTIONFX_ALLOCATOR_SEQ_GET_NAME(ALLOCATOR_SEQUENCE)(const char* name, const char* desc) \
-            : Base(name, desc) \
-        { \
-        } \
-    };
+    AZ_ALLOCATOR_DEFAULT_GLOBAL_WRAPPER(EMOTIONFX_ALLOCATOR_SEQ_GET_NAME(ALLOCATOR_SEQUENCE), EMOTIONFX_ALLOCATOR_SEQ_GET_TYPE(ALLOCATOR_SEQUENCE), EMOTIONFX_ALLOCATOR_SEQ_GET_UUID(ALLOCATOR_SEQUENCE))
 
     // Here we create all the classes for all the items in the above table (Step 1)
     AZ_SEQ_FOR_EACH(EMOTIONFX_ALLOCATOR_DECL, EMOTIONFX_ALLOCATORS)
 
 #undef EMOTIONFX_ALLOCATOR_DECL
 
-
     // Define the pool allocators
     class AnimGraphConditionAllocator final
-        : public AZ::ThreadPoolBase<AnimGraphConditionAllocator>
+        : public AZ::ThreadPoolAllocator
     {
     public:
         AZ_CLASS_ALLOCATOR(AnimGraphConditionAllocator, AZ::SystemAllocator, 0)
         AZ_TYPE_INFO(AnimGraphConditionAllocator, "{F5406A89-3F11-4791-9F83-6A71D0F8DD81}")
-
-        using Base = AZ::ThreadPoolBase<AnimGraphConditionAllocator>;
-
-        AnimGraphConditionAllocator()
-        : Base("AnimGraphConditionAllocator", "EMotionFX anim graph condition memory allocator")
-        {
-        }
     };
 
-
     class AnimGraphObjectDataAllocator final
-        : public AZ::ThreadPoolBase<AnimGraphObjectDataAllocator>
+        : publicAZ::ThreadPoolAllocator
     {
     public:
         AZ_CLASS_ALLOCATOR(AnimGraphObjectDataAllocator, AZ::SystemAllocator, 0)
         AZ_TYPE_INFO(AnimGraphObjectDataAllocator, "{E00ADC25-A311-4003-849E-85C125089C74}")
-
-        using Base = AZ::ThreadPoolBase<AnimGraphObjectDataAllocator>;
-
-        AnimGraphObjectDataAllocator()
-        : Base("AnimGraphObjectDataAllocator", "EMotionFX anim graph object data memory allocator")
-        {
-        }
     };
 
 
     class AnimGraphObjectUniqueDataAllocator final
-        : public AZ::ThreadPoolBase<AnimGraphObjectUniqueDataAllocator>
+        : public AZ::ThreadPoolAllocator
     {
     public:
         AZ_CLASS_ALLOCATOR(AnimGraphObjectUniqueDataAllocator, AZ::SystemAllocator, 0)
-            AZ_TYPE_INFO(AnimGraphObjectUniqueDataAllocator, "{C74F51E0-E6B0-4EF8-A3BF-0968CAEF1333}")
-
-        using Base = AZ::ThreadPoolBase<AnimGraphObjectUniqueDataAllocator>;
-
-        AnimGraphObjectUniqueDataAllocator()
-        : Base("AnimGraphObjectUniqueDataAllocator", "EMotionFX anim graph object unique data memory allocator")
-        {
-        }
+        AZ_TYPE_INFO(AnimGraphObjectUniqueDataAllocator, "{C74F51E0-E6B0-4EF8-A3BF-0968CAEF1333}")
     };
 
     class Allocators

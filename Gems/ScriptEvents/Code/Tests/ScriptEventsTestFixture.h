@@ -58,7 +58,6 @@ namespace ScriptEventsTests
 
                 {
                     AZ::ComponentApplication::Descriptor descriptor;
-                    descriptor.m_useExistingAllocator = true; // Use the SystemAllocator we own in this test.
 
                     appStartup.m_createStaticModulesCallback =
                         [](AZStd::vector<AZ::Module*>& modules)

@@ -279,22 +279,7 @@ namespace GridMate
         {
             m_fixedTimeStep.SetTargetUpdateRate(m_cfg.m_targetFixedTimeStepsPerSecond);
         }
-
-        {
-            AZ::PoolAllocator::Descriptor allocDesc;
-
-#if !defined(AZ_DEBUG_BUILD)
-            allocDesc.m_allocationRecords = false;
-            allocDesc.m_stackRecordLevels = 0;
-#endif
-            allocDesc.m_pageSize = 256;
-            allocDesc.m_maxAllocationSize = 64;
-            allocDesc.m_numStaticPages = 1024;
-            allocDesc.m_pageAllocator = &AZ::AllocatorInstance<GridMateAllocatorMP>::Get();
-
-            m_tasksAllocator.Create(allocDesc);
-        }
-
+        
         if ((m_cfg.m_roles & ReplicaMgrDesc::Role_SyncHost) != 0)
         {
             Promote();
@@ -356,7 +341,6 @@ namespace GridMate
         m_marshalingTasks.Clear();
         m_updateTasks.Clear();
         m_peerUpdateTasks.Clear();
-        m_tasksAllocator.Destroy();
     }
     //-----------------------------------------------------------------------------
     void ReplicaManager::Promote()

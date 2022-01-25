@@ -52,7 +52,6 @@ namespace UnitTest
         AZ::Entity::ComponentArrayType orderedComponents;
 
         ToolsApplication::Descriptor desc;
-        desc.m_useExistingAllocator = true;
         ToolsApplication::StartupParameters startupParams;
         startupParams.m_allocator = &AZ::AllocatorInstance<AZ::SystemAllocator>::Get();
 

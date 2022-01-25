@@ -51,7 +51,6 @@ protected:
         AZ::SettingsRegistryMergeUtils::MergeSettingsToRegistry_AddRuntimeFilePaths(*registry);
 
         AZ::ComponentApplication::Descriptor desc;
-        desc.m_useExistingAllocator = true;
         app.Start(desc);
 
         // Without this, the user settings component would attempt to save on finalize/shutdown. Since the file is

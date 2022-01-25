@@ -376,10 +376,9 @@ set(FILES
     Memory/NewAndDelete.inl
     Memory/OSAllocator.cpp
     Memory/OSAllocator.h
+    Memory/OSStdAllocator.h
     Memory/PoolAllocator.cpp
     Memory/PoolAllocator.h
-    Memory/SimpleSchemaAllocator.h
-    Memory/StdAllocator.h
     Memory/SystemAllocator.h
     Module/DynamicModuleHandle.cpp
     Module/DynamicModuleHandle.h

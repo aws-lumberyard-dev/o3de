@@ -26,8 +26,8 @@ namespace UnitTest
         {
             // This is where data from aOther will be moved to "this"
             // For the test we simulate allocations being passed from one allocator to the other
-            m_hasAllocations |= aOther.m_hasAllocations;
-            aOther.m_hasAllocations = false;
+            m_hasAllocations |= aOther->m_hasAllocations;
+            aOther->m_hasAllocations = false;
         }
 
 

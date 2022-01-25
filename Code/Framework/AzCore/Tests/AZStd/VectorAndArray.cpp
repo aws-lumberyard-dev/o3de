@@ -407,8 +407,8 @@ namespace UnitTest
         static_buffer_16KB myMemoryManager1;
         static_buffer_16KB myMemoryManager2;
         typedef allocator_ref<static_buffer_16KB> static_allocator_ref_type;
-        static_allocator_ref_type allocator1(myMemoryManager1, "Mystack allocator 1");
-        static_allocator_ref_type allocator2(myMemoryManager2, "Mystack allocator 2");
+        static_allocator_ref_type allocator1(myMemoryManager1);
+        static_allocator_ref_type allocator2(myMemoryManager2);
 
         typedef vector<int, static_allocator_ref_type > IntVectorMyAllocator;
         IntVectorMyAllocator int_vector10(100, 13, allocator1); /// Allocate 100 elements using memory manager 1

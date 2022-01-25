@@ -5,8 +5,8 @@
  * SPDX-License-Identifier: Apache-2.0 OR MIT
  *
  */
-#ifndef AZSTD_ALLOCATOR_REF_H
-#define AZSTD_ALLOCATOR_REF_H 1
+
+#pragma once
 
 #include <AzCore/std/base.h>
 #include <AzCore/std/typetraits/integral_constant.h>
@@ -26,6 +26,7 @@ namespace AZStd
         using size_type = typename Allocator::size_type;
         using difference_type = typename Allocator::difference_type;
         using align_type = typename Allocator::align_type;
+        using propagate_on_container_copy_assignment = typename Allocator::propagate_on_container_copy_assignment;
         using propagate_on_container_move_assignment = typename Allocator::propagate_on_container_move_assignment;
 
         using allocator_pointer = Allocator*;
@@ -63,6 +64,16 @@ namespace AZStd
 
         AZ_FORCE_INLINE allocator_reference get_allocator() const { return *m_allocator; }
 
+        AZ_FORCE_INLINE size_type max_size() const
+        {
+            return m_allocator->max_size();
+        }
+
+        AZ_FORCE_INLINE size_type get_allocated_size() const
+        {
+            return m_allocator->get_allocated_size();
+        }
+
     private:
         allocator_pointer m_allocator;
     };
@@ -80,5 +91,4 @@ namespace AZStd
     }
 }
 
-#endif // AZSTD_ALLOCATOR_REF_H
-#pragma once
+

@@ -10,6 +10,7 @@
 
 #include <AzCore/std/base.h>
 #include <AzCore/RTTI/TypeInfoSimple.h>
+#include <AzCore/Memory/IAllocator.h>
 
 namespace AZStd
 {
@@ -31,17 +32,14 @@ namespace AZStd
      *  typedef <impl defined>  size_type;
      *  // Pointer difference type, usually AZStd::ptrdiff_t.
      *  typedef <impl defined>  difference_type;
-     *  // Allowing memory leaks will instruct allocator's users to never
-     *  // even bother to call deallocate. This can result in a faster code. Usually is false_type.
-     *  typedef true_type (or false_type) allow_memory_leaks;
      *
      *  allocator(const char* name = "AZSTD Allocator");
      *  allocator(const allocator& rhs);
      *  allocator(const allocator& rhs, const char* name);
      *  allocator& operator=(const allocator& rhs;
      *
-     *  pointer_type allocate(size_type byteSize, size_type alignment, int flags = 0);
-     *  void         deallocate(pointer_type ptr, size_type byteSize, size_type alignment);
+     *  pointer_type allocate(size_type byteSize, align_type alignment, int flags = 0);
+     *  void         deallocate(pointer_type ptr, size_type byteSize, align_type alignment);
      *  /// Tries to resize an existing memory chunk. Returns the resized memory block or 0 if resize is not supported.
      *  size_type    resize(pointer_type ptr, size_type newSize);
      * };
@@ -49,11 +47,6 @@ namespace AZStd
      * bool operator==(const allocator& a, const allocator& b);
      * bool operator!=(const allocator& a, const allocator& b);
      * \endcode
-     *
-     * \attention allow_memory_leaks is important to be set to true for temporary memory buffers like: stack allocators, etc.
-     * This will allow AZStd containers to have automatic "leak_and_reset" behavior, which will allow fast
-     * destroy without memory deallocation. This is especially important for temporary containers
-     * that make multiple allocations (like hash_maps, lists, etc.).
      *
      * \li \ref allocator "Default Allocator"
      * \li \ref no_default_allocator "Invalid Default Allocator"
@@ -71,12 +64,7 @@ namespace AZStd
     public:
         AZ_TYPE_INFO(allocator, "{E9F5A3BE-2B3D-4C62-9E6B-4E00A13AB452}");
 
-        using value_type = void;
-        using pointer = void*;
-        using size_type = AZStd::size_t;
-        using difference_type = AZStd::ptrdiff_t;
-        using align_type = AZStd::size_t;
-        using propagate_on_container_move_assignment = AZStd::true_type;
+        AZ_ALLOCATOR_DEFAULT_TRAITS
 
         allocator() = default;
         allocator(const allocator& rhs) = default;
@@ -89,6 +77,11 @@ namespace AZStd
         size_type max_size() const
         {
             return AZ_TRAIT_OS_MEMORY_MAX_ALLOCATOR_SIZE;
+        }
+
+        size_type get_allocated_size() const
+        {
+            return 0;
         }
 
         AZ_FORCE_INLINE bool is_lock_free()
@@ -131,13 +124,9 @@ namespace AZStd
     class no_default_allocator
     {
     public:
-        using value_type = void;
-        using pointer = void*;
-        using size_type = AZStd::size_t;
-        using difference_type = AZStd::ptrdiff_t;
-        using align_type = AZStd::size_t;
-        using propagate_on_container_move_assignment = AZStd::true_type;
+        AZ_ALLOCATOR_DEFAULT_TRAITS
 
+        AZ_FORCE_INLINE no_default_allocator() = default;
         AZ_FORCE_INLINE no_default_allocator(const allocator&) {}
 
         // none of this functions are implemented we should get a link error if we use them!

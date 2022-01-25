@@ -21,13 +21,7 @@ namespace GridMate
     struct GridMateDesc
     {
         GridMateDesc()
-            : m_allocatorDesc()
-            , m_endianType(EndianType::BigEndian) { }
-
-        /**
-        * GridMate default allocator. It will be used for all basic services and online module.
-        */
-        GridMateAllocator::Descriptor m_allocatorDesc;
+            : m_endianType(EndianType::BigEndian) { }
 
         /**
         * Endianness serialized to the network.

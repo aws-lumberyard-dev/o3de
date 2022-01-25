@@ -33,7 +33,6 @@ namespace UnitTest
             AllocatorInstance<PoolAllocator>::Create();
             AllocatorInstance<ThreadPoolAllocator>::Create();
             ComponentApplication::Descriptor desc;
-            desc.m_useExistingAllocator = true;
             m_app.reset(aznew ComponentApplication);
             m_app->Create(desc);
         }

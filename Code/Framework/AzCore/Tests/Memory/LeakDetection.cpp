@@ -102,28 +102,7 @@ namespace UnitTest
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Create a dummy allocator so unit tests can leak it
-    class LeakDetection_TestAllocator
-        : public AZ::SimpleSchemaAllocator<AZ::ChildAllocatorSchema<AZ::SystemAllocator>>
-    {
-    public:
-        AZ_TYPE_INFO(LeakDetection_TestAllocator, "{186B6E32-344D-4322-820A-4C3E4F30650B}");
-
-        using Base = AZ::SimpleSchemaAllocator<AZ::ChildAllocatorSchema<AZ::SystemAllocator>>;
-        using Descriptor = Base::Descriptor;
-
-        LeakDetection_TestAllocator()
-            : LeakDetection_TestAllocator(TYPEINFO_Name(), "LeakDetection_TestAllocator")
-        {
-        }
-
-        LeakDetection_TestAllocator(const char* name, const char* desc)
-            : Base(name, desc)
-        {
-            Create();
-        }
-
-        ~LeakDetection_TestAllocator() override = default;
-    };
+    AZ_ALLOCATOR_DEFAULT_GLOBAL_WRAPPER(LeakDetection_TestAllocator, AZ::SystemAllocator, "{186B6E32-344D-4322-820A-4C3E4F30650B}")
 
     class AllocatorsTestFixtureLeakDetectionDeathTest_SKIPCODECOVERAGE
         : public ::testing::Test
@@ -287,7 +266,6 @@ namespace UnitTest
                 // Other allocators need the SystemAllocator in order to work
                 AZ::AllocatorInstance<AZ::SystemAllocator>::Destroy();
             }
-            AZ::AllocatorManager::Instance().ExitProfilingMode();
 
             m_busRedirector.BusDisconnect();
             EXPECT_EQ(m_leakExpected, m_leakDetected);

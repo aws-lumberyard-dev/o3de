@@ -8160,9 +8160,7 @@ namespace UnitTest
     {
     public:
         PathSerializationParamFixture()
-            : ScopedAllocatorSetupFixture(
-                []() { AZ::SystemAllocator::Descriptor desc; desc.m_stackRecordLevels = 30; return desc; }()
-            )
+            : ScopedAllocatorSetupFixture()
         {}
 
         // We must expose the class for serialization first.

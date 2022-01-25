@@ -45,7 +45,6 @@ namespace UnitTest
         {
             AllocatorsFixture::SetUp();
             ComponentApplication::Descriptor desc;
-            desc.m_useExistingAllocator = true;
 
             m_app.Start(desc);
 

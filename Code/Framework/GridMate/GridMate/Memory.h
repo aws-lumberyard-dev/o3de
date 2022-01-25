@@ -9,63 +9,26 @@
 #define GM_MEMORY_H
 
 #include <AzCore/base.h>
-#include <AzCore/Memory/OSAllocator.h>
 #include <AzCore/Memory/SystemAllocator.h>
+#include <AzCore/Memory/AllocatorWrappers.h>
 
 namespace GridMate
 {
     /**
     * GridMateAllocator is used by non-MP portions of GridMate
     */
-    class GridMateAllocator
-        : public AZ::SimpleSchemaAllocator<AZ::ChildAllocatorSchema<AZ::SystemAllocator>>
-    {
-    public:
-        AZ_TYPE_INFO(GridMateAllocator, "{BB127E7A-E4EF-4480-8F17-0C10146D79E0}")
-
-        using Base = AZ::SimpleSchemaAllocator<AZ::ChildAllocatorSchema<AZ::SystemAllocator>>;
-        using Descriptor = Base::Descriptor;
-
-        GridMateAllocator()
-            : GridMateAllocator::Base("GridMate Allocator", "GridMate fundamental generic memory allocator")
-        {}
-
-        void Merge([[maybe_unused]] GridMateAllocator& aOther)
-        {
-        }
-    };
+   AZ_ALLOCATOR_DEFAULT_GLOBAL_WRAPPER(GridMateAllocator, AZ::SystemAllocator, "{BB127E7A-E4EF-4480-8F17-0C10146D79E0}")
 
     /**
     * GridMateAllocatorMP is used by MP portions of GridMate
     */
-    class GridMateAllocatorMP
-        : public AZ::SimpleSchemaAllocator<AZ::ChildAllocatorSchema<AZ::SystemAllocator>>
-    {
-        friend class AZ::AllocatorInstance<GridMateAllocatorMP>;
-    public:
-        AZ_TYPE_INFO(GridMateAllocatorMP, "{FABCBC6E-B3E5-4200-861E-A3EC22592678}")
-
-        using Base = AZ::SimpleSchemaAllocator<AZ::ChildAllocatorSchema<AZ::SystemAllocator>>;
-        using Descriptor = Base::Descriptor;
-
-        GridMateAllocatorMP()
-            : GridMateAllocatorMP::Base("GridMate Multiplayer Allocator", "GridMate Multiplayer data allocations (Session,Replica,Carrier)")
-        {}
-
-        // TODO: We have an aggressive memory policy in the Carrier. We have 2 ways to fix it.
-        // Either keep a cap and sacrifice performance or create a carrier->GarbageCollection and call it from here
-        //virtual void          GarbageCollect()                 { EBUS_EVENT(CarrierBus,GarbageCollect); m_allocator->GarbageCollect(); }
-
-        void Merge([[maybe_unused]] GridMateAllocatorMP& aOther)
-        {
-        }
-    };
+    AZ_ALLOCATOR_DEFAULT_GLOBAL_WRAPPER(GridMateAllocatorMP, AZ::SystemAllocator, "{FABCBC6E-B3E5-4200-861E-A3EC22592678}")
 
     //! GridMate system container allocator.
-    typedef AZ::AZStdAlloc<GridMateAllocator> GridMateStdAlloc;
+    using GridMateStdAlloc = GridMateAllocator;
 
     //! GridMate system container allocator.
-    typedef AZ::AZStdAlloc<GridMateAllocatorMP> SysContAlloc;
+    using SysContAlloc = GridMateAllocatorMP;
 }   // namespace GridMate
 
 

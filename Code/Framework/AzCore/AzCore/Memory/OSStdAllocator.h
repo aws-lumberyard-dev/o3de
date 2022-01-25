@@ -13,6 +13,6 @@
 
 namespace AZ
 {
-    // For backwards compatibility, now that allocators respect the std interface, there is no longer a need to wrap them
-    using OSStdAllocator = AllocatorGlobalWrapper<OSAllocator>;
+    // Stateless wrapper to the OSAllocator
+    AZ_ALLOCATOR_DEFAULT_GLOBAL_WRAPPER(OSStdAllocator, OSAllocator, "{DEF429A7-391E-4448-B196-E926BB4CA2A9}")
 }

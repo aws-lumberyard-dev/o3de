@@ -3150,8 +3150,8 @@ namespace AZ
 
     // Create the member OSAllocator and construct the unordered_map with that allocator
     SerializeContext::PerModuleGenericClassInfo::PerModuleGenericClassInfo()
-        : m_moduleLocalGenericClassInfos(AZ::AZStdIAllocator(&m_moduleOSAllocator))
-        , m_serializeContextSet(AZ::AZStdIAllocator(&m_moduleOSAllocator))
+        : m_moduleLocalGenericClassInfos(AZ::AllocatorPointerWrapper(&m_moduleOSAllocator))
+        , m_serializeContextSet(AZ::AllocatorPointerWrapper(&m_moduleOSAllocator))
     {
     }
 
@@ -3162,8 +3162,8 @@ namespace AZ
         // Reconstructs the module generic info map with the OSAllocator so that it the previous allocated memory is cleared
         // Afterwards destroy the OSAllocator
         {
-            m_moduleLocalGenericClassInfos = GenericInfoModuleMap(AZ::AZStdIAllocator(&m_moduleOSAllocator));
-            m_serializeContextSet = SerializeContextSet(AZ::AZStdIAllocator(&m_moduleOSAllocator));
+            m_moduleLocalGenericClassInfos = GenericInfoModuleMap(AZ::AllocatorPointerWrapper(&m_moduleOSAllocator));
+            m_serializeContextSet = SerializeContextSet(AZ::AllocatorPointerWrapper(&m_moduleOSAllocator));
         }
     }
 

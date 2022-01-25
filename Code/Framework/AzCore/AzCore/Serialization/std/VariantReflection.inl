@@ -32,7 +32,7 @@ namespace AZ
              * But as the AZStdAssociativeContainer instance will not be accessed outside of the module it was
              * created within then this will return this .dll/.exe module allocator
              */
-            classElement.m_attributes.set_allocator(AZStdFunctorAllocator([]() -> IAllocator& { return GetCurrentSerializeContextModule().GetAllocator(); }));
+            classElement.m_attributes.set_allocator(GetCurrentSerializeContextModule().GetAllocator());
         }
 
         template<size_t Index, size_t... Digits>
@@ -429,8 +429,7 @@ namespace AZ
                 // the serialize context dll module allocator has to be used to manage the lifetime of the ClassData attributes within a module
                 // If a module which reflects a variant is unloaded, then the dll module allocator will properly unreflect the variant type from the serialize context
                 // for this particular module
-                AZStdFunctorAllocator dllAllocator([]() -> IAllocator& { return GetCurrentSerializeContextModule().GetAllocator(); });
-                m_classData.m_attributes.set_allocator(AZStd::move(dllAllocator));
+                m_classData.m_attributes.set_allocator(GetCurrentSerializeContextModule().GetAllocator());
 
                 // Create the ObjectStreamWriteOverrideCB in the current module
                 m_classData.m_attributes.emplace_back(AZ_CRC("ObjectStreamWriteElementOverride", 0x35eb659f), CreateModuleAttribute(&ObjectStreamWriter));

@@ -517,44 +517,6 @@ namespace AZ
             modulesDoc.AddMember(rapidjson::StringRef("GemFolders"), AZStd::move(gemPathList), modulesDoc.GetAllocator());
             documents.emplace_back(AZStd::move(modulesFilePath.Native()), AZStd::move(modulesDoc));
 
-            rapidjson::Document memoryDoc;
-            memoryDoc.SetObject();
-            memoryDoc.AddMember(rapidjson::StringRef("useExistingAllocator"),
-                rapidjson::Value(descriptor.m_useExistingAllocator), memoryDoc.GetAllocator());
-            memoryDoc.AddMember(rapidjson::StringRef("grabAllMemory"),
-                rapidjson::Value(descriptor.m_grabAllMemory), memoryDoc.GetAllocator());
-            memoryDoc.AddMember(rapidjson::StringRef("allocationRecords"),
-                rapidjson::Value(descriptor.m_allocationRecords), memoryDoc.GetAllocator());
-            memoryDoc.AddMember(rapidjson::StringRef("allocationRecordsSaveNames"),
-                rapidjson::Value(descriptor.m_allocationRecordsSaveNames), memoryDoc.GetAllocator());
-            memoryDoc.AddMember(rapidjson::StringRef("allocationRecordsAttemptDecodeImmediately"),
-                rapidjson::Value(descriptor.m_allocationRecordsAttemptDecodeImmediately), memoryDoc.GetAllocator());
-            memoryDoc.AddMember(rapidjson::StringRef("recordingMode"),
-                rapidjson::Value(descriptor.m_recordingMode), memoryDoc.GetAllocator());
-            memoryDoc.AddMember(rapidjson::StringRef("stackRecordLevels"),
-                rapidjson::Value(descriptor.m_stackRecordLevels), memoryDoc.GetAllocator());
-            memoryDoc.AddMember(rapidjson::StringRef("autoIntegrityCheck"),
-                rapidjson::Value(descriptor.m_autoIntegrityCheck), memoryDoc.GetAllocator());
-            memoryDoc.AddMember(rapidjson::StringRef("markUnallocatedMemory"),
-                rapidjson::Value(descriptor.m_markUnallocatedMemory), memoryDoc.GetAllocator());
-            memoryDoc.AddMember(rapidjson::StringRef("doNotUsePools"),
-                rapidjson::Value(descriptor.m_doNotUsePools), memoryDoc.GetAllocator());
-            memoryDoc.AddMember(rapidjson::StringRef("enableScriptReflection"),
-                rapidjson::Value(descriptor.m_enableScriptReflection), memoryDoc.GetAllocator());
-            memoryDoc.AddMember(rapidjson::StringRef("pageSize"),
-                rapidjson::Value(descriptor.m_pageSize), memoryDoc.GetAllocator());
-            memoryDoc.AddMember(rapidjson::StringRef("poolPageSize"),
-                rapidjson::Value(descriptor.m_poolPageSize), memoryDoc.GetAllocator());
-            memoryDoc.AddMember(rapidjson::StringRef("blockAlignment"),
-                rapidjson::Value(descriptor.m_memoryBlockAlignment), memoryDoc.GetAllocator());
-            memoryDoc.AddMember(rapidjson::StringRef("blockSize"),
-                rapidjson::Value(descriptor.m_memoryBlocksByteSize), memoryDoc.GetAllocator());
-            memoryDoc.AddMember(rapidjson::StringRef("reservedOS"),
-                rapidjson::Value(descriptor.m_reservedOS), memoryDoc.GetAllocator());
-            memoryDoc.AddMember(rapidjson::StringRef("reservedDebug"),
-                rapidjson::Value(descriptor.m_reservedDebug), memoryDoc.GetAllocator());
-            documents.emplace_back(AZStd::move(memoryFilePath.Native()), AZStd::move(memoryDoc));
-            
             return true;
         }
 

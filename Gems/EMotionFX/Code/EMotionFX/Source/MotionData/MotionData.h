@@ -83,7 +83,7 @@ namespace EMotionFX
             AZStd::unique_ptr<const MotionLinkData>,
             AZStd::hash<const Actor*>,
             AZStd::equal_to<const Actor*>,
-            AZ::AZStdAlloc<MotionAllocator>>
+            MotionAllocator>
             m_motionLinkDataMap;
 
         mutable AZStd::shared_mutex m_mutex;

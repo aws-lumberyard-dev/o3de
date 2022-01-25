@@ -78,7 +78,7 @@ namespace AZ
                 // Allocate space for the string.
                 // If passing by reference, we need to construct it ahead of time (in this allocated space)
                 // If not, StoreResult will construct it for us, and we can pass in a temp
-                value.m_value = stackTempAllocator->allocate(sizeof(StringType), AZStd::alignment_of<StringType>::value, 0);
+                value.m_value = stackTempAllocator->allocate(sizeof(StringType), AZStd::alignment_of<StringType>::value);
 
                 if (valueClass->m_defaultConstructor)
                 {

@@ -71,7 +71,6 @@ namespace UnitTest
             AZ::AllocatorInstance<AZ::SystemAllocator>::Create(AZ::SystemAllocator::Descriptor());
 
             AZ::ComponentApplication::Descriptor appDescriptor;
-            appDescriptor.m_useExistingAllocator = true;
 
             m_application = aznew UiScrollBarTestApplication();
             m_application->Start(appDescriptor, AZ::ComponentApplication::StartupParameters());

@@ -128,7 +128,6 @@ namespace UnitTest
 
             // Create application descriptor
             ComponentApplication::Descriptor appDesc;
-            appDesc.m_memoryBlocksByteSize = 10 * 1024 * 1024;
 
             // AZCoreTestDLL will load as a dynamic module
             appDesc.m_modules.push_back();

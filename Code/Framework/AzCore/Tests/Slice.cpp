@@ -830,7 +830,6 @@ namespace Benchmark
         AZ::ComponentApplication componentApp;
 
         AZ::ComponentApplication::Descriptor desc;
-        desc.m_useExistingAllocator = true;
 
         AZ::ComponentApplication::StartupParameters startupParams;
         startupParams.m_allocator = &AZ::AllocatorInstance<AZ::SystemAllocator>::Get();

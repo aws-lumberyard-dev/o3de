@@ -65,7 +65,6 @@ namespace ScriptCanvasTests
                 {
                     ScriptCanvasEditor::TraceSuppressionBus::Broadcast(&ScriptCanvasEditor::TraceSuppressionRequests::SuppressPrintf, true);
                     AZ::ComponentApplication::Descriptor descriptor;
-                    descriptor.m_useExistingAllocator = true;
 
                     AZ::DynamicModuleDescriptor dynamicModuleDescriptor;
                     dynamicModuleDescriptor.m_dynamicLibraryPath = "GraphCanvas.Editor";

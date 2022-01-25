@@ -16,14 +16,5 @@ namespace EMStudio
     /**
      * System allocator to be used for UI-related objects.
      */
-    class UIAllocator
-        : public AZ::SimpleSchemaAllocator<AZ::ChildAllocatorSchema<AZ::SystemAllocator>>
-    {
-    public:
-        AZ_TYPE_INFO(UIAllocator, "{98AED295-91AE-4598-B253-90A67FE4DABC}");
-        using Base = AZ::SimpleSchemaAllocator<AZ::ChildAllocatorSchema<AZ::SystemAllocator>>;
-        using Descriptor = Base::Descriptor;
-
-        UIAllocator();
-    };
+    AZ_ALLOCATOR_DEFAULT_GLOBAL_WRAPPER(UIAllocator, AZ::SystemAllocator, "{98AED295-91AE-4598-B253-90A67FE4DABC}")
 }

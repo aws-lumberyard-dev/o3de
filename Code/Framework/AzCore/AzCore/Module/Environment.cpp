@@ -445,7 +445,7 @@ namespace AZ
             return &Internal::CleanUp::GetInstance();
         }
 
-        bool Create(OSAllocator* allocator)
+        bool Create(IAllocator* allocator)
         {
             if (Internal::EnvironmentImpl::s_environment)
             {

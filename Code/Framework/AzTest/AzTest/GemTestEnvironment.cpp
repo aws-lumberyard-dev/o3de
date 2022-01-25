@@ -90,7 +90,6 @@ namespace AZ
             // Create the application.
             m_application = CreateApplicationInstance();
             AZ::ComponentApplication::Descriptor appDesc;
-            appDesc.m_useExistingAllocator = true;
 
             // Set up gems for loading.
             for (const AZStd::string& dynamicModulePath : m_parameters->m_dynamicModulePaths)

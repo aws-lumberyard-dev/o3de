@@ -40,12 +40,13 @@ namespace UnitTest
         // Deallocate memory
         for (auto record : records)
         {
-            m_mallocSchema.deallocate(record);
+            osAllocator.deallocate(record);
         }
     }
 
     TEST(OSAllocatorTest, TestReallocation)
     {
+        AZ::OSAllocator osAllocator;
         static const AZStd::pair<size_t, size_t> sizeAndAlignments[] =
         {
             { 16, 8 },
@@ -59,7 +60,7 @@ namespace UnitTest
         // Keep reallocating the same pointer
         for (const auto& sizeAndAlignment : sizeAndAlignments)
         {
-            p = m_mallocSchema.reallocate(p, sizeAndAlignment.first, sizeAndAlignment.second);
+            p = osAllocator.reallocate(p, sizeAndAlignment.first, sizeAndAlignment.second);
 
             if (sizeAndAlignment.first)
             {

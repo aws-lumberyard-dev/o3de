@@ -23,7 +23,7 @@ namespace AZ
     {
     public:
         AllocatorManager() = default;
-        ~AllocatorManager() = default;
+        ~AllocatorManager();
 
         static AllocatorManager& Instance();
 

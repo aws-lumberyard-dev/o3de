@@ -10,6 +10,7 @@
 
 #include <AzCore/std/base.h>
 #include <AzCore/RTTI/TypeInfoSimple.h>
+#include <AzCore/Memory/IAllocator.h>
 
 namespace AZStd
 {
@@ -18,12 +19,7 @@ namespace AZStd
     public:
         AZ_TYPE_INFO(stateless_allocator, "{E4976C53-0B20-4F39-8D41-0A76F59A7D68}");
 
-        using value_type = void;
-        using pointer = void*;
-        using size_type = AZStd::size_t;
-        using difference_type = AZStd::ptrdiff_t;
-        using align_type = AZStd::size_t;
-        using propagate_on_container_move_assignment = AZStd::true_type;
+       AZ_ALLOCATOR_DEFAULT_TRAITS
 
         stateless_allocator() = default;
         stateless_allocator(const stateless_allocator& rhs) = default;
