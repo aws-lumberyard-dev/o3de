@@ -2623,6 +2623,7 @@ namespace AZ
         m_container = nullptr;
         m_azRtti = nullptr;
         m_editData = nullptr;
+        m_attributes.set_allocator(&GetCurrentSerializeContextModule().GetAllocator());
     }
 
     //=========================================================================
@@ -2952,6 +2953,14 @@ namespace AZ
     //=========================================================================
     // ~ClassElement
     //=========================================================================
+    SerializeContext::ClassElement::ClassElement()
+    {
+        m_attributes.set_allocator(&GetCurrentSerializeContextModule().GetAllocator());
+    }
+
+    //=========================================================================
+    // ~ClassElement
+    //=========================================================================
     SerializeContext::ClassElement::~ClassElement()
     {
         if (m_attributeOwnership == AttributeOwnership::Self)
@@ -3150,21 +3159,14 @@ namespace AZ
 
     // Create the member OSAllocator and construct the unordered_map with that allocator
     SerializeContext::PerModuleGenericClassInfo::PerModuleGenericClassInfo()
-        : m_moduleLocalGenericClassInfos(AZ::AllocatorPointerWrapper(&m_moduleOSAllocator))
-        , m_serializeContextSet(AZ::AllocatorPointerWrapper(&m_moduleOSAllocator))
+        : m_moduleLocalGenericClassInfos(&m_moduleOSAllocator)
+        , m_serializeContextSet(&m_moduleOSAllocator)
     {
     }
 
     SerializeContext::PerModuleGenericClassInfo::~PerModuleGenericClassInfo()
     {
         Cleanup();
-
-        // Reconstructs the module generic info map with the OSAllocator so that it the previous allocated memory is cleared
-        // Afterwards destroy the OSAllocator
-        {
-            m_moduleLocalGenericClassInfos = GenericInfoModuleMap(AZ::AllocatorPointerWrapper(&m_moduleOSAllocator));
-            m_serializeContextSet = SerializeContextSet(AZ::AllocatorPointerWrapper(&m_moduleOSAllocator));
-        }
     }
 
     void SerializeContext::PerModuleGenericClassInfo::Cleanup()
