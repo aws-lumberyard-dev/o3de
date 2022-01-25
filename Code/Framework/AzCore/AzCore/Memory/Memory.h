@@ -8,7 +8,6 @@
 #pragma once
 
 #include <AzCore/base.h>
-#include <AzCore/Memory/Config.h>
 #include <AzCore/Memory/AllocatorInstance.h>
 #include <AzCore/Memory/IAllocator.h>
 #include <AzCore/std/typetraits/alignment_of.h>
