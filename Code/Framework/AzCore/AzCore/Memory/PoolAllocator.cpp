@@ -638,7 +638,9 @@ namespace AZ
                     if (m_threads[i])
                     {
                         // Force free all pages
-                        delete m_threads[i];
+                        ThreadPoolData* threadData = m_threads[i];
+                        threadData->~ThreadPoolData();
+                        m_pageAllocator->deallocate(threadData, sizeof(ThreadPoolData), static_cast<align_type>(AZStd::alignment_of<ThreadPoolData>::value));
                     }
                 }
 
