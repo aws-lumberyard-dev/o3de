@@ -145,9 +145,9 @@ namespace AZ::Internal
                     // No other module created this allocator, create it
                     m_environmentAllocator = AZ::Environment::CreateVariable<AllocatorLifetime>(AZ::AzTypeInfo<AllocatorType>::Name());
                     m_cachedEnvironmentAllocator = new (&m_environmentAllocatorStorage) AllocatorType;
-                    m_allocatorLifetime = m_environmentAllocator.Get(); // If there was another allocator (e.g. initialized before
-                                                                        // environment was ready, it is deleted here)
-                    m_allocatorLifetime.Reset(m_cachedEnvironmentAllocator);
+                    m_allocatorLifetime.Reset(m_cachedEnvironmentAllocator); // If there was another allocator (e.g. initialized before
+                                                                             // environment was ready, it is deleted here)
+                    m_environmentAllocator.Get() = m_allocatorLifetime; 
                 }
 
                 if (m_cachedStaticAllocator)
