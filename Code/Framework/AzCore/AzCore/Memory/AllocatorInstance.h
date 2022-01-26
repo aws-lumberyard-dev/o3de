@@ -56,9 +56,7 @@ namespace AZ::Internal
         AllocatorInstanceStaticMembers()
             : m_cachedEnvironmentAllocator(nullptr)
             , m_environmentAllocator()
-            , m_environmentAllocatorStorage()
             , m_cachedStaticAllocator(nullptr)
-            , m_staticAllocatorStorage()
             , m_allocatorLifetime()
         {
         }
@@ -111,18 +109,52 @@ namespace AZ::Internal
         class AllocatorLifetime
         {
         public:
-            void Reset(AllocatorType* memoryAllocator)
+            void Create()
             {
-                // We just need to invoke the destructor because the variables are allocated in static storage
-                m_allocator.reset(
-                    memoryAllocator,
-                    [](AllocatorType* pi)
+                m_data.reset(
+                    new Data,
+                    [](Data* pi)
                     {
-                        pi->~AllocatorType();
+                        pi->~Data();
                     },
                     AZStd::stateless_allocator());
             }
-            AZStd::shared_ptr<AllocatorType> m_allocator;
+            AllocatorType* GetAllocator()
+            {
+                AZ_Assert(m_data, "Invalid data in AllocatorLifetime");
+                return m_data->GetAllocator();
+            }
+            bool IsValid() const
+            {
+                return m_data;
+            }
+            void Reset()
+            {
+                m_data.reset();
+            }
+        private:
+            struct Data
+            {
+                Data()
+                {
+                    new (&m_allocatorStorage) AllocatorType;
+                }
+
+                ~Data()
+                {
+                    GetAllocator()->~AllocatorType(); // no need to free the memory since is stored in m_allocatorStorage
+                }
+
+                AllocatorType* GetAllocator()
+                {
+                    return reinterpret_cast<AllocatorType*>(&m_allocatorStorage);
+                }
+
+            private:
+                using AllocatorStorage = typename AZStd::aligned_storage<sizeof(AllocatorType), AZStd::alignment_of<AllocatorType>::value>::type;
+                AllocatorStorage m_allocatorStorage; // memory storage for the environment allocator
+            };
+            AZStd::shared_ptr<Data> m_data;
         };
 
         AllocatorType& InternalGet()
@@ -134,28 +166,52 @@ namespace AZ::Internal
             {
                 m_environmentAllocator = AZ::Environment::FindVariable<AllocatorLifetime>(AZ::AzTypeInfo<AllocatorType>::Name());
 
+                AllocatorLifetime currentLifetime = m_allocatorLifetime; // in case there was a static allocator
+
                 if (m_environmentAllocator)
                 {
                     // Some other module already created the variable in the environment
-                    m_cachedEnvironmentAllocator = m_environmentAllocator.Get().m_allocator.get();
-                    m_allocatorLifetime.m_allocator = m_environmentAllocator.Get().m_allocator;
+                    m_allocatorLifetime = m_environmentAllocator.Get();
+                    m_cachedEnvironmentAllocator = m_allocatorLifetime.GetAllocator();
+                    // Dont reset currentLifetime, we have to transfer allocations from there to the allocator
+                    // we got from the environment
+                }
+                else if (currentLifetime.IsValid())
+                {
+                    // this module created the allocator before the environment was ready, now that the environment
+                    // is ready, set the environment to the allocator we already created
+                    m_environmentAllocator = AZ::Environment::CreateVariable<AllocatorLifetime>(AZ::AzTypeInfo<AllocatorType>::Name());
+                    m_environmentAllocator.Get() = m_allocatorLifetime;
+                    m_cachedEnvironmentAllocator = m_allocatorLifetime.GetAllocator();
+                    m_cachedStaticAllocator = nullptr;
+                    currentLifetime.Reset(); // we reset here because we are reusing the allocator from the static case
+                    AZ::Environment::RemoveCallback(this);
                 }
                 else
                 {
-                    // No other module created this allocator, create it
+                    // We currently dont have an allocator, the environment is ready so create it
+                    AZ_Assert(m_cachedStaticAllocator == nullptr, "Didn't expect to have a static allocator")
+                    m_allocatorLifetime.Create();
+
                     m_environmentAllocator = AZ::Environment::CreateVariable<AllocatorLifetime>(AZ::AzTypeInfo<AllocatorType>::Name());
-                    m_cachedEnvironmentAllocator = new (&m_environmentAllocatorStorage) AllocatorType;
-                    m_allocatorLifetime.Reset(m_cachedEnvironmentAllocator); // If there was another allocator (e.g. initialized before
-                                                                             // environment was ready, it is deleted here)
-                    m_environmentAllocator.Get() = m_allocatorLifetime; 
+                    m_environmentAllocator.Get() = m_allocatorLifetime;
+                    m_cachedEnvironmentAllocator = m_allocatorLifetime.GetAllocator();
                 }
 
-                if (m_cachedStaticAllocator)
+                // If we reach this point is because we had a static allocator and when the environment became available, we
+                // got another allocator from the environment (likely created by another module). In this case, we still have
+                // to move allocations (Merge) from the static allocator into the one from the environment
+                if (currentLifetime.IsValid())
                 {
+                    // We should only have the static allocator in currentLifetime
+                    AZ_Assert(m_cachedStaticAllocator == currentLifetime.GetAllocator(), "Expected to have the static allocator in the lifetime variable");
+
                     // We currently have a static allocator instance, we move its contents to the environment's one
                     m_cachedEnvironmentAllocator->Merge(m_cachedStaticAllocator);
                     m_cachedStaticAllocator = nullptr; // It will be destroyed by the assignment to m_allocatorLifetime.m_allocator
                     AZ::Environment::RemoveCallback(this);
+
+                    // The static allocator instance will be deleted when the variable currentLifetime goes out of scope
                 }
 
                 return *m_cachedEnvironmentAllocator;
@@ -169,8 +225,10 @@ namespace AZ::Internal
             }
 
             // No cache variable, need to create the allocator.
-            m_cachedStaticAllocator = new (&m_staticAllocatorStorage) AllocatorType;
-            m_allocatorLifetime.Reset(m_cachedStaticAllocator);
+            AZ_Assert(!m_allocatorLifetime.IsValid(), "Allocator lifetime should be invalid");
+            m_allocatorLifetime.Create();
+            m_cachedStaticAllocator = m_allocatorLifetime.GetAllocator(); // cache it for the next time
+
             AZ::Environment::AddCallback(this);
 
             return *m_cachedStaticAllocator;
@@ -199,13 +257,8 @@ namespace AZ::Internal
         {
         }
 
-        using AllocatorStorage = typename AZStd::aligned_storage<sizeof(AllocatorType), AZStd::alignment_of<AllocatorType>::value>::type;
-
         AllocatorType* m_cachedEnvironmentAllocator; // pointer to the allocator after it was obtained/created in the environment variable
-        AllocatorStorage m_environmentAllocatorStorage; // memory storage for the environment allocator
-
         AllocatorType* m_cachedStaticAllocator; // pointer to the allocator it was created in static memory
-        AllocatorStorage m_staticAllocatorStorage; // memory storage for the static allocator
 
         AllocatorLifetime m_allocatorLifetime; // variable that defines the lifetime of the allocator
         AZ::EnvironmentVariable<AllocatorLifetime> m_environmentAllocator; // environment variable that contains the allocator's instance
