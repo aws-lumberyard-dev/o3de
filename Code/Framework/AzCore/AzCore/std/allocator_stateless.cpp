@@ -7,24 +7,24 @@
  */
 
 #include <AzCore/std/allocator_stateless.h>
-#include <AzCore/Memory/OSAllocator.h>
+#include <AzCore/Memory/OSAllocator_Platform.h>
 #include <AzCore/Memory/AllocatorInstance.h>
 
 namespace AZStd
 {
     stateless_allocator::pointer stateless_allocator::allocate(size_type byteSize, align_type alignment)
     {
-        return AZ::AllocatorInstance<AZ::OSAllocator>::Get().allocate(byteSize, alignment);
+        return AZ_OS_MALLOC(byteSize, alignment);
     }
 
-    void stateless_allocator::deallocate(pointer ptr, size_type byteSize, align_type alignment)
+    void stateless_allocator::deallocate(pointer ptr, [[maybe_unused]] size_type byteSize, [[maybe_unused]] align_type alignment)
     {
-        return AZ::AllocatorInstance<AZ::OSAllocator>::Get().deallocate(ptr, byteSize, alignment);
+        AZ_OS_FREE(ptr);
     }
 
     stateless_allocator::pointer stateless_allocator::reallocate(pointer ptr, size_type newSize, align_type newAlignment)
     {
-        return AZ::AllocatorInstance<AZ::OSAllocator>::Get().reallocate(ptr, newSize, newAlignment);
+        return AZ_OS_REALLOC(ptr, newSize, newAlignment);
     }
 
     bool stateless_allocator::is_lock_free()
