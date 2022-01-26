@@ -53,11 +53,6 @@ namespace Editor
     class EditorQtApplication;
 }
 
-namespace WinWidget
-{
-    class WinWidgetManager;
-}
-
 namespace AssetDatabase
 {
     class AssetDatabaseLocationListener;
@@ -157,7 +152,6 @@ public:
     void LockSelection(bool bLock) override;
     bool IsSelectionLocked() override;
 
-    IDataBaseManager* GetDBItemManager(EDataBaseItemType itemType) override;
     CMusicManager* GetMusicManager() override { return m_pMusicManager; };
 
     IEditorFileMonitor* GetFileMonitor() override;
@@ -221,9 +215,6 @@ public:
 
     bool CloseView(const char* sViewClassName) override;
     bool SetViewFocus(const char* sViewClassName) override;
-
-    QWidget* OpenWinWidget(WinWidgetId openId) override;
-    WinWidget::WinWidgetManager* GetWinWidgetManager() const override;
 
     // close ALL panels related to classId, used when unloading plugins.
     void CloseView(const GUID& classId) override;
@@ -294,8 +285,6 @@ public:
     void RegisterObjectContextMenuExtension(TContextMenuExtensionFunc func) override;
 
     SSystemGlobalEnvironment* GetEnv() override;
-    IBaseLibraryManager* GetMaterialManagerLibrary() override; // Vladimir@Conffx
-    IEditorMaterialManager* GetIEditorMaterialManager() override; // Vladimir@Conffx
     IImageUtil* GetImageUtil() override;  // Vladimir@conffx
     SEditorSettings* GetEditorSettings() override;
     ILogFile* GetLogFile() override { return m_pLogFile; }
@@ -372,8 +361,6 @@ protected:
     QString m_selectFileBuffer;
     QString m_levelNameBuffer;
 
-    IAWSResourceManager* m_awsResourceManager;
-    std::unique_ptr<WinWidget::WinWidgetManager> m_winWidgetManager;
 
     //! True if the editor is in material edit mode. Fast preview of materials.
     //! In this mode only very limited functionality is available.

@@ -1539,7 +1539,7 @@ namespace AZ
         }
 
         template<class T>
-        static bool SetClassEqualityComparer(BehaviorClass* behaviorClass, const T*)
+        static void SetClassEqualityComparer(BehaviorClass* behaviorClass, const T*)
         {
             behaviorClass->m_equalityComparer = &DefaultEqualityComparer<T>;
         }
@@ -2339,8 +2339,6 @@ namespace AZ
         // For some reason the Script.cpp test validates that an incomplete type can be used with the SetResult struct
         template<typename T, typename U, typename = void>
         static constexpr bool IsCopyAssignable = false;
-        template<typename T, typename U>
-        static constexpr bool IsCopyAssignable<T, U, AZStd::void_t<decltype(AZStd::declval<T>() = AZStd::declval<U>())>> = true;
 
         template<class T>
         static bool Set(BehaviorValueParameter& param, T&& result, bool IsValueCopy)
@@ -2399,6 +2397,9 @@ namespace AZ
             return false;
         }
     };
+
+    template<typename T, typename U>
+    constexpr bool SetResult::IsCopyAssignable<T, U, AZStd::void_t<decltype(AZStd::declval<T>() = AZStd::declval<U>())>> = true;
 
     AZ_FORCE_INLINE BehaviorValueParameter& BehaviorValueParameter::operator=(BehaviorValueParameter&& other)
     {
