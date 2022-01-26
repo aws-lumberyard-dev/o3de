@@ -64,9 +64,9 @@ namespace AZ::Dom
 
         Value& m_result;
         // Stores info about the current value being processed
-        AZStd::stack<ValueInfo, AZStd::deque<ValueInfo, AZStdAlloc<ValueAllocator>>> m_entryStack;
+        AZStd::stack<ValueInfo, AZStd::deque<ValueInfo, ValueAllocator>> m_entryStack;
         // Provides temporary storage for elements and attributes to prevent extra heap allocations
         // These buffers persist to be reused even as the entry stack changes
-        AZStd::vector<ValueBuffer, AZStdAlloc<ValueAllocator>> m_valueBuffers;
+        AZStd::vector<ValueBuffer, ValueAllocator> m_valueBuffers;
     };
 } // namespace AZ::Dom

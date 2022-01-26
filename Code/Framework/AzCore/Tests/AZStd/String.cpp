@@ -2435,14 +2435,14 @@ namespace UnitTest
 
     TEST_F(String, StringWithStatefulAllocator_HasSizeOf_PointerPlus2IntTypesPlusAllocator_Compiles)
     {
-        // The expected size of a basic_string with a stateless allocator
+        // The expected size of a basic_string with the default AZStd::allocator
         // Is the size of the pointer (used for storing the memory address of the string)
         // + the size of the string "size" member used to store the size of the string
         // + the size of the string "capacity" member used to store the capacity of the string
-        size_t constexpr ExpectedBasicStringSize = sizeof(void*) + 2 * sizeof(size_t) + sizeof(AZStd::allocator);
+        size_t constexpr ExpectedBasicStringSize = sizeof(void*) + 2 * sizeof(size_t);
         static_assert(ExpectedBasicStringSize == sizeof(AZStd::string),
-            "Using Stateful allocator with basic_string class should result in a 32-byte string class"
-            " on 64-bit platforms ");
+            "The default allocator is counting against the size of the basic_string class"
+            " A change has made to break the empty base optimization of the basic_string class");
     }
 
     template <typename StringType>

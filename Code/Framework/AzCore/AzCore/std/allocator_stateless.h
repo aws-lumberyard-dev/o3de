@@ -19,7 +19,7 @@ namespace AZStd
     public:
         AZ_TYPE_INFO(stateless_allocator, "{E4976C53-0B20-4F39-8D41-0A76F59A7D68}");
 
-       AZ_ALLOCATOR_DEFAULT_TRAITS
+        AZ_ALLOCATOR_DEFAULT_TRAITS
 
         stateless_allocator() = default;
         stateless_allocator(const stateless_allocator& rhs) = default;

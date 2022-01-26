@@ -10,6 +10,7 @@
 #include <AzCore/Memory/SystemAllocator.h>
 
 namespace AZ
+{
     void* OperatorNew(std::size_t size)
     {
         return AllocatorInstance<SystemAllocator>::Get().allocate(size, AZCORE_GLOBAL_NEW_ALIGNMENT);

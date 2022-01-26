@@ -56,10 +56,6 @@ namespace UnitTest
         {
             SetupAllocator();
         }
-        explicit ScopedAllocatorFixture(const AZ::SystemAllocator::Descriptor& allocatorDesc)
-        {
-            SetupAllocator(allocatorDesc);
-        }
         ~ScopedAllocatorFixture() override
         {
             TeardownAllocator();
@@ -73,7 +69,6 @@ namespace UnitTest
     {
     public:
         ScopedAllocatorSetupFixture() = default;
-        explicit ScopedAllocatorSetupFixture(const AZ::SystemAllocator::Descriptor& allocatorDesc) : ScopedAllocatorFixture(allocatorDesc){}
     };
 
     /**
