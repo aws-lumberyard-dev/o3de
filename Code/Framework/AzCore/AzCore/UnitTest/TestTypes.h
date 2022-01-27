@@ -35,12 +35,12 @@ namespace UnitTest
 
         void SetupAllocator()
         {
-            AZ::AllocatorInstance<AZ::SystemAllocator>::Create();
+            // Gets the allocator so it is initialized in this module
+            AZ::AllocatorInstance<AZ::SystemAllocator>::Get();
         }
 
         void TeardownAllocator()
         {
-            AZ::AllocatorInstance<AZ::SystemAllocator>::Destroy();
         }
     };
 
