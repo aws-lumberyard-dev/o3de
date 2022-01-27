@@ -47,6 +47,7 @@ namespace AZ
         pointer allocate(size_type byteSize, align_type alignment = 1);
         void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0);
         pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1);
+        size_type get_allocated_size(pointer ptr, align_type alignment = 1) const;
 
         void Merge([[maybe_unused]] IAllocator* aOther)
         {
@@ -259,6 +260,13 @@ namespace AZ
     }
 
     template<class Allocator>
+    typename PoolAllocation<Allocator>::size_type PoolAllocation<Allocator>::get_allocated_size(pointer ptr, [[maybe_unused]] align_type alignment) const
+    {
+        PageType* page = m_allocator->PageFromAddress(ptr);
+        return page->m_elementSize;
+    }
+
+    template<class Allocator>
     void PoolAllocation<Allocator>::GarbageCollect(bool isForceFreeAllPages)
     {
         // Free empty pages in the buckets (or better be empty)
@@ -283,7 +291,7 @@ namespace AZ
     /**
      * PoolSchema Private Implementation... to keep the header clean.
      */
-    class PoolSchemaPimpl : public IAllocator
+    class PoolSchemaPimpl : public IAllocatorWithTracking
     {
     public:
         PoolSchemaPimpl(IAllocator* subAllocator);
@@ -292,6 +300,7 @@ namespace AZ
         pointer allocate(size_type byteSize, align_type alignment = 1) override;
         void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0) override;
         pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1) override;
+        size_type get_allocated_size(pointer ptr, align_type alignment = 1) const override;
 
         void Merge([[maybe_unused]] IAllocator* aOther) override
         {
@@ -406,6 +415,11 @@ namespace AZ
     PoolSchemaPimpl::pointer PoolSchemaPimpl::reallocate(pointer ptr, size_type newSize, align_type newAlignment)
     {
         return m_allocator.reallocate(ptr, newSize, newAlignment);
+    }
+
+    PoolSchemaPimpl::size_type PoolSchemaPimpl::get_allocated_size(pointer ptr, align_type alignment) const
+    {
+        return m_allocator.get_allocated_size(ptr, alignment);
     }
 
     AZ_FORCE_INLINE PoolSchemaPimpl::Page* PoolSchemaPimpl::PopFreePage()
@@ -524,6 +538,7 @@ namespace AZ
         pointer allocate(size_type byteSize, align_type alignment = 1) override;
         void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0) override;
         pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1) override;
+        size_type get_allocated_size(pointer ptr, align_type alignment = 1) const override;
 
         void Merge([[maybe_unused]] IAllocator* aOther) override
         {
@@ -560,6 +575,18 @@ namespace AZ
         }
 
         inline Page* PageFromAddress(void* address)
+        {
+            char* memBlock = reinterpret_cast<char*>(reinterpret_cast<size_t>(address) & ~static_cast<size_t>(m_pageSize - 1));
+            memBlock += m_pageSize - sizeof(Page);
+            Page* page = reinterpret_cast<Page*>(memBlock);
+            if (!page->m_magic.Validate())
+            {
+                return nullptr;
+            }
+            return page;
+        }
+
+        inline const Page* PageFromAddress(void* address) const
         {
             char* memBlock = reinterpret_cast<char*>(reinterpret_cast<size_t>(address) & ~static_cast<size_t>(m_pageSize - 1));
             memBlock += m_pageSize - sizeof(Page);
@@ -711,6 +738,12 @@ namespace AZ
     ThreadPoolSchemaPimpl::pointer ThreadPoolSchemaPimpl::reallocate([[maybe_unused]] pointer ptr, [[maybe_unused]] size_type newSize, [[maybe_unused]] align_type newAlignment)
     {
         return nullptr;
+    }
+
+    ThreadPoolSchemaPimpl::size_type ThreadPoolSchemaPimpl::get_allocated_size(pointer ptr, [[maybe_unused]] align_type alignment) const
+    {
+        const Page* page = PageFromAddress(ptr);
+        return page->m_elementSize;
     }
 
     AZ_INLINE ThreadPoolSchemaPimpl::Page* ThreadPoolSchemaPimpl::PopFreePage()

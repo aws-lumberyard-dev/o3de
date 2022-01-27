@@ -8,29 +8,28 @@
 #pragma once
 
 #include <AzCore/base.h>
+#include <AzCore/std/base.h>
+#include <AzCore/std/parallel/atomic.h>
 
-namespace AZ
+namespace AZ::Debug
 {
-    namespace Debug
+    struct Magic32
     {
-        struct Magic32
+        static const AZ::u32 m_defValue = 0xfeedf00d;
+        AZ_FORCE_INLINE Magic32()
         {
-            static const u32 m_defValue = 0xfeedf00d;
-            AZ_FORCE_INLINE Magic32()
-            {
-                m_value = (m_defValue ^ (u32)((size_t)this));
-            }
-            AZ_FORCE_INLINE ~Magic32()
-            {
-                m_value = 0;
-            }
-            AZ_FORCE_INLINE bool Validate() const
-            {
-                return m_value == (m_defValue ^ (u32)((size_t)this));
-            }
+            m_value = (m_defValue ^ (AZ::u32)((AZStd::size_t)this));
+        }
+        AZ_FORCE_INLINE ~Magic32()
+        {
+            m_value = 0;
+        }
+        AZ_FORCE_INLINE bool Validate() const
+        {
+            return m_value == (m_defValue ^ (AZ::u32)((AZStd::size_t)this));
+        }
 
-        private:
-            u32 m_value;
-        };
-    }
+    private:
+        AZ::u32 m_value;
+    };
 }

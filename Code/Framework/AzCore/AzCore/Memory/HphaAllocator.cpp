@@ -15,16 +15,6 @@
 #include <AzCore/std/parallel/mutex.h>
 #include <AzCore/Memory/Memory.h>
 
-#ifdef _DEBUG
-//#define DEBUG_ALLOCATOR
-//#define DEBUG_PTR_IN_BUCKET_CHECK // enabled this when NOT sure if PTR in bucket marker check is successfully
-#endif
-
-#ifdef DEBUG_ALLOCATOR
-#include <AzCore/Debug/StackTracer.h>
-#include <AzCore/std/containers/set.h>
-#endif
-
 // Enable if AZ_Assert is making things worse (since AZ_Assert may end up doing allocations)
 //#include <assert.h>
 //#define _HPHA_ASSERT1(_exp)         assert(_exp)
@@ -367,17 +357,10 @@ namespace AZ
     };
 
     //////////////////////////////////////////////////////////////////////////
-    class HphaAllocatorPimpl : public AZ::IAllocator
+    class HphaAllocatorPimpl
+        : public IAllocatorWithTracking
     {
     public:
-        // the guard size controls how many extra bytes are stored after
-        // every allocation payload to detect memory stomps
-#ifdef DEBUG_ALLOCATOR
-        static const size_t MEMORY_GUARD_SIZE = 16UL;
-#else
-        static const size_t MEMORY_GUARD_SIZE = 0UL;
-#endif
-
         // minimum allocation size, must be a power of two
         // and it needs to be able to fit a pointer
         static const size_t MIN_ALLOCATION_LOG2 = 3UL;
@@ -395,11 +378,11 @@ namespace AZ
 
         static inline bool is_small_allocation(size_t s)
         {
-            return s + MEMORY_GUARD_SIZE <= MAX_SMALL_ALLOCATION;
+            return s <= MAX_SMALL_ALLOCATION;
         }
         static inline size_t clamp_small_allocation(size_t s)
         {
-            return (s + MEMORY_GUARD_SIZE < MIN_ALLOCATION) ? MIN_ALLOCATION - MEMORY_GUARD_SIZE : s;
+            return (s < MIN_ALLOCATION) ? MIN_ALLOCATION : s;
         }
 
         // bucket spacing functions control how the size-space is divided between buckets
@@ -659,19 +642,6 @@ namespace AZ
                 result = p->check_marker(mBuckets[bi].marker());
                 // there's a minimal chance the marker check is not sufficient
                 // due to random data that happens to match the marker
-                // the exhaustive search below will catch this case
-                // and that will indicate that more secure measures are needed
-#ifdef DEBUG_PTR_IN_BUCKET_CHECK
-#ifdef MULTITHREADED
-                AZStd::lock_guard<AZStd::mutex> lock(mBuckets[bi].get_lock());
-#endif
-                const page* pe = mBuckets[bi].page_list_end();
-                const page* pb = mBuckets[bi].page_list_begin();
-                for (; pb != pe && pb != p; pb = pb->next())
-                {
-                }
-                HPPA_ASSERT(result == (pb == p));
-#endif
             }
             return result;
         }
@@ -757,163 +727,6 @@ namespace AZ
         };
         static constexpr size_t DEBUG_UNKNOWN_SIZE = (size_t)-1;
 
-#ifdef DEBUG_ALLOCATOR
-        // debug record stores all debugging information for every allocation
-        class debug_record
-        {
-        public:
-            static const unsigned MAX_CALLSTACK_DEPTH = 16;
-            debug_record()
-                : mPtr(nullptr)
-                , mSize(0)
-                , mSource(DEBUG_SOURCE_INVALID)
-                , mGuardByte(0)
-                , mCallStack()
-            {
-            }
-
-            debug_record(void* ptr) // used for searching based on the pointer
-                : mPtr(ptr)
-                , mSize(0)
-                , mSource(DEBUG_SOURCE_INVALID)
-                , mGuardByte(0)
-                , mCallStack()
-            {
-            }
-
-            debug_record(void* ptr, size_t size, debug_source source)
-                : mPtr(ptr)
-                , mSize(size)
-                , mSource(source)
-                , mCallStack()
-            {
-            }
-
-            void* ptr() const
-            {
-                return mPtr;
-            }
-            void set_ptr(void* ptr)
-            {
-                mPtr = ptr;
-            }
-
-            size_t size() const
-            {
-                return mSize;
-            }
-            void set_size(size_t size)
-            {
-                mSize = size;
-            }
-
-            debug_source source() const
-            {
-                return mSource;
-            }
-
-            const void print_stack() const;
-            void record_stack();
-
-            void write_guard();
-            bool check_guard() const;
-
-            // required for the multiset comparator
-            bool operator<(const debug_record& other) const
-            {
-                return mPtr < other.mPtr;
-            }
-
-        private:
-            void* mPtr;
-            size_t mSize;
-            debug_source mSource;
-            unsigned char mGuardByte;
-            AZ::Debug::StackFrame mCallStack[MAX_CALLSTACK_DEPTH];
-        };
-
-        // helper structure for returning debug record information
-        struct debug_info
-        {
-            size_t size;
-            debug_source source;
-            debug_info(size_t _size, debug_source _source)
-                : size(_size)
-                , source(_source)
-            {
-            }
-        };
-
-        class DebugAllocator
-        {
-        public:
-            typedef void* pointer_type;
-            typedef AZStd::size_t size_type;
-            typedef AZStd::ptrdiff_t difference_type;
-
-            AZ_FORCE_INLINE pointer_type allocate(size_t byteSize, size_t alignment, int = 0)
-            {
-                return AZ_OS_MALLOC(byteSize, alignment);
-            }
-            AZ_FORCE_INLINE size_type resize(pointer_type, size_type)
-            {
-                return 0;
-            }
-            AZ_FORCE_INLINE void deallocate(pointer_type ptr, size_type, size_type)
-            {
-                AZ_OS_FREE(ptr);
-            }
-        };
-
-        // record map that keeps all debug records in a set, sorted by memory address of the allocation
-        class debug_record_map : public AZStd::set<debug_record, AZStd::less<debug_record>, DebugAllocator>
-        {
-            typedef AZStd::set<debug_record, AZStd::less<debug_record>, DebugAllocator> base;
-
-            static void memory_fill(void* ptr, size_t size);
-
-        public:
-            debug_record_map()
-            {
-            }
-            ~debug_record_map()
-            {
-            }
-
-            typedef base::const_iterator const_iterator;
-            typedef base::iterator iterator;
-            void add(void* ptr, size_t size, debug_source source, memory_debugging_flags flags);
-            debug_info remove(void* ptr, size_t size, debug_source source, memory_debugging_flags flags);
-
-            void check(void* ptr) const;
-        };
-        debug_record_map mDebugMap;
-#ifdef MULTITHREADED
-        mutable AZStd::mutex mDebugMutex;
-#endif
-
-        size_t mTotalDebugRequestedSize[DEBUG_SOURCE_SIZE];
-
-        void debug_add(void* ptr, size_t size, debug_source source, memory_debugging_flags flags = DEBUG_FLAGS_ALL);
-        void debug_remove(void* ptr, size_t size, debug_source source, memory_debugging_flags flags = DEBUG_FLAGS_ALL);
-
-        void debug_check(void*) const;
-
-#else // !DEBUG_ALLOCATOR
-
-        void debug_add(void*, size_t, debug_source, memory_debugging_flags = DEBUG_FLAGS_ALL)
-        {
-        }
-        void debug_remove(void*, size_t, debug_source, memory_debugging_flags = DEBUG_FLAGS_ALL)
-        {
-        }
-
-        void debug_check(void*) const
-        {
-        }
-
-#endif // DEBUG_ALLOCATOR
-
         // allocate memory using DEFAULT_ALIGNMENT
         // size == 0 returns NULL
         inline void* alloc(size_t size)
@@ -925,14 +738,12 @@ namespace AZ
             if (is_small_allocation(size))
             {
                 size = clamp_small_allocation(size);
-                void* ptr = bucket_alloc_direct(bucket_spacing_function(size + MEMORY_GUARD_SIZE));
-                debug_add(ptr, size, DEBUG_SOURCE_BUCKETS);
+                void* ptr = bucket_alloc_direct(bucket_spacing_function(size));
                 return ptr;
             }
             else
             {
-                void* ptr = tree_alloc(size + MEMORY_GUARD_SIZE);
-                debug_add(ptr, size, DEBUG_SOURCE_TREE);
+                void* ptr = tree_alloc(size);
                 return ptr;
             }
         }
@@ -954,14 +765,12 @@ namespace AZ
             if (is_small_allocation(size) && alignment <= MAX_SMALL_ALLOCATION)
             {
                 size = clamp_small_allocation(size);
-                void* ptr = bucket_alloc_direct(bucket_spacing_function(AZ::SizeAlignUp(size + MEMORY_GUARD_SIZE, alignment)));
-                debug_add(ptr, size, DEBUG_SOURCE_BUCKETS);
+                void* ptr = bucket_alloc_direct(bucket_spacing_function(AZ::SizeAlignUp(size, alignment)));
                 return ptr;
             }
             else
             {
-                void* ptr = tree_alloc_aligned(size + MEMORY_GUARD_SIZE, alignment);
-                debug_add(ptr, size, DEBUG_SOURCE_TREE);
+                void* ptr = tree_alloc_aligned(size, alignment);
                 return ptr;
             }
         }
@@ -980,27 +789,21 @@ namespace AZ
                 free(ptr);
                 return nullptr;
             }
-            debug_check(ptr);
             void* newPtr = nullptr;
             if (ptr_in_bucket(ptr))
             {
                 if (is_small_allocation(size))
                 {
                     size = clamp_small_allocation(size);
-                    debug_remove(
-                        ptr, DEBUG_UNKNOWN_SIZE, DEBUG_SOURCE_BUCKETS, DEBUG_FLAGS_GUARD_CHECK); // do not fill since the memory is reused
-                    newPtr = bucket_realloc(ptr, size + MEMORY_GUARD_SIZE);
-                    debug_add(newPtr, size, DEBUG_SOURCE_BUCKETS, DEBUG_FLAGS_NONE); // do not fill since the memory is reused
+                    newPtr = bucket_realloc(ptr, size);
                 }
                 else
                 {
-                    newPtr = tree_alloc(size + MEMORY_GUARD_SIZE);
+                    newPtr = tree_alloc(size);
                     if (newPtr)
                     {
-                        debug_add(newPtr, size, DEBUG_SOURCE_TREE);
-                        HPPA_ASSERT(size >= (ptr_get_page(ptr)->elem_size() - MEMORY_GUARD_SIZE));
-                        memcpy(newPtr, ptr, ptr_get_page(ptr)->elem_size() - MEMORY_GUARD_SIZE);
-                        debug_remove(ptr, DEBUG_UNKNOWN_SIZE, DEBUG_SOURCE_BUCKETS);
+                        HPPA_ASSERT(size >= ptr_get_page(ptr)->elem_size());
+                        memcpy(newPtr, ptr, ptr_get_page(ptr)->elem_size());
                         bucket_free(ptr);
                     }
                 }
@@ -1010,22 +813,17 @@ namespace AZ
                 if (is_small_allocation(size))
                 {
                     size = clamp_small_allocation(size);
-                    newPtr = bucket_alloc(size + MEMORY_GUARD_SIZE);
+                    newPtr = bucket_alloc(size);
                     if (newPtr)
                     {
-                        debug_add(newPtr, size, DEBUG_SOURCE_BUCKETS);
-                        HPPA_ASSERT(size <= ptr_get_block_header(ptr)->size() - MEMORY_GUARD_SIZE);
+                        HPPA_ASSERT(size <= ptr_get_block_header(ptr)->size());
                         memcpy(newPtr, ptr, size);
-                        debug_remove(ptr, DEBUG_UNKNOWN_SIZE, DEBUG_SOURCE_TREE);
                         tree_free(ptr);
                     }
                 }
                 else
                 {
-                    debug_remove(
-                        ptr, DEBUG_UNKNOWN_SIZE, DEBUG_SOURCE_TREE, DEBUG_FLAGS_GUARD_CHECK); // do not fill since the memory is reused
-                    newPtr = tree_realloc(ptr, size + MEMORY_GUARD_SIZE);
-                    debug_add(newPtr, size, DEBUG_SOURCE_TREE, DEBUG_FLAGS_NONE); // do not fill since the memory is reused
+                    newPtr = tree_realloc(ptr, size);
                 }
             }
             return newPtr;
@@ -1067,27 +865,21 @@ namespace AZ
                 free(ptr);
                 return newPtr;
             }
-            debug_check(ptr);
             void* newPtr = nullptr;
             if (ptr_in_bucket(ptr))
             {
                 if (is_small_allocation(size) && alignment <= MAX_SMALL_ALLOCATION) 
                 {
                     size = clamp_small_allocation(size);
-                    debug_remove(
-                        ptr, DEBUG_UNKNOWN_SIZE, DEBUG_SOURCE_BUCKETS, DEBUG_FLAGS_GUARD_CHECK); // do not fill since the memory is reused
-                    newPtr = bucket_realloc_aligned(ptr, size + MEMORY_GUARD_SIZE, alignment);
-                    debug_add(newPtr, size, DEBUG_SOURCE_BUCKETS, DEBUG_FLAGS_NONE); // do not fill since the memory is reused
+                    newPtr = bucket_realloc_aligned(ptr, size, alignment);
                 }
                 else
                 {
-                    newPtr = tree_alloc_aligned(size + MEMORY_GUARD_SIZE, alignment);
+                    newPtr = tree_alloc_aligned(size, alignment);
                     if (newPtr)
                     {
-                        debug_add(newPtr, size, DEBUG_SOURCE_TREE);
-                        HPPA_ASSERT(size >= (ptr_get_page(ptr)->elem_size() - MEMORY_GUARD_SIZE));
-                        memcpy(newPtr, ptr, ptr_get_page(ptr)->elem_size() - MEMORY_GUARD_SIZE);
-                        debug_remove(ptr, DEBUG_UNKNOWN_SIZE, DEBUG_SOURCE_BUCKETS);
+                        HPPA_ASSERT(size >= ptr_get_page(ptr)->elem_size());
+                        memcpy(newPtr, ptr, ptr_get_page(ptr)->elem_size());
                         bucket_free(ptr);
                     }
                 }
@@ -1097,22 +889,17 @@ namespace AZ
                 if (is_small_allocation(size) && alignment <= MAX_SMALL_ALLOCATION)
                 {
                     size = clamp_small_allocation(size);
-                    newPtr = bucket_alloc_direct(bucket_spacing_function(AZ::SizeAlignUp(size + MEMORY_GUARD_SIZE, alignment)));
+                    newPtr = bucket_alloc_direct(bucket_spacing_function(AZ::SizeAlignUp(size, alignment)));
                     if (newPtr)
                     {
-                        debug_add(newPtr, size, DEBUG_SOURCE_BUCKETS);
-                        HPPA_ASSERT(size <= ptr_get_block_header(ptr)->size() - MEMORY_GUARD_SIZE);
+                        HPPA_ASSERT(size <= ptr_get_block_header(ptr)->size());
                         memcpy(newPtr, ptr, size);
-                        debug_remove(ptr, DEBUG_UNKNOWN_SIZE, DEBUG_SOURCE_TREE);
                         tree_free(ptr);
                     }
                 }
                 else
                 {
-                    debug_remove(
-                        ptr, DEBUG_UNKNOWN_SIZE, DEBUG_SOURCE_TREE, DEBUG_FLAGS_GUARD_CHECK); // do not fill since the memory is reused
-                    newPtr = tree_realloc_aligned(ptr, size + MEMORY_GUARD_SIZE, alignment);
-                    debug_add(newPtr, size, DEBUG_SOURCE_TREE, DEBUG_FLAGS_NONE); // do not fill since the memory is reused
+                    newPtr = tree_realloc_aligned(ptr, size, alignment);
                 }
             }
             return newPtr;
@@ -1127,22 +914,16 @@ namespace AZ
                 return 0;
             }
             HPPA_ASSERT(size > 0);
-            debug_check(ptr);
             if (ptr_in_bucket(ptr))
             {
-                size = ptr_get_page(ptr)->elem_size() - MEMORY_GUARD_SIZE;
-                debug_remove(
-                    ptr, DEBUG_UNKNOWN_SIZE, DEBUG_SOURCE_BUCKETS, DEBUG_FLAGS_GUARD_CHECK); // do not fill since the memory is reused
-                debug_add(ptr, size, DEBUG_SOURCE_BUCKETS, DEBUG_FLAGS_NONE); // do not fill since the memory is reused
+                size = ptr_get_page(ptr)->elem_size();
                 return size;
             }
 
             // from the tree we should allocate only >= MAX_SMALL_ALLOCATION
             size = AZStd::GetMax(size, MAX_SMALL_ALLOCATION + MIN_ALLOCATION);
 
-            size = tree_resize(ptr, size + MEMORY_GUARD_SIZE) - MEMORY_GUARD_SIZE;
-            debug_remove(ptr, DEBUG_UNKNOWN_SIZE, DEBUG_SOURCE_TREE, DEBUG_FLAGS_GUARD_CHECK); // do not fill since the memory is reused
-            debug_add(ptr, size, DEBUG_SOURCE_TREE, DEBUG_FLAGS_NONE); // do not fill since the memory is reused
+            size = tree_resize(ptr, size);
             return size;
         }
 
@@ -1155,32 +936,12 @@ namespace AZ
             }
             if (ptr_in_bucket(ptr))
             {
-                debug_check(ptr);
-                return ptr_get_page(ptr)->elem_size() - MEMORY_GUARD_SIZE;
+                return ptr_get_page(ptr)->elem_size();
             }
             block_header* bl = ptr_get_block_header(ptr);
-            debug_check(ptr);
-            size_t blockSize = bl->size() - MEMORY_GUARD_SIZE;
+            size_t blockSize = bl->size();
             return blockSize;
         }
-
-#ifdef DEBUG_ALLOCATOR
-        // Similar method as above, except this one receives an iterator to the debug record. It avoids a lookup and will not lock
-        inline size_t size(debug_record_map::const_iterator it) const
-        {
-            if (it == mDebugMap.end())
-            {
-                return 0;
-            }
-            if (ptr_in_bucket(it->ptr()))
-            {
-                return ptr_get_page(it->ptr())->elem_size() - MEMORY_GUARD_SIZE;
-            }
-            block_header* bl = ptr_get_block_header(it->ptr());
-            size_t blockSize = bl->size() - MEMORY_GUARD_SIZE;
-            return blockSize;
-        }
-#endif
 
         // free the memory block
         inline void free(void* ptr)
@@ -1191,10 +952,8 @@ namespace AZ
             }
             if (ptr_in_bucket(ptr))
             {
-                debug_remove(ptr, DEBUG_UNKNOWN_SIZE, DEBUG_SOURCE_BUCKETS);
                 return bucket_free(ptr);
             }
-            debug_remove(ptr, DEBUG_UNKNOWN_SIZE, DEBUG_SOURCE_TREE);
             tree_free(ptr);
         }
 
@@ -1209,10 +968,8 @@ namespace AZ
             {
                 // if this asserts probably the original alloc used alignment
                 HPPA_ASSERT(ptr_in_bucket(ptr));
-                debug_remove(ptr, origSize, DEBUG_SOURCE_BUCKETS);
-                return bucket_free_direct(ptr, bucket_spacing_function(origSize + MEMORY_GUARD_SIZE));
+                return bucket_free_direct(ptr, bucket_spacing_function(origSize));
             }
-            debug_remove(ptr, origSize, DEBUG_SOURCE_TREE);
             tree_free(ptr);
         }
 
@@ -1226,10 +983,8 @@ namespace AZ
             if (is_small_allocation(origSize) && oldAlignment <= MAX_SMALL_ALLOCATION)
             {
                 HPPA_ASSERT(ptr_in_bucket(ptr), "small object ptr not in a bucket");
-                debug_remove(ptr, origSize, DEBUG_SOURCE_BUCKETS);
-                return bucket_free_direct(ptr, bucket_spacing_function(AZ::SizeAlignUp(origSize + MEMORY_GUARD_SIZE, oldAlignment)));
+                return bucket_free_direct(ptr, bucket_spacing_function(AZ::SizeAlignUp(origSize, oldAlignment)));
             }
-            debug_remove(ptr, origSize, DEBUG_SOURCE_TREE);
             tree_free(ptr);
         }
 
@@ -1244,37 +999,18 @@ namespace AZ
             tree_purge();
         }
 
-#ifdef DEBUG_ALLOCATOR
-        // print HphaAllocatorPimpl statistics
-        void report();
-
-        // check memory integrity
-        void check();
-#endif
-
-        // return the total number of allocated memory
-        inline size_t allocated() const
-        {
-            return mTotalAllocatedSizeBuckets + mTotalAllocatedSizeTree;
-        }
-
     public:
         HphaAllocatorPimpl(IAllocator& subAllocator);
         ~HphaAllocatorPimpl() override;
 
         pointer allocate(size_type byteSize, align_type alignment = 1) override;
         void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0) override;
-
         pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1) override;
+        size_type get_allocated_size(pointer ptr, align_type alignment = 1) const override;
 
         void Merge(IAllocator* aOther) override;
 
-        /// returns allocation size for the pointer if it belongs to the allocator. result is undefined if the pointer doesn't belong to the
-        /// allocator.
-        size_t AllocationSize(void* ptr);
-        size_t GetMaxAllocationSize() const;
-        size_t GetMaxContiguousAllocationSize() const;
-        size_t GetUnAllocatedMemory(bool isPrint) const;
+        void GarbageCollect() override;
 
     private:
         AZ_DISABLE_COPY_MOVE(HphaAllocatorPimpl)
@@ -1292,16 +1028,9 @@ namespace AZ
 
         IAllocator& m_subAllocator;
 
-        size_t mTotalAllocatedSizeBuckets = 0;
-        size_t mTotalCapacitySizeBuckets = 0;
-        size_t mTotalAllocatedSizeTree = 0;
-        size_t mTotalCapacitySizeTree = 0;
-
         const size_t m_treePageSize;
         const size_t m_treePageAlignment;
         const size_t m_poolPageSize;
-
-
     };
 
 #ifdef DEBUG_MULTI_RBTREE
@@ -1357,13 +1086,6 @@ namespace AZ
         , m_poolPageSize(OS_VIRTUAL_PAGE_SIZE)
         , m_subAllocator(subAllocator)
     {
-#ifdef DEBUG_ALLOCATOR
-        mTotalDebugRequestedSize[DEBUG_SOURCE_BUCKETS] = 0;
-        mTotalDebugRequestedSize[DEBUG_SOURCE_TREE] = 0;
-#endif
-        mTotalAllocatedSizeBuckets = 0;
-        mTotalAllocatedSizeTree = 0;
-
 #if AZ_TRAIT_OS_HAS_CRITICAL_SECTION_SPIN_COUNT
 #if defined(MULTITHREADED)
         // For some platforms we can use an actual spin lock, test and profile. We don't expect much contention there
@@ -1383,36 +1105,7 @@ namespace AZ
 
     HphaAllocatorPimpl::~HphaAllocatorPimpl()
     {
-#ifdef DEBUG_ALLOCATOR
-        // Check if there are not-freed allocations
-        report();
-        check();
-#endif
-
         purge();
-
-#ifdef DEBUG_ALLOCATOR
-        // Check if all the memory was returned to the OS
-        for (unsigned i = 0; i < NUM_BUCKETS; i++)
-        {
-            HPPA_ASSERT(mBuckets[i].page_list_empty(), "small object leak");
-        }
-
-#ifdef AZ_ENABLE_TRACING
-        if (!mFreeTree.empty())
-        {
-            free_node_tree::iterator node = mFreeTree.begin();
-            free_node_tree::iterator end = mFreeTree.end();
-            while (node != end)
-            {
-                block_header* cur = node->get_block();
-                AZ_TracePrintf("HPHA", "Block in free tree: %p, size=%zi bytes", cur, cur->size());
-                ++node;
-            }
-        }
-#endif
-        HPPA_ASSERT(mFreeTree.empty());
-#endif
     }
 
     HphaAllocatorPimpl::bucket::bucket()
@@ -1495,10 +1188,14 @@ namespace AZ
 
     void* HphaAllocatorPimpl::bucket_system_alloc()
     {
-        void* ptr;
-        ptr = m_subAllocator.allocate(m_poolPageSize, m_poolPageSize);
-        mTotalCapacitySizeBuckets += m_poolPageSize;
-        HPPA_ASSERT(((size_t)ptr & (m_poolPageSize - 1)) == 0);
+        void* ptr = m_subAllocator.allocate(m_poolPageSize, m_poolPageSize);
+#if defined(AZ_ENABLE_TRACING)
+        if (ptr)
+        {
+            m_allocatedSize += m_poolPageSize;
+        }
+#endif
+        HPPA_ASSERT(((size_t)ptr & (m_poolPageSize - 1)) == 0); // checks alignment
         return ptr;
     }
 
@@ -1506,7 +1203,9 @@ namespace AZ
     {
         HPPA_ASSERT(ptr);
         m_subAllocator.deallocate(ptr, m_poolPageSize);
-        mTotalCapacitySizeBuckets -= m_poolPageSize;
+#if defined(AZ_ENABLE_TRACING)
+        m_allocatedSize -= m_poolPageSize;
+#endif
     }
 
     HphaAllocatorPimpl::page* HphaAllocatorPimpl::bucket_grow(size_t elemSize, size_t marker)
@@ -1546,7 +1245,6 @@ namespace AZ
             mBuckets[bi].add_free_page(p);
         }
         HPPA_ASSERT(p->elem_size() >= size);
-        mTotalAllocatedSizeBuckets += p->elem_size();
         return mBuckets[bi].alloc(p);
     }
 
@@ -1571,7 +1269,6 @@ namespace AZ
             }
             mBuckets[bi].add_free_page(p);
         }
-        mTotalAllocatedSizeBuckets += p->elem_size();
         return mBuckets[bi].alloc(p);
     }
 
@@ -1590,7 +1287,7 @@ namespace AZ
         {
             return nullptr;
         }
-        memcpy(newPtr, ptr, AZStd::GetMin(elemSize - MEMORY_GUARD_SIZE, size - MEMORY_GUARD_SIZE));
+        memcpy(newPtr, ptr, AZStd::GetMin(elemSize, size));
         bucket_free(ptr);
         return newPtr;
     }
@@ -1610,7 +1307,7 @@ namespace AZ
         {
             return nullptr;
         }
-        memcpy(newPtr, ptr, AZStd::GetMin(elemSize - MEMORY_GUARD_SIZE, size - MEMORY_GUARD_SIZE));
+        memcpy(newPtr, ptr, AZStd::GetMin(elemSize, size));
         bucket_free(ptr);
         return newPtr;
     }
@@ -1627,7 +1324,6 @@ namespace AZ
         AZStd::lock_guard<AZStd::mutex> lock(m_bucketsMutex);
 #endif
 #endif
-        mTotalAllocatedSizeBuckets -= p->elem_size();
         mBuckets[bi].free(p, ptr);
     }
 
@@ -1645,7 +1341,6 @@ namespace AZ
         AZStd::lock_guard<AZStd::mutex> lock(m_bucketsMutex);
 #endif
 #endif
-        mTotalAllocatedSizeBuckets -= p->elem_size();
         mBuckets[bi].free(p, ptr);
     }
 
@@ -1662,7 +1357,7 @@ namespace AZ
         AZStd::lock_guard<AZStd::mutex> lock(m_bucketsMutex);
 #endif
 #endif
-        return p->elem_size() - MEMORY_GUARD_SIZE;
+        return p->elem_size();
     }
 
     size_t HphaAllocatorPimpl::bucket_get_max_allocation() const
@@ -1794,19 +1489,26 @@ namespace AZ
 
     void* HphaAllocatorPimpl::tree_system_alloc(size_t size)
     {
-        size_t allocSize = AZ::SizeAlignUp(size, OS_VIRTUAL_PAGE_SIZE);
-        mTotalCapacitySizeTree += allocSize;
-        return m_subAllocator.allocate(size, m_treePageAlignment);
+        const size_t allocSize = AZ::SizeAlignUp(size, OS_VIRTUAL_PAGE_SIZE);
+        void* ptr = m_subAllocator.allocate(allocSize, m_treePageAlignment);
+#if defined(AZ_ENABLE_TRACING)
+        if (ptr)
+        {
+            m_allocatedSize += allocSize;
+        }
+#endif
+        return ptr;
     }
 
     void HphaAllocatorPimpl::tree_system_free(void* ptr, size_t size)
     {
         HPPA_ASSERT(ptr);
-        (void)size;
 
-        size_t allocSize = AZ::SizeAlignUp(size, OS_VIRTUAL_PAGE_SIZE);
-        mTotalCapacitySizeTree -= allocSize;
+        const size_t allocSize = AZ::SizeAlignUp(size, OS_VIRTUAL_PAGE_SIZE);
         m_subAllocator.deallocate(ptr, allocSize);
+#if defined(AZ_ENABLE_TRACING)
+        m_allocatedSize -= allocSize;
+#endif
     }
 
     HphaAllocatorPimpl::block_header* HphaAllocatorPimpl::tree_add_block(void* mem, size_t size)
@@ -1966,7 +1668,6 @@ namespace AZ
             tree_attach(newBl->next());
         }
         newBl->set_used();
-        mTotalAllocatedSizeTree += newBl->size();
         return newBl->mem();
     }
 
@@ -2009,7 +1710,6 @@ namespace AZ
         }
         newBl->set_used();
         HPPA_ASSERT(((size_t)newBl->mem() & (alignment - 1)) == 0);
-        mTotalAllocatedSizeTree += newBl->size();
         return newBl->mem();
     }
 
@@ -2076,7 +1776,6 @@ namespace AZ
                 block_header* next = bl->next();
                 next = coalesce_block(next);
                 tree_attach(next);
-                mTotalAllocatedSizeTree += bl->size() - blSize;
             }
             HPPA_ASSERT(bl->size() >= size);
             return ptr;
@@ -2095,7 +1794,6 @@ namespace AZ
                 split_block(bl, size);
                 tree_attach(bl->next());
             }
-            mTotalAllocatedSizeTree += bl->size() - blSize;
             return ptr;
         }
         // check if the previous block can be used to avoid searching
@@ -2116,20 +1814,19 @@ namespace AZ
             HPPA_ASSERT(bl->size() >= size);
             void* newPtr = bl->mem();
             // move the memory before we split the block
-            memmove(newPtr, ptr, blSize - MEMORY_GUARD_SIZE);
+            memmove(newPtr, ptr, blSize);
             if (bl->size() >= size + sizeof(block_header) + sizeof(free_node))
             {
                 split_block(bl, size);
                 tree_attach(bl->next());
             }
-            mTotalAllocatedSizeTree += bl->size() - blSize;
             return newPtr;
         }
         // fall back to alloc/copy/free
         void* newPtr = tree_alloc(size);
         if (newPtr)
         {
-            memcpy(newPtr, ptr, blSize - MEMORY_GUARD_SIZE);
+            memcpy(newPtr, ptr, blSize);
             tree_free(ptr);
             return newPtr;
         }
@@ -2158,7 +1855,6 @@ namespace AZ
                 next = coalesce_block(next);
                 tree_attach(next);
             }
-            mTotalAllocatedSizeTree += bl->size() - blSize;
             HPPA_ASSERT(bl->size() >= size);
             return ptr;
         }
@@ -2175,7 +1871,6 @@ namespace AZ
                 split_block(bl, size);
                 tree_attach(bl->next());
             }
-            mTotalAllocatedSizeTree += bl->size() - blSize;
             return ptr;
         }
         block_header* prev = bl->prev();
@@ -2205,19 +1900,18 @@ namespace AZ
             bl->set_used();
             HPPA_ASSERT(bl->size() >= size && ((size_t)bl->mem() & (alignment - 1)) == 0);
             void* newPtr = bl->mem();
-            memmove(newPtr, ptr, blSize - MEMORY_GUARD_SIZE);
+            memmove(newPtr, ptr, blSize);
             if (bl->size() >= size + sizeof(block_header) + sizeof(free_node))
             {
                 split_block(bl, size);
                 tree_attach(bl->next());
             }
-            mTotalAllocatedSizeTree += bl->size() - blSize;
             return newPtr;
         }
         void* newPtr = tree_alloc_aligned(size, alignment);
         if (newPtr)
         {
-            memcpy(newPtr, ptr, blSize - MEMORY_GUARD_SIZE);
+            memcpy(newPtr, ptr, blSize);
             tree_free(ptr);
             return newPtr;
         }
@@ -2262,7 +1956,6 @@ namespace AZ
                 HPPA_ASSERT(bl->size() >= size);
             }
         }
-        mTotalAllocatedSizeTree += bl->size() - blSize;
         return bl->size();
     }
 
@@ -2274,7 +1967,6 @@ namespace AZ
         block_header* bl = ptr_get_block_header(ptr);
         // This assert detects a double-free of ptr
         HPPA_ASSERT(bl->used());
-        mTotalAllocatedSizeTree -= bl->size();
         bl->set_unused();
         bl = coalesce_block(bl);
         tree_attach(bl);
@@ -2417,230 +2109,6 @@ namespace AZ
         }
     }
 
-    //=========================================================================
-    // allocationSize
-    // [2/22/2011]
-    //=========================================================================
-    size_t HphaAllocatorPimpl::AllocationSize(void* ptr)
-    {
-        return size(ptr);
-    }
-
-    //=========================================================================
-    // GetMaxAllocationSize
-    // [2/22/2011]
-    //=========================================================================
-    size_t HphaAllocatorPimpl::GetMaxAllocationSize() const
-    {
-        const_cast<HphaAllocatorPimpl*>(this)->purge(); // slow
-
-        size_t maxSize = 0;
-        maxSize = AZStd::GetMax(bucket_get_max_allocation(), maxSize);
-        maxSize = AZStd::GetMax(tree_get_max_allocation(), maxSize);
-        return maxSize;
-    }
-
-    size_t HphaAllocatorPimpl::GetMaxContiguousAllocationSize() const
-    {
-        return AZ_CORE_MAX_ALLOCATOR_SIZE;
-    }
-
-    //=========================================================================
-    // GetUnAllocatedMemory
-    // [9/30/2013]
-    //=========================================================================
-    size_t HphaAllocatorPimpl::GetUnAllocatedMemory(bool isPrint) const
-    {
-        return bucket_get_unused_memory(isPrint) + tree_get_unused_memory(isPrint);
-    }
-
-#ifdef DEBUG_ALLOCATOR
-
-    const void HphaAllocatorPimpl::debug_record::print_stack() const
-    {
-        AZ::Debug::SymbolStorage::StackLine stackLines[MAX_CALLSTACK_DEPTH] = { { 0 } };
-        AZ::Debug::SymbolStorage::DecodeFrames(mCallStack, MAX_CALLSTACK_DEPTH, stackLines);
-
-        for (int i = 0; i < MAX_CALLSTACK_DEPTH; ++i)
-        {
-            if (stackLines[i][0] != 0)
-            {
-                const size_t lineLength = strlen(stackLines[i]);
-                // Append a line return to the stack line if we have enough room
-                if ((lineLength + 1) < AZ_ARRAY_SIZE(stackLines[i]))
-                {
-                    stackLines[i][lineLength] = '\n';
-                    stackLines[i][lineLength + 1] = 0;
-                }
-                AZ::Debug::Trace::Output("HphaAllocatorPimpl", stackLines[i]);
-            }
-        }
-    }
-
-    void HphaAllocatorPimpl::debug_record::record_stack()
-    {
-        AZ::Debug::StackRecorder::Record(mCallStack, MAX_CALLSTACK_DEPTH, 6);
-    }
-
-    void HphaAllocatorPimpl::debug_record::write_guard()
-    {
-        unsigned char guardByte = (unsigned char)rand();
-        unsigned char* guard = (unsigned char*)mPtr + mSize;
-        mGuardByte = guardByte;
-        for (unsigned i = 0; i < MEMORY_GUARD_SIZE; i++)
-        {
-            guard[i] = guardByte++;
-        }
-    }
-
-    bool HphaAllocatorPimpl::debug_record::check_guard() const
-    {
-        unsigned char guardByte = mGuardByte;
-        unsigned char* guard = (unsigned char*)mPtr + mSize;
-        for (unsigned i = 0; i < MEMORY_GUARD_SIZE; i++)
-        {
-            if (guardByte++ != guard[i])
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    void HphaAllocatorPimpl::debug_record_map::memory_fill(void* ptr, size_t size)
-    {
-        unsigned char sFiller[] = { 0xFF, 0xC0, 0xC0, 0xFF }; // QNAN (little OR big endian)
-        unsigned char* p = (unsigned char*)ptr;
-        for (size_t s = 0; s < size; s++)
-        {
-            p[s] = sFiller[s % sizeof(sFiller) / sizeof(sFiller[0])];
-        }
-    }
-
-    void HphaAllocatorPimpl::debug_record_map::add(void* ptr, size_t size, debug_source source, memory_debugging_flags flags)
-    {
-        HPPA_ASSERT(size != DEBUG_UNKNOWN_SIZE);
-        const auto it = this->emplace(ptr, size, source);
-
-        // Make sure this record is unique
-        HPPA_ASSERT_PRINT_STACK(it.second, it.first);
-
-        it.first->write_guard();
-        it.first->record_stack();
-
-        if (flags & DEBUG_FLAGS_FILLING)
-        {
-            memory_fill(ptr, size);
-        }
-    }
-
-    HphaAllocatorPimpl::debug_info HphaAllocatorPimpl::debug_record_map::remove(void* ptr, size_t size, debug_source source, memory_debugging_flags flags)
-    {
-        const_iterator it = this->find(debug_record(ptr));
-        // if this asserts most likely the pointer was already deleted or that the allocation happens in another allocator
-        if (it == this->end())
-        {
-            HPPA_ASSERT(false, "double delete or pointer not in this allocator");
-            return debug_info(0, DEBUG_SOURCE_INVALID);
-        }
-
-        HPPA_ASSERT_PRINT_STACK(it->source() == source, it);
-
-        const debug_info debugInfo(it->size(), it->source());
-        if (size != DEBUG_UNKNOWN_SIZE)
-        {
-            HPPA_ASSERT_PRINT_STACK((debugInfo.size <= size), it);
-        }
-        if (flags & DEBUG_FLAGS_GUARD_CHECK)
-        {
-            // if this asserts then the memory was corrupted past the end of the block
-            HPPA_ASSERT_PRINT_STACK(it->check_guard(), it, "overflow");
-        }
-        if (flags & DEBUG_FLAGS_FILLING)
-        {
-            memory_fill(ptr, debugInfo.size);
-        }
-        this->erase(it);
-
-        return debugInfo;
-    }
-
-    void HphaAllocatorPimpl::debug_record_map::check(void* ptr) const
-    {
-        const_iterator it = this->find(debug_record(ptr));
-        // if this asserts most likely the pointer was already deleted
-        HPPA_ASSERT(it != this->end());
-        // if this asserts then the memory was corrupted past the end of the block
-        HPPA_ASSERT_PRINT_STACK(it->check_guard(), it, "overflow");
-    }
-
-    void HphaAllocatorPimpl::debug_add(void* ptr, size_t size, debug_source source, memory_debugging_flags flags)
-    {
-        if (ptr)
-        {
-            {
-#ifdef MULTITHREADED
-                AZStd::lock_guard<AZStd::mutex> lock(mDebugMutex);
-#endif
-                mDebugMap.add(ptr, size, source, flags);
-                mTotalDebugRequestedSize[source] += size + MEMORY_GUARD_SIZE;
-            }
-            HPPA_ASSERT(size <= this->size(ptr));
-        }
-    }
-
-    void HphaAllocatorPimpl::debug_remove(void* ptr, size_t size, debug_source source, memory_debugging_flags flags)
-    {
-#ifdef MULTITHREADED
-        AZStd::lock_guard<AZStd::mutex> lock(mDebugMutex);
-#endif
-        const debug_info info = mDebugMap.remove(ptr, size, source, flags);
-        mTotalDebugRequestedSize[source] -= info.size + MEMORY_GUARD_SIZE;
-    }
-
-    void HphaAllocatorPimpl::debug_check(void* ptr) const
-    {
-#ifdef MULTITHREADED
-        AZStd::lock_guard<AZStd::mutex> lock(mDebugMutex);
-#endif
-        mDebugMap.check(ptr);
-    }
-
-    void HphaAllocatorPimpl::check()
-    {
-#ifdef MULTITHREADED
-        AZStd::lock_guard<AZStd::mutex> lock(mDebugMutex);
-#endif
-        for (debug_record_map::const_iterator it = mDebugMap.begin(); it != mDebugMap.end(); ++it)
-        {
-            HPPA_ASSERT(it->size() <= size(it));
-            HPPA_ASSERT(it->check_guard(), "leaky overflow");
-        }
-    }
-
-    void HphaAllocatorPimpl::report()
-    {
-#ifdef MULTITHREADED
-        AZStd::lock_guard<AZStd::mutex> lock(mDebugMutex);
-#endif
-        AZ_TracePrintf("HPHA", "REPORT =================================================\n");
-        AZ_TracePrintf(
-            "HPHA", "Total requested size=%zi bytes\n",
-            mTotalDebugRequestedSize[DEBUG_SOURCE_BUCKETS] + mTotalDebugRequestedSize[DEBUG_SOURCE_TREE]);
-        AZ_TracePrintf(
-            "HPHA", "Total allocated size=%zi bytes\n",
-            mTotalDebugRequestedSize[DEBUG_SOURCE_BUCKETS] + mTotalDebugRequestedSize[DEBUG_SOURCE_TREE]);
-        AZ_TracePrintf("HPHA", "Currently allocated blocks:\n");
-        for (debug_record_map::const_iterator it = mDebugMap.begin(); it != mDebugMap.end(); ++it)
-        {
-            AZ_TracePrintf("HPHA", "ptr=%zX, size=%zi\n", (size_t)it->ptr(), it->size());
-            it->print_stack();
-        }
-        AZ_TracePrintf("HPHA", "===========================================================\n");
-    }
-#endif // DEBUG_ALLOCATOR
-
-
     HphaAllocatorPimpl::pointer HphaAllocatorPimpl::allocate(size_type byteSize, align_type alignment)
     {
         pointer address = alloc(byteSize, static_cast<size_t>(alignment));
@@ -2649,6 +2117,12 @@ namespace AZ
             purge();
             address = alloc(byteSize, static_cast<size_t>(alignment));
         }
+#if defined(AZ_ENABLE_TRACING)
+        if (address)
+        {
+            m_requestedSize += byteSize;
+        }
+#endif
         return address;
     }
 
@@ -2660,44 +2134,71 @@ namespace AZ
         }
         if (byteSize == 0)
         {
+#if defined(AZ_ENABLE_TRACING)
+            m_requestedSize -= size(ptr);
+#endif
             free(ptr);
         }
         else if (alignment == 0)
         {
+#if defined(AZ_ENABLE_TRACING)
+            m_requestedSize -= byteSize;
+#endif
             free(ptr, byteSize);
         }
         else
         {
+#if defined(AZ_ENABLE_TRACING)
+            m_requestedSize -= byteSize;
+#endif
             free(ptr, byteSize, alignment);
         }
     }
 
     HphaAllocatorPimpl::pointer HphaAllocatorPimpl::reallocate(pointer ptr, size_type newSize, align_type newAlignment)
     {
+#if defined(AZ_ENABLE_TRACING)
+        m_requestedSize -= size(ptr);
+#endif
         pointer address = realloc(ptr, newSize, static_cast<size_t>(newAlignment));
         if (address == nullptr && newSize > 0)
         {
             purge();
             address = realloc(ptr, newSize, static_cast<size_t>(newAlignment));
         }
+#if defined(AZ_ENABLE_TRACING)
+        if (address)
+        {
+            m_requestedSize += newSize;
+        }
+#endif
         return address;
+    }
+
+    HphaAllocatorPimpl::size_type HphaAllocatorPimpl::get_allocated_size(pointer ptr, [[maybe_unused]] align_type alignment) const
+    {
+        return size(ptr);
     }
 
     void HphaAllocatorPimpl::Merge([[maybe_unused]] IAllocator* aOther)
     {
-        // HphaAllocatorPimpl* other = dynamic_cast<HphaAllocatorPimpl*>(aOther);
+        HphaAllocatorPimpl* other = dynamic_cast<HphaAllocatorPimpl*>(aOther);
+        HPPA_ASSERT(other);
         // Transfer the buckets
         // Transfer tree
+
+        // Transfer the tracking records
+        RecordingsMove(other);
     } 
 
-    IAllocator* CreateHphaAllocatorPimpl(IAllocator& subAllocator)
+    IAllocatorWithTracking* CreateHphaAllocatorPimpl(IAllocator& subAllocator)
     {
         HphaAllocatorPimpl* allocatorMemory = reinterpret_cast<HphaAllocatorPimpl*>(
             subAllocator.allocate(sizeof(HphaAllocatorPimpl), AZStd::alignment_of<HphaAllocatorPimpl>::value));
         return new(allocatorMemory)HphaAllocatorPimpl(subAllocator);
     }
 
-    void DestroyHphaAllocatorPimpl(IAllocator& subAllocator, IAllocator* allocator)
+    void DestroyHphaAllocatorPimpl(IAllocator& subAllocator, IAllocatorWithTracking* allocator)
     {
         HphaAllocatorPimpl* allocatorImpl = dynamic_cast<HphaAllocatorPimpl*>(allocator);
         allocatorImpl->~HphaAllocatorPimpl();

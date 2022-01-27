@@ -14,15 +14,15 @@
 
 namespace AZ
 {
-    IAllocator* CreateHphaAllocatorPimpl(IAllocator& mSubAllocator);
-    void DestroyHphaAllocatorPimpl(IAllocator& mSubAllocator, IAllocator* allocator);
+    IAllocatorWithTracking* CreateHphaAllocatorPimpl(IAllocator& mSubAllocator);
+    void DestroyHphaAllocatorPimpl(IAllocator& mSubAllocator, IAllocatorWithTracking* allocator);
 
     /**
     * Heap allocator schema, based on Dimitar Lazarov "High Performance Heap Allocator".
     * SubAllocator defines the allocator to be used underneath to do allocations
     */
     template<typename SubAllocatorType = OSAllocator>
-    class HphaAllocator : public IAllocator
+    class HphaAllocator : public IAllocator, public IAllocatorTrackingRecorder
     {
     public:
         AZ_TYPE_INFO(HphaAllocator, "{1ED481B0-53E2-4DCD-B016-4251D1A5AA8D}")
@@ -53,15 +53,69 @@ namespace AZ
             return m_allocatorPimpl->reallocate(ptr, newSize, newAlignment);
         }
 
+        size_type get_allocated_size(pointer ptr, align_type alignment = 1) const override
+        {
+            return m_allocatorPimpl->get_allocated_size(ptr, alignment);
+        }
+
         void Merge(IAllocator* aOther) override
         {
             m_allocatorPimpl->Merge(aOther);
+        }
+
+        // IAllocatorTrackingRecorder
+        
+        AZStd::size_t GetRequestedSize() const override
+        {
+            return m_allocatorPimpl->GetRequestedSize();
+        }
+
+        // Total amount of bytes allocated (i.e. requested to the OS)
+        AZStd::size_t GetAllocatedSize() const override
+        {
+            return m_allocatorPimpl->GetAllocatedSize();
+        }
+
+        AZStd::size_t GetFragmentedSize() const override
+        {
+            return m_allocatorPimpl->GetFragmentedSize();
+        }
+
+    protected:
+        void RecordAllocation(void* ptr, AZStd::size_t requestedSize, AZStd::size_t requestedAlignment, AZStd::size_t allocatedSize) override
+        {
+            m_allocatorPimpl->RecordAllocation(ptr, requestedSize, requestedAlignment, allocatedSize);
+        }
+
+        void RecordDeallocation(void* ptr, AZStd::size_t requestedSize, AZStd::size_t requestedAlignment, AZStd::size_t allocatedSize) override
+        {
+            m_allocatorPimpl->RecordDeallocation(ptr, requestedSize, requestedAlignment, allocatedSize);
+        }
+
+        void RecordReallocation(
+            void* previousPtr,
+            AZStd::size_t previousRequestedSize,
+            AZStd::size_t previousRequestedAlignment,
+            AZStd::size_t previousAllocatedSize,
+            void* newPtr,
+            AZStd::size_t newRequestedSize,
+            AZStd::size_t newRequestedAlignment,
+            AZStd::size_t newAllocatedSize) override
+        {
+            m_allocatorPimpl->RecordReallocation(
+                previousPtr, previousRequestedSize, previousRequestedAlignment, previousAllocatedSize, newPtr, newRequestedSize,
+                newRequestedAlignment, newAllocatedSize);
+        }
+
+        void RecordingsMove(IAllocatorTrackingRecorder* aOther) override
+        {
+            m_allocatorPimpl->RecordingsMove(aOther);
         }
 
     private:
         AZ_DISABLE_COPY_MOVE(HphaAllocator)
 
         // Due the complexity of this allocator, we create a pimpl implementation
-        IAllocator* m_allocatorPimpl;
+        IAllocatorWithTracking* m_allocatorPimpl;
     };
 }

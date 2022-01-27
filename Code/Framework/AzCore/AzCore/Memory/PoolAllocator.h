@@ -108,6 +108,11 @@ namespace AZ
             return m_allocatorPimpl->reallocate(ptr, newSize, newAlignment);
         }
 
+        size_type get_allocated_size(pointer ptr, align_type alignment = 1) const override
+        {
+            return m_allocatorPimpl->get_allocated_size(ptr, alignment);
+        }
+
         void Merge(IAllocator* aOther) override
         {
             m_allocatorPimpl->Merge(aOther);

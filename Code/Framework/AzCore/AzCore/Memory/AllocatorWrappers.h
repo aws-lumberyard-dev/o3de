@@ -53,6 +53,11 @@ namespace AZ
             return m_allocator->reallocate(ptr, newSize, newAlignment);
         }
 
+        size_type get_allocated_size(pointer ptr, align_type alignment = 1) const override
+        {
+            return m_allocator->get_allocated_size(ptr, alignment);
+        }
+
         void Merge(IAllocator* aOther) override
         {
             m_allocator->Merge(aOther);
@@ -107,6 +112,7 @@ namespace AZ
         {
             return AllocatorInstance<Allocator>::Get().allocate(byteSize, alignment);
         }
+
         void deallocate(pointer ptr, size_type byteSize = 0, align_type alignment = 0) override
         {
             AllocatorInstance<Allocator>::Get().deallocate(ptr, byteSize, alignment);
@@ -116,6 +122,12 @@ namespace AZ
         {
             return AllocatorInstance<Allocator>::Get().reallocate(ptr, newSize, newAlignment);
         }
+
+        size_type get_allocated_size(pointer ptr, align_type alignment = 1) const override
+        {
+            return AllocatorInstance<Allocator>::Get().get_allocated_size(ptr, alignment);
+        }
+
         void Merge(IAllocator* aOther) override
         {
             AllocatorInstance<Allocator>::Get().Merge(aOther);

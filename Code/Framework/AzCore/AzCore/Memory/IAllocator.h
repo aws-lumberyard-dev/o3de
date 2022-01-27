@@ -42,13 +42,25 @@ namespace AZ
         virtual pointer reallocate(pointer ptr, size_type newSize, align_type newAlignment = 1) = 0;
         virtual size_type max_size() const
         {
+            // default, max the OS can allocate
             return AZ_TRAIT_OS_MEMORY_MAX_ALLOCATOR_SIZE;
         }
 
+        virtual size_type get_allocated_size(pointer ptr, align_type alignment = 1) const = 0;
+
         virtual void Merge(IAllocator* aOther) = 0;
 
+        // Frees (if possible) unused memory from the allocator. Unused memory is memory that was allocated
+        // from the OS point of view but was not assigned to be used by a pointer.
+        // NOTE: this function should be thread safe, allocations can happen at the same time this function
+        // is called. Allocators can optionally implement it and should do best effort (i.e. they dont need
+        // to completely free all unused memory).
+        virtual void GarbageCollect()
+        {
+        }
+
         // Convenient functions
-        template<typename TType>
+        /*template<typename TType>
         pointer allocate()
         {
             return allocate(sizeof(TType), static_cast<align_type>(AZStd::alignment_of<TType>::value));
@@ -58,12 +70,13 @@ namespace AZ
         void deallocate(pointer ptr)
         {
             return deallocate(ptr, sizeof(TType), static_cast<align_type>(AZStd::alignment_of<TType>::value));
-        }
+        }*/
 
         AZ_DISABLE_COPY_MOVE(IAllocator)
 
         // Kept for backwards-compatibility reasons
         /////////////////////////////////////////////
+        //AZ_DEPRECATED_MESSAGE("Use allocate instead, which matches the STD interface")
         pointer Allocate(
             size_type byteSize,
             size_type alignment = 1,
@@ -76,6 +89,7 @@ namespace AZ
             return allocate(byteSize, static_cast<align_type>(alignment));
         }
 
+        //AZ_DEPRECATED_MESSAGE("Use deallocate instead, which matches the STD interface")
         void DeAllocate(pointer ptr, size_type byteSize = 0, [[maybe_unused]] size_type alignment = 0)
         {
             deallocate(ptr, byteSize);
@@ -83,53 +97,50 @@ namespace AZ
 
         /// Resize an allocated memory block. Returns the new adjusted size (as close as possible or equal to the requested one) or 0 (if
         /// you don't support resize at all).
+        //AZ_DEPRECATED_MESSAGE("Resize no longer supported, use reallocate instead, note that the pointer address could change, "
+        //    "Allocators should do best effort to keep the ptr at the same address")
         size_type Resize([[maybe_unused]] pointer ptr, [[maybe_unused]] size_type newSize)
         {
             return 0;
         }
 
-        /// Realloc an allocate memory memory block. Similar to Resize except it will move the memory block if needed. Return NULL if
-        /// realloc is not supported or run out of memory.
+        /// Realloc an allocate memory block. Returns nullptr if realloc is not supported or runs out of memory or the block cannot be
+        /// reallocated.The 
+        //AZ_DEPRECATED_MESSAGE("Use deallocate instead, which matches the STD interface")
         pointer ReAllocate(pointer ptr, size_type newSize, size_type newAlignment)
         {
             return reallocate(ptr, newSize, static_cast<align_type>(newAlignment));
         }
 
-        ///
         /// Returns allocation size for given address. 0 if the address doesn't belong to the allocator.
+        //AZ_DEPRECATED_MESSAGE("Use get_allocated_size instead, which matches the STD interface")
         size_type AllocationSize([[maybe_unused]] pointer ptr)
         {
-            return 0;
+            return get_allocated_size(ptr);
         }
 
-        /**
-         * Call from the system when we want allocators to free unused memory.
-         * IMPORTANT: This function is/should be thread safe. We can call it from any context to free memory.
-         * Freeing the actual memory is optional (if you can), thread safety is a must.
-         */
-        void GarbageCollect()
-        {
-        }
-
-        size_type NumAllocatedBytes() const
+        virtual size_type NumAllocatedBytes() const
         {
             return 0;
         }
 
         /// Returns the capacity of the Allocator in bytes. If the return value is 0 the Capacity is undefined (usually depends on another
         /// allocator)
+        //AZ_DEPRECATED_MESSAGE("Use max_size instead, which matches the STD interface")
         size_type Capacity() const
         {
-            return 0;
+            return max_size();
         }
 
         /// Returns max allocation size if possible. If not returned value is 0
+        //AZ_DEPRECATED_MESSAGE("Unused and not really useful")
         size_type GetMaxAllocationSize() const
         {
             return 0;
         }
 
         /// Returns the maximum contiguous allocation size of a single allocation
+        //AZ_DEPRECATED_MESSAGE("Unused and not really useful")
         size_type GetMaxContiguousAllocationSize() const
         {
             return 0;
@@ -140,6 +151,9 @@ namespace AZ
          * allocate in chunks. So we might be using one elements in that chunk and the rest is free/unallocated. This is the memory
          * that will be reported.
          */
+        //AZ_DEPRECATED_MESSAGE("Use GetFragmentedSize instead, this method was problematic because not all overhead memory is avaialble for allocations. "
+        //    "GetFragmentedSize will give the difference between what was allocated by the allocator and what was requested, meaning, it will give the "
+        //    "overhead produced by the allocator in trying to optimize the memory usage.")
         size_type GetUnAllocatedMemory([[maybe_unused]] bool isPrint = false) const
         {
             return 0;
