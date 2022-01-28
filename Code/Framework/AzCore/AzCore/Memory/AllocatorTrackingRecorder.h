@@ -15,12 +15,15 @@
 #endif
 
 #include <AzCore/Memory/IAllocator.h>
+#include <AzCore/RTTI/RTTI.h>
 
 namespace AZ
 {
     class IAllocatorTrackingRecorder
     {
     protected:
+        AZ_TYPE_INFO(IAllocatorTrackingRecorder, "{10468A58-A4E3-4FD0-8121-60F6DD13981C}")
+
         // recording APIs
         virtual void RecordAllocation(
             void* ptr, AZStd::size_t requestedSize, AZStd::size_t requestedAlignment, AZStd::size_t allocatedSize) = 0;
@@ -62,6 +65,8 @@ namespace AZ
         , public IAllocatorTrackingRecorder
     {
     public:
+        AZ_TYPE_INFO(IAllocatorWithTracking, "{FACD0B30-2983-46CB-8D48-EFB0E0637510}")
+
         IAllocatorWithTracking()
             : m_requestedSize(0)
             , m_allocatedSize(0)
@@ -119,7 +124,7 @@ namespace AZ
 
         void RecordingsMove(IAllocatorTrackingRecorder* aOther) override
         {
-            IAllocatorWithTracking* other = dynamic_cast<IAllocatorWithTracking*>(aOther);
+            IAllocatorWithTracking* other = azrtti_cast<IAllocatorWithTracking*>(aOther);
             AZ_Assert(other, "Unexpected conversion, RecordingsMove should be reimplmented if IAllocatorTrackingRecorder is being used");
             m_requestedSize += other->m_requestedSize;
             m_allocatedSize += other->m_allocatedSize;

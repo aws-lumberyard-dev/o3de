@@ -361,6 +361,8 @@ namespace AZ
         : public IAllocatorWithTracking
     {
     public:
+        AZ_TYPE_INFO(HphaAllocatorPimpl, "{F20122D0-93A7-4FA2-9DF9-9F0202852787}")
+
         // minimum allocation size, must be a power of two
         // and it needs to be able to fit a pointer
         static const size_t MIN_ALLOCATION_LOG2 = 3UL;
@@ -2182,7 +2184,7 @@ namespace AZ
 
     void HphaAllocatorPimpl::Merge([[maybe_unused]] IAllocator* aOther)
     {
-        HphaAllocatorPimpl* other = dynamic_cast<HphaAllocatorPimpl*>(aOther);
+        HphaAllocatorPimpl* other = azrtti_cast<HphaAllocatorPimpl*>(aOther);
         HPPA_ASSERT(other);
         // Transfer the buckets
         // Transfer tree
@@ -2205,7 +2207,7 @@ namespace AZ
 
     void DestroyHphaAllocatorPimpl(IAllocator& subAllocator, IAllocatorWithTracking* allocator)
     {
-        HphaAllocatorPimpl* allocatorImpl = dynamic_cast<HphaAllocatorPimpl*>(allocator);
+        HphaAllocatorPimpl* allocatorImpl = azrtti_cast<HphaAllocatorPimpl*>(allocator);
         allocatorImpl->~HphaAllocatorPimpl();
         subAllocator.deallocate(allocatorImpl, sizeof(HphaAllocatorPimpl));
     }

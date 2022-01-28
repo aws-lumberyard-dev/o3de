@@ -57,7 +57,7 @@ namespace AZ
     {
         // Nothing to do regarding the allocations, we just need to move over all the tracking data
 #if defined(AZ_ENABLE_TRACING)
-        OSAllocator* other = dynamic_cast<OSAllocator*>(aOther);
+        OSAllocator* other = azrtti_cast<OSAllocator*>(aOther);
         RecordingsMove(other);
 #endif
     }

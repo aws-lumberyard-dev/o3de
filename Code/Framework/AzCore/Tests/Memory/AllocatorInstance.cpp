@@ -8,26 +8,26 @@
 
 #include <AzCore/UnitTest/TestTypes.h>
 #include <AzCore/Memory/AllocatorInstance.h>
+#include <AzCore/Memory/AllocatorWrappers.h>
 
 namespace UnitTest
 {
-    class TestMemoryAllocator // Example Allocator: just a class to use for testing
+
+    class TestMemoryAllocator : public AZ::AllocatorGlobalWrapper<AZ::OSAllocator>
     {
     public:
         AZ_TYPE_INFO(TestMemoryAllocator, "{EEDC55B9-8E3F-465E-944E-84C76D5F2AB3}");
 
-        class Descriptor
-        {
-        };
-
         // Required to be able to move data from static instances to environment. We could make this optional and those allocators would
         // fail to be used before the environment is ready.
-        void Merge(TestMemoryAllocator* aOther) 
+        void Merge(IAllocator* aOther) override
         {
+            TestMemoryAllocator* other = azrtti_cast<TestMemoryAllocator*>(aOther);
+
             // This is where data from aOther will be moved to "this"
             // For the test we simulate allocations being passed from one allocator to the other
-            m_hasAllocations |= aOther->m_hasAllocations;
-            aOther->m_hasAllocations = false;
+            m_hasAllocations |= other->m_hasAllocations;
+            other->m_hasAllocations = false;
         }
 
 
@@ -53,7 +53,8 @@ namespace UnitTest
         EXPECT_EQ(&allocatorEnvironment1, &allocatorEnvironment2);
 
         EXPECT_TRUE(allocatorEnvironment1.m_hasAllocations); // Should have been transferred from allocatorStatic
-        EXPECT_FALSE(allocatorStatic1.m_hasAllocations);
+        EXPECT_TRUE(allocatorStatic1.m_hasAllocations);
+        EXPECT_EQ(&allocatorStatic1, &allocatorEnvironment1);
 
     }
 }

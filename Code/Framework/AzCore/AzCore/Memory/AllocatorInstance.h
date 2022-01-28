@@ -82,6 +82,7 @@ namespace AZ
 
 #include <AzCore/std/allocator_stateless.h>
 #include <AzCore/std/smart_ptr/shared_ptr.h>
+#include <AzCore/Memory/AllocatorManager.h>
 
 namespace AZ::Internal
 {
@@ -191,7 +192,8 @@ namespace AZ::Internal
                     m_cachedEnvironmentAllocator = m_allocatorLifetime.GetAllocator();
                     m_cachedStaticAllocator = nullptr;
                     currentLifetime.Reset(); // we reset here because we are reusing the allocator from the static case
-                    AZ::Environment::RemoveCallback(this);
+
+                    AZ::AllocatorManager::Instance().RegisterAllocator(m_cachedEnvironmentAllocator);
                 }
                 else
                 {
@@ -202,6 +204,8 @@ namespace AZ::Internal
                     m_environmentAllocator = AZ::Environment::CreateVariable<AllocatorLifetime>(AZ::AzTypeInfo<AllocatorType>::Name());
                     m_environmentAllocator.Get() = m_allocatorLifetime;
                     m_cachedEnvironmentAllocator = m_allocatorLifetime.GetAllocator();
+
+                    AZ::AllocatorManager::Instance().RegisterAllocator(m_cachedEnvironmentAllocator);
                 }
 
                 // If we reach this point is because we had a static allocator and when the environment became available, we
@@ -215,7 +219,6 @@ namespace AZ::Internal
                     // We currently have a static allocator instance, we move its contents to the environment's one
                     m_cachedEnvironmentAllocator->Merge(m_cachedStaticAllocator);
                     m_cachedStaticAllocator = nullptr; // It will be destroyed by the assignment to m_allocatorLifetime.m_allocator
-                    AZ::Environment::RemoveCallback(this);
 
                     // The static allocator instance will be deleted when the variable currentLifetime goes out of scope
                 }
@@ -258,9 +261,22 @@ namespace AZ::Internal
 
         void WillDestroy() override
         {
+            WillDetach();
         }
         void WillDetach() override
         {
+            m_cachedEnvironmentAllocator = nullptr;
+            if (!m_cachedStaticAllocator)
+            {
+                if (m_allocatorLifetime.IsValid())
+                {
+                    m_cachedStaticAllocator = m_allocatorLifetime.GetAllocator();
+                }
+                else
+                {
+                    m_cachedStaticAllocator = nullptr;
+                }
+            }
         }
 
         AllocatorType* m_cachedEnvironmentAllocator; // pointer to the allocator after it was obtained/created in the environment variable

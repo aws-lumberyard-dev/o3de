@@ -294,6 +294,8 @@ namespace AZ
     class PoolSchemaPimpl : public IAllocatorWithTracking
     {
     public:
+        AZ_TYPE_INFO(OSAllocator, "{21B5B147-0FD8-4A67-9A29-9AEAA6763740}")
+
         PoolSchemaPimpl(IAllocator* subAllocator);
         ~PoolSchemaPimpl() override;
 
@@ -369,6 +371,10 @@ namespace AZ
 
         inline Page* PageFromAddress(void* address)
         {
+            if (!address)
+            {
+                return nullptr;
+            }
             char* memBlock = reinterpret_cast<char*>(reinterpret_cast<size_t>(address) & ~(m_pageSize - 1));
             memBlock += m_pageSize - sizeof(Page);
             Page* page = reinterpret_cast<Page*>(memBlock);
@@ -476,7 +482,7 @@ namespace AZ
 
     void DestroyPoolAllocatorPimpl(IAllocator& subAllocator, IAllocator* allocator)
     {
-        PoolSchemaPimpl* allocatorImpl = dynamic_cast<PoolSchemaPimpl*>(allocator);
+        PoolSchemaPimpl* allocatorImpl = azrtti_cast<PoolSchemaPimpl*>(allocator);
         allocatorImpl->~PoolSchemaPimpl();
         subAllocator.deallocate(allocatorImpl, sizeof(PoolSchemaPimpl));
     }
@@ -489,7 +495,7 @@ namespace AZ
     class ThreadPoolSchemaPimpl : public IAllocator
     {
     public:
-        AZ_CLASS_ALLOCATOR(ThreadPoolSchemaPimpl, SystemAllocator, 0)
+        AZ_TYPE_INFO(ThreadPoolSchemaPimpl, "{DCC37F0A-7D5D-410E-BF83-74912D8CE6A6}")
 
         /**
          * Specialized \ref PoolAllocator::Page page for lock free allocator.
@@ -836,7 +842,7 @@ namespace AZ
 
     void DestroyThreadPoolAllocatorPimpl(IAllocator& subAllocator, IAllocator* allocator)
     {
-        ThreadPoolSchemaPimpl* allocatorImpl = dynamic_cast<ThreadPoolSchemaPimpl*>(allocator);
+        ThreadPoolSchemaPimpl* allocatorImpl = azrtti_cast<ThreadPoolSchemaPimpl*>(allocator);
         allocatorImpl->~ThreadPoolSchemaPimpl();
         subAllocator.deallocate(allocatorImpl, sizeof(ThreadPoolSchemaPimpl));
     }
