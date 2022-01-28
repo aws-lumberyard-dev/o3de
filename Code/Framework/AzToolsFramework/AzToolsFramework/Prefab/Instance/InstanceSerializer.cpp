@@ -118,6 +118,7 @@ namespace AzToolsFramework
             AZStd::unordered_set<EntityAlias> entitiesToReload;
             AZStd::unordered_set<EntityAlias> entitiesToRemove;
             AZStd::unordered_set<InstanceAlias> instancesToReload;
+            bool shouldReloadContainerEntity = false;
             instancesToReload.reserve(instance->m_nestedInstances.size());
             entitiesToReload.reserve(instance->m_entities.size());
             entitiesToRemove.reserve(instance->m_entities.size());
@@ -197,6 +198,15 @@ namespace AzToolsFramework
                                     }
                                 }
                             }
+                            else if (patchPath.starts_with("/ContainerEntity/"))
+                            {
+                                patchPath.erase(0, 17);
+                                AZStd::size_t pathSepartorIndex = patchPath.find('/');
+                                if (pathSepartorIndex != AZStd::string::npos)
+                                {
+                                    shouldReloadContainerEntity = true;
+                                }// TODO: add case for updating entire container entity
+                            }
                         }
                     }
                 }
@@ -273,11 +283,13 @@ namespace AzToolsFramework
             // An already filled instance should be cleared if inputValue's Entities member is empty
             // The Json serializer will not do this by default as it will not attempt to load a missing member
             //instance->ClearEntities();
-
-            if (instance->m_containerEntity)
+            if (jsonPatch.IsNull() || shouldReloadContainerEntity)
             {
-                instance->UnregisterEntity(instance->m_containerEntity->GetId());
-                instance->m_containerEntity.reset();
+                if (instance->m_containerEntity)
+                {
+                    instance->UnregisterEntity(instance->m_containerEntity->GetId());
+                    instance->m_containerEntity.reset();
+                }
             }
 
             if (idMapper && *idMapper)
@@ -285,6 +297,7 @@ namespace AzToolsFramework
                 (*idMapper)->SetLoadingInstance(*instance);
             }
 
+            if (jsonPatch.IsNull() || shouldReloadContainerEntity)
             {
                 auto instancesMemberIter = inputValue.FindMember("ContainerEntity");
                 if (instancesMemberIter != inputValue.MemberEnd() && instancesMemberIter->value.IsObject())

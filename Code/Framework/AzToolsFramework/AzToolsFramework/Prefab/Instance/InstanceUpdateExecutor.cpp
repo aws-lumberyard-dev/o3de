@@ -92,6 +92,7 @@ namespace AzToolsFramework
 
         bool InstanceUpdateExecutor::UpdateTemplateInstancesInQueue()
         {
+            AZ_PROFILE_FUNCTION(AzToolsFramework);
             bool isUpdateSuccessful = true;
             if (!m_updatingTemplateInstancesInQueue)
             {
@@ -230,7 +231,7 @@ namespace AzToolsFramework
                                     }
                                 }
                             });
-
+                            
                             AzToolsFramework::EditorEntityContextRequestBus::Broadcast(
                                 &AzToolsFramework::EditorEntityContextRequests::HandleEntitiesAdded, newEntities);
                         }

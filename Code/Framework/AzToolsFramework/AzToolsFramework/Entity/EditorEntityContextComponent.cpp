@@ -475,7 +475,7 @@ namespace AzToolsFramework
                 prefabSystemEnabled, &AzFramework::ApplicationRequests::IsPrefabSystemEnabled);
 
             // Adding the required editor components will be taken care by prefab propagation.
-            if (!prefabSystemEnabled)
+            //if (!prefabSystemEnabled)
             {
                 EntityList entities;
                 m_entityOwnershipService->GetAllEntities(entities);
