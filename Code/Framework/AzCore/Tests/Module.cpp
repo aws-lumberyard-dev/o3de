@@ -74,6 +74,8 @@ namespace UnitTest
         , public ModuleTestRequestBus::Handler
     {
     public:
+        AZ_CLASS_ALLOCATOR(StaticModule, AZ::SystemAllocator, 0);
+
         static bool s_loaded;
         static bool s_reflected;
 
@@ -123,6 +125,8 @@ namespace UnitTest
     TEST(ModuleManager, Test)
 #endif // AZ_TRAIT_DISABLE_FAILED_MODULE_TESTS
     {
+        AZ::AllocatorInstance<AZ::SystemAllocator>::Get(); // Make sure the system allocator is created in this module
+
         {
             ComponentApplication app;
 
