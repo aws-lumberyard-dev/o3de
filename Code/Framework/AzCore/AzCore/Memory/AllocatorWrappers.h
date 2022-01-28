@@ -153,5 +153,5 @@ namespace AZ
     class AllocatorName : public AZ::AllocatorGlobalWrapper<AllocatorGlobalType>                                                           \
     {                                                                                                                                      \
     public:                                                                                                                                \
-        AZ_TYPE_INFO(AllocatorName, AllocatorGUID);                                                                                        \
+        AZ_RTTI(AllocatorName, AllocatorGUID, IAllocator)                                                                                  \
     };

@@ -16,7 +16,7 @@ namespace UnitTest
     class TestMemoryAllocator : public AZ::AllocatorGlobalWrapper<AZ::OSAllocator>
     {
     public:
-        AZ_TYPE_INFO(TestMemoryAllocator, "{EEDC55B9-8E3F-465E-944E-84C76D5F2AB3}");
+        AZ_RTTI(TestMemoryAllocator, "{EEDC55B9-8E3F-465E-944E-84C76D5F2AB3}", AZ::AllocatorGlobalWrapper<AZ::OSAllocator>);
 
         // Required to be able to move data from static instances to environment. We could make this optional and those allocators would
         // fail to be used before the environment is ready.

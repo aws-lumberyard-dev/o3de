@@ -12,7 +12,7 @@
 #include <AzCore/std/base.h>
 #include <AzCore/std/typetraits/integral_constant.h>
 #include <AzCore/std/typetraits/alignment_of.h>
-#include <AzCore/RTTI/TypeInfoSimple.h>
+#include <AzCore/RTTI/RTTI.h>
 
 #define AZ_ALLOCATOR_TRAITS(VALUETYPE)                                                                                                     \
     using value_type = VALUETYPE;                                                                                                          \
@@ -33,7 +33,7 @@ namespace AZ
     class IAllocator
     {
     public:
-        AZ_TYPE_INFO(IAllocator, "{0A3C59AE-169C-45F6-9423-3B8C89245E2E}");
+        AZ_RTTI(IAllocator, "{0A3C59AE-169C-45F6-9423-3B8C89245E2E}");
 
         AZ_ALLOCATOR_DEFAULT_TRAITS
 
@@ -60,6 +60,11 @@ namespace AZ
         // to completely free all unused memory).
         virtual void GarbageCollect()
         {
+        }
+
+        const char* GetName() const
+        {
+            return RTTI_TypeName();
         }
 
         // Convenient functions

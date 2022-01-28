@@ -25,7 +25,7 @@ namespace AZ
     class HphaAllocator : public IAllocator, public IAllocatorTrackingRecorder
     {
     public:
-        AZ_TYPE_INFO(HphaAllocator, "{1ED481B0-53E2-4DCD-B016-4251D1A5AA8D}")
+        AZ_RTTI(HphaAllocator, "{1ED481B0-53E2-4DCD-B016-4251D1A5AA8D}", IAllocator, IAllocatorTrackingRecorder)
 
         HphaAllocator()
         {

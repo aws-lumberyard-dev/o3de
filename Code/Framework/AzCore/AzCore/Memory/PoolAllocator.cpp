@@ -294,7 +294,7 @@ namespace AZ
     class PoolSchemaPimpl : public IAllocatorWithTracking
     {
     public:
-        AZ_TYPE_INFO(OSAllocator, "{21B5B147-0FD8-4A67-9A29-9AEAA6763740}")
+        AZ_RTTI(OSAllocator, "{21B5B147-0FD8-4A67-9A29-9AEAA6763740}", IAllocatorWithTracking)
 
         PoolSchemaPimpl(IAllocator* subAllocator);
         ~PoolSchemaPimpl() override;
@@ -495,7 +495,7 @@ namespace AZ
     class ThreadPoolSchemaPimpl : public IAllocator
     {
     public:
-        AZ_TYPE_INFO(ThreadPoolSchemaPimpl, "{DCC37F0A-7D5D-410E-BF83-74912D8CE6A6}")
+        AZ_RTTI(ThreadPoolSchemaPimpl, "{DCC37F0A-7D5D-410E-BF83-74912D8CE6A6}", IAllocator)
 
         /**
          * Specialized \ref PoolAllocator::Page page for lock free allocator.

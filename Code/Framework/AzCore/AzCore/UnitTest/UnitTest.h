@@ -228,30 +228,24 @@ namespace UnitTest
                 // At this point, the AllocatorManager should not have any allocators left. If we happen to have any,
                 // we exit the test with an error code (this way the test process does not return 0 and the test run
                 // is considered a failure).
-//                AZ::AllocatorManager& allocatorManager = AZ::AllocatorManager::Instance();
-//                const int numAllocators = allocatorManager.GetNumAllocators();
-//                bool hasAllocations = false;
-//
-//                for (int i = 0; i < numAllocators; ++i)
-//                {
-//                    // TODO: check if an allocator has still allocations
-//                }
-//
-//                if (hasAllocations)
-//                {
-//                    // Print the name of the allocators still in the AllocatorManager
-//                    ColoredPrintf(COLOR_RED, "[     FAIL ] There are still allocations registered\n");
-//                    for (int i = 0; i < numAllocators; ++i)
-//                    {
-//                        //ColoredPrintf(COLOR_RED, "\t\t%s\n", allocatorManager.GetAllocator(i)->GetName());
-//                    }
-//
-//                    m_environmentSetup = false;
-//
-//#if AZ_TRAIT_COMPILER_SUPPORT_CSIGNAL
-//                    std::raise(SIGTERM);
-//#endif // AZ_TRAIT_COMPILER_SUPPORT_CSIGNAL
-//                }
+                AZ::AllocatorManager& allocatorManager = AZ::AllocatorManager::Instance();
+                const size_t numAllocators = allocatorManager.GetNumAllocators();
+
+                if (numAllocators > 0)
+                {
+                    // Print the name of the allocators still in the AllocatorManager
+                    ColoredPrintf(COLOR_RED, "[     FAIL ] There are still allocations registered\n");
+                    for (int i = 0; i < numAllocators; ++i)
+                    {
+                        ColoredPrintf(COLOR_RED, "\t\t%s\n", allocatorManager.GetAllocator(i)->GetName());
+                    }
+
+                    m_environmentSetup = false;
+
+#if AZ_TRAIT_COMPILER_SUPPORT_CSIGNAL
+                    std::raise(SIGTERM);
+#endif // AZ_TRAIT_COMPILER_SUPPORT_CSIGNAL
+                }
 
                 m_environmentSetup = false;
             }

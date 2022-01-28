@@ -9,7 +9,6 @@
 #pragma once
 
 #include <AzCore/RTTI/TypeInfo.h>
-#include <AzCore/Module/Environment.h>
 #include <AzCore/std/typetraits/is_abstract.h>
 
 namespace AZStd

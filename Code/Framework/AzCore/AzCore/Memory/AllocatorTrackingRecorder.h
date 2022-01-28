@@ -22,7 +22,7 @@ namespace AZ
     class IAllocatorTrackingRecorder
     {
     protected:
-        AZ_TYPE_INFO(IAllocatorTrackingRecorder, "{10468A58-A4E3-4FD0-8121-60F6DD13981C}")
+        AZ_RTTI(IAllocatorTrackingRecorder, "{10468A58-A4E3-4FD0-8121-60F6DD13981C}")
 
         // recording APIs
         virtual void RecordAllocation(
@@ -65,7 +65,7 @@ namespace AZ
         , public IAllocatorTrackingRecorder
     {
     public:
-        AZ_TYPE_INFO(IAllocatorWithTracking, "{FACD0B30-2983-46CB-8D48-EFB0E0637510}")
+        AZ_RTTI(IAllocatorWithTracking, "{FACD0B30-2983-46CB-8D48-EFB0E0637510}", IAllocator, IAllocatorTrackingRecorder)
 
         IAllocatorWithTracking()
             : m_requestedSize(0)

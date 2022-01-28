@@ -361,7 +361,7 @@ namespace AZ
         : public IAllocatorWithTracking
     {
     public:
-        AZ_TYPE_INFO(HphaAllocatorPimpl, "{F20122D0-93A7-4FA2-9DF9-9F0202852787}")
+        AZ_RTTI(HphaAllocatorPimpl, "{F20122D0-93A7-4FA2-9DF9-9F0202852787}", IAllocatorWithTracking)
 
         // minimum allocation size, must be a power of two
         // and it needs to be able to fit a pointer

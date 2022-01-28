@@ -83,6 +83,7 @@ namespace AZ
 #include <AzCore/std/allocator_stateless.h>
 #include <AzCore/std/smart_ptr/shared_ptr.h>
 #include <AzCore/Memory/AllocatorManager.h>
+#include <AzCore/Module/Environment.h>
 
 namespace AZ::Internal
 {
