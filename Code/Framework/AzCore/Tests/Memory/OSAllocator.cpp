@@ -52,7 +52,7 @@ namespace UnitTest
             { 16, 8 },
             { 1024, 16 },
             { 32, 8 },
-            { 0, 0 }
+            { 0, 1 }
         };
 
         void* p = nullptr;

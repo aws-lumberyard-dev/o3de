@@ -25,7 +25,7 @@ namespace AZ
     void OSAllocator::deallocate(pointer ptr, size_type byteSize, align_type alignment)
     {
 #if defined(AZ_ENABLE_TRACING)
-        const size_type allocatedSize = AZ_OS_MSIZE(ptr, alignment);
+        const size_type allocatedSize = get_allocated_size(ptr, alignment);
         const size_type requestedSize = byteSize ? byteSize : allocatedSize; // if not passed, assume same as allocated
         RecordDeallocation(ptr, byteSize, alignment, allocatedSize);
 #endif
@@ -35,12 +35,14 @@ namespace AZ
     OSAllocator::pointer OSAllocator::reallocate(pointer ptr, size_type newSize, align_type newAlignment)
     {
 #if defined(AZ_ENABLE_TRACING)
-        const size_type previouslyRequestedSize = AZ_OS_MSIZE(ptr, newAlignment); // assume same alignment
+        const size_type previouslyRequestedSize = get_allocated_size(ptr, newAlignment); // assume same alignment
         const size_type previouslyAllocatedSize = previouslyRequestedSize;
 #endif
-        pointer newPtr = AZ_OS_REALLOC(ptr, newSize, static_cast<AZStd::size_t>(newAlignment));
+        // Realloc in most platforms doesnt support allocating from a nulltpr
+        pointer newPtr = ptr ? AZ_OS_REALLOC(ptr, newSize, static_cast<AZStd::size_t>(newAlignment))
+                             : AZ_OS_MALLOC(newSize, static_cast<AZStd::size_t>(newAlignment));
 #if defined(AZ_ENABLE_TRACING)
-        const size_type allocatedSize = AZ_OS_MSIZE(newPtr, newAlignment);
+        const size_type allocatedSize = get_allocated_size(newPtr, newAlignment);
         RecordReallocation(ptr, previouslyRequestedSize, newAlignment, previouslyAllocatedSize, newPtr, newSize, newAlignment, allocatedSize);
 #endif
         return ptr;
@@ -48,7 +50,7 @@ namespace AZ
 
     OSAllocator::size_type OSAllocator::get_allocated_size(pointer ptr, align_type alignment) const
     {
-        return AZ_OS_MSIZE(ptr, alignment);
+        return ptr ? AZ_OS_MSIZE(ptr, alignment) : 0;
     }
 
     void OSAllocator::Merge([[maybe_unused]] IAllocator* aOther)
