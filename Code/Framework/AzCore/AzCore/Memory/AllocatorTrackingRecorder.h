@@ -10,37 +10,22 @@
 #include <AzCore/base.h>
 #include <AzCore/std/base.h>
 
-#if defined(AZ_ENABLE_TRACING)
-#include <AzCore/std/parallel/atomic.h>
-#endif
-
 #include <AzCore/Memory/IAllocator.h>
 #include <AzCore/RTTI/RTTI.h>
 
 namespace AZ
 {
+#if defined(AZ_ENABLE_TRACING)
+    class AllocationRecord;
+    struct IAllocatorTrackingRecorderData;
+#endif
+
     class IAllocatorTrackingRecorder
     {
-    protected:
+    public:
         AZ_RTTI(IAllocatorTrackingRecorder, "{10468A58-A4E3-4FD0-8121-60F6DD13981C}")
 
-        // recording APIs
-        virtual void RecordAllocation(
-            void* ptr, AZStd::size_t requestedSize, AZStd::size_t requestedAlignment, AZStd::size_t allocatedSize) = 0;
-
-        virtual void RecordDeallocation(
-            void* ptr, AZStd::size_t requestedSize, AZStd::size_t requestedAlignment, AZStd::size_t allocatedSize) = 0;
-
-        virtual void RecordReallocation(
-            void* previousPtr,
-            AZStd::size_t previousRequestedSize,
-            AZStd::size_t previousRequestedAlignment,
-            AZStd::size_t previousAllocatedSize,
-            void* newPtr,
-            AZStd::size_t newRequestedSize,
-            AZStd::size_t newRequestedAlignment,
-            AZStd::size_t newAllocatedSize) = 0;
-
+    protected:
         virtual void RecordingsMove(IAllocatorTrackingRecorder* aOther) = 0;
 
     public:
@@ -56,6 +41,9 @@ namespace AZ
         // Note: the value returned by this method may not be exact, there is the potential for a race condition
         //       between the substraction and assignment of other methods.
         virtual AZStd::size_t GetFragmentedSize() const = 0;
+
+        // Prints all allocations that have been recorded
+        virtual void PrintAllocations() const = 0;
     };
 
     /// Default implementation of IAllocatorTrackingRecorder.
@@ -67,104 +55,25 @@ namespace AZ
     public:
         AZ_RTTI(IAllocatorWithTracking, "{FACD0B30-2983-46CB-8D48-EFB0E0637510}", IAllocator, IAllocatorTrackingRecorder)
 
-        IAllocatorWithTracking()
-            : m_requestedSize(0)
-            , m_allocatedSize(0)
-        {
-        }
+        IAllocatorWithTracking();
+        ~IAllocatorWithTracking();
 
-        // recording APIs
-        void RecordAllocation(
-            [[maybe_unused]] void* ptr,
-            [[maybe_unused]] AZStd::size_t requestedSize,
-            [[maybe_unused]] AZStd::size_t requestedAlignment,
-            [[maybe_unused]] AZStd::size_t allocatedSize) override
-        {
-#if defined(AZ_ENABLE_TRACING)
-            if (ptr) // otherwise the allocation didnt happen
-            {
-                m_requestedSize += requestedSize;
-                m_allocatedSize += allocatedSize;
-            }
-#endif
-        }
-
-        void RecordDeallocation(
-            [[maybe_unused]] void* ptr,
-            [[maybe_unused]] AZStd::size_t requestedSize,
-            [[maybe_unused]] AZStd::size_t requestedAlignment,
-            [[maybe_unused]] AZStd::size_t allocatedSize) override
-        {
-#if defined(AZ_ENABLE_TRACING)
-            m_requestedSize -= requestedSize;
-            m_allocatedSize -= allocatedSize;
-#endif
-        }
-
-        void RecordReallocation(
-            [[maybe_unused]] void* previousPtr,
-            [[maybe_unused]] AZStd::size_t previousRequestedSize,
-            [[maybe_unused]] AZStd::size_t previousRequestedAlignment,
-            [[maybe_unused]] AZStd::size_t previousAllocatedSize,
-            [[maybe_unused]] void* newPtr,
-            [[maybe_unused]] AZStd::size_t newRequestedSize,
-            [[maybe_unused]] AZStd::size_t newRequestedAlignment,
-            [[maybe_unused]] AZStd::size_t newAllocatedSize) override
-        {
-#if defined(AZ_ENABLE_TRACING)
-            if (newPtr) // otherwise the reallocation didnt happen
-            {
-                m_requestedSize -= previousRequestedSize;
-                m_requestedSize += newRequestedSize;
-                m_allocatedSize -= previousAllocatedSize;
-                m_allocatedSize += newAllocatedSize;
-            }
-#endif
-        }
-
-        void RecordingsMove(IAllocatorTrackingRecorder* aOther) override
-        {
-            IAllocatorWithTracking* other = azrtti_cast<IAllocatorWithTracking*>(aOther);
-            AZ_Assert(other, "Unexpected conversion, RecordingsMove should be reimplmented if IAllocatorTrackingRecorder is being used");
-            m_requestedSize += other->m_requestedSize;
-            m_allocatedSize += other->m_allocatedSize;
-            other->m_requestedSize = 0;
-            other->m_allocatedSize = 0;
-        }
+        void RecordingsMove(IAllocatorTrackingRecorder* aOther) override;
 
         // query APIs
 
         // Total amount of requested bytes to the allocator
-        AZStd::size_t GetRequestedSize() const override
-        {
-#if defined(AZ_ENABLE_TRACING)
-            return m_requestedSize;
-#else
-            return 0;
-#endif
-        }
+        AZStd::size_t GetRequestedSize() const override;
 
         // Total amount of bytes allocated (i.e. requested to the OS)
-        AZStd::size_t GetAllocatedSize() const override
-        {
-#if defined(AZ_ENABLE_TRACING)
-            return m_allocatedSize;
-#else
-            return 0;
-#endif
-        }
+        AZStd::size_t GetAllocatedSize() const override;
 
         // Amount of memory not being used by the allocator (allocated but not assigned to any request)
         // Note: the value returned by this method may not be exact, there is the potential for a race condition
         //       between the substraction and assignment of other methods.
-        AZStd::size_t GetFragmentedSize() const override
-        {
-#if defined(AZ_ENABLE_TRACING)
-            return m_allocatedSize - m_requestedSize;
-#else
-            return 0;
-#endif
-        }
+        AZStd::size_t GetFragmentedSize() const override;
+
+        void PrintAllocations() const override;
 
         // Kept for backwards-compatibility reasons
         /////////////////////////////////////////////
@@ -173,11 +82,22 @@ namespace AZ
         {
             return GetAllocatedSize();
         }
+        /////////////////////////////////////////////
 
     protected:
 #if defined(AZ_ENABLE_TRACING)
-        AZStd::atomic_size_t m_requestedSize; // Total amount of requested bytes to the allocator
-        AZStd::atomic_size_t m_allocatedSize; // Total amount of bytes allocated (i.e. requested to the OS)
+        void AddRequestedSize(AZStd::size_t requestedSize);
+        void RemoveRequestedSize(AZStd::size_t requestedSize);
+
+        void AddAllocatedSize(AZStd::size_t allocatedSize);
+        void RemoveAllocatedSize(AZStd::size_t allocatedSize);
+
+        void AddAllocationRecord(void* address, AZStd::size_t requestedSize, AZStd::size_t allocatedSize, AZStd::size_t alignmentSize, AZStd::size_t stackFramesToSkip = 0);
+        void RemoveAllocationRecord(void* address);
+
+        // we need to keep this header clean of includes since this will be included by allocators
+        // we can end up with include loops where we cannot find definitions
+        IAllocatorTrackingRecorderData* m_data;
 #endif
     };
 }

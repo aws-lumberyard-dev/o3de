@@ -22,7 +22,6 @@ namespace AZ
 
     AllocatorManager::~AllocatorManager()
     {
-        AZ_Assert(m_numAllocators == 0, "All allocators should be unregistered");
     }
 
     // The only allocator manager instance.

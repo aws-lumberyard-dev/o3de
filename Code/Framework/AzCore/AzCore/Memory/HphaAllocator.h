@@ -9,6 +9,7 @@
 #pragma once
 
 #include <AzCore/Memory/IAllocator.h>
+#include <AzCore/Memory/AllocatorTrackingRecorder.h>
 #include <AzCore/Memory/OSAllocator.h>
 #include <AzCore/memory/AllocatorInstance.h>
 
@@ -81,32 +82,12 @@ namespace AZ
             return m_allocatorPimpl->GetFragmentedSize();
         }
 
+        void PrintAllocations() const override
+        {
+            m_allocatorPimpl->PrintAllocations();
+        }
+
     protected:
-        void RecordAllocation(void* ptr, AZStd::size_t requestedSize, AZStd::size_t requestedAlignment, AZStd::size_t allocatedSize) override
-        {
-            m_allocatorPimpl->RecordAllocation(ptr, requestedSize, requestedAlignment, allocatedSize);
-        }
-
-        void RecordDeallocation(void* ptr, AZStd::size_t requestedSize, AZStd::size_t requestedAlignment, AZStd::size_t allocatedSize) override
-        {
-            m_allocatorPimpl->RecordDeallocation(ptr, requestedSize, requestedAlignment, allocatedSize);
-        }
-
-        void RecordReallocation(
-            void* previousPtr,
-            AZStd::size_t previousRequestedSize,
-            AZStd::size_t previousRequestedAlignment,
-            AZStd::size_t previousAllocatedSize,
-            void* newPtr,
-            AZStd::size_t newRequestedSize,
-            AZStd::size_t newRequestedAlignment,
-            AZStd::size_t newAllocatedSize) override
-        {
-            m_allocatorPimpl->RecordReallocation(
-                previousPtr, previousRequestedSize, previousRequestedAlignment, previousAllocatedSize, newPtr, newRequestedSize,
-                newRequestedAlignment, newAllocatedSize);
-        }
-
         void RecordingsMove(IAllocatorTrackingRecorder* aOther) override
         {
             m_allocatorPimpl->RecordingsMove(aOther);

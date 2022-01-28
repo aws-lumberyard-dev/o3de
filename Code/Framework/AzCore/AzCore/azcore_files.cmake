@@ -363,7 +363,9 @@ set(FILES
     Math/ToString.h
     Math/ToString.cpp
     Memory/AllocatorDebug.h
+    Memory/AllocatorDebug.cpp
     Memory/AllocatorTrackingRecorder.h
+    Memory/AllocatorTrackingRecorder.cpp
     Memory/AllocatorInstance.h
     Memory/AllocatorManager.cpp
     Memory/AllocatorManager.h

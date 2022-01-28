@@ -225,23 +225,54 @@ namespace UnitTest
             {
                 BusDisconnect();
 
-                // At this point, the AllocatorManager should not have any allocators left. If we happen to have any,
-                // we exit the test with an error code (this way the test process does not return 0 and the test run
-                // is considered a failure).
+                // Leak detection. At this point, allocators should not have any allocations left. If we happen to have any,
+                // we exit the test with an error code (this way the test process does not return 0 and the test run is
+                // considered a failure).
                 AZ::AllocatorManager& allocatorManager = AZ::AllocatorManager::Instance();
+
+                bool allocationsLeft = false;
+                bool alocatorsWithoutTrackingLeft = false;
                 const size_t numAllocators = allocatorManager.GetNumAllocators();
 
-                if (numAllocators > 0)
+                // First find if there are any allocators without tracking left, we just warn on those. Since we dont know
+                // how many allocations they did, we should not have them leaking at this point.
+                for (int i = 0; i < numAllocators; ++i)
                 {
-                    // Print the name of the allocators still in the AllocatorManager
-                    ColoredPrintf(COLOR_RED, "[     FAIL ] There are still allocations registered\n");
-                    for (int i = 0; i < numAllocators; ++i)
+                    AZ::IAllocator* allocator = allocatorManager.GetAllocator(i);
+                    AZ::IAllocatorTrackingRecorder* allocatorWithTracking = azrtti_cast<AZ::IAllocatorTrackingRecorder*>(allocator);
+                    if (!allocatorWithTracking)
                     {
-                        ColoredPrintf(COLOR_RED, "\t\t%s\n", allocatorManager.GetAllocator(i)->GetName());
+                        if (!alocatorsWithoutTrackingLeft)
+                        {
+                            ColoredPrintf(COLOR_YELLOW, "[     WARN ] There are still allocators without tracking registered\n");
+                            alocatorsWithoutTrackingLeft = true;
+                        }
+                        ColoredPrintf(COLOR_YELLOW, "\t\t%s\n", allocator->GetName());
                     }
-
+                }
+                // Second, fail with errors if any of the ones with tracking have allocations left
+                for (int i = 0; i < numAllocators; ++i)
+                {
+                    AZ::IAllocator* allocator = allocatorManager.GetAllocator(i);
+                    AZ::IAllocatorTrackingRecorder* allocatorWithTracking = azrtti_cast<AZ::IAllocatorTrackingRecorder*>(allocator);
+                    if (allocatorWithTracking && allocatorWithTracking->GetRequestedSize() > 0)
+                    {
+                        if (!allocationsLeft)
+                        {
+                            ColoredPrintf(COLOR_RED, "[     FAIL ] There are still allocations\n");
+                            allocationsLeft = true;
+                        }
+                        ColoredPrintf(COLOR_RED,
+                            "\t\t%s, Request size left: %d bytes, Allocated size left: %d bytes\n",
+                            allocator->GetName(),
+                            allocatorWithTracking->GetRequestedSize(),
+                            allocatorWithTracking->GetAllocatedSize());
+                        allocatorWithTracking->PrintAllocations();
+                    }
+                }
+                if (allocationsLeft)
+                {
                     m_environmentSetup = false;
-
 #if AZ_TRAIT_COMPILER_SUPPORT_CSIGNAL
                     std::raise(SIGTERM);
 #endif // AZ_TRAIT_COMPILER_SUPPORT_CSIGNAL

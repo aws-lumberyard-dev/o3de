@@ -64,7 +64,7 @@ namespace AZ
 
         const char* GetName() const
         {
-            return RTTI_TypeName();
+            return RTTI_GetTypeName();
         }
 
         // Convenient functions

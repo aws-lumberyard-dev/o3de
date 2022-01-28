@@ -17,7 +17,10 @@ namespace AZ
     {
         pointer ptr = AZ_OS_MALLOC(byteSize, static_cast<AZStd::size_t>(alignment));
 #if defined(AZ_ENABLE_TRACING)
-        RecordAllocation(ptr, byteSize, alignment, byteSize); // we assume the OS doesnt produce fragmentation
+        AddRequestedSize(byteSize);
+        const size_type allocatedSize = get_allocated_size(ptr, alignment);
+        AddAllocatedSize(allocatedSize);
+        AddAllocationRecord(ptr, byteSize, allocatedSize, alignment, 1);
 #endif
         return ptr;
     }
@@ -26,8 +29,9 @@ namespace AZ
     {
 #if defined(AZ_ENABLE_TRACING)
         const size_type allocatedSize = get_allocated_size(ptr, alignment);
-        const size_type requestedSize = byteSize ? byteSize : allocatedSize; // if not passed, assume same as allocated
-        RecordDeallocation(ptr, byteSize, alignment, allocatedSize);
+        RemoveRequestedSize(byteSize ? byteSize : allocatedSize); // if not passed, assume same as allocated
+        RemoveAllocatedSize(allocatedSize);
+        RemoveAllocationRecord(ptr);
 #endif
         AZ_OS_FREE(ptr);
     }
@@ -36,14 +40,18 @@ namespace AZ
     {
 #if defined(AZ_ENABLE_TRACING)
         const size_type previouslyRequestedSize = get_allocated_size(ptr, newAlignment); // assume same alignment
-        const size_type previouslyAllocatedSize = previouslyRequestedSize;
+        RemoveAllocatedSize(previouslyRequestedSize);
+        RemoveRequestedSize(previouslyRequestedSize);
+        RemoveAllocationRecord(ptr);
 #endif
         // Realloc in most platforms doesnt support allocating from a nulltpr
         pointer newPtr = ptr ? AZ_OS_REALLOC(ptr, newSize, static_cast<AZStd::size_t>(newAlignment))
                              : AZ_OS_MALLOC(newSize, static_cast<AZStd::size_t>(newAlignment));
 #if defined(AZ_ENABLE_TRACING)
+        AddRequestedSize(newSize);
         const size_type allocatedSize = get_allocated_size(newPtr, newAlignment);
-        RecordReallocation(ptr, previouslyRequestedSize, newAlignment, previouslyAllocatedSize, newPtr, newSize, newAlignment, allocatedSize);
+        AddRequestedSize(allocatedSize);
+        AddAllocationRecord(ptr, newSize, allocatedSize, newAlignment, 1);
 #endif
         return ptr;
     }

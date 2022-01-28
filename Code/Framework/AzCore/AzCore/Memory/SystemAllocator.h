@@ -23,5 +23,14 @@ namespace AZ
      * will be sub allocators, because we might have different memory system on consoles.
      * But the allocator utility system will use the system allocator.
      */
-    using SystemAllocator = HphaAllocator<OSAllocator>;
+    class SystemAllocator : public HphaAllocator<OSAllocator>
+    {
+    public:
+        AZ_RTTI(SystemAllocator, "{607C9CDF-B81F-4C5F-B493-2AD9C49023B7}", HphaAllocator<OSAllocator>)
+
+        SystemAllocator() = default;
+        virtual ~SystemAllocator() = default;
+
+        AZ_DISABLE_COPY_MOVE(SystemAllocator)
+    };
 }

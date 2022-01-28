@@ -1194,7 +1194,7 @@ namespace AZ
 #if defined(AZ_ENABLE_TRACING)
         if (ptr)
         {
-            m_allocatedSize += m_poolPageSize;
+            AddAllocatedSize(m_poolPageSize);
         }
 #endif
         HPPA_ASSERT(((size_t)ptr & (m_poolPageSize - 1)) == 0); // checks alignment
@@ -1206,7 +1206,7 @@ namespace AZ
         HPPA_ASSERT(ptr);
         m_subAllocator.deallocate(ptr, m_poolPageSize);
 #if defined(AZ_ENABLE_TRACING)
-        m_allocatedSize -= m_poolPageSize;
+        RemoveAllocatedSize(m_poolPageSize);
 #endif
     }
 
@@ -1496,7 +1496,7 @@ namespace AZ
 #if defined(AZ_ENABLE_TRACING)
         if (ptr)
         {
-            m_allocatedSize += allocSize;
+            AddAllocatedSize(allocSize);
         }
 #endif
         return ptr;
@@ -1509,7 +1509,7 @@ namespace AZ
         const size_t allocSize = AZ::SizeAlignUp(size, OS_VIRTUAL_PAGE_SIZE);
         m_subAllocator.deallocate(ptr, allocSize);
 #if defined(AZ_ENABLE_TRACING)
-        m_allocatedSize -= allocSize;
+        RemoveAllocatedSize(allocSize);
 #endif
     }
 
@@ -2122,7 +2122,7 @@ namespace AZ
 #if defined(AZ_ENABLE_TRACING)
         if (address)
         {
-            m_requestedSize += byteSize;
+            AddRequestedSize(byteSize);
         }
 #endif
         return address;
@@ -2137,21 +2137,21 @@ namespace AZ
         if (byteSize == 0)
         {
 #if defined(AZ_ENABLE_TRACING)
-            m_requestedSize -= size(ptr);
+            RemoveRequestedSize(size(ptr));
 #endif
             free(ptr);
         }
         else if (alignment == 0)
         {
 #if defined(AZ_ENABLE_TRACING)
-            m_requestedSize -= byteSize;
+            RemoveRequestedSize(byteSize);
 #endif
             free(ptr, byteSize);
         }
         else
         {
 #if defined(AZ_ENABLE_TRACING)
-            m_requestedSize -= byteSize;
+            RemoveRequestedSize(byteSize);
 #endif
             free(ptr, byteSize, alignment);
         }
@@ -2160,7 +2160,7 @@ namespace AZ
     HphaAllocatorPimpl::pointer HphaAllocatorPimpl::reallocate(pointer ptr, size_type newSize, align_type newAlignment)
     {
 #if defined(AZ_ENABLE_TRACING)
-        m_requestedSize -= size(ptr);
+        RemoveRequestedSize(size(ptr));
 #endif
         pointer address = realloc(ptr, newSize, static_cast<size_t>(newAlignment));
         if (address == nullptr && newSize > 0)
@@ -2171,7 +2171,7 @@ namespace AZ
 #if defined(AZ_ENABLE_TRACING)
         if (address)
         {
-            m_requestedSize += newSize;
+            AddRequestedSize(newSize);
         }
 #endif
         return address;
