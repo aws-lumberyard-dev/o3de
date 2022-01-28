@@ -2189,7 +2189,12 @@ namespace AZ
 
         // Transfer the tracking records
         RecordingsMove(other);
-    } 
+    }
+
+    void HphaAllocatorPimpl::GarbageCollect()
+    {
+        purge();
+    }
 
     IAllocatorWithTracking* CreateHphaAllocatorPimpl(IAllocator& subAllocator)
     {
