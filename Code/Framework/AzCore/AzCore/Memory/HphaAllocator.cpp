@@ -2200,16 +2200,18 @@ namespace AZ
 
     IAllocatorWithTracking* CreateHphaAllocatorPimpl(IAllocator& subAllocator)
     {
+        // We use the AZStd::stateless_allocator for the allocation of this object to prevent it from showing up as a leak
+        // in other allocators.
         HphaAllocatorPimpl* allocatorMemory = reinterpret_cast<HphaAllocatorPimpl*>(
-            subAllocator.allocate(sizeof(HphaAllocatorPimpl), AZStd::alignment_of<HphaAllocatorPimpl>::value));
+            AZStd::stateless_allocator().allocate(sizeof(HphaAllocatorPimpl), AZStd::alignment_of<HphaAllocatorPimpl>::value));
         return new(allocatorMemory)HphaAllocatorPimpl(subAllocator);
     }
 
-    void DestroyHphaAllocatorPimpl(IAllocator& subAllocator, IAllocatorWithTracking* allocator)
+    void DestroyHphaAllocatorPimpl([[maybe_unused]] IAllocator& subAllocator, IAllocatorWithTracking* allocator)
     {
         HphaAllocatorPimpl* allocatorImpl = azrtti_cast<HphaAllocatorPimpl*>(allocator);
         allocatorImpl->~HphaAllocatorPimpl();
-        subAllocator.deallocate(allocatorImpl, sizeof(HphaAllocatorPimpl));
+        AZStd::stateless_allocator().deallocate(allocatorImpl, sizeof(HphaAllocatorPimpl));
     }
 
 } // namespace AZ

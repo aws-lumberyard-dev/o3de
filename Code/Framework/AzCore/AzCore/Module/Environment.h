@@ -18,8 +18,6 @@
 
 namespace AZ
 {
-    class IAllocator;
-
     namespace Internal
     {
         class EnvironmentInterface;
@@ -105,12 +103,11 @@ namespace AZ
         void* GetModuleId();
 
         /**
-         * Create Environment with customer allocator interface. You don't have to call create or destroy as they will
-         * created on demand, but is such case the module allocator will used. For example on Windows if you link the CRT
-         * two environments will end up on different heaps.
+         * Create Environment. You don't have to call create or destroy as they will created on demand.
+         * For example on Windows if you link the CRT two environments will end up on different heaps.
          * \returns true if Create was successful, false if environment is already created/attached.
          */
-        bool Create(IAllocator* allocator);
+        bool Create();
 
         /**
          * Explicit Destroy, you don't have to call it unless you want to control order. It will be called when the module is unloaded.
@@ -191,8 +188,6 @@ namespace AZ
 
             virtual void ReleaseRef() = 0;
 
-            virtual IAllocator* GetAllocator() = 0;
-
             virtual void DeleteThis() = 0;
 
             static EnvironmentInterface*  s_environment;
@@ -209,13 +204,12 @@ namespace AZ
             };
         public:
             EnvironmentVariableHolderBase(
-                u32 guid, AZ::Internal::EnvironmentInterface* environmentOwner, bool canOwnershipTransfer, IAllocator* allocator)
+                u32 guid, AZ::Internal::EnvironmentInterface* environmentOwner, bool canOwnershipTransfer)
                 : m_environmentOwner(environmentOwner)
                 , m_moduleOwner(nullptr)
                 , m_canTransferOwnership(canOwnershipTransfer)
                 , m_isConstructed(false)
                 , m_guid(guid)
-                , m_allocator(allocator)
                 , m_useCount(0)
             {
             }
@@ -245,7 +239,6 @@ namespace AZ
             bool m_canTransferOwnership; ///< True if variable can be allocated in one module and freed in other. Usually true for POD types when they share allocator.
             bool m_isConstructed; ///< When we can't transfer the ownership, and the owning module is destroyed we have to "destroy" the variable.
             u32 m_guid;
-            IAllocator* m_allocator;
             int m_useCount;
             AZStd::spin_mutex m_mutex;
         };
@@ -284,8 +277,8 @@ namespace AZ
             #endif
             }
         public:
-            EnvironmentVariableHolder(u32 guid, bool isOwnershipTransfer, IAllocator* allocator)
-                : EnvironmentVariableHolderBase(guid, Environment::GetInstance(), isOwnershipTransfer, allocator)
+            EnvironmentVariableHolder(u32 guid, bool isOwnershipTransfer)
+                : EnvironmentVariableHolderBase(guid, Environment::GetInstance(), isOwnershipTransfer)
             {
             }
 
@@ -343,9 +336,6 @@ namespace AZ
         /// Returns the value of the variable if found, otherwise nullptr.
         EnvironmentVariableResult GetVariable(u32 guid);
 
-        /// Returns the allocator used by the current environment.
-        IAllocator* GetAllocator();
-
         /// Converts a string name to an ID (using Crc32 function)
         u32  EnvironmentVariableNameToId(const char* uniqueName);
     } // namespace Internal
@@ -353,8 +343,8 @@ namespace AZ
     /**
      * EnvironmentVariable implementation, T should be default constructible/destructible.
      * Keep in mind that if T uses virtual function (virtual destructor), it will use the vtable for the current module
-     * unloading the module with a vtable will destroy the variable (unless specified with CreateVariableEx). You will either need to control the order
-     * (aka Call Environmnet::Create from the module that will alive before the variable is destroyed) or provide intramodule allocator
+     * unloading the module with a vtable will destroy the variable (unless specified with CreateVariableEx). You will need to control the order
+     * (aka Call Environmnet::Create from the module that will alive before the variable is destroyed)
      * \ref Environment::Create and make sure you don't use virtual function (of course implementations must match too).
      * In general we advise to use the minimal amount of environment variables and use pointer types so you can manage the life cycle yourself,
      * we will accept value types and do the best to make it work for you.
@@ -594,7 +584,7 @@ namespace AZ
         AZ::Internal::EnvironmentVariableResult result = AZ::Internal::AddAndAllocateVariable(guid, sizeof(HolderType), AZStd::alignment_of<HolderType>::value, &addLock);
         if (result.m_state == AZ::Internal::EnvironmentVariableResult::Added)
         {
-            variable = new(result.m_variable)HolderType(guid, isTransferOwnership, AZ::Internal::GetAllocator());
+            variable = new(result.m_variable)HolderType(guid, isTransferOwnership);
         }
         else if (result.m_state == AZ::Internal::EnvironmentVariableResult::Found)
         {

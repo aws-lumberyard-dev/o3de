@@ -11,7 +11,6 @@
 
 #include <AzCore/PlatformIncl.h>
 #include <AzCore/std/containers/fixed_vector.h>
-#include <AzCore/Module/Environment.h>
 #include <AzCore/std/parallel/mutex.h>
 
 #include <tchar.h>
@@ -53,30 +52,20 @@ namespace AZ {
         // for that frame/allocation. Prior to tracking these, when the memory leak detection code ran at the end of
         // the process (when allocators are being destroyed, AFTER dynamic modules have been unloaded) we wouldn't have
         // the module symbols needed and wouldn't get correct callstacks.
-        static EnvironmentVariable<SymbolStorageDynamicallyLoadedModules> s_dynamicallyLoadedModules = nullptr;
+        static SymbolStorageDynamicallyLoadedModules s_dynamicallyLoadedModules;
 
         // Mutex for use of s_dynamicallyLoadedModules so that if there's one thread decoding frames while another is
         // handling DLL load and adding to the list we don't have issues
-        static EnvironmentVariable<AZStd::mutex> s_dynamicallyLoadedModulesMutex;
+        static AZStd::mutex s_dynamicallyLoadedModulesMutex;
 
         static AZStd::mutex& GetDynamicallyLoadedModulesMutex()
         {
-            if (!s_dynamicallyLoadedModulesMutex)
-            {
-                s_dynamicallyLoadedModulesMutex = Environment::CreateVariable<AZStd::mutex>(AZ_CRC("SymbolStorageDynamicallyLoadedModulesMutex", 0x2b7dbaf2));
-                AZ_Assert(s_dynamicallyLoadedModulesMutex, "Unable to create SymbolStorageDynamicallyLoadedModulesMutex environment variable");
-            }
-            return *s_dynamicallyLoadedModulesMutex;
+            return s_dynamicallyLoadedModulesMutex;
         }
 
         static SymbolStorageDynamicallyLoadedModules& GetRegisteredLoadedModules()
         {
-            if (!s_dynamicallyLoadedModules)
-            {
-                s_dynamicallyLoadedModules = Environment::CreateVariable<SymbolStorageDynamicallyLoadedModules>(AZ_CRC("SymbolStorageDynamicallyLoadedModules", 0xecf96588));
-                AZ_Assert(s_dynamicallyLoadedModules, "Unable to create SymbolStorageDynamicallyLoadedModules environment variable - dynamically loaded modules won't have symbols loaded!");
-            }
-            return *s_dynamicallyLoadedModules;
+            return s_dynamicallyLoadedModules;
         }
        
         // This is a callback function as from MSDN documents.

@@ -220,7 +220,7 @@ namespace AZ
             AZStd::scoped_lock lock(m_data->m_allocationRecordsMutex);
             allocations = m_data->m_allocationRecords;
         }
-        
+
         AZ_Printf("Memory", "Current allocations in allocator 0%p (%s):\n", this, GetName());
         for (const AllocationRecord& record : allocations)
         {

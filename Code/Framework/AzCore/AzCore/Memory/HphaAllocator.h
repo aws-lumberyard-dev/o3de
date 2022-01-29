@@ -64,6 +64,11 @@ namespace AZ
             m_allocatorPimpl->Merge(aOther);
         }
 
+        void GarbageCollect() override
+        {
+            m_allocatorPimpl->GarbageCollect();
+        }
+
         // IAllocatorTrackingRecorder
         
         AZStd::size_t GetRequestedSize() const override

@@ -8,7 +8,6 @@
 
 #include <AzCore/Module/Environment.h>
 
-#include <AzCore/Memory/AllocatorWrappers.h>
 #include <AzCore/std/containers/unordered_map.h>
 #include <AzCore/Math/Crc.h>
 #include <AzCore/std/parallel/scoped_lock.h>
@@ -46,10 +45,9 @@ namespace AZ
             if (releaseByUseCount)
             {
                 // m_mutex is unlocked before this is deleted
-                IAllocator* allocator = m_allocator;
                 // Call child class dtor and clear the memory
                 destruct(this, DestroyTarget::Self);
-                allocator->DeAllocate(this);
+                AZStd::stateless_allocator().deallocate(this);
             }
         }
        
@@ -63,17 +61,15 @@ namespace AZ
             : public EnvironmentInterface
         {
         public:
-            using MapType = AZStd::unordered_map<u32, void *, AZStd::hash<u32>, AZStd::equal_to<u32>, AllocatorPointerWrapper>;
+            using MapType = AZStd::unordered_map<u32, void *, AZStd::hash<u32>, AZStd::equal_to<u32>, AZStd::stateless_allocator>;
 
             static EnvironmentInterface* Get();
             static void Attach(EnvironmentInstance sourceEnvironment, bool useAsGetFallback);
             static void Detach();
 
-            EnvironmentImpl(IAllocator* allocator)
-                : m_variableMap(MapType::hasher(), MapType::key_eq(), AllocatorPointerWrapper(allocator))
-                , m_numAttached(0)
+            EnvironmentImpl()
+                : m_numAttached(0)
                 , m_fallback(nullptr)
-                , m_allocator(allocator)
             {}
 
             ~EnvironmentImpl() override
@@ -173,7 +169,7 @@ namespace AZ
                 }
 
                 auto variableItBool = m_variableMap.insert_key(guid);
-                variableItBool.first->second = m_allocator->Allocate(byteSize, alignment);
+                variableItBool.first->second = AZStd::stateless_allocator().allocate(byteSize, alignment);
                 if (variableItBool.first->second)
                 {
                     result.m_state = EnvironmentVariableResult::Added;
@@ -267,14 +263,8 @@ namespace AZ
 
             void DeleteThis() override
             {
-                IAllocator* allocator = m_allocator;
                 this->~EnvironmentImpl();
-                allocator->DeAllocate(this);
-            }
-
-            IAllocator* GetAllocator() override
-            {
-                return m_allocator;
+                AZStd::stateless_allocator().deallocate(this);
             }
 
             static AZStd::vector<Environment::EnvironmentCallback*, OSAllocator>& GetEnvironmentCallbacks()
@@ -289,7 +279,6 @@ namespace AZ
 
             unsigned int                m_numAttached; ///< used for "correctness" checks.
             EnvironmentInterface*       m_fallback;    ///< If set we will use the fallback environment for GetVariable operations.
-            IAllocator*                 m_allocator;
         };
 
 
@@ -334,9 +323,7 @@ namespace AZ
         {
             if (!s_environment)
             {
-                // create with default allocator OS allocator. They user can provide custom, but he needs
-                // to call Create before we needed/fist use.
-                Environment::Create(nullptr);
+                Environment::Create();
             }
 
             return s_environment;
@@ -409,11 +396,6 @@ namespace AZ
             return EnvironmentImpl::Get()->GetVariable(guid);
         }
 
-        IAllocator* GetAllocator()
-        {
-            return EnvironmentImpl::Get()->GetAllocator();
-        }
-
         u32 EnvironmentVariableNameToId(const char* uniqueName)
         {
             return Crc32(uniqueName);
@@ -449,19 +431,16 @@ namespace AZ
             return &Internal::CleanUp::GetInstance();
         }
 
-        bool Create(IAllocator* allocator)
+        bool Create()
         {
             if (Internal::EnvironmentImpl::s_environment)
             {
                 return false;
             }
 
-            if (!allocator)
-            {
-                allocator = &AZ::AllocatorInstance<AZ::OSAllocator>::Get();
-            }
-
-            Internal::EnvironmentImpl::s_environment = new(allocator->Allocate(sizeof(Internal::EnvironmentImpl), AZStd::alignment_of<Internal::EnvironmentImpl>::value)) Internal::EnvironmentImpl(allocator);
+            Internal::EnvironmentImpl::s_environment = new (AZStd::stateless_allocator().allocate(
+                sizeof(Internal::EnvironmentImpl), AZStd::alignment_of<Internal::EnvironmentImpl>::value))
+                Internal::EnvironmentImpl();
             AZ_Assert(Internal::EnvironmentImpl::s_environment, "We failed to allocate memory from the OS for environment storage %d bytes!", sizeof(Internal::EnvironmentImpl));
             Internal::CleanUp::GetInstance().m_isOwner = true;
 

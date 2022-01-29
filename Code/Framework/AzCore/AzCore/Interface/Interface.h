@@ -176,6 +176,10 @@ namespace AZ
                 return s_instance ? s_instance.Get() : nullptr;
             }
         }
+        if (!Environment::IsReady())
+        {
+            return nullptr;
+        }
 
         // If the instance doesn't exist (which means we could be in a different module),
         // take the full lock and request it.
