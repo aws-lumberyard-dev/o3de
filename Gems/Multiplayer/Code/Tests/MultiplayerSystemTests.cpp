@@ -6,8 +6,8 @@
  *
  */
 
-#include <AzCore/UnitTest/TestTypes.h>
-#include <AzCore/UnitTest/UnitTest.h>
+#include <AzTest/TestTypes.h>
+#include <AzTest/UnitTest.h>
 #include <AzCore/Name/NameDictionary.h>
 #include <AzCore/Name/Name.h>
 #include <AzFramework/Spawnable/SpawnableSystemComponent.h>

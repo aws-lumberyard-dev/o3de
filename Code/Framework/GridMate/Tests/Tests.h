@@ -13,7 +13,7 @@
 #include <GridMate/Session/Session.h>
 
 #include <GridMateTests/Tests_Platform.h>
-#include <AzCore/UnitTest/UnitTest.h>
+#include <AzTest/UnitTest.h>
 
 #include <AzCore/Memory/OSAllocator.h>
 

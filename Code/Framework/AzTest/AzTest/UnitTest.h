@@ -10,12 +10,6 @@
 #include <AzTest/AzTest.h>
 #include <AzTest/Platform.h>
 
-#if AZ_TRAIT_COMPILER_SUPPORT_CSIGNAL
-#include <csignal>
-#endif // AZ_TRAIT_COMPILER_SUPPORT_CSIGNAL
-
-#include <AzCore/Memory/AllocatorManager.h>
-#include <AzCore/Memory/OSAllocator.h>
 #include <AzCore/base.h>
 #include <AzCore/std/typetraits/has_member_function.h>
 #include <AzCore/Debug/Trace.h>
@@ -208,85 +202,12 @@ namespace UnitTest
         , public TraceBusRedirector
     {
     public:
-        void SetupEnvironment() override
-        {
-#if AZ_TRAIT_UNITTEST_USE_TEST_RUNNER_ENVIRONMENT
-            AZ::EnvironmentInstance inst = AZ::Test::GetPlatform().GetTestRunnerEnvironment();
-            AZ::Environment::Attach(inst);
-#endif
-            BusConnect();
-
-            m_environmentSetup = true;
-        }
-
-        void TeardownEnvironment() override
-        {
-            if (m_environmentSetup)
-            {
-                BusDisconnect();
-
-                // Leak detection. At this point, allocators should not have any allocations left. If we happen to have any,
-                // we exit the test with an error code (this way the test process does not return 0 and the test run is
-                // considered a failure).
-                AZ::AllocatorManager& allocatorManager = AZ::AllocatorManager::Instance();
-
-                bool allocationsLeft = false;
-                bool alocatorsWithoutTrackingLeft = false;
-                const size_t numAllocators = allocatorManager.GetNumAllocators();
-
-                // First find if there are any allocators without tracking left, we just warn on those. Since we dont know
-                // how many allocations they did, we should not have them leaking at this point.
-                for (int i = 0; i < numAllocators; ++i)
-                {
-                    AZ::IAllocator* allocator = allocatorManager.GetAllocator(i);
-                    AZ::IAllocatorTrackingRecorder* allocatorWithTracking = azrtti_cast<AZ::IAllocatorTrackingRecorder*>(allocator);
-                    if (!allocatorWithTracking)
-                    {
-                        if (!alocatorsWithoutTrackingLeft)
-                        {
-                            ColoredPrintf(COLOR_YELLOW, "[     WARN ] There are still allocators without tracking registered\n");
-                            alocatorsWithoutTrackingLeft = true;
-                        }
-                        ColoredPrintf(COLOR_YELLOW, "\t\t%s\n", allocator->GetName());
-                    }
-                }
-                // Second, fail with errors if any of the ones with tracking have allocations left
-                for (int i = 0; i < numAllocators; ++i)
-                {
-                    AZ::IAllocator* allocator = allocatorManager.GetAllocator(i);
-                    AZ::IAllocatorTrackingRecorder* allocatorWithTracking = azrtti_cast<AZ::IAllocatorTrackingRecorder*>(allocator);
-                    if (allocatorWithTracking && allocatorWithTracking->GetRequestedSize() > 0)
-                    {
-                        if (!allocationsLeft)
-                        {
-                            ColoredPrintf(COLOR_RED, "[     FAIL ] There are still allocations\n");
-                            allocationsLeft = true;
-                        }
-                        ColoredPrintf(COLOR_RED,
-                            "\t\t%s, Request size left: %d bytes, Allocated size left: %d bytes\n",
-                            allocator->GetName(),
-                            allocatorWithTracking->GetRequestedSize(),
-                            allocatorWithTracking->GetAllocatedSize());
-                        allocatorWithTracking->PrintAllocations();
-                    }
-                }
-                if (allocationsLeft)
-                {
-                    m_environmentSetup = false;
-#if AZ_TRAIT_COMPILER_SUPPORT_CSIGNAL
-                    std::raise(SIGTERM);
-#endif // AZ_TRAIT_COMPILER_SUPPORT_CSIGNAL
-                }
-
-                m_environmentSetup = false;
-            }
-        }
-
+        void SetupEnvironment() override;
+        void TeardownEnvironment() override;
     private:
         bool m_environmentSetup = false;
     };
 }
-
 
 #define AZ_TEST_ASSERT(exp) { \
     if (UnitTest::TestRunner::Instance().m_isAssertTest) \

@@ -12,7 +12,7 @@
 // define AZSTD_CHECKED_ITERATORS in the lib and then test
 //#define AZSTD_CHECKED_ITERATORS 1
 
-#include <AzCore/UnitTest/TestTypes.h>
+#include <AzTest/TestTypes.h>
 #include <AzCore/std/base.h>
 #include <AzCore/std/typetraits/typetraits.h>
 
@@ -149,8 +149,6 @@ namespace UnitTestInternal
             size_type m_alignment;
         };
     public:
-        AZ_ALLOCATOR_DEFAULT_TRAITS
-
         bool is_lock_free()             { return true; } //ahem
         bool is_stale_read_allowed()    { return true; }
         bool is_delayed_recycling()     { return true; }
@@ -160,7 +158,7 @@ namespace UnitTestInternal
             do_delayed_frees();
         }
 
-        void deallocate(pointer ptr, size_type byteSize, size_type alignment)
+        void deallocate(pointer ptr, size_type byteSize, align_type alignment)
         {
             AZStd::lock_guard<AZStd::mutex> lock(m_mutex);
             DelayedFreeItem item;

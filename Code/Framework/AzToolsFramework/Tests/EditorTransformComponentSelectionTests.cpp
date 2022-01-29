@@ -9,7 +9,7 @@
 #include <AzCore/Math/IntersectSegment.h>
 #include <AzCore/Math/ToString.h>
 #include <AzCore/Serialization/SerializeContext.h>
-#include <AzCore/UnitTest/TestTypes.h>
+#include <AzTest/TestTypes.h>
 #include <AzFramework/Components/TransformComponent.h>
 #include <AzFramework/Entity/EntityContext.h>
 #include <AzFramework/Viewport/ViewportScreen.h>

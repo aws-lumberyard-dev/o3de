@@ -6,7 +6,7 @@
  *
  */
 
-#include <AzCore/UnitTest/UnitTest.h>
+#include <AzTest/UnitTest.h>
 #include <AzTest/AzTest.h>
 
 

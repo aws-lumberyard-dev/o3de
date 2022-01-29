@@ -10,7 +10,7 @@
 #include <AzCore/Memory/PoolAllocator.h>
 
 #include <AzCore/Debug/StackTracer.h>
-#include <AzCore/UnitTest/TestTypes.h>
+#include <AzTest/TestTypes.h>
 
 #include <AzCore/std/parallel/thread.h>
 #include <AzCore/std/parallel/containers/lock_free_intrusive_stamped_stack.h>

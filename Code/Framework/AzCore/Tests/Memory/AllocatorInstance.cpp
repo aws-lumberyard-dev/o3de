@@ -6,7 +6,7 @@
  *
  */
 
-#include <AzCore/UnitTest/TestTypes.h>
+#include <AzTest/TestTypes.h>
 #include <AzCore/Memory/AllocatorInstance.h>
 #include <AzCore/Memory/AllocatorWrappers.h>
 
@@ -45,7 +45,7 @@ namespace UnitTest
         EXPECT_EQ(&allocatorStatic1, &allocatorStatic2);
         allocatorStatic1.m_hasAllocations = true;
 
-        AZ::Environment::Create(nullptr);
+        AZ::Environment::Create();
         EXPECT_TRUE(AZ::Environment::IsReady());
 
         TestMemoryAllocator& allocatorEnvironment1 = AZ::AllocatorInstance<TestMemoryAllocator>::Get();
