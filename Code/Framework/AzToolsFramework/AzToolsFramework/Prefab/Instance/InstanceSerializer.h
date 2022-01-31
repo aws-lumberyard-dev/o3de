@@ -34,7 +34,7 @@ namespace AzToolsFramework
         private:
             //! Adds the entities of an instance to a InstanceEntityScrubber object in the metadata of JsonDeserializerContext
             //! so that they can be scrubbed later.
-            void AddEntitiesToScrub(const Instance* instance, AZ::JsonDeserializerContext& jsonDeserializercontext);
+            void AddEntitiesToScrub(AZStd::vector<AZ::Entity*> entitiesModified, AZ::JsonDeserializerContext& jsonDeserializercontext);
         };
     }
 }

@@ -307,6 +307,7 @@ namespace AzToolsFramework
                         "ContainerEntity", context);
 
                     result.Combine(containerEntityResult);
+                    AddEntitiesToScrub({ instance->m_containerEntity.get() }, context);
                 }
             }
 
@@ -320,7 +321,16 @@ namespace AzToolsFramework
                         });
                     JSR::ResultCode entitiesResult = ContinueLoadingFromJsonObjectField(
                         &instance->m_entities, azrtti_typeid<Instance::AliasToEntityMap>(), inputValue, "Entities", context);
-                    AddEntitiesToScrub(instance, context);
+                    EntityList entitiesLoaded;
+                    entitiesLoaded.reserve(instance->m_entities.size());
+                    for (const auto& [entityAlias, entity] : instance->m_entities)
+                    {
+                        if (entity != nullptr)
+                        {
+                            entitiesLoaded.emplace_back(entity.get());
+                        }
+                    }
+                    AddEntitiesToScrub(AZStd::move(entitiesLoaded), context);
                     result.Combine(entitiesResult);
                 }
                 else
@@ -338,6 +348,8 @@ namespace AzToolsFramework
                     auto entitiesMemberIterator = inputValue.FindMember("Entities");
                     if (entitiesMemberIterator != inputValue.MemberEnd() && entitiesMemberIterator->value.IsObject())
                     {
+                        EntityList entitiesLoaded;
+                        entitiesLoaded.reserve(entitiesToReload.size());
                         for (AZStd::string entityAlias : entitiesToReload)
                         {
                             EntityOptionalReference existingEntity = instance->GetEntity(entityAlias);
@@ -350,8 +362,11 @@ namespace AzToolsFramework
                             AZStd::unique_ptr<AZ::Entity> entity = AZStd::make_unique<AZ::Entity>();
                             auto entityIterator = entitiesMemberIterator->value.FindMember(entityAlias.c_str());
                             result.Combine(ContinueLoading(&entity, azrtti_typeid<decltype(entity)>(), entityIterator->value, context));
+                            entitiesLoaded.emplace_back(entity.get());
                             instance->m_entities.emplace(entityAlias, AZStd::move(entity));
                         }
+                        
+                        AddEntitiesToScrub(AZStd::move(entitiesLoaded), context);
                         /*
                         instance->ClearEntities();
                         for (auto& entityIterator : entitiesMemberIterator->value.GetObject())
@@ -376,7 +391,6 @@ namespace AzToolsFramework
                             }
                         }*/
                     }
-                    AddEntitiesToScrub(instance, context);
                 }
             }
 
@@ -396,28 +410,12 @@ namespace AzToolsFramework
             }
         }
 
-        void JsonInstanceSerializer::AddEntitiesToScrub(const Instance* instance, AZ::JsonDeserializerContext& jsonDeserializerContext)
+        void JsonInstanceSerializer::AddEntitiesToScrub(EntityList entitiesModified, AZ::JsonDeserializerContext& jsonDeserializerContext)
         {
-            EntityList entitiesInInstance;
-            entitiesInInstance.reserve(instance->m_entities.size() + 1);
-
-            if (instance->m_containerEntity && instance->m_containerEntity->GetId().IsValid())
-            {
-                entitiesInInstance.emplace_back(instance->m_containerEntity.get());
-            }
-
-            for (const auto& [entityAlias, entity] : instance->m_entities)
-            {
-                if (entity != nullptr)
-                {
-                    entitiesInInstance.emplace_back(entity.get());
-                }
-            }
-
             InstanceEntityScrubber* instanceEntityScrubber = jsonDeserializerContext.GetMetadata().Find<InstanceEntityScrubber>();
             if (instanceEntityScrubber)
             {
-                instanceEntityScrubber->AddEntitiesToScrub(entitiesInInstance);
+                instanceEntityScrubber->AddEntitiesToScrub(entitiesModified);
             }
         }
 
