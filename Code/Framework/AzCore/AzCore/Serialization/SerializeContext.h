@@ -2494,8 +2494,6 @@ namespace AZ
     private:
         void Cleanup();
 
-        AZ::OSAllocator m_moduleOSAllocator;
-
         GenericInfoModuleMap m_moduleLocalGenericClassInfos;
         using SerializeContextSet = AZStd::unordered_set<SerializeContext*, AZStd::hash<SerializeContext*>, AZStd::equal_to<SerializeContext*>, AZ::AllocatorPointerWrapper>;
         SerializeContextSet m_serializeContextSet;
@@ -2514,7 +2512,7 @@ namespace AZ
             return static_cast<GenericClassInfoType*>(findIt->second);
         }
 
-        void* rawMemory = m_moduleOSAllocator.Allocate(sizeof(GenericClassInfoType), alignof(GenericClassInfoType));
+        void* rawMemory = AZ::AllocatorInstance<AZ::SystemAllocator>::Get().Allocate(sizeof(GenericClassInfoType), alignof(GenericClassInfoType));
         new (rawMemory) GenericClassInfoType();
         auto genericClassInfo = static_cast<GenericClassInfoType*>(rawMemory);
         if (genericClassInfo)

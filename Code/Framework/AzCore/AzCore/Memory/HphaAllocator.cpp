@@ -1204,10 +1204,10 @@ namespace AZ
     void HphaAllocatorPimpl::bucket_system_free(void* ptr)
     {
         HPPA_ASSERT(ptr);
-        m_subAllocator.deallocate(ptr, m_poolPageSize);
 #if defined(AZ_ENABLE_TRACING)
         RemoveAllocatedSize(m_poolPageSize);
 #endif
+        m_subAllocator.deallocate(ptr, m_poolPageSize, m_poolPageSize);
     }
 
     HphaAllocatorPimpl::page* HphaAllocatorPimpl::bucket_grow(size_t elemSize, size_t marker)

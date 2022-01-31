@@ -11,6 +11,7 @@
 #include <AzCore/std/containers/unordered_map.h>
 #include <AzCore/Math/Crc.h>
 #include <AzCore/std/parallel/scoped_lock.h>
+#include <AzCore/Memory/AllocatorWrappers.h>
 
 namespace AZ
 {
@@ -267,9 +268,9 @@ namespace AZ
                 AZStd::stateless_allocator().deallocate(this);
             }
 
-            static AZStd::vector<Environment::EnvironmentCallback*, OSAllocator>& GetEnvironmentCallbacks()
+            static AZStd::vector<Environment::EnvironmentCallback*, AZ::AllocatorGlobalWrapper<OSAllocator>> &GetEnvironmentCallbacks()
             {
-                static AZStd::vector<Environment::EnvironmentCallback*, OSAllocator> s_environmentCallbacks;
+                static AZStd::vector<Environment::EnvironmentCallback*, AZ::AllocatorGlobalWrapper<OSAllocator>> s_environmentCallbacks;
                 return s_environmentCallbacks;
             }
 
@@ -456,10 +457,13 @@ namespace AZ
         {
             if (!Internal::CleanUp::GetInstance().m_isAttached && Internal::CleanUp::GetInstance().m_isOwner)
             {
-                for (Environment::EnvironmentCallback* callback : Internal::EnvironmentImpl::GetEnvironmentCallbacks())
+                auto& environmentCallbacks = Internal::EnvironmentImpl::GetEnvironmentCallbacks();
+                for (Environment::EnvironmentCallback* callback : environmentCallbacks)
                 {
                     callback->WillDestroy();
                 }
+                environmentCallbacks.clear();
+                environmentCallbacks.shrink_to_fit(); // to remove any allocations
 
                 Internal::CleanUp::GetInstance().m_isOwner = false;
                 Internal::CleanUp::GetInstance().m_isAttached = false;

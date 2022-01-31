@@ -86,7 +86,7 @@ namespace UnitTest
                         allocationsLeft = true;
                     }
                     ColoredPrintf(
-                        COLOR_RED, "\t\t%s, Request size left: %d bytes, Allocated size left: %d bytes\n", allocator->GetName(),
+                        COLOR_RED, "\t\t%s, Request size left: %zu bytes, Allocated size left: %zu bytes\n", allocator->GetName(),
                         allocatorWithTracking->GetRequestedSize(), allocatorWithTracking->GetAllocatedSize());
                     allocatorWithTracking->PrintAllocations();
                 }

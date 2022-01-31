@@ -216,9 +216,11 @@ namespace AZ::Internal
                 {
                     // We should only have the static allocator in currentLifetime
                     AZ_Assert(m_cachedStaticAllocator == currentLifetime.GetAllocator(), "Expected to have the static allocator in the lifetime variable");
-
-                    // We currently have a static allocator instance, we move its contents to the environment's one
-                    m_cachedEnvironmentAllocator->Merge(m_cachedStaticAllocator);
+                    if (m_cachedEnvironmentAllocator != m_cachedStaticAllocator)
+                    {
+                        // We currently have a static allocator instance, we move its contents to the environment's one
+                        m_cachedEnvironmentAllocator->Merge(m_cachedStaticAllocator);
+                    }                   
                     m_cachedStaticAllocator = nullptr; // It will be destroyed by the assignment to m_allocatorLifetime.m_allocator
 
                     // The static allocator instance will be deleted when the variable currentLifetime goes out of scope

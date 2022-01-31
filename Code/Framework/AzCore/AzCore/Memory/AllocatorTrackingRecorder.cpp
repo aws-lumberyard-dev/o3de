@@ -90,7 +90,7 @@ namespace AZ
 
     void AllocationRecord::Print() const
     {
-        AZ_Printf("Memory", "Allocation Addr: 0%p, Requested Size: %d, Allocated Size: %d, Alignment: %d\n", m_address, m_requestedSize, m_allocatedSize, m_alignmentSize);
+        AZ_Printf("Memory", "Allocation Addr: 0%p, Requested Size: %zu, Allocated Size: %zu, Alignment: %zu\n", m_address, m_requestedSize, m_allocatedSize, m_alignmentSize);
 
         // We wont have more entries than STACK_TRACE_DEPTH_RECORDING
         Debug::SymbolStorage::StackLine lines[STACK_TRACE_DEPTH_RECORDING];
@@ -221,10 +221,17 @@ namespace AZ
             allocations = m_data->m_allocationRecords;
         }
 
-        AZ_Printf("Memory", "Current allocations in allocator 0%p (%s):\n", this, GetName());
-        for (const AllocationRecord& record : allocations)
+        if (allocations.empty())
         {
-            record.Print();
+            AZ_Printf("Memory", "There are no allocations in allocator 0%p (%s)\n", this, GetName());
+        }
+        else
+        {
+            AZ_Printf("Memory", "There are %d allocations in allocator 0%p (%s):\n", allocations.size(), this, GetName());
+            for (const AllocationRecord& record : allocations)
+            {
+                record.Print();
+            }
         }
 #else
         AZ_Printf("Memory", "Allocation recording is disabled, AZ_ENABLE_TRACING needs to be enabled.");
